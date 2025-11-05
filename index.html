@@ -1,65 +1,71 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="manifest.json" />
   <title>獸醫師國考（PWA）</title>
-
-  <!-- PWA 基本：Manifest + iOS 安裝支援 -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --fg: #fff;
-      --card: #141414;
-      --accent: #2f74ff;
-      --muted: #cccccc;
+    :root{
+      --bg:#0b0b0b; --fg:#f5f5f5; --card:#151515; --muted:#9aa0a6; --accent:#6a9cff;
+      --border:#2a2a2a; --btn:#222; --btn-fg:#fff;
     }
-    @media (prefers-color-scheme: light) {
-      :root { --bg:#ffffff; --fg:#000; --card:#f7f7f7; --muted:#333; }
+    .light{
+      --bg:#ffffff; --fg:#000000; --card:#f6f6f6; --muted:#444; --accent:#2f74ff;
+      --border:#dcdcdc; --btn:#f1f1f1; --btn-fg:#000;
     }
-    html,body { height:100%; margin:0; background:var(--bg); color:var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Noto Sans CJK TC", "Microsoft JhengHei", Arial, sans-serif; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
-    h1 { margin: 12px 0 8px; font-size: 20px; }
-    .row { display:flex; gap:12px; flex-wrap:wrap; align-items: center; }
-    .pill {
-      border: 1px solid #2a2a2a; border-radius:9999px; padding:8px 14px; background:transparent; color:var(--fg);
-      font-size:16px;
-    }
-    select.pill { appearance:none; }
-    .btn {
-      border: 1px solid #2a2a2a; border-radius: 14px; padding: 8px 16px; background: transparent; color: var(--fg);
-      font-size: 16px; cursor: pointer;
-    }
-    .btn:hover { border-color: var(--accent); color: var(--accent); }
-    .card { background: var(--card); border-radius: 16px; padding: 16px; }
-    .q-title { font-size: 18px; line-height: 1.6; white-space: pre-wrap; }
-    .opt { display:block; margin:10px 0; font-size:18px; }
-    .opt input { transform: scale(1.3); margin-right:8px; }
-    .imgwrap { margin-top: 10px; }
-    .imgwrap img { max-width: 100%; height: auto; display:block; }
-    .toolbar { display:flex; gap:8px; align-items:center; margin-top:10px; }
-    .note { width:100%; min-height:140px; border-radius:14px; border:1px solid #2a2a2a; background:#00000018; color:var(--fg); padding:10px; font-size:16px; }
-    .muted { color: var(--muted); font-size: 14px; }
-    .footer { margin:16px 0 32px; display:flex; gap:8px; justify-content:flex-end; }
-    .good { color:#13c413; font-weight:600; }
-    .bad  { color:#c40000; font-weight:600; }
-    .answer-tag { font-weight:600; }
-    .hint { font-size:14px; opacity:.8; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+    html,body{height:100%;margin:0;font-family:-apple-system,"SF Pro Text",Inter,Segoe UI,Arial,"Noto Sans TC",sans-serif;background:var(--bg);color:var(--fg);}
+    .wrap{display:grid;grid-template-columns:260px 1fr 220px;grid-template-rows:auto 1fr auto;gap:12px;max-width:1200px;margin:0 auto;padding:16px;}
+    .sidebar,.main,.qnav,.note,.controls{background:var(--card);border:1px solid var(--border);border-radius:12px;}
+    .sidebar{padding:12px;display:flex;flex-direction:column;gap:10px;}
+    .sidebar label{font-size:12px;color:var(--muted)}
+    .row{display:flex;align-items:center;gap:8px}
+    select,input[type="checkbox"]{height:32px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--fg);padding:0 8px;outline:none}
+    .btn{height:36px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);padding:0 14px;cursor:pointer}
+    .btn:hover{border-color:var(--accent);color:var(--accent)}
+    .btn.primary{border-color:var(--accent);color:#fff;background:var(--accent)}
+    .main{padding:16px;grid-column:2/3;display:flex;flex-direction:column;gap:12px;min-height:520px}
+    .qtitle{font-size:18px;font-weight:600}
+    .qimg{max-width:100%;height:auto;border-radius:8px}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .opt{display:flex;gap:8px;align-items:flex-start}
+    .opt input{transform:translateY(3px)}
+    .qnav{grid-column:3/4;padding:10px;overflow:auto}
+    .qnav h3{margin:6px 8px 10px;font-size:14px;color:var(--muted)}
+    .qnav .item{padding:6px 10px;border-radius:8px;cursor:pointer}
+    .qnav .item:hover{background:rgba(127,127,127,.12)}
+    .qnav .item.active{background:var(--accent);color:#fff}
+    .note{grid-column:2/4;padding:0;display:flex;flex-direction:column;overflow:hidden}
+    .toolbar{display:flex;gap:6px;align-items:center;padding:8px;border-bottom:1px solid var(--border);background:transparent}
+    .toolbar .chip{border:1px solid var(--border);border-radius:12px;background:transparent;color:var(--fg);height:28px;padding:0 10px;cursor:pointer}
+    .toolbar .chip:checked,.toolbar .chip.active{border-color:var(--accent);color:var(--accent)}
+    .toolbar select{height:28px}
+    .editor{min-height:160px;padding:12px 14px;outline:none}
+    .controls{grid-column:2/4;padding:10px;display:flex;gap:10px;justify-content:flex-end}
+    .muted{color:var(--muted)}
+    .timer{margin-left:auto;font-weight:700}
+    .hidden{display:none !important}
+    .pill{border-radius:9999px;padding:2px 8px;border:1px solid var(--border);font-size:12px}
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>獸醫師國考（PWA）<span class="muted">— iPad / Android 平板可安裝使用</span></h1>
-
-    <div class="row">
-      <label>科目：
-        <select id="subject" class="pill">
+<body class="dark">
+  <div class="wrap">
+    <!-- 左側工具列 -->
+    <aside class="sidebar">
+      <div>
+        <label>年份</label>
+        <select id="year">
+          <option>109</option><option>110</option><option>111</option><option>112</option><option selected>113</option>
+        </select>
+      </div>
+      <div>
+        <label>梯次</label>
+        <select id="exam"><option>第一次</option><option>第二次</option></select>
+      </div>
+      <div>
+        <label>科目</label>
+        <select id="subject">
           <option>獸醫病理學</option>
           <option>獸醫藥理學</option>
           <option>獸醫實驗診斷學</option>
@@ -67,347 +73,376 @@
           <option>獸醫傳染病學</option>
           <option>獸醫公共衛生學</option>
         </select>
-      </label>
+      </div>
 
-      <label>年份：
-        <select id="year" class="pill">
-          <option>109</option><option>110</option><option>111</option><option>112</option><option selected>113</option>
-        </select>
-      </label>
-
-      <label>梯次：
-        <select id="exam" class="pill">
-          <option>第一次</option>
-          <option>第二次</option>
-        </select>
-      </label>
+      <div class="row">
+        <input id="showAns" type="checkbox" />
+        <label for="showAns">顯示答案</label>
+      </div>
 
       <button id="loadBtn" class="btn">載入題目</button>
-      <label class="pill" style="display:flex;gap:8px;align-items:center;">
-        <input id="showAns" type="checkbox"> 顯示答案
-      </label>
-    </div>
+      <button id="darkBtn" class="btn">深色模式</button>
+      <button id="examBtn" class="btn primary">進入測驗模式</button>
+      <button id="recordsBtn" class="btn">作答紀錄</button>
 
-    <div id="status" class="muted" style="margin:8px 0 14px;"></div>
+      <div class="muted" style="font-size:12px;margin-top:6px">
+        筆記與作答皆儲存在本機（localStorage / IndexedDB）。  
+        安裝：Safari → 分享 → 加到主畫面；Android Chrome → 安裝 App。
+      </div>
+    </aside>
 
-    <div id="quiz" class="card" style="display:none;">
-      <div class="row" style="justify-content:space-between;">
-        <div id="qnum" class="mono">第 1 題</div>
-        <div id="timer" class="mono">60:00</div>
+    <!-- 中間題目 -->
+    <main class="main">
+      <div class="row" style="gap:10px">
+        <div id="breadcrumb" class="pill">載入完成：— / —（共 0 題）</div>
+        <div id="modeBadge" class="pill">練習模式</div>
+        <div id="timer" class="timer hidden">60:00</div>
       </div>
 
-      <div id="qtext" class="q-title" style="margin-top:10px;"></div>
+      <div id="qnum" class="muted">第 － 題</div>
+      <div id="qtext" class="qtitle">請先載入題目</div>
+      <img id="qimg" class="qimg hidden" alt="題目圖片"/>
 
-      <label class="opt"><input type="radio" name="opt" value="A"><span id="optA"></span></label>
-      <label class="opt"><input type="radio" name="opt" value="B"><span id="optB"></span></label>
-      <label class="opt"><input type="radio" name="opt" value="C"><span id="optC"></span></label>
-      <label class="opt"><input type="radio" name="opt" value="D"><span id="optD"></span></label>
+      <div class="options" id="opts">
+        <!-- 產生四個選項 -->
+      </div>
+    </main>
 
-      <div id="imgwrap" class="imgwrap"></div>
+    <!-- 右側選題清單 -->
+    <aside class="qnav">
+      <h3>選題</h3>
+      <div id="qList"></div>
+    </aside>
 
+    <!-- 筆記區 -->
+    <section class="note">
       <div class="toolbar">
-        <button id="prev" class="btn">上一題</button>
-        <button id="next" class="btn">下一題</button>
-        <div style="flex:1"></div>
-        <button id="submit" class="btn">提交測驗</button>
+        <select id="fs">
+          <option>10</option><option>12</option><option selected>14</option><option>16</option>
+          <option>18</option><option>20</option><option>22</option><option>24</option>
+          <option>28</option><option>32</option><option>36</option><option>40</option>
+        </select>
+        <button id="fgBtn" class="chip">顏色</button>
+        <input id="hlColor" type="color" value="#fff59d" title="螢光筆色" style="height:28px;width:40px;border:none;background:transparent"/>
+        <button id="hlBtn" class="chip">螢光筆</button>
+        <button id="bBtn" class="chip">B</button>
+        <button id="iBtn" class="chip">I</button>
+        <button id="uBtn" class="chip">U</button>
+        <button id="subBtn" class="chip">x₂</button>
+        <button id="supBtn" class="chip">x²</button>
+        <button id="imgBtn" class="chip">插入圖片</button>
+        <div class="muted" style="margin-left:auto">（自動儲存；離線可用）</div>
       </div>
+      <div id="editor" class="editor" contenteditable="true" placeholder="這題的筆記…"></div>
+    </section>
 
-      <div id="reviewHint" class="hint" style="display:none;margin-top:8px;"></div>
-
-      <h3 style="margin:14px 0 6px;">這題的筆記</h3>
-      <textarea id="note" class="note" placeholder="可在這裡寫重點、易錯處…（自動儲存，離線可用）"></textarea>
-      <div class="muted">筆記會存在瀏覽器的離線空間（IndexedDB / localStorage）。</div>
-    </div>
-
-    <div id="result" class="card" style="display:none;"></div>
-
-    <div class="footer">
-      <span class="muted">裝成 App：Safari → 分享 → 加到主畫面；或 Android Chrome → 安裝 App</span>
+    <!-- 下方控制列 -->
+    <div class="controls">
+      <button id="prevBtn" class="btn">上一題</button>
+      <button id="nextBtn" class="btn">下一題</button>
+      <button id="submitBtn" class="btn primary hidden">提交測驗</button>
     </div>
   </div>
 
-<script>
-/* ======= 參數與資料格式相容性 =======
-  - 題目檔：/data/題目/{prefix}{year}_{examCode}.json
-  - 答案檔：/data/答案/{prefix}w{year}_{examCode}.json
-  - prefix 映射：病理(a) 藥理(b) 實驗診斷(c) 普通疾病(d) 傳染病(e) 公衛(f)
-  - examCode: 第一次=1、第二次=2
-  - 題目 JSON 單題格式：
-    { "id": 1, "text": "題幹…", "options": {"A":"...","B":"...","C":"...","D":"..."}, "image":"images/xxx.png" }
-  - 圖片路徑請確保可由 GitHub Pages 直接讀取（相對網頁根目錄）
-==================================== */
+  <!-- 簡單的對話框 -->
+  <dialog id="recordsDlg" style="max-width:900px;width:90%">
+    <h3>作答紀錄</h3>
+    <div id="records" style="white-space:pre-wrap;border:1px solid var(--border);border-radius:8px;padding:10px;max-height:60vh;overflow:auto"></div>
+    <div style="display:flex;justify-content:flex-end;margin-top:10px">
+      <button class="btn" onclick="recordsDlg.close()">關閉</button>
+    </div>
+  </dialog>
 
-const prefixMap = {
-  "獸醫病理學": "a",
-  "獸醫藥理學": "b",
-  "獸醫實驗診斷學": "c",
-  "獸醫普通疾病學": "d",
-  "獸醫傳染病學": "e",
-  "獸醫公共衛生學": "f",
-};
+  <script>
+  // ===== 小工具 =====
+  const $ = s=>document.querySelector(s);
+  const $$ = s=>document.querySelectorAll(s);
 
-const el = (id)=>document.getElementById(id);
-const subjectSel = el('subject');
-const yearSel    = el('year');
-const examSel    = el('exam');
-const statusEl   = el('status');
-const quizEl     = el('quiz');
-const resultEl   = el('result');
-const qnumEl     = el('qnum');
-const qtextEl    = el('qtext');
-const imgwrapEl  = el('imgwrap');
-const optA = el('optA'), optB = el('optB'), optC = el('optC'), optD = el('optD');
-const showAns = el('showAns');
-const reviewHint = el('reviewHint');
+  const prefixMap = {
+    "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c",
+    "獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
+  };
 
-let questions = [];
-let answers = {};
-let idx = 0;
-let userAns = {}; // {"題號字串":"A"}
-let reviewMode = false;
-let reviewSet = []; // 只看錯題的 id 陣列
-let timerSec = 60*60;
-let timerId = null;
+  let Q=[], A={}, idx=0, userAns={}, mode='practice', // practice | exam | review
+      timer=null, remain=60*60, reviewOrder=[], reviewPos=0;
 
-function examCode() { return examSel.value === '第一次' ? '1' : '2'; }
-function qid() { return String(questions[idx].id); }
-function noteKey() {
-  return [subjectSel.value, yearSel.value, examSel.value, qid()].join('|');
-}
+  const yearEl=$('#year'), examEl=$('#exam'), subjEl=$('#subject');
+  const showAnsEl=$('#showAns'), breadcrumb=$('#breadcrumb'), qnum=$('#qnum'), qtext=$('#qtext'), qimg=$('#qimg');
+  const qList=$('#qList'), opts=$('#opts'), editor=$('#editor'), timerEl=$('#timer'), modeBadge=$('#modeBadge');
 
-function pad(n){ return (n<10?'0':'')+n; }
-function startTimer(){
-  clearInterval(timerId);
-  timerId = setInterval(()=>{
-    if (reviewMode) return; // 回顧不倒數
-    timerSec--;
-    if (timerSec<=0){
-      clearInterval(timerId);
-      el('timer').textContent = '測驗結束';
-      alert('時間到，請提交測驗');
-    } else {
-      el('timer').textContent = `${pad(Math.floor(timerSec/60))}:${pad(timerSec%60)}`;
+  function examCode(){ return examEl.value==='第一次'?'1':'2'; }
+  function keyBase(){ return `${subjEl.value}|${yearEl.value}|${examEl.value}`; }
+  function noteKey(id){ return `${keyBase()}|${id}`; }
+
+  function setTheme(dark=true){
+    document.body.className = dark?'dark':'light';
+  }
+
+  // ===== 載入題目/答案 =====
+  async function loadAll(){
+    const pre = prefixMap[subjEl.value]||'a';
+    const qUrl = `data/題目/${pre}${yearEl.value}_${examCode()}.json`;
+    const aUrl = `data/答案/${pre}w${yearEl.value}_${examCode()}.json`;
+    try{
+      const [qres,ares]=await Promise.all([fetch(qUrl),fetch(aUrl)]);
+      if(!qres.ok) throw new Error('題目不存在');
+      if(!ares.ok) throw new Error('答案不存在');
+      Q = await qres.json();
+      A = await ares.json();
+      idx = 0; userAns={}; mode='practice'; reviewOrder=[]; reviewPos=0; remain=60*60;
+      updateBreadcrumb();
+      renderList();
+      renderQuestion();
+      updateModeUI();
+    }catch(e){
+      alert('載入失敗：'+e.message);
     }
-  },1000);
-}
-
-function radioGroupSet(value){
-  document.querySelectorAll('input[name="opt"]').forEach(r=>{
-    r.checked = (r.value===value);
-  });
-}
-
-function loadNote(){
-  try {
-    const saved = localStorage.getItem('note:'+noteKey()) || '';
-    el('note').value = saved;
-  } catch(e) {}
-}
-function saveNote(){
-  try { localStorage.setItem('note:'+noteKey(), el('note').value); } catch(e){}
-}
-el('note').addEventListener('input', ()=> {
-  // 簡單 debounce
-  if (saveNote._t) clearTimeout(saveNote._t);
-  saveNote._t = setTimeout(saveNote, 500);
-});
-
-showAns.addEventListener('change', ()=> render());
-
-async function loadAll(){
-  statusEl.textContent = '載入中…';
-  resultEl.style.display = 'none';
-
-  // 109 年只有第一次/第二次都支援，其他年統一只有第一次 → 這裡給你同桌面規則
-  if (yearSel.value !== '109') {
-    if (examSel.value !== '第一次') examSel.value = '第一次';
   }
 
-  const pre = prefixMap[subjectSel.value] || 'a';
-  const y = yearSel.value;
-  const ex = examCode();
-
-  const qUrl = `data/題目/${pre}${y}_${ex}.json`;
-  const aUrl = `data/答案/${pre}w${y}_${ex}.json`;
-
-  try {
-    const [qRes, aRes] = await Promise.all([fetch(qUrl), fetch(aUrl)]);
-    if (!qRes.ok) throw new Error(`讀題目失敗：${qRes.status}`);
-    if (!aRes.ok) throw new Error(`讀答案失敗：${aRes.status}`);
-    questions = await qRes.json();
-    answers = await aRes.json();
-
-    if (!Array.isArray(questions) || questions.length===0) {
-      throw new Error('題目檔案內容為空或格式不正確');
-    }
-
-    idx = 0;
-    userAns = {};
-    reviewMode = false;
-    reviewSet = [];
-    timerSec = 60*60;
-    startTimer();
-
-    quizEl.style.display = 'block';
-    render();
-    statusEl.textContent = `載入完成：${subjectSel.value} / ${y} / ${examSel.value}（共 ${questions.length} 題）`;
-  } catch (e) {
-    statusEl.textContent = '載入失敗：' + e.message;
-    quizEl.style.display = 'none';
-  }
-}
-
-function render(){
-  const q = questions[idx];
-  if (!q) return;
-
-  qnumEl.textContent = `第 ${q.id} 題`;
-  const showAnswerLabel = (showAns.checked && answers[String(q.id)]) ? `\n\n答案：${answers[String(q.id)]}` : '';
-  qtextEl.textContent = q.text + showAnswerLabel;
-
-  optA.textContent = `A. ${q.options?.A ?? ''}`;
-  optB.textContent = `B. ${q.options?.B ?? ''}`;
-  optC.textContent = `C. ${q.options?.C ?? ''}`;
-  optD.textContent = `D. ${q.options?.D ?? ''}`;
-
-  // 圖片（路徑請在 JSON 內設好，例如 "images/xxx.png"）
-  imgwrapEl.innerHTML = '';
-  if (q.image){
-    const img = new Image();
-    img.loading = 'lazy';
-    img.src = q.image;
-    img.alt = '題目圖片';
-    imgwrapEl.appendChild(img);
+  function updateBreadcrumb(){
+    breadcrumb.textContent = `載入完成：${subjEl.value} / ${yearEl.value}（共 ${Q.length} 題）`;
   }
 
-  // 回填作答
-  radioGroupSet(userAns[String(q.id)] || '');
-  // 回顧模式：保持能看到當時有勾選，但要「不可互動」
-  const radios = document.querySelectorAll('input[name="opt"]');
-  if (reviewMode) {
-    radios.forEach(r => { r.disabled = true; });
-    const ua = (userAns[String(q.id)] || '').toUpperCase();
-    const caRaw = (answers[String(q.id)] || '').toUpperCase();
-    const correctSet = new Set(caRaw.split('/').filter(Boolean));
+  function renderList(){
+    qList.innerHTML='';
+    Q.forEach((q,i)=>{
+      const div=document.createElement('div');
+      div.className='item'+(i===idx?' active':'');
+      div.textContent=`第 ${q.id} 題`;
+      div.onclick=()=>{ if(mode==='review'){ idx = reviewOrder[reviewPos=i]; } else { idx=i; } renderQuestion(); highlight(); };
+      qList.appendChild(div);
+    });
+  }
+  function highlight(){
+    [...qList.children].forEach((el,i)=>{
+      const active = (mode==='review') ? (reviewOrder[reviewPos]===i) : (i===idx);
+      el.classList.toggle('active',active);
+    });
+  }
 
-    // 標色
-    [['A',optA],['B',optB],['C',optC],['D',optD]].forEach(([letter, span])=>{
-      const isCorrect = correctSet.has(letter);
-      span.innerHTML = `${letter}. ${q.options?.[letter] ?? ''}` + (isCorrect ? ` <span class="answer-tag bad">（正解）</span>` : '');
-      span.parentElement.style.color = isCorrect ? '#c40000' : 'inherit';
+  // ===== 題目渲染 =====
+  function renderQuestion(){
+    if(!Q.length){ qtext.textContent='請先載入題目'; opts.innerHTML=''; qimg.classList.add('hidden'); return; }
+    const q = Q[idx];
+    qnum.textContent = `第 ${q.id} 題`;
+    // 題幹與顯示答案
+    let html = q.text;
+    if(showAnsEl.checked && A[String(q.id)]) html = `答案：${A[String(q.id)]}<br>${html}`;
+    qtext.innerHTML = html;
+
+    // 圖片
+    if(q.image){ qimg.src = q.image; qimg.classList.remove('hidden'); } else { qimg.classList.add('hidden'); }
+
+    // 選項
+    opts.innerHTML='';
+    ['A','B','C','D'].forEach(letter=>{
+      const wrap=document.createElement('label'); wrap.className='opt';
+      const input=document.createElement('input'); input.type='radio'; input.name='opt';
+      input.disabled = (mode==='review'); // review 不可互動
+      input.onchange=()=>{ userAns[String(q.id)] = letter; saveProgress(); };
+      const span=document.createElement('span');
+      let text = `${letter}. ${q.options[letter]||''}`;
+
+      if(mode==='review'){
+        const caRaw = (A[String(q.id)]||'').toUpperCase();
+        const correct = new Set(caRaw.split('/').filter(Boolean));
+        if(correct.has(letter)){
+          span.style.color='#c40000';
+          text += ' （正解）';
+        }
+        if((userAns[String(q.id)]||'')===letter) input.checked=true;
+      }else{
+        if((userAns[String(q.id)]||'')===letter) input.checked = true;
+      }
+      span.innerHTML = text;
+      wrap.appendChild(input); wrap.appendChild(span);
+      opts.appendChild(wrap);
     });
 
-    reviewHint.style.display = 'block';
-    reviewHint.textContent = (ua && !correctSet.has(ua))
-      ? `你當時作答：${ua}（錯）`
-      : (ua ? `你當時作答：${ua}（對）` : '當時未作答');
-  } else {
-    radios.forEach(r => { r.disabled = false; });
-    reviewHint.style.display = 'none';
+    // 筆記載入
+    const nk = noteKey(q.id);
+    const htmlNote = localStorage.getItem(nk)||'';
+    editor.innerHTML = htmlNote;
+
+    highlight();
   }
 
-  // 載入筆記
-  loadNote();
-}
+  // ===== 筆記工具 =====
+  function applyFormat(cmd,value=null){
+    document.execCommand(cmd,false,value);
+    autosaveNote();
+  }
+  function autosaveNote(){
+    if(!Q.length) return;
+    const id = Q[idx].id;
+    localStorage.setItem( noteKey(id), editor.innerHTML );
+  }
+  editor.addEventListener('input', autosaveNote);
 
-document.querySelectorAll('input[name="opt"]').forEach(r=>{
-  r.addEventListener('change', ()=>{
-    userAns[qid()] = r.value;
+  // 字級（顯示字級 +6 的對應）
+  $('#fs').addEventListener('change', e=>{
+    const size = parseInt(e.target.value||'14',10)+6;
+    document.execCommand('fontSize', false, 7); // 用 size 7 當占位再替換
+    // 把 size=7 的 span 改成實際 pt
+    editor.querySelectorAll('font[size="7"]').forEach(n=>{
+      n.removeAttribute('size'); n.style.fontSize = size+'pt';
+    });
+    autosaveNote();
   });
-});
 
-el('prev').addEventListener('click', ()=>{
-  if (reviewMode){
-    const curId = questions[idx].id;
-    const pos = reviewSet.indexOf(String(curId));
-    if (pos > 0) {
-      const nextId = reviewSet[pos-1];
-      idx = questions.findIndex(x=>String(x.id)===nextId);
-    }
-  } else {
-    if (idx>0) idx--;
-  }
-  render();
-});
+  $('#bBtn').onclick = ()=>applyFormat('bold');
+  $('#iBtn').onclick = ()=>applyFormat('italic');
+  $('#uBtn').onclick = ()=>applyFormat('underline');
+  $('#subBtn').onclick = ()=>{ applyFormat('subscript'); $('#supBtn').classList.remove('active'); $('#subBtn').classList.toggle('active'); };
+  $('#supBtn').onclick = ()=>{ applyFormat('superscript'); $('#subBtn').classList.remove('active'); $('#supBtn').classList.toggle('active'); };
 
-el('next').addEventListener('click', ()=>{
-  if (reviewMode){
-    const curId = questions[idx].id;
-    const pos = reviewSet.indexOf(String(curId));
-    if (pos >=0 && pos < reviewSet.length-1) {
-      const nextId = reviewSet[pos+1];
-      idx = questions.findIndex(x=>String(x.id)===nextId);
-    }
-  } else {
-    if (idx<questions.length-1) idx++;
-  }
-  render();
-});
-
-el('submit').addEventListener('click', ()=>{
-  if (reviewMode){ // 回顧模式→按下關閉
-    quizEl.style.display = 'none';
-    resultEl.style.display = 'block';
-    resultEl.innerHTML = `<div class="muted">回顧結束，可以變更條件重新載入。</div>`;
-    return;
-  }
-
-  let correct = 0;
-  const wrongIds = [];
-  const choiceCount = {A:0,B:0,C:0,D:0,'未答':0};
-  for (const q of questions){
-    const ua = (userAns[String(q.id)] || '').toUpperCase();
-    if (ua) choiceCount[ua] = (choiceCount[ua]||0)+1;
-    else choiceCount['未答']++;
-
-    const caRaw = (answers[String(q.id)] || '').toUpperCase();
-    const correctSet = new Set(caRaw.split('/').filter(Boolean));
-    if (correctSet.has('ALL') || correctSet.has(ua)) correct++;
-    else wrongIds.push(String(q.id));
-  }
-  const score = questions.length ? (correct/questions.length*100).toFixed(2) : '0.00';
-  const wrongList = wrongIds.length ? wrongIds.join('、') : '無';
-
-  resultEl.style.display = 'block';
-  resultEl.innerHTML = `
-    <div style="font-size:18px;">
-      <div>正確題數：<b>${correct}/${questions.length}</b>　得分：<b>${score}</b></div>
-      <div style="margin:6px 0;">錯誤題號：${ wrongIds.length ? `<span class="bad">${wrongList}</span>` : '<span class="good">無</span>' }</div>
-      <div class="muted">作答統計：A:${choiceCount.A}／B:${choiceCount.B}／C:${choiceCount.C}／D:${choiceCount.D}／未答:${choiceCount['未答']}</div>
-      <div style="margin-top:10px;">
-        <button id="reviewWrong" class="btn">僅看錯題</button>
-        <button id="closeExam" class="btn">關閉測驗</button>
-      </div>
-    </div>
-  `;
-  quizEl.scrollIntoView({behavior:'smooth', block:'start'});
-
-  // 綁定回顧/關閉
-  document.getElementById('reviewWrong').onclick = ()=>{
-    if (!wrongIds.length){ alert('沒有錯題可回顧'); return; }
-    reviewMode = true;
-    reviewSet = wrongIds.slice();
-    // 跳到第一個錯題
-    idx = questions.findIndex(x=>String(x.id)===reviewSet[0]);
-    // 回顧不倒數
-    clearInterval(timerId);
-    el('timer').textContent = '回顧模式';
-    render();
+  $('#fgBtn').onclick = async ()=>{
+    const color = prompt('輸入文字顏色（例如 #333333 或 red ）','');
+    if(color){ applyFormat('foreColor', color); }
   };
-  document.getElementById('closeExam').onclick = ()=>{
-    quizEl.style.display = 'none';
-    resultEl.innerHTML = '<div class="muted">已關閉。可重新選擇條件後再載入。</div>';
+  $('#hlBtn').onclick = ()=>{ applyFormat('backColor', $('#hlColor').value ); };
+
+  // 插入圖片（DataURL）
+  $('#imgBtn').onclick = ()=>{
+    const input=document.createElement('input'); input.type='file'; input.accept='image/*';
+    input.onchange=async ()=>{
+      const f=input.files[0]; if(!f) return;
+      const b=await f.arrayBuffer(); const b64= btoa(String.fromCharCode(...new Uint8Array(b)));
+      const mime = f.type || 'image/png';
+      document.execCommand('insertHTML', false, `<img src="data:${mime};base64,${b64}" style="max-width:800px;height:auto"/>`);
+      autosaveNote();
+    };
+    input.click();
   };
-});
 
-el('loadBtn').addEventListener('click', loadAll);
+  // ===== 作答進度儲存 / 紀錄 =====
+  function saveProgress(){
+    if(!Q.length) return;
+    localStorage.setItem(keyBase()+':answers', JSON.stringify(userAns));
+  }
+  function loadProgress(){
+    try{
+      userAns = JSON.parse(localStorage.getItem(keyBase()+':answers')||'{}');
+    }catch{ userAns = {}; }
+  }
 
-// 安裝 service worker（PWA 離線）
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', ()=> {
-    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-  });
-}
-</script>
+  // ===== 模式切換 =====
+  function updateModeUI(){
+    $('#submitBtn').classList.toggle('hidden', mode!=='exam');
+    timerEl.classList.toggle('hidden', mode!=='exam');
+    modeBadge.textContent = mode==='practice'?'練習模式':(mode==='exam'?'測驗模式':'回顧模式（僅看錯題）');
+    renderQuestion();
+  }
+
+  function startExam(){
+    mode='exam'; remain=60*60; updateModeUI();
+    timer && clearInterval(timer);
+    timer=setInterval(()=>{
+      remain--;
+      if(remain<=0){ clearInterval(timer); timer=null; submitExam(); }
+      const m = Math.floor(remain/60), s=remain%60;
+      timerEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    },1000);
+  }
+
+  function submitExam(){
+    // 停表
+    if(timer){ clearInterval(timer); timer=null; }
+
+    let correct=0, wrong=[];
+    Q.forEach(q=>{
+      const qid=String(q.id);
+      const ca = new Set((A[qid]||'').toUpperCase().split('/').filter(Boolean));
+      const ua = (userAns[qid]||'').toUpperCase();
+      if(ca.has('ALL') || ca.has(ua)) correct++;
+      else wrong.push(qid);
+    });
+    const score = Q.length? (correct/Q.length*100):0;
+
+    // 寫入紀錄（本機）
+    const choiceCount = {A:0,B:0,C:0,D:0,'未答':0};
+    Q.forEach(q=>{
+      const ua=(userAns[String(q.id)]||'').toUpperCase();
+      if(choiceCount[ua]!=null) choiceCount[ua]++; else choiceCount['未答']++;
+    });
+    const summary = Object.entries(choiceCount).map(([k,v])=>`${k}:${v}`).join(',');
+
+    const detail = wrong.map(qid=>{
+      const ua=(userAns[qid]||'-');
+      const ca=((A[qid]||'').toUpperCase().split('/').sort().join('/')||'-');
+      return `${qid}:${ua}→${ca}`;
+    }).join(';');
+
+    const row = {
+      when: new Date().toLocaleString(),
+      subject: subjEl.value, year: yearEl.value, exam: examEl.value,
+      total: Q.length, correct, score: score.toFixed(2),
+      wrong: wrong.join(';')||'無',
+      detail, summary
+    };
+    const key='records';
+    const arr = JSON.parse(localStorage.getItem(key)||'[]');
+    arr.unshift(row); localStorage.setItem(key, JSON.stringify(arr));
+
+    // 是否回顧
+    if(wrong.length){
+      if(confirm(`測驗提交！\n正確題數：${correct}/${Q.length}\n得分：${score.toFixed(2)}\n錯誤題號：${row.wrong}\n\n要進入「僅看錯題」回顧模式嗎？`)){
+        enterReview(wrong);
+        return;
+      }
+    }
+    // 關閉 → 回到練習
+    mode='practice'; updateModeUI();
+  }
+
+  function enterReview(wrongQids){
+    const idToIndex = new Map(Q.map((q,i)=>[String(q.id), i]));
+    reviewOrder = wrongQids.map(id=>idToIndex.get(id)).filter(i=>i!=null);
+    if(!reviewOrder.length){ alert('沒有可回顧的錯題'); return; }
+    reviewPos = 0; idx = reviewOrder[0]; mode='review'; updateModeUI();
+  }
+
+  function showRecords(){
+    const arr = JSON.parse(localStorage.getItem('records')||'[]');
+    if(!arr.length){ $('#records').textContent='目前沒有任何作答紀錄。'; recordsDlg.showModal(); return; }
+    const lines = arr.map(r=>
+      `${r.when} | ${r.subject} | ${r.year} ${r.exam} | 得分 ${r.score}\n錯誤題號：${r.wrong}\n作答概覽：${r.summary}\n${r.detail}\n----`
+    ).join('\n');
+    $('#records').textContent = lines;
+    recordsDlg.showModal();
+  }
+
+  // ===== 事件綁定 =====
+  $('#loadBtn').onclick = async ()=>{ loadProgress(); await loadAll(); };
+  $('#darkBtn').onclick = ()=>{
+    const dark = document.body.classList.contains('dark');
+    setTheme(!dark);
+  };
+  $('#examBtn').onclick = ()=>{
+    if(!Q.length){ alert('請先載入題目'); return; }
+    startExam();
+  };
+  $('#submitBtn').onclick = ()=> submitExam();
+  $('#recordsBtn').onclick = ()=> showRecords();
+  $('#showAns').onchange = ()=> renderQuestion();
+
+  $('#prevBtn').onclick = ()=>{
+    if(mode==='review'){
+      if(reviewPos>0){ reviewPos--; idx = reviewOrder[reviewPos]; renderQuestion(); highlight(); }
+    }else{
+      if(idx>0){ idx--; renderQuestion(); highlight(); }
+    }
+  };
+  $('#nextBtn').onclick = ()=>{
+    if(mode==='review'){
+      if(reviewPos<reviewOrder.length-1){ reviewPos++; idx=reviewOrder[reviewPos]; renderQuestion(); highlight(); }
+    }else{
+      if(idx<Q.length-1){ idx++; renderQuestion(); highlight(); }
+    }
+  };
+
+  // 起始：亮/暗依瀏覽器
+  setTheme(true);
+  </script>
 </body>
 </html>
