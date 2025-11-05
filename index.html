@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2f74ff" />
+  <title>獸醫師國考順利通過程式 PWA</title>
+
+  <!-- PWA 相關 -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" type="image/png" />
+  <script>
+    // 註冊 service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      margin: 0; padding: 0;
+      background: #f6f9ff;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    header {
+      background: #2f74ff;
+      color: white;
+      padding: 16px;
+      font-size: 20px;
+      width: 100%;
+    }
+    main {
+      margin-top: 40px;
+      max-width: 800px;
+      padding: 16px;
+    }
+    button {
+      background: #2f74ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 18px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>獸醫師國考順利通過程式 🌿</header>
+  <main>
+    <p>這是 PWA 測試頁。之後會放題庫、筆記、測驗模式等功能。</p>
+    <button onclick="alert('Hello from PWA!')">試試按鈕</button>
+  </main>
+</body>
+</html>
