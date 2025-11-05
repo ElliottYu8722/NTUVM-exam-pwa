@@ -1,62 +1,413 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#2f74ff" />
-  <title>獸醫師國考順利通過程式 PWA</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>獸醫師國考（PWA）</title>
 
-  <!-- PWA 相關 -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192.png" type="image/png" />
-  <script>
-    // 註冊 service worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js');
-      });
-    }
-  </script>
+  <!-- PWA 基本：Manifest + iOS 安裝支援 -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
 
   <style>
-    body {
-      font-family: "Noto Sans TC", sans-serif;
-      margin: 0; padding: 0;
-      background: #f6f9ff;
-      color: #222;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    :root {
+      --bg: #0a0a0a;
+      --fg: #fff;
+      --card: #141414;
+      --accent: #2f74ff;
+      --muted: #cccccc;
     }
-    header {
-      background: #2f74ff;
-      color: white;
-      padding: 16px;
-      font-size: 20px;
-      width: 100%;
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#ffffff; --fg:#000; --card:#f7f7f7; --muted:#333; }
     }
-    main {
-      margin-top: 40px;
-      max-width: 800px;
-      padding: 16px;
+    html,body { height:100%; margin:0; background:var(--bg); color:var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang TC", "Noto Sans CJK TC", "Microsoft JhengHei", Arial, sans-serif; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    h1 { margin: 12px 0 8px; font-size: 20px; }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items: center; }
+    .pill {
+      border: 1px solid #2a2a2a; border-radius:9999px; padding:8px 14px; background:transparent; color:var(--fg);
+      font-size:16px;
     }
-    button {
-      background: #2f74ff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 18px;
-      margin: 10px;
+    select.pill { appearance:none; }
+    .btn {
+      border: 1px solid #2a2a2a; border-radius: 14px; padding: 8px 16px; background: transparent; color: var(--fg);
+      font-size: 16px; cursor: pointer;
     }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .card { background: var(--card); border-radius: 16px; padding: 16px; }
+    .q-title { font-size: 18px; line-height: 1.6; white-space: pre-wrap; }
+    .opt { display:block; margin:10px 0; font-size:18px; }
+    .opt input { transform: scale(1.3); margin-right:8px; }
+    .imgwrap { margin-top: 10px; }
+    .imgwrap img { max-width: 100%; height: auto; display:block; }
+    .toolbar { display:flex; gap:8px; align-items:center; margin-top:10px; }
+    .note { width:100%; min-height:140px; border-radius:14px; border:1px solid #2a2a2a; background:#00000018; color:var(--fg); padding:10px; font-size:16px; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .footer { margin:16px 0 32px; display:flex; gap:8px; justify-content:flex-end; }
+    .good { color:#13c413; font-weight:600; }
+    .bad  { color:#c40000; font-weight:600; }
+    .answer-tag { font-weight:600; }
+    .hint { font-size:14px; opacity:.8; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
   </style>
 </head>
 <body>
-  <header>獸醫師國考順利通過程式 🌿</header>
-  <main>
-    <p>這是 PWA 測試頁。之後會放題庫、筆記、測驗模式等功能。</p>
-    <button onclick="alert('Hello from PWA!')">試試按鈕</button>
-  </main>
+  <div class="container">
+    <h1>獸醫師國考（PWA）<span class="muted">— iPad / Android 平板可安裝使用</span></h1>
+
+    <div class="row">
+      <label>科目：
+        <select id="subject" class="pill">
+          <option>獸醫病理學</option>
+          <option>獸醫藥理學</option>
+          <option>獸醫實驗診斷學</option>
+          <option>獸醫普通疾病學</option>
+          <option>獸醫傳染病學</option>
+          <option>獸醫公共衛生學</option>
+        </select>
+      </label>
+
+      <label>年份：
+        <select id="year" class="pill">
+          <option>109</option><option>110</option><option>111</option><option>112</option><option selected>113</option>
+        </select>
+      </label>
+
+      <label>梯次：
+        <select id="exam" class="pill">
+          <option>第一次</option>
+          <option>第二次</option>
+        </select>
+      </label>
+
+      <button id="loadBtn" class="btn">載入題目</button>
+      <label class="pill" style="display:flex;gap:8px;align-items:center;">
+        <input id="showAns" type="checkbox"> 顯示答案
+      </label>
+    </div>
+
+    <div id="status" class="muted" style="margin:8px 0 14px;"></div>
+
+    <div id="quiz" class="card" style="display:none;">
+      <div class="row" style="justify-content:space-between;">
+        <div id="qnum" class="mono">第 1 題</div>
+        <div id="timer" class="mono">60:00</div>
+      </div>
+
+      <div id="qtext" class="q-title" style="margin-top:10px;"></div>
+
+      <label class="opt"><input type="radio" name="opt" value="A"><span id="optA"></span></label>
+      <label class="opt"><input type="radio" name="opt" value="B"><span id="optB"></span></label>
+      <label class="opt"><input type="radio" name="opt" value="C"><span id="optC"></span></label>
+      <label class="opt"><input type="radio" name="opt" value="D"><span id="optD"></span></label>
+
+      <div id="imgwrap" class="imgwrap"></div>
+
+      <div class="toolbar">
+        <button id="prev" class="btn">上一題</button>
+        <button id="next" class="btn">下一題</button>
+        <div style="flex:1"></div>
+        <button id="submit" class="btn">提交測驗</button>
+      </div>
+
+      <div id="reviewHint" class="hint" style="display:none;margin-top:8px;"></div>
+
+      <h3 style="margin:14px 0 6px;">這題的筆記</h3>
+      <textarea id="note" class="note" placeholder="可在這裡寫重點、易錯處…（自動儲存，離線可用）"></textarea>
+      <div class="muted">筆記會存在瀏覽器的離線空間（IndexedDB / localStorage）。</div>
+    </div>
+
+    <div id="result" class="card" style="display:none;"></div>
+
+    <div class="footer">
+      <span class="muted">裝成 App：Safari → 分享 → 加到主畫面；或 Android Chrome → 安裝 App</span>
+    </div>
+  </div>
+
+<script>
+/* ======= 參數與資料格式相容性 =======
+  - 題目檔：/data/題目/{prefix}{year}_{examCode}.json
+  - 答案檔：/data/答案/{prefix}w{year}_{examCode}.json
+  - prefix 映射：病理(a) 藥理(b) 實驗診斷(c) 普通疾病(d) 傳染病(e) 公衛(f)
+  - examCode: 第一次=1、第二次=2
+  - 題目 JSON 單題格式：
+    { "id": 1, "text": "題幹…", "options": {"A":"...","B":"...","C":"...","D":"..."}, "image":"images/xxx.png" }
+  - 圖片路徑請確保可由 GitHub Pages 直接讀取（相對網頁根目錄）
+==================================== */
+
+const prefixMap = {
+  "獸醫病理學": "a",
+  "獸醫藥理學": "b",
+  "獸醫實驗診斷學": "c",
+  "獸醫普通疾病學": "d",
+  "獸醫傳染病學": "e",
+  "獸醫公共衛生學": "f",
+};
+
+const el = (id)=>document.getElementById(id);
+const subjectSel = el('subject');
+const yearSel    = el('year');
+const examSel    = el('exam');
+const statusEl   = el('status');
+const quizEl     = el('quiz');
+const resultEl   = el('result');
+const qnumEl     = el('qnum');
+const qtextEl    = el('qtext');
+const imgwrapEl  = el('imgwrap');
+const optA = el('optA'), optB = el('optB'), optC = el('optC'), optD = el('optD');
+const showAns = el('showAns');
+const reviewHint = el('reviewHint');
+
+let questions = [];
+let answers = {};
+let idx = 0;
+let userAns = {}; // {"題號字串":"A"}
+let reviewMode = false;
+let reviewSet = []; // 只看錯題的 id 陣列
+let timerSec = 60*60;
+let timerId = null;
+
+function examCode() { return examSel.value === '第一次' ? '1' : '2'; }
+function qid() { return String(questions[idx].id); }
+function noteKey() {
+  return [subjectSel.value, yearSel.value, examSel.value, qid()].join('|');
+}
+
+function pad(n){ return (n<10?'0':'')+n; }
+function startTimer(){
+  clearInterval(timerId);
+  timerId = setInterval(()=>{
+    if (reviewMode) return; // 回顧不倒數
+    timerSec--;
+    if (timerSec<=0){
+      clearInterval(timerId);
+      el('timer').textContent = '測驗結束';
+      alert('時間到，請提交測驗');
+    } else {
+      el('timer').textContent = `${pad(Math.floor(timerSec/60))}:${pad(timerSec%60)}`;
+    }
+  },1000);
+}
+
+function radioGroupSet(value){
+  document.querySelectorAll('input[name="opt"]').forEach(r=>{
+    r.checked = (r.value===value);
+  });
+}
+
+function loadNote(){
+  try {
+    const saved = localStorage.getItem('note:'+noteKey()) || '';
+    el('note').value = saved;
+  } catch(e) {}
+}
+function saveNote(){
+  try { localStorage.setItem('note:'+noteKey(), el('note').value); } catch(e){}
+}
+el('note').addEventListener('input', ()=> {
+  // 簡單 debounce
+  if (saveNote._t) clearTimeout(saveNote._t);
+  saveNote._t = setTimeout(saveNote, 500);
+});
+
+showAns.addEventListener('change', ()=> render());
+
+async function loadAll(){
+  statusEl.textContent = '載入中…';
+  resultEl.style.display = 'none';
+
+  // 109 年只有第一次/第二次都支援，其他年統一只有第一次 → 這裡給你同桌面規則
+  if (yearSel.value !== '109') {
+    if (examSel.value !== '第一次') examSel.value = '第一次';
+  }
+
+  const pre = prefixMap[subjectSel.value] || 'a';
+  const y = yearSel.value;
+  const ex = examCode();
+
+  const qUrl = `data/題目/${pre}${y}_${ex}.json`;
+  const aUrl = `data/答案/${pre}w${y}_${ex}.json`;
+
+  try {
+    const [qRes, aRes] = await Promise.all([fetch(qUrl), fetch(aUrl)]);
+    if (!qRes.ok) throw new Error(`讀題目失敗：${qRes.status}`);
+    if (!aRes.ok) throw new Error(`讀答案失敗：${aRes.status}`);
+    questions = await qRes.json();
+    answers = await aRes.json();
+
+    if (!Array.isArray(questions) || questions.length===0) {
+      throw new Error('題目檔案內容為空或格式不正確');
+    }
+
+    idx = 0;
+    userAns = {};
+    reviewMode = false;
+    reviewSet = [];
+    timerSec = 60*60;
+    startTimer();
+
+    quizEl.style.display = 'block';
+    render();
+    statusEl.textContent = `載入完成：${subjectSel.value} / ${y} / ${examSel.value}（共 ${questions.length} 題）`;
+  } catch (e) {
+    statusEl.textContent = '載入失敗：' + e.message;
+    quizEl.style.display = 'none';
+  }
+}
+
+function render(){
+  const q = questions[idx];
+  if (!q) return;
+
+  qnumEl.textContent = `第 ${q.id} 題`;
+  const showAnswerLabel = (showAns.checked && answers[String(q.id)]) ? `\n\n答案：${answers[String(q.id)]}` : '';
+  qtextEl.textContent = q.text + showAnswerLabel;
+
+  optA.textContent = `A. ${q.options?.A ?? ''}`;
+  optB.textContent = `B. ${q.options?.B ?? ''}`;
+  optC.textContent = `C. ${q.options?.C ?? ''}`;
+  optD.textContent = `D. ${q.options?.D ?? ''}`;
+
+  // 圖片（路徑請在 JSON 內設好，例如 "images/xxx.png"）
+  imgwrapEl.innerHTML = '';
+  if (q.image){
+    const img = new Image();
+    img.loading = 'lazy';
+    img.src = q.image;
+    img.alt = '題目圖片';
+    imgwrapEl.appendChild(img);
+  }
+
+  // 回填作答
+  radioGroupSet(userAns[String(q.id)] || '');
+  // 回顧模式：保持能看到當時有勾選，但要「不可互動」
+  const radios = document.querySelectorAll('input[name="opt"]');
+  if (reviewMode) {
+    radios.forEach(r => { r.disabled = true; });
+    const ua = (userAns[String(q.id)] || '').toUpperCase();
+    const caRaw = (answers[String(q.id)] || '').toUpperCase();
+    const correctSet = new Set(caRaw.split('/').filter(Boolean));
+
+    // 標色
+    [['A',optA],['B',optB],['C',optC],['D',optD]].forEach(([letter, span])=>{
+      const isCorrect = correctSet.has(letter);
+      span.innerHTML = `${letter}. ${q.options?.[letter] ?? ''}` + (isCorrect ? ` <span class="answer-tag bad">（正解）</span>` : '');
+      span.parentElement.style.color = isCorrect ? '#c40000' : 'inherit';
+    });
+
+    reviewHint.style.display = 'block';
+    reviewHint.textContent = (ua && !correctSet.has(ua))
+      ? `你當時作答：${ua}（錯）`
+      : (ua ? `你當時作答：${ua}（對）` : '當時未作答');
+  } else {
+    radios.forEach(r => { r.disabled = false; });
+    reviewHint.style.display = 'none';
+  }
+
+  // 載入筆記
+  loadNote();
+}
+
+document.querySelectorAll('input[name="opt"]').forEach(r=>{
+  r.addEventListener('change', ()=>{
+    userAns[qid()] = r.value;
+  });
+});
+
+el('prev').addEventListener('click', ()=>{
+  if (reviewMode){
+    const curId = questions[idx].id;
+    const pos = reviewSet.indexOf(String(curId));
+    if (pos > 0) {
+      const nextId = reviewSet[pos-1];
+      idx = questions.findIndex(x=>String(x.id)===nextId);
+    }
+  } else {
+    if (idx>0) idx--;
+  }
+  render();
+});
+
+el('next').addEventListener('click', ()=>{
+  if (reviewMode){
+    const curId = questions[idx].id;
+    const pos = reviewSet.indexOf(String(curId));
+    if (pos >=0 && pos < reviewSet.length-1) {
+      const nextId = reviewSet[pos+1];
+      idx = questions.findIndex(x=>String(x.id)===nextId);
+    }
+  } else {
+    if (idx<questions.length-1) idx++;
+  }
+  render();
+});
+
+el('submit').addEventListener('click', ()=>{
+  if (reviewMode){ // 回顧模式→按下關閉
+    quizEl.style.display = 'none';
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = `<div class="muted">回顧結束，可以變更條件重新載入。</div>`;
+    return;
+  }
+
+  let correct = 0;
+  const wrongIds = [];
+  const choiceCount = {A:0,B:0,C:0,D:0,'未答':0};
+  for (const q of questions){
+    const ua = (userAns[String(q.id)] || '').toUpperCase();
+    if (ua) choiceCount[ua] = (choiceCount[ua]||0)+1;
+    else choiceCount['未答']++;
+
+    const caRaw = (answers[String(q.id)] || '').toUpperCase();
+    const correctSet = new Set(caRaw.split('/').filter(Boolean));
+    if (correctSet.has('ALL') || correctSet.has(ua)) correct++;
+    else wrongIds.push(String(q.id));
+  }
+  const score = questions.length ? (correct/questions.length*100).toFixed(2) : '0.00';
+  const wrongList = wrongIds.length ? wrongIds.join('、') : '無';
+
+  resultEl.style.display = 'block';
+  resultEl.innerHTML = `
+    <div style="font-size:18px;">
+      <div>正確題數：<b>${correct}/${questions.length}</b>　得分：<b>${score}</b></div>
+      <div style="margin:6px 0;">錯誤題號：${ wrongIds.length ? `<span class="bad">${wrongList}</span>` : '<span class="good">無</span>' }</div>
+      <div class="muted">作答統計：A:${choiceCount.A}／B:${choiceCount.B}／C:${choiceCount.C}／D:${choiceCount.D}／未答:${choiceCount['未答']}</div>
+      <div style="margin-top:10px;">
+        <button id="reviewWrong" class="btn">僅看錯題</button>
+        <button id="closeExam" class="btn">關閉測驗</button>
+      </div>
+    </div>
+  `;
+  quizEl.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // 綁定回顧/關閉
+  document.getElementById('reviewWrong').onclick = ()=>{
+    if (!wrongIds.length){ alert('沒有錯題可回顧'); return; }
+    reviewMode = true;
+    reviewSet = wrongIds.slice();
+    // 跳到第一個錯題
+    idx = questions.findIndex(x=>String(x.id)===reviewSet[0]);
+    // 回顧不倒數
+    clearInterval(timerId);
+    el('timer').textContent = '回顧模式';
+    render();
+  };
+  document.getElementById('closeExam').onclick = ()=>{
+    quizEl.style.display = 'none';
+    resultEl.innerHTML = '<div class="muted">已關閉。可重新選擇條件後再載入。</div>';
+  };
+});
+
+el('loadBtn').addEventListener('click', loadAll);
+
+// 安裝 service worker（PWA 離線）
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', ()=> {
+    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+  });
+}
+</script>
 </body>
 </html>
