@@ -244,7 +244,7 @@ function loadNoteForCurrent(){
 
   const explainHTML = q.explanation
     ? `
-      <div id="explainBlock" class="explain-block" contenteditable="true"
+      <div id="explainBlock" class="explain-block" contenteditable="false"
            style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:8px; padding-bottom:6px;">
         <b>詳解：</b> ${escapeHTML(q.explanation)}
       </div>
@@ -256,20 +256,9 @@ function loadNoteForCurrent(){
     <div id="userNote" class="user-note" contenteditable="true">${userHTML}</div>
   `;
 
-  // 聚焦到可編輯區，避免光標跑到詳解（唯讀）上
-  const userDiv = editor.querySelector("#userNote");
-  if (userDiv) {
-    try {
-      userDiv.focus();
-      // 把游標移到最後
-      const sel = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(userDiv);
-      range.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    } catch {}
-  }
+  // ✅ 不再自動 focus、不再自動把游標推到最後
+  // 如果你日後真的想要恢復自動聚焦，可改成：
+  // if (localStorage.getItem("focusNoteOnLoad") === "true") { ...把下面那段聚焦程式放回來... }
 }
 
 
@@ -863,7 +852,9 @@ function openRecordsViewer(arr){
   mask.appendChild(card);
   document.body.appendChild(mask);
 }
-
+function isInsideEditor(el){
+  return !!(el && editor && (el === editor || editor.contains(el)));
+}
 /* 筆記工具 */
 fontSel.onchange = ()=> exec("fontSize", sizeToCommand(fontSel.value));
 bBold.onclick   = ()=> toggleButton(bBold, ()=>exec("bold"));
@@ -910,8 +901,22 @@ if (editor) {
 
 function exec(cmd, val=null){
   const area = (editor && editor.querySelector("#userNote")) || editor;
-  if (!area) return; // DOM 還沒好就先跳過，避免整支卡死
-  area.focus();
+  if (!area) return;
+
+  // 如果目前焦點「不在」筆記區，代表你是從工具列發指令
+  // 這時才主動把焦點放到筆記欄的末端，避免亂飛來飛去
+  if (!isInsideEditor(document.activeElement)) {
+    try {
+      area.focus();
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(area);
+      range.collapse(false); // 游標到最後
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch {}
+  }
+
   document.execCommand(cmd, false, val);
   saveNotes();
 }
