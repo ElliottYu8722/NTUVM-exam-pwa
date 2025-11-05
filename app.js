@@ -573,20 +573,26 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
     if (e.ctrlKey || e.metaKey) e.preventDefault();
   }, { passive:false });
 
-  // 4) 可選：把圖片的雙擊行為關掉（保留點擊）
-  document.addEventListener("DOMContentLoaded", ()=>{
-    const images = document.querySelectorAll("img");
-    images.forEach(img=>{
+  // 4) 把圖片的雙擊行為關掉（保留點擊）
+  function touchFix(){
+    document.querySelectorAll("img").forEach(img=>{
       img.style.touchAction = "manipulation";
     });
-  });
-<style>
-  html, body { touch-action: manipulation; }
-</style>
-  // 5)（建議）在 HTML <head> 放入或動態加入 viewport，避免雙指縮放
-  // 若你能改 HTML，放：
-  // <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  // 若不能改 HTML，就動態加：
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", touchFix, {once:true});
+  } else {
+    touchFix();
+  }
+
+  // 5) 加上全域 CSS（避免誤縮放）
+  try{
+    const css = document.createElement("style");
+    css.textContent = `html, body { touch-action: manipulation; }`;
+    document.head.appendChild(css);
+  }catch{}
+
+  // 6) 動態加入 viewport，避免雙指縮放
   try{
     const meta = document.createElement("meta");
     meta.name = "viewport";
