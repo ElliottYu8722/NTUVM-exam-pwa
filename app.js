@@ -73,8 +73,6 @@ const btnExam = $("#btnExam"), btnSubmit = $("#btnSubmit"), btnClose = $("#btnCl
 const timerBadge = $("#timer"), reviewTag = $("#reviewTag");
 
 const btnRecords = $("#btnRecords"), btnTheme = $("#btnTheme");
-const btnLoadQ = $("#btnLoadQ"), btnLoadA = $("#btnLoadA");
-const qFile = $("#qFile"), aFile = $("#aFile");
 
 /* 筆記 */
 const fontSel = $("#fontSel");
@@ -84,6 +82,15 @@ const bSub = $("#bSub"), bSup = $("#bSup");
 const txtColor = $("#txtColor"), hlColor = $("#hlColor"), bHL = $("#bHL");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
 
+/* 題庫載入 */
+const btnLoadQ = $("#btnLoadQ"), btnLoadA = $("#btnLoadA");
+const qFile = $("#qFile"), aFile = $("#aFile");
+
+[btnLoadQ, btnLoadA, qFile, aFile].forEach(el=>{
+  if(!el) return;
+  try { el.remove(); } catch {}
+  if(el && el.style) el.style.display = "none";
+});
 /* 小工具 */
 const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
@@ -112,32 +119,7 @@ function loadNoteForCurrent(){
 btnLoadQ.onclick = () => qFile.click();
 btnLoadA.onclick = () => aFile.click();
 
-qFile.onchange = async e=>{
-  const file = e.target.files?.[0];
-  if(!file) return;
-  const txt = await file.text();
-  try {
-    const arr = JSON.parse(txt);
-    if(!Array.isArray(arr)) throw new Error("題目 JSON 應為陣列");
-    state.questions = arr;
-    state.index = 0;
-    state.user = {};
-    renderList(); renderQuestion(); toast("題目已載入 ✅");
-  }catch(err){ alert("題目檔格式錯誤：\n"+err.message); }
-  qFile.value = "";
-};
-aFile.onchange = async e=>{
-  const file = e.target.files?.[0];
-  if(!file) return;
-  const txt = await file.text();
-  try {
-    const obj = JSON.parse(txt);
-    state.answers = obj;
-    renderQuestion();
-    toast("答案已載入 ✅");
-  }catch(err){ alert("答案檔格式錯誤：\n"+err.message); }
-  aFile.value = "";
-};
+
 
 /* 題號列表 */
 function renderList(){
@@ -349,29 +331,70 @@ function summarizeChoices(){
   return Object.entries(cnt).map(([k,v])=>`${k}:${v}`).join(",");
 }
 
-/* 作答紀錄（localStorage: examRecords） */
-function appendRecord(row){
-  let arr=[]; try{ arr=JSON.parse(localStorage.getItem("examRecords")||"[]"); }catch{}
-  arr.push(row);
-  localStorage.setItem("examRecords", JSON.stringify(arr));
-}
+/* ===（取代整段）作答紀錄匯出：Excel 友善 + 頁面檢視 === */
 btnRecords.onclick = ()=>{
-  let arr=[]; try{ arr=JSON.parse(localStorage.getItem("examRecords")||"[]"); }catch{}
-  if(!arr.length){ alert("目前沒有作答紀錄。"); return; }
-  const lines = [
-    ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"].join(",")
-  ];
+  let arr=[]; 
+  try{ arr=JSON.parse(localStorage.getItem("examRecords")||"[]"); }catch{}
+  if(!arr.length){ 
+    alert("目前沒有作答紀錄。"); 
+    return; 
+  }
+
+  // 1) 產生 Excel 友善 CSV（UTF-8 with BOM）
+  const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
+  const lines = [ headers.join(",") ];
   arr.forEach(r=>{
     lines.push([
       r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
     ].map(csvEscape).join(","));
   });
-  const csv = lines.join("\n");
+
+  // 重要：加上 BOM，Excel（特別是 Windows）才會正確辨識 UTF-8
+  const BOM = "\uFEFF";
+  const csv = BOM + lines.join("\n");
   const url = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
-  const a = document.createElement("a"); a.href=url; a.download="作答紀錄.csv"; a.click();
+  const a = document.createElement("a"); 
+  a.href=url; 
+  a.download="作答紀錄_可用Excel開啟.csv"; 
+  a.click();
   setTimeout(()=>URL.revokeObjectURL(url), 1000);
+
+  // 2) 另外開一個『可閱讀』的視窗，顯示成表格
+  openRecordsViewer(arr);
 };
-function csvEscape(s){ s=String(s??""); return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; }
+
+/* CSV 欄位逸出（保留你原本的寫法） */
+function csvEscape(s){ 
+  s=String(s??""); 
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; 
+}
+
+/* 簡易檢視器（新視窗） */
+function openRecordsViewer(arr){
+  const w = window.open("", "_blank");
+  const style = `
+    body{font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif; margin:16px;}
+    h1{font-size:18px; margin:0 0 12px;}
+    table{border-collapse:collapse; width:100%;}
+    th,td{border:1px solid #ddd; padding:8px; font-size:14px; vertical-align:top; word-break:break-all;}
+    thead th{background:#f6f6f6; position:sticky; top:0;}
+    .hint{color:#666; font-size:12px; margin:8px 0 16px;}
+  `;
+  const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
+  const rows = arr.map(r=>[
+    r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
+  ]);
+
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>作答紀錄</title><style>${style}</style></head><body>`);
+  w.document.write(`<h1>作答紀錄</h1>`);
+  w.document.write(`<div class="hint">已同時下載一份「CSV（Excel 可直接開啟）」到你的電腦。如需再次下載，請回原頁面點「匯出」。</div>`);
+  w.document.write(`<table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>`);
+  rows.forEach(cols=>{
+    w.document.write(`<tr>${cols.map(c=>`<td>${escapeHTML(String(c??""))}</td>`).join("")}</tr>`);
+  });
+  w.document.write(`</tbody></table></body></html>`);
+  w.document.close();
+}
 
 /* 筆記工具 */
 fontSel.onchange = ()=> exec("fontSize", sizeToCommand(fontSel.value));
@@ -504,6 +527,43 @@ function toast(msg){
 /* 工具：debounce */
 function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); }; }
 
+
+/* === 禁止雙擊縮放、觸控縮放、Ctrl + 滑輪縮放（桌機/手機都盡量擋）=== */
+(function disableZoom(){
+  // 1) 禁止雙擊
+  document.addEventListener("dblclick", e=>{
+    e.preventDefault();
+  }, { passive:false });
+
+  // 2) iOS Safari 的手勢縮放
+  ["gesturestart","gesturechange","gestureend"].forEach(ev=>{
+    document.addEventListener(ev, e=>{ e.preventDefault(); }, { passive:false });
+  });
+
+  // 3) 桌機：Ctrl/⌘ + 滑輪
+  window.addEventListener("wheel", e=>{
+    if (e.ctrlKey || e.metaKey) e.preventDefault();
+  }, { passive:false });
+
+  // 4) 可選：把圖片的雙擊行為關掉（保留點擊）
+  document.addEventListener("DOMContentLoaded", ()=>{
+    const images = document.querySelectorAll("img");
+    images.forEach(img=>{
+      img.style.touchAction = "manipulation";
+    });
+  });
+
+  // 5)（建議）在 HTML <head> 放入或動態加入 viewport，避免雙指縮放
+  // 若你能改 HTML，放：
+  // <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  // 若不能改 HTML，就動態加：
+  try{
+    const meta = document.createElement("meta");
+    meta.name = "viewport";
+    meta.content = "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+    document.head.appendChild(meta);
+  }catch{}
+})();
 /* 初始化 */
 /* 初始化（完整覆蓋） */
 function init(){
