@@ -291,6 +291,7 @@ function enterFullscreenQuiz(){
     alert("請先載入題目與答案。");
     return;
   }
+  resetUserAnswersForCurrentScope();
 
   const prevOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
@@ -666,6 +667,8 @@ function showRecords(){
 /* 內嵌檢視器（頁內浮層，不下載、不跳頁） */
 function openRecordsViewer(arr){
   // 注入樣式（只注入一次）
+  if (document.getElementById("rv-mask")) return;
+
   if (!document.getElementById("rv-style")) {
     const style = document.createElement("style");
     style.id = "rv-style";
