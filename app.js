@@ -414,30 +414,151 @@ function csvEscape(s){
 }
 
 /* 簡易檢視器（新視窗） */
+/* 內嵌檢視器（頁內浮層，不跳頁，iPad 也有關閉鍵） */
 function openRecordsViewer(arr){
-  const w = window.open("", "_blank");
-  const style = `
-    body{font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,'Noto Sans',sans-serif; margin:16px;}
-    h1{font-size:18px; margin:0 0 12px;}
-    table{border-collapse:collapse; width:100%;}
-    th,td{border:1px solid #ddd; padding:8px; font-size:14px; vertical-align:top; word-break:break-all;}
-    thead th{background:#f6f6f6; position:sticky; top:0;}
-    .hint{color:#666; font-size:12px; margin:8px 0 16px;}
-  `;
-  const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
-  const rows = arr.map(r=>[
-    r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
-  ]);
+  // 1) 確保樣式只注入一次
+  if (!document.getElementById("records-viewer-style")) {
+    const style = document.createElement("style");
+    style.id = "records-viewer-style";
+    style.textContent = `
+      .rv-mask{
+        position: fixed; inset: 0; background: rgba(0,0,0,.45);
+        display: flex; align-items: center; justify-content: center;
+        z-index: 99999; padding: 16px;
+      }
+      .rv-card{
+        width: min(1100px, 100%); max-height: 90vh;
+        background: var(--card); color: var(--fg);
+        border: 1px solid var(--border); border-radius: 14px;
+        display: flex; flex-direction: column; overflow: hidden;
+      }
+      .rv-head{
+        display: flex; align-items: center; gap: 8px;
+        padding: 12px 14px; border-bottom: 1px solid var(--border);
+      }
+      .rv-title{ font-size: 16px; font-weight: 700; }
+      .rv-spacer{ flex: 1; }
+      .rv-btn{
+        padding: 8px 12px; border-radius: 9999px;
+        border: 1px solid var(--border); background: transparent;
+        color: var(--fg); cursor: pointer; font-size: 14px;
+      }
+      .rv-btn:hover{ border-color: var(--accent); color: var(--accent); }
+      .rv-hint{ color: var(--muted); font-size: 12px; padding: 6px 14px 0; }
+      .rv-body{ overflow: auto; padding: 10px 14px 14px; }
+      /* 表格：固定欄寬＋自動換行 */
+      .rv-table{ width: 100%; border-collapse: collapse; table-layout: fixed; }
+      .rv-table th, .rv-table td{
+        border: 1px solid var(--border); padding: 8px;
+        font-size: 14px; vertical-align: top;
+        word-break: break-word; white-space: normal;
+      }
+      .rv-table thead th{
+        position: sticky; top: 0; background: var(--bg);
+        z-index: 1;
+      }
+      /* 欄寬（可調整） */
+      .rv-table col.c-date   { width: 140px; }
+      .rv-table col.c-subj   { width: 120px; }
+      .rv-table col.c-year   { width: 70px; }
+      .rv-table col.c-round  { width: 90px; }
+      .rv-table col.c-total  { width: 80px; }
+      .rv-table col.c-corr   { width: 90px; }
+      .rv-table col.c-score  { width: 80px; }
+      .rv-table col.c-wids   { width: 220px; }
+      .rv-table col.c-wdet   { width: 380px; }
+      .rv-table col.c-sum    { width: 140px; }
+      @media (max-width: 720px){
+        .rv-card{ width: 100%; max-height: 92vh; }
+        .rv-table th, .rv-table td{ font-size: 13px; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
-  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>作答紀錄</title><style>${style}</style></head><body>`);
-  w.document.write(`<h1>作答紀錄</h1>`);
-  w.document.write(`<div class="hint">已同時下載一份「CSV（Excel 可直接開啟）」到你的電腦。如需再次下載，請回原頁面點「匯出」。</div>`);
-  w.document.write(`<table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>`);
-  rows.forEach(cols=>{
-    w.document.write(`<tr>${cols.map(c=>`<td>${escapeHTML(String(c??""))}</td>`).join("")}</tr>`);
+  // 2) 建立浮層
+  const mask  = document.createElement("div");  mask.className  = "rv-mask";
+  const card  = document.createElement("div");  card.className  = "rv-card";
+  const head  = document.createElement("div");  head.className  = "rv-head";
+  const title = document.createElement("div");  title.className = "rv-title";
+  title.textContent = "作答紀錄";
+
+  const spacer = document.createElement("div"); spacer.className = "rv-spacer";
+
+  const btnDownload = document.createElement("button");
+  btnDownload.className = "rv-btn";
+  btnDownload.textContent = "再下載 CSV";
+  btnDownload.onclick = ()=> {
+    // 直接重用頁面既有的 CSV 產生邏輯
+    try{
+      let arr2=[];
+      arr2 = JSON.parse(localStorage.getItem("examRecords")||"[]");
+      if(!arr2.length){ alert("沒有可下載的作答紀錄。"); return; }
+      const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
+      const lines = [ headers.join(",") ];
+      arr2.forEach(r=>{
+        lines.push([
+          r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
+        ].map(csvEscape).join(","));
+      });
+      const BOM = "\uFEFF";
+      const csv = BOM + lines.join("\n");
+      const url = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
+      const a = document.createElement("a");
+      a.href = url; a.download = "作答紀錄_可用Excel開啟.csv"; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    }catch(e){ alert("下載失敗"); console.error(e); }
+  };
+
+  const btnClose = document.createElement("button");
+  btnClose.className = "rv-btn";
+  btnClose.textContent = "返回";
+  btnClose.onclick = ()=> mask.remove();
+
+  head.appendChild(title);
+  head.appendChild(spacer);
+  head.appendChild(btnDownload);
+  head.appendChild(btnClose);
+
+  const hint = document.createElement("div");
+  hint.className = "rv-hint";
+  hint.textContent = "提示：這裡是頁內檢視（不會跳出新視窗）。如要另存表格，點右上角「再下載 CSV」。";
+
+  const body = document.createElement("div"); body.className = "rv-body";
+
+  // 3) 繪表
+  const table = document.createElement("table"); table.className = "rv-table";
+  table.innerHTML = `
+    <colgroup>
+      <col class="c-date"><col class="c-subj"><col class="c-year"><col class="c-round">
+      <col class="c-total"><col class="c-corr"><col class="c-score">
+      <col class="c-wids"><col class="c-wdet"><col class="c-sum">
+    </colgroup>
+    <thead><tr>
+      <th>測驗日期</th><th>科目</th><th>年份</th><th>梯次</th>
+      <th>總題數</th><th>正確題數</th><th>得分</th>
+      <th>錯誤題號</th><th>錯題詳情</th><th>作答概覽</th>
+    </tr></thead>
+    <tbody></tbody>
+  `;
+  const tbody = table.querySelector("tbody");
+
+  arr.forEach(r=>{
+    const tr = document.createElement("tr");
+    const cells = [
+      r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score,
+      r.wrongIds, r.wrongDetail, r.summary
+    ];
+    tr.innerHTML = cells.map(c=>`<td>${escapeHTML(String(c??""))}</td>`).join("");
+    tbody.appendChild(tr);
   });
-  w.document.write(`</tbody></table></body></html>`);
-  w.document.close();
+
+  body.appendChild(table);
+  card.appendChild(head);
+  card.appendChild(hint);
+  card.appendChild(body);
+  mask.appendChild(card);
+  document.body.appendChild(mask);
 }
 
 /* 筆記工具 */
