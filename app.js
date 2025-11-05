@@ -731,7 +731,23 @@ bUnder.onclick  = ()=> toggleButton(bUnder, ()=>exec("underline"));
 bSub.onclick    = ()=> { bSup.classList.remove("active"); toggleButton(bSub, ()=>exec("subscript")); };
 bSup.onclick    = ()=> { bSub.classList.remove("active"); toggleButton(bSup, ()=>exec("superscript")); };
 txtColor.onchange = ()=> exec("foreColor", txtColor.value);
-bHL.onclick = ()=> { editor.focus(); hilite(hlColor.value); bHL.classList.add("active"); setTimeout(()=>bHL.classList.remove("active"), 300); };
+bHL.onclick = ()=>{
+  editor.focus();
+
+  const want = normalizeColor(hlColor.value);
+  const cur  = normalizeColor(currentHilite() || "");
+
+  // 第二次按：如果目前選取的標記色 == 想要的顏色 → 取消標記
+  if (cur && cur === want){
+    clearHiliteSelection();
+  } else {
+    hilite(hlColor.value);
+  }
+
+  bHL.classList.add("active");
+  setTimeout(()=>bHL.classList.remove("active"), 250);
+  saveNotes();
+};
 bImg.onclick = ()=> imgNote.click();
 imgNote.onchange = async e=>{
   const f = e.target.files?.[0]; if(!f) return;
@@ -750,13 +766,48 @@ function sizeToCommand(px){ // 1~7，做個近似
   const n = Math.max(1, Math.min(7, Math.round((parseInt(px,10)-8)/4)));
   return String(n);
 }
+
+// 顏色字串正規化（把 #fff、rgb(...) 等轉成統一格式）
+function normalizeColor(c){
+  try{
+    const ctx = document.createElement("canvas").getContext("2d");
+    ctx.fillStyle = c || "";
+    return ctx.fillStyle.toLowerCase(); // 例如 "rgb(255, 245, 157)"
+  }catch{ return String(c||"").toLowerCase(); }
+}
+
+// 取目前選取區塊的標記色（不同瀏覽器可能回 hiliteColor 或 backColor）
+function currentHilite(){
+  try{
+    return (document.queryCommandValue("hiliteColor") ||
+            document.queryCommandValue("backColor")  || "").toLowerCase();
+  }catch{ return ""; }
+}
+
+// 只清除選取區塊的背景色（盡量避免影響粗體/斜體）
+function clearHiliteSelection(){
+  // 先嘗試設成透明/初始值（各瀏覽器取其一會成功）
+  try{ document.execCommand("hiliteColor", false, "transparent"); }catch{}
+  try{ document.execCommand("backColor",  false, "transparent"); }catch{}
+
+  try{ document.execCommand("hiliteColor", false, "initial"); }catch{}
+  try{ document.execCommand("backColor",  false, "initial"); }catch{}
+}
+
+
 function hilite(color){
+  // 用 CSS 模式提高 Safari / iOS 相容性
+  try{ document.execCommand("styleWithCSS", false, true); }catch{}
+
+  // 先試標準的 hiliteColor，不行再用 backColor
   try{
     document.execCommand("hiliteColor", false, color);
   }catch{
-    document.execCommand("backColor", false, color);
+    try{ document.execCommand("backColor", false, color); }catch{}
   }
-  saveNotes();
+
+  // 還原
+  try{ document.execCommand("styleWithCSS", false, false); }catch{}
 }
 function fileToDataURL(file){
   return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
