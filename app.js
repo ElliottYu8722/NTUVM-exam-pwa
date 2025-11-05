@@ -36,12 +36,10 @@ const STORAGE = {
   try { localStorage.removeItem("notes"); } catch {}
   try { localStorage.removeItem("notesMeta"); } catch {}
 
+  // 也把早期可能留下的奇怪 key 格式做個掃描清掉（保守作法）
   try {
     Object.keys(localStorage).forEach(k=>{
-      // 跳過新版本要保留的 key
-      if (k === STORAGE.notes || k === STORAGE.notesMeta || k === STORAGE.migrated) return;
-
-      // 只清除舊版或測試時遺留的 notes 類鍵名
+      // 舊版可能用到的暫時鍵名或測試鍵名（視你過去情況可再加）
       if (/^(note|notes?)(_.*)?$/i.test(k)) {
         try { localStorage.removeItem(k); } catch {}
       }
@@ -50,6 +48,7 @@ const STORAGE = {
 
   localStorage.setItem(STORAGE.migrated, "true");
 })();
+
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
   return parts
@@ -165,30 +164,21 @@ const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
 }[s] || "x");
 
-function getSelVal(sel, def=""){
-  return sel && typeof sel.value === "string" ? sel.value : def;
-}
-
 function keyForNote(qid){
-  const p = subjectPrefix(getSelVal(subjectSel));
-  const r = getSelVal(roundSel) === "第一次" ? "1" : "2";
-  return `${p}${getSelVal(yearSel)}_${r}|${qid}`;
+  const p = subjectPrefix(subjectSel.value);
+  const r = roundSel.value === "第一次" ? "1" : "2";
+  return `${p}${yearSel.value}_${r}|${qid}`;
 }
 function saveNotes(){
   const q = state.questions[state.index];
   if(!q) return;
 
   const k = keyForNote(q.id);
-  state._notes     = state._notes     || {};
+  state._notes = state._notes || {};
+  state._notes[k] = editor.innerHTML;
+
+  // 標記此題已被使用者編輯過（之後就不要再被新版詳解覆蓋）
   state._notesMeta = state._notesMeta || {};
-
-  // 只抓 userNote 的內容；若找不到就退而求其次抓整個 editor（避免例外）
-  const userDiv = editor.querySelector("#userNote");
-  const userHTML = userDiv ? userDiv.innerHTML : editor.innerHTML;
-
-  state._notes[k] = userHTML;
-
-  // 使用者動過 → 標記（之後即便你改了詳解，我們也不會動到使用者筆記）
   const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
   state._notesMeta[k] = meta;
@@ -201,11 +191,22 @@ function loadNotes(){
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
 }
 
-function defaultNoteHTML(){
-  return ""; // 只存使用者自己的筆記 HTML
+function defaultNoteHTML(q){
+  const exp = (q.explanation ?? "").trim();
+  if(!exp){
+    return `<div class="user-note"></div>`;
+  }
+  // 詳解預設可編輯，底下留空給使用者
+  return `
+    <div class="explain-editable" style="color:#aaa;">
+      <b>詳解（可編輯）</b>：${escapeHTML(exp)}
+    </div>
+    <div style="border-top:1px dashed #666; margin:6px 0;"></div>
+    <div class="user-note"></div>
+  `;
 }
 
-/* 很輕量的雜湊（可留著做版本追蹤用） */
+// 很輕量就好，追蹤詳解是否變更
 function hashStr(s){
   s = String(s||"");
   let h = 5381;
@@ -221,15 +222,23 @@ function ensureNoteSeeded(q){
   const meta = state._notesMeta[k] || {};
   const curHash = hashStr(q.explanation || "");
 
-  if (state._notes[k] == null) {
-    state._notes[k] = defaultNoteHTML(); // 空字串
+  if(state._notes[k] == null){
+    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
+    state._notes[k] = defaultNoteHTML(q);
+    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+    return;
   }
-  // 紀錄目前詳解的雜湊（之後你要比對是否有更新可以用，但不覆蓋筆記）
-  meta.seedHash = curHash;
-  state._notesMeta[k] = meta;
 
-  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  // 之後若你更新了詳解，而使用者尚未改過 → 幫他同步到最新版詳解
+  if(meta.seedHash !== curHash && meta.userTouched !== true){
+    state._notes[k] = defaultNoteHTML(q);
+    meta.seedHash = curHash;
+    state._notesMeta[k] = meta;
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  }
 }
 
 
@@ -237,31 +246,21 @@ function loadNoteForCurrent(){
   const q = state.questions[state.index];
   if(!q){ editor.innerHTML=""; return; }
 
-  ensureNoteSeeded(q); // 只確保鍵存在，不會寫入詳解到筆記
-
+  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
   const k = keyForNote(q.id);
-  const userHTML = state._notes?.[k] || "";
-
-  const explainHTML = q.explanation
-    ? `
-      <div id="explainBlock" class="explain-block" contenteditable="false"
-           style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:8px; padding-bottom:6px;">
-        <b>詳解：</b> ${escapeHTML(q.explanation)}
-      </div>
-    `
-    : "";
-
-  editor.innerHTML = `
-    ${explainHTML}
-    <div id="userNote" class="user-note" contenteditable="true">${userHTML}</div>
-  `;
-
-  // ✅ 不再自動 focus、不再自動把游標推到最後
-  // 如果你日後真的想要恢復自動聚焦，可改成：
-  // if (localStorage.getItem("focusNoteOnLoad") === "true") { ...把下面那段聚焦程式放回來... }
+  editor.innerHTML = state._notes?.[k] || "";
 }
-
-
+/* 題號列表 */
+function renderList(){
+  qList.innerHTML = "";
+  state.questions.forEach((q,i)=>{
+    const div = document.createElement("div");
+    div.className = "q-item"+(i===state.index?" active":"");
+    div.textContent = `第 ${q.id} 題`;
+    div.onclick = ()=>{ saveNotes(); state.index=i; renderQuestion(); highlightList(); };
+    qList.appendChild(div);
+  });
+}
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
@@ -343,9 +342,9 @@ function renderQuestion(){
     qOpts.appendChild(line);
   });
 
-  if (bSubj)  bSubj.textContent  = getSelVal(subjectSel);
-  if (bYear)  bYear.textContent  = getSelVal(yearSel);
-  if (bRound) bRound.textContent = getSelVal(roundSel);
+  bSubj.textContent = subjectSel.value;
+  bYear.textContent = yearSel.value;
+  bRound.textContent = roundSel.value;
   highlightList();
   loadNoteForCurrent();
 }
@@ -354,9 +353,9 @@ function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 
 /* 作答持久化（localStorage，以科目/年/梯次為命名空間） */
 function nsKey(){ 
-  const p = subjectPrefix(getSelVal(subjectSel));
-  const round = getSelVal(roundSel) === "第一次" ? "1" : "2";
-  return `ans|${p}|${getSelVal(yearSel)}|${round}`;
+  const p = subjectPrefix(subjectSel.value);
+  const round = roundSel.value==="第一次" ? "1" : "2";
+  return `ans|${p}|${yearSel.value}|${round}`;
 }
 function loadAnswersFromStorage(){
   try{ state.user = JSON.parse(localStorage.getItem(nsKey())||"{}"); }catch{ state.user={}; }
@@ -852,9 +851,7 @@ function openRecordsViewer(arr){
   mask.appendChild(card);
   document.body.appendChild(mask);
 }
-function isInsideEditor(el){
-  return !!(el && editor && (el === editor || editor.contains(el)));
-}
+
 /* 筆記工具 */
 fontSel.onchange = ()=> exec("fontSize", sizeToCommand(fontSel.value));
 bBold.onclick   = ()=> toggleButton(bBold, ()=>exec("bold"));
@@ -890,36 +887,9 @@ imgNote.onchange = async e=>{
   imgNote.value="";
 };
 
-if (editor) {
-  editor.addEventListener("input", debounce(saveNotes, 400));
-} else {
-  document.addEventListener("DOMContentLoaded", () => {
-    const ed = document.querySelector("#editor");
-    if (ed) ed.addEventListener("input", debounce(saveNotes, 400));
-  }, { once:true });
-}
+editor.addEventListener("input", debounce(saveNotes, 400));
 
-function exec(cmd, val=null){
-  const area = (editor && editor.querySelector("#userNote")) || editor;
-  if (!area) return;
-
-  // 如果目前焦點「不在」筆記區，代表你是從工具列發指令
-  // 這時才主動把焦點放到筆記欄的末端，避免亂飛來飛去
-  if (!isInsideEditor(document.activeElement)) {
-    try {
-      area.focus();
-      const sel = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(area);
-      range.collapse(false); // 游標到最後
-      sel.removeAllRanges();
-      sel.addRange(range);
-    } catch {}
-  }
-
-  document.execCommand(cmd, false, val);
-  saveNotes();
-}
+function exec(cmd, val=null){ editor.focus(); document.execCommand(cmd, false, val); saveNotes(); }
 function toggleButton(btn, fn){ const was = btn.classList.contains("active"); editor.focus(); fn(); btn.classList.toggle("active", !was); saveNotes(); }
 function sizeToCommand(px){ // 1~7，做個近似
   const n = Math.max(1, Math.min(7, Math.round((parseInt(px,10)-8)/4)));
@@ -990,10 +960,10 @@ async function onScopeChange(){
   saveNotes();
   loadAnswersFromStorage();
 
-  const p = subjectPrefix(getSelVal(subjectSel));
-  const r = (getSelVal(roundSel) === "第一次") ? "1" : "2";
-  const qName = `${p}${getSelVal(yearSel)}_${r}.json`;
-  const aName = `${p}w${getSelVal(yearSel)}_${r}.json`;
+  const p = subjectPrefix(subjectSel.value);
+  const r = (roundSel.value==="第一次") ? "1" : "2";
+  const qName = `${p}${yearSel.value}_${r}.json`;
+  const aName = `${p}w${yearSel.value}_${r}.json`;
 
   const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName) + `?v=${Date.now()}`;
   const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName) + `?v=${Date.now()}`;
@@ -1111,7 +1081,6 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
 })();
 /* 初始化 */
 /* 初始化（完整覆蓋） */
-/* 初始化（完整覆蓋） */
 function init(){
   loadNotes();
   loadAnswersFromStorage();
@@ -1119,12 +1088,7 @@ function init(){
   // 一進來就依照預設選項嘗試載入 data/題目 與 data/答案
   onScopeChange();
 }
-// 確保 DOM 都在再啟動
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init, { once: true });
-} else {
-  init();
-}
+init();
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
 window.addEventListener("message", (e)=>{
   const msg = e.data || {};
