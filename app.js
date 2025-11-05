@@ -83,14 +83,46 @@ const txtColor = $("#txtColor"), hlColor = $("#hlColor"), bHL = $("#bHL");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
 
 /* 題庫載入 */
-const btnLoadQ = $("#btnLoadQ"), btnLoadA = $("#btnLoadA");
-const qFile = $("#qFile"), aFile = $("#aFile");
+/* 題庫載入（完全移除舊的手動載入元件） */
+(function nukeManualLoaders(){
+  // 0) 先放一個 CSS 保險絲（即使 JS 還沒跑，也先把它們藏起來）
+  const css = document.createElement("style");
+  css.textContent = `
+    #btnLoadQ, #btnLoadA, #qFile, #aFile { display: none !important; visibility: hidden !important; }
+  `;
+  document.head.appendChild(css);
 
-[btnLoadQ, btnLoadA, qFile, aFile].forEach(el=>{
-  if(!el) return;
-  try { el.remove(); } catch {}
-  if(el && el.style) el.style.display = "none";
-});
+  // 1) DOM 完成後再確實 remove（避免腳本先於 DOM 執行）
+  function removeNow(){
+    ["#btnLoadQ","#btnLoadA","#qFile","#aFile"].forEach(sel=>{
+      const el = document.querySelector(sel);
+      if (el && el.remove) try{ el.remove(); }catch{}
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", removeNow, {once:true});
+  } else {
+    removeNow();
+  }
+
+  // 2) 若有框架/其他腳本「晚點」動態加回來，再用 MutationObserver 砍掉
+  const obs = new MutationObserver(muts=>{
+    muts.forEach(m=>{
+      m.addedNodes && m.addedNodes.forEach(node=>{
+        if(!(node instanceof Element)) return;
+        if (["btnLoadQ","btnLoadA","qFile","aFile"].some(id => node.id === id)) {
+          try{ node.remove(); }catch{}
+        }
+        // 頁面某區塊整段被替換時，也掃一遍
+        ["#btnLoadQ","#btnLoadA","#qFile","#aFile"].forEach(sel=>{
+          const el = node.querySelector?.(sel);
+          if (el) try{ el.remove(); }catch{}
+        });
+      });
+    });
+  });
+  obs.observe(document.documentElement, { childList:true, subtree:true });
+})();
 /* 小工具 */
 const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
