@@ -240,7 +240,7 @@ function loadNoteForCurrent(){
 
   const explainHTML = q.explanation
     ? `
-      <div id="explainBlock" class="explain-block" contenteditable="false"
+      <div id="explainBlock" class="explain-block" contenteditable="true"
            style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:8px; padding-bottom:6px;">
         <b>詳解：</b> ${escapeHTML(q.explanation)}
       </div>
