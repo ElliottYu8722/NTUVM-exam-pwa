@@ -1,3 +1,16 @@
+/* 基本狀態 */
+const state = {
+  questions: [],          // [{id,text,options:{A..D},image?}]
+  answers: {},            // {"1":"B", ...} 或 "1":"A/B"
+  index: 0,
+  user: {},               // {"1":"A", ...}
+  mode: "browse",         // "browse" | "quiz" | "review"
+  reviewOrder: [],        // 錯題索引清單
+  reviewPos: 0,
+  remain: 60 * 60,        // 秒
+  timerId: null,
+  dark: true
+};
 /* ====== 路徑設定（依你的 repo 結構） ====== */
 const CONFIG = {
   // 如果你的資料夾其實叫 dataa，就把 "./data" 改成 "./dataa"
