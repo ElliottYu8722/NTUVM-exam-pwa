@@ -190,20 +190,7 @@ function loadNotes(){
   try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
 }
-function loadNoteForCurrent(){
-  const q = state.questions[state.index];
-  if(!q){ editor.innerHTML=""; return; }
 
-  const saved = state._notes?.[keyForNote(q.id)] || "";
-  const explain = q.explanation
-    ? `<div class="explain-block" style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:6px; padding-bottom:4px;">
-         <b>詳解：</b> ${escapeHTML(q.explanation)}
-       </div>`
-    : "";
-
-  // ✅ 詳解在上方、筆記內容在下方
-  editor.innerHTML = explain + saved;
-}
 function defaultNoteHTML(q){
   const exp = (q.explanation ?? "").trim();
   if(!exp){
@@ -254,14 +241,7 @@ function ensureNoteSeeded(q){
   }
 }
 
-function loadNoteForCurrent(){
-  const q = state.questions[state.index];
-  if(!q){ editor.innerHTML=""; return; }
 
-  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
-  const k = keyForNote(q.id);
-  editor.innerHTML = state._notes?.[k] || "";
-}
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
   if(!q){ editor.innerHTML=""; return; }
