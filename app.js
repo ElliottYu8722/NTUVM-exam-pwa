@@ -175,6 +175,7 @@ function highlightList(){
 
 /* 題目顯示 */
 /* 題目顯示（完整覆蓋） */
+/* 題目顯示（完整覆蓋） */
 function renderQuestion(){
   const q = state.questions[state.index];
   if(!q){ 
@@ -187,7 +188,7 @@ function renderQuestion(){
 
   qNum.textContent = `第 ${q.id} 題`;
 
-  // 題幹＋（可選）顯示答案
+  // 題幹 +（可選）顯示答案
   let html = `${escapeHTML(q.text)}`;
   if(showAns.checked && state.answers && state.answers[String(q.id)]){
     const ca = state.answers[String(q.id)];
@@ -197,8 +198,8 @@ function renderQuestion(){
 
   // 圖片（補上資料夾前綴）
   if(q.image){
-    const raw = resolveImage(q.image);
-    const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now(); // 硬避免舊快取
+    const raw  = resolveImage(q.image);
+    const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now();
     qImg.src = raw + bust;
     qImg.classList.remove("hidden");
   }else{
@@ -207,35 +208,44 @@ function renderQuestion(){
   }
 
   // 選項
-  qOpts.innerHTML="";
+  qOpts.innerHTML = "";
   const ua = (state.user[String(q.id)]||"").toUpperCase();
   const letters = ["A","B","C","D"];
   const correctSet = new Set(String(state.answers[String(q.id)]||"").toUpperCase().split("/").filter(Boolean));
 
+  // 👉 browse：純文字；quiz/review：顯示圓圈（radio）
+  const showRadio = (state.mode==="quiz" || state.mode==="review");
+
   letters.forEach(L=>{
-    const line = document.createElement("label");
-    line.style.display="flex"; 
-    line.style.alignItems="center"; 
+    const line = document.createElement("div");
+    line.style.display="flex";
+    line.style.alignItems="center";
     line.style.gap="10px";
 
-    const rb = document.createElement("input");
-    rb.type = "radio"; 
-    rb.name = "opt";
-    rb.disabled = (state.mode!=="quiz" && state.mode!=="review"); // 瀏覽模式不可點
-    rb.checked = (ua===L);
-    rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
+    if (showRadio){
+      const rb = document.createElement("input");
+      rb.type = "radio";
+      rb.name = "opt";
+      rb.disabled = (state.mode==="review");   // 回顧不可再改
+      rb.checked  = (ua===L);
+      rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
+      line.appendChild(rb);
+    }
 
     const span = document.createElement("span");
     span.innerText = `${L}. ${q.options?.[L]??""}`;
 
     if(state.mode==="review"){
-      if(correctSet.has(L)) { 
-        span.innerText += "（正解）"; 
-        span.style.color="#c40000"; 
+      if (ua === L) {
+        span.innerText += "（你選）";
+        span.style.color = "#6aa0ff";
+      }
+      if (correctSet.has(L)) {
+        span.innerText += "（正解）";
+        span.style.color = "#c40000";
       }
     }
 
-    line.appendChild(rb); 
     line.appendChild(span);
     qOpts.appendChild(line);
   });
@@ -279,8 +289,19 @@ function stepReview(delta){
 }
 
 /* 顯示答案切換 */
+/* 顯示答案：只留左側核取方塊；把舊的切換按鈕拔掉 */
 showAns.onchange = ()=> renderQuestion();
-btnToggleAns.onclick = ()=>{ showAns.checked = !showAns.checked; renderQuestion(); };
+
+(function killToggleAns(){
+  try{
+    const t = document.getElementById("btnToggleAns");
+    if (t) t.remove();
+    // 雙保險：即使其他模板又塞回來也隱藏
+    const css = document.createElement("style");
+    css.textContent = `#btnToggleAns{display:none !important;}`;
+    document.head.appendChild(css);
+  }catch{}
+})();
 
 /* 測驗控制 */
 bindTapClick(btnExam, enterFullscreenQuiz);
