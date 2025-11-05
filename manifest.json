@@ -1,0 +1,20 @@
+{
+  "name": "獸醫師國考順利通過程式",
+  "short_name": "國考通過程式",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f9ff",
+  "theme_color": "#2f74ff",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
