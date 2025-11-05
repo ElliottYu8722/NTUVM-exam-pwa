@@ -580,7 +580,9 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
       img.style.touchAction = "manipulation";
     });
   });
-
+<style>
+  html, body { touch-action: manipulation; }
+</style>
   // 5)（建議）在 HTML <head> 放入或動態加入 viewport，避免雙指縮放
   // 若你能改 HTML，放：
   // <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
