@@ -153,7 +153,16 @@ function loadNotes(){
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
   if(!q){ editor.innerHTML=""; return; }
-  editor.innerHTML = state._notes?.[keyForNote(q.id)] || "";
+
+  const saved = state._notes?.[keyForNote(q.id)] || "";
+  const explain = q.explanation
+    ? `<div class="explain-block" style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:6px; padding-bottom:4px;">
+         <b>詳解：</b> ${escapeHTML(q.explanation)}
+       </div>`
+    : "";
+
+  // ✅ 詳解在上方、筆記內容在下方
+  editor.innerHTML = explain + saved;
 }
 
 
