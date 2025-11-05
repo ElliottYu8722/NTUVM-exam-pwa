@@ -422,8 +422,8 @@ async function onScopeChange(){
   const qName = `${p}${yearSel.value}_${r}.json`;
   const aName = `${p}w${yearSel.value}_${r}.json`;
 
-  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName);
-  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName);
+  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName) + `?v=${Date.now()}`;
+  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName) + `?v=${Date.now()}`;
 
   let loadedQ = false, loadedA = false;
 
