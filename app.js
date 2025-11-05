@@ -115,10 +115,6 @@ function loadNoteForCurrent(){
   editor.innerHTML = state._notes?.[keyForNote(q.id)] || "";
 }
 
-/* 題庫載入 */
-btnLoadQ.onclick = () => qFile.click();
-btnLoadA.onclick = () => aFile.click();
-
 
 
 /* 題號列表 */
