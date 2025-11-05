@@ -375,14 +375,18 @@ function summarizeChoices(){
   return Object.entries(cnt).map(([k,v])=>`${k}:${v}`).join(",");
 }
 
-/* ===（取代整段）作答紀錄匯出：Excel 友善 + 頁面檢視 === */
-btnRecords.onclick = ()=>{
-  let arr=[]; 
-  try{ arr=JSON.parse(localStorage.getItem("examRecords")||"[]"); }catch{}
-  if(!arr.length){ 
-    alert("目前沒有作答紀錄。"); 
-    return; 
+/* 作答紀錄檢視（不下載、不另開頁） */
+bindTapClick(btnRecords, showRecords);
+
+function showRecords(){
+  let arr=[];
+  try{ arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); }catch{}
+  if(!arr.length){
+    alert("目前沒有作答紀錄。");
+    return;
   }
+  openRecordsViewer(arr); // 只顯示，不下載
+}
 
   // 1) 產生 Excel 友善 CSV（UTF-8 with BOM）
   const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
@@ -414,12 +418,12 @@ function csvEscape(s){
 }
 
 /* 簡易檢視器（新視窗） */
-/* 內嵌檢視器（頁內浮層，不跳頁，iPad 也有關閉鍵） */
+/* 內嵌檢視器（頁內浮層，不下載、不跳頁） */
 function openRecordsViewer(arr){
-  // 1) 確保樣式只注入一次
-  if (!document.getElementById("records-viewer-style")) {
+  // 注入樣式（只注入一次）
+  if (!document.getElementById("rv-style")) {
     const style = document.createElement("style");
-    style.id = "records-viewer-style";
+    style.id = "rv-style";
     style.textContent = `
       .rv-mask{
         position: fixed; inset: 0; background: rgba(0,0,0,.45);
@@ -444,9 +448,8 @@ function openRecordsViewer(arr){
         color: var(--fg); cursor: pointer; font-size: 14px;
       }
       .rv-btn:hover{ border-color: var(--accent); color: var(--accent); }
-      .rv-hint{ color: var(--muted); font-size: 12px; padding: 6px 14px 0; }
       .rv-body{ overflow: auto; padding: 10px 14px 14px; }
-      /* 表格：固定欄寬＋自動換行 */
+      /* 表格固定欄寬＋自動換行，避免擠成一長條 */
       .rv-table{ width: 100%; border-collapse: collapse; table-layout: fixed; }
       .rv-table th, .rv-table td{
         border: 1px solid var(--border); padding: 8px;
@@ -457,7 +460,7 @@ function openRecordsViewer(arr){
         position: sticky; top: 0; background: var(--bg);
         z-index: 1;
       }
-      /* 欄寬（可調整） */
+      /* 欄寬可依需要調整 */
       .rv-table col.c-date   { width: 140px; }
       .rv-table col.c-subj   { width: 120px; }
       .rv-table col.c-year   { width: 70px; }
@@ -476,7 +479,7 @@ function openRecordsViewer(arr){
     document.head.appendChild(style);
   }
 
-  // 2) 建立浮層
+  // 建立浮層
   const mask  = document.createElement("div");  mask.className  = "rv-mask";
   const card  = document.createElement("div");  card.className  = "rv-card";
   const head  = document.createElement("div");  head.className  = "rv-head";
@@ -485,48 +488,16 @@ function openRecordsViewer(arr){
 
   const spacer = document.createElement("div"); spacer.className = "rv-spacer";
 
-  const btnDownload = document.createElement("button");
-  btnDownload.className = "rv-btn";
-  btnDownload.textContent = "再下載 CSV";
-  btnDownload.onclick = ()=> {
-    // 直接重用頁面既有的 CSV 產生邏輯
-    try{
-      let arr2=[];
-      arr2 = JSON.parse(localStorage.getItem("examRecords")||"[]");
-      if(!arr2.length){ alert("沒有可下載的作答紀錄。"); return; }
-      const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
-      const lines = [ headers.join(",") ];
-      arr2.forEach(r=>{
-        lines.push([
-          r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
-        ].map(csvEscape).join(","));
-      });
-      const BOM = "\uFEFF";
-      const csv = BOM + lines.join("\n");
-      const url = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
-      const a = document.createElement("a");
-      a.href = url; a.download = "作答紀錄_可用Excel開啟.csv"; a.click();
-      setTimeout(()=>URL.revokeObjectURL(url), 1000);
-    }catch(e){ alert("下載失敗"); console.error(e); }
-  };
-
   const btnClose = document.createElement("button");
   btnClose.className = "rv-btn";
-  btnClose.textContent = "返回";
+  btnClose.textContent = "關閉";
   btnClose.onclick = ()=> mask.remove();
 
   head.appendChild(title);
   head.appendChild(spacer);
-  head.appendChild(btnDownload);
   head.appendChild(btnClose);
 
-  const hint = document.createElement("div");
-  hint.className = "rv-hint";
-  hint.textContent = "提示：這裡是頁內檢視（不會跳出新視窗）。如要另存表格，點右上角「再下載 CSV」。";
-
-  const body = document.createElement("div"); body.className = "rv-body";
-
-  // 3) 繪表
+  const body  = document.createElement("div");  body.className  = "rv-body";
   const table = document.createElement("table"); table.className = "rv-table";
   table.innerHTML = `
     <colgroup>
@@ -545,17 +516,13 @@ function openRecordsViewer(arr){
 
   arr.forEach(r=>{
     const tr = document.createElement("tr");
-    const cells = [
-      r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score,
-      r.wrongIds, r.wrongDetail, r.summary
-    ];
-    tr.innerHTML = cells.map(c=>`<td>${escapeHTML(String(c??""))}</td>`).join("");
+    const cells = [r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary];
+    tr.innerHTML = cells.map(c=>`<td>${escapeHTML(String(c ?? ""))}</td>`).join("");
     tbody.appendChild(tr);
   });
 
   body.appendChild(table);
   card.appendChild(head);
-  card.appendChild(hint);
   card.appendChild(body);
   mask.appendChild(card);
   document.body.appendChild(mask);
