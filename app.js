@@ -20,24 +20,25 @@ function pathJoin(...parts){
 /* 解析題目 JSON 的 image 欄位：若是相對檔名，補上 data/圖片/ 前綴 */
 function resolveImage(src){
   if(!src) return "";
-  // 給絕對/完整網址或以 ./、/ 開頭的，直接用
-  if (/^https?:\/\//.test(src) || src.startsWith("./") || src.startsWith("/")) return src;
-  // 否則視為 repo 內相對檔名，補 data/圖片/
-  return pathJoin(CONFIG.basePath, CONFIG.dirs.images, src);
+  let s = String(src).trim();
+
+  // 外部網址直接用
+  if (/^https?:\/\//i.test(s)) return s;
+
+  // 去掉前綴 "./" 或 "/"，統一路徑
+  s = s.replace(/^\.\//, "").replace(/^\/+/, "");
+
+  // 已經帶 data/ 前綴就直接回傳
+  if (s.startsWith("data/")) return s;
+
+  // 若是 "圖片/xxx.png"（或原本 JSON 寫成 "./圖片/xxx.png" 被上面去掉了）
+  if (s.startsWith("圖片/")) {
+    return pathJoin(CONFIG.basePath, s); // -> data/圖片/xxx.png
+  }
+
+  // 否則視為單純檔名：補成 data/圖片/檔名
+  return pathJoin(CONFIG.basePath, CONFIG.dirs.images, s);
 }
-/* 基本狀態 */
-const state = {
-  questions: [],          // [{id,text,options:{A..D},image?}]
-  answers: {},            // {"1":"B", ...} 或 "1":"A/B"
-  index: 0,
-  user: {},               // {"1":"A", ...}
-  mode: "browse",         // "browse" | "quiz" | "review"
-  reviewOrder: [],        // 錯題索引清單
-  reviewPos: 0,
-  remain: 60 * 60,        // 秒
-  timerId: null,
-  dark: true
-};
 
 /* DOM */
 const $ = sel => document.querySelector(sel);
@@ -164,8 +165,9 @@ function renderQuestion(){
 
   // 圖片（補上資料夾前綴）
   if(q.image){
-    const imgSrc = resolveImage(q.image);
-    qImg.src = imgSrc;
+    const raw = resolveImage(q.image);
+    const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now(); // 硬避免舊快取
+    qImg.src = raw + bust;
     qImg.classList.remove("hidden");
   }else{
     qImg.classList.add("hidden");
