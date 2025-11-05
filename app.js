@@ -606,7 +606,7 @@ function toast(msg){
     zIndex:9999,fontSize:"14px"
   });
   document.body.appendChild(el);
-  toastTimer=setTimeout(()=>el.remove(),1800);
+  toastTimer=setTimeout(()=>el.remove(),1000);
 }
 
 /* 工具：debounce */
