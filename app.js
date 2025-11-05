@@ -433,9 +433,15 @@ function enterFullscreenQuiz(){
       const span = document.createElement("span");
       span.innerText = `${L}. ${q.options?.[L]??""}`;
 
-      if(qs.mode==="review" && correctSet.has(L)){
-        span.innerText += "（正解）";
-        span.style.color = "#c40000";
+      if(qs.mode==="review"){
+        if (ua === L) {
+          span.innerText += "（你選）";
+          span.style.color = "#6aa0ff";  // 你選的答案藍色
+        }
+        if (correctSet.has(L)) {
+          span.innerText += "（正解）";
+          span.style.color = "#c40000";  // 正解紅色
+        }
       }
 
       line.appendChild(rb);
