@@ -73,7 +73,15 @@ const btnExam = $("#btnExam"), btnSubmit = $("#btnSubmit"), btnClose = $("#btnCl
 const timerBadge = $("#timer"), reviewTag = $("#reviewTag");
 
 const btnRecords = $("#btnRecords"), btnTheme = $("#btnTheme");
-
+function bindTapClick(el, handler){
+  if(!el) return;
+  const fire = (e)=>{
+    try{ e.preventDefault(); e.stopPropagation(); }catch{}
+    handler(e);
+  };
+  el.addEventListener("click",    fire, {passive:false});
+  el.addEventListener("touchend", fire, {passive:false});
+}
 /* 筆記 */
 const fontSel = $("#fontSel");
 const editor = $("#editor");
@@ -268,9 +276,9 @@ showAns.onchange = ()=> renderQuestion();
 btnToggleAns.onclick = ()=>{ showAns.checked = !showAns.checked; renderQuestion(); };
 
 /* 測驗控制 */
-btnExam.onclick = startQuiz;
-btnSubmit.onclick = submitQuiz;
-btnClose.onclick = closeQuiz;
+bindTapClick(btnExam,  startQuiz);
+bindTapClick(btnSubmit, submitQuiz);
+bindTapClick(btnClose,  closeQuiz);
 
 function startQuiz(){
   if(!state.questions.length || !Object.keys(state.answers).length){
