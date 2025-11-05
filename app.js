@@ -36,10 +36,12 @@ const STORAGE = {
   try { localStorage.removeItem("notes"); } catch {}
   try { localStorage.removeItem("notesMeta"); } catch {}
 
-  // 也把早期可能留下的奇怪 key 格式做個掃描清掉（保守作法）
   try {
     Object.keys(localStorage).forEach(k=>{
-      // 舊版可能用到的暫時鍵名或測試鍵名（視你過去情況可再加）
+      // 跳過新版本要保留的 key
+      if (k === STORAGE.notes || k === STORAGE.notesMeta || k === STORAGE.migrated) return;
+
+      // 只清除舊版或測試時遺留的 notes 類鍵名
       if (/^(note|notes?)(_.*)?$/i.test(k)) {
         try { localStorage.removeItem(k); } catch {}
       }
@@ -48,7 +50,6 @@ const STORAGE = {
 
   localStorage.setItem(STORAGE.migrated, "true");
 })();
-
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
   return parts
