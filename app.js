@@ -279,18 +279,16 @@ btnToggleAns.onclick = ()=>{ showAns.checked = !showAns.checked; renderQuestion(
 /* 測驗控制 */
 bindTapClick(btnExam, enterFullscreenQuiz);
 /* ========= 全螢幕測驗模式（覆蓋主頁，無彈窗） ========= */
+/* ========= 全螢幕測驗模式（無「顯示答案」功能） ========= */
 function enterFullscreenQuiz(){
-  // 檢查題庫與答案是否已載入
   if(!state.questions.length || !Object.keys(state.answers).length){
     alert("請先載入題目與答案。");
     return;
   }
 
-  // 鎖住頁面滾動
   const prevOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
 
-  // 建立遮罩與容器
   const mask = document.createElement("div");
   mask.id = "fsQuizMask";
   mask.style.cssText = `
@@ -299,7 +297,6 @@ function enterFullscreenQuiz(){
     display:flex; flex-direction:column;
   `;
 
-  // 內嵌樣式（只注入一次）
   if(!document.getElementById("fs-quiz-style")){
     const css = document.createElement("style");
     css.id = "fs-quiz-style";
@@ -335,7 +332,6 @@ function enterFullscreenQuiz(){
     document.head.appendChild(css);
   }
 
-  // 全螢幕 UI
   mask.innerHTML = `
     <div class="fs-topbar">
       <span class="fs-badge">科目：<span id="fsSubj"></span></span>
@@ -344,9 +340,6 @@ function enterFullscreenQuiz(){
       <span class="fs-badge" id="fsTimer">剩餘 60:00</span>
       <span class="fs-badge fs-hidden" id="fsReviewTag">回顧模式（僅看錯題）</span>
       <span class="fs-spacer"></span>
-      <label class="fs-badge" style="display:flex;gap:6px;align-items:center">
-        <input id="fsShowAns" type="checkbox"> 顯示答案
-      </label>
       <button id="fsSubmit" class="fs-btn">提交測驗</button>
       <button id="fsClose"  class="fs-btn">關閉</button>
     </div>
@@ -360,57 +353,41 @@ function enterFullscreenQuiz(){
         <div class="fs-nav">
           <button id="fsPrev" class="fs-btn">上一題</button>
           <button id="fsNext" class="fs-btn">下一題</button>
-          <span class="fs-spacer"></span>
-          <button id="fsToggleAns" class="fs-btn">切換顯示答案</button>
         </div>
       </div>
     </div>
   `;
   document.body.appendChild(mask);
 
-  // 取得元素
   const fs = {
     mask,
     fsSubj: $("#fsSubj"), fsYear: $("#fsYear"), fsRound: $("#fsRound"),
     fsTimer: $("#fsTimer"), fsReviewTag: $("#fsReviewTag"),
     fsQNum: $("#fsQNum"), fsQText: $("#fsQText"), fsQImg: $("#fsQImg"), fsQOpts: $("#fsQOpts"),
     fsPrev: $("#fsPrev"), fsNext: $("#fsNext"),
-    fsSubmit: $("#fsSubmit"), fsClose: $("#fsClose"),
-    fsShowAns: $("#fsShowAns"), fsToggleAns: $("#fsToggleAns"),
+    fsSubmit: $("#fsSubmit"), fsClose: $("#fsClose")
   };
 
-  // 這個 fullscreen quiz 自己的狀態（不動你原本 state.index）
   const qs = {
-    mode: "quiz",           // "quiz" | "review"
+    mode: "quiz",
     index: 0,
     reviewOrder: [],
     reviewPos: 0,
     remain: 60*60,
-    timerId: null,
-    showAns: false
+    timerId: null
   };
 
-  // 初始化標籤
   fs.fsSubj.textContent  = subjectSel.value;
   fs.fsYear.textContent  = yearSel.value;
   fs.fsRound.textContent = roundSel.value;
-  fs.fsShowAns.checked   = false;
 
-  // 綁定
   bindTapClick(fs.fsPrev,  ()=> { if(qs.mode==="review"){ stepReview(-1); } else { if(qs.index>0) qs.index--; } renderFS(); });
   bindTapClick(fs.fsNext,  ()=> { if(qs.mode==="review"){ stepReview( 1); } else { if(qs.index<state.questions.length-1) qs.index++; } renderFS(); });
   bindTapClick(fs.fsSubmit, ()=> submitFS());
   bindTapClick(fs.fsClose,  ()=> closeFS());
-  fs.fsShowAns.addEventListener("change", ()=>{ qs.showAns = fs.fsShowAns.checked; renderFS(); });
-  bindTapClick(fs.fsToggleAns, ()=>{ fs.fsShowAns.checked = !fs.fsShowAns.checked; qs.showAns = fs.fsShowAns.checked; renderFS(); });
 
-  // 計時
   tickFS(); qs.timerId = setInterval(tickFS, 1000);
-
-  // 首次渲染
   renderFS();
-
-  /* ---- 內部函式 ---- */
 
   function renderFS(){
     const q = state.questions[qs.index];
@@ -422,18 +399,9 @@ function enterFullscreenQuiz(){
       return;
     }
 
-    // 題號
     fs.fsQNum.textContent = `第 ${q.id} 題`;
+    fs.fsQText.innerHTML = escapeHTML(q.text);
 
-    // 題幹 + 可選答案
-    let html = `${escapeHTML(q.text)}`;
-    if(qs.showAns && state.answers && state.answers[String(q.id)]){
-      const ca = state.answers[String(q.id)];
-      html = `<div style="color:#caa;margin-bottom:8px">答案：${escapeHTML(ca)}</div>` + html;
-    }
-    fs.fsQText.innerHTML = html;
-
-    // 圖片
     if(q.image){
       const raw = resolveImage(q.image);
       const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now();
@@ -444,7 +412,6 @@ function enterFullscreenQuiz(){
       fs.fsQImg.removeAttribute("src");
     }
 
-    // 選項
     fs.fsQOpts.innerHTML = "";
     const ua = (state.user[String(q.id)]||"").toUpperCase();
     const letters = ["A","B","C","D"];
@@ -459,18 +426,16 @@ function enterFullscreenQuiz(){
       const rb = document.createElement("input");
       rb.type = "radio";
       rb.name = "fs-opt";
-      rb.disabled = false; // 全螢幕 quiz/ review 皆可切換（review 僅顯示正解標示）
+      rb.disabled = (qs.mode==="review");
       rb.checked = (ua===L);
       rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
 
       const span = document.createElement("span");
       span.innerText = `${L}. ${q.options?.[L]??""}`;
 
-      if(qs.mode==="review"){
-        if(correctSet.has(L)){
-          span.innerText += "（正解）";
-          span.style.color = "#c40000";
-        }
+      if(qs.mode==="review" && correctSet.has(L)){
+        span.innerText += "（正解）";
+        span.style.color = "#c40000";
       }
 
       line.appendChild(rb);
@@ -478,10 +443,6 @@ function enterFullscreenQuiz(){
       fs.fsQOpts.appendChild(line);
     });
 
-    // 標籤與回顧提示
-    fs.fsSubj.textContent  = subjectSel.value;
-    fs.fsYear.textContent  = yearSel.value;
-    fs.fsRound.textContent = roundSel.value;
     fs.fsReviewTag.classList.toggle("fs-hidden", qs.mode!=="review");
   }
 
@@ -500,7 +461,6 @@ function enterFullscreenQuiz(){
   }
 
   function submitFS(){
-    // 計分
     let correct=0, wrong=[];
     state.questions.forEach((q,idx)=>{
       const qid = String(q.id);
@@ -546,7 +506,6 @@ function enterFullscreenQuiz(){
     if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
     try{ document.body.removeChild(mask); }catch{}
     document.body.style.overflow = prevOverflow || "";
-    // 回到原頁狀態（瀏覽）
     state.mode="browse";
     renderQuestion();
   }
