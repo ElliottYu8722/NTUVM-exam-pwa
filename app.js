@@ -233,8 +233,7 @@ function renderQuestion(){
 
   bSubj.textContent = subjectSel.value;
   bYear.textContent = yearSel.value;
-  bRound.textContent = roundSel.value.replace("一次","");
-
+  bRound.textContent = roundSel.value;
   highlightList();
   loadNoteForCurrent();
 }
