@@ -640,7 +640,7 @@ function summarizeChoices(){
   });
   return Object.entries(cnt).map(([k,v])=>`${k}:${v}`).join(",");
 }
-
+bindTapClick(btnRecords, showRecords);
 function appendRecord(row){
   let arr = [];
   try { arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); } catch { arr = []; }
@@ -648,8 +648,7 @@ function appendRecord(row){
   localStorage.setItem("examRecords", JSON.stringify(arr));
 }
 
-/* 作答紀錄檢視（不下載、不另開頁） */
-bindTapClick(btnRecords, showRecords);
+
 
 function showRecords(){
   let arr=[];
