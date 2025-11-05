@@ -138,7 +138,9 @@ const subjectPrefix = s => ({
 }[s] || "x");
 
 function keyForNote(qid){
-  return `${subjectSel.value}|${yearSel.value}|${roundSel.value}|${qid}`;
+  const p = subjectPrefix(subjectSel.value);
+  const r = roundSel.value === "第一次" ? "1" : "2";
+  return `${p}${yearSel.value}_${r}|${qid}`;
 }
 function saveNotes(){
   const q = state.questions[state.index];
