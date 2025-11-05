@@ -1,20 +1,13 @@
 {
-  "name": "獸醫師國考順利通過程式",
-  "short_name": "國考通過程式",
+  "name": "獸醫師國考（PWA）",
+  "short_name": "國考PWA",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f6f9ff",
+  "background_color": "#0a0a0a",
   "theme_color": "#2f74ff",
+  "lang": "zh-Hant",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
