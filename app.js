@@ -281,17 +281,32 @@ bindTapClick(btnSubmit, submitQuiz);
 bindTapClick(btnClose,  closeQuiz);
 
 function startQuiz(){
-  if(!state.questions.length || !Object.keys(state.answers).length){
-    alert("請先載入題目與答案。");
-    return;
-  }
-  state.mode="quiz";
-  state.remain = 60*60; // 60 分鐘
+  // 若有舊計時，先停掉
+  if (state.timerId) { clearInterval(state.timerId); state.timerId = null; }
+
+  // 清空「目前科目/年份/梯次」的作答（state + localStorage）
+  const key = nsKey();                 // 例如 ans|a|113|1
+  state.user = {};                     // 清空記憶中的作答
+  try { localStorage.removeItem(key); } catch {}
+
+  // 重置回顧狀態與題目索引
+  state.reviewOrder = [];
+  state.reviewPos = 0;
+  state.index = 0;
+
+  // 進入測驗模式並重新計時
+  state.mode = "quiz";
+  state.remain = 60 * 60; // 60 分鐘
+
+  // 顯示/隱藏相關 UI
   timerBadge.classList.remove("hidden");
   btnSubmit.classList.remove("hidden");
   btnClose.classList.remove("hidden");
   reviewTag.classList.add("hidden");
-  tick(); state.timerId = setInterval(tick, 1000);
+
+  // 啟動計時並刷新畫面
+  tick();
+  state.timerId = setInterval(tick, 1000);
   renderQuestion();
 }
 function closeQuiz(){
