@@ -182,7 +182,7 @@ function defaultNoteHTML(q){
   }
   // 詳解預設是可編輯的（大家可改），下面留一塊給自行延伸
   return `
-    <div class="explain-editable" style="color:#aaa; font-style:italic;">
+    <div class="explain-editable" style="color:#aaa; ">
       <b>詳解（可編輯）</b>：${escapeHTML(exp)}
     </div>
     <div style="border-top:1px dashed #666; margin:6px 0;"></div>
