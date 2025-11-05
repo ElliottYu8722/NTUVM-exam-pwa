@@ -641,9 +641,6 @@ function summarizeChoices(){
   return Object.entries(cnt).map(([k,v])=>`${k}:${v}`).join(",");
 }
 
-/* 作答紀錄檢視（不下載、不另開頁） */
-bindTapClick(btnRecords, showRecords);
-
 function appendRecord(row){
   let arr = [];
   try { arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); } catch { arr = []; }
@@ -668,7 +665,9 @@ function showRecords(){
 function openRecordsViewer(arr){
   // 注入樣式（只注入一次）
   if (document.getElementById("rv-mask")) return;
-
+  const mask = document.createElement("div");
+  mask.className = "rv-mask";
+  mask.id = "rv-mask";  // ✅ 這是紀錄用的浮層 ID
   if (!document.getElementById("rv-style")) {
     const style = document.createElement("style");
     style.id = "rv-style";
