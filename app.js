@@ -22,6 +22,33 @@ const CONFIG = {
   }
 };
 
+/* ====== 本機儲存鍵（升級到 V2，完全避開舊資料） ====== */
+const STORAGE = {
+  notes:     "notes_v2",
+  notesMeta: "notesMeta_v2",
+  migrated:  "notes_migrated_to_v2"
+};
+
+/* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免「所有第1題都一樣」的污染 */
+(function migrateNotesOnce(){
+  if (localStorage.getItem(STORAGE.migrated) === "true") return;
+
+  try { localStorage.removeItem("notes"); } catch {}
+  try { localStorage.removeItem("notesMeta"); } catch {}
+
+  // 也把早期可能留下的奇怪 key 格式做個掃描清掉（保守作法）
+  try {
+    Object.keys(localStorage).forEach(k=>{
+      // 舊版可能用到的暫時鍵名或測試鍵名（視你過去情況可再加）
+      if (/^(note|notes?)(_.*)?$/i.test(k)) {
+        try { localStorage.removeItem(k); } catch {}
+      }
+    });
+  } catch {}
+
+  localStorage.setItem(STORAGE.migrated, "true");
+})();
+
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
   return parts
@@ -156,12 +183,12 @@ function saveNotes(){
   meta.userTouched = true;
   state._notesMeta[k] = meta;
 
-  localStorage.setItem("notes", JSON.stringify(state._notes));
-  localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
+  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
 }
 function loadNotes(){
-  try{ state._notes = JSON.parse(localStorage.getItem("notes")||"{}"); }catch{ state._notes = {}; }
-  try{ state._notesMeta = JSON.parse(localStorage.getItem("notesMeta")||"{}"); }catch{ state._notesMeta = {}; }
+  try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
+  try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
 }
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
@@ -182,9 +209,9 @@ function defaultNoteHTML(q){
   if(!exp){
     return `<div class="user-note"></div>`;
   }
-  // 詳解預設是可編輯的（大家可改），下面留一塊給自行延伸
+  // 詳解預設可編輯，底下留空給使用者
   return `
-    <div class="explain-editable" style="color:#aaa; ">
+    <div class="explain-editable" style="color:#aaa;">
       <b>詳解（可編輯）</b>：${escapeHTML(exp)}
     </div>
     <div style="border-top:1px dashed #666; margin:6px 0;"></div>
@@ -199,6 +226,7 @@ function hashStr(s){
   for(let i=0;i<s.length;i++) h = ((h<<5)+h) + s.charCodeAt(i);
   return String(h >>> 0);
 }
+
 function ensureNoteSeeded(q){
   const k = keyForNote(q.id);
   state._notes     = state._notes     || {};
@@ -211,8 +239,8 @@ function ensureNoteSeeded(q){
     // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
     state._notes[k] = defaultNoteHTML(q);
     state._notesMeta[k] = { seedHash: curHash, userTouched: false };
-    localStorage.setItem("notes", JSON.stringify(state._notes));
-    localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
     return;
   }
 
@@ -221,9 +249,18 @@ function ensureNoteSeeded(q){
     state._notes[k] = defaultNoteHTML(q);
     meta.seedHash = curHash;
     state._notesMeta[k] = meta;
-    localStorage.setItem("notes", JSON.stringify(state._notes));
-    localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
   }
+}
+
+function loadNoteForCurrent(){
+  const q = state.questions[state.index];
+  if(!q){ editor.innerHTML=""; return; }
+
+  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
+  const k = keyForNote(q.id);
+  editor.innerHTML = state._notes?.[k] || "";
 }
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
