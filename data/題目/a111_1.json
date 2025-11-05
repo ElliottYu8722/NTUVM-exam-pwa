@@ -1,0 +1,883 @@
+[
+    {
+        "id": 1,
+        "text": "1.有關凝固壞死 （coagulative necrosis），何者正確？①壞死細胞仍保持基本細胞輪廓 ②壞死細胞之細胞質呈均質嗜伊紅性 ③壞死細胞之細胞核有核濃縮、核破裂、核溶解及消失之現象 ④常與化膿性細菌感染有關",
+        "options": {
+            "A": "①②③",
+            "B": "①②④",
+            "C": "①③④",
+            "D": "②③④"
+        },
+        "image": null
+    },
+    {
+        "id": 2,
+        "text": "2.有關濕性壞疽（wet gangrene），何者正確？①病灶呈現濕潤、柔軟、紅棕色至黑色 ②常見於母羊葡萄球菌乳房炎 ③常見於凍傷引起之四肢末端病變 ④常見於動物因藥物或食物灌流引發之異物性肺炎",
+        "options": {
+            "A": "①②③",
+            "B": "①②④",
+            "C": "①③④",
+            "D": "②③④"
+        },
+        "image": null
+    },
+    {
+        "id": 3,
+        "text": "3.細胞凋亡之組織病理學特徵，何者正確？①會誘發炎症反應 ②有細胞染色質濃縮及斷裂現象 ③有凋亡小體（apoptotic bodies）的形成 ④細胞膜會形成突起小泡（blebbing）",
+        "options": {
+            "A": "①②③",
+            "B": "①②④",
+            "C": "①③④",
+            "D": "②③④"
+        },
+        "image": null
+    },
+    {
+        "id": 4,
+        "text": "4.下列何種變化，細胞仍有恢復的可能？",
+        "options": {
+            "A": "溶素體（lysosome）破裂、核濃縮（pyknosis）",
+            "B": "核破裂（karyorrhexis）",
+            "C": "內質網及粒線體腫脹、核染質結塊（chromatin clumping）",
+            "D": "出現 myelin figures、核溶解（karyolysis）"
+        },
+        "image": null
+    },
+    {
+        "id": 5,
+        "text": "5.有關引發轉移性鈣化（metastatic calcification）的因子，何者錯誤？",
+        "options": {
+            "A": "副甲狀腺功能低下症",
+            "B": "維生素 D 過多",
+            "C": "腎衰竭",
+            "D": "腎上腺皮質功能亢進"
+        },
+        "image": null
+    },
+    {
+        "id": 6,
+        "text": "6.有關 ceroid，何者錯誤？",
+        "options": {
+            "A": "維生素 E 缺乏引起",
+            "B": "虹鱒餵食過量不飽和脂肪酸或品質不良的魚粉飼料，可導致肝細胞質內出現 ceroid 色素",
+            "C": "脂肪細胞變性產生，又稱為黃脂病",
+            "D": "又稱棕色萎縮（brown atrophy）"
+        },
+        "image": null
+    },
+    {
+        "id": 7,
+        "text": "7.有關炭末沉著症（anthracosis），何者錯誤？",
+        "options": {
+            "A": "肺臟表面及肺門淋巴結具有散發針狀黑色小點",
+            "B": "嚴重會導致輕微肺纖維化",
+            "C": "細胞內的黑色炭末可抵抗有機溶劑的作用",
+            "D": "吸入的炭末顆粒僅蓄積於肺泡腔內"
+        },
+        "image": null
+    },
+    {
+        "id": 8,
+        "text": "8.有關性腺畸胎瘤（teratoma），何者最正確？",
+        "options": {
+            "A": "中線處裂溝的封閉不全",
+            "B": "成雙器官合一",
+            "C": "兩性組織器官的混合",
+            "D": "發育中組織的異位"
+        },
+        "image": null
+    },
+    {
+        "id": 9,
+        "text": "9.乳牛罹患急性鼓脹症經獸醫師以粗針經腹壁瘤胃快速洩氣後，牛隻卻突然四肢癱軟俯臥，全身黏膜呈現蒼白，且血壓快速降低後不久死亡，最可能的致死原因為：",
+        "options": {
+            "A": "粗針被破傷風菌污染",
+            "B": "腹腔壓力迅速降低使後腔靜脈血液無法回流心臟",
+            "C": "洩漏性飼料進入腹腔，引發第一型過敏反應",
+            "D": "獸醫師洩氣針刺穿，使大腸腸壁大量出血"
+        },
+        "image": null
+    },
+    {
+        "id": 10,
+        "text": "10.下列何種組織之微血管具有非連續性基底層（discontinuous basal lamina）構造？",
+        "options": {
+            "A": "腎絲球體",
+            "B": "小腸絨毛",
+            "C": "脾臟",
+            "D": "肺臟"
+        },
+        "image": null
+    },
+    {
+        "id": 11,
+        "text": "11.下列何者不是由血管內皮細胞產生的凝血因子？",
+        "options": {
+            "A": "thromboxane A2",
+            "B": "thrombomodulin",
+            "C": "tissue plasminogen activator",
+            "D": "tissue factor pathway inhibitor"
+        },
+        "image": null
+    },
+    {
+        "id": 12,
+        "text": "12.下列何者與腎性水腫較無關連？",
+        "options": {
+            "A": "腎類澱粉病",
+            "B": "蛋白尿",
+            "C": "球蛋白流失比白蛋白多",
+            "D": "腎小管內玻璃樣小滴或圓柱物"
+        },
+        "image": null
+    },
+    {
+        "id": 13,
+        "text": "13.在急性炎症防禦機制中，下列何者需要免疫球蛋白的參與？",
+        "options": {
+            "A": "leukocytes adhesion cascade",
+            "B": "complement classical pathway",
+            "C": "intrinsic fibrinolytic pathway",
+            "D": "arachidonic acid metabolites"
+        },
+        "image": null
+    },
+    {
+        "id": 14,
+        "text": "14.下列何者與第三型過敏反應之作用機制無關？",
+        "options": {
+            "A": "phase I 為 immune complex formation",
+            "B": "phase II 為 immune complex deposition",
+            "C": "phase III 為 immune complex-mediated inflammation",
+            "D": "phase IV 為 immune complex degeneration and lysis"
+        },
+        "image": null
+    },
+    {
+        "id": 15,
+        "text": "15.有關肉芽組織，何者錯誤？",
+        "options": {
+            "A": "一般外觀上呈紅色",
+            "B": "組織較為脆弱，容易出血",
+            "C": "主要由纖維芽細胞、結締組織及新生的血管組成",
+            "D": "組織內血管與纖維芽細胞的生長方向一致"
+        },
+        "image": null
+    },
+    {
+        "id": 16,
+        "text": "16.下列何者不是急性炎症反應的變化？",
+        "options": {
+            "A": "小血管擴張",
+            "B": "纖維芽細胞增殖",
+            "C": "大量滲出液蓄積",
+            "D": "釋放趨化物質"
+        },
+        "image": null
+    },
+    {
+        "id": 17,
+        "text": "17.炎症反應中，協助白血球由血管內移出的黏附因子存在於：",
+        "options": {
+            "A": "白血球表面及血漿中",
+            "B": "僅存於血管內皮細胞表面",
+            "C": "白血球及血管內皮細胞表面",
+            "D": "血漿中及白血球和血管內皮細胞表面"
+        },
+        "image": null
+    },
+    {
+        "id": 18,
+        "text": "18.腫瘤的生成大部分可區分為起始期（initiation stage）、促進期（promotion stage）及漸進期（progression stage）三階段，各階段的變化何者正確？",
+        "options": {
+            "A": "起始期主要為致癌物造成不可逆的 DNA 損傷",
+            "B": "促進期通常是致癌物持續刺激導致細胞的增生",
+            "C": "漸進期為損傷細胞增生後進行惡性轉化之不可逆癌化作用",
+            "D": "於 promotor 長期刺激下，無需經由起始期，也可能導致腫瘤的發生"
+        },
+        "image": null
+    },
+    {
+        "id": 19,
+        "text": "19.有關犬貓組織球肉瘤複合症（histiocytic sarcoma complex），何者錯誤？",
+        "options": {
+            "A": "為巨噬細胞非腫瘤性增生性疾病",
+            "B": "淋巴結常腫大",
+            "C": "常伴隨貧血",
+            "D": "可能會出現噬紅血球現象"
+        },
+        "image": null
+    },
+    {
+        "id": 20,
+        "text": "20.下圖是貓舌切片，正確診斷為：",
+        "options": {
+            "A": "橫紋肌瘤",
+            "B": "平滑肌瘤",
+            "C": "鱗狀上皮細胞癌",
+            "D": "血色食道蟲性肉芽腫"
+        },
+        "image": "./圖片/a111-20.jpg"
+    },
+    {
+        "id": 21,
+        "text": "21.動物缺鐵會產生下列何種貧血？①小球性（microcytic） ②大球性（macrocytic） ③淺色性（hypochromatic）④高色性（hyperchromatic）",
+        "options": {
+            "A": "僅①③",
+            "B": "僅①④",
+            "C": "僅②③",
+            "D": "②③④"
+        },
+        "image": null
+    },
+    {
+        "id": 22,
+        "text": "22.有關骨髓異生性症候群（myelodysplastic syndrome），何者正確？①好發於犬及貓 ②貓感染 feline immunodeficiency virus 會誘發本病發生 ③末梢血液有細胞減少現象（cytopenias） ④腫瘤細胞於骨髓內會出現凋亡現象",
+        "options": {
+            "A": "①②③",
+            "B": "①②④",
+            "C": "①③④",
+            "D": "②③④"
+        },
+        "image": null
+    },
+    {
+        "id": 23,
+        "text": "23.豬脾臟梗塞常見於下列那一種疾病？",
+        "options": {
+            "A": "急性豬丹毒",
+            "B": "豬瘟",
+            "C": "口蹄疫",
+            "D": "多發性漿膜炎"
+        },
+        "image": null
+    },
+    {
+        "id": 24,
+        "text": "24.犬注射巴比妥類（barbiturate）麻醉藥安樂死時，在脾臟可見：",
+        "options": {
+            "A": "脾臟扭轉",
+            "B": "紅色壞死斑",
+            "C": "脾臟萎縮",
+            "D": "脾臟腫大"
+        },
+        "image": null
+    },
+    {
+        "id": 25,
+        "text": "25.有關心肌細胞，何者正確？",
+        "options": {
+            "A": "再生能力不佳",
+            "B": "心肌束在左右心間以 Z 字形排列",
+            "C": "心房與心室之心肌細胞厚度皆相近",
+            "D": "細胞核位於心肌細胞的邊緣"
+        },
+        "image": null
+    },
+    {
+        "id": 26,
+        "text": "26.14 歲黃金獵犬死於慢性心衰竭。生前影像顯示二尖瓣閉鎖不全及二尖瓣末端呈球狀，病理解剖可見：①瓣膜腱索斷裂 ②黏液性瓣膜變性 ③左心室擴張 ④心室間中隔裂口或缺損",
+        "options": {
+            "A": "③④",
+            "B": "②④",
+            "C": "②③",
+            "D": "①④"
+        },
+        "image": null
+    },
+    {
+        "id": 27,
+        "text": "27.有關主動脈下狹窄（subaortic stenosis），何者正確？",
+        "options": {
+            "A": "比真性主動脈狹窄罕見",
+            "B": "貓、牛與馬常見",
+            "C": "在左心室流出幹（outflow tract）位置常形成突起之纖維環",
+            "D": "其主要組織成分為肥大心肌纖維"
+        },
+        "image": null
+    },
+    {
+        "id": 28,
+        "text": "28.5 歲波斯貓猝死，解剖時心臟如下二圖所示，最正確的診斷為：",
+        "options": {
+            "A": "法洛氏四重畸形",
+            "B": "牛磺酸缺乏症",
+            "C": "肥厚性心肌病",
+            "D": "先天性心室中隔缺損"
+        },
+        "image": "./圖片/a111-28.jpg"
+    },
+    {
+        "id": 29,
+        "text": "29.有關纖維素性心包膜炎，何者錯誤？",
+        "options": {
+            "A": "多是由血行性感染導致",
+            "B": "牛創傷性瘤胃炎常見此病變",
+            "C": "綿羊鏈球菌感染常見此病變",
+            "D": "豬 Glasser's disease 有此病變"
+        },
+        "image": null
+    },
+    {
+        "id": 30,
+        "text": "30.限制性心肌病（restrictive cardiomyopathy）之主要病變特徵為：",
+        "options": {
+            "A": "心肌肥大",
+            "B": "心內膜纖維化",
+            "C": "單純性左右心室擴張",
+            "D": "心肌炎症細胞浸潤"
+        },
+        "image": null
+    },
+    {
+        "id": 31,
+        "text": "31.下列何者不是肺泡腔內玻璃樣膜（hyaline membrane）之主要組成物？",
+        "options": {
+            "A": "血漿蛋白",
+            "B": "鈣鹽",
+            "C": "表面張力素",
+            "D": "壞死的肺細胞碎片"
+        },
+        "image": null
+    },
+    {
+        "id": 32,
+        "text": "32.有關馬腺疫（strangles），何者錯誤？",
+        "options": {
+            "A": "致病原為鼻腔之正常菌叢",
+            "B": "感染初期病變常見於咽背淋巴結",
+            "C": "可引發支氣管性肺炎",
+            "D": "可引發喉部半癱（hemiplegia）"
+        },
+        "image": null
+    },
+    {
+        "id": 33,
+        "text": "33.有關喉頭水腫，何者錯誤？",
+        "options": {
+            "A": "豬水腫病常見此病變",
+            "B": "馬之出血性紫斑症常見此病變",
+            "C": "聲帶通常不受影響",
+            "D": "會厭部呈現肥厚狀"
+        },
+        "image": null
+    },
+    {
+        "id": 34,
+        "text": "34.有關間質性肺炎，何者錯誤？",
+        "options": {
+            "A": "感染途徑可經由吸入或血行",
+            "B": "典型病變以多發局部性為主",
+            "C": "肺臟表面偶可見肋骨壓痕",
+            "D": "併發細菌感染時，常伴隨肺水腫病變"
+        },
+        "image": null
+    },
+    {
+        "id": 35,
+        "text": "35.下列何種病原與牛感染 Mannheimia haemolytica所引發之肺臟病變相似？",
+        "options": {
+            "A": "豬感染 Actinobacillus pleuropneumoniae",
+            "B": "狗感染 Histoplasma capsulatum",
+            "C": "貓感染 Chlamydophila felis",
+            "D": "馬感染 Rhodococcus equi"
+        },
+        "image": null
+    },
+    {
+        "id": 36,
+        "text": "36.動物慢性呼吸道感染，bronchus-associated lymphoid tissue（BALT）常呈現何種變化？",
+        "options": {
+            "A": "hyperplasia",
+            "B": "edema",
+            "C": "serous inflammation",
+            "D": "hemorrhage"
+        },
+        "image": null
+    },
+    {
+        "id": 37,
+        "text": "37.有關犬舍咳（kennel cough），何者錯誤？",
+        "options": {
+            "A": "不同來源犬隻混養後較易發生",
+            "B": "常為多種病原混合感染所致",
+            "C": "犬腺病毒為感染病因之一",
+            "D": "主要病變為肉芽腫性肺炎"
+        },
+        "image": null
+    },
+    {
+        "id": 38,
+        "text": "38.下列何者與腹水的發生較無關？",
+        "options": {
+            "A": "腸道淋巴管擴張症",
+            "B": "腎衰竭",
+            "C": "急性豬瘟",
+            "D": "約尼氏病（Johne's disease）"
+        },
+        "image": null
+    },
+    {
+        "id": 39,
+        "text": "39.流產小豬可見全身臟器多發性壞死，肝細胞內有嗜酸性核內包含體，最可能的病原為：",
+        "options": {
+            "A": "豬假性狂犬病病毒",
+            "B": "豬生殖與呼吸綜合症病毒",
+            "C": "豬第二型環狀病毒",
+            "D": "豬小病毒"
+        },
+        "image": null
+    },
+    {
+        "id": 40,
+        "text": "40.下列何者會導致動脈炎而造成梗塞？",
+        "options": {
+            "A": "馬圓蟲（Strongylus vulgaris）",
+            "B": "捻轉胃蟲（Haemonchus contortus）",
+            "C": "毛樣線蟲（Trichostrongylus spp.）",
+            "D": "奧他胃蟲（Ostertagia spp.）"
+        },
+        "image": null
+    },
+    {
+        "id": 41,
+        "text": "41.過度使用 glucocorticoid，主要引起：",
+        "options": {
+            "A": "肝細胞醣原蓄積",
+            "B": "肝細胞脂肪變性",
+            "C": "肝臟大區域性出血",
+            "D": "肝門脈區纖維化"
+        },
+        "image": null
+    },
+    {
+        "id": 42,
+        "text": "42.有關腸道球蟲症，何者錯誤？",
+        "options": {
+            "A": "鏡檢常看到腸黏膜上皮的脫落與再生",
+            "B": "鏡檢腸黏膜上皮細胞可看到球蟲的配子與卵囊",
+            "C": "肉眼可見腸黏膜有灰白色斑點",
+            "D": "病變均僅侷限於小腸"
+        },
+        "image": null
+    },
+    {
+        "id": 43,
+        "text": "43.有關犬小病毒腸炎，何者錯誤？",
+        "options": {
+            "A": "幼犬較易感染",
+            "B": "小腸腺窩上皮細胞顯著壞死",
+            "C": "可於壞死區內細胞發現嗜酸性質內包含體",
+            "D": "可引起出血性腸炎"
+        },
+        "image": null
+    },
+    {
+        "id": 44,
+        "text": "44.有關新生仔豬 enterotoxic colibacillosis，何者錯誤？",
+        "options": {
+            "A": "病灶為腸道黏膜上皮細胞變性壞死",
+            "B": "大腸桿菌附著於小腸微絨毛並產生毒素",
+            "C": "以急性黃色水樣下痢及消瘦為特徵",
+            "D": "因腸道黏膜上皮的電解質及水分運送功能受到擾亂"
+        },
+        "image": null
+    },
+    {
+        "id": 45,
+        "text": "45.下列何種病原於牛常引起敗血性栓子且造成腎梗塞？",
+        "options": {
+            "A": "Trueperella pyogenes （昔稱 Arcanobacterium pyogenes）",
+            "B": "Actinobacillus equuli",
+            "C": "Erysipelothrix rhusiopathiae",
+            "D": "Streptococcus suis"
+        },
+        "image": null
+    },
+    {
+        "id": 46,
+        "text": "46.下列何者會引起荳蔻肝？",
+        "options": {
+            "A": "急性局部鬱血",
+            "B": "慢性局部鬱血",
+            "C": "慢性被動性鬱血",
+            "D": "急性全身鬱血"
+        },
+        "image": null
+    },
+    {
+        "id": 47,
+        "text": "47.下列寄生蟲或其幼蟲，其寄生部位不在胃部？",
+        "options": {
+            "A": "馬 Habronema spp.",
+            "B": "豬 Hyostrongylus rubidus",
+            "C": "牛 Haemonchus contortus",
+            "D": "馬 Strongylus spp."
+        },
+        "image": null
+    },
+    {
+        "id": 48,
+        "text": "48.有關絲球體過濾障蔽（glomerular filtration barrier），何者錯誤？",
+        "options": {
+            "A": "由具孔隙的微血管內皮細胞、基底膜及足細胞所組成",
+            "B": "能否通過此障蔽由物質大小及其電位決定",
+            "C": "白蛋白及免疫球蛋白不易通過此障蔽",
+            "D": "其功能喪失的臨床病徵是寡尿或無尿"
+        },
+        "image": null
+    },
+    {
+        "id": 49,
+        "text": "49.有關缺氧性腎小管壞死，何者正確？①ethylene glycol 中毒與此機制有關 ②腎小管基底膜可能受損 ③是急性腎衰竭的原因 ④近端及遠端腎小管都會受損",
+        "options": {
+            "A": "①②③",
+            "B": "②③④",
+            "C": "①②④",
+            "D": "①③④"
+        },
+        "image": null
+    },
+    {
+        "id": 50,
+        "text": "50.有關慢性間質性腎炎，何者正確？①病變常可見纖維化及腎元萎縮 ②為犬貓常見的老年性疾病 ③可伴隨非再生性貧血或纖維性骨營養不良症 ④常有寡尿或無尿的症狀",
+        "options": {
+            "A": "①②③",
+            "B": "②③④",
+            "C": "①②④",
+            "D": "①③④"
+        },
+        "image": null
+    },
+    {
+        "id": 51,
+        "text": "51.有關肌紅素尿腎病（myoglobinuric nephrosis），何者錯誤？",
+        "options": {
+            "A": "與肌肉溶解性疾病有關",
+            "B": "因肌紅素對腎小管上皮具直接細胞毒性所致",
+            "C": "鏡下可見大量肌紅素圓柱體堆積於腎小管腔中",
+            "D": "鏡下病變不易和血紅素尿腎病（hemoglobinuric nephrosis）區分"
+        },
+        "image": null
+    },
+    {
+        "id": 52,
+        "text": "52.公羊的尿道結石最常發現於：",
+        "options": {
+            "A": "輸尿管",
+            "B": "陰莖前端的尿道突起",
+            "C": "陰莖後端",
+            "D": "乙狀彎曲"
+        },
+        "image": null
+    },
+    {
+        "id": 53,
+        "text": "53.草食獸的尿道結石成分主要為：",
+        "options": {
+            "A": "磷酸鹽",
+            "B": "胱胺酸",
+            "C": "草酸鹽",
+            "D": "矽酸鹽"
+        },
+        "image": null
+    },
+    {
+        "id": 54,
+        "text": "54.下列何者是罹患狂犬病鼬獾之腦部特徵性病變？",
+        "options": {
+            "A": "",
+            "B": "",
+            "C": "",
+            "D": ""
+        },
+        "image": "./圖片/a111-54.jpg"
+    },
+    {
+        "id": 55,
+        "text": "55.下列何者不會造成腦部病變？",
+        "options": {
+            "A": "食鹽中毒",
+            "B": "鉛中毒",
+            "C": "汞中毒",
+            "D": "無機砷中毒"
+        },
+        "image": null
+    },
+    {
+        "id": 56,
+        "text": "56.有關眼球異常，何者錯誤？",
+        "options": {
+            "A": "小眼球症會發生在初生狗、貓、馬及牛",
+            "B": "小眼球症常與其他器官的畸形一起發生",
+            "C": "懷孕母豬缺乏維生素 E，可能會導致出生仔豬小眼球症",
+            "D": "懷孕母牛感染牛病毒性下痢病毒，可能產下小眼球症的仔牛"
+        },
+        "image": null
+    },
+    {
+        "id": 57,
+        "text": "57.某豬場部分經產母豬因眼球水晶體混濁而失明，何者正確？",
+        "options": {
+            "A": "此為青光眼，起因於視神經缺損所致",
+            "B": "此為玻璃狀體炎（hyalitis），起因於創傷後繼發視網膜炎所致",
+            "C": "此為白內障，起因於持續餵飼含氨基醣苷類抗生素或 hygromycin B 類驅蟲藥所致",
+            "D": "此為視網膜腫瘤，起因於感染日本腦炎病毒所致"
+        },
+        "image": null
+    },
+    {
+        "id": 58,
+        "text": "58.保育豬出現眼球震顫，切片下可見以下病變，最可能罹患：",
+        "options": {
+            "A": "化膿性全眼炎",
+            "B": "化膿性腦膜炎",
+            "C": "化膿性內耳炎",
+            "D": "眼球弓蟲感染症"
+        },
+        "image": "./圖片/a111-58.jpg"
+    },
+    {
+        "id": 59,
+        "text": "59.由糖尿病所引發的白內障，其水晶體病變通常由何處開始發生？",
+        "options": {
+            "A": "水晶體前端（anterior pole）",
+            "B": "水晶體赤道區（equator）",
+            "C": "水晶體核心部位（nucleus）",
+            "D": "水晶體後端（posterior pole）"
+        },
+        "image": null
+    },
+    {
+        "id": 60,
+        "text": "60.犬罹患犬瘟熱，腦部可能會出現：",
+        "options": {
+            "A": "腦軟化與脫髓鞘",
+            "B": "小腦出血",
+            "C": "非對稱性腦室水腫",
+            "D": "神經膠質細胞可見嗜鹼性質內包含體"
+        },
+        "image": null
+    },
+    {
+        "id": 61,
+        "text": "61.牛骨骼肌感染 Trueperella pyogenes （昔稱 Arcanobacterium pyogenes ）之病變為：",
+        "options": {
+            "A": "肌肉膿瘍",
+            "B": "出血性肌肉炎",
+            "C": "白肌病",
+            "D": "纖維素性肌肉炎"
+        },
+        "image": "./圖片/a111-61.jpg"
+    },
+    {
+        "id": 62,
+        "text": "62.有關纖維性骨營養不良症（fibrous osteodystrophy），何者正確？",
+        "options": {
+            "A": "因低磷高鈣的食物所引起",
+            "B": "病灶中骨組織的結構不受影響",
+            "C": "病灶中造骨細胞的數量減少",
+            "D": "與骨質過度重吸收作用有關"
+        },
+        "image": "./圖片/a111-62.jpg"
+    },
+    {
+        "id": 63,
+        "text": "63.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
+        "options": {
+            "A": "freemartinism",
+            "B": "male pseudohermaphrodite",
+            "C": "true hermaphrodite",
+            "D": "cryptorchidism"
+        },
+        "image": null
+    },
+    {
+        "id": 64,
+        "text": "64.有關犬神經性足底皮膚炎（neuropododermatitis）呈現四肢缺損症候群（acral mutilation syndromes），何者錯誤？",
+        "options": {
+            "A": "為飼料中維生素 C 缺乏導致周邊神經與皮膚上皮細胞凋亡所致",
+            "B": "為脊髓背根神經節之缺損所造成",
+            "C": "周邊神經纖維之變性及流失",
+            "D": "患犬因對痛覺失去敏感性，又因飼養於硬地環境，導致過度磨損而造成足底缺損"
+        },
+        "image": null
+    },
+    {
+        "id": 65,
+        "text": "65.有關馬 sarcoid，何者錯誤？",
+        "options": {
+            "A": "牛乳突瘤病毒可能引發本病",
+            "B": "好發於 1 歲以內的幼齡馬匹",
+            "C": "常見於頭部及腿部",
+            "D": "病變特徵包含上皮及纖維芽細胞增生"
+        },
+        "image": null
+    },
+    {
+        "id": 66,
+        "text": "66.下列何者會發生皮膚棘皮層細胞溶解（acantholysis）？",
+        "options": {
+            "A": "口蹄疫",
+            "B": "豬痘",
+            "C": "毛囊蟲症",
+            "D": "天疱瘡"
+        },
+        "image": null
+    },
+    {
+        "id": 67,
+        "text": "67.下列何者是主要作用於造骨細胞（osteoblast）並啟動骨質再吸收的因子？",
+        "options": {
+            "A": "降鈣素",
+            "B": "副甲狀腺素",
+            "C": "甲狀腺素",
+            "D": "腦下垂體素"
+        },
+        "image": null
+    },
+    {
+        "id": 68,
+        "text": "68.有關黑面琵鷺肉毒桿菌中毒，何者正確？",
+        "options": {
+            "A": "頸部肌肉強直收縮，後弓反張",
+            "B": "頸部與翅膀肌肉呈鬆弛性麻痺下垂",
+            "C": "頸部與翅膀肌肉強直與收縮交替出現",
+            "D": "肉毒桿菌傷害肌膜導致肌漿質內離子濃度過高"
+        },
+        "image": null
+    },
+    {
+        "id": 69,
+        "text": "69.有關椎間板突出，何者錯誤？",
+        "options": {
+            "A": "若發生於矮種犬，通常在一歲以前即出現，進程迅速，纖維環（annulus fibrosus）完全破裂，髓核（nucleuspulposus）突出壓迫到脊髓",
+            "B": "若發生於老年動物，其進程緩慢，通常為纖維環（annulus fibrosus）突出所造成",
+            "C": "若向椎體的側面突出，會壓迫到脊神經",
+            "D": "若向椎體的腹面或側面突出，將隨時間發展逐漸引發關節硬固（ankylosis）"
+        },
+        "image": null
+    },
+    {
+        "id": 70,
+        "text": "70.正常關節軟骨肉眼下為光滑、呈淡藍色，當發現其失去光澤、略為粗糙且變成黃褐色時，則為軟骨發生：",
+        "options": {
+            "A": "鈣化與出血",
+            "B": "磨損及毛刷狀（fibrillation），並伴隨糜爛",
+            "C": "潰瘍",
+            "D": "骨質象牙化（eburnation）"
+        },
+        "image": null
+    },
+    {
+        "id": 71,
+        "text": "71.牛骨骼肌感染 Trueperella pyogenes （昔稱 Arcanobacterium pyogenes ）之病變為：",
+        "options": {
+            "A": "肌肉膿瘍",
+            "B": "出血性肌肉炎",
+            "C": "白肌病",
+            "D": "纖維素性肌肉炎"
+        },
+        "image": null
+    },
+    {
+        "id": 72,
+        "text": "72.有關纖維性骨營養不良症（fibrous osteodystrophy），何者正確？",
+        "options": {
+            "A": "因低磷高鈣的食物所引起",
+            "B": "病灶中骨組織的結構不受影響",
+            "C": "病灶中造骨細胞的數量減少",
+            "D": "與骨質過度重吸收作用有關"
+        },
+        "image": null
+    },
+    {
+        "id": 73,
+        "text": "73.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
+        "options": {
+            "A": "freemartinism",
+            "B": "male pseudohermaphrodite",
+            "C": "true hermaphrodite",
+            "D": "cryptorchidism"
+        },
+        "image": "./圖片/a111-73.jpg"
+    },
+    {
+        "id": 74,
+        "text": "74.下列何者可能與假性副甲狀腺功能亢進（pseudohyperparathyroidism）有關？",
+        "options": {
+            "A": "醫源性降鈣素（calcitonin）使用過多",
+            "B": "肛門囊頂漿腺腺癌（adenocarcinoma of apocrine gland of anal sac）",
+            "C": "原發性副甲狀腺功能亢進",
+            "D": "繼發性副甲狀腺功能低下"
+        },
+        "image": "./圖片/a111-74.jpg"
+    },
+    {
+        "id": 75,
+        "text": "75.有關嗜鉻細胞瘤（pheochromocytoma），何者錯誤？",
+        "options": {
+            "A": "為腎上腺皮質部的腫瘤",
+            "B": "較常發生在犬與牛",
+            "C": "具功能性的腫瘤會產生正腎上腺素",
+            "D": "臨床可見高血壓"
+        },
+        "image": null
+    },
+    {
+        "id": 76,
+        "text": "76.有關化學受器瘤（chemoreceptor neoplasm），何者正確？",
+        "options": {
+            "A": "主動脈體（aortic body）為唯一腫瘤細胞來源",
+            "B": "常見於深胸犬種",
+            "C": "主動脈體瘤發生位置通常在心基部",
+            "D": "主動脈體瘤通常不具功能性，對身體無危害"
+        },
+        "image": null
+    },
+    {
+        "id": 77,
+        "text": "77.有關馬 pituitary pars intermedia dysfunction，何者錯誤？",
+        "options": {
+            "A": "為馬常見的內分泌疾病",
+            "B": "曾被稱為馬庫欣氏病（equine Cushing's disease）",
+            "C": "患馬之 pars intermedia melanotrophs 會表現醣皮質激素接受體",
+            "D": "患馬腎上腺無明顯異常"
+        },
+        "image": null
+    },
+    {
+        "id": 78,
+        "text": "78.下列何者與甲狀腺功能不足無關？",
+        "options": {
+            "A": "有肥胖傾向及脫毛",
+            "B": "黏液水腫",
+            "C": "新生仔豬無毛或毛髮稀疏",
+            "D": "刺激軟骨內及骨骺板的骨化作用增加"
+        },
+        "image": null
+    },
+    {
+        "id": 79,
+        "text": "79.下列何者可能與假性副甲狀腺功能亢進（pseudohyperparathyroidism）有關？",
+        "options": {
+            "A": "醫源性降鈣素（calcitonin）使用過多",
+            "B": "肛門囊頂漿腺腺癌（adenocarcinoma of apocrine gland of anal sac）",
+            "C": "原發性副甲狀腺功能亢進",
+            "D": "繼發性副甲狀腺功能低下"
+        },
+        "image": null
+    },
+    {
+        "id": 80,
+        "text": "80.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
+        "options": {
+            "A": "freemartinism",
+            "B": "male pseudohermaphrodite",
+            "C": "true hermaphrodite",
+            "D": "cryptorchidism"
+        },
+        "image": null
+    }
+    
+]
