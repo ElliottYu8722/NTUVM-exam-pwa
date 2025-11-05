@@ -664,9 +664,7 @@ function showRecords(){
 function openRecordsViewer(arr){
   // 注入樣式（只注入一次）
   if (document.getElementById("rv-mask")) return;
-  const mask = document.createElement("div");
-  mask.className = "rv-mask";
-  mask.id = "rv-mask";  // ✅ 這是紀錄用的浮層 ID
+
   if (!document.getElementById("rv-style")) {
     const style = document.createElement("style");
     style.id = "rv-style";
@@ -697,7 +695,7 @@ function openRecordsViewer(arr){
     document.head.appendChild(style);
   }
 
-  const mask  = document.createElement("div");  mask.className  = "rv-mask";
+  const mask  = document.createElement("div");  mask.className  = "rv-mask"; mask.id = "rv-mask";
   const card  = document.createElement("div");  card.className  = "rv-card";
   const head  = document.createElement("div");  head.className  = "rv-head";
   const title = document.createElement("div");  title.className = "rv-title";  title.textContent = "作答紀錄";
