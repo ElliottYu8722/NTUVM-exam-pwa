@@ -165,10 +165,14 @@ const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
 }[s] || "x");
 
+function getSelVal(sel, def=""){
+  return sel && typeof sel.value === "string" ? sel.value : def;
+}
+
 function keyForNote(qid){
-  const p = subjectPrefix(subjectSel.value);
-  const r = roundSel.value === "第一次" ? "1" : "2";
-  return `${p}${yearSel.value}_${r}|${qid}`;
+  const p = subjectPrefix(getSelVal(subjectSel));
+  const r = getSelVal(roundSel) === "第一次" ? "1" : "2";
+  return `${p}${getSelVal(yearSel)}_${r}|${qid}`;
 }
 function saveNotes(){
   const q = state.questions[state.index];
@@ -350,9 +354,9 @@ function renderQuestion(){
     qOpts.appendChild(line);
   });
 
-  bSubj.textContent = subjectSel.value;
-  bYear.textContent = yearSel.value;
-  bRound.textContent = roundSel.value;
+  if (bSubj)  bSubj.textContent  = getSelVal(subjectSel);
+  if (bYear)  bYear.textContent  = getSelVal(yearSel);
+  if (bRound) bRound.textContent = getSelVal(roundSel);
   highlightList();
   loadNoteForCurrent();
 }
@@ -361,9 +365,9 @@ function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 
 /* 作答持久化（localStorage，以科目/年/梯次為命名空間） */
 function nsKey(){ 
-  const p = subjectPrefix(subjectSel.value);
-  const round = roundSel.value==="第一次" ? "1" : "2";
-  return `ans|${p}|${yearSel.value}|${round}`;
+  const p = subjectPrefix(getSelVal(subjectSel));
+  const round = getSelVal(roundSel) === "第一次" ? "1" : "2";
+  return `ans|${p}|${getSelVal(yearSel)}|${round}`;
 }
 function loadAnswersFromStorage(){
   try{ state.user = JSON.parse(localStorage.getItem(nsKey())||"{}"); }catch{ state.user={}; }
@@ -895,10 +899,18 @@ imgNote.onchange = async e=>{
   imgNote.value="";
 };
 
-editor.addEventListener("input", debounce(saveNotes, 400));
+if (editor) {
+  editor.addEventListener("input", debounce(saveNotes, 400));
+} else {
+  document.addEventListener("DOMContentLoaded", () => {
+    const ed = document.querySelector("#editor");
+    if (ed) ed.addEventListener("input", debounce(saveNotes, 400));
+  }, { once:true });
+}
 
 function exec(cmd, val=null){
-  const area = editor.querySelector("#userNote") || editor;
+  const area = (editor && editor.querySelector("#userNote")) || editor;
+  if (!area) return; // DOM 還沒好就先跳過，避免整支卡死
   area.focus();
   document.execCommand(cmd, false, val);
   saveNotes();
@@ -973,10 +985,10 @@ async function onScopeChange(){
   saveNotes();
   loadAnswersFromStorage();
 
-  const p = subjectPrefix(subjectSel.value);
-  const r = (roundSel.value==="第一次") ? "1" : "2";
-  const qName = `${p}${yearSel.value}_${r}.json`;
-  const aName = `${p}w${yearSel.value}_${r}.json`;
+  const p = subjectPrefix(getSelVal(subjectSel));
+  const r = (getSelVal(roundSel) === "第一次") ? "1" : "2";
+  const qName = `${p}${getSelVal(yearSel)}_${r}.json`;
+  const aName = `${p}w${getSelVal(yearSel)}_${r}.json`;
 
   const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName) + `?v=${Date.now()}`;
   const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName) + `?v=${Date.now()}`;
@@ -1094,6 +1106,7 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
 })();
 /* 初始化 */
 /* 初始化（完整覆蓋） */
+/* 初始化（完整覆蓋） */
 function init(){
   loadNotes();
   loadAnswersFromStorage();
@@ -1101,7 +1114,12 @@ function init(){
   // 一進來就依照預設選項嘗試載入 data/題目 與 data/答案
   onScopeChange();
 }
-init();
+// 確保 DOM 都在再啟動
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init, { once: true });
+} else {
+  init();
+}
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
 window.addEventListener("message", (e)=>{
   const msg = e.data || {};
