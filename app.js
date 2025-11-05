@@ -1,3 +1,30 @@
+/* ====== 路徑設定（依你的 repo 結構） ====== */
+const CONFIG = {
+  // 如果你的資料夾其實叫 dataa，就把 "./data" 改成 "./dataa"
+  basePath: "./data",
+  dirs: {
+    questions: "題目",
+    answers:   "答案",
+    images:    "圖片",
+  }
+};
+
+/* 路徑工具：安全拼接（避免多重斜線） */
+function pathJoin(...parts){
+  return parts
+    .filter(Boolean)
+    .map((s,i)=> i===0 ? String(s).replace(/\/+$/,'') : String(s).replace(/^\/+/,''))
+    .join('/');
+}
+
+/* 解析題目 JSON 的 image 欄位：若是相對檔名，補上 data/圖片/ 前綴 */
+function resolveImage(src){
+  if(!src) return "";
+  // 給絕對/完整網址或以 ./、/ 開頭的，直接用
+  if (/^https?:\/\//.test(src) || src.startsWith("./") || src.startsWith("/")) return src;
+  // 否則視為 repo 內相對檔名，補 data/圖片/
+  return pathJoin(CONFIG.basePath, CONFIG.dirs.images, src);
+}
 /* 基本狀態 */
 const state = {
   questions: [],          // [{id,text,options:{A..D},image?}]
@@ -114,14 +141,20 @@ function highlightList(){
 }
 
 /* 題目顯示 */
+/* 題目顯示（完整覆蓋） */
 function renderQuestion(){
   const q = state.questions[state.index];
   if(!q){ 
-    qNum.textContent=""; qText.textContent="請先載入題目"; qOpts.innerHTML=""; qImg.classList.add("hidden"); 
+    qNum.textContent=""; 
+    qText.textContent="請先載入題目"; 
+    qOpts.innerHTML=""; 
+    qImg.classList.add("hidden"); 
     return;
   }
+
   qNum.textContent = `第 ${q.id} 題`;
-  // 題幹
+
+  // 題幹＋（可選）顯示答案
   let html = `${escapeHTML(q.text)}`;
   if(showAns.checked && state.answers && state.answers[String(q.id)]){
     const ca = state.answers[String(q.id)];
@@ -129,12 +162,14 @@ function renderQuestion(){
   }
   qText.innerHTML = html;
 
-  // 圖片
+  // 圖片（補上資料夾前綴）
   if(q.image){
-    qImg.src = q.image;
+    const imgSrc = resolveImage(q.image);
+    qImg.src = imgSrc;
     qImg.classList.remove("hidden");
   }else{
     qImg.classList.add("hidden");
+    qImg.removeAttribute("src");
   }
 
   // 選項
@@ -145,21 +180,29 @@ function renderQuestion(){
 
   letters.forEach(L=>{
     const line = document.createElement("label");
-    line.style.display="flex"; line.style.alignItems="center"; line.style.gap="10px";
+    line.style.display="flex"; 
+    line.style.alignItems="center"; 
+    line.style.gap="10px";
+
     const rb = document.createElement("input");
-    rb.type = "radio"; rb.name = "opt";
+    rb.type = "radio"; 
+    rb.name = "opt";
     rb.disabled = (state.mode!=="quiz" && state.mode!=="review"); // 瀏覽模式不可點
     rb.checked = (ua===L);
     rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
-    const text = `${L}. ${q.options?.[L]??""}`;
+
     const span = document.createElement("span");
-    span.innerText = text;
+    span.innerText = `${L}. ${q.options?.[L]??""}`;
 
     if(state.mode==="review"){
-      // 顯示正解標示
-      if(correctSet.has(L)) { span.innerText += "（正解）"; span.style.color="#c40000"; }
+      if(correctSet.has(L)) { 
+        span.innerText += "（正解）"; 
+        span.style.color="#c40000"; 
+      }
     }
-    line.appendChild(rb); line.appendChild(span);
+
+    line.appendChild(rb); 
+    line.appendChild(span);
     qOpts.appendChild(line);
   });
 
@@ -170,7 +213,6 @@ function renderQuestion(){
   highlightList();
   loadNoteForCurrent();
 }
-
 /* 逃脫字元 */
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
@@ -368,31 +410,67 @@ btnTheme.onclick = ()=>{
 
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
 [yearSel, roundSel, subjectSel].forEach(sel=> sel.addEventListener("change", onScopeChange));
+/* 選單變更 → 自動載入 data/題目 與 data/答案 */
 async function onScopeChange(){
   saveNotes();
   loadAnswersFromStorage();
+
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value==="第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
   const aName = `${p}w${yearSel.value}_${r}.json`;
-  // 嘗試 fetch（若 404 就保持現狀）
+
+  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName);
+  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName);
+
+  let loadedQ = false, loadedA = false;
+
+  // 題目
   try{
-    const qRes = await fetch(`./題目/${qName}`, {cache:"no-store"});
+    const qRes = await fetch(qURL, { cache:"no-store" });
     if(qRes.ok){
-      state.questions = await qRes.json();
-      state.index = 0;
-      renderList();
+      const arr = await qRes.json();
+      if(Array.isArray(arr)){
+        state.questions = arr;
+        state.index = 0;
+        renderList();
+        loadedQ = true;
+      }else{
+        alert(`題目檔格式錯誤（不是陣列）：${qName}`);
+        state.questions = [];
+        renderList();
+      }
     }
-  }catch{}
+  }catch(e){
+    // ignore
+  }
+
+  // 答案
   try{
-    const aRes = await fetch(`./答案/${aName}`, {cache:"no-store"});
+    const aRes = await fetch(aURL, { cache:"no-store" });
     if(aRes.ok){
-      state.answers = await aRes.json();
+      const obj = await aRes.json();
+      if(obj && typeof obj === "object"){
+        state.answers = obj;
+        loadedA = true;
+      }else{
+        alert(`答案檔格式錯誤（不是物件）：${aName}`);
+        state.answers = {};
+      }
     }
-  }catch{}
+  }catch(e){
+    // ignore
+  }
+
+  if(!loadedQ){
+    toast(`找不到題目檔：${qName}`);
+  }
+  if(!loadedA){
+    toast(`找不到答案檔：${aName}`);
+  }
+
   renderQuestion();
 }
-
 /* 自動儲存提示 */
 let toastTimer=null;
 function toast(msg){
@@ -412,10 +490,12 @@ function toast(msg){
 function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); }; }
 
 /* 初始化 */
+/* 初始化（完整覆蓋） */
 function init(){
   loadNotes();
   loadAnswersFromStorage();
   renderList();
-  renderQuestion();
+  // 一進來就依照預設選項嘗試載入 data/題目 與 data/答案
+  onScopeChange();
 }
 init();
