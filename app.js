@@ -258,6 +258,12 @@ function nsKey(){
 function loadAnswersFromStorage(){
   try{ state.user = JSON.parse(localStorage.getItem(nsKey())||"{}"); }catch{ state.user={}; }
 }
+
+function resetUserAnswersForCurrentScope(){
+  try { localStorage.removeItem(nsKey()); } catch {}
+  state.user = {};
+}
+
 function persistAnswer(){
   localStorage.setItem(nsKey(), JSON.stringify(state.user));
 }
@@ -525,15 +531,20 @@ function startQuiz(){
     alert("請先載入題目與答案。");
     return;
   }
-  // 測驗一律在獨立視窗進行；把資料丟進去
-  openQuizWindow({
-    questions: state.questions,
-    answers: state.answers,
-    subj: subjectSel?.value || "",
-    year: yearSel?.value || "",
-    round: roundSel?.value || "",
-    duration: 60*60  // 秒
-  });
+
+  // ✅ 一開始就清除「當前科目/年/梯次」舊作答，避免帶入上一輪
+  resetUserAnswersForCurrentScope();
+
+  state.mode="quiz";
+  state.remain = 60*60; // 60 分鐘
+  timerBadge.classList.remove("hidden");
+  btnSubmit.classList.remove("hidden");
+  btnClose.classList.remove("hidden");
+  reviewTag.classList.add("hidden");
+  tick(); 
+  state.timerId = setInterval(tick, 1000);
+
+  renderQuestion();
 }
 
 function openQuizWindow(payload){
