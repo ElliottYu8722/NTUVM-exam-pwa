@@ -82,253 +82,7 @@ function bindTapClick(el, handler){
   el.addEventListener("click",    fire, {passive:false});
   el.addEventListener("touchend", fire, {passive:false});
 }
-// ====== 測驗用彈窗 HTML（無筆記、無選單）======
-const POPUP_HTML = `<!doctype html>
-<html lang="zh-Hant-TW">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<title>測驗模式</title>
-<style>
-:root{
-  --bg:#111; --fg:#fff; --muted:#aaa; --card:#1b1b1b; --border:#2a2a2a; --accent:#2f74ff;
-}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);}
-.wrap{max-width:980px;margin:0 auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-.topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.badge{padding:6px 10px;border:1px solid var(--border);border-radius:9999px}
-.timer{font-weight:700}
-.btn{padding:10px 14px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer}
-.btn:hover{border-color:var(--accent);color:var(--accent)}
-.card{border:1px solid var(--border);border-radius:16px;background:var(--card);padding:16px}
-.qtext{font-size:18px;line-height:1.6}
-.qimg{margin-top:10px;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--border)}
-.options{margin-top:10px;display:flex;flex-direction:column;gap:8px}
-.nav{display:flex;gap:8px;align-items:center;margin-top:14px}
-.spacer{flex:1}
-.hidden{display:none !important}
-.right{display:flex;gap:8px}
-.footer{color:var(--muted);font-size:12px;text-align:center;margin-top:8px}
-.q-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px}
-.q-item{padding:8px 10px;border:1px solid var(--border);border-radius:8px;text-align:center;cursor:pointer}
-.q-item.active{background:var(--accent);color:#fff}
-@media (max-width: 700px){ .right{width:100%; justify-content:space-between} }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="topbar">
-    <span class="badge" id="bTitle">測驗模式</span>
-    <span class="badge timer" id="timer">剩餘 60:00</span>
-    <span class="badge hidden" id="reviewTag">回顧模式（僅看錯題）</span>
-    <span class="spacer"></span>
-    <div class="right">
-      <button id="btnSubmit" class="btn">提交測驗</button>
-      <button id="btnClose" class="btn">關閉</button>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="badge" id="qNum" style="margin-bottom:8px">第 1 題</div>
-    <div class="qtext" id="qText">載入中…</div>
-    <img id="qImg" class="qimg hidden" alt="">
-    <div class="options" id="qOpts"></div>
-    <div class="nav">
-      <button id="prev" class="btn">上一題</button>
-      <button id="next" class="btn">下一題</button>
-      <span class="spacer"></span>
-      <button id="btnJump" class="btn">看題號</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="q-list" id="qList"></div>
-  </div>
-
-  <div class="footer">此視窗為獨立測驗介面；關閉後將把紀錄回傳到主頁。</div>
-</div>
-
-<script>
-(function(){
-  // 和主視窗通訊
-  window.opener && window.opener.postMessage({type:"QUIZ_READY"}, "*");
-
-  const state = {
-    questions: [],
-    answers: {},
-    user: {},
-    index: 0,
-    mode: "quiz",     // quiz | review
-    reviewOrder: [],
-    reviewPos: 0,
-    remain: 60*60,
-    timerId: null,
-  };
-
-  // 工具
-  const $ = s=>document.querySelector(s);
-
-  const bTitle = $("#bTitle");
-  const timerBadge = $("#timer"), reviewTag = $("#reviewTag");
-  const qNum=$("#qNum"), qText=$("#qText"), qImg=$("#qImg"), qOpts=$("#qOpts");
-  const qList=$("#qList");
-  const prevBtn=$("#prev"), nextBtn=$("#next");
-  const btnSubmit=$("#btnSubmit"), btnClose=$("#btnClose"), btnJump=$("#btnJump");
-
-  // 綁定（行動裝置 click/touch 安全器）
-  function bindTapClick(el, handler){
-    if(!el) return;
-    const fire = (e)=>{ try{e.preventDefault();e.stopPropagation();}catch{} handler(e); };
-    el.addEventListener("click", fire, {passive:false});
-    el.addEventListener("touchend", fire, {passive:false});
-  }
-
-  // 收到主頁傳來的題庫資料
-  window.addEventListener("message", (e)=>{
-    const msg = e.data || {};
-    if(msg.type === "QUIZ_DATA"){
-      const p = msg.payload || {};
-      state.questions = Array.isArray(p.questions)? p.questions : [];
-      state.answers   = (p.answers && typeof p.answers==='object')? p.answers : {};
-      state.user      = {};
-      state.index     = 0;
-      state.remain    = Math.max(1, parseInt(p.duration||3600,10));
-      bTitle.textContent = p.subj ? \`\${p.subj} 測驗\` : "測驗模式";
-
-      renderList();
-      renderQuestion();
-      tick(); state.timerId = setInterval(tick, 1000);
-    }
-  });
-
-  function renderList(){
-    qList.innerHTML="";
-    state.questions.forEach((q,i)=>{
-      const div=document.createElement("div");
-      div.className="q-item"+(i===state.index?" active":"");
-      div.textContent="第 "+q.id+" 題";
-      div.onclick=()=>{ state.index=i; renderQuestion(); highlightList(); };
-      qList.appendChild(div);
-    });
-  }
-  function highlightList(){ [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index)); }
-
-  function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-  function renderQuestion(){
-    const q = state.questions[state.index];
-    if(!q){ qNum.textContent=""; qText.textContent="無題目"; qOpts.innerHTML=""; qImg.classList.add("hidden"); return; }
-
-    qNum.textContent = "第 "+q.id+" 題";
-    qText.innerHTML = escapeHTML(q.text||"");
-
-    if(q.image){
-      qImg.src = String(q.image);
-      qImg.classList.remove("hidden");
-    }else{
-      qImg.classList.add("hidden");
-      qImg.removeAttribute("src");
-    }
-
-    qOpts.innerHTML="";
-    const ua = (state.user[String(q.id)]||"").toUpperCase();
-    const letters = ["A","B","C","D"];
-    const correctSet = new Set(String(state.answers[String(q.id)]||"").toUpperCase().split("/").filter(Boolean));
-
-    letters.forEach(L=>{
-      const line=document.createElement("label");
-      line.style.display="flex"; line.style.alignItems="center"; line.style.gap="10px";
-      const rb=document.createElement("input");
-      rb.type="radio"; rb.name="opt"; rb.checked=(ua===L); rb.disabled=(state.mode!=="quiz" && state.mode!=="review");
-      rb.onchange=()=>{ state.user[String(q.id)] = L; };
-      const span=document.createElement("span");
-      span.innerText=\`\${L}. \${q.options?.[L]??""}\`;
-      if(state.mode==="review" && correctSet.has(L)){ span.innerText += "（正解）"; span.style.color="#c40000"; }
-      line.appendChild(rb); line.appendChild(span); qOpts.appendChild(line);
-    });
-
-    highlightList();
-  }
-
-  function stepReview(delta){
-    if(!state.reviewOrder.length) return;
-    state.reviewPos = Math.min(Math.max(0, state.reviewPos+delta), state.reviewOrder.length-1);
-    state.index = state.reviewOrder[state.reviewPos];
-  }
-
-  function tick(){
-    state.remain--; if(state.remain<0) state.remain=0;
-    const m = String(Math.floor(state.remain/60)).padStart(2,"0");
-    const s = String(state.remain%60).padStart(2,"0");
-    timerBadge.textContent = \`剩餘 \${m}:\${s}\`;
-    if(state.remain===0){ submitQuiz(); }
-  }
-
-  function summarizeChoices(){
-    const cnt={A:0,B:0,C:0,D:0,"未答":0};
-    state.questions.forEach(q=>{
-      const ua=(state.user[String(q.id)]||"").toUpperCase();
-      if(cnt[ua]!=null) cnt[ua]++; else cnt["未答"]++;
-    });
-    return Object.entries(cnt).map(([k,v])=>\`\${k}:\${v}\`).join(",");
-  }
-
-  function submitQuiz(){
-    if(state.mode!=="quiz"){ window.close(); return; }
-    let correct=0, wrong=[];
-    state.questions.forEach((q,idx)=>{
-      const qid=String(q.id);
-      const caRaw=String(state.answers[qid]||"").toUpperCase();
-      const set=new Set(caRaw.split("/").filter(Boolean));
-      const ua=(state.user[qid]||"").toUpperCase();
-      if(set.has("ALL") || set.has(ua)){ correct++; } else { wrong.push({qid,idx,ua,ca:[...set].join("/")}); }
-    });
-    const total=state.questions.length;
-    const score= total? (correct/total*100).toFixed(2) : "0.00";
-    // 傳回主頁儲存紀錄
-    const row={
-      ts: new Date().toLocaleString(),
-      subj: bTitle.textContent.replace(/\\s*測驗$/,""),
-      year: "", round: "",
-      total, correct, score,
-      wrongIds: wrong.map(w=>w.qid).join(";") || "無",
-      wrongDetail: wrong.map(w=>\`\${w.qid}:\${w.ua||"-"}→\${w.ca||"-"}\`).join(";"),
-      summary: summarizeChoices()
-    };
-    try{ window.opener && window.opener.postMessage({type:"QUIZ_RECORD", row}, "*"); }catch{}
-
-    const goReview = confirm(\`測驗提交！\\n正確：\${correct}/\${total}\\n得分：\${score}\\n錯誤題號：\${row.wrongIds}\\n\\n要進入『僅看錯題』回顧模式嗎？\`);
-    if(goReview && wrong.length){
-      state.mode="review";
-      timerBadge.classList.add("hidden");
-      reviewTag.classList.remove("hidden");
-      state.reviewOrder = wrong.map(w=>w.idx);
-      state.reviewPos = 0;
-      state.index = state.reviewOrder[0];
-      renderQuestion();
-    }else{
-      window.close();
-    }
-  }
-
-  // 綁定
-  bindTapClick(prevBtn, ()=>{ if(state.mode==="review"){ stepReview(-1); } else { if(state.index>0) state.index--; } renderQuestion(); });
-  bindTapClick(nextBtn, ()=>{ if(state.mode==="review"){ stepReview(1); } else { if(state.index<state.questions.length-1) state.index++; } renderQuestion(); });
-  bindTapClick(btnSubmit, submitQuiz);
-  bindTapClick(btnClose, ()=> window.close());
-  bindTapClick(btnJump, ()=>{
-    const v = prompt("輸入要跳轉的題號：");
-    if(!v) return;
-    const idx = state.questions.findIndex(q=> String(q.id)===String(v.trim()));
-    if(idx>=0){ state.index=idx; renderQuestion(); }
-    else alert("找不到該題號");
-  });
-
-  // iOS 雙擊縮放保護
-  document.addEventListener("dblclick",(e)=>e.preventDefault(),{passive:false});
-})();
-</script>
-</body></html>`;
 /* 筆記 */
 const fontSel = $("#fontSel");
 const editor = $("#editor");
@@ -523,7 +277,280 @@ showAns.onchange = ()=> renderQuestion();
 btnToggleAns.onclick = ()=>{ showAns.checked = !showAns.checked; renderQuestion(); };
 
 /* 測驗控制 */
-bindTapClick(btnExam,  startQuiz);
+bindTapClick(btnExam, enterFullscreenQuiz);
+/* ========= 全螢幕測驗模式（覆蓋主頁，無彈窗） ========= */
+function enterFullscreenQuiz(){
+  // 檢查題庫與答案是否已載入
+  if(!state.questions.length || !Object.keys(state.answers).length){
+    alert("請先載入題目與答案。");
+    return;
+  }
+
+  // 鎖住頁面滾動
+  const prevOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
+
+  // 建立遮罩與容器
+  const mask = document.createElement("div");
+  mask.id = "fsQuizMask";
+  mask.style.cssText = `
+    position:fixed; inset:0; z-index:99999; 
+    background:var(--bg,#111);
+    display:flex; flex-direction:column;
+  `;
+
+  // 內嵌樣式（只注入一次）
+  if(!document.getElementById("fs-quiz-style")){
+    const css = document.createElement("style");
+    css.id = "fs-quiz-style";
+    css.textContent = `
+      .fs-topbar{
+        display:flex; align-items:center; gap:10px;
+        padding:12px 14px; border-bottom:1px solid var(--border,#2a2a2a);
+        background:var(--card,#1b1b1b);
+      }
+      .fs-badge{
+        padding:6px 10px; border:1px solid var(--border,#2a2a2a);
+        border-radius:9999px; background:transparent; color:var(--fg,#fff); font-size:14px;
+      }
+      .fs-spacer{ flex:1; }
+      .fs-btn{
+        padding:10px 14px; border-radius:9999px; border:1px solid var(--border,#2a2a2a);
+        background:transparent; color:var(--fg,#fff); cursor:pointer; font-size:16px;
+      }
+      .fs-btn:hover{ border-color:var(--accent,#2f74ff); color:var(--accent,#2f74ff); }
+      .fs-main{ 
+        flex:1; display:flex; flex-direction:column; gap:12px; 
+        padding:16px; overflow:auto;
+      }
+      .fs-card{
+        border:1px solid var(--border,#2a2a2a); border-radius:16px; padding:16px; background:var(--card,#1b1b1b);
+      }
+      .fs-qtext{ font-size:18px; line-height:1.6; }
+      .fs-qimg{ margin-top:10px; max-width:100%; height:auto; border-radius:8px; border:1px solid var(--border,#2a2a2a); }
+      .fs-opts{ margin-top:10px; display:flex; flex-direction:column; gap:8px; }
+      .fs-nav{ display:flex; gap:8px; align-items:center; margin-top:14px; }
+      .fs-hidden{ display:none !important; }
+    `;
+    document.head.appendChild(css);
+  }
+
+  // 全螢幕 UI
+  mask.innerHTML = `
+    <div class="fs-topbar">
+      <span class="fs-badge">科目：<span id="fsSubj"></span></span>
+      <span class="fs-badge">年份：<span id="fsYear"></span></span>
+      <span class="fs-badge">梯次：<span id="fsRound"></span></span>
+      <span class="fs-badge" id="fsTimer">剩餘 60:00</span>
+      <span class="fs-badge fs-hidden" id="fsReviewTag">回顧模式（僅看錯題）</span>
+      <span class="fs-spacer"></span>
+      <label class="fs-badge" style="display:flex;gap:6px;align-items:center">
+        <input id="fsShowAns" type="checkbox"> 顯示答案
+      </label>
+      <button id="fsSubmit" class="fs-btn">提交測驗</button>
+      <button id="fsClose"  class="fs-btn">關閉</button>
+    </div>
+
+    <div class="fs-main">
+      <div class="fs-card">
+        <div id="fsQNum" class="fs-badge" style="margin-bottom:8px">第 1 題</div>
+        <div id="fsQText" class="fs-qtext"></div>
+        <img id="fsQImg" class="fs-qimg fs-hidden" alt="">
+        <div id="fsQOpts" class="fs-opts"></div>
+        <div class="fs-nav">
+          <button id="fsPrev" class="fs-btn">上一題</button>
+          <button id="fsNext" class="fs-btn">下一題</button>
+          <span class="fs-spacer"></span>
+          <button id="fsToggleAns" class="fs-btn">切換顯示答案</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(mask);
+
+  // 取得元素
+  const fs = {
+    mask,
+    fsSubj: $("#fsSubj"), fsYear: $("#fsYear"), fsRound: $("#fsRound"),
+    fsTimer: $("#fsTimer"), fsReviewTag: $("#fsReviewTag"),
+    fsQNum: $("#fsQNum"), fsQText: $("#fsQText"), fsQImg: $("#fsQImg"), fsQOpts: $("#fsQOpts"),
+    fsPrev: $("#fsPrev"), fsNext: $("#fsNext"),
+    fsSubmit: $("#fsSubmit"), fsClose: $("#fsClose"),
+    fsShowAns: $("#fsShowAns"), fsToggleAns: $("#fsToggleAns"),
+  };
+
+  // 這個 fullscreen quiz 自己的狀態（不動你原本 state.index）
+  const qs = {
+    mode: "quiz",           // "quiz" | "review"
+    index: 0,
+    reviewOrder: [],
+    reviewPos: 0,
+    remain: 60*60,
+    timerId: null,
+    showAns: false
+  };
+
+  // 初始化標籤
+  fs.fsSubj.textContent  = subjectSel.value;
+  fs.fsYear.textContent  = yearSel.value;
+  fs.fsRound.textContent = roundSel.value;
+  fs.fsShowAns.checked   = false;
+
+  // 綁定
+  bindTapClick(fs.fsPrev,  ()=> { if(qs.mode==="review"){ stepReview(-1); } else { if(qs.index>0) qs.index--; } renderFS(); });
+  bindTapClick(fs.fsNext,  ()=> { if(qs.mode==="review"){ stepReview( 1); } else { if(qs.index<state.questions.length-1) qs.index++; } renderFS(); });
+  bindTapClick(fs.fsSubmit, ()=> submitFS());
+  bindTapClick(fs.fsClose,  ()=> closeFS());
+  fs.fsShowAns.addEventListener("change", ()=>{ qs.showAns = fs.fsShowAns.checked; renderFS(); });
+  bindTapClick(fs.fsToggleAns, ()=>{ fs.fsShowAns.checked = !fs.fsShowAns.checked; qs.showAns = fs.fsShowAns.checked; renderFS(); });
+
+  // 計時
+  tickFS(); qs.timerId = setInterval(tickFS, 1000);
+
+  // 首次渲染
+  renderFS();
+
+  /* ---- 內部函式 ---- */
+
+  function renderFS(){
+    const q = state.questions[qs.index];
+    if(!q){
+      fs.fsQNum.textContent = "";
+      fs.fsQText.textContent = "題目載入失敗";
+      fs.fsQOpts.innerHTML = "";
+      fs.fsQImg.classList.add("fs-hidden");
+      return;
+    }
+
+    // 題號
+    fs.fsQNum.textContent = `第 ${q.id} 題`;
+
+    // 題幹 + 可選答案
+    let html = `${escapeHTML(q.text)}`;
+    if(qs.showAns && state.answers && state.answers[String(q.id)]){
+      const ca = state.answers[String(q.id)];
+      html = `<div style="color:#caa;margin-bottom:8px">答案：${escapeHTML(ca)}</div>` + html;
+    }
+    fs.fsQText.innerHTML = html;
+
+    // 圖片
+    if(q.image){
+      const raw = resolveImage(q.image);
+      const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now();
+      fs.fsQImg.src = raw + bust;
+      fs.fsQImg.classList.remove("fs-hidden");
+    }else{
+      fs.fsQImg.classList.add("fs-hidden");
+      fs.fsQImg.removeAttribute("src");
+    }
+
+    // 選項
+    fs.fsQOpts.innerHTML = "";
+    const ua = (state.user[String(q.id)]||"").toUpperCase();
+    const letters = ["A","B","C","D"];
+    const correctSet = new Set(String(state.answers[String(q.id)]||"").toUpperCase().split("/").filter(Boolean));
+
+    letters.forEach(L=>{
+      const line = document.createElement("label");
+      line.style.display="flex";
+      line.style.alignItems="center";
+      line.style.gap="10px";
+
+      const rb = document.createElement("input");
+      rb.type = "radio";
+      rb.name = "fs-opt";
+      rb.disabled = false; // 全螢幕 quiz/ review 皆可切換（review 僅顯示正解標示）
+      rb.checked = (ua===L);
+      rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
+
+      const span = document.createElement("span");
+      span.innerText = `${L}. ${q.options?.[L]??""}`;
+
+      if(qs.mode==="review"){
+        if(correctSet.has(L)){
+          span.innerText += "（正解）";
+          span.style.color = "#c40000";
+        }
+      }
+
+      line.appendChild(rb);
+      line.appendChild(span);
+      fs.fsQOpts.appendChild(line);
+    });
+
+    // 標籤與回顧提示
+    fs.fsSubj.textContent  = subjectSel.value;
+    fs.fsYear.textContent  = yearSel.value;
+    fs.fsRound.textContent = roundSel.value;
+    fs.fsReviewTag.classList.toggle("fs-hidden", qs.mode!=="review");
+  }
+
+  function stepReview(delta){
+    if(!qs.reviewOrder.length) return;
+    qs.reviewPos = Math.min(Math.max(0, qs.reviewPos + delta), qs.reviewOrder.length-1);
+    qs.index = qs.reviewOrder[qs.reviewPos];
+  }
+
+  function tickFS(){
+    qs.remain--; if(qs.remain<0) qs.remain=0;
+    const m = String(Math.floor(qs.remain/60)).padStart(2,"0");
+    const s = String(qs.remain%60).padStart(2,"0");
+    fs.fsTimer.textContent = `剩餘 ${m}:${s}`;
+    if(qs.remain===0){ submitFS(); }
+  }
+
+  function submitFS(){
+    // 計分
+    let correct=0, wrong=[];
+    state.questions.forEach((q,idx)=>{
+      const qid = String(q.id);
+      const caRaw = String(state.answers[qid]||"").toUpperCase();
+      const set = new Set(caRaw.split("/").filter(Boolean));
+      const ua = (state.user[qid]||"").toUpperCase();
+      if(set.has("ALL") || set.has(ua)){ correct++; } else { wrong.push({qid, idx, ua, ca:[...set].join("/")}); }
+    });
+    const total = state.questions.length;
+    const score = total ? (correct/total*100).toFixed(2) : "0.00";
+
+    const row = {
+      ts: new Date().toLocaleString(),
+      subj: subjectSel.value,
+      year: yearSel.value,
+      round: roundSel.value,
+      total, correct, score,
+      wrongIds: wrong.map(w=>w.qid).join(";") || "無",
+      wrongDetail: wrong.map(w=>`${w.qid}:${w.ua||"-"}→${w.ca||"-"}`).join(";"),
+      summary: summarizeChoices()
+    };
+    appendRecord(row);
+
+    if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
+
+    const goReview = confirm(
+      `測驗提交！\n正確：${correct}/${total}\n得分：${score}\n錯誤題號：${row.wrongIds}\n\n要進入『僅看錯題』回顧模式嗎？`
+    );
+
+    if(goReview && wrong.length){
+      qs.mode="review";
+      fs.fsTimer.classList.add("fs-hidden");
+      qs.reviewOrder = wrong.map(w=>w.idx);
+      qs.reviewPos = 0;
+      qs.index = qs.reviewOrder[0];
+      renderFS();
+    }else{
+      closeFS();
+    }
+  }
+
+  function closeFS(){
+    if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
+    try{ document.body.removeChild(mask); }catch{}
+    document.body.style.overflow = prevOverflow || "";
+    // 回到原頁狀態（瀏覽）
+    state.mode="browse";
+    renderQuestion();
+  }
+}
 bindTapClick(btnSubmit, submitQuiz);
 bindTapClick(btnClose,  closeQuiz);
 
