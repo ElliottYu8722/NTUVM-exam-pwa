@@ -175,11 +175,16 @@ function saveNotes(){
   if(!q) return;
 
   const k = keyForNote(q.id);
-  state._notes = state._notes || {};
-  state._notes[k] = editor.innerHTML;
-
-  // 標記此題已被使用者編輯過（之後就不要再被新版詳解覆蓋）
+  state._notes     = state._notes     || {};
   state._notesMeta = state._notesMeta || {};
+
+  // 只抓 userNote 的內容；若找不到就退而求其次抓整個 editor（避免例外）
+  const userDiv = editor.querySelector("#userNote");
+  const userHTML = userDiv ? userDiv.innerHTML : editor.innerHTML;
+
+  state._notes[k] = userHTML;
+
+  // 使用者動過 → 標記（之後即便你改了詳解，我們也不會動到使用者筆記）
   const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
   state._notesMeta[k] = meta;
@@ -192,22 +197,11 @@ function loadNotes(){
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
 }
 
-function defaultNoteHTML(q){
-  const exp = (q.explanation ?? "").trim();
-  if(!exp){
-    return `<div class="user-note"></div>`;
-  }
-  // 詳解預設可編輯，底下留空給使用者
-  return `
-    <div class="explain-editable" style="color:#aaa;">
-      <b>詳解（可編輯）</b>：${escapeHTML(exp)}
-    </div>
-    <div style="border-top:1px dashed #666; margin:6px 0;"></div>
-    <div class="user-note"></div>
-  `;
+function defaultNoteHTML(){
+  return ""; // 只存使用者自己的筆記 HTML
 }
 
-// 很輕量就好，追蹤詳解是否變更
+/* 很輕量的雜湊（可留著做版本追蹤用） */
 function hashStr(s){
   s = String(s||"");
   let h = 5381;
@@ -223,23 +217,15 @@ function ensureNoteSeeded(q){
   const meta = state._notesMeta[k] || {};
   const curHash = hashStr(q.explanation || "");
 
-  if(state._notes[k] == null){
-    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
-    state._notes[k] = defaultNoteHTML(q);
-    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
-    return;
+  if (state._notes[k] == null) {
+    state._notes[k] = defaultNoteHTML(); // 空字串
   }
+  // 紀錄目前詳解的雜湊（之後你要比對是否有更新可以用，但不覆蓋筆記）
+  meta.seedHash = curHash;
+  state._notesMeta[k] = meta;
 
-  // 之後若你更新了詳解，而使用者尚未改過 → 幫他同步到最新版詳解
-  if(meta.seedHash !== curHash && meta.userTouched !== true){
-    state._notes[k] = defaultNoteHTML(q);
-    meta.seedHash = curHash;
-    state._notesMeta[k] = meta;
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
-  }
+  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
 }
 
 
@@ -247,21 +233,42 @@ function loadNoteForCurrent(){
   const q = state.questions[state.index];
   if(!q){ editor.innerHTML=""; return; }
 
-  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
+  ensureNoteSeeded(q); // 只確保鍵存在，不會寫入詳解到筆記
+
   const k = keyForNote(q.id);
-  editor.innerHTML = state._notes?.[k] || "";
+  const userHTML = state._notes?.[k] || "";
+
+  const explainHTML = q.explanation
+    ? `
+      <div id="explainBlock" class="explain-block" contenteditable="false"
+           style="color:#aaa; font-style:italic; border-bottom:1px solid #444; margin-bottom:8px; padding-bottom:6px;">
+        <b>詳解：</b> ${escapeHTML(q.explanation)}
+      </div>
+    `
+    : "";
+
+  editor.innerHTML = `
+    ${explainHTML}
+    <div id="userNote" class="user-note" contenteditable="true">${userHTML}</div>
+  `;
+
+  // 聚焦到可編輯區，避免光標跑到詳解（唯讀）上
+  const userDiv = editor.querySelector("#userNote");
+  if (userDiv) {
+    try {
+      userDiv.focus();
+      // 把游標移到最後
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(userDiv);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } catch {}
+  }
 }
-/* 題號列表 */
-function renderList(){
-  qList.innerHTML = "";
-  state.questions.forEach((q,i)=>{
-    const div = document.createElement("div");
-    div.className = "q-item"+(i===state.index?" active":"");
-    div.textContent = `第 ${q.id} 題`;
-    div.onclick = ()=>{ saveNotes(); state.index=i; renderQuestion(); highlightList(); };
-    qList.appendChild(div);
-  });
-}
+
+
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
@@ -890,7 +897,12 @@ imgNote.onchange = async e=>{
 
 editor.addEventListener("input", debounce(saveNotes, 400));
 
-function exec(cmd, val=null){ editor.focus(); document.execCommand(cmd, false, val); saveNotes(); }
+function exec(cmd, val=null){
+  const area = editor.querySelector("#userNote") || editor;
+  area.focus();
+  document.execCommand(cmd, false, val);
+  saveNotes();
+}
 function toggleButton(btn, fn){ const was = btn.classList.contains("active"); editor.focus(); fn(); btn.classList.toggle("active", !was); saveNotes(); }
 function sizeToCommand(px){ // 1~7，做個近似
   const n = Math.max(1, Math.min(7, Math.round((parseInt(px,10)-8)/4)));
