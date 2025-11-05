@@ -308,16 +308,7 @@ function tick(){
   timerBadge.textContent = `剩餘 ${m}:${s}`;
   if(state.remain===0){ submitQuiz(); }
 }
-/* 作答紀錄：寫入 localStorage */
-function appendRecord(row){
-  let arr = [];
-  try {
-    arr = JSON.parse(localStorage.getItem("examRecords") || "[]");
-  } catch { arr = []; }
-  // 最新的放最前面
-  arr.unshift(row);
-  localStorage.setItem("examRecords", JSON.stringify(arr));
-}
+
 function submitQuiz(){
   if(state.mode!=="quiz"){ closeQuiz(); return; }
   // 計分
@@ -378,6 +369,16 @@ function summarizeChoices(){
 /* 作答紀錄檢視（不下載、不另開頁） */
 bindTapClick(btnRecords, showRecords);
 
+function appendRecord(row){
+  let arr = [];
+  try { arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); } catch { arr = []; }
+  arr.unshift(row); // 最新放前面
+  localStorage.setItem("examRecords", JSON.stringify(arr));
+}
+
+/* 作答紀錄檢視（不下載、不另開頁） */
+bindTapClick(btnRecords, showRecords);
+
 function showRecords(){
   let arr=[];
   try{ arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); }catch{}
@@ -388,36 +389,6 @@ function showRecords(){
   openRecordsViewer(arr); // 只顯示，不下載
 }
 
-  // 1) 產生 Excel 友善 CSV（UTF-8 with BOM）
-  const headers = ["測驗日期","科目","年份","梯次","總題數","正確題數","得分","錯誤題號","錯題詳情","作答概覽"];
-  const lines = [ headers.join(",") ];
-  arr.forEach(r=>{
-    lines.push([
-      r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary
-    ].map(csvEscape).join(","));
-  });
-
-  // 重要：加上 BOM，Excel（特別是 Windows）才會正確辨識 UTF-8
-  const BOM = "\uFEFF";
-  const csv = BOM + lines.join("\n");
-  const url = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
-  const a = document.createElement("a"); 
-  a.href=url; 
-  a.download="作答紀錄_可用Excel開啟.csv"; 
-  a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 1000);
-
-  // 2) 另外開一個『可閱讀』的視窗，顯示成表格
-  openRecordsViewer(arr);
-};
-
-/* CSV 欄位逸出（保留你原本的寫法） */
-function csvEscape(s){ 
-  s=String(s??""); 
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g,'""')}"` : s; 
-}
-
-/* 簡易檢視器（新視窗） */
 /* 內嵌檢視器（頁內浮層，不下載、不跳頁） */
 function openRecordsViewer(arr){
   // 注入樣式（只注入一次）
@@ -425,77 +396,44 @@ function openRecordsViewer(arr){
     const style = document.createElement("style");
     style.id = "rv-style";
     style.textContent = `
-      .rv-mask{
-        position: fixed; inset: 0; background: rgba(0,0,0,.45);
-        display: flex; align-items: center; justify-content: center;
-        z-index: 99999; padding: 16px;
-      }
-      .rv-card{
-        width: min(1100px, 100%); max-height: 90vh;
-        background: var(--card); color: var(--fg);
-        border: 1px solid var(--border); border-radius: 14px;
-        display: flex; flex-direction: column; overflow: hidden;
-      }
-      .rv-head{
-        display: flex; align-items: center; gap: 8px;
-        padding: 12px 14px; border-bottom: 1px solid var(--border);
-      }
-      .rv-title{ font-size: 16px; font-weight: 700; }
-      .rv-spacer{ flex: 1; }
-      .rv-btn{
-        padding: 8px 12px; border-radius: 9999px;
-        border: 1px solid var(--border); background: transparent;
-        color: var(--fg); cursor: pointer; font-size: 14px;
-      }
-      .rv-btn:hover{ border-color: var(--accent); color: var(--accent); }
-      .rv-body{ overflow: auto; padding: 10px 14px 14px; }
-      /* 表格固定欄寬＋自動換行，避免擠成一長條 */
-      .rv-table{ width: 100%; border-collapse: collapse; table-layout: fixed; }
-      .rv-table th, .rv-table td{
-        border: 1px solid var(--border); padding: 8px;
-        font-size: 14px; vertical-align: top;
-        word-break: break-word; white-space: normal;
-      }
-      .rv-table thead th{
-        position: sticky; top: 0; background: var(--bg);
-        z-index: 1;
-      }
-      /* 欄寬可依需要調整 */
-      .rv-table col.c-date   { width: 140px; }
-      .rv-table col.c-subj   { width: 120px; }
-      .rv-table col.c-year   { width: 70px; }
-      .rv-table col.c-round  { width: 90px; }
-      .rv-table col.c-total  { width: 80px; }
-      .rv-table col.c-corr   { width: 90px; }
-      .rv-table col.c-score  { width: 80px; }
-      .rv-table col.c-wids   { width: 220px; }
-      .rv-table col.c-wdet   { width: 380px; }
-      .rv-table col.c-sum    { width: 140px; }
-      @media (max-width: 720px){
-        .rv-card{ width: 100%; max-height: 92vh; }
-        .rv-table th, .rv-table td{ font-size: 13px; }
-      }
+      .rv-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:99999;padding:16px;}
+      .rv-card{width:min(1100px,100%);max-height:90vh;background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
+      .rv-head{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border);}
+      .rv-title{font-size:16px;font-weight:700;}
+      .rv-spacer{flex:1;}
+      .rv-btn{padding:8px 12px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer;font-size:14px;}
+      .rv-btn:hover{border-color:var(--accent);color:var(--accent);}
+      .rv-body{overflow:auto;padding:10px 14px 14px;}
+      .rv-table{width:100%;border-collapse:collapse;table-layout:fixed;}
+      .rv-table th,.rv-table td{border:1px solid var(--border);padding:8px;font-size:14px;vertical-align:top;word-break:break-word;white-space:normal;}
+      .rv-table thead th{position:sticky;top:0;background:var(--bg);z-index:1;}
+      .rv-table col.c-date{width:140px;}
+      .rv-table col.c-subj{width:120px;}
+      .rv-table col.c-year{width:70px;}
+      .rv-table col.c-round{width:90px;}
+      .rv-table col.c-total{width:80px;}
+      .rv-table col.c-corr{width:90px;}
+      .rv-table col.c-score{width:80px;}
+      .rv-table col.c-wids{width:220px;}
+      .rv-table col.c-wdet{width:380px;}
+      .rv-table col.c-sum{width:140px;}
+      @media (max-width: 720px){ .rv-card{max-height:92vh;} .rv-table th,.rv-table td{font-size:13px;} }
     `;
     document.head.appendChild(style);
   }
 
-  // 建立浮層
   const mask  = document.createElement("div");  mask.className  = "rv-mask";
   const card  = document.createElement("div");  card.className  = "rv-card";
   const head  = document.createElement("div");  head.className  = "rv-head";
-  const title = document.createElement("div");  title.className = "rv-title";
-  title.textContent = "作答紀錄";
-
-  const spacer = document.createElement("div"); spacer.className = "rv-spacer";
+  const title = document.createElement("div");  title.className = "rv-title";  title.textContent = "作答紀錄";
+  const spacer= document.createElement("div");  spacer.className= "rv-spacer";
 
   const btnClose = document.createElement("button");
   btnClose.className = "rv-btn";
   btnClose.textContent = "關閉";
   btnClose.onclick = ()=> mask.remove();
 
-  head.appendChild(title);
-  head.appendChild(spacer);
-  head.appendChild(btnClose);
+  head.appendChild(title); head.appendChild(spacer); head.appendChild(btnClose);
 
   const body  = document.createElement("div");  body.className  = "rv-body";
   const table = document.createElement("table"); table.className = "rv-table";
