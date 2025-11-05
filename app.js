@@ -143,12 +143,23 @@ function keyForNote(qid){
 function saveNotes(){
   const q = state.questions[state.index];
   if(!q) return;
+
+  const k = keyForNote(q.id);
   state._notes = state._notes || {};
-  state._notes[keyForNote(q.id)] = editor.innerHTML;
+  state._notes[k] = editor.innerHTML;
+
+  // 標記此題已被使用者編輯過（之後就不要再被新版詳解覆蓋）
+  state._notesMeta = state._notesMeta || {};
+  const meta = state._notesMeta[k] || {};
+  meta.userTouched = true;
+  state._notesMeta[k] = meta;
+
   localStorage.setItem("notes", JSON.stringify(state._notes));
+  localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
 }
 function loadNotes(){
   try{ state._notes = JSON.parse(localStorage.getItem("notes")||"{}"); }catch{ state._notes = {}; }
+  try{ state._notesMeta = JSON.parse(localStorage.getItem("notesMeta")||"{}"); }catch{ state._notesMeta = {}; }
 }
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
@@ -164,9 +175,62 @@ function loadNoteForCurrent(){
   // ✅ 詳解在上方、筆記內容在下方
   editor.innerHTML = explain + saved;
 }
+function defaultNoteHTML(q){
+  const exp = (q.explanation ?? "").trim();
+  if(!exp){
+    return `<div class="user-note"></div>`;
+  }
+  // 詳解預設是可編輯的（大家可改），下面留一塊給自行延伸
+  return `
+    <div class="explain-editable" style="color:#aaa; font-style:italic;">
+      <b>詳解（可編輯）</b>：${escapeHTML(exp)}
+    </div>
+    <div style="border-top:1px dashed #666; margin:6px 0;"></div>
+    <div class="user-note"></div>
+  `;
+}
 
+// 很輕量就好，追蹤詳解是否變更
+function hashStr(s){
+  s = String(s||"");
+  let h = 5381;
+  for(let i=0;i<s.length;i++) h = ((h<<5)+h) + s.charCodeAt(i);
+  return String(h >>> 0);
+}
+function ensureNoteSeeded(q){
+  const k = keyForNote(q.id);
+  state._notes     = state._notes     || {};
+  state._notesMeta = state._notesMeta || {};
 
+  const meta = state._notesMeta[k] || {};
+  const curHash = hashStr(q.explanation || "");
 
+  if(state._notes[k] == null){
+    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
+    state._notes[k] = defaultNoteHTML(q);
+    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
+    localStorage.setItem("notes", JSON.stringify(state._notes));
+    localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
+    return;
+  }
+
+  // 之後若你更新了詳解，而使用者尚未改過 → 幫他同步到最新版詳解
+  if(meta.seedHash !== curHash && meta.userTouched !== true){
+    state._notes[k] = defaultNoteHTML(q);
+    meta.seedHash = curHash;
+    state._notesMeta[k] = meta;
+    localStorage.setItem("notes", JSON.stringify(state._notes));
+    localStorage.setItem("notesMeta", JSON.stringify(state._notesMeta));
+  }
+}
+function loadNoteForCurrent(){
+  const q = state.questions[state.index];
+  if(!q){ editor.innerHTML=""; return; }
+
+  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
+  const k = keyForNote(q.id);
+  editor.innerHTML = state._notes?.[k] || "";
+}
 /* 題號列表 */
 function renderList(){
   qList.innerHTML = "";
