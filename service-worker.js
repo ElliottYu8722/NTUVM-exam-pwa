@@ -1,3 +1,16 @@
+/* 基本狀態 */
+const state = {
+  questions: [],          // [{id,text,options:{A..D},image?}]
+  answers: {},            // {"1":"B", ...} 或 "1":"A/B"
+  index: 0,
+  user: {},               // {"1":"A", ...}
+  mode: "browse",         // "browse" | "quiz" | "review"
+  reviewOrder: [],        // 錯題索引清單
+  reviewPos: 0,
+  remain: 60 * 60,        // 秒
+  timerId: null,
+  dark: true
+};
 // 只快取核心；data/ 底下全部不快取
 const CACHE_CORE = 'ntuvm-core-v2';
 const CORE = [
