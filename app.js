@@ -308,7 +308,16 @@ function tick(){
   timerBadge.textContent = `剩餘 ${m}:${s}`;
   if(state.remain===0){ submitQuiz(); }
 }
-
+/* 作答紀錄：寫入 localStorage */
+function appendRecord(row){
+  let arr = [];
+  try {
+    arr = JSON.parse(localStorage.getItem("examRecords") || "[]");
+  } catch { arr = []; }
+  // 最新的放最前面
+  arr.unshift(row);
+  localStorage.setItem("examRecords", JSON.stringify(arr));
+}
 function submitQuiz(){
   if(state.mode!=="quiz"){ closeQuiz(); return; }
   // 計分
