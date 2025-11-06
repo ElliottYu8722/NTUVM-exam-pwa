@@ -163,7 +163,7 @@ const bImg = $("#bImg"), imgNote = $("#imgNote");
 /* 小工具 */
 const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
-}[s] || "x");
+}[s]);
 
 function sanitizeSubjectName(name){
   if(!name) return "unknown";
