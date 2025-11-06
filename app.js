@@ -293,7 +293,7 @@ function renderList(){
     const div = document.createElement("div");
     div.className = "q-item"+(i===state.index?" active":"");
     div.textContent = `第 ${q.id} 題`;
-    div.onclick = ()=>{ saveNotes(); loadNotes(); state.index=i; renderQuestion(); highlightList(); };
+    div.onclick = ()=>{ saveNotes(); state.index=i; renderQuestion(); highlightList(); };
     qList.appendChild(div);
   });
 }
