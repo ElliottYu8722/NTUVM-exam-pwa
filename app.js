@@ -164,11 +164,23 @@ const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
 }[s] || "x");
 
-function keyForNote(qid){
-  const p = subjectPrefix(subjectSel.value);
-  const r = roundSel.value === "第一次" ? "1" : "2";
-  return `${p}${yearSel.value}_${r}|${qid}`;
+function sanitizeSubjectName(name){
+  if(!name) return "unknown";
+  return String(name)
+    .trim()
+    .replace(/\s+/g, "_")            // 空白變底線
+    .replace(/[^\w\-]/g, "")         // 移除非英數底線或破折號的字元（保持 key 安全）
+    .substring(0, 60);               // 避免 key 過長
 }
+
+
+function keyForNote(qid){
+  const subjSafe = sanitizeSubjectName(subjectSel.value || "");
+  const round = (roundSel.value === "第一次") ? "1" : "2";
+  const year = String(yearSel.value || "0");
+  return `note|${subjSafe}|${year}|r${round}|q${qid}`;
+}
+
 function saveNotes(){
   const q = state.questions[state.index];
   if(!q) return;
@@ -353,9 +365,10 @@ function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;',
 
 /* 作答持久化（localStorage，以科目/年/梯次為命名空間） */
 function nsKey(){ 
-  const p = subjectPrefix(subjectSel.value);
-  const round = roundSel.value==="第一次" ? "1" : "2";
-  return `ans|${p}|${yearSel.value}|${round}`;
+  const subjSafe = sanitizeSubjectName(subjectSel.value || "");
+  const round = (roundSel.value === "第一次") ? "1" : "2";
+  const year = String(yearSel.value || "0");
+  return `ans|${subjSafe}|${year}|r${round}`;
 }
 function loadAnswersFromStorage(){
   try{ state.user = JSON.parse(localStorage.getItem(nsKey())||"{}"); }catch{ state.user={}; }
