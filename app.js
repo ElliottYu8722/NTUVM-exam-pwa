@@ -997,6 +997,9 @@ btnTheme.onclick = ()=>{
 /* 選單變更 → 自動載入 data/題目 與 data/答案 */
 async function onScopeChange(){
   saveNotes();          // 先存舊科目筆記
+  const subjectPrefix = s => ({
+    "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
+  }[s]);
 
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
