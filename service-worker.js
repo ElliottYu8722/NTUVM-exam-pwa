@@ -1,24 +1,32 @@
+/* service-worker.js（建議替換） */
+/* 核心快取名稱，若你更新檔案請改這裡的版本字串以強制更新快取 */
+const CACHE_CORE = 'ntuvm-core-v3';
 
-// 只快取核心；data/ 底下全部不快取
-const CACHE_CORE = 'ntuvm-core-v2';
+/* 核心資產（保留 index.html 與 manifest、但 app.js 我們會改用 network-first） */
 const CORE = [
   './',
   './index.html',
-  './manifest.json',
-  './app.js'
+  './manifest.json'
+  // 注意：不要把 app.js 放在這裡（或可放，但下方會 special-case）
 ];
 
-// 安裝：放入核心資產
+/* 你仍可選擇把 app.js 放在這，但我採用 network-first 處理 */
+const APP_SCRIPT = '/app.js'; // 用絕對路徑比相對路徑更穩定
+
 self.addEventListener('install', (event) => {
+  console.log('[sw] install');
   event.waitUntil(
     caches.open(CACHE_CORE)
-      .then(cache => cache.addAll(CORE))
+      .then(cache => {
+        // 只快取 CORE；app.js 會在啟用時另行更新
+        return cache.addAll(CORE);
+      })
       .then(() => self.skipWaiting())
   );
 });
 
-// 啟用：清掉舊版本快取
 self.addEventListener('activate', (event) => {
+  console.log('[sw] activate');
   event.waitUntil((async () => {
     const keys = await caches.keys();
     await Promise.all(
@@ -28,63 +36,109 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
-// 工具：cache-first（核心）
+/* helper: build a 503 Response 用於 network fail 而又沒快取的情況 */
+function serviceUnavailableResponse(){
+  return new Response('Service Unavailable (offline)', {
+    status: 503,
+    statusText: 'Service Unavailable'
+  });
+}
+
+/* network-first for app script (確保使用新版 app.js) */
+async function networkFirstForApp(req){
+  try{
+    const netRes = await fetch(req);
+    if (req.method === 'GET' && netRes && netRes.ok) {
+      const cache = await caches.open(CACHE_CORE);
+      cache.put(req, netRes.clone()).catch(()=>{/* ignore */});
+    }
+    return netRes;
+  }catch(err){
+    // 網路失敗時回快取（若有）
+    const cache = await caches.open(CACHE_CORE);
+    const cached = await cache.match(req, { ignoreSearch: true });
+    if (cached) return cached;
+    return serviceUnavailableResponse();
+  }
+}
+
+/* cache-first for core (index.html, manifest...) */
 async function cacheFirst(req) {
   const cache = await caches.open(CACHE_CORE);
   const hit = await cache.match(req, { ignoreSearch: true });
   if (hit) return hit;
-  const res = await fetch(req);
-  if (req.method === 'GET' && res && res.ok) {
-    cache.put(req, res.clone());
+  try{
+    const res = await fetch(req);
+    if (req.method === 'GET' && res && res.ok) {
+      cache.put(req, res.clone()).catch(()=>{/* ignore */});
+    }
+    return res;
+  }catch(e){
+    return serviceUnavailableResponse();
   }
-  return res;
 }
 
-// 工具：stale-while-revalidate（一般靜態）
-async function staleWhileRevalidate(req) {
+/* stale-while-revalidate for general static (保守做法) */
+async function staleWhileRevalidate(req){
   const cache = await caches.open(CACHE_CORE);
   const cached = await cache.match(req);
   const fetching = fetch(req).then(res => {
     if (req.method === 'GET' && res && res.ok) {
-      cache.put(req, res.clone());
+      cache.put(req, res.clone()).catch(()=>{/* ignore */});
     }
     return res;
-  }).catch(() => null);
+  }).catch(()=>null);
 
-  return cached || fetching;
+  return cached || fetching || serviceUnavailableResponse();
+}
+
+/* 判斷 data 路徑（不快取，但當網路失敗要給明確回應） */
+function isDataPath(pathname){
+  return /\/data(\/|$)/.test(pathname) || /\/(題目|答案|圖片)\//.test(pathname);
 }
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  if (req.method !== 'GET') return; // 非 GET 直接交給瀏覽器
+  if (req.method !== 'GET') return; // 非 GET 讓瀏覽器處理
 
   const url = new URL(req.url);
 
-  // 只處理同網域；第三方資源直接放行
+  // 只處理同網域
   if (url.origin !== self.location.origin) return;
 
-  // ---- 重要：data/ 與 題目/答案/圖片 一律不快取 ----
-  const isData = /\/data(\/|$)/.test(url.pathname) ||
-                 /\/(題目|答案|圖片)\//.test(url.pathname);
-
-  if (isData) {
+  // data/（題目、答案、圖片）一律直接走 network（no-store），網路失敗回 503
+  if (isDataPath(url.pathname)) {
     event.respondWith(
       fetch(req, { cache: 'no-store' })
-        .catch(() => caches.match(req)) // 網路掛了才回退快取（通常沒有，因為不快取）
+        .then(res => {
+          // 我們不把 data 存進快取（保持最新）
+          return res;
+        })
+        .catch(err => {
+          console.warn('[sw] data fetch failed, returning 503 fallback:', url.pathname, err && err.message);
+          // 若你想要回退到某個預先快取的 fallback data 檔案，可在這裡改成 caches.match(...)
+          return serviceUnavailableResponse();
+        })
     );
     return;
   }
 
-  // 核心資產：cache-first
-  const isCore = CORE.some(p => {
+  // app script 使用 network-first（這能避免使用者一直跑到舊版）
+  if (url.pathname === APP_SCRIPT || url.pathname.endsWith(APP_SCRIPT)) {
+    event.respondWith(networkFirstForApp(req));
+    return;
+  }
+
+  // 核心資產走 cache-first
+  const coreMatch = CORE.some(p => {
     const corePath = p.replace('./', '/');
     return url.pathname === corePath || url.pathname.endsWith(corePath);
   });
-  if (isCore) {
+  if (coreMatch) {
     event.respondWith(cacheFirst(req));
     return;
   }
 
-  // 其他：stale-while-revalidate
+  // 其他走 stale-while-revalidate
   event.respondWith(staleWhileRevalidate(req));
 });
