@@ -186,7 +186,6 @@ function keyForNote(qid){
   const year = String(yearSel.value || "");
   const qIdStr = String(qid || "");
   // 完整 key 包含科目、年份、梯次、題目 id
-  return `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
   const key = `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
   console.log('keyForNote:', {subjSafe, year, round, qIdStr, key});
   return key;
