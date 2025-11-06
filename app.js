@@ -180,16 +180,18 @@ function sanitizeSubjectName(name){
   const year = String(yearSel.value || "0");
   return `note|${subjSafe}|${year}|r${round}|q${qid}`;
 }*/
+
+
 function keyForNote(qid){
-  const subjSafe = sanitizeSubjectName(subjectSel.value || "");
+  const subjSafe = subjectSel.value || "unknown"; // 用 .value
   const round = (roundSel.value === "第一次") ? "1" : "2";
   const year = String(yearSel.value || "");
   const qIdStr = String(qid || "");
-  // 完整 key 包含科目、年份、梯次、題目 id
   const key = `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
   console.log('keyForNote:', {subjSafe, year, round, qIdStr, key});
   return key;
 }
+
 
 function saveNotes(){
   const q = state.questions[state.index];
