@@ -1,4 +1,3 @@
-
 /* 基本狀態 */
 const state = {
   questions: [],          // [{id,text,options:{A..D},image?}]
@@ -163,7 +162,7 @@ const bImg = $("#bImg"), imgNote = $("#imgNote");
 /* 小工具 */
 const subjectPrefix = s => ({
   "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
-}[s]);
+}[s] || "x");
 
 function sanitizeSubjectName(name){
   if(!name) return "unknown";
@@ -175,24 +174,12 @@ function sanitizeSubjectName(name){
 }
 
 
-/*function keyForNote(qid){
+function keyForNote(qid){
   const subjSafe = sanitizeSubjectName(subjectSel.value || "");
   const round = (roundSel.value === "第一次") ? "1" : "2";
   const year = String(yearSel.value || "0");
   return `note|${subjSafe}|${year}|r${round}|q${qid}`;
-}*/
-
-
-function keyForNote(qid){
-  const subjSafe = subjectSel.value || "unknown"; // 用 .value
-  const round = (roundSel.value === "第一次") ? "1" : "2";
-  const year = String(yearSel.value || "");
-  const qIdStr = String(qid || "");
-  const key = `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
-  console.log('keyForNote:', {subjSafe, year, round, qIdStr, key});
-  return key;
 }
-
 
 function saveNotes(){
   const q = state.questions[state.index];
@@ -202,6 +189,7 @@ function saveNotes(){
   state._notes = state._notes || {};
   state._notes[k] = editor.innerHTML;
 
+  // 標記此題已被使用者編輯過（之後就不要再被新版詳解覆蓋）
   state._notesMeta = state._notesMeta || {};
   const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
@@ -211,21 +199,14 @@ function saveNotes(){
   localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
 }
 function loadNotes(){
-  try{ 
-    state._notes = JSON.parse(localStorage.getItem(STORAGE.notes) || "{}"); 
-  }catch{ 
-    state._notes = {}; 
-  }
-  try{ 
-    state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta) || "{}"); 
-  }catch{ 
-    state._notesMeta = {}; 
-  }
+  try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
+  try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
 }
+
 function defaultNoteHTML(q){
   const exp = (q.explanation ?? "").trim();
   if(!exp){
-    return `<div class="user-note" style="color:#888; ">尚無詳解，請自行記錄筆記</div>`;
+    return `<div class="user-note"></div>`;
   }
   // 詳解預設可編輯，底下留空給使用者
   return `
@@ -275,18 +256,12 @@ function ensureNoteSeeded(q){
 
 function loadNoteForCurrent(){
   const q = state.questions[state.index];
-  if(!q){ 
-    editor.innerHTML = ""; 
-    return; 
-  }
+  if(!q){ editor.innerHTML=""; return; }
 
-  ensureNoteSeeded(q);
+  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
   const k = keyForNote(q.id);
-  console.log('loadNoteForCurrent key:', k);
   editor.innerHTML = state._notes?.[k] || "";
 }
-
-
 /* 題號列表 */
 function renderList(){
   qList.innerHTML = "";
@@ -301,7 +276,6 @@ function renderList(){
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
-
 
 /* 題目顯示 */
 /* 題目顯示（完整覆蓋） */
@@ -996,13 +970,11 @@ btnTheme.onclick = ()=>{
 [yearSel, roundSel, subjectSel].forEach(sel=> sel.addEventListener("change", onScopeChange));
 /* 選單變更 → 自動載入 data/題目 與 data/答案 */
 async function onScopeChange(){
-  saveNotes();          // 先存舊科目筆記
-  const subjectPrefix = s => ({
-    "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
-  }[s]);
+  saveNotes();
+  loadAnswersFromStorage();
 
   const p = subjectPrefix(subjectSel.value);
-  const r = (roundSel.value === "第一次") ? "1" : "2";
+  const r = (roundSel.value==="第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
   const aName = `${p}w${yearSel.value}_${r}.json`;
 
@@ -1011,6 +983,7 @@ async function onScopeChange(){
 
   let loadedQ = false, loadedA = false;
 
+  // 題目
   try{
     const qRes = await fetch(qURL, { cache:"no-store" });
     if(qRes.ok){
@@ -1030,6 +1003,7 @@ async function onScopeChange(){
     // ignore
   }
 
+  // 答案
   try{
     const aRes = await fetch(aURL, { cache:"no-store" });
     if(aRes.ok){
@@ -1053,11 +1027,21 @@ async function onScopeChange(){
     toast(`找不到答案檔：${aName}`);
   }
 
-  // 很重要：每次變換科目/年次/梯次後，重新從 localStorage 載入筆記，確保狀態刷新(依科目年次範圍)
-  loadNotes();
-  console.log('onScopeChange loadNotes keys:', Object.keys(state._notes).slice(0,5));
-  // 預設显示题目与筆記
   renderQuestion();
+}
+/* 自動儲存提示 */
+let toastTimer=null;
+function toast(msg){
+  if(toastTimer){ clearTimeout(toastTimer); }
+  const el = document.createElement("div");
+  el.textContent = msg;
+  Object.assign(el.style, {
+    position:"fixed",left:"50%",bottom:"24px",transform:"translateX(-50%)",
+    background:"rgba(0,0,0,.75)",color:"#fff",padding:"10px 14px",borderRadius:"9999px",
+    zIndex:9999,fontSize:"14px"
+  });
+  document.body.appendChild(el);
+  toastTimer=setTimeout(()=>el.remove(),1000);
 }
 
 /* 工具：debounce */
