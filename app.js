@@ -187,6 +187,9 @@ function keyForNote(qid){
   const qIdStr = String(qid || "");
   // 完整 key 包含科目、年份、梯次、題目 id
   return `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
+  const key = `note|${subjSafe}|${year}|r${round}|q${qIdStr}`;
+  console.log('keyForNote:', {subjSafe, year, round, qIdStr, key});
+  return key;
 }
 
 function saveNotes(){
@@ -277,8 +280,11 @@ function loadNoteForCurrent(){
 
   ensureNoteSeeded(q);
   const k = keyForNote(q.id);
+  console.log('loadNoteForCurrent key:', k);
   editor.innerHTML = state._notes?.[k] || "";
 }
+
+
 /* 題號列表 */
 function renderList(){
   qList.innerHTML = "";
@@ -1043,7 +1049,7 @@ async function onScopeChange(){
 
   // 很重要：每次變換科目/年次/梯次後，重新從 localStorage 載入筆記，確保狀態刷新(依科目年次範圍)
   loadNotes();
-
+  console.log('onScopeChange loadNotes keys:', Object.keys(state._notes).slice(0,5));
   // 預設显示题目与筆記
   renderQuestion();
 }
