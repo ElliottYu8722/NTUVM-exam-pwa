@@ -220,7 +220,7 @@ function loadNotes(){
 function defaultNoteHTML(q){
   const exp = (q.explanation ?? "").trim();
   if(!exp){
-    return `<div class="user-note"></div>`;
+    return `<div class="user-note" style="color:#888; ">尚無詳解，請自行記錄筆記</div>`;
   }
   // 詳解預設可編輯，底下留空給使用者
   return `
