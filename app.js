@@ -160,9 +160,19 @@ const bImg = $("#bImg"), imgNote = $("#imgNote");
   obs.observe(document.documentElement, { childList:true, subtree:true });
 })();
 /* 小工具 */
-const subjectPrefix = s => ({
-  "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c","獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
-}[s] || "x");
+const subjectPrefix = s => {
+  if(!s) return "x";
+  const str = String(s).trim();
+  // 如果已經傳入單字母代碼（a,b,c...），就直接回傳（容錯）
+  if (/^[a-f]$/i.test(str)) return str.toLowerCase();
+
+  // 原本的中文對照表
+  const map = {
+    "獸醫病理學":"a","獸醫藥理學":"b","獸醫實驗診斷學":"c",
+    "獸醫普通疾病學":"d","獸醫傳染病學":"e","獸醫公共衛生學":"f"
+  };
+  return map[str] || "x";
+};
 
 function sanitizeSubjectName(name){
   if(!name) return "unknown";
