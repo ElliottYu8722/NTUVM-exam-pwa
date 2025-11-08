@@ -176,11 +176,19 @@ const subjectPrefix = s => {
 
 function sanitizeSubjectName(name){
   if(!name) return "unknown";
-  return String(name)
-    .trim()
-    .replace(/\s+/g, "_")            // 空白變底線
-    .replace(/[^\w\-]/g, "")         // 移除非英數底線或破折號的字元（保持 key 安全）
-    .substring(0, 60);               // 避免 key 過長
+  // 1) trim 空白、空白轉底線
+  // 2) 允許 Unicode 文字與數字（\p{L}\p{N}），以及底線與破折號
+  //    需使用 u 修飾符，並用 g 全域取代
+  try{
+    const s = String(name).trim().replace(/\s+/g, "_");
+    const cleaned = s.replace(/[^\p{L}\p{N}_\-]/gu, "");
+    const out = cleaned.substring(0, 60);
+    return out || "unknown";
+  }catch(e){
+    // 若瀏覽器不支援 \p{L}（舊環境），回退到更寬鬆的保留中文方式：
+    const fallback = String(name).trim().replace(/\s+/g, "_").replace(/[^\w\-一-龥\u3400-\u4DBF]/g, "");
+    return (fallback.substring(0,60) || "unknown");
+  }
 }
 
 
