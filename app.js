@@ -621,7 +621,7 @@ function enterFullscreenQuiz(){
 
     const row = {
       ts: new Date().toLocaleString(),
-      subj: subjectSel.value,
+      subj: subjectSel.options[subjectSel.selectedIndex]?.text || subjectSel.value,
       year: yearSel.value,
       round: roundSel.value,
       total, correct, score,
