@@ -969,62 +969,88 @@ btnTheme.onclick = ()=>{
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
 [yearSel, roundSel, subjectSel].forEach(sel=> sel.addEventListener("change", onScopeChange));
 /* 選單變更 → 自動載入 data/題目 與 data/答案 */
+/* --- debug friendly onScopeChange --- */
 async function onScopeChange(){
   saveNotes();
   loadAnswersFromStorage();
 
   const p = subjectPrefix(subjectSel.value);
-  const r = (roundSel.value==="第一次") ? "1" : "2";
+  const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
   const aName = `${p}w${yearSel.value}_${r}.json`;
 
   const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName) + `?v=${Date.now()}`;
   const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName) + `?v=${Date.now()}`;
 
+  console.groupCollapsed("[onScopeChange] 嘗試載入題庫");
+  console.log("subjectSel.value =", subjectSel.value);
+  console.log("subjectPrefix ->", p);
+  console.log("qName =", qName, "aName =", aName);
+  console.log("qURL =", qURL);
+  console.log("aURL =", aURL);
+  console.log("CONFIG.basePath =", CONFIG.basePath, "CONFIG.dirs =", CONFIG.dirs);
+  console.groupEnd();
+
   let loadedQ = false, loadedA = false;
 
   // 題目
   try{
     const qRes = await fetch(qURL, { cache:"no-store" });
+    console.log("[fetch] qRes", qRes);
     if(qRes.ok){
+      // 嘗試解析 json，但也保險檢查 content-type
+      const ctype = qRes.headers.get("content-type") || "";
+      console.log("[fetch] q content-type =", ctype);
       const arr = await qRes.json();
       if(Array.isArray(arr)){
         state.questions = arr;
         state.index = 0;
         renderList();
         loadedQ = true;
+        console.log("[onScopeChange] 題目載入成功，題數:", arr.length);
       }else{
+        console.error("[onScopeChange] 題目檔格式錯誤（不是陣列）", qName, arr);
         alert(`題目檔格式錯誤（不是陣列）：${qName}`);
         state.questions = [];
         renderList();
       }
+    } else {
+      // 非 ok，例如 404 / 500
+      console.warn("[onScopeChange] fetch qRes not ok:", qRes.status, qRes.statusText);
     }
   }catch(e){
-    // ignore
+    console.error("[onScopeChange] fetch 題目發生錯誤:", e);
   }
 
   // 答案
   try{
     const aRes = await fetch(aURL, { cache:"no-store" });
+    console.log("[fetch] aRes", aRes);
     if(aRes.ok){
+      const ctype = aRes.headers.get("content-type") || "";
+      console.log("[fetch] a content-type =", ctype);
       const obj = await aRes.json();
       if(obj && typeof obj === "object"){
         state.answers = obj;
         loadedA = true;
+        console.log("[onScopeChange] 答案載入成功，條目數:", Object.keys(obj).length);
       }else{
+        console.error("[onScopeChange] 答案檔格式錯誤（不是物件）", aName, obj);
         alert(`答案檔格式錯誤（不是物件）：${aName}`);
         state.answers = {};
       }
+    } else {
+      console.warn("[onScopeChange] fetch aRes not ok:", aRes.status, aRes.statusText);
     }
   }catch(e){
-    // ignore
+    console.error("[onScopeChange] fetch 答案發生錯誤:", e);
   }
 
   if(!loadedQ){
-    toast(`找不到題目檔：${qName}`);
+    toast(`找不到題目檔：${qName}（看 console 有更詳細錯誤）`);
   }
   if(!loadedA){
-    toast(`找不到答案檔：${aName}`);
+    toast(`找不到答案檔：${aName}（看 console 有更詳細錯誤）`);
   }
 
   renderQuestion();
