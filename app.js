@@ -173,6 +173,21 @@ const subjectPrefix = s => {
   };
   return map[str] || "x";
 };
+// 取得選單上真正顯示給使用者看的科目文字（例如「獸醫病理學」）
+// 優先取 selected option 的 text，若無則 fallback 回 value
+function getSubjectLabel(){
+  try{
+    if (!subjectSel) return "unknown";
+    const idx = subjectSel.selectedIndex;
+    if (idx != null && idx >= 0 && subjectSel.options && subjectSel.options[idx]) {
+      const t = String(subjectSel.options[idx].text || subjectSel.options[idx].label || subjectSel.options[idx].value || subjectSel.value).trim();
+      return t || String(subjectSel.value || "unknown");
+    }
+    return String(subjectSel.value || "unknown");
+  }catch(e){
+    return String(subjectSel?.value || "unknown");
+  }
+}
 
 function sanitizeSubjectName(name){
   if(!name) return "unknown";
@@ -193,6 +208,7 @@ function sanitizeSubjectName(name){
 
 
 function keyForNote(qid){
+  const subjLabel = getSubjectLabel();                      // <- 使用顯示文字
   const subjSafe = sanitizeSubjectName(subjectSel.value || "");
   const round = (roundSel.value === "第一次") ? "1" : "2";
   const year = String(yearSel.value || "0");
@@ -362,7 +378,7 @@ function renderQuestion(){
     qOpts.appendChild(line);
   });
 
-  bSubj.textContent = subjectSel.value;
+  bSubj.textContent = getSubjectLabel();
   bYear.textContent = yearSel.value;
   bRound.textContent = roundSel.value;
   highlightList();
