@@ -204,18 +204,8 @@ function loadNotes(){
 }
 
 function defaultNoteHTML(q){
-  const exp = (q.explanation ?? "").trim();
-  if(!exp){
-    return `<div class="user-note"></div>`;
-  }
-  // 詳解預設可編輯，底下留空給使用者
-  return `
-    <div class="explain-editable" style="color:#aaa;">
-      <b>詳解（可編輯）</b>：${escapeHTML(exp)}
-    </div>
-    <div style="border-top:1px dashed #666; margin:6px 0;"></div>
-    <div class="user-note"></div>
-  `;
+  // 不再自動灌入題目詳解，筆記一律只留空白給使用者
+  return `<div class="user-note"></div>`;
 }
 
 // 很輕量就好，追蹤詳解是否變更
