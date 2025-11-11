@@ -240,25 +240,28 @@ function getRoundCode(){
   // 其他字樣保底為 "0"
   return "0";
 }
-
+function getScopeFromUI(){
+  return {
+    subj: getSubjectId(),                 // 唯一科目代碼（你先前已實作）
+    year: String(yearSel?.value || "0"),  // 年次
+    round: getRoundCode()                 // 梯次代碼 1/2/0
+  };
+}
 // 筆記鍵名：綁定 科目＋年次＋梯次＋題號，避免跨卷/跨科碰撞
-function keyForNote(qid){
-  const subj  = getSubjectId();               // 唯一且穩定的科目代碼
-  const year  = String(yearSel?.value || "0");// 年份字串
-  const round = getRoundCode();               // 1/2/0
-  return `note|${subj}|${year}|r${round}|q${qid}`;
+function keyForNote(qid, scope){
+  const sc = scope || getScopeFromUI();
+  return `note|${sc.subj}|${sc.year}|r${sc.round}|q${qid}`;
 }
 
 
-function saveNotes(){
+function saveNotes(scope){
   const q = state.questions[state.index];
   if(!q) return;
 
-  const k = keyForNote(q.id);
+  const k = keyForNote(q.id, scope);
   state._notes = state._notes || {};
   state._notes[k] = editor.innerHTML;
 
-  // 標記此題已被使用者編輯過（之後就不要再被新版詳解覆蓋）
   state._notesMeta = state._notesMeta || {};
   const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
@@ -1030,9 +1033,14 @@ btnTheme.onclick = ()=>{
 /* 選單變更 → 自動載入 data/題目 與 data/答案 */
 /* --- debug friendly onScopeChange --- */
 async function onScopeChange(){
-  saveNotes();
+  // 1) 在切換前，用舊範圍快照保存當前題筆記，避免用新鍵覆蓋舊內容
+  const oldScope = state.scope || getScopeFromUI();
+  saveNotes(oldScope);
+
+  // 2) 以新範圍讀取作答紀錄
   loadAnswersFromStorage();
 
+  // 3) 以下維持你原本載入題目/答案的流程（依新 select 值）
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
@@ -1052,12 +1060,10 @@ async function onScopeChange(){
 
   let loadedQ = false, loadedA = false;
 
-  // 題目
   try{
     const qRes = await fetch(qURL, { cache:"no-store" });
     console.log("[fetch] qRes", qRes);
     if(qRes.ok){
-      // 嘗試解析 json，但也保險檢查 content-type
       const ctype = qRes.headers.get("content-type") || "";
       console.log("[fetch] q content-type =", ctype);
       const arr = await qRes.json();
@@ -1074,14 +1080,12 @@ async function onScopeChange(){
         renderList();
       }
     } else {
-      // 非 ok，例如 404 / 500
       console.warn("[onScopeChange] fetch qRes not ok:", qRes.status, qRes.statusText);
     }
   }catch(e){
     console.error("[onScopeChange] fetch 題目發生錯誤:", e);
   }
 
-  // 答案
   try{
     const aRes = await fetch(aURL, { cache:"no-store" });
     console.log("[fetch] aRes", aRes);
@@ -1111,6 +1115,9 @@ async function onScopeChange(){
   if(!loadedA){
     toast(`找不到答案檔：${aName}（看 console 有更詳細錯誤）`);
   }
+
+  // 4) 切換完成後，更新「現行範圍快照」為新 scope，之後渲染時會用新鍵讀取筆記
+  state.scope = getScopeFromUI();
 
   renderQuestion();
 }
@@ -1183,8 +1190,8 @@ function init(){
   loadNotes();
   loadAnswersFromStorage();
   renderList();
-  // 一進來就依照預設選項嘗試載入 data/題目 與 data/答案
-  onScopeChange();
+  state.scope = getScopeFromUI(); // 先記住目前 UI 範圍
+  onScopeChange();                // 進行首次載入
 }
 init();
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
