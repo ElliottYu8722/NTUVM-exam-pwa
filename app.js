@@ -206,14 +206,49 @@ function sanitizeSubjectName(name){
   }
 }
 
+// 取得穩定且唯一的科目代碼（優先用 <option data-sid> 或 value）
+function getSubjectId(){
+  try{
+    const idx = subjectSel?.selectedIndex ?? -1;
+    const opt = (idx >= 0) ? subjectSel.options[idx] : null;
+    // 建議在 HTML <option> 放 data-sid="a/b/c..." 或正式代碼
+    const sid = (opt?.dataset?.sid || opt?.value || "").trim();
+    if (sid) return sanitizeSubjectName(sid.toLowerCase());
+  }catch{}
 
-function keyForNote(qid){
-  const subjLabel = getSubjectLabel();                      // <- 使用顯示文字
-  const subjSafe = sanitizeSubjectName(subjectSel.value || "");
-  const round = (roundSel.value === "第一次") ? "1" : "2";
-  const year = String(yearSel.value || "0");
-  return `note|${subjSafe}|${year}|r${round}|q${qid}`;
+  // 回退 1：用顯示文字走你的對照表（a/b/c...）
+  try{
+    const label = getSubjectLabel();
+    const code = subjectPrefix(label); // a/b/c...
+    if (code && code !== "x") return code;
+  }catch{}
+
+  // 回退 2：清洗顯示文字當代碼
+  try{
+    const fallback = sanitizeSubjectName(getSubjectLabel());
+    if (fallback) return fallback;
+  }catch{}
+
+  return "unknown";
 }
+
+// 規格化梯次代碼，避免「第一次」「第1次」等異名造成不同鍵
+function getRoundCode(){
+  const v = String(roundSel?.value || "").trim();
+  if (/^第?\s*一\s*次$/.test(v) || /^(第一次|第1次|1)$/.test(v)) return "1";
+  if (/^第?\s*二\s*次$/.test(v) || /^(第二次|第2次|2)$/.test(v)) return "2";
+  // 其他字樣保底為 "0"
+  return "0";
+}
+
+// 筆記鍵名：綁定 科目＋年次＋梯次＋題號，避免跨卷/跨科碰撞
+function keyForNote(qid){
+  const subj  = getSubjectId();               // 唯一且穩定的科目代碼
+  const year  = String(yearSel?.value || "0");// 年份字串
+  const round = getRoundCode();               // 1/2/0
+  return `note|${subj}|${year}|r${round}|q${qid}`;
+}
+
 
 function saveNotes(){
   const q = state.questions[state.index];
