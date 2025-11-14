@@ -101,6 +101,8 @@
         <div id="qText" class="qtext">請先載入題目</div>
         <img id="qImg" class="qimg hidden" alt="">
         <div id="qOpts" class="options"></div>
+        <div id="qExplain" class="qtext hidden"
+             style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;"></div>
 
         <div class="navrow">
           <button id="prev" class="btn">上一題</button>
@@ -152,6 +154,8 @@
           <!-- 插入圖片 -->
           <input id="imgNote" type="file" accept="image/*" class="hidden">
           <button class="pill" id="bImg">插入圖片</button>
+
+          <button class="pill hidden" id="btnExportNotes">匯出本卷詳解</button>
         </div>
 
         <div id="editor" class="editor" contenteditable="true" aria-label="這題的筆記…（可調字級、粗體、顏色、螢光筆、插圖）"></div>
