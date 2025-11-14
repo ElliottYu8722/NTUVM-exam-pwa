@@ -473,25 +473,26 @@ showAns.onchange = ()=> renderQuestion();
 /* 測驗控制 */
 bindTapClick(btnExam, enterFullscreenQuiz);
 /* ========= 全螢幕測驗模式（覆蓋主頁，無彈窗） ========= */
-/* ========= 全螢幕測驗模式（無「顯示答案」功能） ========= */
+/* ========= 全螢幕測驗模式（覆蓋主頁，新增「測驗準備」頁） ========= */
 function enterFullscreenQuiz(){
   if(!state.questions.length || !Object.keys(state.answers).length){
     alert("請先載入題目與答案。");
     return;
   }
-  resetUserAnswersForCurrentScope();
 
+  // 先鎖住 body 捲動，之後關閉再還原
   const prevOverflow = document.body.style.overflow;
   document.body.style.overflow = "hidden";
 
   const mask = document.createElement("div");
   mask.id = "fsQuizMask";
   mask.style.cssText = `
-    position:fixed; inset:0; z-index:99999; 
+    position:fixed; inset:0; z-index:99999;
     background:var(--bg,#111);
     display:flex; flex-direction:column;
   `;
 
+  // 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
   if(!document.getElementById("fs-quiz-style")){
     const css = document.createElement("style");
     css.id = "fs-quiz-style";
@@ -511,8 +512,8 @@ function enterFullscreenQuiz(){
         background:transparent; color:var(--fg,#fff); cursor:pointer; font-size:16px;
       }
       .fs-btn:hover{ border-color:var(--accent,#2f74ff); color:var(--accent,#2f74ff); }
-      .fs-main{ 
-        flex:1; display:flex; flex-direction:column; gap:12px; 
+      .fs-main{
+        flex:1; display:flex; flex-direction:column; gap:12px;
         padding:16px; overflow:auto;
       }
       .fs-card{
@@ -523,10 +524,43 @@ function enterFullscreenQuiz(){
       .fs-opts{ margin-top:10px; display:flex; flex-direction:column; gap:8px; }
       .fs-nav{ display:flex; gap:8px; align-items:center; margin-top:14px; }
       .fs-hidden{ display:none !important; }
+
+      /* ===== 測驗準備遮罩卡片 ===== */
+      .fs-start-overlay{
+        position:fixed; inset:0; z-index:100000;
+        display:flex; align-items:center; justify-content:center;
+        background:rgba(0,0,0,.65);
+      }
+      .fs-start-card{
+        min-width:280px; max-width:420px;
+        background:var(--card,#1b1b1b);
+        border-radius:16px;
+        border:1px solid var(--border,#2a2a2a);
+        padding:20px 18px;
+        box-shadow:0 18px 45px rgba(0,0,0,.4);
+      }
+      .fs-start-title{
+        font-size:18px; font-weight:600; margin-bottom:12px;
+      }
+      .fs-start-row{
+        font-size:15px; margin:4px 0;
+      }
+      .fs-start-row .value{
+        font-weight:600;
+      }
+      .fs-start-actions{
+        margin-top:16px;
+        display:flex; justify-content:flex-end; gap:10px;
+      }
+      .fs-btn-primary{
+        background:var(--accent,#2f74ff);
+        color:#fff;
+      }
     `;
     document.head.appendChild(css);
   }
 
+  // 先把完整測驗畫面 + 準備卡片都畫出來（準備卡片會蓋在最上面）
   mask.innerHTML = `
     <div class="fs-topbar">
       <span class="fs-badge">科目：<span id="fsSubj"></span></span>
@@ -551,18 +585,61 @@ function enterFullscreenQuiz(){
         </div>
       </div>
     </div>
+
+    <!-- 測驗準備卡片：一進來先看到這個 -->
+    <div id="fsStartOverlay" class="fs-start-overlay">
+      <div class="fs-start-card">
+        <div class="fs-start-title">測驗準備</div>
+        <div class="fs-start-row">科目：<span class="value" id="fsStartSubj"></span></div>
+        <div class="fs-start-row">年份：<span class="value" id="fsStartYear"></span></div>
+        <div class="fs-start-row">梯次：<span class="value" id="fsStartRound"></span></div>
+        <div class="fs-start-row">作答時間：<span class="value">60 分鐘</span></div>
+        <div class="fs-start-actions">
+          <button id="fsStartCancel" class="fs-btn">取消</button>
+          <button id="fsStartBtn" class="fs-btn fs-btn-primary">進入作答</button>
+        </div>
+      </div>
+    </div>
   `;
   document.body.appendChild(mask);
 
+  // 測驗本體用到的節點
   const fs = {
     mask,
-    fsSubj: $("#fsSubj"), fsYear: $("#fsYear"), fsRound: $("#fsRound"),
-    fsTimer: $("#fsTimer"), fsReviewTag: $("#fsReviewTag"),
-    fsQNum: $("#fsQNum"), fsQText: $("#fsQText"), fsQImg: $("#fsQImg"), fsQOpts: $("#fsQOpts"),
-    fsPrev: $("#fsPrev"), fsNext: $("#fsNext"),
-    fsSubmit: $("#fsSubmit"), fsClose: $("#fsClose")
+    fsSubj: document.getElementById("fsSubj"),
+    fsYear: document.getElementById("fsYear"),
+    fsRound: document.getElementById("fsRound"),
+    fsTimer: document.getElementById("fsTimer"),
+    fsReviewTag: document.getElementById("fsReviewTag"),
+    fsQNum: document.getElementById("fsQNum"),
+    fsQText: document.getElementById("fsQText"),
+    fsQImg: document.getElementById("fsQImg"),
+    fsQOpts: document.getElementById("fsQOpts"),
+    fsPrev: document.getElementById("fsPrev"),
+    fsNext: document.getElementById("fsNext"),
+    fsSubmit: document.getElementById("fsSubmit"),
+    fsClose: document.getElementById("fsClose")
   };
 
+  // 「測驗準備」卡片節點
+  const fsStartOverlay = document.getElementById("fsStartOverlay");
+  const fsStartSubj    = document.getElementById("fsStartSubj");
+  const fsStartYear    = document.getElementById("fsStartYear");
+  const fsStartRound   = document.getElementById("fsStartRound");
+  const fsStartBtn     = document.getElementById("fsStartBtn");
+  const fsStartCancel  = document.getElementById("fsStartCancel");
+
+  // 卷別資訊填入（上方列 + 準備卡片共用）
+  const subjLabel = getSubjectLabel(); // 你前面已經寫好的工具函式
+  if (fs.fsSubj)  fs.fsSubj.textContent  = subjLabel;
+  if (fs.fsYear)  fs.fsYear.textContent  = yearSel.value;
+  if (fs.fsRound) fs.fsRound.textContent = roundSel.value;
+
+  if (fsStartSubj)  fsStartSubj.textContent  = subjLabel;
+  if (fsStartYear)  fsStartYear.textContent  = yearSel.value;
+  if (fsStartRound) fsStartRound.textContent = roundSel.value;
+
+  // 測驗狀態（全都先建立好，但「不啟動計時」）
   const qs = {
     mode: "quiz",
     index: 0,
@@ -572,16 +649,47 @@ function enterFullscreenQuiz(){
     timerId: null
   };
 
-  fs.fsSubj.textContent  = subjectSel.value;
-  fs.fsYear.textContent  = yearSel.value;
-  fs.fsRound.textContent = roundSel.value;
-
+  // 導覽 / 提交 / 關閉：邏輯維持原本
   bindTapClick(fs.fsPrev,  ()=> { if(qs.mode==="review"){ stepReview(-1); } else { if(qs.index>0) qs.index--; } renderFS(); });
   bindTapClick(fs.fsNext,  ()=> { if(qs.mode==="review"){ stepReview( 1); } else { if(qs.index<state.questions.length-1) qs.index++; } renderFS(); });
   bindTapClick(fs.fsSubmit, ()=> submitFS());
   bindTapClick(fs.fsClose,  ()=> closeFS());
 
-  tickFS(); qs.timerId = setInterval(tickFS, 1000);
+  // ✅「進入作答」：這個時候才清除舊作答 + 啟動計時
+  if (fsStartBtn){
+    bindTapClick(fsStartBtn, ()=>{
+      // 1) 清除目前科目/年/梯次的舊作答
+      resetUserAnswersForCurrentScope();
+
+      // 2) 重設倒數時間
+      qs.mode   = "quiz";
+      qs.index  = 0;
+      qs.reviewOrder = [];
+      qs.reviewPos   = 0;
+      qs.remain = 60*60;
+
+      // 3) 先渲染第一題，再開始計時
+      renderFS();
+      tickFS();
+      qs.timerId = setInterval(tickFS, 1000);
+
+      // 4) 把「測驗準備」卡片藏起來
+      fsStartOverlay?.classList.add("fs-hidden");
+    });
+  }
+
+  // ❌「取消」：關掉整個全螢幕，回到原本頁面，完全不影響原本作答
+  if (fsStartCancel){
+    bindTapClick(fsStartCancel, ()=>{
+      if(qs.timerId){ clearInterval(qs.timerId); qs.timerId = null; }
+      try{ document.body.removeChild(mask); }catch{}
+      document.body.style.overflow = prevOverflow || "";
+      state.mode = "browse";
+      renderQuestion();
+    });
+  }
+
+  // 一開始只畫題目內容（不動計時，顯示用）
   renderFS();
 
   function renderFS(){
@@ -595,7 +703,7 @@ function enterFullscreenQuiz(){
     }
 
     fs.fsQNum.textContent = `第 ${q.id} 題`;
-    fs.fsQText.innerHTML = escapeHTML(q.text);
+    fs.fsQText.innerHTML  = escapeHTML(q.text);
 
     if(q.image){
       const raw = resolveImage(q.image);
@@ -631,11 +739,11 @@ function enterFullscreenQuiz(){
       if(qs.mode==="review"){
         if (ua === L) {
           span.innerText += "（你選）";
-          span.style.color = "#6aa0ff";  // 你選的答案藍色
+          span.style.color = "#6aa0ff";
         }
         if (correctSet.has(L)) {
           span.innerText += "（正解）";
-          span.style.color = "#c40000";  // 正解紅色
+          span.style.color = "#c40000";
         }
       }
 
@@ -711,6 +819,7 @@ function enterFullscreenQuiz(){
     renderQuestion();
   }
 }
+
 bindTapClick(btnSubmit, submitQuiz);
 bindTapClick(btnClose,  closeQuiz);
 
