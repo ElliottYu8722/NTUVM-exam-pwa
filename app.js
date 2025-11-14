@@ -928,31 +928,140 @@ function openRecordsViewer(arr){
 }
 
 /* 筆記工具 */
+// 字級 / 基本文字樣式
 fontSel.onchange = ()=> exec("fontSize", sizeToCommand(fontSel.value));
-bBold.onclick   = ()=> toggleButton(bBold, ()=>exec("bold"));
+bBold.onclick   = ()=> toggleButton(bBold,   ()=>exec("bold"));
 bItalic.onclick = ()=> toggleButton(bItalic, ()=>exec("italic"));
-bUnder.onclick  = ()=> toggleButton(bUnder, ()=>exec("underline"));
-bSub.onclick    = ()=> { bSup.classList.remove("active"); toggleButton(bSub, ()=>exec("subscript")); };
-bSup.onclick    = ()=> { bSub.classList.remove("active"); toggleButton(bSup, ()=>exec("superscript")); };
-txtColor.onchange = ()=> exec("foreColor", txtColor.value);
-bHL.onclick = ()=>{
-  editor.focus();
-
-  const want = normalizeColor(hlColor.value);
-  const cur  = normalizeColor(currentHilite() || "");
-
-  // 第二次按：如果目前選取的標記色 == 想要的顏色 → 取消標記
-  if (cur && cur === want){
-    clearHiliteSelection();
-  } else {
-    hilite(hlColor.value);
-  }
-
-  bHL.classList.add("active");
-  setTimeout(()=>bHL.classList.remove("active"), 250);
-  saveNotes();
+bUnder.onclick  = ()=> toggleButton(bUnder,  ()=>exec("underline"));
+bSub.onclick    = ()=> { 
+  bSup.classList.remove("active"); 
+  toggleButton(bSub, ()=>exec("subscript")); 
 };
+bSup.onclick    = ()=> { 
+  bSub.classList.remove("active"); 
+  toggleButton(bSup, ()=>exec("superscript")); 
+};
+
+/* ===== 字體顏色：「字體顏色 ▾」 =====
+ * 需求：
+ * - 按鈕文字顯示「字體顏色」
+ * - 這四個字的字色，跟著目前選擇的顏色改變
+ * - 旁邊有小箭頭可以打開顏色選擇器
+ * - 點按鈕本身會把選取文字套用目前顏色
+ */
+
+// 這兩個節點請在 HTML 裡準備好：
+// <button id="bFontColor">字體顏色<span id="fontColorArrow">▾</span></button>
+// <input type="color" id="txtColor" hidden>
+const bFontColor    = $("#bFontColor");
+const fontColorArrow= $("#fontColorArrow");
+
+// 點主按鈕：「字體顏色」本身 → 用目前顏色改變選取文字的字色
+if (bFontColor){
+  bFontColor.addEventListener("click", e=>{
+    e.preventDefault();
+    editor.focus();
+    if (!txtColor) return;
+    const c = txtColor.value || "#000000";
+    exec("foreColor", c);
+  });
+}
+
+// 點小箭頭：打開瀏覽器內建顏色選擇器
+if (fontColorArrow){
+  fontColorArrow.addEventListener("click", e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    if (txtColor) txtColor.click();
+  });
+}
+
+// 顏色被選取／變更時：更新按鈕文字顏色，同時把目前選取文字套用新顏色
+if (txtColor){
+  txtColor.addEventListener("change", ()=>{
+    const c = txtColor.value || "#000000";
+    // 「字體顏色」四個字跟著變色
+    if (bFontColor){
+      bFontColor.style.color = c;
+    }
+    exec("foreColor", c);
+  });
+
+  // 初始化預設顏色（如果一開始就有 value）
+  if (txtColor.value && bFontColor){
+    bFontColor.style.color = txtColor.value;
+  }
+}
+
+/* ===== 螢光筆：「螢光筆 ▾」 =====
+ * 需求：
+ * - 按鈕文字顯示「螢光筆」
+ * - 旁邊有小箭頭可以打開顏色選擇器
+ * - 點按鈕本身，用目前色彩做標記；若選取區已是同顏色，再按一次就取消標記
+ */
+
+// 這個按鈕你原本就有：<button id="bHL">螢光筆<span id="hlArrow">▾</span></button>
+// 只要在裡面多放一個 id="hlArrow" 的 span 當小箭頭即可
+const hlArrow = $("#hlArrow");
+
+// 點主按鈕：「螢光筆」本身 → 依目前顏色做標記 / 取消標記
+if (bHL){
+  bHL.addEventListener("click", e=>{
+    e.preventDefault();
+    editor.focus();
+
+    const want = normalizeColor(hlColor?.value || "#fff59d");
+    const cur  = normalizeColor(currentHilite() || "");
+
+    // 第二次按：如果目前選取的標記色 == 想要的顏色 → 取消標記
+    if (cur && cur === want){
+      clearHiliteSelection();
+    } else {
+      hilite(hlColor?.value || "#fff59d");
+    }
+
+    bHL.classList.add("active");
+    setTimeout(()=>bHL.classList.remove("active"), 250);
+    saveNotes();
+  });
+}
+
+// 點小箭頭：打開螢光筆顏色選擇器
+if (hlArrow){
+  hlArrow.addEventListener("click", e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    if (hlColor) hlColor.click();
+  });
+}
+
+// 螢光筆顏色變更時：更新按鈕外觀，並可選擇立即套用在目前選取文字
+if (hlColor){
+  const syncHLButton = ()=>{
+    const c = hlColor.value || "#fff59d";   // 淺黃色作為預設螢光筆色
+    if (bHL){
+      bHL.style.backgroundColor = c;
+      bHL.style.color = "#000000";         // 螢光色通常偏亮，用黑字比較清楚
+    }
+  };
+
+  hlColor.addEventListener("change", ()=>{
+    syncHLButton();
+    // 若此時有選取文字，也順便幫你用新顏色再標一次
+    editor.focus();
+    hilite(hlColor.value || "#fff59d");
+    saveNotes();
+  });
+
+  // 初始化按鈕顏色
+  syncHLButton();
+}
+
+// 圖片筆記維持不變
 bImg.onclick = ()=> imgNote.click();
+
+
+
 imgNote.onchange = async e=>{
   const f = e.target.files?.[0]; if(!f) return;
   const data = await fileToDataURL(f);
