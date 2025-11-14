@@ -802,6 +802,7 @@ function enterFullscreenQuiz(){
     if(goReview && wrong.length){
       qs.mode="review";
       fs.fsTimer.classList.add("fs-hidden");
+      fs.fsSubmit.classList.add("fs-hidden");
       qs.reviewOrder = wrong.map(w=>w.idx);
       qs.reviewPos = 0;
       qs.index = qs.reviewOrder[0];
