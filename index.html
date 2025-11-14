@@ -112,21 +112,48 @@
 
       <div class="notes">
         <div class="toolbar">
+          <!-- 字級 -->
           <select id="fontSel">
-            <option>12</option><option>14</option><option selected>16</option>
-            <option>18</option><option>20</option><option>24</option><option>28</option><option>32</option>
+            <option>12</option>
+            <option>14</option>
+            <option selected>16</option>
+            <option>18</option>
+            <option>20</option>
+            <option>24</option>
+            <option>28</option>
+            <option>32</option>
           </select>
+        
+          <!-- 粗體 / 斜體 / 底線 -->
           <button class="pill" id="bBold"><b>B</b></button>
           <button class="pill" id="bItalic"><i>I</i></button>
           <button class="pill" id="bUnder"><u>U</u></button>
+        
+          <!-- 上標 / 下標 -->
           <button class="pill" id="bSub">x₂</button>
           <button class="pill" id="bSup">x²</button>
-          <input id="txtColor" type="color" value="#222222" />
-          <input id="hlColor"  type="color" value="#fff59d" />
-          <button class="pill" id="bHL">螢光筆</button>
+        
+          <!-- 字體顏色：文字 + 小箭頭 -->
+          <button class="pill" id="bFontColor">
+            <span>字體顏色</span>
+            <span id="fontColorArrow">▾</span>
+          </button>
+          <!-- 真正的顏色選擇器藏在這裡，JS 會幫你叫出來 -->
+          <input id="txtColor" type="color" value="#222222" style="display:none" />
+        
+          <!-- 螢光筆：文字 + 小箭頭 -->
+          <button class="pill" id="bHL">
+            <span>螢光筆</span>
+            <span id="hlArrow">▾</span>
+          </button>
+          <!-- 一樣把顏色選擇器藏起來，由 JS 控制 -->
+          <input id="hlColor" type="color" value="#fff59d" style="display:none" />
+        
+          <!-- 插入圖片 -->
           <input id="imgNote" type="file" accept="image/*" class="hidden">
           <button class="pill" id="bImg">插入圖片</button>
         </div>
+
         <div id="editor" class="editor" contenteditable="true" aria-label="這題的筆記…（可調字級、粗體、顏色、螢光筆、插圖）"></div>
         <div class="footer-hint">筆記會自動儲存在瀏覽器（IndexedDB / localStorage）。</div>
       </div>
