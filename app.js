@@ -93,6 +93,7 @@ const showAns = $("#showAns");
 const btnToggleAns = $("#btnToggleAns");
 
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
+const qExplain = $("#qExplain");   // 新增：詳解容器
 const qList = $("#qList");
 
 const prevBtn = $("#prev"), nextBtn = $("#next");
@@ -100,6 +101,17 @@ const btnExam = $("#btnExam"), btnSubmit = $("#btnSubmit"), btnClose = $("#btnCl
 const timerBadge = $("#timer"), reviewTag = $("#reviewTag");
 
 const btnRecords = $("#btnRecords"), btnTheme = $("#btnTheme");
+const btnExportNotes = $("#btnExportNotes");  // 作者模式匯出按鈕
+
+// ===== 作者模式：用 ?dev=1 或 localStorage 控制 =====
+const AUTHOR_MODE = (()=>{
+  try{
+    const usp = new URLSearchParams(location.search);   // 讀網址上的 query 參數[web:58]
+    if (usp.get("dev") === "1") return true;            // ?dev=1 時啟用作者模式[web:58]
+    if (localStorage.getItem("authorMode") === "true") return true; // 或 localStorage 開關[web:58]
+  }catch{}
+  return false;
+})();
 function bindTapClick(el, handler){
   if(!el) return;
   const fire = (e)=>{
@@ -421,6 +433,18 @@ function renderQuestion(){
   bRound.textContent = roundSel.value;
   highlightList();
   loadNoteForCurrent();
+  if (qExplain){
+    const hasExp = !!q.explanation;      // 題目 JSON 中的 explanation（HTML 字串）[web:53]
+    if (hasExp){
+      qExplain.classList.remove("hidden");
+      // 幫你加一個小標題，下面直接塞 explanation HTML（可含圖片）
+      qExplain.innerHTML = `<div style="color:#caa;margin-bottom:4px">詳解</div>` +
+                           String(q.explanation);
+    } else {
+      qExplain.classList.add("hidden");
+      qExplain.innerHTML = "";
+    }
+  }
 }
 /* 逃脫字元 */
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
@@ -1036,6 +1060,45 @@ function openRecordsViewer(arr){
   mask.appendChild(card);
   document.body.appendChild(mask);
 }
+// ===== 匯出目前這一卷的詳解（作者模式專用） =====
+function exportNotesForCurrentScope(){
+  // 先確保當前題目的筆記有存進去
+  saveNotes();
+
+  // 保險再讀一次 notes
+  loadNotes();
+
+  const scope = state.scope || getScopeFromUI();
+
+  // 產生陣列：每題 { id, explanation: "<html...>" }
+  const arr = state.questions.map(q=>{
+    const k = keyForNote(q.id, scope);           // 此題在 notes 裡的 key[web:48]
+    const html = (state._notes && state._notes[k]) || "";
+    return {
+      id: q.id,
+      explanation: html
+    };
+  });
+
+  // 也做一份「題號 → explanation」物件，方便貼回 JSON
+  const byId = {};
+  arr.forEach(row=>{
+    byId[row.id] = row.explanation;
+  });
+
+  console.log("=== 本卷詳解（陣列格式）===");
+  console.log(JSON.stringify(arr, null, 2));     // 給你逐題對照用[web:58]
+
+  console.log("=== 本卷詳解（以題號為 key 的物件）===");
+  console.log(JSON.stringify(byId, null, 2));    // 方便直接貼進題目檔[web:58]
+
+  toast("已在 console 輸出詳解 JSON");
+}
+
+// 作者模式才綁定按鈕
+if (AUTHOR_MODE && btnExportNotes){
+  bindTapClick(btnExportNotes, exportNotesForCurrentScope);
+}
 
 /* 筆記工具 */
 // 字級 / 基本文字樣式
@@ -1410,7 +1473,11 @@ function init(){
   loadAnswersFromStorage();
   renderList();
   state.scope = getScopeFromUI(); // 先記住目前 UI 範圍
-  onScopeChange();                // 進行首次載入
+  onScopeChange();
+    // 作者模式：顯示匯出按鈕
+  if (AUTHOR_MODE && btnExportNotes){
+    btnExportNotes.classList.remove("hidden");
+  }// 進行首次載入
 }
 init();
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
