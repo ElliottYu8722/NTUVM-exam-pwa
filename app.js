@@ -1089,8 +1089,8 @@ function exportNotesForCurrentScope(){
   console.log("=== 本卷詳解（陣列格式）===");
   console.log(JSON.stringify(arr, null, 2));     // 給你逐題對照用[web:58]
 
-  console.log("=== 本卷詳解（以題號為 key 的物件）===");
-  console.log(JSON.stringify(byId, null, 2));    // 方便直接貼進題目檔[web:58]
+  //console.log("=== 本卷詳解（以題號為 key 的物件）===");
+  //console.log(JSON.stringify(byId, null, 2));    // 方便直接貼進題目檔[web:58]
 
   toast("已在 console 輸出詳解 JSON");
 }
