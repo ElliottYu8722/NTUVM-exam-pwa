@@ -1,0 +1,882 @@
+[
+  {
+    "id": 1,
+    "text": "1. 下列何者屬於炎症性或腫瘤性病變？",
+    "options": {
+      "A": "唾液腺囊腫",
+      "B": "脂肪瘤",
+      "C": "肥大細胞瘤",
+      "D": "血腫"
+    },
+    "image": null
+  },
+  {
+    "id": 2,
+    "text": "2. 下列何者不屬於上皮細胞性腫瘤（epithelial tumors）之類型？",
+    "options": {
+      "A": "basal cell tumor",
+      "B": "squamous cell tumor",
+      "C": "perianal adenoma",
+      "D": "lipoma"
+    },
+    "image": null
+  },
+  {
+    "id": 3,
+    "text": "3. 下列何種因子在評估體腔滲出液時，最不具有診斷價值？",
+    "options": {
+      "A": "顏色",
+      "B": "蛋白質",
+      "C": "有核細胞數",
+      "D": "pH 值"
+    },
+    "image": null
+  },
+  {
+    "id": 4,
+    "text": "4. 一隻 4 歲雌性小獵犬呈現嗜睡及食慾不振之臨床症狀已 5 天，曾出現發燒及腹部觸診疼痛等現象。腹部超音波顯示有腹水存在，抽取腹水分析，結果如下：呈紅色而稍濁、蛋白質含量為 4.6 g/dL，有核細胞數為184,600/µL，細胞相主要以退行性嗜中性球及少數巨噬細胞為主。根據分析結果，此腹水最有可能屬於下列何者？",
+    "options": {
+      "A": "漏出液（transudate）",
+      "B": "修飾性漏出液（modified transudate）",
+      "C": "非化膿性滲出液（nonseptic exudate）",
+      "D": "化膿性滲出液（septic exudate）"
+    },
+    "image": null
+  },
+  {
+    "id": 5,
+    "text": "5. 當關節囊液採樣量不足時，應優先進行下列何項檢驗？",
+    "options": {
+      "A": "細胞學檢查",
+      "B": "細菌培養",
+      "C": "蛋白質測定",
+      "D": "黏蛋白塊測試（mucin clot test）"
+    },
+    "image": null
+  },
+  {
+    "id": 6,
+    "text": "6. 正常犬貓關節液黏度，通常可延伸多長？",
+    "options": {
+      "A": "＜1 公分",
+      "B": "1～1.5 公分",
+      "C": "2.5～5 公分",
+      "D": "6～10公分"
+    },
+    "image": null
+  },
+  {
+    "id": 7,
+    "text": "7. 未結紮母犬進行陰道抹片檢查時，下列何者的核質比最大？",
+    "options": {
+      "A": "基底層細胞（basal cell）",
+      "B": "副基底層細胞（parabasal cell）",
+      "C": "中間層上皮細胞（intermediate cell）",
+      "D": "角化上皮細胞（superficial cell）"
+    },
+    "image": null
+  },
+  {
+    "id": 8,
+    "text": "8. 下列何者不屬於臨床病理學中的檢驗前錯誤（pre-analytical error）？",
+    "options": {
+      "A": "驗血前未禁食可能造成脂血症",
+      "B": "爬蟲類採樣時未考慮環境溫度的變化可影響檢驗值",
+      "C": "是否有用麻醉或鎮靜下採血可能影響檢驗值",
+      "D": "判讀或選擇參考值時未考慮採樣的季節"
+    },
+    "image": null
+  },
+  {
+    "id": 9,
+    "text": "9. 以氟化鈉做為血液抗凝劑時，血中那種離子常呈現偽高值？",
+    "options": {
+      "A": "鐵",
+      "B": "鈣",
+      "C": "鉀",
+      "D": "鎂"
+    },
+    "image": null
+  },
+  {
+    "id": 10,
+    "text": "10. 有關尿渣檢查的敘述，下列何者錯誤？",
+    "options": {
+      "A": "完整的尿液檢查需包含鏡檢",
+      "B": "需高速離心以收集沉積物",
+      "C": "鏡檢時染色不是必須的步驟",
+      "D": "在馬的尿液鏡檢中看到黏液（mucus）是正常的"
+    },
+    "image": null
+  },
+  {
+    "id": 11,
+    "text": "11. 有關豬瘟檢體之運送，下列做法何者最不適當？",
+    "options": {
+      "A": "送檢 EDTA抗凝血液，做白血球計數及分類",
+      "B": "常溫運輸扁桃腺、淋巴結等臟器做螢光抗體檢查",
+      "C": "冷藏運輸扁桃腺、淋巴結等臟器做螢光抗體檢查",
+      "D": "10％中性福馬林液固定腦幹，做螢光抗體檢查"
+    },
+    "image": null
+  },
+  {
+    "id": 12,
+    "text": "12. 下圖最有可能為何種健康動物的血液抹片？",
+    "options": {
+      "A": "犬",
+      "B": "貓",
+      "C": "羊",
+      "D": "馬"
+    },
+    "image": "./圖片/c1141-000.jpg"
+  },
+  {
+    "id": 13,
+    "text": "13. 下列何種抗凝劑，在 4℃冰箱內可使血液細胞在24小時內不起明顯變化？",
+    "options": {
+      "A": "EDTA",
+      "B": "oxalates",
+      "C": "heparin",
+      "D": "sodium fluoride"
+    },
+    "image": null
+  },
+  {
+    "id": 14,
+    "text": "14. 下圖為犬的血液抹片，箭頭所指最可能為何？",
+    "options": {
+      "A": "嗜鹼性斑點（basophilic stippling）",
+      "B": "海因滋小體（Heinz bodies）",
+      "C": "賀－邱氏小體（Howell-Jolly bodies）",
+      "D": "有核紅血球的核"
+    },
+    "image": "./圖片/c1141-001.jpg"
+  },
+  {
+    "id": 15,
+    "text": "15. 承上題，此物質具有下列那些特性？①為聚集的變性血紅素 ②為嗜鹼性殘留物 ③有高度折光性 ④常見於脾臟切除動物",
+    "options": {
+      "A": "①③",
+      "B": "①④",
+      "C": "②③",
+      "D": "②④"
+    },
+    "image": null
+  },
+  {
+    "id": 16,
+    "text": "16. 下列何種代謝路徑是因缺乏麩氨基硫合成酶（glutathione synthetase）而造成的貧血？",
+    "options": {
+      "A": "衛－梅路徑（Embden-Meyerhof pathway）",
+      "B": "己糖－單磷酸鹽路徑（hexose-monophosphate pathway）",
+      "C": "變性血紅素還原酶路徑（methemoglobin reductase pathway）",
+      "D": "盧－拉路徑（Luebering-Rapoport pathway）"
+    },
+    "image": null
+  },
+  {
+    "id": 17,
+    "text": "17. 經 Wright-Giemsa染色之犬隻紅血球，若呈現較大且染成較藍色之狀態，稱為：",
+    "options": {
+      "A": "正色性",
+      "B": "多染性",
+      "C": "低色性",
+      "D": "異染性"
+    },
+    "image": null
+  },
+  {
+    "id": 18,
+    "text": "18. 下列何種狀況不是絕對性多血症（absolute erythrocytosis）的成因？",
+    "options": {
+      "A": "高山症",
+      "B": "貓或馬因緊迫造成之脾臟收縮",
+      "C": "慢性肺臟疾病",
+      "D": "由右向左分流之心臟疾病"
+    },
+    "image": null
+  },
+  {
+    "id": 19,
+    "text": "19. 有關再生性貧血，下列敘述何者正確？",
+    "options": {
+      "A": "在馬會出現明顯之網織球增多症",
+      "B": "可見到骨髓之細胞增加伴隨 M:E ratio（myeloid:erythroid）減少",
+      "C": "常見動物中，牛有最強之再生性反應",
+      "D": "紅血球之再生性反應需要至少 1週的時間來反應"
+    },
+    "image": null
+  },
+  {
+    "id": 20,
+    "text": "20. 使用簡易的單點測試法，測試血液樣本是否含有大量的變性血紅素，將血液滴於吸收力強的白紙上，若患者血液中含有的變性血紅素比率達 15％時，其血液與健康者血液相比，會呈現什麼顏色？",
+    "options": {
+      "A": "顏色不變",
+      "B": "淡粉紅色",
+      "C": "鮮紅色",
+      "D": "棕褐色"
+    },
+    "image": null
+  },
+  {
+    "id": 21,
+    "text": "21. 當有慢性胃腸道持續出血，最可能見到下列何種情形？",
+    "options": {
+      "A": "嗜中性球減少症",
+      "B": "血小板持續性減少",
+      "C": "網織球數目持續性增加",
+      "D": "缺鐵性貧血"
+    },
+    "image": null
+  },
+  {
+    "id": 22,
+    "text": "22. 造成犬小球性低色性貧血最可能之原因為何？",
+    "options": {
+      "A": "免疫性溶血",
+      "B": "慢性缺鐵",
+      "C": "葉酸缺乏",
+      "D": "vitamin B12缺乏"
+    },
+    "image": null
+  },
+  {
+    "id": 23,
+    "text": "23. 在健康動物，骨髓中的嗜中性白血球會以增殖（proliferation）及儲存（storage）之樣態（compartment）存在，其比例為何？",
+    "options": {
+      "A": "30％為增殖樣態、70％為儲存樣態",
+      "B": "50％為增殖樣態、50％為儲存樣態",
+      "C": "20％為增殖樣態、80％為儲存樣態",
+      "D": "10％為增殖樣態、90％為儲存樣態"
+    },
+    "image": null
+  },
+  {
+    "id": 24,
+    "text": "24. 有關白血球反應，下列敘述何者正確？",
+    "options": {
+      "A": "嗜中性球增多症同時伴隨中度核左轉，且分葉嗜中性球（segmented neutrophils）多於帶狀嗜中性球（band cells）時，就可以判斷此反應足以控制炎症反應",
+      "B": "嗜中性球增多症伴隨未成熟嗜中性球數量超過分葉嗜中性球（segmented neutrophils），可稱為再生性核左轉，此狀況如果持續，就代表炎症反應預後較佳",
+      "C": "若動物發生嗜中性球低下現象（neutropenia），不論原因為何，皆代表二次感染機會增加",
+      "D": "單次之白血球計數分析，除可提供炎症嚴重程度及骨髓反應強度外，也可用以評斷炎症之預後"
+    },
+    "image": null
+  },
+  {
+    "id": 25,
+    "text": "25. 下列何者不是嗜中性球呈現毒性變化（toxic change）時的現象？",
+    "options": {
+      "A": "出現毒性顆粒",
+      "B": "細胞核分葉減少",
+      "C": "細胞質出現許多空泡",
+      "D": "出現羅列小體（Döhle bodies）"
+    },
+    "image": null
+  },
+  {
+    "id": 26,
+    "text": "26. 下列何種情況最不會引起嗜中性球增多症？",
+    "options": {
+      "A": "動物到動物醫院時感到很害怕",
+      "B": "小貓於採血時掙扎",
+      "C": "犬艾利希體感染",
+      "D": "分娩中的健康動物"
+    },
+    "image": null
+  },
+  {
+    "id": 27,
+    "text": "27. 在貂（ferret）淋巴瘤，下列敘述何者正確？",
+    "options": {
+      "A": "貂淋巴瘤多為 B細胞來源",
+      "B": "消化道型淋巴瘤最為常見",
+      "C": "周邊血像常可見白血病樣變化",
+      "D": "胸縱膈淋巴瘤多數為 T細胞來源，多半好發在老年動物"
+    },
+    "image": null
+  },
+  {
+    "id": 28,
+    "text": "28. 下列何者為多發性骨髓瘤可見之副腫瘤症候群（paraneoplastic syndrome）？",
+    "options": {
+      "A": "hyperglycemia",
+      "B": "Myasthenia gravis",
+      "C": "hyperviscosity syndrome",
+      "D": "polycythemia vera"
+    },
+    "image": null
+  },
+  {
+    "id": 29,
+    "text": "29. 下列何種血液細胞不是由骨髓中的骨髓系幹細胞（myeloid stem cells）演變而成？",
+    "options": {
+      "A": "紅血球",
+      "B": "血小板",
+      "C": "淋巴球",
+      "D": "嗜中性球"
+    },
+    "image": null
+  },
+  {
+    "id": 30,
+    "text": "30. 犬急性淋巴球性白血病（acute lymphocytic leukemia, ALL）之腫瘤細胞來源為：",
+    "options": {
+      "A": "脾臟的未分化淋巴球",
+      "B": "淋巴結的未分化淋巴球",
+      "C": "骨髓內的未分化淋巴球",
+      "D": "多數文獻報告是T細胞"
+    },
+    "image": null
+  },
+  {
+    "id": 31,
+    "text": "31. 當懷疑動物血小板數量低下與凝血功能異常時，其檢體應使用下列何種採血管？",
+    "options": {
+      "A": "含促凝劑之採血管與含sodium citrate（3.2％）之採血管",
+      "B": "含 sodium fluoride之採血管與含sodium citrate（3.2％）之採血管",
+      "C": "含 K2EDTA之採血管與含sodium citrate（3.2％）之採血管",
+      "D": "含促凝劑之採血管與含K2EDTA 之採血管"
+    },
+    "image": null
+  },
+  {
+    "id": 32,
+    "text": "32. 下列何種檢驗方式只適用於評估次級凝血功能（secondary hemostasis）？",
+    "options": {
+      "A": "活化部分成栓質時間（activated partial thromboplastin time, APTT）",
+      "B": "血栓彈力圖（thromboelastography, TEG）",
+      "C": "口腔黏膜出血時間（buccal mucosal bleeding time, BMBT）",
+      "D": "血小板功能分析（platelet function assay）"
+    },
+    "image": null
+  },
+  {
+    "id": 33,
+    "text": "33. 鈣離子是第幾凝血因子？",
+    "options": {
+      "A": "Ⅵ",
+      "B": "Ⅲ",
+      "C": "Ⅳ",
+      "D": "Ⅴ"
+    },
+    "image": null
+  },
+  {
+    "id": 34,
+    "text": "34. 止血作用需下列那些物質相互協調作用，才能形成纖維素凝塊？①血管內皮細胞 ②凝血因子 ③胞漿素原④血小板",
+    "options": {
+      "A": "①②③",
+      "B": "①②④",
+      "C": "①③④",
+      "D": "②③④"
+    },
+    "image": null
+  },
+  {
+    "id": 35,
+    "text": "35. 血管內皮細胞會分泌下列何種物質，使血小板黏著於膠原形成血小板栓？",
+    "options": {
+      "A": "前列環素I2（PGI2）",
+      "B": "栓質（thromboplastin）",
+      "C": "纖維結合素（fibronectin）",
+      "D": "封魏氏因子（vWF）"
+    },
+    "image": null
+  },
+  {
+    "id": 36,
+    "text": "36. 某查理士王小獵犬，於絕育手術前評估時發現血小板數量為43,000 /μL（正常參考值：150,000～340,000/μL），平均血小板體積為 23.5 fL（正常參考值：8.7～13.2 fL），無任何出血斑，此犬最可能有何種疾病？",
+    "options": {
+      "A": "β1-tubulin-associated macrothrombocytopenia",
+      "B": "immune-mediated thrombocytopenia",
+      "C": "GP9-relative macrothrombocytopenia",
+      "D": "Bernard-Soulier syndrome"
+    },
+    "image": null
+  },
+  {
+    "id": 37,
+    "text": "37. 誤食大量出血型老鼠藥中毒之犬隻，最可能出現下列何種檢驗結果？",
+    "options": {
+      "A": "血小板數量正常、BMBT延長、APTT 正常、PT正常、TT 正常",
+      "B": "血小板數量異常、BMBT延長、APTT 正常、PT正常、TT 正常",
+      "C": "血小板數量正常、BMBT正常、APTT 延長、PT延長、TT 正常",
+      "D": "血小板數量正常、BMBT正常、APTT 正常、PT延長、TT 正常"
+    },
+    "image": null
+  },
+  {
+    "id": 38,
+    "text": "38. 使用雙脲素法（biuret method）測量總蛋白質濃度，檢體蛋白質濃度至少不可低於多少 g/dL，否則可能會造成檢驗誤差？",
+    "options": {
+      "A": "1",
+      "B": "3",
+      "C": "5",
+      "D": "7"
+    },
+    "image": null
+  },
+  {
+    "id": 39,
+    "text": "39. 有關硫酸鋅混濁試驗，6 mL 硫酸鋅（205 mg/L）溶液中加入 0.1 mL 血清後，有可視混濁出現，代表含有多少 mg/L之IgG？",
+    "options": {
+      "A": "50～100",
+      "B": "150～250",
+      "C": "280～380",
+      "D": "400～500"
+    },
+    "image": null
+  },
+  {
+    "id": 40,
+    "text": "40. 下列何者較不可能造成高脂血症（hyperlipidemia）？",
+    "options": {
+      "A": "膽汁鬱積（cholestasis）",
+      "B": "肝門脈分流（portosystemic shunts）",
+      "C": "蛋白流失性腎病（protein-losing nephropathy）",
+      "D": "腎上腺皮質功能亢進（hyperadrenocorticism）"
+    },
+    "image": null
+  },
+  {
+    "id": 41,
+    "text": "41. 有關犬貓脂蛋白（lipoprotein）之敘述，下列何者正確？",
+    "options": {
+      "A": "體積：HDL2大於VLDL",
+      "B": "載脂蛋白（apolipoprotein）含量：HDL小於VLDL",
+      "C": "三酸甘油脂（triglyceride）含量：HDL小於VLDL",
+      "D": "密度：HDL小於 VLDL"
+    },
+    "image": null
+  },
+  {
+    "id": 42,
+    "text": "42. 下列有關葡萄糖（glucose）的敘述何者正確？",
+    "options": {
+      "A": "反芻獸較不易發生餐後高血糖",
+      "B": "嚴重肝病常出現餐後低血糖",
+      "C": "肌細胞可經糖質新生（gluconeogenesis）生成葡萄糖利用",
+      "D": "糖皮質酮（glucocorticoids）藉由增加肝醣分解提高血糖"
+    },
+    "image": null
+  },
+  {
+    "id": 43,
+    "text": "43. 有關犬隻血糖監控的敘述，下列何者錯誤？",
+    "options": {
+      "A": "經過糖化的血漿蛋白通稱果糖胺（fructosamine），可用於了解血糖是否為長時間異常",
+      "B": "糖化血色素（glycosylated hemoglobin）可以用於評估糖尿病患血糖的穩定度",
+      "C": "糖尿病在血糖控制不穩定時，需要同時考慮是否有其他荷爾蒙對胰島素的拮抗",
+      "D": "測量每日飲水量及尿量不是有效的居家監控方式"
+    },
+    "image": null
+  },
+  {
+    "id": 44,
+    "text": "44. 下列關於犬貓銅中毒的敘述，何者最為適當？",
+    "options": {
+      "A": "Bedlington Terriers因MUC-1基因突變好發銅中毒",
+      "B": "會引發肝臟組織嗜中性球浸潤",
+      "C": "可用 rhodanine染色針對生檢採樣的肝組織確認銅離子的存在",
+      "D": "不會引發ALT上升"
+    },
+    "image": null
+  },
+  {
+    "id": 45,
+    "text": "45. 下列何者會造成循環中的鹼性磷酸酶（ALP）活性值上升？",
+    "options": {
+      "A": "肝細胞粒線體受損時",
+      "B": "肝庫弗細胞（Kupffer cells）的完整性改變時",
+      "C": "肝細胞與膽道系統的微膽管膜受刺激時",
+      "D": "肝細胞核膜受損時"
+    },
+    "image": null
+  },
+  {
+    "id": 46,
+    "text": "46. 下列何者最可能是犬隻長期慢性肝臟受到傷害時，其酵素活性值之變化？",
+    "options": {
+      "A": "ALT、AST急速上升；bile acid 隨著時間下降",
+      "B": "ALT、AST變化不一致；bile acid隨著時間上升",
+      "C": "ALT、AST、ALP都隨著時間上升",
+      "D": "ALT、AST、ALP及bile acid 都隨著時間而上升"
+    },
+    "image": null
+  },
+  {
+    "id": 47,
+    "text": "47. 有關肝臟星狀細胞（stellate cells, or Ito cells）之敘述，下列何者正確？",
+    "options": {
+      "A": "儲存維生素 K 的主要細胞",
+      "B": "可以分泌肝細胞生長因子促進肝臟的再生",
+      "C": "門脈分流之犬隻可觀察到星狀細胞肥大",
+      "D": "星狀細胞為負責膽固醇合成的主要細胞"
+    },
+    "image": null
+  },
+  {
+    "id": 48,
+    "text": "48. 下列那一項變化最可以懷疑鳥類的肝功能不足？",
+    "options": {
+      "A": "AST（aspartate aminotransferase）上升；CK（creatine kinase）正常",
+      "B": "蛋白質電泳圖中球蛋白上升",
+      "C": "膽汁酸（bile acid）上升",
+      "D": "ALT（alanine aminotransferase）上升"
+    },
+    "image": null
+  },
+  {
+    "id": 49,
+    "text": "49. 當牛發生monensin中毒時，最有可能出現下列何種與肝臟相關的病理變化？",
+    "options": {
+      "A": "膽汁鬱滯",
+      "B": "多處微小性肝細胞壞死",
+      "C": "局部缺氧性之小葉中心性病變",
+      "D": "脂肪肝"
+    },
+    "image": null
+  },
+  {
+    "id": 50,
+    "text": "50. 膽紅素的測定方法與結果，下列何者正確？",
+    "options": {
+      "A": "使用直接偶氮（diazo）反應法所測得數值為結合型膽紅素",
+      "B": "使用間接偶氮（diazo）反應法所測得數值為結合型膽紅素",
+      "C": "使用直接偶氮（diazo）反應法所測得數值為未結合型膽紅素",
+      "D": "使用直接偶氮（diazo）反應法所測得數值為間接反應膽紅素"
+    },
+    "image": null
+  },
+  {
+    "id": 51,
+    "text": "51. 有關黃疸（jaundice）之敘述，下列何者正確？",
+    "options": {
+      "A": "山羊未進食超過24 小時常會發生高膽紅素血症",
+      "B": "當血中尿膽素原（urobilinogen）超過 2 mg/dL時，會使組織呈現黃色，稱為黃疸現象",
+      "C": "脂血症會造成膽紅素數值偽低",
+      "D": "溶血性黃疸可藉由血容比（PCV）的顯著下降來鑑別"
+    },
+    "image": null
+  },
+  {
+    "id": 52,
+    "text": "52. 有關犬急性壞死性胰臟炎實驗室診斷，下列那個血液檢測數值通常呈現下降？",
+    "options": {
+      "A": "三酸甘油脂",
+      "B": "膽紅素",
+      "C": "血糖",
+      "D": "血鉀"
+    },
+    "image": null
+  },
+  {
+    "id": 53,
+    "text": "53. 有關胃泌素（gastrin）之敘述，下列何者正確？",
+    "options": {
+      "A": "是一種由胃底部黏膜上皮細胞所分泌的荷爾蒙",
+      "B": "會刺激膽汁及胰液之釋放",
+      "C": "犬貓罹患類似人的 Zollinger-Ellison syndrome時，可見極高的血清胃泌素",
+      "D": "此激素會抑制小腸的運動"
+    },
+    "image": null
+  },
+  {
+    "id": 54,
+    "text": "54. 有關α1-proteinase inhibitor（α1-PI）之敘述，下列何者正確？",
+    "options": {
+      "A": "是位於腸腔內的特異性蛋白",
+      "B": "其大小與白蛋白相近，但在腸道內不被降解",
+      "C": "若胃腸道黏膜有損傷時，會進入淋巴液與血中",
+      "D": "糞便中α1-PI 的濃度與蛋白質流失性腸病無關"
+    },
+    "image": null
+  },
+  {
+    "id": 55,
+    "text": "55. 有關鈷胺素（cobalamin）之敘述，下列何者錯誤？",
+    "options": {
+      "A": "又稱維生素 B12",
+      "B": "在胰外分泌不足（exocrine pancreatic insufficiency）動物血清含量可能上升",
+      "C": "體內含量過低可能與小腸細菌過度生長（small intestinal bacterial overgrowth）有關",
+      "D": "體內含量過高與攝取過多有關"
+    },
+    "image": null
+  },
+  {
+    "id": 56,
+    "text": "56. 右旋木醣（D-xylose）吸收試驗時，犬經胃管灌入木醣液後，若 30～90分鐘間之高峰值未達多少mg/dL，表示空腸吸收不良？",
+    "options": {
+      "A": "45",
+      "B": "60",
+      "C": "75",
+      "D": "90"
+    },
+    "image": null
+  },
+  {
+    "id": 57,
+    "text": "57. 當動物肌肉損傷停止後，CK、LDH、AST酵素活性值回復正常的速度由快到慢順序為何？",
+    "options": {
+      "A": "AST→CK→LDH",
+      "B": "LDH→AST→CK",
+      "C": "CK→LDH→AST",
+      "D": "CK→AST→LDH"
+    },
+    "image": null
+  },
+  {
+    "id": 58,
+    "text": "58. 有關肌肉損傷之實驗診斷，下列敘述何者錯誤？",
+    "options": {
+      "A": "ALT 可作為馬肌肉損傷指標",
+      "B": "LDH 上升較CK慢，但上升幅度較CK 高",
+      "C": "可造成肌紅素（myoglobin）升高，引起潛血反應",
+      "D": "可造成高血鉀"
+    },
+    "image": null
+  },
+  {
+    "id": 59,
+    "text": "59. 關於利尿鈉肽（natriuretic peptides）的敘述，下列何者錯誤？",
+    "options": {
+      "A": "分成 atrial和brain 兩類型來源",
+      "B": "非活化型具有較長半衰期",
+      "C": "促進血管擴張",
+      "D": "可調節肌凝蛋白（myosin）與肌動蛋白（actin）交互作用"
+    },
+    "image": null
+  },
+  {
+    "id": 60,
+    "text": "60. 一般而言，下列那一項是最不可能造成多尿的原因？",
+    "options": {
+      "A": "肝衰竭（hepatic failure）",
+      "B": "腎上腺功能亢進（hyperadrenocorticism）",
+      "C": "腎臟疾病（renal disease）",
+      "D": "高鈉血症（hypernatremia）"
+    },
+    "image": null
+  },
+  {
+    "id": 61,
+    "text": "61. 尿液中出現 Bence-Jones protein時，通常與罹患何種疾病最為相關？",
+    "options": {
+      "A": "multiple myeloma",
+      "B": "lymphoma",
+      "C": "Fanconi syndrome",
+      "D": "melanoma"
+    },
+    "image": null
+  },
+  {
+    "id": 62,
+    "text": "62. 尿中出現血紅素尿及肌紅素尿很難以試紙區別，懷疑肌紅素尿時，可驗血中何種數值幫助判定？",
+    "options": {
+      "A": "hematocrit",
+      "B": "ALP",
+      "C": "creatine kinase",
+      "D": "creatinine"
+    },
+    "image": null
+  },
+  {
+    "id": 63,
+    "text": "63. 肝病動物通常最有可能在尿液中出現那些結晶？",
+    "options": {
+      "A": "酪胺酸（tyrosine）、重尿酸銨（ammonium biurate）",
+      "B": "三重磷酸鹽（triple phosphate）、重尿酸銨（ammonium biurate）",
+      "C": "重尿酸銨（ammonium biurate）、草酸鹽（oxalate）",
+      "D": "三重磷酸鹽（triple phosphate）、胱胺酸（cystine）"
+    },
+    "image": null
+  },
+  {
+    "id": 64,
+    "text": "64. 犬隻尿液鏡檢結果如下圖，其中最主要的細胞族群為何？",
+    "options": {
+      "A": "扁平上皮細胞",
+      "B": "變形上皮細胞",
+      "C": "酵母菌",
+      "D": "白血球"
+    },
+    "image": "./圖片/c1141-002.jpg"
+  },
+  {
+    "id": 65,
+    "text": "65. 當尿渣檢查時出現多量的顆粒尿圓柱（granular casts），最可能是下列何種現象？",
+    "options": {
+      "A": "正常現象",
+      "B": "腎小管有炎症",
+      "C": "腎小球有炎症",
+      "D": "泌尿道出血"
+    },
+    "image": null
+  },
+  {
+    "id": 66,
+    "text": "66. 根據下列表格所得之測量數值，該動物的鈉排出分率為多少？",
+    "options": {
+      "A": "1.07％",
+      "B": "1.56％",
+      "C": "0.13％",
+      "D": "8.56％"
+    },
+    "image": "./圖片/c1141-003.ppm"
+  },
+  {
+    "id": 67,
+    "text": "67. 承上題，由血鉀排出分率可知此犬之低血鉀的原因最有可能是：",
+    "options": {
+      "A": "飲食中的鉀不足",
+      "B": "腎排出量增加",
+      "C": "嘔吐",
+      "D": "長期的運動"
+    },
+    "image": null
+  },
+  {
+    "id": 68,
+    "text": "68. 下列何者為造成犬隻血鈣值偽低常見之原因？",
+    "options": {
+      "A": "副甲狀腺功能低下",
+      "B": "維生素 D缺乏",
+      "C": "胰臟炎",
+      "D": "低白蛋白血症"
+    },
+    "image": null
+  },
+  {
+    "id": 69,
+    "text": "69. 甲狀腺素（T3）較不會在下列何者器官中產生？",
+    "options": {
+      "A": "脾臟",
+      "B": "肝臟",
+      "C": "腎臟",
+      "D": "甲狀腺"
+    },
+    "image": null
+  },
+  {
+    "id": 70,
+    "text": "70. 下列何者不是犬隻甲狀腺功能低下症常見的血液檢查異常？",
+    "options": {
+      "A": "高膽固醇血症",
+      "B": "高三酸甘油脂血症",
+      "C": "低血糖",
+      "D": "非再生性貧血"
+    },
+    "image": null
+  },
+  {
+    "id": 71,
+    "text": "71. 高滲性非酮症綜合症（hyperosmolar non-ketotic diabetes mellitus, HNDM）之滲透壓值通常不低於多少mOsm/kg？",
+    "options": {
+      "A": "280",
+      "B": "300",
+      "C": "320",
+      "D": "350"
+    },
+    "image": null
+  },
+  {
+    "id": 72,
+    "text": "72. 有關胰島素／葡萄糖校正比（amended insulin/glucose ratio, AIGR）之敘述，下列何者正確？",
+    "options": {
+      "A": "AIGR＞20，顯示胰島素缺乏",
+      "B": "AIGR＜30，顯示胰島素缺乏",
+      "C": "AIGR＜20，顯示有製造胰島素之功能性腫瘤",
+      "D": "AIGR＞30，顯示有製造胰島素之功能性腫瘤"
+    },
+    "image": null
+  },
+  {
+    "id": 73,
+    "text": "73. 犬腎上腺皮質功能亢進較常導致下列何種肝臟酵素活性值顯著增加？",
+    "options": {
+      "A": "AST",
+      "B": "ALT",
+      "C": "ALP",
+      "D": "GGT"
+    },
+    "image": null
+  },
+  {
+    "id": 74,
+    "text": "74. 腦垂腺矮小症（pituitary dwarfism）病犬，施行生長激素（GH）刺激試驗前、後之GH值，最有可能各為多少μg/L？",
+    "options": {
+      "A": "0.4→0.8",
+      "B": "120→130",
+      "C": "3→30",
+      "D": "20→30"
+    },
+    "image": null
+  },
+  {
+    "id": 75,
+    "text": "75. 下列有關血液容積低下（hypovolemia）的敘述何者正確？",
+    "options": {
+      "A": "主要會由主動脈弓的壓力感受器（baroreceptor）感知，造成血管擴張以增加血液之灌流",
+      "B": "會增加腎小管對鈉及氯離子的重吸收",
+      "C": "此時血中滲透壓偏低",
+      "D": "aldosterone 分泌下降"
+    },
+    "image": null
+  },
+  {
+    "id": 76,
+    "text": "76. 下列何者不是計算血漿滲透壓（osmolality）之主要物質？",
+    "options": {
+      "A": "Na+",
+      "B": "glucose",
+      "C": "BUN",
+      "D": "protein"
+    },
+    "image": null
+  },
+  {
+    "id": 77,
+    "text": "77. 下列有關測量 TCO2的敘述何者明顯錯誤？",
+    "options": {
+      "A": "有大量肌肉受損時若用離子選擇電極（ion selective electrode）測量法會造成偽高值",
+      "B": "可藉由血液氣體計算得知",
+      "C": "測量時血液必須裝滿，不能有氣體在管內",
+      "D": "一般在例行性生化測試時是穩定的"
+    },
+    "image": null
+  },
+  {
+    "id": 78,
+    "text": "78. 下列那一項是最有可能造成 anion gap 變低的原因？",
+    "options": {
+      "A": "肝硬化（cirrhosis）",
+      "B": "維他命 D不足",
+      "C": "急性腎病",
+      "D": "有機酸的增加"
+    },
+    "image": null
+  },
+  {
+    "id": 79,
+    "text": "79. 關於低鈉血症（hyponatremia）的敘述，下列何者最為適當？",
+    "options": {
+      "A": "腦細胞會最先受到影響而出現神經症狀",
+      "B": "最常造成低血鈉的病因之一為腎上腺功能亢進（hyperadrenocorticism）",
+      "C": "常繼發於長期處於低血糖狀態之動物",
+      "D": "thiazide類的利尿劑使用可能造成犬貓的鈉鉀離子與水分的過度排除"
+    },
+    "image": null
+  },
+  {
+    "id": 80,
+    "text": "80. 下列何種原因常會造成呼吸性鹼中毒？",
+    "options": {
+      "A": "全身性麻醉",
+      "B": "高熱",
+      "C": "氣胸",
+      "D": "肉毒桿菌毒素中毒"
+    },
+    "image": null
+  }
+]
