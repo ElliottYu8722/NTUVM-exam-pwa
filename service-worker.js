@@ -11,7 +11,7 @@ const CORE = [
 ];
 
 /* 你仍可選擇把 app.js 放在這，但我採用 network-first 處理 */
-const APP_SCRIPT = '/app.js'; // 用絕對路徑比相對路徑更穩定
+const APP_SCRIPT = '/NTUVM-exam-pwa/app.js';
 
 self.addEventListener('install', (event) => {
   console.log('[sw] install');
@@ -131,7 +131,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
   // ✅ 3) index.html / 首頁：改成「network-first，失敗才退 cache」
-  if (url.pathname === '/' || url.pathname.endsWith('/index.html')) {
+  if (
+    url.pathname === '/' ||                       // 根目錄（本機或未來有用到）
+    url.pathname === '/NTUVM-exam-pwa/' ||        // GitHub Pages 專案首頁
+    url.pathname.endsWith('/index.html')          // 直接請求 index.html 的情況
+  ) {
     event.respondWith((async () => {
       try {
         const netRes = await fetch(req, { cache: 'no-store' });
@@ -146,7 +150,6 @@ self.addEventListener('fetch', (event) => {
     })());
     return;
   }
-
   // 核心資產走 cache-first
   const coreMatch = CORE.some(p => {
     const corePath = p.replace('./', '/');
