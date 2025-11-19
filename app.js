@@ -1160,7 +1160,7 @@ if (bFontColor && fontColorPalette){
   bindTapClick(bFontColor, e=>{
     togglePalette(fontColorPalette, bFontColor);
   });
-}
+
 
 
   const DEFAULT_TEXT_COLOR = "#ffffff";
