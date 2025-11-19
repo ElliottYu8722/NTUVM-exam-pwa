@@ -129,10 +129,9 @@ const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
 
-/* 題庫載入 */
 /* 題庫載入（完全移除舊的手動載入元件） */
 (function nukeManualLoaders(){
-  // 0) 先放一個 CSS 保險絲（即使 JS 還沒跑，也先把它們藏起來）
+// 0) 先放一個 CSS 保險絲（即使 JS 還沒跑，也先把它們藏起來）
   const css = document.createElement("style");
   css.textContent = `
     #btnLoadQ, #btnLoadA, #qFile, #aFile { display: none !important; visibility: hidden !important; }
@@ -350,8 +349,7 @@ function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
 
-/* 題目顯示 */
-/* 題目顯示（完整覆蓋） */
+
 /* 題目顯示（完整覆蓋） */
 function renderQuestion(){
   const q = state.questions[state.index];
@@ -495,7 +493,7 @@ showAns.onchange = ()=> renderQuestion();
 
 /* 測驗控制 */
 bindTapClick(btnExam, enterFullscreenQuiz);
-/* ========= 全螢幕測驗模式（覆蓋主頁，無彈窗） ========= */
+
 /* ========= 全螢幕測驗模式（覆蓋主頁，新增「測驗準備」頁） ========= */
 function enterFullscreenQuiz(){
   if(!state.questions.length || !Object.keys(state.answers).length){
@@ -854,7 +852,7 @@ function startQuiz(){
     return;
   }
 
-  // ✅ 一開始就清除「當前科目/年/梯次」舊作答，避免帶入上一輪
+  //  一開始就清除「當前科目/年/梯次」舊作答，避免帶入上一輪
   resetUserAnswersForCurrentScope();
 
   state.mode="quiz";
@@ -1576,7 +1574,6 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
   }catch{}
 })();
 /* 初始化 */
-/* 初始化（完整覆蓋） */
 function init(){
   loadNotes();
   loadAnswersFromStorage();
@@ -1593,7 +1590,7 @@ init();
 window.addEventListener("message", (e)=>{
   const msg = e.data || {};
   if(msg.type === "QUIZ_RECORD" && msg.row){
-    appendRecord(msg.row);     // 用你現成的 appendRecord
+    appendRecord(msg.row);     // 用現成的 appendRecord
     toast("已儲存作答紀錄");
   }
 });
