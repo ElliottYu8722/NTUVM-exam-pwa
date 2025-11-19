@@ -42,7 +42,8 @@
     .footer-hint{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
     .color-palette{
       position:absolute;
-      display:flex;
+      display:grid;
+      grid-template-columns: repeat(5, 1fr); /* 5 個一行 → 3 行 = 15 色 */
       gap:6px;
       padding:6px;
       border-radius:8px;
@@ -164,12 +165,24 @@
           </button>
           <!-- 自製顏色面板 -->
           <div id="fontColorPalette" class="color-palette hidden">
+                        <!-- 第一行：基本 -->
             <button data-color="#ffffff" style="background:#ffffff;"></button>
             <button data-color="#000000" style="background:#000000;"></button>
             <button data-color="#d32f2f" style="background:#d32f2f;"></button>
             <button data-color="#1976d2" style="background:#1976d2;"></button>
             <button data-color="#388e3c" style="background:#388e3c;"></button>
+            <!-- 第二行：偏亮一點 -->
             <button data-color="#fbc02d" style="background:#fbc02d;"></button>
+            <button data-color="#f57c00" style="background:#f57c00;"></button>
+            <button data-color="#7b1fa2" style="background:#7b1fa2;"></button>
+            <button data-color="#0097a7" style="background:#0097a7;"></button>
+            <button data-color="#5d4037" style="background:#5d4037;"></button>
+            <!-- 第三行：淡色系 -->
+            <button data-color="#e0e0e0" style="background:#e0e0e0;"></button>
+            <button data-color="#ffccbc" style="background:#ffccbc;"></button>
+            <button data-color="#c5e1a5" style="background:#c5e1a5;"></button>
+            <button data-color="#b3e5fc" style="background:#b3e5fc;"></button>
+            <button data-color="#ffcdd2" style="background:#ffcdd2;"></button>
           </div>
           
           <!-- 螢光筆：主按鈕 -->
