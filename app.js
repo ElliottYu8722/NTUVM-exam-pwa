@@ -1255,14 +1255,18 @@ if (bHL && hlPalette){
 
     editor.focus();
 
-    const cur  = currentHilite();
-    const want = normalizeColor(pick);
+    // 用按鈕自己的背景色當「目前選色狀態」，不要再相信 execCommand 回傳值
+    const btnColorNorm   = normalizeColor(pick);
+    const currentBtnNorm = normalizeColor(bHL.style.backgroundColor || "");
 
-    // 如果目前就是這個顏色 → 再按一次就清掉螢光筆
-    if (cur && cur === want){
+    const isSame = (currentBtnNorm && currentBtnNorm === btnColorNorm);
+
+    if (isSame){
+      // 同一個顏色 → 視為「關掉螢光筆」
       clearHiliteSelection();
       bHL.style.backgroundColor = "";
     } else {
+      // 不同顏色 → 套用新的螢光筆顏色
       hilite(pick);
       bHL.style.backgroundColor = pick;
     }
@@ -1270,6 +1274,7 @@ if (bHL && hlPalette){
     hlPalette.classList.add("hidden");
     saveNotes();
   });
+
 }
 
 // 點到外面就關閉色盤
