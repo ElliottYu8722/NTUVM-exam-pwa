@@ -1236,7 +1236,6 @@ if (bFontColor && fontColorPalette){
 
 // ===== 螢光筆：打開 / 關閉色盤 ＋ toggle 邏輯 =====
 const DEFAULT_HL_COLOR = "#fff59d";
-
 if (bHL && hlPalette){
   bindTapClick(bHL, e=>{
     togglePalette(hlPalette, bHL);
@@ -1257,14 +1256,13 @@ if (bHL && hlPalette){
     if (cur && cur === want){
       clearHiliteSelection();
       bHL.style.backgroundColor = "";
-      bHL.style.color = "";
-    }else{
+    } else {
       hilite(pick);
       bHL.style.backgroundColor = pick;
-      bHL.style.color = "#000";
     }
 
     hlPalette.classList.add("hidden");
+    saveNotes();
   });
 }
 
