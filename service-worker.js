@@ -130,7 +130,22 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(freshAppScript(req));
     return;
   }
-
+  // ✅ 3) index.html / 首頁：改成「network-first，失敗才退 cache」
+  if (url.pathname === '/' || url.pathname.endsWith('/index.html')) {
+    event.respondWith((async () => {
+      try {
+        const netRes = await fetch(req, { cache: 'no-store' });
+        const cache = await caches.open(CACHE_CORE);
+        cache.put(req, netRes.clone()).catch(()=>{});
+        return netRes;
+      } catch (e) {
+        const cache = await caches.open(CACHE_CORE);
+        const cached = await cache.match(req, { ignoreSearch: true });
+        return cached || serviceUnavailableResponse();
+      }
+    })());
+    return;
+  }
 
   // 核心資產走 cache-first
   const coreMatch = CORE.some(p => {
