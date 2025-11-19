@@ -235,7 +235,18 @@
   <script src="app.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker.js");
+      // 1) 註冊時關掉 HTTP cache，確保永遠抓到最新的 service-worker.js
+      navigator.serviceWorker.register("./service-worker.js", {
+        updateViaCache: "none"
+      }); // [web:78][web:81][web:98][web:100]
+  
+      // 2) 當有「新的 SW 接手控制」時，自動重整一次
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      }); // [web:82][web:92][web:94][web:99]
     }
   </script>
 </body>
