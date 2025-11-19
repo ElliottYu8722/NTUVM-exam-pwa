@@ -127,7 +127,6 @@ const fontSel = $("#fontSel");
 const editor = $("#editor");
 const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
-const txtColor = $("#txtColor"), hlColor = $("#hlColor"), bHL = $("#bHL");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
 
 /* 題庫載入 */
@@ -1126,11 +1125,7 @@ bSup.onclick    = ()=> {
 // 這兩個節點請在 HTML 裡準備好：
 
 
-  // 初始化預設顏色（如果一開始就有 value）
-  if (txtColor.value && bFontColor){
-    bFontColor.style.color = txtColor.value;
-  }
-}
+
 // ===== 重新實作：字體顏色 / 螢光筆色盤（不依賴 input[type=color]） =====
 const bFontColor       = $("#bFontColor");
 const fontColorPalette = $("#fontColorPalette");
