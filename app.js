@@ -1098,10 +1098,10 @@ function exportNotesForCurrentScope(){
 if (AUTHOR_MODE && btnExportNotes){
   bindTapClick(btnExportNotes, exportNotesForCurrentScope);
 }
-// 讓點工具列時，不會把選取從 editor 拿走
+// 讓點工具列時，不會把選取從 editor 拿走（避免一點按鈕就失去 selection）
 if (toolbar){
   toolbar.addEventListener("mousedown", e=>{
-    e.preventDefault();   // 保留目前 selection，focus 也留在 editor
+    e.preventDefault();
   });
 }
 
@@ -1120,17 +1120,65 @@ bSup.onclick    = ()=> {
   toggleButton(bSup, ()=>exec("superscript")); 
 };
 
-/* ===== 字體顏色：「字體顏色 ▾」 =====
- * 需求：
- * - 按鈕文字顯示「字體顏色」
- * - 這四個字的字色，跟著目前選擇的顏色改變
- * - 旁邊有小箭頭可以打開顏色選擇器
- * - 點按鈕本身會把選取文字套用目前顏色
- */
+// ===== 顏色工具小函式 =====
+function normalizeColor(c){
+  try{
+    const ctx = document.createElement("canvas").getContext("2d");
+    ctx.fillStyle = c || "";
+    return ctx.fillStyle.toLowerCase();   // 例如 "rgb(255, 245, 157)"
+  }catch{
+    return String(c||"").toLowerCase();
+  }
+}
 
-// 這兩個節點請在 HTML 裡準備好：
+// 目前字體顏色（selection 開頭）
+function currentForeColor(){
+  try{
+    const val = document.queryCommandValue("foreColor");
+    return normalizeColor(val || "");
+  }catch{
+    return "";
+  }
+}
 
+// 目前螢光筆顏色（背景色）
+function currentHilite(){
+  try{
+    let val = document.queryCommandValue("hiliteColor");
+    if (!val || val === "transparent"){
+      val = document.queryCommandValue("backColor");
+    }
+    return normalizeColor(val || "");
+  }catch{
+    return "";
+  }
+}
 
+// 把目前選取套上螢光筆顏色
+function hilite(color){
+  editor.focus();
+  try{
+    if (document.queryCommandSupported("hiliteColor")){
+      document.execCommand("hiliteColor", false, color);
+    }else{
+      document.execCommand("backColor", false, color);
+    }
+  }catch{}
+  saveNotes();
+}
+
+// 清掉螢光筆
+function clearHiliteSelection(){
+  editor.focus();
+  try{
+    if (document.queryCommandSupported("hiliteColor")){
+      document.execCommand("hiliteColor", false, "transparent");
+    }else{
+      document.execCommand("backColor", false, "transparent");
+    }
+  }catch{}
+  saveNotes();
+}
 
 // ===== 重新實作：字體顏色 / 螢光筆色盤（不依賴 input[type=color]） =====
 const bFontColor       = $("#bFontColor");
@@ -1155,47 +1203,44 @@ function togglePalette(palette, btn){
   }
 }
 
-// 字體顏色：打開 / 關閉色盤
+// ===== 字體顏色：打開 / 關閉色盤 ＋ toggle 邏輯 =====
+const DEFAULT_TEXT_COLOR = "#ffffff";
+
 if (bFontColor && fontColorPalette){
+  // 整顆按鈕（包含箭頭）都用 bindTapClick，比較照顧觸控
   bindTapClick(bFontColor, e=>{
     togglePalette(fontColorPalette, bFontColor);
   });
 
-
-
-  const DEFAULT_TEXT_COLOR = "#ffffff";
-
   fontColorPalette.addEventListener("click", e=>{
     const btn = e.target.closest("button[data-color]");
     if (!btn) return;
+
     const pick = btn.dataset.color || DEFAULT_TEXT_COLOR;
-  
+
     editor.focus();
-  
-    // 取得目前選取開頭的字色
-    const cur = currentForeColor();              // 已經 normalize 過
+
+    const cur  = currentForeColor();
     const want = normalizeColor(pick);
-  
+
     // 如果目前就是這個顏色 → 再按一次就還原成預設白色
     const finalColor = (cur && cur === want)
       ? DEFAULT_TEXT_COLOR
       : pick;
-  
+
     exec("foreColor", finalColor);
     bFontColor.style.color = finalColor;
     fontColorPalette.classList.add("hidden");
   });
-
 }
+
+// ===== 螢光筆：打開 / 關閉色盤 ＋ toggle 邏輯 =====
 const DEFAULT_HL_COLOR = "#fff59d";
-// 螢光筆：打開 / 關閉色盤
+
 if (bHL && hlPalette){
   bindTapClick(bHL, e=>{
     togglePalette(hlPalette, bHL);
   });
-  // hlPalette.addEventListener("click", ...) 如上一節
-}
-
 
   hlPalette.addEventListener("click", e=>{
     const btn = e.target.closest("button[data-color]");
@@ -1205,7 +1250,7 @@ if (bHL && hlPalette){
 
     editor.focus();
 
-    const cur  = currentHilite();          // 目前選取的底色
+    const cur  = currentHilite();
     const want = normalizeColor(pick);
 
     // 如果目前就是這個顏色 → 再按一次就清掉螢光筆
@@ -1222,6 +1267,7 @@ if (bHL && hlPalette){
     hlPalette.classList.add("hidden");
   });
 }
+
 // 點到外面就關閉色盤
 document.addEventListener("click", e=>{
   if (!fontColorPalette?.contains(e.target) && e.target !== bFontColor){
@@ -1231,6 +1277,7 @@ document.addEventListener("click", e=>{
     hlPalette?.classList.add("hidden");
   }
 });
+
 
 
 
