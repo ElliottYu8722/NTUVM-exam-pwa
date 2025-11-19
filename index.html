@@ -40,6 +40,29 @@
     .editor{border:1px solid var(--border);border-radius:12px;background:var(--card);min-height:180px;padding:12px;margin-top:8px;outline:none}
     .timer{font-weight:700}
     .footer-hint{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
+    .color-palette{
+      position:absolute;
+      display:flex;
+      gap:6px;
+      padding:6px;
+      border-radius:8px;
+      background:var(--card,#1b1b1b);
+      border:1px solid var(--border,#2a2a2a);
+      z-index:1000;
+    }
+    
+    .color-palette.hidden{
+      display:none;
+    }
+    
+    .color-palette button{
+      width:22px;
+      height:22px;
+      border-radius:9999px;
+      border:1px solid rgba(255,255,255,.7);
+      padding:0;
+      cursor:pointer;
+    }
     .hidden{display:none !important}
     /* mobile */
     @media (max-width: 1100px){
@@ -135,21 +158,33 @@
           <button class="pill" id="bSub">x₂</button>
           <button class="pill" id="bSup">x²</button>
         
-          <!-- 字體顏色：文字 + 小箭頭 -->
           <button class="pill" id="bFontColor">
             <span>字體顏色</span>
-            <span id="fontColorArrow">▾</span>
+            <span>▾</span>
           </button>
-          <!-- 真正的顏色選擇器藏在這裡，JS 會幫你叫出來 -->
-          <input id="txtColor" type="color" value="#ffffff" style="display:none" />
-        
-          <!-- 螢光筆：文字 + 小箭頭 -->
+          <!-- 自製顏色面板 -->
+          <div id="fontColorPalette" class="color-palette hidden">
+            <button data-color="#ffffff" style="background:#ffffff;"></button>
+            <button data-color="#000000" style="background:#000000;"></button>
+            <button data-color="#d32f2f" style="background:#d32f2f;"></button>
+            <button data-color="#1976d2" style="background:#1976d2;"></button>
+            <button data-color="#388e3c" style="background:#388e3c;"></button>
+            <button data-color="#fbc02d" style="background:#fbc02d;"></button>
+          </div>
+          
+          <!-- 螢光筆：主按鈕 -->
           <button class="pill" id="bHL">
             <span>螢光筆</span>
-            <span id="hlArrow">▾</span>
+            <span>▾</span>
           </button>
-          <!-- 一樣把顏色選擇器藏起來，由 JS 控制 -->
-          <input id="hlColor" type="color" value="#fff59d" style="display:none" />
+          <!-- 自製螢光筆色盤 -->
+          <div id="hlPalette" class="color-palette hidden">
+            <button data-color="#fff59d" style="background:#fff59d;"></button>
+            <button data-color="#ffcc80" style="background:#ffcc80;"></button>
+            <button data-color="#b2ff59" style="background:#b2ff59;"></button>
+            <button data-color="#80deea" style="background:#80deea;"></button>
+            <button data-color="#ef9a9a" style="background:#ef9a9a;"></button>
+          </div>
         
           <!-- 插入圖片 -->
           <input id="imgNote" type="file" accept="image/*" class="hidden">
