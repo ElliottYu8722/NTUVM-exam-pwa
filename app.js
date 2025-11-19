@@ -1124,111 +1124,88 @@ bSup.onclick    = ()=> {
  */
 
 // 這兩個節點請在 HTML 裡準備好：
-// <button id="bFontColor">字體顏色<span id="fontColorArrow">▾</span></button>
-// <input type="color" id="txtColor" hidden>
-const bFontColor    = $("#bFontColor");
-const fontColorArrow= $("#fontColorArrow");
 
-// 點主按鈕：「字體顏色」本身 → 用目前顏色改變選取文字的字色
-if (bFontColor){
-  bFontColor.addEventListener("click", e=>{
-    e.preventDefault();
-    editor.focus();
-    if (!txtColor) return;
-    const c = txtColor.value || "#000000";
-    exec("foreColor", c);
-  });
-}
-
-// 點小箭頭：打開瀏覽器內建顏色選擇器
-if (fontColorArrow){
-  fontColorArrow.addEventListener("click", e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    if (txtColor) txtColor.click();
-  });
-}
-
-// 顏色被選取／變更時：更新按鈕文字顏色，同時把目前選取文字套用新顏色
-if (txtColor){
-  txtColor.addEventListener("change", ()=>{
-    const c = txtColor.value || "#000000";
-    // 「字體顏色」四個字跟著變色
-    if (bFontColor){
-      bFontColor.style.color = c;
-    }
-    exec("foreColor", c);
-  });
 
   // 初始化預設顏色（如果一開始就有 value）
   if (txtColor.value && bFontColor){
     bFontColor.style.color = txtColor.value;
   }
 }
+// ===== 重新實作：字體顏色 / 螢光筆色盤（不依賴 input[type=color]） =====
+const bFontColor       = $("#bFontColor");
+const fontColorPalette = $("#fontColorPalette");
+const bHL              = $("#bHL");
+const hlPalette        = $("#hlPalette");
 
-/* ===== 螢光筆：「螢光筆 ▾」 =====
- * 需求：
- * - 按鈕文字顯示「螢光筆」
- * - 旁邊有小箭頭可以打開顏色選擇器
- * - 點按鈕本身，用目前色彩做標記；若選取區已是同顏色，再按一次就取消標記
- */
+// 小工具：切換色盤顯示
+function togglePalette(palette, btn){
+  if (!palette || !btn) return;
+  const isShown = !palette.classList.contains("hidden");
 
-// 這個按鈕你原本就有：<button id="bHL">螢光筆<span id="hlArrow">▾</span></button>
-// 只要在裡面多放一個 id="hlArrow" 的 span 當小箭頭即可
-const hlArrow = $("#hlArrow");
+  // 先關掉兩個色盤，避免重疊
+  fontColorPalette?.classList.add("hidden");
+  hlPalette?.classList.add("hidden");
 
-// 點主按鈕：「螢光筆」本身 → 依目前顏色做標記 / 取消標記
-if (bHL){
+  if (!isShown){
+    const rect = btn.getBoundingClientRect();
+    palette.style.top  = (rect.bottom + window.scrollY + 4) + "px";
+    palette.style.left = (rect.left   + window.scrollX) + "px";
+    palette.classList.remove("hidden");
+  }
+}
+
+// 字體顏色：打開 / 關閉色盤
+if (bFontColor && fontColorPalette){
+  bFontColor.addEventListener("click", e=>{
+    e.preventDefault();
+    togglePalette(fontColorPalette, bFontColor);
+  });
+
+  fontColorPalette.addEventListener("click", e=>{
+    const btn = e.target.closest("button[data-color]");
+    if (!btn) return;
+    const color = btn.dataset.color || "#ffffff";
+
+    editor.focus();
+    exec("foreColor", color);          // 你原本的封裝：document.execCommand("foreColor", false, color)
+    bFontColor.style.color = color;    // 讓按鈕文字顏色跟著目前顏色走
+    fontColorPalette.classList.add("hidden");
+  });
+}
+
+// 螢光筆：打開 / 關閉色盤
+if (bHL && hlPalette){
   bHL.addEventListener("click", e=>{
     e.preventDefault();
+    togglePalette(hlPalette, bHL);
+  });
+
+  hlPalette.addEventListener("click", e=>{
+    const btn = e.target.closest("button[data-color]");
+    if (!btn) return;
+    const color = btn.dataset.color || "#fff59d";
+
     editor.focus();
-
-    const want = normalizeColor(hlColor?.value || "#fff59d");
-    const cur  = normalizeColor(currentHilite() || "");
-
-    // 第二次按：如果目前選取的標記色 == 想要的顏色 → 取消標記
-    if (cur && cur === want){
-      clearHiliteSelection();
-    } else {
-      hilite(hlColor?.value || "#fff59d");
-    }
-
-    bHL.classList.add("active");
-    setTimeout(()=>bHL.classList.remove("active"), 250);
-    saveNotes();
+    hilite(color);                     // 呼叫你前面已經寫好的螢光筆函式
+    bHL.style.backgroundColor = color;
+    bHL.style.color = "#000";
+    hlPalette.classList.add("hidden");
   });
 }
 
-// 點小箭頭：打開螢光筆顏色選擇器
-if (hlArrow){
-  hlArrow.addEventListener("click", e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    if (hlColor) hlColor.click();
-  });
-}
+// 點到外面就關閉色盤
+document.addEventListener("click", e=>{
+  if (!fontColorPalette?.contains(e.target) && e.target !== bFontColor){
+    fontColorPalette?.classList.add("hidden");
+  }
+  if (!hlPalette?.contains(e.target) && e.target !== bHL){
+    hlPalette?.classList.add("hidden");
+  }
+});
 
-// 螢光筆顏色變更時：更新按鈕外觀，並可選擇立即套用在目前選取文字
-if (hlColor){
-  const syncHLButton = ()=>{
-    const c = hlColor.value || "#fff59d";   // 淺黃色作為預設螢光筆色
-    if (bHL){
-      bHL.style.backgroundColor = c;
-      bHL.style.color = "#000000";         // 螢光色通常偏亮，用黑字比較清楚
-    }
-  };
 
-  hlColor.addEventListener("change", ()=>{
-    syncHLButton();
-    // 若此時有選取文字，也順便幫你用新顏色再標一次
-    editor.focus();
-    hilite(hlColor.value || "#fff59d");
-    saveNotes();
-  });
 
-  // 初始化按鈕顏色
-  syncHLButton();
-}
+
 
 // 圖片筆記維持不變
 bImg.onclick = ()=> imgNote.click();
