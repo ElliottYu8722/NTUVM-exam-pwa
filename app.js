@@ -1101,6 +1101,14 @@ if (AUTHOR_MODE && btnExportNotes){
 // 讓點工具列時，不會把選取從 editor 拿走（避免一點按鈕就失去 selection）
 if (toolbar){
   toolbar.addEventListener("mousedown", e=>{
+    const t = e.target;
+
+    // 如果點到的是下拉選單或檔案選擇，就讓瀏覽器照正常流程跑
+    if (t.closest("select") || t.closest("input[type='file']")) {
+      return;
+    }
+
+    // 其他（像粗體、斜體按鈕）才用 preventDefault，避免把焦點從 editor 拿走
     e.preventDefault();
   });
 }
