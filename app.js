@@ -1098,7 +1098,6 @@ function exportNotesForCurrentScope(){
 if (AUTHOR_MODE && btnExportNotes){
   bindTapClick(btnExportNotes, exportNotesForCurrentScope);
 }
-
 // 讓點工具列時，不會把選取從 editor 拿走
 if (toolbar){
   toolbar.addEventListener("mousedown", e=>{
@@ -1158,10 +1157,11 @@ function togglePalette(palette, btn){
 
 // 字體顏色：打開 / 關閉色盤
 if (bFontColor && fontColorPalette){
-  bFontColor.addEventListener("click", e=>{
-    e.preventDefault();
+  bindTapClick(bFontColor, e=>{
     togglePalette(fontColorPalette, bFontColor);
   });
+}
+
 
   const DEFAULT_TEXT_COLOR = "#ffffff";
 
@@ -1190,10 +1190,12 @@ if (bFontColor && fontColorPalette){
 const DEFAULT_HL_COLOR = "#fff59d";
 // 螢光筆：打開 / 關閉色盤
 if (bHL && hlPalette){
-  // 開／關色盤：建議用 bindTapClick，iPad 觸控比較穩
   bindTapClick(bHL, e=>{
     togglePalette(hlPalette, bHL);
   });
+  // hlPalette.addEventListener("click", ...) 如上一節
+}
+
 
   hlPalette.addEventListener("click", e=>{
     const btn = e.target.closest("button[data-color]");
