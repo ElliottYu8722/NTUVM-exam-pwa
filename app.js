@@ -83,7 +83,7 @@ function resolveImage(src){
 /* DOM */
 const $ = sel => document.querySelector(sel);
 const $$ = sel => document.querySelectorAll(sel);
-
+const toolbar = document.querySelector(".toolbar");
 const yearSel   = $("#yearSel");
 const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
@@ -1099,6 +1099,13 @@ if (AUTHOR_MODE && btnExportNotes){
   bindTapClick(btnExportNotes, exportNotesForCurrentScope);
 }
 
+// 讓點工具列時，不會把選取從 editor 拿走
+if (toolbar){
+  toolbar.addEventListener("mousedown", e=>{
+    e.preventDefault();   // 保留目前 selection，focus 也留在 editor
+  });
+}
+
 /* 筆記工具 */
 // 字級 / 基本文字樣式
 fontSel.onchange = ()=> exec("fontSize", sizeToCommand(fontSel.value));
@@ -1156,16 +1163,29 @@ if (bFontColor && fontColorPalette){
     togglePalette(fontColorPalette, bFontColor);
   });
 
+  const DEFAULT_TEXT_COLOR = "#ffffff";
+
   fontColorPalette.addEventListener("click", e=>{
     const btn = e.target.closest("button[data-color]");
     if (!btn) return;
-    const color = btn.dataset.color || "#ffffff";
-
+    const pick = btn.dataset.color || DEFAULT_TEXT_COLOR;
+  
     editor.focus();
-    exec("foreColor", color);          // 你原本的封裝：document.execCommand("foreColor", false, color)
-    bFontColor.style.color = color;    // 讓按鈕文字顏色跟著目前顏色走
+  
+    // 取得目前選取開頭的字色
+    const cur = currentForeColor();              // 已經 normalize 過
+    const want = normalizeColor(pick);
+  
+    // 如果目前就是這個顏色 → 再按一次就還原成預設白色
+    const finalColor = (cur && cur === want)
+      ? DEFAULT_TEXT_COLOR
+      : pick;
+  
+    exec("foreColor", finalColor);
+    bFontColor.style.color = finalColor;
     fontColorPalette.classList.add("hidden");
   });
+
 }
 
 // 螢光筆：打開 / 關閉色盤
@@ -1232,6 +1252,15 @@ function normalizeColor(c){
     ctx.fillStyle = c || "";
     return ctx.fillStyle.toLowerCase(); // 例如 "rgb(255, 245, 157)"
   }catch{ return String(c||"").toLowerCase(); }
+}
+// 目前選取的字體顏色（用來判斷要不要 toggle 回預設白色）
+function currentForeColor(){
+  try{
+    const val = document.queryCommandValue("foreColor"); // 可能是 rgb(...) 或 #xxxxxx
+    return normalizeColor(val || "");
+  }catch{
+    return "";
+  }
 }
 
 // 取目前選取區塊的標記色（不同瀏覽器可能回 hiliteColor 或 backColor）
