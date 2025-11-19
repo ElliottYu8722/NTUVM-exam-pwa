@@ -44,17 +44,18 @@ function serviceUnavailableResponse(){
   });
 }
 
-/* network-first for app script (確保使用新版 app.js) */
-async function networkFirstForApp(req){
+async function freshAppScript(req){
   try{
-    const netRes = await fetch(req);
+    // 直接略過 HTTP cache，拿真正最新版本
+    const netRes = await fetch(req, { cache: 'no-store' });
     if (req.method === 'GET' && netRes && netRes.ok) {
+      // 如果你希望離線時也能啟動，就把最新的放進 SW cache
       const cache = await caches.open(CACHE_CORE);
-      cache.put(req, netRes.clone()).catch(()=>{/* ignore */});
+      cache.put(req, netRes.clone()).catch(()=>{});
     }
     return netRes;
   }catch(err){
-    // 網路失敗時回快取（若有）
+    // 網路失敗時才退回 SW 快取裡的舊 app.js
     const cache = await caches.open(CACHE_CORE);
     const cached = await cache.match(req, { ignoreSearch: true });
     if (cached) return cached;
@@ -124,10 +125,12 @@ self.addEventListener('fetch', (event) => {
   }
 
   // app script 使用 network-first（這能避免使用者一直跑到舊版）
+  // ✅ app script：線上一定抓最新，離線才退回快取
   if (url.pathname === APP_SCRIPT || url.pathname.endsWith(APP_SCRIPT)) {
-    event.respondWith(networkFirstForApp(req));
+    event.respondWith(freshAppScript(req));
     return;
   }
+
 
   // 核心資產走 cache-first
   const coreMatch = CORE.some(p => {
