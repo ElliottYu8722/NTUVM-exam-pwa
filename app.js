@@ -1187,27 +1187,39 @@ if (bFontColor && fontColorPalette){
   });
 
 }
-
+const DEFAULT_HL_COLOR = "#fff59d";
 // 螢光筆：打開 / 關閉色盤
 if (bHL && hlPalette){
-  bHL.addEventListener("click", e=>{
-    e.preventDefault();
+  // 開／關色盤：建議用 bindTapClick，iPad 觸控比較穩
+  bindTapClick(bHL, e=>{
     togglePalette(hlPalette, bHL);
   });
 
   hlPalette.addEventListener("click", e=>{
     const btn = e.target.closest("button[data-color]");
     if (!btn) return;
-    const color = btn.dataset.color || "#fff59d";
+
+    const pick = btn.dataset.color || DEFAULT_HL_COLOR;
 
     editor.focus();
-    hilite(color);                     // 呼叫你前面已經寫好的螢光筆函式
-    bHL.style.backgroundColor = color;
-    bHL.style.color = "#000";
+
+    const cur  = currentHilite();          // 目前選取的底色
+    const want = normalizeColor(pick);
+
+    // 如果目前就是這個顏色 → 再按一次就清掉螢光筆
+    if (cur && cur === want){
+      clearHiliteSelection();
+      bHL.style.backgroundColor = "";
+      bHL.style.color = "";
+    }else{
+      hilite(pick);
+      bHL.style.backgroundColor = pick;
+      bHL.style.color = "#000";
+    }
+
     hlPalette.classList.add("hidden");
   });
 }
-
 // 點到外面就關閉色盤
 document.addEventListener("click", e=>{
   if (!fontColorPalette?.contains(e.target) && e.target !== bFontColor){
@@ -1253,6 +1265,47 @@ function normalizeColor(c){
     return ctx.fillStyle.toLowerCase(); // 例如 "rgb(255, 245, 157)"
   }catch{ return String(c||"").toLowerCase(); }
 }
+
+// 目前選取區塊的螢光筆顏色（可能是 hiliteColor 或 backColor）
+function currentHilite(){
+  try{
+    let val = document.queryCommandValue("hiliteColor");
+    if (!val || val === "transparent") {
+      val = document.queryCommandValue("backColor");
+    }
+    return normalizeColor(val || "");
+  }catch{
+    return "";
+  }
+}
+
+// 把目前選取套上螢光筆顏色
+function hilite(color){
+  editor.focus();
+  try{
+    if (document.queryCommandSupported("hiliteColor")) {
+      document.execCommand("hiliteColor", false, color);
+    } else {
+      document.execCommand("backColor", false, color);
+    }
+  }catch{}
+  saveNotes();
+}
+
+// 清掉選取上的螢光色（盡量只清背景色）
+function clearHiliteSelection(){
+  editor.focus();
+  try{
+    if (document.queryCommandSupported("hiliteColor")) {
+      document.execCommand("hiliteColor", false, "transparent");
+    } else {
+      document.execCommand("backColor", false, "transparent");
+    }
+  }catch{}
+  saveNotes();
+}
+
+
 // 目前選取的字體顏色（用來判斷要不要 toggle 回預設白色）
 function currentForeColor(){
   try{
