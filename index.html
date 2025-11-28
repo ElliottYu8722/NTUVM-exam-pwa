@@ -97,6 +97,14 @@
       <button id="btnExam" class="btn">測驗模式</button>
       <button id="btnRecords" class="btn">作答紀錄</button>
       <button id="btnTheme" class="btn">深色 / 淺色</button>
+      <div id="group-section" class="group" style="margin-bottom: 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; margin-bottom:6px;">
+          <span>群組</span>
+          <button id="add-group-btn" class="btn" style="padding:0 8px; font-weight:bold;">＋</button>
+        </div>
+        <ul id="group-list" style="list-style:none; padding-left:0; max-height:200px; overflow:auto; margin:0;"></ul>
+        <button id="show-all-questions-btn" class="btn" style="margin-top:6px; width:100%;">顯示全部題目</button>
+      </div>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
       <div class="group">
@@ -108,7 +116,7 @@
         特別感謝詳解群組的每一位成員一起幫忙整理！！
       </p>
     </aside>
-
+    
     <!-- 中：題目＋筆記 -->
     <main class="center">
       <div class="topbar">
