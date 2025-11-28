@@ -1,6 +1,7 @@
 /* 基本狀態 */
 const state = {
   questions: [],          // [{id,text,options:{A..D},image?}]
+  visibleQuestions: [],   // 新增：目前在右側清單顯示的題目
   answers: {},            // {"1":"B", ...} 或 "1":"A/B"
   index: 0,
   user: {},               // {"1":"A", ...}
@@ -90,13 +91,20 @@ function filterQuestionsByGroup(groupId) {
     return state.questions.find(q => String(q.id) === String(qid));
   }).filter(Boolean);
 
+  state.index = 0;          // 新增：從這個群組的第一題開始
   renderList(filtered);
+  renderQuestion();
+  highlightList();
 }
 
 function showAllQuestions() {
   state.currentGroupId = null;
+  state.index = 0;          // 回到整卷的第一題
   renderList(state.questions);
+  renderQuestion();
+  highlightList();
 }
+
 
 
 /* ====== 路徑設定（依你的 repo 結構） ====== */
@@ -424,12 +432,13 @@ function loadNoteForCurrent(){
 }
 /* 題號列表 */
 function renderList(list) {
-  const arr = list || state.questions;
+  // list 沒給就用整卷題目
+  state.visibleQuestions = list || state.questions;
   qList.innerHTML = "";
 
-  arr.forEach((q, idxInArr) => {
+  state.visibleQuestions.forEach((q, idxInVisible) => {
     const div = document.createElement("div");
-    div.className = "q-item" + (idxInArr === state.index ? " active" : "");
+    div.className = "q-item" + (idxInVisible === state.index ? " active" : "");
     div.style.display = "flex";
     div.style.alignItems = "center";
     div.style.justifyContent = "space-between";
@@ -440,19 +449,14 @@ function renderList(list) {
     label.style.flex = "1";
     label.onclick = () => {
       saveNotes();
-      // 用題號找在 state.questions 的真正 index
-      const realIndex = state.questions.findIndex(qq => String(qq.id) === String(q.id));
-      state.index = realIndex >= 0 ? realIndex : idxInArr;
+      // 直接用 visibleQuestions 的 index 來當目前 index
+      state.index = idxInVisible;
       renderQuestion();
       highlightList();
     };
     div.appendChild(label);
 
-    // 檢查目前是否正在「某個群組檢視模式」
     const currentGroupId = state.currentGroupId || null;
-    const inCurrentGroup =
-      currentGroupId &&
-      (state.groups.find(g => g.id === currentGroupId)?.questions.includes(q.id));
 
     const btn = document.createElement("button");
     btn.style.minWidth = "32px";
@@ -465,7 +469,7 @@ function renderList(list) {
     btn.style.fontSize = "16px";
 
     if (currentGroupId) {
-      // 在群組檢視中：顯示「-」按鈕，用來從該群組移除
+      // 群組檢視：顯示「-」
       btn.textContent = "-";
       btn.title = "從此群組移除";
       btn.onclick = (e) => {
@@ -475,11 +479,10 @@ function renderList(list) {
         const ok = confirm(`確定要將「第 ${q.id} 題」從群組「${group.name}」移除嗎？`);
         if (!ok) return;
         removeQuestionFromGroup(q.id, currentGroupId);
-        // 重新渲染當前群組的題目
         filterQuestionsByGroup(currentGroupId);
       };
     } else {
-      // 在「全部題目」模式：顯示 「+」
+      // 全部題目：顯示「+」
       btn.textContent = "+";
       btn.title = "加入群組";
       btn.onclick = (e) => {
@@ -494,6 +497,7 @@ function renderList(list) {
 }
 
 
+
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
@@ -501,12 +505,16 @@ function highlightList(){
 
 /* 題目顯示（完整覆蓋） */
 function renderQuestion(){
-  const q = state.questions[state.index];
-  if(!q){ 
-    qNum.textContent=""; 
-    qText.textContent="請先載入題目"; 
-    qOpts.innerHTML=""; 
-    qImg.classList.add("hidden"); 
+  
+  const list = state.visibleQuestions && state.visibleQuestions.length
+    ? state.visibleQuestions
+    : state.questions;
+  const q = list[state.index];
+  if(!q){
+    qNum.textContent="";
+    qText.textContent="請先載入題目";
+    qOpts.innerHTML="";
+    qImg.classList.add("hidden");
     return;
   }
 
@@ -616,8 +624,35 @@ function persistAnswer(){
 }
 
 /* 導航 */
-prevBtn.onclick = ()=>{ saveNotes(); if(state.mode==="review"){ stepReview(-1); } else { if(state.index>0) state.index--; } renderQuestion(); };
-nextBtn.onclick = ()=>{ saveNotes(); if(state.mode==="review"){ stepReview(1); } else { if(state.index<state.questions.length-1) state.index++; } renderQuestion(); };
+prevBtn.onclick = () => {
+  saveNotes();
+  if (state.mode === "review") {
+    stepReview(-1);
+  } else {
+    const list = state.visibleQuestions && state.visibleQuestions.length
+      ? state.visibleQuestions
+      : state.questions;
+    if (state.index > 0) state.index--;
+    else state.index = 0;
+  }
+  renderQuestion();
+  highlightList();
+};
+
+nextBtn.onclick = () => {
+  saveNotes();
+  if (state.mode === "review") {
+    stepReview(1);
+  } else {
+    const list = state.visibleQuestions && state.visibleQuestions.length
+      ? state.visibleQuestions
+      : state.questions;
+    if (state.index < list.length - 1) state.index++;
+    else state.index = list.length - 1;
+  }
+  renderQuestion();
+  highlightList();
+};
 
 function stepReview(delta){
   if(!state.reviewOrder.length) return;
