@@ -11,6 +11,91 @@ const state = {
   timerId: null,
   dark: true
 };
+
+// ===== 群組管理 =====
+
+state.groups = [];
+
+const GROUPS_STORAGE_KEY = 'ntuvm_exam_groups_personal';
+
+// 載入群組資料（localStorage，個人獨立）
+function loadGroups() {
+  const raw = localStorage.getItem(GROUPS_STORAGE_KEY);
+  if (!raw) {
+    state.groups = [];
+    return;
+  }
+  try {
+    state.groups = JSON.parse(raw) || [];
+  } catch (e) {
+    console.error('載入群組失敗：', e);
+    state.groups = [];
+  }
+}
+
+// 儲存群組資料
+function saveGroups() {
+  localStorage.setItem(GROUPS_STORAGE_KEY, JSON.stringify(state.groups));
+}
+
+// 新增群組
+function addGroup(name) {
+  if (!name || !name.trim()) return null;
+  const newGroup = {
+    id: 'group-' + Date.now(),
+    name: name.trim(),
+    questions: []
+  };
+  state.groups.push(newGroup);
+  saveGroups();
+  renderGroupList();
+  return newGroup;
+}
+
+// 移除群組裡的題目 id（若有）
+function removeQuestionFromGroup(questionId, groupId) {
+  const group = state.groups.find(g => g.id === groupId);
+  if (!group) return;
+  const idx = group.questions.indexOf(questionId);
+  if (idx !== -1) {
+    group.questions.splice(idx, 1);
+    saveGroups();
+  }
+}
+
+// 把題目加入群組（避免重複）
+function addQuestionToGroup(questionId, groupId) {
+  const group = state.groups.find(g => g.id === groupId);
+  if (!group) return;
+  if (!group.questions.includes(questionId)) {
+    group.questions.push(questionId);
+    saveGroups();
+  }
+}
+
+// 刪除整個群組（如果你未來需要這個）
+function deleteGroup(groupId) {
+  state.groups = state.groups.filter(g => g.id !== groupId);
+  saveGroups();
+  renderGroupList();
+}
+
+// 篩選並顯示只屬於該群組內的題目
+function filterQuestionsByGroup(groupId) {
+  const group = state.groups.find(g => g.id === groupId);
+  if (!group) return;
+  // 換成只顯示群組內的題目
+  const filtered = group.questions.map(qid => {
+    return state.questions.find(q => String(q.id) === String(qid));
+  }).filter(Boolean);
+  renderList(filtered);
+}
+
+// 顯示全部題目（還原篩選）
+function showAllQuestions() {
+  renderList(state.questions);
+}
+
 /* ====== 路徑設定（依你的 repo 結構） ====== */
 const CONFIG = {
   // 如果你的資料夾其實叫 dataa，就把 "./data" 改成 "./dataa"
@@ -335,16 +420,52 @@ function loadNoteForCurrent(){
   editor.innerHTML = state._notes?.[k] || "";
 }
 /* 題號列表 */
-function renderList(){
+function renderList(list) {
+  const arr = list || state.questions;
   qList.innerHTML = "";
-  state.questions.forEach((q,i)=>{
+  arr.forEach((q, i) => {
     const div = document.createElement("div");
-    div.className = "q-item"+(i===state.index?" active":"");
+    div.className = "q-item" + (i === state.index ? " active" : "");
     div.textContent = `第 ${q.id} 題`;
-    div.onclick = ()=>{ saveNotes(); state.index=i; renderQuestion(); highlightList(); };
+    div.onclick = () => {
+      saveNotes();
+      state.index = i;
+      renderQuestion();
+      highlightList();
+    };
+    // 新增「加入群組」按鈕
+    const btn = document.createElement("button");
+    btn.textContent = "加入群組";
+    btn.style.marginLeft = "10px";
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      openAddToGroupDialog(q.id);
+    };
+    div.appendChild(btn);
+
+    // 如果該題已在某群組，可顯示[移除]按鈕（針對第一個群組）
+    state.groups.forEach(group => {
+      if (group.questions.includes(q.id)) {
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = `從「${group.name}」移除`;
+        removeBtn.style.marginLeft = "5px";
+        removeBtn.style.fontSize = "12px";
+        removeBtn.onclick = (ev) => {
+          ev.stopPropagation();
+          removeQuestionFromGroup(q.id, group.id);
+          alert(`已從群組「${group.name}」移除題目`);
+          // 更新畫面
+          renderGroupList();
+          renderList();
+        };
+        div.appendChild(removeBtn);
+      }
+    });
+
     qList.appendChild(div);
   });
 }
+
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
@@ -1578,18 +1699,103 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
     document.head.appendChild(meta);
   }catch{}
 })();
+
+// 渲染左側群組列表
+function renderGroupList() {
+  const groupListEl = document.getElementById("group-list");
+  if (!groupListEl) return;
+  groupListEl.innerHTML = "";
+  state.groups.forEach(group => {
+    const li = document.createElement("li");
+    li.textContent = group.name;
+    li.dataset.groupId = group.id;
+    li.style.cursor = "pointer";
+    li.style.padding = "6px 8px";
+    li.style.borderRadius = "8px";
+    li.style.marginBottom = "4px";
+    li.style.background = "var(--pill)";
+    li.style.userSelect = "none";
+    li.onmouseenter = () => {
+      li.style.background = "var(--accent)";
+      li.style.color = "#fff";
+    };
+    li.onmouseleave = () => {
+      li.style.background = "var(--pill)";
+      li.style.color = "var(--fg)";
+    };
+    li.onclick = () => {
+      filterQuestionsByGroup(group.id);
+    };
+    groupListEl.appendChild(li);
+  });
+}
+
+// 綁定按鈕事件（新增群組、顯示全部題目）
+function bindGroupUIEvents() {
+  const addGroupBtn = document.getElementById("add-group-btn");
+  if (addGroupBtn) {
+    addGroupBtn.onclick = () => {
+      const name = prompt("請輸入群組名稱：");
+      if (name && name.trim()) {
+        addGroup(name.trim());
+      }
+    };
+  }
+  const showAllBtn = document.getElementById("show-all-questions-btn");
+  if (showAllBtn) {
+    showAllBtn.onclick = () => {
+      showAllQuestions();
+    };
+  }
+}
+
+// 打開加入群組選擇對話框（簡單版用 prompt 選群組）
+function openAddToGroupDialog(questionId) {
+  if (!state.groups.length) {
+    const create = confirm('目前沒有群組，要先新增一個嗎？');
+    if (!create) return;
+    const name = prompt('請輸入群組名稱：');
+    if (!name) return;
+    addGroup(name);
+    return;
+  }
+  // 列群組供選擇
+  let listStr = "請輸入要加入的群組編號：\n";
+  state.groups.forEach((g, idx) => {
+    listStr += `${idx + 1}. ${g.name}\n`;
+  });
+  const input = prompt(listStr);
+  if (!input) return;
+  const num = parseInt(input);
+  if (isNaN(num) || num < 1 || num > state.groups.length) {
+    alert("輸入錯誤，請輸入有效群組編號");
+    return;
+  }
+  const targetGroup = state.groups[num - 1];
+  addQuestionToGroup(questionId, targetGroup.id);
+  alert(`已加入群組「${targetGroup.name}」`);
+  renderGroupList();
+  renderList();
+}
+
+
 /* 初始化 */
-function init(){
+function init() {
   loadNotes();
   loadAnswersFromStorage();
+  loadGroups();        // 新增：載入群組資料
+  renderGroupList();   // 新增：渲染群組列表
+  bindGroupUIEvents(); // 新增：綁定按鈕事件
+
   renderList();
-  state.scope = getScopeFromUI(); // 先記住目前 UI 範圍
+  state.scope = getScopeFromUI();
   onScopeChange();
-    // 作者模式：顯示匯出按鈕
-  if (AUTHOR_MODE && btnExportNotes){
+
+  if (AUTHOR_MODE && btnExportNotes) {
     btnExportNotes.classList.remove("hidden");
-  }// 進行首次載入
+  }
 }
+
 init();
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
 window.addEventListener("message", (e)=>{
