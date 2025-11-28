@@ -84,17 +84,20 @@ function deleteGroup(groupId) {
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
-  // 換成只顯示群組內的題目
+  state.currentGroupId = groupId;
+
   const filtered = group.questions.map(qid => {
     return state.questions.find(q => String(q.id) === String(qid));
   }).filter(Boolean);
+
   renderList(filtered);
 }
 
-// 顯示全部題目（還原篩選）
 function showAllQuestions() {
+  state.currentGroupId = null;
   renderList(state.questions);
 }
+
 
 /* ====== 路徑設定（依你的 repo 結構） ====== */
 const CONFIG = {
@@ -423,48 +426,73 @@ function loadNoteForCurrent(){
 function renderList(list) {
   const arr = list || state.questions;
   qList.innerHTML = "";
-  arr.forEach((q, i) => {
+
+  arr.forEach((q, idxInArr) => {
     const div = document.createElement("div");
-    div.className = "q-item" + (i === state.index ? " active" : "");
-    div.textContent = `第 ${q.id} 題`;
-    div.onclick = () => {
+    div.className = "q-item" + (idxInArr === state.index ? " active" : "");
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.justifyContent = "space-between";
+    div.style.gap = "8px";
+
+    const label = document.createElement("span");
+    label.textContent = `第 ${q.id} 題`;
+    label.style.flex = "1";
+    label.onclick = () => {
       saveNotes();
-      state.index = i;
+      // 用題號找在 state.questions 的真正 index
+      const realIndex = state.questions.findIndex(qq => String(qq.id) === String(q.id));
+      state.index = realIndex >= 0 ? realIndex : idxInArr;
       renderQuestion();
       highlightList();
     };
-    // 新增「加入群組」按鈕
+    div.appendChild(label);
+
+    // 檢查目前是否正在「某個群組檢視模式」
+    const currentGroupId = state.currentGroupId || null;
+    const inCurrentGroup =
+      currentGroupId &&
+      (state.groups.find(g => g.id === currentGroupId)?.questions.includes(q.id));
+
     const btn = document.createElement("button");
-    btn.textContent = "加入群組";
-    btn.style.marginLeft = "10px";
-    btn.onclick = (e) => {
-      e.stopPropagation();
-      openAddToGroupDialog(q.id);
-    };
+    btn.style.minWidth = "32px";
+    btn.style.height = "28px";
+    btn.style.borderRadius = "9999px";
+    btn.style.border = "1px solid var(--border)";
+    btn.style.background = "var(--pill)";
+    btn.style.color = "var(--fg)";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "16px";
+
+    if (currentGroupId) {
+      // 在群組檢視中：顯示「-」按鈕，用來從該群組移除
+      btn.textContent = "-";
+      btn.title = "從此群組移除";
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const group = state.groups.find(g => g.id === currentGroupId);
+        if (!group) return;
+        const ok = confirm(`確定要將「第 ${q.id} 題」從群組「${group.name}」移除嗎？`);
+        if (!ok) return;
+        removeQuestionFromGroup(q.id, currentGroupId);
+        // 重新渲染當前群組的題目
+        filterQuestionsByGroup(currentGroupId);
+      };
+    } else {
+      // 在「全部題目」模式：顯示 「+」
+      btn.textContent = "+";
+      btn.title = "加入群組";
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        openAddToGroupDialog(q.id);
+      };
+    }
+
     div.appendChild(btn);
-
-    // 如果該題已在某群組，可顯示[移除]按鈕（針對第一個群組）
-    state.groups.forEach(group => {
-      if (group.questions.includes(q.id)) {
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = `從「${group.name}」移除`;
-        removeBtn.style.marginLeft = "5px";
-        removeBtn.style.fontSize = "12px";
-        removeBtn.onclick = (ev) => {
-          ev.stopPropagation();
-          removeQuestionFromGroup(q.id, group.id);
-          alert(`已從群組「${group.name}」移除題目`);
-          // 更新畫面
-          renderGroupList();
-          renderList();
-        };
-        div.appendChild(removeBtn);
-      }
-    });
-
     qList.appendChild(div);
   });
 }
+
 
 function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
@@ -1756,27 +1784,123 @@ function openAddToGroupDialog(questionId) {
     if (!create) return;
     const name = prompt('請輸入群組名稱：');
     if (!name) return;
-    addGroup(name);
+    const g = addGroup(name.trim());
+    if (g) {
+      addQuestionToGroup(questionId, g.id);
+      alert(`已加入群組「${g.name}」`);
+      renderGroupList();
+      renderList();
+    }
     return;
   }
-  // 列群組供選擇
-  let listStr = "請輸入要加入的群組編號：\n";
-  state.groups.forEach((g, idx) => {
-    listStr += `${idx + 1}. ${g.name}\n`;
+
+  // 建立一個簡單的浮層列表讓你點選
+  const overlay = document.createElement("div");
+  Object.assign(overlay.style, {
+    position: "fixed",
+    inset: "0",
+    background: "rgba(0,0,0,.45)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 100000
   });
-  const input = prompt(listStr);
-  if (!input) return;
-  const num = parseInt(input);
-  if (isNaN(num) || num < 1 || num > state.groups.length) {
-    alert("輸入錯誤，請輸入有效群組編號");
-    return;
-  }
-  const targetGroup = state.groups[num - 1];
-  addQuestionToGroup(questionId, targetGroup.id);
-  alert(`已加入群組「${targetGroup.name}」`);
-  renderGroupList();
-  renderList();
+
+  const card = document.createElement("div");
+  Object.assign(card.style, {
+    minWidth: "260px",
+    maxWidth: "320px",
+    background: "var(--card)",
+    color: "var(--fg)",
+    borderRadius: "14px",
+    border: "1px solid var(--border)",
+    padding: "16px",
+    boxShadow: "0 18px 45px rgba(0,0,0,.4)"
+  });
+
+  const title = document.createElement("div");
+  title.textContent = "選擇要加入的群組";
+  title.style.fontWeight = "600";
+  title.style.marginBottom = "10px";
+  card.appendChild(title);
+
+  const list = document.createElement("div");
+  state.groups.forEach(g => {
+    const btn = document.createElement("button");
+    btn.textContent = g.name;
+    Object.assign(btn.style, {
+      width: "100%",
+      padding: "8px 10px",
+      marginBottom: "6px",
+      borderRadius: "9999px",
+      border: "1px solid var(--border)",
+      background: "var(--pill)",
+      color: "var(--fg)",
+      cursor: "pointer",
+      textAlign: "left"
+    });
+    btn.onclick = () => {
+      addQuestionToGroup(questionId, g.id);
+      alert(`已加入群組「${g.name}」`);
+      document.body.removeChild(overlay);
+      renderGroupList();
+      renderList();
+    };
+    list.appendChild(btn);
+  });
+  card.appendChild(list);
+
+  const actions = document.createElement("div");
+  actions.style.marginTop = "8px";
+  actions.style.display = "flex";
+  actions.style.justifyContent = "flex-end";
+  actions.style.gap = "8px";
+
+  const cancelBtn = document.createElement("button");
+  cancelBtn.textContent = "取消";
+  Object.assign(cancelBtn.style, {
+    padding: "6px 10px",
+    borderRadius: "9999px",
+    border: "1px solid var(--border)",
+    background: "transparent",
+    color: "var(--fg)",
+    cursor: "pointer"
+  });
+  cancelBtn.onclick = () => {
+    document.body.removeChild(overlay);
+  };
+
+  const newBtn = document.createElement("button");
+  newBtn.textContent = "新增群組";
+  Object.assign(newBtn.style, {
+    padding: "6px 10px",
+    borderRadius: "9999px",
+    border: "1px solid var(--border)",
+    background: "var(--accent)",
+    color: "#fff",
+    cursor: "pointer"
+  });
+  newBtn.onclick = () => {
+    const name = prompt("請輸入新的群組名稱：");
+    if (!name) return;
+    const g = addGroup(name.trim());
+    if (g) {
+      addQuestionToGroup(questionId, g.id);
+      alert(`已加入群組「${g.name}」`);
+      document.body.removeChild(overlay);
+      renderGroupList();
+      renderList();
+    }
+  };
+
+  actions.appendChild(cancelBtn);
+  actions.appendChild(newBtn);
+  card.appendChild(actions);
+
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
 }
+
 
 
 /* 初始化 */
