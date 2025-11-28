@@ -128,28 +128,25 @@ function deleteGroup(groupId) {
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
+
   state.currentGroupId = groupId;
 
-  const scope = getCurrentScopeForGroup();
-
-  // 只拿出「和目前科目＋年次＋梯次相同」的那些題目
-  const questionsInThisScope = group.questions.filter(q =>
-    String(q.subj)  === String(scope.subj) &&
-    String(q.year)  === String(scope.year) &&
-    String(q.round) === String(scope.round)
-  );
-
-  // 依照加入群組的順序找出對應的題目物件
-  const filtered = questionsInThisScope.map(entry => {
-    return state.questions.find(q => String(q.id) === String(entry.qid));
+  // 改成直接用群組問題陣列，不過濾科目、年、梯次
+  const filtered = group.questions.map(entry => {
+    // 找出題目物件，並附加身份資訊方便後續使用
+    const q = state.questions.find(q => String(q.id) === String(entry.qid));
+    if (q) {
+      q._groupEntry = entry; // 傳遞科目/年/梯次資訊
+    }
+    return q;
   }).filter(Boolean);
 
-  // 群組模式底下：用「群組順序」重新編號（第 1 題、第 2 題…）
   state.index = 0;
   renderList(filtered, { renumber: true });
   renderQuestion();
   highlightList();
 }
+
 
 // 回到全部題目（恢復原本卷內順序與題號）
 function showAllQuestions() {
@@ -566,77 +563,100 @@ function highlightList(){
 
 
 /* 題目顯示（完整覆蓋） */
-function renderQuestion(){
-  
-  const list = state.visibleQuestions && state.visibleQuestions.length
+function renderQuestion() {
+  const list = (state.visibleQuestions && state.visibleQuestions.length)
     ? state.visibleQuestions
     : state.questions;
   const q = list[state.index];
-  if(!q){
-    qNum.textContent="";
-    qText.textContent="請先載入題目";
-    qOpts.innerHTML="";
-    qImg.classList.add("hidden");
+
+  if (!q) {
+    qNum.textContent = '';
+    qText.textContent = '請先載入題目';
+    qOpts.innerHTML = '';
+    qImg.classList.add('hidden');
     return;
+  }
+
+  // 群組模式且題目帶有完整身份資訊，切換科目/年/梯次
+  if (state.currentGroupId && q._groupEntry) {
+    const entry = q._groupEntry;
+
+    // 暫存舊的選單值，防止強迫整個頁面跳動（你也可選擇不還原）
+    const oldSubj = subjectSel.value;
+    const oldYear = yearSel.value;
+    const oldRound = roundSel.value;
+
+    // 設定選單到正確科目、年、梯次
+    subjectSel.value = entry.subj;
+    yearSel.value = entry.year;
+    roundSel.value = (entry.round === '1') ? '第一次' : '第二次';
+
+    // 觸發測驗範圍變更（載入題庫陣列等）
+    onScopeChange();
+
+    // 還原選單（可視需求改成不還原，避免閃爍）
+    subjectSel.value = oldSubj;
+    yearSel.value = oldYear;
+    roundSel.value = oldRound;
   }
 
   qNum.textContent = `第 ${q.id} 題`;
 
-  // 題幹 +（可選）顯示答案
-  let html = `${escapeHTML(q.text)}`;
-  if(showAns.checked && state.answers && state.answers[String(q.id)]){
+  // 題幹與答案顯示邏輯（保持原本不動）
+  let html = escapeHTML(q.text);
+  if (showAns.checked && state.answers && state.answers[String(q.id)]) {
     const ca = state.answers[String(q.id)];
-    html = `<div style="color:#caa">答案：${escapeHTML(ca)}</div>` + html;
+    html = `答案：${escapeHTML(ca)}<br>` + html;
   }
   qText.innerHTML = html;
 
-  // 圖片（補上資料夾前綴）
-  if(q.image){
-    const raw  = resolveImage(q.image);
-    const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now();
+  if (q.image) {
+    const raw = resolveImage(q.image);
+    const bust = (raw.includes('?') ? '&' : '?') + 'v=' + Date.now();
     qImg.src = raw + bust;
-    qImg.classList.remove("hidden");
-  }else{
-    qImg.classList.add("hidden");
-    qImg.removeAttribute("src");
+    qImg.classList.remove('hidden');
+  } else {
+    qImg.classList.add('hidden');
+    qImg.removeAttribute('src');
   }
 
-  // 選項
-  qOpts.innerHTML = "";
-  const ua = (state.user[String(q.id)]||"").toUpperCase();
-  const letters = ["A","B","C","D"];
-  const correctSet = new Set(String(state.answers[String(q.id)]||"").toUpperCase().split("/").filter(Boolean));
+  // 選項渲染（保持原本不動）
+  qOpts.innerHTML = '';
+  const ua = (state.user[String(q.id)] || '').toUpperCase();
+  const letters = ['A', 'B', 'C', 'D'];
+  const correctSet = new Set(String(state.answers[String(q.id)] || '').toUpperCase().split('/').filter(Boolean));
+  const showRadio = (state.mode === 'quiz' || state.mode === 'review');
 
-  // 👉 browse：純文字；quiz/review：顯示圓圈（radio）
-  const showRadio = (state.mode==="quiz" || state.mode==="review");
+  letters.forEach(L => {
+    const line = document.createElement('div');
+    line.style.display = 'flex';
+    line.style.alignItems = 'center';
+    line.style.gap = '10px';
 
-  letters.forEach(L=>{
-    const line = document.createElement("div");
-    line.style.display="flex";
-    line.style.alignItems="center";
-    line.style.gap="10px";
-
-    if (showRadio){
-      const rb = document.createElement("input");
-      rb.type = "radio";
-      rb.name = "opt";
-      rb.disabled = (state.mode==="review");   // 回顧不可再改
-      rb.checked  = (ua===L);
-      rb.onchange = ()=>{ state.user[String(q.id)] = L; persistAnswer(); };
+    if (showRadio) {
+      const rb = document.createElement('input');
+      rb.type = 'radio';
+      rb.name = 'opt';
+      rb.disabled = (state.mode === 'review');
+      rb.checked = (ua === L);
+      rb.onchange = () => {
+        state.user[String(q.id)] = L;
+        persistAnswer();
+      };
       line.appendChild(rb);
     }
 
-    const span = document.createElement("span");
-    span.innerText = `${L}. ${q.options?.[L]??""}`;
+    const span = document.createElement('span');
+    span.innerText = `${L}. ${q.options?.[L] ?? ''}`;
 
-    if(state.mode==="review"){
+    if (state.mode === 'review') {
       if (ua === L) {
-        span.innerText += "（你選）";
-        span.style.color = "#6aa0ff";
+        span.innerText += '（你選）';
+        span.style.color = '#6aa0ff';
       }
       if (correctSet.has(L)) {
-        span.innerText += "（正解）";
-        span.style.color = "#c40000";
+        span.innerText += '（正解）';
+        span.style.color = '#c40000';
       }
     }
 
@@ -647,21 +667,22 @@ function renderQuestion(){
   bSubj.textContent = getSubjectLabel();
   bYear.textContent = yearSel.value;
   bRound.textContent = roundSel.value;
+
   highlightList();
   loadNoteForCurrent();
-  if (qExplain){
-    const hasExp = !!q.explanation;      // 題目 JSON 中的 explanation（HTML 字串）[web:53]
-    if (hasExp){
-      qExplain.classList.remove("hidden");
-      // 幫你加一個小標題，下面直接塞 explanation HTML（可含圖片）
-      qExplain.innerHTML = `<div style="color:#caa;margin-bottom:4px">詳解</div>` +
-                           String(q.explanation);
+
+  if (qExplain) {
+    const hasExp = !!q.explanation;
+    if (hasExp) {
+      qExplain.classList.remove('hidden');
+      qExplain.innerHTML = '詳解<br>' + String(q.explanation);
     } else {
-      qExplain.classList.add("hidden");
-      qExplain.innerHTML = "";
+      qExplain.classList.add('hidden');
+      qExplain.innerHTML = '';
     }
   }
 }
+
 /* 逃脫字元 */
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
