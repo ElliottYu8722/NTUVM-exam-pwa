@@ -125,27 +125,29 @@ function deleteGroup(groupId) {
 }
 
 // 根據目前畫面 scope，只顯示此群組裡「屬於這一卷」的題目
+// 點某個群組：右側只顯示該群組內的題目（可以混不同科目／年度／梯次）
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
 
+  // 記住目前是在這個群組模式
   state.currentGroupId = groupId;
 
-  // 改成直接用群組問題陣列，不過濾科目、年、梯次
-  const filtered = group.questions.map(entry => {
-    // 找出題目物件，並附加身份資訊方便後續使用
-    const q = state.questions.find(q => String(q.id) === String(entry.qid));
-    if (q) {
-      q._groupEntry = entry; // 傳遞科目/年/梯次資訊
-    }
-    return q;
-  }).filter(Boolean);
+  // 把群組裡的每一題都包成一個 list item
+  // 這裡的 id 只拿來顯示順序（1,2,3…），真正的題目身份在 _groupEntry 裡
+  const list = group.questions.map((entry, idx) => {
+    return {
+      id: idx + 1,       // 顯示用編號
+      _groupEntry: entry // { subj, year, round, qid }
+    };
+  });
 
   state.index = 0;
-  renderList(filtered, { renumber: true });
-  renderQuestion();
+  renderList(list, { renumber: true }); // 題號用 1,2,3… 重新編
+  renderQuestion();                     // 會在群組模式裡自動跳卷＋顯示題目
   highlightList();
 }
+
 
 
 // 回到全部題目（恢復原本卷內順序與題號）
@@ -485,13 +487,13 @@ function loadNoteForCurrent(){
 /* 題號列表 */
 // 題號列表
 function renderList(list, options = {}) {
-  const renumber = !!options.renumber; // 群組模式：用列表順序編號
-  
-  // list 沒給就用整卷題目
+  const renumber = !!options.renumber;
+
+  // 有給 list 就用 list，否則用整卷題目
   state.visibleQuestions = list || state.questions;
-  
+
   qList.innerHTML = '';
-  
+
   state.visibleQuestions.forEach((q, idxInVisible) => {
     const div = document.createElement('div');
     div.className = 'q-item' + (idxInVisible === state.index ? ' active' : '');
@@ -501,7 +503,6 @@ function renderList(list, options = {}) {
     div.style.gap = '8px';
 
     const label = document.createElement('span');
-    // 群組模式：顯示「第 (idx+1) 題」；否則顯示原本題號
     const displayNum = renumber ? (idxInVisible + 1) : q.id;
     label.textContent = `第 ${displayNum} 題`;
     label.style.flex = '1';
@@ -514,7 +515,7 @@ function renderList(list, options = {}) {
     div.appendChild(label);
 
     const currentGroupId = state.currentGroupId;
-    
+
     const btn = document.createElement('button');
     btn.style.minWidth = '32px';
     btn.style.height = '28px';
@@ -525,34 +526,49 @@ function renderList(list, options = {}) {
     btn.style.cursor = 'pointer';
     btn.style.fontSize = '16px';
 
-    // 🔥 修正邏輯：只有「非群組模式」才顯示 + 按鈕
     if (!currentGroupId) {
-      // 全部題目模式：顯示「+」，加入群組
+      // 全部題目模式：顯示「+」→ 開對話框選群組
       btn.textContent = '+';
       btn.title = '加入群組';
       btn.onclick = (e) => {
         e.stopPropagation();
-        openAddToGroupDialog(q.id);
+        openAddToGroupDialog(q.id); // 這時 q 是本卷的一題
       };
     } else {
-      // 群組模式：顯示「-」，從當前群組移除
-      btn.textContent = '-';
-      btn.title = '從此群組移除';
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        const group = state.groups.find(g => g.id === currentGroupId);
-        if (!group) return;
-        const ok = confirm(`確定要將「第 ${displayNum} 題」從群組「${group.name}」移除嗎？`);
-        if (!ok) return;
-        removeQuestionFromGroup(q.id, currentGroupId);
-        filterQuestionsByGroup(currentGroupId); // 重新過濾，列表會自動更新
-      };
+      // 群組模式：用 _groupEntry 決定從哪個卷、哪一題移除
+      const entry = q._groupEntry; // { subj, year, round, qid }
+      if (!entry) {
+        // 理論上不會進來，保險起見
+        btn.textContent = '-';
+        btn.disabled = true;
+      } else {
+        btn.textContent = '-';
+        btn.title = '從此群組移除';
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const group = state.groups.find(g => g.id === currentGroupId);
+          if (!group) return;
+          const ok = confirm(
+            `確定要將「第 ${displayNum} 題（${entry.subj} / ${entry.year} / r${entry.round} / Q${entry.qid}）」從群組「${group.name}」移除嗎？`
+          );
+          if (!ok) return;
+          removeQuestionFromGroupByEntry(entry, currentGroupId);
+          filterQuestionsByGroup(currentGroupId); // 刪完重畫群組清單
+        };
+      }
     }
 
     div.appendChild(btn);
     qList.appendChild(div);
   });
 }
+function removeQuestionFromGroupByEntry(entry, groupId) {
+  const group = state.groups.find(g => g.id === groupId);
+  if (!group) return;
+  group.questions = group.questions.filter(q => !isSameGroupQuestion(q, entry));
+  saveGroups();
+}
+
 
 
 
@@ -562,9 +578,144 @@ function highlightList(){
   [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
 }
 
+async function renderQuestionInGroupMode() {
+  const item = state.visibleQuestions[state.index];
+  if (!item || !item._groupEntry) {
+    qNum.textContent = '';
+    qText.textContent = '這個群組目前沒有題目';
+    qOpts.innerHTML = '';
+    qImg.classList.add('hidden');
+    return;
+  }
+
+  const entry = item._groupEntry; // { subj, year, round, qid }
+
+  // 1. 如果現在畫面的科目/年/梯次跟 entry 不同，就切過去並載入題庫
+  const scope = getScopeFromUI(); // { subj, year, round }
+  const needChange =
+    String(scope.subj)  !== String(entry.subj)  ||
+    String(scope.year)  !== String(entry.year)  ||
+    String(scope.round) !== String(entry.round);
+
+  if (needChange) {
+    // 設定下拉選單
+    subjectSel.value = entry.subj;
+    yearSel.value = entry.year;
+    // 依你原本的 roundSel 設定，這裡用「第一次／第二次」
+    roundSel.value = (String(entry.round) === '1') ? '第一次' : '第二次';
+
+    // 等待 onScopeChange 把該卷的 state.questions / state.answers 載好
+    await onScopeChange();
+  }
+
+  // 2. 在目前這一卷裡找到對應題號
+  const q = state.questions.find(qq => String(qq.id) === String(entry.qid));
+  if (!q) {
+    qNum.textContent = '';
+    qText.textContent = `找不到這題（${entry.subj} / ${entry.year} / r${entry.round} / Q${entry.qid}）`;
+    qOpts.innerHTML = '';
+    qImg.classList.add('hidden');
+    return;
+  }
+
+  // 3. 以下直接複用你原本 renderQuestion 裡顯示題目的邏輯，
+  //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
+
+  qNum.textContent = `第 ${q.id} 題`;
+
+  let html = escapeHTML(q.text);
+  if (showAns.checked && state.answers && state.answers[String(q.id)]) {
+    const ca = state.answers[String(q.id)];
+    html = `答案：${escapeHTML(ca)}<br>` + html;
+  }
+  qText.innerHTML = html;
+
+  if (q.image) {
+    const raw = resolveImage(q.image);
+    const bust = (raw.includes('?') ? '&' : '?') + 'v=' + Date.now();
+    qImg.src = raw + bust;
+    qImg.classList.remove('hidden');
+  } else {
+    qImg.classList.add('hidden');
+    qImg.removeAttribute('src');
+  }
+
+  // 選項
+  qOpts.innerHTML = '';
+  const ua = (state.user[String(q.id)] || '').toUpperCase();
+  const letters = ['A', 'B', 'C', 'D'];
+  const correctSet = new Set(
+    String(state.answers[String(q.id)] || '')
+      .toUpperCase()
+      .split(/[\/,]/)
+      .filter(Boolean)
+  );
+  const showRadio = (state.mode === 'quiz' || state.mode === 'review');
+
+  letters.forEach(L => {
+    const line = document.createElement('div');
+    line.style.display = 'flex';
+    line.style.alignItems = 'center';
+    line.style.gap = '10px';
+
+    if (showRadio) {
+      const rb = document.createElement('input');
+      rb.type = 'radio';
+      rb.name = 'opt';
+      rb.disabled = (state.mode === 'review');
+      rb.checked = (ua === L);
+      rb.onchange = () => {
+        state.user[String(q.id)] = L;
+        persistAnswer();
+      };
+      line.appendChild(rb);
+    }
+
+    const span = document.createElement('span');
+    span.innerText = `${L}. ${q.options?.[L] ?? ''}`;
+
+    if (state.mode === 'review') {
+      if (ua === L) {
+        span.innerText += '（你選）';
+        span.style.color = '#6aa0ff';
+      }
+      if (correctSet.has(L)) {
+        span.innerText += '（正解）';
+        span.style.color = '#c40000';
+      }
+    }
+
+    line.appendChild(span);
+    qOpts.appendChild(line);
+  });
+
+  // 底下科目／年／梯次標籤
+  bSubj.textContent = getSubjectLabel();
+  bYear.textContent = yearSel.value;
+  bRound.textContent = roundSel.value;
+
+  highlightList();
+  loadNoteForCurrent();
+
+  if (qExplain) {
+    const hasExp = !!q.explanation;
+    if (hasExp) {
+      qExplain.classList.remove('hidden');
+      qExplain.innerHTML = '詳解：' + String(q.explanation);
+    } else {
+      qExplain.classList.add('hidden');
+      qExplain.innerHTML = '';
+    }
+  }
+}
 
 /* 題目顯示（完整覆蓋） */
-function renderQuestion() {
+async function renderQuestion() {
+  // 🔥 群組模式：走專屬流程
+  if (state.currentGroupId) {
+    await renderQuestionInGroupMode();
+    return;
+  }
   const list = (state.visibleQuestions && state.visibleQuestions.length)
     ? state.visibleQuestions
     : state.questions;
@@ -1702,7 +1853,7 @@ async function onScopeChange(){
   // 2) 以新範圍讀取作答紀錄
   loadAnswersFromStorage();
 
-  // 3) 以下維持你原本載入題目/答案的流程（依新 select 值）
+  // 3) 載入題目 / 答案（依新 select 值）
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
@@ -1732,14 +1883,22 @@ async function onScopeChange(){
       if(Array.isArray(arr)){
         state.questions = arr;
         state.index = 0;
-        renderList();
+
+        // 🔥 只有「非群組模式」才重畫整卷題號清單
+        if (!state.currentGroupId) {
+          renderList();
+        }
+
         loadedQ = true;
         console.log("[onScopeChange] 題目載入成功，題數:", arr.length);
       }else{
         console.error("[onScopeChange] 題目檔格式錯誤（不是陣列）", qName, arr);
         alert(`題目檔格式錯誤（不是陣列）：${qName}`);
         state.questions = [];
-        renderList();
+
+        if (!state.currentGroupId) {
+          renderList();
+        }
       }
     } else {
       console.warn("[onScopeChange] fetch qRes not ok:", qRes.status, qRes.statusText);
@@ -1781,8 +1940,13 @@ async function onScopeChange(){
   // 4) 切換完成後，更新「現行範圍快照」為新 scope，之後渲染時會用新鍵讀取筆記
   state.scope = getScopeFromUI();
 
-  renderQuestion();
+  // 🔥 一樣：只有「非群組模式」才在這裡主動畫題目
+  if (!state.currentGroupId) {
+    renderQuestion();
+  }
+  // 群組模式時，會由 renderQuestionInGroupMode() 在 await onScopeChange() 之後自己畫題目
 }
+
 /* 自動儲存提示 */
 let toastTimer=null;
 function toast(msg){
