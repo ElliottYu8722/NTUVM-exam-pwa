@@ -15,8 +15,8 @@ const state = {
 
 // ===== 群組管理 =====
 
+// ===== 群組管理（跨科目／跨年度／跨梯次） =====
 state.groups = [];
-
 const GROUPS_STORAGE_KEY = 'ntuvm_exam_groups_personal';
 
 // 載入群組資料（localStorage，個人獨立）
@@ -45,6 +45,7 @@ function addGroup(name) {
   const newGroup = {
     id: 'group-' + Date.now(),
     name: name.trim(),
+    // 這裡改成存完整身份：subj/year/round/qid
     questions: []
   };
   state.groups.push(newGroup);
@@ -53,54 +54,108 @@ function addGroup(name) {
   return newGroup;
 }
 
-// 移除群組裡的題目 id（若有）
-function removeQuestionFromGroup(questionId, groupId) {
-  const group = state.groups.find(g => g.id === groupId);
-  if (!group) return;
-  const idx = group.questions.indexOf(questionId);
-  if (idx !== -1) {
-    group.questions.splice(idx, 1);
-    saveGroups();
-  }
+// 取得目前卷別 scope（用你現成的工具）
+function getCurrentScopeForGroup() {
+  const sc = getScopeFromUI(); // {subj, year, round}
+  return {
+    subj: sc.subj,
+    year: sc.year,
+    round: sc.round
+  };
+}
+
+// 在群組裡判斷兩題是不是同一題
+function isSameGroupQuestion(a, b) {
+  return (
+    String(a.subj)  === String(b.subj)  &&
+    String(a.year)  === String(b.year)  &&
+    String(a.round) === String(b.round) &&
+    String(a.qid)   === String(b.qid)
+  );
 }
 
 // 把題目加入群組（避免重複）
 function addQuestionToGroup(questionId, groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
-  if (!group.questions.includes(questionId)) {
-    group.questions.push(questionId);
+
+  const scope = getCurrentScopeForGroup();
+  const entry = {
+    subj: scope.subj,
+    year: scope.year,
+    round: scope.round,
+    qid: String(questionId)
+  };
+
+  // 檢查群組內是否已經有這題（同科目＋年次＋梯次＋題號）
+  const exists = group.questions.some(q => isSameGroupQuestion(q, entry));
+  if (!exists) {
+    group.questions.push(entry);
     saveGroups();
   }
 }
 
-// 刪除整個群組（如果你未來需要這個）
+// 移除群組裡的某一題
+function removeQuestionFromGroup(questionId, groupId) {
+  const group = state.groups.find(g => g.id === groupId);
+  if (!group) return;
+
+  const scope = getCurrentScopeForGroup();
+  const target = {
+    subj: scope.subj,
+    year: scope.year,
+    round: scope.round,
+    qid: String(questionId)
+  };
+
+  group.questions = group.questions.filter(q => !isSameGroupQuestion(q, target));
+  saveGroups();
+}
+
+// 刪除整個群組
 function deleteGroup(groupId) {
   state.groups = state.groups.filter(g => g.id !== groupId);
   saveGroups();
   renderGroupList();
+
+  // 如果當前正處於這個群組視圖，就切回全部題目
+  if (state.currentGroupId === groupId) {
+    showAllQuestions();
+  }
 }
 
-// 篩選並顯示只屬於該群組內的題目
+// 根據目前畫面 scope，只顯示此群組裡「屬於這一卷」的題目
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
   state.currentGroupId = groupId;
 
-  const filtered = group.questions.map(qid => {
-    return state.questions.find(q => String(q.id) === String(qid));
+  const scope = getCurrentScopeForGroup();
+
+  // 只拿出「和目前科目＋年次＋梯次相同」的那些題目
+  const questionsInThisScope = group.questions.filter(q =>
+    String(q.subj)  === String(scope.subj) &&
+    String(q.year)  === String(scope.year) &&
+    String(q.round) === String(scope.round)
+  );
+
+  // 依照加入群組的順序找出對應的題目物件
+  const filtered = questionsInThisScope.map(entry => {
+    return state.questions.find(q => String(q.id) === String(entry.qid));
   }).filter(Boolean);
 
-  state.index = 0;          // 新增：從這個群組的第一題開始
-  renderList(filtered);
+  // 群組模式底下：用「群組順序」重新編號（第 1 題、第 2 題…）
+  state.index = 0;
+  renderList(filtered, { renumber: true });
   renderQuestion();
   highlightList();
 }
 
+// 回到全部題目（恢復原本卷內順序與題號）
 function showAllQuestions() {
   state.currentGroupId = null;
-  state.index = 0;          // 回到整卷的第一題
-  renderList(state.questions);
+  state.index = 0; // 回到原卷第一題
+  renderList(state.questions, { renumber: false });
   renderQuestion();
   highlightList();
 }
@@ -431,7 +486,10 @@ function loadNoteForCurrent(){
   editor.innerHTML = state._notes?.[k] || "";
 }
 /* 題號列表 */
-function renderList(list) {
+// 題號列表
+function renderList(list, options = {}) {
+  const renumber = !!options.renumber; // true：群組模式，用列表順序編號
+
   // list 沒給就用整卷題目
   state.visibleQuestions = list || state.questions;
   qList.innerHTML = "";
@@ -445,11 +503,14 @@ function renderList(list) {
     div.style.gap = "8px";
 
     const label = document.createElement("span");
-    label.textContent = `第 ${q.id} 題`;
+
+    // 若是群組模式：顯示「第 (idx+1) 題」
+    // 否則顯示原本題號 q.id
+    const displayNum = renumber ? (idxInVisible + 1) : q.id;
+    label.textContent = `第 ${displayNum} 題`;
     label.style.flex = "1";
     label.onclick = () => {
       saveNotes();
-      // 直接用 visibleQuestions 的 index 來當目前 index
       state.index = idxInVisible;
       renderQuestion();
       highlightList();
@@ -469,7 +530,7 @@ function renderList(list) {
     btn.style.fontSize = "16px";
 
     if (currentGroupId) {
-      // 群組檢視：顯示「-」
+      // 群組檢視：顯示「-」，從這個群組移除此題（只針對目前卷）
       btn.textContent = "-";
       btn.title = "從此群組移除";
       btn.onclick = (e) => {
@@ -482,7 +543,7 @@ function renderList(list) {
         filterQuestionsByGroup(currentGroupId);
       };
     } else {
-      // 全部題目：顯示「+」
+      // 全部題目：顯示「+」，把目前卷的這一題加入某個群組
       btn.textContent = "+";
       btn.title = "加入群組";
       btn.onclick = (e) => {
@@ -495,6 +556,7 @@ function renderList(list) {
     qList.appendChild(div);
   });
 }
+
 
 
 
