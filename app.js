@@ -1853,7 +1853,7 @@ async function onScopeChange(){
   // 2) 以新範圍讀取作答紀錄
   loadAnswersFromStorage();
 
-  // 3) 載入題目 / 答案（依新 select 值）
+  // 3) 以下維持你原本載入題目/答案的流程（依新 select 值）
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
@@ -1882,10 +1882,10 @@ async function onScopeChange(){
       const arr = await qRes.json();
       if(Array.isArray(arr)){
         state.questions = arr;
-        state.index = 0;
 
-        // 🔥 只有「非群組模式」才重畫整卷題號清單
+        // 🔥 只有「非群組模式」才把 index 歸零＋重畫整卷清單
         if (!state.currentGroupId) {
+          state.index = 0;
           renderList();
         }
 
@@ -1897,6 +1897,7 @@ async function onScopeChange(){
         state.questions = [];
 
         if (!state.currentGroupId) {
+          state.index = 0;
           renderList();
         }
       }
@@ -1940,12 +1941,12 @@ async function onScopeChange(){
   // 4) 切換完成後，更新「現行範圍快照」為新 scope，之後渲染時會用新鍵讀取筆記
   state.scope = getScopeFromUI();
 
-  // 🔥 一樣：只有「非群組模式」才在這裡主動畫題目
+  // 一樣：只有非群組模式才在這裡主動畫題目
   if (!state.currentGroupId) {
     renderQuestion();
   }
-  // 群組模式時，會由 renderQuestionInGroupMode() 在 await onScopeChange() 之後自己畫題目
 }
+
 
 /* 自動儲存提示 */
 let toastTimer=null;
