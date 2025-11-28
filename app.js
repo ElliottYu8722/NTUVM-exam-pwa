@@ -1764,34 +1764,65 @@ function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTime
 })();
 
 // 渲染左側群組列表
+// 渲染左側群組列表（每個群組有「名稱」＋「-」刪除）
 function renderGroupList() {
   const groupListEl = document.getElementById("group-list");
   if (!groupListEl) return;
   groupListEl.innerHTML = "";
+
   state.groups.forEach(group => {
-    const li = document.createElement("li");
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.justifyContent = "space-between";
+    row.style.gap = "6px";
+    row.style.marginBottom = "4px";
+
+    const li = document.createElement("button");
     li.textContent = group.name;
     li.dataset.groupId = group.id;
-    li.style.cursor = "pointer";
-    li.style.padding = "6px 8px";
-    li.style.borderRadius = "8px";
-    li.style.marginBottom = "4px";
+    li.style.flex = "1";
+    li.style.borderRadius = "9999px";
+    li.style.border = "1px solid var(--border)";
     li.style.background = "var(--pill)";
-    li.style.userSelect = "none";
-    li.onmouseenter = () => {
-      li.style.background = "var(--accent)";
-      li.style.color = "#fff";
-    };
-    li.onmouseleave = () => {
-      li.style.background = "var(--pill)";
-      li.style.color = "var(--fg)";
-    };
+    li.style.color = "var(--fg)";
+    li.style.cursor = "pointer";
+    li.style.padding = "6px 10px";
+    li.style.textAlign = "left";
     li.onclick = () => {
       filterQuestionsByGroup(group.id);
     };
-    groupListEl.appendChild(li);
+
+    const delBtn = document.createElement("button");
+    delBtn.textContent = "-";
+    delBtn.title = "刪除此群組";
+    delBtn.style.minWidth = "28px";
+    delBtn.style.height = "28px";
+    delBtn.style.borderRadius = "9999px";
+    delBtn.style.border = "1px solid var(--border)";
+    delBtn.style.background = "transparent";
+    delBtn.style.color = "var(--muted)";
+    delBtn.style.cursor = "pointer";
+    delBtn.style.fontSize = "16px";
+
+    delBtn.onclick = (e) => {
+      e.stopPropagation();
+      const ok = confirm(`確定要刪除群組「${group.name}」嗎？（不會刪除題目本身）`);
+      if (!ok) return;
+      deleteGroup(group.id);
+      // 若目前正好在這個群組檢視，把畫面切回全部題目
+      if (state.currentGroupId === group.id) {
+        state.currentGroupId = null;
+        renderList(state.questions);
+      }
+    };
+
+    row.appendChild(li);
+    row.appendChild(delBtn);
+    groupListEl.appendChild(row);
   });
 }
+
 
 // 綁定按鈕事件（新增群組、顯示全部題目）
 function bindGroupUIEvents() {
