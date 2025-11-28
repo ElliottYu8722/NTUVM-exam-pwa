@@ -485,27 +485,26 @@ function loadNoteForCurrent(){
 /* 題號列表 */
 // 題號列表
 function renderList(list, options = {}) {
-  const renumber = !!options.renumber; // true：群組模式，用列表順序編號
-
+  const renumber = !!options.renumber; // 群組模式：用列表順序編號
+  
   // list 沒給就用整卷題目
   state.visibleQuestions = list || state.questions;
-  qList.innerHTML = "";
-
+  
+  qList.innerHTML = '';
+  
   state.visibleQuestions.forEach((q, idxInVisible) => {
-    const div = document.createElement("div");
-    div.className = "q-item" + (idxInVisible === state.index ? " active" : "");
-    div.style.display = "flex";
-    div.style.alignItems = "center";
-    div.style.justifyContent = "space-between";
-    div.style.gap = "8px";
+    const div = document.createElement('div');
+    div.className = 'q-item' + (idxInVisible === state.index ? ' active' : '');
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'space-between';
+    div.style.gap = '8px';
 
-    const label = document.createElement("span");
-
-    // 若是群組模式：顯示「第 (idx+1) 題」
-    // 否則顯示原本題號 q.id
+    const label = document.createElement('span');
+    // 群組模式：顯示「第 (idx+1) 題」；否則顯示原本題號
     const displayNum = renumber ? (idxInVisible + 1) : q.id;
     label.textContent = `第 ${displayNum} 題`;
-    label.style.flex = "1";
+    label.style.flex = '1';
     label.onclick = () => {
       saveNotes();
       state.index = idxInVisible;
@@ -514,38 +513,39 @@ function renderList(list, options = {}) {
     };
     div.appendChild(label);
 
-    const currentGroupId = state.currentGroupId || null;
+    const currentGroupId = state.currentGroupId;
+    
+    const btn = document.createElement('button');
+    btn.style.minWidth = '32px';
+    btn.style.height = '28px';
+    btn.style.borderRadius = '9999px';
+    btn.style.border = '1px solid var(--border)';
+    btn.style.background = 'var(--pill)';
+    btn.style.color = 'var(--fg)';
+    btn.style.cursor = 'pointer';
+    btn.style.fontSize = '16px';
 
-    const btn = document.createElement("button");
-    btn.style.minWidth = "32px";
-    btn.style.height = "28px";
-    btn.style.borderRadius = "9999px";
-    btn.style.border = "1px solid var(--border)";
-    btn.style.background = "var(--pill)";
-    btn.style.color = "var(--fg)";
-    btn.style.cursor = "pointer";
-    btn.style.fontSize = "16px";
-
-    if (currentGroupId) {
-      // 群組檢視：顯示「-」，從這個群組移除此題（只針對目前卷）
-      btn.textContent = "-";
-      btn.title = "從此群組移除";
+    // 🔥 修正邏輯：只有「非群組模式」才顯示 + 按鈕
+    if (!currentGroupId) {
+      // 全部題目模式：顯示「+」，加入群組
+      btn.textContent = '+';
+      btn.title = '加入群組';
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        openAddToGroupDialog(q.id);
+      };
+    } else {
+      // 群組模式：顯示「-」，從當前群組移除
+      btn.textContent = '-';
+      btn.title = '從此群組移除';
       btn.onclick = (e) => {
         e.stopPropagation();
         const group = state.groups.find(g => g.id === currentGroupId);
         if (!group) return;
-        const ok = confirm(`確定要將「第 ${q.id} 題」從群組「${group.name}」移除嗎？`);
+        const ok = confirm(`確定要將「第 ${displayNum} 題」從群組「${group.name}」移除嗎？`);
         if (!ok) return;
         removeQuestionFromGroup(q.id, currentGroupId);
-        filterQuestionsByGroup(currentGroupId);
-      };
-    } else {
-      // 全部題目：顯示「+」，把目前卷的這一題加入某個群組
-      btn.textContent = "+";
-      btn.title = "加入群組";
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        openAddToGroupDialog(q.id);
+        filterQuestionsByGroup(currentGroupId); // 重新過濾，列表會自動更新
       };
     }
 
@@ -553,6 +553,7 @@ function renderList(list, options = {}) {
     qList.appendChild(div);
   });
 }
+
 
 
 
