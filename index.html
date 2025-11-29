@@ -145,7 +145,35 @@
           <button id="btnToggleAns" class="btn">切換顯示答案</button>
         </div>
       </div>
-
+      <!-- 新增：留言區（題目下、筆記上） -->
+      <div id="comments-section" class="panel" style="margin-top:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-weight:bold;">留言區</span>
+          <span id="comments-count" style="font-size:12px;color:var(--muted);"></span>
+        </div>
+    
+        <div id="comments-list"
+             style="max-height:200px;overflow:auto;margin-bottom:8px;font-size:14px;">
+          目前還沒有留言，成為第一個留言的人吧！
+        </div>
+    
+        <form id="comment-form"
+              style="display:flex;flex-direction:column;gap:6px;">
+          <input id="comment-nickname"
+                 class="select"
+                 maxlength="20"
+                 placeholder="暱稱（必填，可自取）" />
+    
+          <textarea id="comment-text"
+                    class="select"
+                    rows="3"
+                    maxlength="500"
+                    placeholder="留言內容（按送出留言發表）"></textarea>
+    
+          <button type="submit" class="btn">送出留言</button>
+        </form>
+      </div>      
+      
       <div class="notes">
         <div class="toolbar">
           <!-- 字級 -->
@@ -241,7 +269,26 @@
       <div class="q-list" id="qList"></div>
     </aside>
   </div>
+    <!-- Firebase CDN：放在 app.js 之前 -->
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
 
+  <script>
+    // 這段 firebaseConfig 物件，整個從 Firebase 畫面複製貼上
+    const firebaseConfig = {
+        apiKey: "AIzaSyCLA65MNmKe0xKNr3j213KpeU5mA4jycKw",
+        authDomain: "ntuvmexam-pwa.firebaseapp.com",
+        projectId: "ntuvmexam-pwa",
+        storageBucket: "ntuvmexam-pwa.firebasestorage.app",
+        messagingSenderId: "795891762702",
+        appId: "1:795891762702:web:d0038d05d4803971749e5f",
+        measurementId: "G-WYE4T2RBXQ"
+    };
+
+    // 初始化 Firebase & Firestore（用 compat 版，語法比較簡單）[web:73][web:109]
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();   // 之後 app.js 會用到這個全域變數
+  </script>
   <script src="app.js"></script>
   <script>
     if ("serviceWorker" in navigator) {
