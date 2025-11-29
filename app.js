@@ -600,9 +600,10 @@ async function loadCommentsForCurrentQuestion() {
   try {
     const snap = await window.db.collection('comments')
       .where('key', '==', key)
-      .orderBy('createdAt', 'desc')
+      .orderBy('pinned', 'desc')        // 先看 pinned，true 會排最上面
+      .orderBy('createdAt', 'desc')     // 同一群再依時間新到舊
       .limit(50)
-      .get(); // 一次抓最新 50 則留言
+      .get();
 
     commentsList.innerHTML = '';
     if (commentsCountEl) {
@@ -613,29 +614,66 @@ async function loadCommentsForCurrentQuestion() {
       commentsList.textContent = '目前還沒有留言，成為第一個留言的人吧！';
       return;
     }
-
     snap.forEach(doc => {
       const c = doc.data();
       const row = document.createElement('div');
       row.style.marginBottom = '6px';
       row.style.fontSize = '14px';
-
-      const name = c.nickname || '匿名';
-      const time = c.createdAt && c.createdAt.toDate
+    
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.alignItems = 'center';
+      header.style.gap = '8px';
+    
+      const nameSpan = document.createElement('span');
+      nameSpan.style.fontWeight = '600';
+      nameSpan.textContent = c.nickname || '匿名';
+    
+      const timeSpan = document.createElement('span');
+      timeSpan.style.fontSize = '11px';
+      timeSpan.style.color = 'var(--muted)';
+      timeSpan.textContent = c.createdAt && c.createdAt.toDate
         ? c.createdAt.toDate().toLocaleString()
         : '';
-
-      // ✅ 先 escape 再插入，避免 XSS
-      const safeName = escapeHTML(name || '匿名');
-      const safeText = escapeHTML(c.text || '').replace(/\n/g, '<br>');
-
-      row.innerHTML =
-        `<div style="font-weight:600">${safeName} ` +
-        `<span style="font-size:11px;color:var(--muted)">${time}</span></div>` +
-        `<div>${safeText}</div>`;
-
+    
+      header.appendChild(nameSpan);
+      header.appendChild(timeSpan);
+    
+      // ⭐ 只有作者模式才看到置頂按鈕
+      if (AUTHOR_MODE) {
+        const pinBtn = document.createElement('button');
+        pinBtn.textContent = c.pinned ? '取消置頂' : '置頂';
+        pinBtn.style.marginLeft = 'auto';
+        pinBtn.style.fontSize = '11px';
+        pinBtn.style.borderRadius = '9999px';
+        pinBtn.style.border = '1px solid var(--border)';
+        pinBtn.style.background = c.pinned ? 'var(--accent)' : 'transparent';
+        pinBtn.style.color = c.pinned ? '#fff' : 'var(--fg)';
+        pinBtn.style.cursor = 'pointer';
+        pinBtn.onclick = async () => {
+          try {
+            await window.db.collection('comments').doc(doc.id).update({
+              pinned: !c.pinned,
+              pinnedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            loadCommentsForCurrentQuestion(); // 重新載入，讓排序更新
+          } catch (e) {
+            console.error('toggle pin error', e);
+            alert('更新置頂狀態失敗');
+          }
+        };
+        header.appendChild(pinBtn);
+      }
+    
+      const body = document.createElement('div');
+      // 這裡可以繼續用你原本的 escapeHTML + 換行處理
+      body.innerHTML = escapeHTML(c.text || '').replace(/\n/g, '<br>');
+    
+      row.appendChild(header);
+      row.appendChild(body);
       commentsList.appendChild(row);
     });
+    
   } catch (err) {
     console.error('loadCommentsForCurrentQuestion error', err);
     commentsList.textContent = '載入留言失敗，稍後再試。';
@@ -678,6 +716,8 @@ if (commentForm) {
         nickname,
         text: textRaw,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(), // 用 serverTimestamp 當時間
+        pinned: false,
+        pinnedAt: null,
       });
 
       // 清除文字欄位，保留暱稱
