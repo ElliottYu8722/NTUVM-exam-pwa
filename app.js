@@ -2422,6 +2422,57 @@ function openAddToGroupDialog(questionId) {
   document.body.appendChild(overlay);
 }
 
+// 判斷現在是否為「手機寬度」（768px 以下）
+function isPhoneWidth() {
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
+// 手機版：右下角顯示一顆按鈕，用來收合 / 展開左右欄
+function setupMobileSideToggle() {
+  const btn = document.createElement('button');
+  btn.textContent = '收合側欄';
+  Object.assign(btn.style, {
+    position: 'fixed',
+    right: '12px',
+    bottom: '20px',
+    zIndex: 100000,
+    padding: '8px 12px',
+    borderRadius: '9999px',
+    border: '1px solid var(--border)',
+    background: 'var(--card)',
+    color: 'var(--fg)',
+    fontSize: '14px',
+    cursor: 'pointer',
+  });
+
+  btn.onclick = () => {
+    const body = document.body;
+    const on = body.classList.toggle('mobile-center-only');
+    btn.textContent = on ? '顯示側欄' : '收合側欄';
+  };
+
+  // 依螢幕寬度決定要不要顯示按鈕＋是否啟用只顯示中間欄
+  function updateVisibility() {
+    if (isPhoneWidth()) {
+      if (!btn.isConnected) {
+        document.body.appendChild(btn);
+      }
+      // 手機一律預設收合左右欄，比較不會擠爆
+      if (!document.body.classList.contains('mobile-center-only')) {
+        document.body.classList.add('mobile-center-only');
+        btn.textContent = '顯示側欄';
+      }
+    } else {
+      if (btn.isConnected) {
+        document.body.removeChild(btn);
+      }
+      document.body.classList.remove('mobile-center-only');
+    }
+  }
+
+  updateVisibility();
+  window.addEventListener('resize', updateVisibility);
+}
 
 
 /* 初始化 */
@@ -2439,6 +2490,7 @@ function init() {
   if (AUTHOR_MODE && btnExportNotes) {
     btnExportNotes.classList.remove("hidden");
   }
+  setupMobileSideToggle();
 }
 
 init();
