@@ -956,7 +956,8 @@ async function renderQuestion() {
 
   highlightList();
   loadNoteForCurrent();
-
+  loadCommentsForCurrentQuestion();
+  
   if (qExplain) {
     const hasExp = !!q.explanation;
     if (hasExp) {
