@@ -71,7 +71,8 @@
       .app{grid-template-columns:1fr}
       .right{order:3}
     }
-    @media (max-width: 768px) {
+    @media (max-width: 768px),
+           (max-width: 1024px) and (orientation: portrait) {
       /* 中間照樣撐滿 */
       .center.panel {
         flex: 1 1 100%;
