@@ -1,6 +1,6 @@
 /* service-worker.js（建議替換） */
 /* 核心快取名稱，若你更新檔案請改這裡的版本字串以強制更新快取 */
-const CACHE_CORE = 'ntuvm-core-v3';
+const CACHE_CORE = 'ntuvm-core-v4';
 
 /* 核心資產（保留 index.html 與 manifest、但 app.js 我們會改用 network-first） */
 const CORE = [
