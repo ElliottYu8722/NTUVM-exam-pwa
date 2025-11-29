@@ -334,6 +334,16 @@ const subjectPrefix = s => {
   return map[str] || "x";
 };
 // 取得選單上真正顯示給使用者看的科目文字（例如「獸醫病理學」）
+
+// ==== 留言區 DOM ==== //
+const commentsSection  = document.getElementById('comments-section');
+const commentsList     = document.getElementById('comments-list');
+const commentsCountEl  = document.getElementById('comments-count');
+const commentForm      = document.getElementById('comment-form');
+const commentNameInput = document.getElementById('comment-nickname');
+const commentTextInput = document.getElementById('comment-text');
+
+
 // 優先取 selected option 的 text，若無則 fallback 回 value
 function getSubjectLabel(){
   try{
@@ -411,6 +421,16 @@ function getScopeFromUI(){
 function keyForNote(qid, scope){
   const sc = scope || getScopeFromUI();
   return `note|${sc.subj}|${sc.year}|r${sc.round}|q${qid}`;
+}
+
+// 產生目前這一題對應到留言用的 key
+function getCurrentCommentKey() {
+  const q = state.questions[state.index];
+  if (!q) return null;
+
+  const scope = getScopeFromUI(); // 你原本就有這個函式
+  // 用科目 + 年度 + 梯次 + 題號 當成同一題的 key
+  return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
 }
 
 
@@ -562,6 +582,96 @@ function renderList(list, options = {}) {
     qList.appendChild(div);
   });
 }
+
+// 從 Firestore 載入目前題目的留言
+async function loadCommentsForCurrentQuestion() {
+  if (!window.db || !commentsList) return;
+
+  const key = getCurrentCommentKey();
+  if (!key) {
+    commentsList.innerHTML = '';
+    if (commentsCountEl) commentsCountEl.textContent = '';
+    return;
+  }
+
+  commentsList.textContent = '載入中…';
+
+  try {
+    const snap = await db.collection('comments')
+      .where('key', '==', key)
+      .orderBy('createdAt', 'desc')
+      .limit(50)
+      .get();  // 一次抓最新 50 則留言[web:93][web:96]
+
+    commentsList.innerHTML = '';
+    if (commentsCountEl) commentsCountEl.textContent = `共 ${snap.size} 則留言`;
+
+    if (!snap.size) {
+      commentsList.textContent = '目前還沒有留言，成為第一個留言的人吧！';
+      return;
+    }
+
+    snap.forEach(doc => {
+      const c = doc.data();
+      const row = document.createElement('div');
+      row.style.marginBottom = '6px';
+      row.style.fontSize = '14px';
+
+      const name = (c.nickname || '匿名');
+      const time = c.createdAt && c.createdAt.toDate
+        ? c.createdAt.toDate().toLocaleString()
+        : '';
+
+      row.innerHTML =
+        `<div style="font-weight:600;">${name} ` +
+        `<span style="font-size:11px;color:var(--muted);">${time}</span>` +
+        `</div>` +
+        `<div>${(c.text || '').replace(/\n/g, '<br>')}</div>`;
+
+      commentsList.appendChild(row);
+    });
+  } catch (err) {
+    console.error('loadCommentsForCurrentQuestion error', err);
+    commentsList.textContent = '載入留言失敗，稍後再試。';
+    if (commentsCountEl) commentsCountEl.textContent = '';
+  }
+}
+
+// 表單送出：寫入一筆新的留言
+if (commentForm) {
+  commentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!window.db) return;
+
+    const key = getCurrentCommentKey();
+    const nickname = (commentNameInput.value || '').trim() || '匿名';
+    const text = (commentTextInput.value || '').trim();
+
+    if (!key || !text) return;
+
+    const btn = commentForm.querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+
+    try {
+      await db.collection('comments').add({
+        key,
+        nickname,
+        text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      }); // 用 serverTimestamp 當時間[web:93]
+
+      commentTextInput.value = '';
+      await loadCommentsForCurrentQuestion(); // 送出後重新載入
+    } catch (err) {
+      console.error('submit comment error', err);
+      alert('送出留言失敗，請稍後再試');
+    } finally {
+      if (btn) btn.disabled = false;
+    }
+  });
+}
+
+
 function removeQuestionFromGroupByEntry(entry, groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
@@ -696,7 +806,7 @@ async function renderQuestionInGroupMode() {
 
   highlightList();
   loadNoteForCurrent();
-
+  loadCommentsForCurrentQuestion();  
   if (qExplain) {
     const hasExp = !!q.explanation;
     if (hasExp) {
