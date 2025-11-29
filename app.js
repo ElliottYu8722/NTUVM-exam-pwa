@@ -549,7 +549,7 @@ function renderList(list, options = {}) {
           const group = state.groups.find(g => g.id === currentGroupId);
           if (!group) return;
           const ok = confirm(
-            `確定要將「第 ${displayNum} 題（${entry.subj} / ${entry.year} / r${entry.round} / Q${entry.qid}）」從群組「${group.name}」移除嗎？`
+            `確定要將「第 ${displayNum} 題」從群組「${group.name}」移除嗎？`
           );
           if (!ok) return;
           removeQuestionFromGroupByEntry(entry, currentGroupId);
