@@ -54,7 +54,7 @@ function addGroup(name) {
   return newGroup;
 }
 
-// 取得目前卷別 scope（用你現成的工具）
+// 取得目前卷別 scope
 function getCurrentScopeForGroup() {
   const sc = getScopeFromUI(); // {subj, year, round}
   return {
@@ -124,7 +124,7 @@ function deleteGroup(groupId) {
   }
 }
 
-// 根據目前畫面 scope，只顯示此群組裡「屬於這一卷」的題目
+
 // 點某個群組：右側只顯示該群組內的題目（可以混不同科目／年度／梯次）
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
@@ -161,9 +161,8 @@ function showAllQuestions() {
 
 
 
-/* ====== 路徑設定（依你的 repo 結構） ====== */
+/* ====== 路徑設定 ====== */
 const CONFIG = {
-  // 如果你的資料夾其實叫 dataa，就把 "./data" 改成 "./dataa"
   basePath: "./data",
   dirs: {
     questions: "題目",
@@ -172,24 +171,23 @@ const CONFIG = {
   }
 };
 
-/* ====== 本機儲存鍵（升級到 V2，完全避開舊資料） ====== */
+/* ====== 本機儲存鍵 ====== */
 const STORAGE = {
   notes:     "notes_v2",
   notesMeta: "notesMeta_v2",
   migrated:  "notes_migrated_to_v2"
 };
 
-/* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免「所有第1題都一樣」的污染 */
+/* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免污染 */
 (function migrateNotesOnce(){
   if (localStorage.getItem(STORAGE.migrated) === "true") return;
 
   try { localStorage.removeItem("notes"); } catch {}
   try { localStorage.removeItem("notesMeta"); } catch {}
 
-  // 也把早期可能留下的奇怪 key 格式做個掃描清掉（保守作法）
+  // 把可能留下的奇怪 key 格式做個掃描清掉
   try {
     Object.keys(localStorage).forEach(k=>{
-      // 舊版可能用到的暫時鍵名或測試鍵名（視你過去情況可再加）
       if (/^(note|notes?)(_.*)?$/i.test(k)) {
         try { localStorage.removeItem(k); } catch {}
       }
@@ -256,9 +254,9 @@ const btnExportNotes = $("#btnExportNotes");  // 作者模式匯出按鈕
 // ===== 作者模式：用 ?dev=1 或 localStorage 控制 =====
 const AUTHOR_MODE = (()=>{
   try{
-    const usp = new URLSearchParams(location.search);   // 讀網址上的 query 參數[web:58]
-    if (usp.get("dev") === "1") return true;            // ?dev=1 時啟用作者模式[web:58]
-    if (localStorage.getItem("authorMode") === "true") return true; // 或 localStorage 開關[web:58]
+    const usp = new URLSearchParams(location.search);   // 讀網址上的 query 參數
+    if (usp.get("dev") === "1") return true;            // ?dev=1 時啟用作者模式
+    if (localStorage.getItem("authorMode") === "true") return true; // 或 localStorage 開關
   }catch{}
   return false;
 })();
@@ -386,7 +384,7 @@ function getSubjectId(){
     if (sid) return sanitizeSubjectName(sid.toLowerCase());
   }catch{}
 
-  // 回退 1：用顯示文字走你的對照表（a/b/c...）
+  // 回退 1：用顯示文字走對照表（a/b/c...）
   try{
     const label = getSubjectLabel();
     const code = subjectPrefix(label); // a/b/c...
@@ -412,7 +410,7 @@ function getRoundCode(){
 }
 function getScopeFromUI(){
   return {
-    subj: getSubjectId(),                 // 唯一科目代碼（你先前已實作）
+    subj: getSubjectId(),                 // 唯一科目代碼（先前已實作）
     year: String(yearSel?.value || "0"),  // 年次
     round: getRoundCode()                 // 梯次代碼 1/2/0
   };
@@ -428,7 +426,7 @@ function getCurrentCommentKey() {
   const q = state.questions[state.index];
   if (!q) return null;
 
-  const scope = getScopeFromUI(); // 你原本就有這個函式
+  const scope = getScopeFromUI(); 
   // 用科目 + 年度 + 梯次 + 題號 當成同一題的 key
   return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
 }
@@ -485,7 +483,7 @@ function ensureNoteSeeded(q){
     return;
   }
 
-  // 之後若你更新了詳解，而使用者尚未改過 → 幫他同步到最新版詳解
+  // 同步到最新版詳解
   if(meta.seedHash !== curHash && meta.userTouched !== true){
     state._notes[k] = defaultNoteHTML(q);
     meta.seedHash = curHash;
@@ -500,11 +498,11 @@ function loadNoteForCurrent(){
   const q = state.questions[state.index];
   if(!q){ editor.innerHTML=""; return; }
 
-  ensureNoteSeeded(q);  // ⬅️ 關鍵：第一次自動灌入詳解（可編輯）
+  ensureNoteSeeded(q);  // 第一次自動灌入詳解
   const k = keyForNote(q.id);
   editor.innerHTML = state._notes?.[k] || "";
 }
-/* 題號列表 */
+
 // 題號列表
 function renderList(list, options = {}) {
   const renumber = !!options.renumber;
@@ -584,7 +582,6 @@ function renderList(list, options = {}) {
 }
 
 // 從 Firestore 載入目前題目的留言
-// 從 Firestore 載入目前題目的留言
 async function loadCommentsForCurrentQuestion() {
   if (!window.db || !commentsList) return;
 
@@ -638,7 +635,7 @@ async function loadCommentsForCurrentQuestion() {
     
       header.appendChild(nameSpan);
       header.appendChild(timeSpan);
-      // ⭐ 如果這則留言有被置頂，就顯示一個小 badge
+      // 如果這則留言有被置頂，就顯示一個小 badge
       if (c.pinned) {
         const pinnedBadge = document.createElement('span');
         pinnedBadge.textContent = '置頂留言';
@@ -648,11 +645,11 @@ async function loadCommentsForCurrentQuestion() {
         pinnedBadge.style.borderRadius = '9999px';
         pinnedBadge.style.border = '1px solid var(--accent)';
         pinnedBadge.style.color = 'var(--accent)';
-        // 如果你想要更明顯，也可以加背景色：
+        // 如果加背景色：
         // pinnedBadge.style.background = 'rgba(47,116,255,0.12)';
         header.appendChild(pinnedBadge);
       }
-      // ⭐ 只有作者模式才看到置頂按鈕
+      // 只有作者模式才看到置頂按鈕
       if (AUTHOR_MODE) {
         const pinBtn = document.createElement('button');
         pinBtn.textContent = c.pinned ? '取消置頂' : '置頂';
@@ -676,7 +673,7 @@ async function loadCommentsForCurrentQuestion() {
           }
         };
         header.appendChild(pinBtn);
-        // ⭐ 新增：刪除留言按鈕（只有 ?dev=1 / 作者模式才會看到）
+        // 刪除留言按鈕（只有 ?dev=1 / 作者模式才會看到）
         const delBtn = document.createElement('button');
         delBtn.textContent = '刪除';
         delBtn.style.marginLeft = '6px';
@@ -700,7 +697,7 @@ async function loadCommentsForCurrentQuestion() {
       }
     
       const body = document.createElement('div');
-      // 這裡可以繼續用你原本的 escapeHTML + 換行處理
+      // 這裡可以用原本的 escapeHTML + 換行處理
       body.innerHTML = escapeHTML(c.text || '').replace(/\n/g, '<br>');
     
       row.appendChild(header);
@@ -809,7 +806,7 @@ async function renderQuestionInGroupMode() {
     // 設定下拉選單
     subjectSel.value = entry.subj;
     yearSel.value = entry.year;
-    // 依你原本的 roundSel 設定，這裡用「第一次／第二次」
+    // 依原本的 roundSel 設定，這裡用「第一次／第二次」
     roundSel.value = (String(entry.round) === '1') ? '第一次' : '第二次';
 
     // 等待 onScopeChange 把該卷的 state.questions / state.answers 載好
@@ -826,7 +823,7 @@ async function renderQuestionInGroupMode() {
     return;
   }
 
-  // 3. 以下直接複用你原本 renderQuestion 裡顯示題目的邏輯，
+  // 3. 以下直接複用原本 renderQuestion 裡顯示題目的邏輯，
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
 
   qNum.textContent = `第 ${q.id} 題`;
@@ -941,7 +938,7 @@ async function renderQuestion() {
   if (state.currentGroupId && q._groupEntry) {
     const entry = q._groupEntry;
 
-    // 暫存舊的選單值，防止強迫整個頁面跳動（你也可選擇不還原）
+    // 暫存舊的選單值，防止強迫整個頁面跳動（也可選擇不還原）
     const oldSubj = subjectSel.value;
     const oldYear = yearSel.value;
     const oldRound = roundSel.value;
@@ -1279,7 +1276,7 @@ function enterFullscreenQuiz(){
   const fsStartCancel  = document.getElementById("fsStartCancel");
 
   // 卷別資訊填入（上方列 + 準備卡片共用）
-  const subjLabel = getSubjectLabel(); // 你前面已經寫好的工具函式
+  const subjLabel = getSubjectLabel(); // 前面已經寫好的工具函式
   if (fs.fsSubj)  fs.fsSubj.textContent  = subjLabel;
   if (fs.fsYear)  fs.fsYear.textContent  = yearSel.value;
   if (fs.fsRound) fs.fsRound.textContent = roundSel.value;
@@ -1712,7 +1709,7 @@ function exportNotesForCurrentScope(){
   });
 
   console.log("=== 本卷詳解（陣列格式）===");
-  console.log(JSON.stringify(arr, null, 2));     // 給你逐題對照用[web:58]
+  console.log(JSON.stringify(arr, null, 2));     // 給逐題對照用[web:58]
 
   //console.log("=== 本卷詳解（以題號為 key 的物件）===");
   //console.log(JSON.stringify(byId, null, 2));    // 方便直接貼進題目檔[web:58]
@@ -2062,7 +2059,7 @@ async function onScopeChange(){
   // 2) 以新範圍讀取作答紀錄
   loadAnswersFromStorage();
 
-  // 3) 以下維持你原本載入題目/答案的流程（依新 select 值）
+  // 3) 以下維持原本載入題目/答案的流程（依新 select 值）
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
@@ -2318,7 +2315,7 @@ function openAddToGroupDialog(questionId) {
     return;
   }
 
-  // 建立一個簡單的浮層列表讓你點選
+  // 建立一個簡單的浮層列表
   const overlay = document.createElement("div");
   Object.assign(overlay.style, {
     position: "fixed",
