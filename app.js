@@ -423,9 +423,14 @@ function keyForNote(qid, scope){
 
 // 產生目前這一題對應到留言用的 key
 function getCurrentCommentKey() {
+  // 群組模式：優先用群組 entry，完全不理會卷內 index
+  if (state.currentGroupId && state.visibleQuestions[state.index]?._groupEntry) {
+    const entry = state.visibleQuestions[state.index]._groupEntry;
+    return `${entry.subj}_${entry.year}_${entry.round}_${entry.qid}`;
+  }
+
   const q = state.questions[state.index];
   if (!q) return null;
-
   const scope = getScopeFromUI(); 
   // 用科目 + 年度 + 梯次 + 題號 當成同一題的 key
   return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
@@ -494,14 +499,28 @@ function ensureNoteSeeded(q){
 }
 
 
-function loadNoteForCurrent(){
-  const q = state.questions[state.index];
-  if(!q){ editor.innerHTML=""; return; }
+function loadNoteForCurrent() {
+  let q = null;
 
-  ensureNoteSeeded(q);  // 第一次自動灌入詳解
-  const k = keyForNote(q.id);
+  if (state.currentGroupId && state.visibleQuestions[state.index]?._groupEntry) {
+    // 群組模式：用 entry.qid 去目前這卷找題目
+    const entry = state.visibleQuestions[state.index]._groupEntry;
+    q = state.questions.find(qq => String(qq.id) === String(entry.qid));
+  } else {
+    // 一般模式：沿用原本邏輯
+    q = state.questions[state.index];
+  }
+
+  if (!q) {
+    editor.innerHTML = "";
+    return;
+  }
+
+  ensureNoteSeeded(q);
+  const k = keyForNote(q.id);  // 會用目前下拉選單的科目/年/梯次做命名空間
   editor.innerHTML = state._notes?.[k] || "";
 }
+
 
 // 題號列表
 function renderList(list, options = {}) {
@@ -813,21 +832,6 @@ async function renderQuestionInGroupMode() {
     await onScopeChange();
   }
 
-  // 2. 在目前這一卷裡找到對應題號
-  const q = state.questions.find(qq => String(qq.id) === String(entry.qid));
-  if (!q) {
-    qNum.textContent = '';
-    qText.textContent = `找不到這題（${entry.subj} / ${entry.year} / r${entry.round} / Q${entry.qid}）`;
-    qOpts.innerHTML = '';
-    qImg.classList.add('hidden');
-    return;
-  }
-  const idxInThisExam = state.questions.findIndex(
-    qq => String(qq.id) === String(entry.qid)
-  );
-  if (idxInThisExam !== -1) {
-    state.index = idxInThisExam;
-  }
   // 3. 以下直接複用原本 renderQuestion 裡顯示題目的邏輯，
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
 
