@@ -676,6 +676,27 @@ async function loadCommentsForCurrentQuestion() {
           }
         };
         header.appendChild(pinBtn);
+        // ⭐ 新增：刪除留言按鈕（只有 ?dev=1 / 作者模式才會看到）
+        const delBtn = document.createElement('button');
+        delBtn.textContent = '刪除';
+        delBtn.style.marginLeft = '6px';
+        delBtn.style.fontSize = '11px';
+        delBtn.style.borderRadius = '9999px';
+        delBtn.style.border = '1px solid var(--border)';
+        delBtn.style.background = 'transparent';
+        delBtn.style.color = 'var(--muted)';
+        delBtn.style.cursor = 'pointer';
+        delBtn.onclick = async () => {
+          if (!confirm('確定要刪除這則留言嗎？')) return;
+          try {
+            await window.db.collection('comments').doc(doc.id).delete();
+            await loadCommentsForCurrentQuestion();
+          } catch (e) {
+            console.error('delete comment error', e);
+            alert('刪除失敗，請稍後再試');
+          }
+        };
+        header.appendChild(delBtn);
       }
     
       const body = document.createElement('div');
