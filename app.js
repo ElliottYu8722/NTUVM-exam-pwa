@@ -2427,52 +2427,61 @@ function isPhoneWidth() {
   return window.matchMedia('(max-width: 768px)').matches;
 }
 
-// 手機版：右下角顯示一顆按鈕，用來收合 / 展開左右欄
-function setupMobileSideToggle() {
-  const btn = document.createElement('button');
-  btn.textContent = '收合側欄';
-  Object.assign(btn.style, {
-    position: 'fixed',
-    right: '12px',
-    bottom: '20px',
-    zIndex: 100000,
-    padding: '8px 12px',
-    borderRadius: '9999px',
-    border: '1px solid var(--border)',
-    background: 'var(--card)',
-    color: 'var(--fg)',
-    fontSize: '14px',
-    cursor: 'pointer',
-  });
+function setupMobileDrawers() {
+  const btnLeft = document.getElementById('btnOpenLeft');
+  const btnRight = document.getElementById('btnOpenRight');
+  if (!btnLeft && !btnRight) return;
 
-  btn.onclick = () => {
-    const body = document.body;
-    const on = body.classList.toggle('mobile-center-only');
-    btn.textContent = on ? '顯示側欄' : '收合側欄';
-  };
+  // 共用的背景遮罩
+  const backdrop = document.createElement('div');
+  backdrop.style.position = 'fixed';
+  backdrop.style.inset = '0';
+  backdrop.style.background = 'rgba(0,0,0,.45)';
+  backdrop.style.zIndex = '100000';
+  backdrop.style.display = 'none';
+  document.body.appendChild(backdrop);
 
-  // 依螢幕寬度決定要不要顯示按鈕＋是否啟用只顯示中間欄
-  function updateVisibility() {
-    if (isPhoneWidth()) {
-      if (!btn.isConnected) {
-        document.body.appendChild(btn);
-      }
-      // 手機一律預設收合左右欄，比較不會擠爆
-      if (!document.body.classList.contains('mobile-center-only')) {
-        document.body.classList.add('mobile-center-only');
-        btn.textContent = '顯示側欄';
-      }
-    } else {
-      if (btn.isConnected) {
-        document.body.removeChild(btn);
-      }
-      document.body.classList.remove('mobile-center-only');
-    }
+  function closeAll() {
+    document.body.classList.remove('show-left-panel', 'show-right-panel');
+    backdrop.style.display = 'none';
   }
 
-  updateVisibility();
-  window.addEventListener('resize', updateVisibility);
+  function openLeft() {
+    document.body.classList.add('show-left-panel');
+    document.body.classList.remove('show-right-panel');
+    backdrop.style.display = 'block';
+  }
+
+  function openRight() {
+    document.body.classList.add('show-right-panel');
+    document.body.classList.remove('show-left-panel');
+    backdrop.style.display = 'block';
+  }
+
+  btnLeft?.addEventListener('click', e => {
+    e.preventDefault();
+    if (document.body.classList.contains('show-left-panel')) {
+      closeAll();
+    } else {
+      openLeft();
+    }
+  });
+
+  btnRight?.addEventListener('click', e => {
+    e.preventDefault();
+    if (document.body.classList.contains('show-right-panel')) {
+      closeAll();
+    } else {
+      openRight();
+    }
+  });
+
+  backdrop.addEventListener('click', closeAll);
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAll();
+  });
 }
+
 
 
 /* 初始化 */
@@ -2490,10 +2499,9 @@ function init() {
   if (AUTHOR_MODE && btnExportNotes) {
     btnExportNotes.classList.remove("hidden");
   }
-  setupMobileSideToggle();
+  setupMobileDrawers();
 }
-
-init();
+document.addEventListener("DOMContentLoaded", init);
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
 window.addEventListener("message", (e)=>{
   const msg = e.data || {};
