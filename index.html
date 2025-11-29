@@ -66,21 +66,75 @@
     }
     .hidden{display:none !important}
     /* mobile */
+    .mobile-toggle-bar { display:none; }
     @media (max-width: 1100px){
       .app{grid-template-columns:1fr}
       .right{order:3}
     }
     @media (max-width: 768px) {
-      body.mobile-center-only .left.panel,
-      body.mobile-center-only .right.panel {
-        display: none;
-      }
-    
-      body.mobile-center-only .center.panel {
+      /* 中間照樣撐滿 */
+      .center.panel {
         flex: 1 1 100%;
         max-width: 100%;
       }
+    
+      /* 左右欄改成固定在左右側的抽屜，預設在螢幕外 */
+      .left.panel,
+      .right.panel {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 80vw;
+        max-width: 320px;
+        z-index: 100001;
+        background: var(--bg);
+        box-shadow: 0 0 20px rgba(0,0,0,.6);
+        overflow-y: auto;
+        transition: transform .25s ease;
+      }
+    
+      .left.panel {
+        left: 0;
+        transform: translateX(-100%);
+      }
+    
+      .right.panel {
+        right: 0;
+        transform: translateX(100%);
+      }
+    
+      /* 顯示抽屜的狀態（用 body 上的 class 控制） */
+      body.show-left-panel .left.panel {
+        transform: translateX(0);
+      }
+    
+      body.show-right-panel .right.panel {
+        transform: translateX(0);
+      }
+    
+      /* 手機版才顯示的上方兩顆按鈕 */
+      .mobile-toggle-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+    
+      .mobile-toggle-btn {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        border-radius: 9999px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--fg);
+        font-size: 13px;
+      }
+    
+      /* 手機時隱藏原本左欄（避免佔版面；真正內容用抽屜那個 fixed 元素顯示） */
+      .app {
+        grid-template-columns: 1fr;
+      }
     }
+
   </style>
 </head>
 <body class="">
@@ -130,6 +184,10 @@
     
     <!-- 中：題目＋筆記 -->
     <main class="center">
+      <div class="mobile-toggle-bar">
+        <button id="btnOpenLeft" class="mobile-toggle-btn">工具</button>
+        <button id="btnOpenRight" class="mobile-toggle-btn">題號</button>
+      </div>
       <div class="topbar">
         <span class="badge">科目：<span id="bSubj">獸醫病理學</span></span>
         <span class="badge">年份：<span id="bYear">114</span></span>
