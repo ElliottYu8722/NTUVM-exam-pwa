@@ -833,6 +833,14 @@ async function renderQuestionInGroupMode() {
   }
 
   // 3. 以下直接複用原本 renderQuestion 裡顯示題目的邏輯，
+  const q = state.questions.find(qq => String(qq.id) === String(entry.qid));
+  if (!q) {
+    qNum.textContent = '';
+    qText.textContent = `找不到這一題（題號 ${entry.qid}）`;
+    qOpts.innerHTML = '';
+    qImg.classList.add('hidden');
+    return;
+  }
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
 
   qNum.textContent = `第 ${q.id} 題`;
