@@ -2485,6 +2485,95 @@ function setupMobileDrawers() {
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAll();
   });
+// === 手機左右滑手勢：關閉側邊欄 ===
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let trackingSwipe = false;
+  let swipeMode = null; // 'left-open' | 'right-open' | 'left-edge' | 'right-edge'
+  
+  function isDrawerTouchMode() {
+    const w = window.innerWidth;
+    const h = window.innerHeight || 1;
+    const portrait = h >= w;              // 直立
+    return (w <= 768) || (portrait && w <= 1024);        // 手機 + 直立平板
+  }
+
+  function handleTouchStart(e) {
+    if (!isDrawerTouchMode()) return;
+
+    const t = e.touches && e.touches[0];
+    if (!t) return;
+
+    const w = window.innerWidth;
+    const x = t.clientX;
+    const y = t.clientY;
+    const edgeZone = 24; // 距離左右 24px 內算邊緣（可微調）
+
+    const leftOpen = document.body.classList.contains('show-left-panel');
+    const rightOpen = document.body.classList.contains('show-right-panel');
+
+    // 已經有側欄開著：只負責「關閉」的滑動
+    if (leftOpen || rightOpen) {
+      swipeMode = leftOpen ? 'left-open' : 'right-open';
+      touchStartX = x;
+      touchStartY = y;
+      trackingSwipe = true;
+      return;
+    }
+
+    // 沒有側欄開著：只有從左右邊緣起手才啟動「打開」手勢
+    if (x <= edgeZone) {
+      swipeMode = 'left-edge';
+    } else if (w - x <= edgeZone) {
+      swipeMode = 'right-edge';
+    } else {
+      swipeMode = null;
+      trackingSwipe = false;
+      return;
+    }
+
+    touchStartX = x;
+    touchStartY = y;
+    trackingSwipe = true;
+  }
+
+  function handleTouchEnd(e) {
+    if (!trackingSwipe || !swipeMode) return;
+    trackingSwipe = false;
+    if (!isDrawerTouchMode()) return;
+
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!t) return;
+
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+
+    // 垂直位移太大或水平太短，就當作一般捲動
+    if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+
+    switch (swipeMode) {
+      case 'left-open':
+        // 左欄已開 → 往左滑關閉
+        if (dx < -40) closeAll();
+        break;
+      case 'right-open':
+        // 右欄已開 → 往右滑關閉
+        if (dx > 40) closeAll();
+        break;
+      case 'left-edge':
+        // 從左邊緣起手 → 往右滑打開左欄
+        if (dx > 40) openLeft();
+        break;
+      case 'right-edge':
+        // 從右邊緣起手 → 往左滑打開右欄
+        if (dx < -40) openRight();
+        break;
+    }
+  }
+
+  // 掛在整個文件上，確保在側欄或 backdrop 上滑都抓得到
+  document.addEventListener('touchstart', handleTouchStart, { passive: true });
+  document.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
 
