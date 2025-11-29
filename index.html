@@ -287,7 +287,7 @@
 
     // 初始化 Firebase & Firestore（用 compat 版，語法比較簡單）[web:73][web:109]
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();   // 之後 app.js 會用到這個全域變數
+    window.db = firebase.firestore();
   </script>
   <script src="app.js"></script>
   <script>
