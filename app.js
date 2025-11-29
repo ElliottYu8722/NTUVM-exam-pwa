@@ -134,7 +134,7 @@ function filterQuestionsByGroup(groupId) {
   state.currentGroupId = groupId;
 
   // 把群組裡的每一題都包成一個 list item
-  // 這裡的 id 只拿來顯示順序（1,2,3…），真正的題目身份在 _groupEntry 裡
+  // 這裡的 id 只拿來顯示順序（1,2,3…），真正的題目身份在 groupEntry 裡
   const list = group.questions.map((entry, idx) => {
     return {
       id: idx + 1,       // 顯示用編號
@@ -424,8 +424,8 @@ function keyForNote(qid, scope){
 // 產生目前這一題對應到留言用的 key
 function getCurrentCommentKey() {
   // 群組模式：優先用群組 entry，完全不理會卷內 index
-  if (state.currentGroupId && state.visibleQuestions[state.index]?._groupEntry) {
-    const entry = state.visibleQuestions[state.index]._groupEntry;
+  if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
+    const entry = state.visibleQuestions[state.index].groupEntry;
     return `${entry.subj}_${entry.year}_${entry.round}_${entry.qid}`;
   }
 
@@ -502,9 +502,9 @@ function ensureNoteSeeded(q){
 function loadNoteForCurrent() {
   let q = null;
 
-  if (state.currentGroupId && state.visibleQuestions[state.index]?._groupEntry) {
+  if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
     // 群組模式：用 entry.qid 去目前這卷找題目
-    const entry = state.visibleQuestions[state.index]._groupEntry;
+    const entry = state.visibleQuestions[state.index].groupEntry;
     q = state.questions.find(qq => String(qq.id) === String(entry.qid));
   } else {
     // 一般模式：沿用原本邏輯
@@ -572,8 +572,8 @@ function renderList(list, options = {}) {
         openAddToGroupDialog(q.id); // 這時 q 是本卷的一題
       };
     } else {
-      // 群組模式：用 _groupEntry 決定從哪個卷、哪一題移除
-      const entry = q._groupEntry; // { subj, year, round, qid }
+      // 群組模式：用 groupEntry 決定從哪個卷、哪一題移除
+      const entry = q.groupEntry; // { subj, year, round, qid }
       if (!entry) {
         // 理論上不會進來，保險起見
         btn.textContent = '-';
@@ -804,7 +804,7 @@ function highlightList(){
 
 async function renderQuestionInGroupMode() {
   const item = state.visibleQuestions[state.index];
-  if (!item || !item._groupEntry) {
+  if (!item || !item.groupEntry) {
     qNum.textContent = '';
     qText.textContent = '這個群組目前沒有題目';
     qOpts.innerHTML = '';
@@ -812,7 +812,7 @@ async function renderQuestionInGroupMode() {
     return;
   }
 
-  const entry = item._groupEntry; // { subj, year, round, qid }
+  const entry = item.groupEntry; // { subj, year, round, qid }
 
   // 1. 如果現在畫面的科目/年/梯次跟 entry 不同，就切過去並載入題庫
   const scope = getScopeFromUI(); // { subj, year, round }
@@ -944,8 +944,8 @@ async function renderQuestion() {
   }
 
   // 群組模式且題目帶有完整身份資訊，切換科目/年/梯次
-  if (state.currentGroupId && q._groupEntry) {
-    const entry = q._groupEntry;
+  if (state.currentGroupId && q.groupEntry) {
+    const entry = q.groupEntry;
 
     // 暫存舊的選單值，防止強迫整個頁面跳動（也可選擇不還原）
     const oldSubj = subjectSel.value;
