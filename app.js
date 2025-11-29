@@ -584,6 +584,7 @@ function renderList(list, options = {}) {
 }
 
 // 從 Firestore 載入目前題目的留言
+// 從 Firestore 載入目前題目的留言
 async function loadCommentsForCurrentQuestion() {
   if (!window.db || !commentsList) return;
 
@@ -597,14 +598,16 @@ async function loadCommentsForCurrentQuestion() {
   commentsList.textContent = '載入中…';
 
   try {
-    const snap = await db.collection('comments')
+    const snap = await window.db.collection('comments')
       .where('key', '==', key)
       .orderBy('createdAt', 'desc')
       .limit(50)
-      .get();  // 一次抓最新 50 則留言[web:93][web:96]
+      .get(); // 一次抓最新 50 則留言
 
     commentsList.innerHTML = '';
-    if (commentsCountEl) commentsCountEl.textContent = `共 ${snap.size} 則留言`;
+    if (commentsCountEl) {
+      commentsCountEl.textContent = `共 ${snap.size} 則留言`;
+    }
 
     if (!snap.size) {
       commentsList.textContent = '目前還沒有留言，成為第一個留言的人吧！';
@@ -617,16 +620,19 @@ async function loadCommentsForCurrentQuestion() {
       row.style.marginBottom = '6px';
       row.style.fontSize = '14px';
 
-      const name = (c.nickname || '匿名');
+      const name = c.nickname || '匿名';
       const time = c.createdAt && c.createdAt.toDate
         ? c.createdAt.toDate().toLocaleString()
         : '';
 
+      // ✅ 先 escape 再插入，避免 XSS
+      const safeName = escapeHTML(name || '匿名');
+      const safeText = escapeHTML(c.text || '').replace(/\n/g, '<br>');
+
       row.innerHTML =
-        `<div style="font-weight:600;">${name} ` +
-        `<span style="font-size:11px;color:var(--muted);">${time}</span>` +
-        `</div>` +
-        `<div>${(c.text || '').replace(/\n/g, '<br>')}</div>`;
+        `<div style="font-weight:600">${safeName} ` +
+        `<span style="font-size:11px;color:var(--muted)">${time}</span></div>` +
+        `<div>${safeText}</div>`;
 
       commentsList.appendChild(row);
     });
@@ -637,31 +643,48 @@ async function loadCommentsForCurrentQuestion() {
   }
 }
 
+
 // 表單送出：寫入一筆新的留言
 if (commentForm) {
+  // 預先帶入上次使用的暱稱（如果有）
+  const savedNick = localStorage.getItem('commentNickname');
+  if (savedNick) {
+    commentNameInput.value = savedNick;
+  }
+
   commentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!window.db) return;
 
     const key = getCurrentCommentKey();
-    const nickname = (commentNameInput.value || '').trim() || '匿名';
-    const text = (commentTextInput.value || '').trim();
+    const nicknameRaw = (commentNameInput.value || '').trim();
+    const textRaw = (commentTextInput.value || '').trim();
 
-    if (!key || !text) return;
+    // 暱稱：空白就當「匿名」
+    const nickname = nicknameRaw || '匿名';
+
+    // 文字：若全部都是空白字元就直接擋
+    if (!key || !textRaw.replace(/\s/g, '')) return;
 
     const btn = commentForm.querySelector('button[type="submit"]');
     if (btn) btn.disabled = true;
 
     try {
-      await db.collection('comments').add({
+      // 記住暱稱，之後自動帶入
+      localStorage.setItem('commentNickname', nickname);
+
+      await window.db.collection('comments').add({
         key,
         nickname,
-        text,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      }); // 用 serverTimestamp 當時間[web:93]
+        text: textRaw,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(), // 用 serverTimestamp 當時間
+      });
 
+      // 清除文字欄位，保留暱稱
       commentTextInput.value = '';
-      await loadCommentsForCurrentQuestion(); // 送出後重新載入
+
+      // 送出後重新載入留言
+      await loadCommentsForCurrentQuestion();
     } catch (err) {
       console.error('submit comment error', err);
       alert('送出留言失敗，請稍後再試');
@@ -670,6 +693,7 @@ if (commentForm) {
     }
   });
 }
+
 
 
 function removeQuestionFromGroupByEntry(entry, groupId) {
