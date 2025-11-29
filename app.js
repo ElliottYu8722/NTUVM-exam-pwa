@@ -138,7 +138,7 @@ function filterQuestionsByGroup(groupId) {
   const list = group.questions.map((entry, idx) => {
     return {
       id: idx + 1,       // 顯示用編號
-      _groupEntry: entry // { subj, year, round, qid }
+      groupEntry: entry // { subj, year, round, qid }
     };
   });
 
