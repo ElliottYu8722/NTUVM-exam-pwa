@@ -822,7 +822,12 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     return;
   }
-
+  const idxInThisExam = state.questions.findIndex(
+    qq => String(qq.id) === String(entry.qid)
+  );
+  if (idxInThisExam !== -1) {
+    state.index = idxInThisExam;
+  }
   // 3. 以下直接複用原本 renderQuestion 裡顯示題目的邏輯，
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
 
