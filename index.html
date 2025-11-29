@@ -70,6 +70,17 @@
       .app{grid-template-columns:1fr}
       .right{order:3}
     }
+    @media (max-width: 768px) {
+      body.mobile-center-only .left.panel,
+      body.mobile-center-only .right.panel {
+        display: none;
+      }
+    
+      body.mobile-center-only .center.panel {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body class="">
