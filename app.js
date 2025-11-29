@@ -638,7 +638,20 @@ async function loadCommentsForCurrentQuestion() {
     
       header.appendChild(nameSpan);
       header.appendChild(timeSpan);
-    
+      // ⭐ 如果這則留言有被置頂，就顯示一個小 badge
+      if (c.pinned) {
+        const pinnedBadge = document.createElement('span');
+        pinnedBadge.textContent = '置頂留言';
+        pinnedBadge.style.fontSize = '11px';
+        pinnedBadge.style.marginLeft = '6px';
+        pinnedBadge.style.padding = '2px 6px';
+        pinnedBadge.style.borderRadius = '9999px';
+        pinnedBadge.style.border = '1px solid var(--accent)';
+        pinnedBadge.style.color = 'var(--accent)';
+        // 如果你想要更明顯，也可以加背景色：
+        // pinnedBadge.style.background = 'rgba(47,116,255,0.12)';
+        header.appendChild(pinnedBadge);
+      }
       // ⭐ 只有作者模式才看到置頂按鈕
       if (AUTHOR_MODE) {
         const pinBtn = document.createElement('button');
