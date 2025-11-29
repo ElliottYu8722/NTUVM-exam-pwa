@@ -2056,7 +2056,7 @@ function renderGroupList() {
 
     delBtn.onclick = (e) => {
       e.stopPropagation();
-      const ok = confirm(`確定要刪除群組「${group.name}」嗎？（不會刪除題目本身）`);
+      const ok = confirm(`確定要刪除群組「${group.name}」嗎？`);
       if (!ok) return;
       deleteGroup(group.id);
       // 若目前正好在這個群組檢視，把畫面切回全部題目
