@@ -2329,7 +2329,7 @@ function openAddToGroupDialog(questionId) {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    zIndex: 100000
+    zIndex: 100002
   });
 
   const card = document.createElement("div");
