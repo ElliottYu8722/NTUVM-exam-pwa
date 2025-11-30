@@ -350,6 +350,19 @@ let btnWaterPet = null;
 let btnRenamePet = null;
 let btnResetPet = null;
 
+// ===== 我的動物：初次設定狀態判斷 =====
+
+function anyPetHasName() {
+  return ['dog', 'cat', 'cow'].some(k => {
+    const p = petState[k];
+    return p && typeof p.name === 'string' && p.name.trim();
+  });
+}
+
+function isPetNamed(petKey) {
+  const p = petState[petKey];
+  return !!(p && typeof p.name === 'string' && p.name.trim());
+}
 
 
 
@@ -532,11 +545,18 @@ function openPetPanel() {
   mask.addEventListener('click', (e) => {
     if (e.target === mask) closePetPanel();
   });
-
-  // 綁定面板內事件＋顯示目前這隻
+  // 綁定面板內事件
   bindPetUIEvents();
-  renderCurrentPet();
+
+  // 如果整個牧場都還沒有任何一隻有名字 → 開啟初次設定引導
+  if (!anyPetHasName()) {
+    showPetOnboarding(currentPetKey);
+  } else {
+    // 已經有養過，直接顯示目前這隻
+    renderCurrentPet();
+  }
 }
+
 
 function closePetPanel() {
   if (petPanelMask && petPanelMask.remove) {
@@ -553,6 +573,114 @@ function closePetPanel() {
   btnWaterPet = null;
   btnRenamePet = null;
   btnResetPet = null;
+}
+
+// ===== 我的動物：初次設定引導 =====
+
+function showPetOnboarding(defaultSpecies) {
+  if (!petPanelCard) return;
+  if (document.getElementById('pet-onboard-mask')) return; // 已經開著就不要重複建
+
+  const mask = document.createElement('div');
+  mask.id = 'pet-onboard-mask';
+  mask.className = 'pet-onboard-mask';
+
+  const card = document.createElement('div');
+  card.className = 'pet-onboard-card';
+
+  card.innerHTML = `
+    <div class="pet-onboard-title">第一次來牧場～</div>
+    <div class="pet-onboard-text">
+      先選一隻要一起準備國考的夥伴，幫牠取個名字，之後才能開始餵食唷。
+    </div>
+
+    <div class="pet-onboard-species">
+      <button type="button" class="sp-btn" data-species="dog">狗狗</button>
+      <button type="button" class="sp-btn" data-species="cat">貓貓</button>
+      <button type="button" class="sp-btn" data-species="cow">小牛</button>
+    </div>
+
+    <div class="pet-onboard-field">
+      <label class="pet-onboard-label" for="pet-onboard-name">名字</label>
+      <input id="pet-onboard-name" class="pet-onboard-input" type="text" placeholder="例如：小肉鬆、小黑、阿牛">
+    </div>
+
+    <div class="pet-onboard-actions">
+      <button type="button" class="pet-onboard-btn" id="pet-onboard-cancel">關閉牧場</button>
+      <button type="button" class="pet-onboard-btn primary" id="pet-onboard-confirm">開始養牠</button>
+    </div>
+  `;
+
+  mask.appendChild(card);
+  petPanelCard.appendChild(mask);
+
+  const spButtons = card.querySelectorAll('.sp-btn');
+  const nameInput = card.querySelector('#pet-onboard-name');
+  const btnCancel = card.querySelector('#pet-onboard-cancel');
+  const btnConfirm = card.querySelector('#pet-onboard-confirm');
+
+  let selected = defaultSpecies || 'dog';
+
+  spButtons.forEach(btn => {
+    const sp = btn.dataset.species;
+    btn.classList.toggle('active', sp === selected);
+    btn.addEventListener('click', () => {
+      selected = sp;
+      spButtons.forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  if (nameInput) {
+    nameInput.value = '';
+    nameInput.focus();
+  }
+
+  if (btnCancel) {
+    btnCancel.addEventListener('click', () => {
+      // 直接關掉整個牧場，保持「沒設定就沒得玩」的感覺
+      closePetPanel();
+    });
+  }
+
+  if (btnConfirm) {
+    btnConfirm.addEventListener('click', () => {
+      const raw = (nameInput && nameInput.value) || '';
+      const trimmed = raw.trim();
+      if (!trimmed) {
+        alert('先幫牠取一個名字吧～');
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      // 設定目前要養哪一隻
+      if (!petState[selected]) {
+        alert('找不到這個物種的資料，請重整頁面再試一次。');
+        return;
+      }
+
+      currentPetKey = selected;
+      const pet = petState[selected];
+
+      pet.name = trimmed;
+      pet.bcs = 5;
+      pet.hearts = 5;
+      pet.water = 100;
+      pet.lastFedAt = Date.now();
+      pet.bcsDropCount = 0;
+      pet.alive = true;
+      pet.status = 'normal';
+
+      savePetsToStorage();
+
+      // 移除引導卡片，更新畫面與 tab 狀態
+      const m = document.getElementById('pet-onboard-mask');
+      if (m) m.remove();
+
+      bindPetUIEvents(); // 讓 tab active 對到 currentPetKey
+      renderCurrentPet();
+      
+    });
+  }
 }
 
 // ===== 我的動物：動畫 class mapping =====
@@ -1202,6 +1330,18 @@ function submitPetQuiz() {
 async function startPetQuiz(petKey) {
   const pet = petState[petKey];
   if (!pet) return;
+  // 沒有名字就不准餵，強制拉回牧場做初次設定
+  if (!isPetNamed(petKey)) {
+    alert('先幫這隻動物取個名字，再來餵食喔！');
+
+    // 沒開牧場就打開
+    if (!petPanelCard) {
+      openPetPanel();
+    }
+    // 開啟引導卡片，預設選目前這一隻
+    showPetOnboarding(petKey);
+    return;
+  }
 
   // 確認這隻還活著
   updatePetBCSFromTime(petKey);
