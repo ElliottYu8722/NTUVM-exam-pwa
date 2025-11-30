@@ -257,9 +257,19 @@ const AUTHOR_MODE = (()=>{
     const usp = new URLSearchParams(location.search);   // 讀網址上的 query 參數
     if (usp.get("dev") === "1") return true;            // ?dev=1 時啟用作者模式
     if (localStorage.getItem("authorMode") === "true") return true; // 或 localStorage 開關
+    
   }catch{}
   return false;
 })();
+// ===== 留言管理模式：只在 ?dev=2 時啟用置頂／刪除留言 =====
+const COMMENT_ADMIN_MODE = (()=>{
+  try {
+    const usp = new URLSearchParams(location.search);
+    return usp.get("dev") === "9";   // 只有 ?dev=9 才算留言管理模式
+  } catch {}
+  return false;
+})();
+
 function bindTapClick(el, handler){
   if(!el) return;
   const fire = (e)=>{
@@ -669,7 +679,7 @@ async function loadCommentsForCurrentQuestion() {
         header.appendChild(pinnedBadge);
       }
       // 只有作者模式才看到置頂按鈕
-      if (AUTHOR_MODE) {
+      if (COMMENT_ADMIN_MODE) {
         const pinBtn = document.createElement('button');
         pinBtn.textContent = c.pinned ? '取消置頂' : '置頂';
         pinBtn.style.marginLeft = 'auto';
