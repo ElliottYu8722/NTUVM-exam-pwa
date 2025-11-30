@@ -26,6 +26,7 @@ let petState = {
     hearts: 5,
     water: 100,
     lastFedAt: null,
+    lastWaterAt: null,
     alive: true,
     status: 'normal',
     // 從最後一次餵食後，已經因為超過 12 小時而扣了幾次 BCS
@@ -54,6 +55,60 @@ let petState = {
     bcsDropCount: 0
   }
 };
+// ===== 我的動物：餵食紀錄 =====
+const PET_FEED_RECORDS_KEY = 'ntuvm-pet-feed-records';
+let petFeedRecords = [];
+
+function loadPetFeedRecords() {
+  try {
+    const raw = localStorage.getItem(PET_FEED_RECORDS_KEY);
+    petFeedRecords = raw ? JSON.parse(raw) : [];
+  } catch {
+    petFeedRecords = [];
+  }
+}
+
+function savePetFeedRecords() {
+  try {
+    localStorage.setItem(PET_FEED_RECORDS_KEY, JSON.stringify(petFeedRecords));
+  } catch (e) {
+    console.error('儲存餵食紀錄失敗：', e);
+  }
+}
+
+function appendPetFeedRecord(rec) {
+  petFeedRecords.unshift(rec); // 最新放前面
+  // 保留最近 50 筆就好
+  if (petFeedRecords.length > 50) {
+    petFeedRecords = petFeedRecords.slice(0, 50);
+  }
+  savePetFeedRecords();
+}
+
+function renderPetFeedLog() {
+  if (!petPanelCard) return;
+  const listEl = document.getElementById('pet-feed-log-list');
+  if (!listEl) return;
+
+  const items = petFeedRecords.filter(r => r.petKey === currentPetKey);
+  if (!items.length) {
+    listEl.textContent = '目前還沒有餵食成功的紀錄。';
+    return;
+  }
+
+  listEl.innerHTML = '';
+  items.slice(0, 5).forEach(rec => {
+    const div = document.createElement('div');
+    div.className = 'pet-feed-log-item';
+    const fromLabel = rec.fromScopes
+      .map(s => `${s.year}年${s.roundLabel}`)
+      .join('、');
+    div.innerHTML = `
+      <strong>${rec.ts}</strong>：餵食成功（${rec.questionCount} 題全對，來自 ${fromLabel}）
+    `;
+    listEl.appendChild(div);
+  });
+}
 
 // dog | cat | cow
 let currentPetKey = 'dog';
@@ -71,6 +126,7 @@ function mergePetState(defaults, loaded) {
       hearts: Number.isFinite(fromStorage.hearts) ? fromStorage.hearts : base.hearts,
       water: Number.isFinite(fromStorage.water) ? fromStorage.water : base.water,
       lastFedAt: fromStorage.lastFedAt || base.lastFedAt,
+      lastWaterAt: fromStorage.lastWaterAt || base.lastWaterAt,
       alive: typeof fromStorage.alive === 'boolean' ? fromStorage.alive : base.alive,
       status: typeof fromStorage.status === 'string' ? fromStorage.status : base.status,
       bcsDropCount: Number.isFinite(fromStorage.bcsDropCount)
@@ -349,7 +405,7 @@ let btnFeedPet = null;
 let btnWaterPet = null;
 let btnRenamePet = null;
 let btnResetPet = null;
-
+let petWaterEl = null;
 // ===== 我的動物：初次設定狀態判斷 =====
 
 function anyPetHasName() {
@@ -525,6 +581,7 @@ function openPetPanel() {
   document.body.appendChild(mask);
 
   // 把全域變數指向新的節點
+  petWaterEl = document.getElementById('pet-water');
   petPanelMask = mask;
   petPanelCard = card;
   petAvatarEl = card.querySelector('.pet-avatar');
@@ -554,6 +611,7 @@ function openPetPanel() {
   } else {
     // 已經有養過，直接顯示目前這隻
     renderCurrentPet();
+    renderPetFeedLog();
   }
 }
 
@@ -724,10 +782,42 @@ const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000;
  * - BCS=1 → status='sick'，彈出警告。
  * - BCS=0 → alive=false, status='dead'。
  */
+const WATER_FULL_MS = 24 * 60 * 60 * 1000;
+function updatePetWaterFromTime(petKey) {
+  const pet = petState[petKey];
+  if (!pet) return;
+  if (!pet.alive) return;
+
+  const now = Date.now();
+
+  if (!pet.lastWaterAt) {
+    pet.lastWaterAt = now;
+    pet.water = 100;
+    savePetsToStorage();
+    return;
+  }
+
+  const elapsed = now - pet.lastWaterAt;
+  if (elapsed <= 0) return;
+
+  if (elapsed >= WATER_FULL_MS) {
+    pet.water = 0;
+    pet.alive = false;
+    pet.status = 'dead';
+    savePetsToStorage();
+    return;
+  }
+
+  const remainMs = WATER_FULL_MS - elapsed;
+  const percent = Math.round((remainMs / WATER_FULL_MS) * 100);
+  pet.water = Math.max(0, Math.min(100, percent));
+
+  savePetsToStorage();
+}
 function updatePetBCSFromTime(petKey) {
   const pet = petState[petKey];
   if (!pet) return;
-
+  
   const now = Date.now();
 
   // 第一次進來：把現在當成起點
@@ -780,7 +870,7 @@ function renderCurrentPet() {
 
   // 每次渲染前先更新時間造成的 BCS 變化
   updatePetBCSFromTime(currentPetKey);
-
+  updatePetWaterFromTime(currentPetKey);
   const pet = petState[currentPetKey];
   if (!pet || !petAvatarEl) return;
 
@@ -896,7 +986,7 @@ function ensurePetQuizStyle() {
   .pet-quiz-mask {
     position: fixed;
     inset: 0;
-    z-index: 100003;
+    z-index: 100010;
     background: rgba(0,0,0,.55);
     display: flex;
     align-items: center;
@@ -1133,6 +1223,7 @@ function openPetQuizOverlay(petKey) {
     <div class="pet-quiz-foot">
       <button class="pet-quiz-btn" id="pet-quiz-prev">上一題</button>
       <button class="pet-quiz-btn" id="pet-quiz-next">下一題</button>
+      <button class="pet-quiz-btn" id="pet-quiz-reset">重新作答</button>
       <button class="pet-quiz-btn pet-quiz-btn-danger" id="pet-quiz-cancel">放棄餵食</button>
       <button class="pet-quiz-btn pet-quiz-btn-primary" id="pet-quiz-submit">交卷</button>
     </div>
@@ -1145,12 +1236,14 @@ function openPetQuizOverlay(petKey) {
   const btnNext = document.getElementById('pet-quiz-next');
   const btnSubmit = document.getElementById('pet-quiz-submit');
   const btnCancel = document.getElementById('pet-quiz-cancel');
+  const btnReset = document.getElementById('pet-quiz-reset'); 
 
   if (btnPrev) btnPrev.onclick = () => stepPetQuiz(-1);
   if (btnNext) btnNext.onclick = () => stepPetQuiz(1);
   if (btnSubmit) btnSubmit.onclick = () => submitPetQuiz();
   if (btnCancel) btnCancel.onclick = () => closePetQuizOverlay(false);
-
+  if (btnReset) btnReset.onclick = () => resetPetQuizAnswers(); 
+  
   const labelEl = document.getElementById('pet-quiz-pet-label');
   if (labelEl) {
     const pet = petState[petKey];
@@ -1164,6 +1257,18 @@ function openPetQuizOverlay(petKey) {
 
   renderPetQuizQuestion();
 }
+
+function resetPetQuizAnswers() {
+  if (!petQuizState.active) return;
+  const ok = window.confirm('要清除這一輪的作答紀錄，重新作答嗎？');
+  if (!ok) return;
+  petQuizState.user = {};
+  petQuizState.reviewMode = false;
+  petQuizState.index = 0;
+  renderPetQuizQuestion();
+}
+
+
 
 function closePetQuizOverlay(success) {
   const mask = document.getElementById('pet-quiz-mask');
@@ -1303,7 +1408,20 @@ function submitPetQuiz() {
 
   if (!wrong.length) {
     alert('5 題全部答對！餵食成功 🎉');
-    const key = petQuizState.petKey;
+    const key = petQuizState.petKey
+    // 新增餵食紀錄
+    const now = new Date();
+    const scopes = (petQuizState.questions || []).map(q => q.scope || {});
+    appendPetFeedRecord({
+      ts: now.toLocaleString(),
+      petKey: key,
+      petName: petState[key]?.name || '',
+      questionCount: petQuizState.questions.length,
+      fromScopes: scopes
+    });
+    // 若牧場正打開，順便刷新列表
+    renderPetFeedLog();
+  
     closePetQuizOverlay(true);
     if (key) onPetFedSuccess(key);
     return;
@@ -1311,19 +1429,7 @@ function submitPetQuiz() {
 
   petQuizState.reviewMode = true;
   renderPetQuizQuestion();
-
-  let msg = `這一輪還沒全對喔～\\n\\n`;
-  msg += wrong.map(w => {
-    const uaLabel = w.ua || '未答';
-    const caLabel = w.ca || '-';
-    const meta = w.q.scope || {};
-    const yr = meta.year || '?';
-    const rd = meta.roundLabel || '?';
-    return `${yr} 年${rd}，原卷第 ${w.q.id} 題：你選 ${uaLabel}，正解 ${caLabel}`;
-  }).join('\\n');
-
-  msg += `\\n\\n可以根據標示修正答案，再按一次「交卷」，全對才算成功餵食。`;
-  alert(msg);
+  alert('這一輪還沒有全部答對。請重看正解，修正後再按一次「交卷」，或按「重新作答」從頭再來。');
 }
 
 // ★ 之後「真正的 5 題跨卷測驗」入口（現在已經是跨卷版）
@@ -1430,7 +1536,7 @@ function onWaterPetClick() {
     return;
   }
 
-  pet.water = 100;
+  pet.lastWaterAt = Date.now(); // 🆕
   savePetsToStorage();
   renderCurrentPet();
 }
@@ -1468,6 +1574,7 @@ function onResetPetClick() {
   pet.bcs = 5;
   pet.hearts = 5;
   pet.water = 100;
+  pet.lastWaterAt = Date.now(); // 🆕
   pet.lastFedAt = Date.now();
   pet.bcsDropCount = 0;
   pet.alive = true;
@@ -3888,6 +3995,7 @@ window.addEventListener("message", (e)=>{
 document.addEventListener('DOMContentLoaded', () => {
   try {
     loadPetsFromStorage();
+    loadPetFeedRecords();
   } catch (e) {
     console.error('初始化寵物狀態失敗：', e);
   }
