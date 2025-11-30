@@ -1685,23 +1685,79 @@ function openRecordsViewer(arr){
     <colgroup>
       <col class="c-date"><col class="c-subj"><col class="c-year"><col class="c-round">
       <col class="c-total"><col class="c-corr"><col class="c-score">
-      <col class="c-wids"><col class="c-wdet"><col class="c-sum">
+      <col class="c-wids"><col class="c-wdet"><col class="c-sum"><col class="c-op">
     </colgroup>
     <thead><tr>
       <th>測驗日期</th><th>科目</th><th>年份</th><th>梯次</th>
       <th>總題數</th><th>正確題數</th><th>得分</th>
-      <th>錯誤題號</th><th>錯題詳情</th><th>作答概覽</th>
+      <th>錯誤題號</th><th>錯題詳情</th><th>作答概覽</th><th>操作</th>
     </tr></thead>
     <tbody></tbody>
   `;
   const tbody = table.querySelector("tbody");
-
-  arr.forEach(r=>{
+  
+  arr.forEach((r, idx) => {
     const tr = document.createElement("tr");
-    const cells = [r.ts, r.subj, r.year, r.round, r.total, r.correct, r.score, r.wrongIds, r.wrongDetail, r.summary];
-    tr.innerHTML = cells.map(c=>`<td>${escapeHTML(String(c ?? ""))}</td>`).join("");
+  
+    const cells = [
+      r.ts,
+      r.subj,
+      r.year,
+      r.round,
+      r.total,
+      r.correct,
+      r.score,
+      r.wrongIds,
+      r.wrongDetail,
+      r.summary
+    ];
+  
+    // 先建立前 10 欄
+    tr.innerHTML = cells
+      .map(c => `<td>${escapeHTML(String(c ?? ""))}</td>`)
+      .join("");
+  
+    // 🆕 第 11 欄：操作（刪除按鈕）
+    const tdOp = document.createElement("td");
+    const btnDel = document.createElement("button");
+    btnDel.textContent = "刪除";
+    btnDel.style.padding = "4px 8px";
+    btnDel.style.borderRadius = "9999px";
+    btnDel.style.border = "1px solid var(--border)";
+    btnDel.style.background = "transparent";
+    btnDel.style.color = "var(--fg)";
+    btnDel.style.cursor = "pointer";
+    btnDel.style.fontSize = "12px";
+  
+    btnDel.onclick = () => {
+      const ok = confirm(
+        `確定要刪除這筆作答紀錄嗎？\n\n` +
+        `科目：${r.subj}\n` +
+        `年份：${r.year}\n` +
+        `梯次：${r.round}\n` +
+        `日期：${r.ts}`
+      );
+      if (!ok) return;
+  
+      // 從陣列移除這一筆
+      arr.splice(idx, 1);
+      try {
+        localStorage.setItem("examRecords", JSON.stringify(arr));
+      } catch (e) {
+        console.error("save examRecords error", e);
+        alert("刪除失敗，請稍後再試");
+        return;
+      }
+  
+      // 從畫面移除這一列
+      tr.remove();
+    };
+  
+    tdOp.appendChild(btnDel);
+    tr.appendChild(tdOp);
     tbody.appendChild(tr);
   });
+
 
   body.appendChild(table);
   card.appendChild(head);
