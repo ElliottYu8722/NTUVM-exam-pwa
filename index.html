@@ -262,6 +262,94 @@
       padding: 8px 10px;
       font-size: 14px;
     }
+    /* ===== 我的動物 區塊 ===== */
+    
+    #pets-group {
+      margin-top: 16px;
+    }
+    
+    #pets-group .group-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .pet-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .pet-tab {
+      flex: 1;
+      padding: 4px 6px;
+      font-size: 13px;
+      border-radius: 9999px;
+    }
+    
+    .pet-tab.active {
+      background: var(--accent, #2f74ff);
+      color: #fff;
+      border-color: var(--accent, #2f74ff);
+    }
+    
+    .pet-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .pet-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      border: 1px solid var(--border, #333);
+      background-color: var(--pill, #1f1f1f);
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .pet-info {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .pet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    
+    .pet-actions .btn {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      padding: 4px 8px;
+    }
+    
+    /* 物種 × 狀態 class（先都共用 idle 動畫） */
+    
+    .pet-dog-idle {
+      /* 之後可以改成狗狗 sprite / GIF */
+      animation: pet-bounce 1.2s infinite ease-in-out;
+    }
+    
+    .pet-cat-idle {
+      animation: pet-bounce 1.4s infinite ease-in-out;
+    }
+    
+    .pet-cow-idle {
+      animation: pet-bounce 1.6s infinite ease-in-out;
+    }
+    
+    /* 未來可以加上 happy / hungry / sick / dead 等狀態：
+       .pet-dog-happy, .pet-dog-hungry, ... */
+    
+    /* 簡單預留一個晃動動畫（之後可改） */
+    @keyframes pet-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-4px); }
+    }
   </style>
 </head>
 <body class="">
