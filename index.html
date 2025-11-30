@@ -311,6 +311,35 @@
         <ul id="group-list" style="list-style:none; padding-left:0; max-height:200px; overflow:auto; margin:0;"></ul>
         <button id="show-all-questions-btn" class="btn" style="margin-top:6px; width:100%;">顯示全部題目</button>
       </div>
+      <!-- 我的動物 區塊 -->
+      <div class="group" id="pets-group">
+        <div class="group-title">我的動物(還沒好先不要按)</div>
+      
+        <!-- 動物切換 tab -->
+        <div class="pet-selector">
+          <button class="btn pet-tab active" data-pet="dog">狗狗</button>
+          <button class="btn pet-tab" data-pet="cat">貓貓</button>
+          <button class="btn pet-tab" data-pet="cow">小牛</button>
+        </div>
+      
+        <!-- 動物資訊卡片 -->
+        <div class="pet-card">
+          <div class="pet-avatar pet-dog-idle"></div>
+          <div class="pet-info">
+            <div>名字：<span id="pet-name">還沒取名</span></div>
+            <div>BCS：<span id="pet-bcs">5</span></div>
+            <div>滿足度：<span id="pet-hearts">❤️❤️❤️❤️❤️</span></div>
+            <div>狀態：<span id="pet-status-label">正常</span></div>
+          </div>
+        </div>
+      
+        <!-- 互動按鈕（先做骨架） -->
+        <div class="pet-actions">
+          <button id="btn-feed-pet" class="btn">餵食</button>
+          <button id="btn-water-pet" class="btn">加水</button>
+          <button id="btn-rename-pet" class="btn">改名字</button>
+        </div>
+      </div>
 
       <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
       <div class="group">
