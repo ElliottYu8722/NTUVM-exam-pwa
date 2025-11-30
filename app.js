@@ -156,7 +156,9 @@ function showAllQuestions() {
   document.body.classList.remove('show-left-panel', 'show-right-panel');
   const backdrop = document.querySelector('.drawer-backdrop');
   if (backdrop) backdrop.style.display = 'none';
+  state.currentGroupId = null;
   state.index = 0; // 回到原卷第一題
+  state.visibleQuestions = state.questions;
   renderList(state.questions, { renumber: false });
   renderQuestion();
   highlightList();
