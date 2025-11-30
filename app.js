@@ -2128,15 +2128,74 @@ function fileToDataURL(file){
 }
 
 /* 皮膚 */
-btnTheme.onclick = ()=>{
-  state.dark = !document.body.classList.contains("light");
-  document.body.classList.toggle("light");
-  localStorage.setItem("themeLight", String(document.body.classList.contains("light")));
-};
-(function initTheme(){
-  const light = localStorage.getItem("themeLight")==="true";
-  document.body.classList.toggle("light", light);
+/* 主題系統 */
+
+const themeSel = document.getElementById('themeSel');
+
+// 所有可選主題（字串要跟 <option value="..."> 一樣）
+const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos'];
+
+function applyTheme(name, opts = {}) {
+  const save = opts.save !== false;
+
+  // 把所有主題 class 先拿掉
+  document.body.classList.remove(
+    'light',
+    'theme-sky',
+    'theme-ocean',
+    'theme-forest',
+    'theme-yolk',
+    'theme-cosmos'
+  );
+
+  // 根據名稱決定要加哪一個 class
+  switch (name) {
+    case 'light':
+      document.body.classList.add('light');
+      break;
+    case 'sky':
+      document.body.classList.add('theme-sky');
+      break;
+    case 'ocean':
+      document.body.classList.add('theme-ocean');
+      break;
+    case 'forest':
+      document.body.classList.add('theme-forest');
+      break;
+    case 'yolk':
+      document.body.classList.add('theme-yolk');
+      break;
+    case 'cosmos':
+      document.body.classList.add('theme-cosmos');
+      break;
+    // 'dark' 就是走 :root 預設，不加任何主題 class
+  }
+
+  if (save) {
+    localStorage.setItem('themeName', name);
+  }
+  if (themeSel && themeSel.value !== name) {
+    themeSel.value = name;
+  }
+}
+
+// 下拉選單改變時，套用主題
+if (themeSel) {
+  themeSel.addEventListener('change', () => {
+    const v = themeSel.value;
+    if (THEMES.includes(v)) {
+      applyTheme(v);
+    }
+  });
+}
+
+// 初始化主題（預設暗色）
+(function initTheme() {
+  const saved = localStorage.getItem('themeName');
+  const initial = THEMES.includes(saved) ? saved : 'dark';
+  applyTheme(initial, { save: false });
 })();
+
 
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
 [yearSel, roundSel, subjectSel].forEach(sel=> sel.addEventListener("change", onScopeChange));
