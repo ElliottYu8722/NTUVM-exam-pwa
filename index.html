@@ -60,32 +60,44 @@
       --pill: #052631;
     }
 
-    /* 森林：陽光灑進來的綠林，而不是黑森林 */
+
+    /* 森林：清爽樹林＋陽光光束，不再是大便色 😆 */
     body.theme-forest {
-      --bg: linear-gradient(180deg, #0b2b29 0%, #103822 40%, #1b2915 100%);
-      --card: rgba(18, 46, 30, 0.94);
-      --border: rgba(159, 232, 112, 0.4);
+      /* 多層次背景：上面偏藍綠樹冠，中間亮綠，底下一點土色 */
+      --bg:
+        radial-gradient(circle at 20% 0%, #99f2c8 0%, transparent 55%),
+        radial-gradient(circle at 80% 10%, #b4ff9f 0%, transparent 55%),
+        linear-gradient(180deg, #0b2f2a 0%, #166534 40%, #204020 75%, #2b2415 100%);
+    
+      --card: rgba(9, 35, 24, 0.96);              /* 深一點的綠，像樹幹陰影 */
+      --border: rgba(144, 230, 144, 0.6);         /* 淺綠邊線 */
+    
       --fg: #f6fff5;
-      --muted: #c5e6c4;
-      --accent: #9fe870;
-      --btn: #243824;
+      --muted: #cceecd;
+      --accent: #8df29b;                          /* 亮葉綠，點選會很醒目 */
+      --btn: #173826;
       --btn-fg: #f6fff5;
-      --pill: #1b2b1c;
+      --pill: #153323;
     }
-
-    /* 蛋黃：奶油系、早餐感，整體偏亮 */
+    /* 蛋黃：亮黃流心＋一點奶油白，整體偏亮 */
     body.theme-yolk {
-      --bg: linear-gradient(180deg, #fff9e9 0%, #ffecc4 45%, #ffe0a8 100%);
-      --card: rgba(255, 255, 255, 0.96);
-      --border: rgba(255, 180, 71, 0.55);
-      --fg: #4e3a21;
+      /* 背景：中間亮、邊緣稍微深一點，像盤子上的半熟蛋 */
+      --bg:
+        radial-gradient(circle at 30% 20%, #fffbe8 0%, #ffeeb8 26%, transparent 60%),
+        radial-gradient(circle at 75% 70%, #fff6cf 0%, #ffd96a 35%, transparent 65%),
+        linear-gradient(180deg, #fff9e9 0%, #ffe89a 45%, #ffd45c 100%);
+    
+      --card: rgba(255, 255, 255, 0.97);
+      --border: rgba(255, 210, 90, 0.8);
+    
+      /* 把橘色換成偏亮黃 */
+      --fg: #4b3412;
       --muted: #8b6d3a;
-      --accent: #ffb347;
-      --btn: #fff3d9;
-      --btn-fg: #4e3a21;
-      --pill: #ffe4b8;
+      --accent: #ffdd33;   /* 亮蛋黃 */
+      --btn: #fff3cf;
+      --btn-fg: #4b3412;
+      --pill: #ffe9a8;
     }
-
     /* 宇宙：霓虹星雲＋深藍紫，帶一點發光感 */
     body.theme-cosmos {
       --bg: radial-gradient(circle at top, #2b2d6f 0%, #050418 45%, #02000b 100%);
