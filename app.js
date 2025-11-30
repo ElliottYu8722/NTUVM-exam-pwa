@@ -1281,7 +1281,7 @@ function openPetQuizOverlay(petKey) {
 
   card.innerHTML = `
     <div class="pet-quiz-head">
-      <div class="pet-quiz-title">餵食小測驗（跨卷池）</div>
+      <div class="pet-quiz-title">餵食</div>
       <div class="pet-quiz-sub">
         隨機抽五題，全對才能餵食！<br>
         目前動物：<span id="pet-quiz-pet-label"></span>
@@ -1371,8 +1371,7 @@ function renderPetQuizQuestion() {
     const yr = meta.year || '?';
     const rd = meta.roundLabel || '?';
     qnumEl.textContent =
-      `第 ${petQuizState.index + 1} / ${petQuizState.questions.length} 題 ` +
-      `（${yr} 年${rd}，原卷第 ${q.id} 題）`;
+      `第 ${petQuizState.index + 1} / ${petQuizState.questions.length} 題 ` ;
   }
   if (qtextEl) {
     qtextEl.textContent = String(q.text || '');
