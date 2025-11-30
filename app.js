@@ -555,18 +555,19 @@ function openPetPanel() {
         <button class="btn pet-tab" data-pet="cat">貓貓</button>
         <button class="btn pet-tab" data-pet="cow">小牛</button>
       </div>
-
+  
       <!-- 動物資訊卡片 -->
       <div class="pet-card">
         <div class="pet-avatar"></div>
         <div class="pet-info">
           <div>名字：<span id="pet-name">還沒取名</span></div>
           <div>BCS：<span id="pet-bcs">5</span></div>
+          <div>水合：<span id="pet-water">100%</span></div>
           <div>滿足度：<span id="pet-hearts">❤️❤️❤️❤️❤️</span></div>
           <div>狀態：<span id="pet-status-label">正常</span></div>
         </div>
       </div>
-
+  
       <!-- 互動按鈕 -->
       <div class="pet-actions">
         <button id="btn-feed-pet" class="btn">餵食</button>
@@ -574,8 +575,15 @@ function openPetPanel() {
         <button id="btn-rename-pet" class="btn">改名字</button>
         <button id="btn-reset-pet" class="btn" style="display:none;">重新養一隻</button>
       </div>
+  
+      <!-- 餵食紀錄 -->
+      <div class="pet-feed-log">
+        <div class="pet-feed-log-title">餵食紀錄（最近 5 筆）</div>
+        <div class="pet-feed-log-list" id="pet-feed-log-list">目前還沒有餵食成功的紀錄。</div>
+      </div>
     </div>
   `;
+
 
   mask.appendChild(card);
   document.body.appendChild(mask);
