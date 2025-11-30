@@ -129,7 +129,9 @@ function deleteGroup(groupId) {
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
-  if (typeof closeAll === 'function') closeAll();  // 記住目前是在這個群組模式
+  document.body.classList.remove('show-left-panel', 'show-right-panel');
+  const backdrop = document.querySelector('.drawer-backdrop');
+  if (backdrop) backdrop.style.display = 'none';
   state.currentGroupId = groupId;
 
   // 把群組裡的每一題都包成一個 list item
@@ -151,7 +153,9 @@ function filterQuestionsByGroup(groupId) {
 
 // 回到全部題目（恢復原本卷內順序與題號）
 function showAllQuestions() {
-  if (typeof closeAll === 'function') closeAll();  state.currentGroupId = null;
+  document.body.classList.remove('show-left-panel', 'show-right-panel');
+  const backdrop = document.querySelector('.drawer-backdrop');
+  if (backdrop) backdrop.style.display = 'none';
   state.index = 0; // 回到原卷第一題
   renderList(state.questions, { renumber: false });
   renderQuestion();
@@ -2519,6 +2523,7 @@ function setupMobileDrawers() {
 
   // 共用的背景遮罩
   const backdrop = document.createElement('div');
+  backdrop.className = 'drawer-backdrop';   // 🔸加這行
   backdrop.style.position = 'fixed';
   backdrop.style.inset = '0';
   backdrop.style.background = 'rgba(0,0,0,.45)';
