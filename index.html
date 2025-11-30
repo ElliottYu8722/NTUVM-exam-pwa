@@ -414,6 +414,107 @@
       flex-direction: column;
       gap: 10px;
     }
+    /* ===== 我的動物：初次設定引導 ===== */
+    
+    .pet-onboard-mask {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    
+    .pet-onboard-card {
+      width: min(420px, 100%);
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 16px;
+      border: 1px solid var(--border, #333);
+      padding: 16px 14px 14px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.5);
+    }
+    
+    .pet-onboard-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    
+    .pet-onboard-text {
+      font-size: 13px;
+      color: var(--muted, #aaa);
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-species {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-species .sp-btn {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 13px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      cursor: pointer;
+    }
+    
+    .pet-onboard-species .sp-btn.active {
+      border-color: var(--accent, #2f74ff);
+      background: var(--accent, #2f74ff);
+      color: #fff;
+    }
+    
+    .pet-onboard-field {
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    
+    .pet-onboard-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #333);
+      background: var(--bg, #111);
+      color: var(--fg, #fff);
+      font-size: 14px;
+    }
+    
+    .pet-onboard-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    
+    .pet-onboard-btn {
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    
+    .pet-onboard-btn.primary {
+      background: var(--accent, #2f74ff);
+      border-color: var(--accent, #2f74ff);
+      color: #fff;
+    }
+
   </style>
 </head>
 <body class="">
