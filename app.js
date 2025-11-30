@@ -1728,30 +1728,33 @@ function openRecordsViewer(arr){
     btnDel.style.color = "var(--fg)";
     btnDel.style.cursor = "pointer";
     btnDel.style.fontSize = "12px";
-  
+    
     btnDel.onclick = () => {
-      const ok = confirm(
-        `確定要刪除這筆作答紀錄嗎？\n\n` +
-        `科目：${r.subj}\n` +
-        `年份：${r.year}\n` +
-        `梯次：${r.round}\n` +
-        `日期：${r.ts}`
-      );
-      if (!ok) return;
+    const ok = confirm(
+      `確定要刪除這筆作答紀錄嗎？\n\n` +
+      `科目：${r.subj}\n` +
+      `年份：${r.year}\n` +
+      `梯次：${r.round}\n` +
+      `日期：${r.ts}`
+    );
+    if (!ok) return;
   
-      // 從陣列移除這一筆
-      arr.splice(idx, 1);
-      try {
-        localStorage.setItem("examRecords", JSON.stringify(arr));
-      } catch (e) {
-        console.error("save examRecords error", e);
-        alert("刪除失敗，請稍後再試");
-        return;
-      }
+    // 重新根據目前表格位置算 index
+    const rows = Array.from(tbody.children);
+    const index = rows.indexOf(tr);
+    if (index === -1) return;
   
-      // 從畫面移除這一列
-      tr.remove();
-    };
+    arr.splice(index, 1);
+    try {
+      localStorage.setItem("examRecords", JSON.stringify(arr));
+    } catch (e) {
+      console.error("save examRecords error", e);
+      alert("刪除失敗，請稍後再試");
+      return;
+    }
+  
+    tr.remove();
+  };
   
     tdOp.appendChild(btnDel);
     tr.appendChild(tdOp);
