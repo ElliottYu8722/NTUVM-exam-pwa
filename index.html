@@ -100,17 +100,27 @@
       --btn-fg: #4b3512;
       --pill: #ffe8a8;
     }
-    /* 宇宙：霓虹星雲＋深藍紫，帶一點發光感 */
+    /* 宇宙：霓虹星雲版本，跟普通暗色拉開差異 */
     body.theme-cosmos {
-      --bg: radial-gradient(circle at top, #2b2d6f 0%, #050418 45%, #02000b 100%);
-      --card: rgba(10, 14, 40, 0.94);
-      --border: rgba(131, 213, 255, 0.35);
-      --fg: #f7f4ff;
-      --muted: #a9b2ff;
-      --accent: #83d5ff;
-      --btn: #141935;
-      --btn-fg: #f7f4ff;
-      --pill: #10162b;
+      /* 多層次星雲：粉紫 + 藍綠 + 深藍底 */
+      --bg:
+        radial-gradient(circle at 15% 0%,   rgba(255, 120, 255, 0.35) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%,  rgba(80, 210, 255, 0.45) 0%, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(120, 90, 255, 0.35) 0%, transparent 60%),
+        linear-gradient(180deg, #060425 0%, #050018 45%, #02000b 100%);
+    
+      /* 卡片略帶透明、像玻璃艙 */
+      --card: rgba(5, 10, 40, 0.92);
+      --border: rgba(150, 220, 255, 0.6);
+    
+      --fg: #f8f4ff;
+      --muted: #b5c3ff;
+    
+      /* 霓虹藍當重點色，選取題號會很亮 */
+      --accent: #7ee4ff;
+      --btn: #141a3f;
+      --btn-fg: #f8f4ff;
+      --pill: rgba(11, 18, 50, 0.9);
     }
 
     body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", Segoe UI, Roboto, Helvetica, Arial, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;background:var(--bg);color:var(--fg);}
