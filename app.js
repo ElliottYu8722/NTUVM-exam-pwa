@@ -330,18 +330,26 @@ const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
 
 // ===== 我的動物 DOM =====
+// ===== 我的動物 DOM / 面板 =====
 
-const petsGroup = document.getElementById('pets-group');
-const petAvatarEl = petsGroup ? petsGroup.querySelector('.pet-avatar') : null;
-const petNameEl = document.getElementById('pet-name');
-const petBCSEl = document.getElementById('pet-bcs');
-const petHeartsEl = document.getElementById('pet-hearts');
-const petStatusLabelEl = document.getElementById('pet-status-label');
+// 左欄那顆「打開牧場」按鈕
+const btnOpenPets = document.getElementById('btn-open-pets');
 
-const btnFeedPet = document.getElementById('btn-feed-pet');
-const btnWaterPet = document.getElementById('btn-water-pet');
-const btnRenamePet = document.getElementById('btn-rename-pet');
-const btnResetPet = document.getElementById('btn-reset-pet');
+// 牧場面板裡的節點：打開面板時才會被指向
+let petPanelMask = null;
+let petPanelCard = null;
+
+let petAvatarEl = null;
+let petNameEl = null;
+let petBCSEl = null;
+let petHeartsEl = null;
+let petStatusLabelEl = null;
+
+let btnFeedPet = null;
+let btnWaterPet = null;
+let btnRenamePet = null;
+let btnResetPet = null;
+
 
 
 
@@ -450,7 +458,102 @@ const subjectPrefix = s => {
   };
   return map[str] || "x";
 };
-// ===== 我的動物：動畫 class mapping =====
+// ===== 我的動物：開啟 / 關閉面板 =====
+
+function openPetPanel() {
+  // 如果已經開著就不要重建
+  if (document.getElementById('pet-panel-mask')) return;
+
+  // 建立外層遮罩
+  const mask = document.createElement('div');
+  mask.id = 'pet-panel-mask';
+  mask.className = 'pet-panel-mask';
+
+  // 內層卡片
+  const card = document.createElement('div');
+  card.className = 'pet-panel-card';
+
+  card.innerHTML = `
+    <div class="pet-panel-head">
+      <div class="pet-panel-title">我的動物牧場</div>
+      <div class="pet-panel-spacer"></div>
+      <button type="button" class="pet-panel-close" id="btn-close-pet-panel">關閉</button>
+    </div>
+    <div class="pet-panel-body">
+      <!-- 動物切換 tab -->
+      <div class="pet-selector">
+        <button class="btn pet-tab" data-pet="dog">狗狗</button>
+        <button class="btn pet-tab" data-pet="cat">貓貓</button>
+        <button class="btn pet-tab" data-pet="cow">小牛</button>
+      </div>
+
+      <!-- 動物資訊卡片 -->
+      <div class="pet-card">
+        <div class="pet-avatar"></div>
+        <div class="pet-info">
+          <div>名字：<span id="pet-name">還沒取名</span></div>
+          <div>BCS：<span id="pet-bcs">5</span></div>
+          <div>滿足度：<span id="pet-hearts">❤️❤️❤️❤️❤️</span></div>
+          <div>狀態：<span id="pet-status-label">正常</span></div>
+        </div>
+      </div>
+
+      <!-- 互動按鈕 -->
+      <div class="pet-actions">
+        <button id="btn-feed-pet" class="btn">餵食</button>
+        <button id="btn-water-pet" class="btn">加水</button>
+        <button id="btn-rename-pet" class="btn">改名字</button>
+        <button id="btn-reset-pet" class="btn" style="display:none;">重新養一隻</button>
+      </div>
+    </div>
+  `;
+
+  mask.appendChild(card);
+  document.body.appendChild(mask);
+
+  // 把全域變數指向新的節點
+  petPanelMask = mask;
+  petPanelCard = card;
+  petAvatarEl = card.querySelector('.pet-avatar');
+  petNameEl = document.getElementById('pet-name');
+  petBCSEl = document.getElementById('pet-bcs');
+  petHeartsEl = document.getElementById('pet-hearts');
+  petStatusLabelEl = document.getElementById('pet-status-label');
+  btnFeedPet = document.getElementById('btn-feed-pet');
+  btnWaterPet = document.getElementById('btn-water-pet');
+  btnRenamePet = document.getElementById('btn-rename-pet');
+  btnResetPet = document.getElementById('btn-reset-pet');
+
+  const btnClosePanel = document.getElementById('btn-close-pet-panel');
+  if (btnClosePanel) {
+    btnClosePanel.addEventListener('click', () => closePetPanel());
+  }
+  // 點遮罩空白處也關閉
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) closePetPanel();
+  });
+
+  // 綁定面板內事件＋顯示目前這隻
+  bindPetUIEvents();
+  renderCurrentPet();
+}
+
+function closePetPanel() {
+  if (petPanelMask && petPanelMask.remove) {
+    petPanelMask.remove();
+  }
+  petPanelMask = null;
+  petPanelCard = null;
+  petAvatarEl = null;
+  petNameEl = null;
+  petBCSEl = null;
+  petHeartsEl = null;
+  petStatusLabelEl = null;
+  btnFeedPet = null;
+  btnWaterPet = null;
+  btnRenamePet = null;
+  btnResetPet = null;
+}
 
 // ===== 我的動物：動畫 class mapping =====
 
@@ -544,11 +647,14 @@ function updatePetBCSFromTime(petKey) {
 // ===== 我的動物：畫面渲染 =====
 
 function renderCurrentPet() {
+  // 沒打開面板就不用畫（狀態一樣會在背景更新）
+  if (!petPanelCard) return;
+
   // 每次渲染前先更新時間造成的 BCS 變化
   updatePetBCSFromTime(currentPetKey);
 
   const pet = petState[currentPetKey];
-  if (!pet || !petsGroup) return;
+  if (!pet || !petAvatarEl) return;
 
   // 名字
   if (petNameEl) {
@@ -600,41 +706,44 @@ function renderCurrentPet() {
   }
 }
 
+
 // ===== 我的動物：事件綁定 =====
 
-function bindPetUIEvents() {
-  if (!petsGroup) return;
+// ===== 我的動物：事件綁定（改為面板版） =====
 
-  const tabs = petsGroup.querySelectorAll('.pet-tab');
+function bindPetUIEvents() {
+  if (!petPanelCard) return;
+
+  const tabs = petPanelCard.querySelectorAll('.pet-tab');
   tabs.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pet === currentPetKey);
     btn.addEventListener('click', () => {
       const key = btn.dataset.pet;
       if (!key || !petState[key]) return;
 
       currentPetKey = key;
 
-      // 切換 active 樣式
       tabs.forEach(b => b.classList.toggle('active', b === btn));
 
-      // 重新顯示目前這隻
       renderCurrentPet();
       savePetsToStorage();
     });
   });
 
   if (btnFeedPet) {
-    btnFeedPet.addEventListener('click', onFeedPetClick);
+    btnFeedPet.onclick = onFeedPetClick;
   }
   if (btnWaterPet) {
-    btnWaterPet.addEventListener('click', onWaterPetClick);
+    btnWaterPet.onclick = onWaterPetClick;
   }
   if (btnRenamePet) {
-    btnRenamePet.addEventListener('click', onRenamePetClick);
+    btnRenamePet.onclick = onRenamePetClick;
   }
   if (btnResetPet) {
-    btnResetPet.addEventListener('click', onResetPetClick);
+    btnResetPet.onclick = onResetPetClick;
   }
 }
+
 
 // ===== 我的動物：餵食／加水／改名／重養 =====
 // ===== 我的動物：餵食／加水／改名／重養 =====
@@ -3643,18 +3752,22 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('初始化寵物狀態失敗：', e);
   }
 
-  // 進來時先對三隻都跑一次時間更新
+  // 進來時先對三隻都跑一次時間更新（即使沒打開牧場視窗也會掉 BCS）
   ['dog', 'cat', 'cow'].forEach(k => {
     if (petState[k]) updatePetBCSFromTime(k);
   });
 
-  // 預設顯示狗狗（或未來從 storage 記最後一次選擇）
   if (!petState[currentPetKey]) {
     currentPetKey = 'dog';
   }
 
-  bindPetUIEvents();
-  renderCurrentPet();
+  // 左欄「打開牧場」按鈕
+  if (btnOpenPets) {
+    btnOpenPets.addEventListener('click', () => {
+      openPetPanel();
+    });
+  }
 });
+
 
 
