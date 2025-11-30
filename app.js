@@ -129,7 +129,7 @@ function deleteGroup(groupId) {
 function filterQuestionsByGroup(groupId) {
   const group = state.groups.find(g => g.id === groupId);
   if (!group) return;
-
+  document.body.classList.remove('show-left-panel');
   // 記住目前是在這個群組模式
   state.currentGroupId = groupId;
 
@@ -152,6 +152,7 @@ function filterQuestionsByGroup(groupId) {
 
 // 回到全部題目（恢復原本卷內順序與題號）
 function showAllQuestions() {
+  document.body.classList.remove('show-left-panel');
   state.currentGroupId = null;
   state.index = 0; // 回到原卷第一題
   renderList(state.questions, { renumber: false });
