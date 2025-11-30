@@ -100,15 +100,33 @@ function renderPetFeedLog() {
   items.slice(0, 5).forEach(rec => {
     const div = document.createElement('div');
     div.className = 'pet-feed-log-item';
-    const fromLabel = rec.fromScopes
-      .map(s => `${s.year}年${s.roundLabel}`)
-      .join('、');
-    div.innerHTML = `
-      <strong>${rec.ts}</strong>：餵食成功（${rec.questionCount} 題全對，來自 ${fromLabel}）
-    `;
+
+    // 新版：列出這一輪抽到的每一題「科目／年／次／題號」
+    const qs = Array.isArray(rec.questions) ? rec.questions : [];
+    let lines = '';
+
+    if (qs.length) {
+      lines = qs.map(q => {
+        const year = q.year || '?';
+        const round = q.roundLabel || '?';
+        const id = q.id != null ? q.id : '?';
+        // subj 如果你有正式代碼，可再轉成中文科目；這裡先不顯示
+        return `${year} 年${round} 第 ${id} 題`;
+      }).join('；');
+    } else if (Array.isArray(rec.fromScopes) && rec.fromScopes.length) {
+      // 舊紀錄 fallback：只知道年／次，沒有題號
+      lines = rec.fromScopes
+        .map(s => `${s.year || '?'} 年${s.roundLabel || '?'}`)
+        .join('、');
+    } else {
+      lines = '題目來源不明';
+    }
+
+    div.innerHTML = `<strong>${rec.ts}</strong>：${lines}`;
     listEl.appendChild(div);
   });
 }
+
 
 // dog | cat | cow
 let currentPetKey = 'dog';
@@ -1409,15 +1427,18 @@ function submitPetQuiz() {
     }
   });
 
+  // 還有沒作答的：可以讓使用者「硬交」，但一樣不會算成功
   if (unanswered.length) {
     const ok = window.confirm(`還有 ${unanswered.length} 題沒選，確定要直接交卷嗎？`);
     if (!ok) return;
   }
 
-  if (!wrong.length) {
+  // ★ 成功條件：沒有錯題，且也沒有未作答
+  if (!wrong.length && !unanswered.length) {
     alert('5 題全部答對！餵食成功 🎉');
-    const key = petQuizState.petKey
-    // 新增餵食紀錄
+    const key = petQuizState.petKey;
+
+    // 新增餵食紀錄（下面第 2 點會再改內容）
     const now = new Date();
     const scopes = (petQuizState.questions || []).map(q => q.scope || {});
     appendPetFeedRecord({
@@ -1425,20 +1446,28 @@ function submitPetQuiz() {
       petKey: key,
       petName: petState[key]?.name || '',
       questionCount: petQuizState.questions.length,
-      fromScopes: scopes
+      fromScopes: scopes,
+      questions: (petQuizState.questions || []).map(q => ({
+        id: q.id,
+        subj: q.scope?.subj || '',
+        year: q.scope?.year || '?',
+        roundLabel: q.scope?.roundLabel || '?'
+      }))
     });
-    // 若牧場正打開，順便刷新列表
     renderPetFeedLog();
-  
+
     closePetQuizOverlay(true);
     if (key) onPetFedSuccess(key);
     return;
   }
 
+  // 沒全對：進入回顧模式，標「你選／正解」，讓你修正或按「重新作答」
   petQuizState.reviewMode = true;
   renderPetQuizQuestion();
-  alert('這一輪還沒有全部答對。請重看正解，修正後再按一次「交卷」，或按「重新作答」從頭再來。');
+
+  alert('這一輪還沒有全部答對。\n請看選項旁的「你選／正解」標示，修正後再按一次「交卷」，或按「重新作答」從頭再來。');
 }
+
 
 // ★ 之後「真正的 5 題跨卷測驗」入口（現在已經是跨卷版）
 async function startPetQuiz(petKey) {
