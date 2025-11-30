@@ -97,27 +97,45 @@ function renderPetFeedLog() {
   }
 
   listEl.innerHTML = '';
+
   items.slice(0, 5).forEach(rec => {
     const div = document.createElement('div');
     div.className = 'pet-feed-log-item';
 
-    // 新版：列出這一輪抽到的每一題「科目／年／次／題號」
+    // 這次餵食實際抽到的題目清單
     const qs = Array.isArray(rec.questions) ? rec.questions : [];
     let lines = '';
 
     if (qs.length) {
+      // 新版：每一題顯示「科目 / 年份 / 梯次 / 題號」
       lines = qs.map(q => {
+        const subj = q.subj || '';           // 例如「獸醫病理學」，或 subj code
         const year = q.year || '?';
         const round = q.roundLabel || '?';
         const id = q.id != null ? q.id : '?';
-        // subj 如果你有正式代碼，可再轉成中文科目；這裡先不顯示
-        return `${year} 年${round} 第 ${id} 題`;
+
+        const parts = [];
+        if (subj) parts.push(subj);
+        if (year) parts.push(`${year} 年`);
+        if (round) parts.push(`第 ${round} 次`);
+        if (id !== '?') parts.push(`第 ${id} 題`);
+
+        return parts.join(' / ');
       }).join('；');
     } else if (Array.isArray(rec.fromScopes) && rec.fromScopes.length) {
-      // 舊紀錄 fallback：只知道年／次，沒有題號
-      lines = rec.fromScopes
-        .map(s => `${s.year || '?'} 年${s.roundLabel || '?'}`)
-        .join('、');
+      // 舊紀錄 fallback：比較舊的版本，只有年／次，沒有單題資訊
+      lines = rec.fromScopes.map(s => {
+        const subj = s.subj || '';
+        const year = s.year || '?';
+        const round = s.roundLabel || '?';
+
+        const parts = [];
+        if (subj) parts.push(subj);
+        if (year) parts.push(`${year} 年`);
+        if (round) parts.push(`第 ${round} 次`);
+
+        return parts.join(' / ');
+      }).join('、');
     } else {
       lines = '題目來源不明';
     }
@@ -126,6 +144,7 @@ function renderPetFeedLog() {
     listEl.appendChild(div);
   });
 }
+
 
 
 // dog | cat | cow
@@ -423,6 +442,7 @@ let btnFeedPet = null;
 let btnWaterPet = null;
 let btnRenamePet = null;
 let btnResetPet = null;
+let btnAdoptPet = null;
 let petWaterEl = null;
 // ===== 我的動物：初次設定狀態判斷 =====
 
@@ -547,6 +567,7 @@ const subjectPrefix = s => {
 };
 // ===== 我的動物：開啟 / 關閉面板 =====
 
+// ===== 我的動物：開啟 / 關閉面板 =====
 function openPetPanel() {
   // 如果已經開著就不要重建
   if (document.getElementById('pet-panel-mask')) return;
@@ -559,55 +580,53 @@ function openPetPanel() {
   // 內層卡片
   const card = document.createElement('div');
   card.className = 'pet-panel-card';
-
   card.innerHTML = `
     <div class="pet-panel-head">
-      <div class="pet-panel-title">我的動物牧場</div>
+      <div class="pet-panel-title">我的動物</div>
       <div class="pet-panel-spacer"></div>
       <button type="button" class="pet-panel-close" id="btn-close-pet-panel">關閉</button>
     </div>
     <div class="pet-panel-body">
-      <!-- 動物切換 tab -->
+      <!-- 寵物切換 tab -->
       <div class="pet-selector">
-        <button class="btn pet-tab" data-pet="dog">狗狗</button>
-        <button class="btn pet-tab" data-pet="cat">貓貓</button>
-        <button class="btn pet-tab" data-pet="cow">小牛</button>
+        <button type="button" class="btn pet-tab" data-pet="dog">狗狗</button>
+        <button type="button" class="btn pet-tab" data-pet="cat">貓貓</button>
+        <button type="button" class="btn pet-tab" data-pet="cow">小牛</button>
       </div>
-  
-      <!-- 動物資訊卡片 -->
+
+      <!-- 寵物基本資訊 -->
       <div class="pet-card">
         <div class="pet-avatar"></div>
         <div class="pet-info">
-          <div>名字：<span id="pet-name">還沒取名</span></div>
+          <div><span id="pet-name"></span></div>
           <div>BCS：<span id="pet-bcs">5</span></div>
-          <div>水合：<span id="pet-water">100%</span></div>
-          <div>滿足度：<span id="pet-hearts">❤️❤️❤️❤️❤️</span></div>
-          <div>狀態：<span id="pet-status-label">正常</span></div>
+          <div>水分：<span id="pet-water">100</span></div>
+          <div>好感度：<span id="pet-hearts"></span></div>
+          <div>狀態：<span id="pet-status-label"></span></div>
         </div>
       </div>
-  
-      <!-- 互動按鈕 -->
+
+      <!-- 操作按鈕區 -->
       <div class="pet-actions">
-        <button id="btn-feed-pet" class="btn">餵食</button>
+        <button id="btn-feed-pet" class="btn">餵題目</button>
         <button id="btn-water-pet" class="btn">加水</button>
         <button id="btn-rename-pet" class="btn">改名字</button>
-        <button id="btn-reset-pet" class="btn" style="display:none;">重新養一隻</button>
+        <button id="btn-reset-pet" class="btn" style="display:none">復活 / 重置</button>
+        <button id="btn-adopt-pet" class="btn">不想養了，給人領養</button>
       </div>
-  
-      <!-- 餵食紀錄 -->
+
+      <!-- 最近餵食紀錄 -->
       <div class="pet-feed-log">
-        <div class="pet-feed-log-title">餵食紀錄（最近 5 筆）</div>
-        <div class="pet-feed-log-list" id="pet-feed-log-list">目前還沒有餵食成功的紀錄。</div>
+        <div class="pet-feed-log-title">最近 5 次餵食紀錄</div>
+        <div class="pet-feed-log-list" id="pet-feed-log-list"></div>
       </div>
     </div>
   `;
 
-
   mask.appendChild(card);
   document.body.appendChild(mask);
 
-  // 把全域變數指向新的節點
-  petWaterEl = document.getElementById('pet-water');
+  // 把 DOM 節點指到全域變數
   petPanelMask = mask;
   petPanelCard = card;
   petAvatarEl = card.querySelector('.pet-avatar');
@@ -615,35 +634,38 @@ function openPetPanel() {
   petBCSEl = document.getElementById('pet-bcs');
   petHeartsEl = document.getElementById('pet-hearts');
   petStatusLabelEl = document.getElementById('pet-status-label');
+  petWaterEl = document.getElementById('pet-water');
   btnFeedPet = document.getElementById('btn-feed-pet');
   btnWaterPet = document.getElementById('btn-water-pet');
   btnRenamePet = document.getElementById('btn-rename-pet');
   btnResetPet = document.getElementById('btn-reset-pet');
+  btnAdoptPet = document.getElementById('btn-adopt-pet');
 
   const btnClosePanel = document.getElementById('btn-close-pet-panel');
   if (btnClosePanel) {
-    btnClosePanel.addEventListener('click', () => closePetPanel());
+    btnClosePanel.addEventListener('click', closePetPanel);
   }
-  // 點遮罩空白處也關閉
-  mask.addEventListener('click', (e) => {
+  // 點遮罩空白處也可以關閉
+  mask.addEventListener('click', e => {
     if (e.target === mask) closePetPanel();
   });
-  // 綁定面板內事件
+
+  // 綁定按鈕事件（含新加入的給人領養）
   bindPetUIEvents();
 
-  // 如果整個牧場都還沒有任何一隻有名字 → 開啟初次設定引導
+  // 第一次開啟，若還沒有幫任何一隻命名，就跳出 onboarding
   if (!anyPetHasName()) {
     showPetOnboarding(currentPetKey);
   } else {
-    // 已經有養過，直接顯示目前這隻
     renderCurrentPet();
     renderPetFeedLog();
   }
 }
 
 
+
 function closePetPanel() {
-  if (petPanelMask && petPanelMask.remove) {
+  if (petPanelMask) {
     petPanelMask.remove();
   }
   petPanelMask = null;
@@ -657,7 +679,10 @@ function closePetPanel() {
   btnWaterPet = null;
   btnRenamePet = null;
   btnResetPet = null;
+  btnAdoptPet = null;  // 新增：一併清掉
+  petWaterEl = null;
 }
+
 
 // ===== 我的動物：初次設定引導 =====
 
@@ -958,34 +983,31 @@ function renderCurrentPet() {
 function bindPetUIEvents() {
   if (!petPanelCard) return;
 
+  // 寵物 tab 切換（狗 / 貓 / 牛）
   const tabs = petPanelCard.querySelectorAll('.pet-tab');
   tabs.forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.pet === currentPetKey);
-    btn.addEventListener('click', () => {
-      const key = btn.dataset.pet;
-      if (!key || !petState[key]) return;
+    const key = btn.dataset.pet;
+    btn.classList.toggle('active', key === currentPetKey);
 
+    btn.onclick = () => {
+      if (!key || !petState[key]) return;
       currentPetKey = key;
 
-      tabs.forEach(b => b.classList.toggle('active', b === btn));
+      tabs.forEach(b => {
+        b.classList.toggle('active', b === btn);
+      });
 
       renderCurrentPet();
       savePetsToStorage();
-    });
+    };
   });
 
-  if (btnFeedPet) {
-    btnFeedPet.onclick = onFeedPetClick;
-  }
-  if (btnWaterPet) {
-    btnWaterPet.onclick = onWaterPetClick;
-  }
-  if (btnRenamePet) {
-    btnRenamePet.onclick = onRenamePetClick;
-  }
-  if (btnResetPet) {
-    btnResetPet.onclick = onResetPetClick;
-  }
+  // 餵食、小考、改名、復活與給人領養
+  if (btnFeedPet) btnFeedPet.onclick = onFeedPetClick;
+  if (btnWaterPet) btnWaterPet.onclick = onWaterPetClick;
+  if (btnRenamePet) btnRenamePet.onclick = onRenamePetClick;
+  if (btnResetPet) btnResetPet.onclick = onResetPetClick;
+  if (btnAdoptPet) btnAdoptPet.onclick = onAdoptPetClick;
 }
 
 
@@ -1127,69 +1149,92 @@ function getAllYearValuesForCurrentSubject() {
 }
 
 // 建立「跨卷池」的 5 題題目：同科目，但跨所有年份 × 梯次
+// 建立「跨科目＋跨年度＋跨梯次」的寵物小考題目
 async function buildCrossVolumeQuizQuestions(maxCount) {
   const result = [];
-  const subjValue = subjectSel ? subjectSel.value : '';
-  if (!subjValue) return [];
 
-  const years = getAllYearValuesForCurrentSubject();
-  const rounds = ['第一次', '第二次']; // 對應你原本 UI 的梯次文字 [attached_file:2][attached_file:3]
+  // 三個下拉元件都必須存在
+  if (!subjectSel || !yearSel || !roundSel) return result;
 
-  // 組出所有 (year, round) 組合
+  // 1. 收集所有科目（用 option 的 value，跟你平常切換卷別時一樣）
+  const subjects = Array.from(subjectSel.options)
+    .map(o => String(o.value || '').trim())
+    .filter(Boolean);
+
+  // 2. 收集所有年份
+  const years = Array.from(yearSel.options)
+    .map(o => String(o.value || '').trim())
+    .filter(Boolean);
+
+  // 3. 收集所有梯次（直接用下拉的 value 或文字）
+  const rounds = Array.from(roundSel.options)
+    .map(o => String(o.value || o.textContent || '').trim())
+    .filter(Boolean);
+
+  // 4. 組出所有 (subj, year, round) 的組合
   const scopes = [];
-  years.forEach(year => {
-    rounds.forEach(roundLabel => {
-      scopes.push({ year, roundLabel });
+  subjects.forEach(subj => {
+    years.forEach(year => {
+      rounds.forEach(roundLabel => {
+        scopes.push({ subj, year, roundLabel });
+      });
     });
   });
-  if (!scopes.length) return [];
 
-  // 打亂 scopes 順序（Fisher–Yates）
+  if (!scopes.length) return result;
+
+  // 5. 洗牌，讓出題順序隨機
   for (let i = scopes.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
   }
 
-  // 記住原本 scope，最後會切回來
+  // 6. 記住原本畫面上選的卷別，等一下抽完題要切回來
   const originalScope = {
-    subj: subjectSel ? subjectSel.value : '',
-    year: yearSel ? yearSel.value : '',
-    round: roundSel ? roundSel.value : ''
+    subj: subjectSel.value,
+    year: yearSel.value,
+    round: roundSel.value,
   };
 
+  // 7. 依序走訪每個 scope，切換卷別後從該卷抽一題進來
   for (const s of scopes) {
     if (result.length >= maxCount) break;
 
-    // 切換到這個 year/round，科目沿用目前選的科目
-    if (subjectSel) subjectSel.value = subjValue;
-    if (yearSel) yearSel.value = s.year;
-    if (roundSel) roundSel.value = s.roundLabel;
+    // 切換 UI 下拉
+    subjectSel.value = s.subj;
+    yearSel.value = s.year;
+    roundSel.value = s.roundLabel;
 
-    // 載入該卷題庫 [attached_file:3]
+    // 觸發既有的 onScopeChange，實際載入那一卷的題目與答案
     if (typeof onScopeChange === 'function') {
       try {
-        // onScopeChange 是 async，群組模式那邊已經有用 await 呼叫 [attached_file:3]
         await onScopeChange();
       } catch (e) {
-        console.error('載入卷別失敗：', e);
+        console.error('onScopeChange error in cross-subject quiz', e);
         continue;
       }
     }
 
-    const pool = (state.questions || []).filter(q => state.answers[String(q.id)]);
+    // 從這一卷裡挑一題「有標好答案」的題目
+    const pool = state.questions.filter(q => state.answers[String(q.id)]);
     if (!pool.length) continue;
 
     const picked = pool[Math.floor(Math.random() * pool.length)];
     if (!picked) continue;
 
     const qid = String(picked.id);
-    const caRaw = String(state.answers[qid] || '').toUpperCase();
+    const caRaw = String(state.answers[qid]).toUpperCase();
     const answerSet = Array.from(
-      new Set(caRaw.split(/[\\/ ,]/).filter(Boolean))
+      new Set(
+        caRaw
+          .split(',')
+          .map(x => x.trim())
+          .filter(Boolean)
+      )
     );
     if (!answerSet.length) continue;
 
-    // 存成獨立物件，避免後續被 state.questions 改寫 [attached_file:3]
+    // 存下這題，連同科目／年份／梯次，一起存進 scope
     result.push({
       id: picked.id,
       text: picked.text,
@@ -1197,27 +1242,29 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
       image: picked.image,
       answerSet,
       scope: {
-        subj: subjValue,
+        subj: s.subj,
         year: s.year,
-        roundLabel: s.roundLabel
-      }
+        roundLabel: s.roundLabel,
+      },
     });
   }
 
-  // 把畫面 scope 切回原本的卷 [attached_file:3]
+  // 8. 抽完題之後，把畫面上的卷別切回原本選的那一卷
   try {
-    if (originalScope.subj && subjectSel) subjectSel.value = originalScope.subj;
-    if (originalScope.year && yearSel) yearSel.value = originalScope.year;
-    if (originalScope.round && roundSel) roundSel.value = originalScope.round;
+    subjectSel.value = originalScope.subj;
+    yearSel.value = originalScope.year;
+    roundSel.value = originalScope.round;
+
     if (typeof onScopeChange === 'function') {
       await onScopeChange();
     }
   } catch (e) {
-    console.error('還原原本卷別失敗：', e);
+    console.error('restore scope error after cross-subject quiz', e);
   }
 
   return result;
 }
+
 
 function openPetQuizOverlay(petKey) {
   ensurePetQuizStyle();
@@ -1411,6 +1458,7 @@ function submitPetQuiz() {
   const wrong = [];
   const unanswered = [];
 
+  // 檢查每一題的作答狀況
   petQuizState.questions.forEach(q => {
     const qid = String(q.id);
     const ua = (petQuizState.user[qid] || '').toUpperCase();
@@ -1419,54 +1467,61 @@ function submitPetQuiz() {
     if (!ua) {
       unanswered.push(q);
     } else if (!correctSet.has(ua) && !correctSet.has('ALL')) {
-      wrong.push({
-        q,
-        ua,
-        ca: [...correctSet].join('/')
-      });
+      wrong.push({ q, ua, ca: Array.from(correctSet).join('/') });
     }
   });
 
-  // 還有沒作答的：可以讓使用者「硬交」，但一樣不會算成功
+  // 若還有未作答的題目，先確認使用者是否真的要送出
   if (unanswered.length) {
-    const ok = window.confirm(`還有 ${unanswered.length} 題沒選，確定要直接交卷嗎？`);
+    const ok = window.confirm(`還有 ${unanswered.length} 題沒有作答，確定要送出嗎？`);
     if (!ok) return;
   }
 
-  // ★ 成功條件：沒有錯題，且也沒有未作答
+  // 全對 & 全部有作答：餵食成功
   if (!wrong.length && !unanswered.length) {
-    alert('5 題全部答對！餵食成功 🎉');
-    const key = petQuizState.petKey;
+    alert('全部答對！這次餵食非常成功！');
 
-    // 新增餵食紀錄（下面第 2 點會再改內容）
+    const key = petQuizState.petKey;
+    if (!key) {
+      closePetQuizOverlay(true);
+      return;
+    }
+
     const now = new Date();
-    const scopes = (petQuizState.questions || []).map(q => q.scope || {});
+
+    // 把這一輪的題目 scope 都整理出來，等一下一併存進餵食紀錄
+    const scopes = petQuizState.questions.map(q => q.scope || {});
+
     appendPetFeedRecord({
       ts: now.toLocaleString(),
       petKey: key,
       petName: petState[key]?.name || '',
       questionCount: petQuizState.questions.length,
       fromScopes: scopes,
-      questions: (petQuizState.questions || []).map(q => ({
+      questions: petQuizState.questions.map(q => ({
         id: q.id,
-        subj: q.scope?.subj || '',
-        year: q.scope?.year || '?',
-        roundLabel: q.scope?.roundLabel || '?'
-      }))
+        subj: q.scope?.subj || '',       // 科目代碼或名稱
+        year: q.scope?.year || '',       // 年份
+        roundLabel: q.scope?.roundLabel || '', // 梯次文字
+      })),
     });
+
+    savePetFeedRecords();
     renderPetFeedLog();
 
     closePetQuizOverlay(true);
-    if (key) onPetFedSuccess(key);
+    onPetFedSuccess(key);
     return;
   }
 
-  // 沒全對：進入回顧模式，標「你選／正解」，讓你修正或按「重新作答」
-  petQuizState.reviewMode = true;
-  renderPetQuizQuestion();
+  // 有錯或有空白：進入回顧模式，讓你檢查看哪裡錯
+  alert('有一些題目答錯或未作答，進入檢討模式。');
 
-  alert('這一輪還沒有全部答對。\n請看選項旁的「你選／正解」標示，修正後再按一次「交卷」，或按「重新作答」從頭再來。');
+  petQuizState.reviewMode = true;
+  petQuizState.index = 0;
+  renderPetQuizQuestion();
 }
+
 
 
 // ★ 之後「真正的 5 題跨卷測驗」入口（現在已經是跨卷版）
@@ -1621,6 +1676,36 @@ function onResetPetClick() {
 
   savePetsToStorage();
   renderCurrentPet();
+}
+function onAdoptPetClick() {
+  const key = currentPetKey;
+  const pet = petState[key];
+  if (!pet) return;
+
+  const ok = window.confirm(
+    '確定要把這隻動物給人領養嗎？\n這個物種的名字、狀態與餵食紀錄都會被清除喔！'
+  );
+  if (!ok) return;
+
+  // 1. 把這隻寵物重設成初始狀態（但保留 species）
+  pet.name = '';
+  pet.bcs = 5;
+  pet.hearts = 5;
+  pet.water = 100;
+  pet.lastFedAt = null;
+  pet.lastWaterAt = null;
+  pet.bcsDropCount = 0;
+  pet.alive = true;
+  pet.status = 'normal';
+
+  // 2. 清除這隻寵物的餵食紀錄
+  petFeedRecords = petFeedRecords.filter(r => r.petKey !== key);
+  savePetFeedRecords();
+
+  // 3. 存回 localStorage 並更新畫面
+  savePetsToStorage();
+  renderCurrentPet();
+  renderPetFeedLog();
 }
 
 
