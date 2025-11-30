@@ -9,100 +9,94 @@
   <link rel="apple-touch-icon" href="./icons/golden-192.png">
   <meta name="theme-color" content="#000000"/>
   <style>
-    :root{
-      /* 預設：暗色（深藍灰） */
-      --bg:#050712;
-      --fg:#e5e7eb;
-      --muted:#9ca3af;
-      --card:#111827;
-      --border:#1f2937;
-      --accent:#60a5fa;
-      --btn:#111827;
-      --btn-fg:#e5e7eb;
-      --pill:#1b2333;
+    :root {
+      /* 預設：暗色但不要太悶的深藍灰 */
+      --bg: #050712;
+      --fg: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #0b1220;
+      --border: #1f2937;
+      --accent: #60a5fa;
+      --btn: #111827;
+      --btn-fg: #e5e7eb;
+      --pill: #141b2b;
     }
-
     /* 亮色主題：柔和暖白＋深灰文字 */
-    .light{
-      --bg:#f5f5f7;
-      --fg:#111827;
-      --muted:#6b7280;
-      --card:#ffffff;
-      --border:#e5e7eb;
-      --accent:#2563eb;
-      --btn:#f3f4f6;
-      --btn-fg:#111827;
-      --pill:#e5e7eb;
+    .light {
+      --bg: #f5f5f7;
+      --fg: #111827;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --btn: #f3f4f6;
+      --btn-fg: #111827;
+      --pill: #e5e7eb;
     }
 
-    /* 天空：清爽夜空藍，偏柔和 */
-    body.theme-sky{
-      --bg:#050816;
-      --card:#0b1220;
-      --border:#1d2a3f;
-      --fg:#e5f2ff;
-      --muted:#9fb7d6;
-      --accent:#60a5fa;
-      --btn:#111827;
-      --btn-fg:#e5f2ff;
-      --pill:#101827;
-      background-image: linear-gradient(160deg,#050816 0%,#0b1220 45%,#1d4ed8 100%);
+    /* 天空：高空藍＋白雲，清爽明亮 */
+    body.theme-sky {
+      --bg: linear-gradient(180deg, #38a9ff 0%, #7fd3ff 45%, #e7f7ff 100%);
+      --card: rgba(255, 255, 255, 0.96);
+      --border: rgba(255, 255, 255, 0.7);
+      --fg: #134166;
+      --muted: #5b7c9a;
+      --accent: #2563eb;
+      --btn: rgba(255, 255, 255, 0.9);
+      --btn-fg: #134166;
+      --pill: rgba(255, 255, 255, 0.7);
     }
 
-    /* 海洋：深海藍綠，穩定感強 */
-    body.theme-ocean{
-      --bg:#021016;
-      --card:#031a21;
-      --border:#05323b;
-      --fg:#e0fbff;
-      --muted:#80a3ab;
-      --accent:#14b8a6;
-      --btn:#043039;
-      --btn-fg:#e0fbff;
-      --pill:#052027;
-      background-image: radial-gradient(circle at top,#0b3947 0%,#021016 60%);
+    /* 海洋：清澈藍綠，透明感＋陽光反光 */
+    body.theme-ocean {
+      --bg: linear-gradient(180deg, #00a3c8 0%, #00c8b4 40%, #00b48a 100%);
+      --card: rgba(2, 40, 54, 0.94);
+      --border: rgba(109, 241, 255, 0.45);
+      --fg: #eaffff;
+      --muted: #b6e7ea;
+      --accent: #6df1ff;
+      --btn: #043039;
+      --btn-fg: #eaffff;
+      --pill: #052631;
     }
 
-    /* 森林：深綠＋一點淺咖啡，偏木質感 */
-    body.theme-forest{
-      --bg:#15100b;
-      --card:#201710;
-      --border:#3a2a1b;
-      --fg:#f7f0e6;
-      --muted:#b8a18c;
-      --accent:#89c07a;
-      --btn:#332419;
-      --btn-fg:#f7f0e6;
-      --pill:#271a12;
-      background-image: linear-gradient(150deg,#15100b 0%,#1f2b18 45%,#4f7c49 100%);
+    /* 森林：陽光灑進來的綠林，而不是黑森林 */
+    body.theme-forest {
+      --bg: linear-gradient(180deg, #0b2b29 0%, #103822 40%, #1b2915 100%);
+      --card: rgba(18, 46, 30, 0.94);
+      --border: rgba(159, 232, 112, 0.4);
+      --fg: #f6fff5;
+      --muted: #c5e6c4;
+      --accent: #9fe870;
+      --btn: #243824;
+      --btn-fg: #f6fff5;
+      --pill: #1b2b1c;
     }
 
-    /* 蛋黃：溫暖但不刺眼的琥珀色系 */
-    body.theme-yolk{
-      --bg:#24160c;
-      --card:#301a0d;
-      --border:#4a2810;
-      --fg:#fff7e6;
-      --muted:#d4b892;
-      --accent:#fbbf24;
-      --btn:#4a2810;
-      --btn-fg:#fff7e6;
-      --pill:#3a200f;
-      background-image: linear-gradient(155deg,#24160c 0%,#5b3210 40%,#fbbf24 100%);
+    /* 蛋黃：奶油系、早餐感，整體偏亮 */
+    body.theme-yolk {
+      --bg: linear-gradient(180deg, #fff9e9 0%, #ffecc4 45%, #ffe0a8 100%);
+      --card: rgba(255, 255, 255, 0.96);
+      --border: rgba(255, 180, 71, 0.55);
+      --fg: #4e3a21;
+      --muted: #8b6d3a;
+      --accent: #ffb347;
+      --btn: #fff3d9;
+      --btn-fg: #4e3a21;
+      --pill: #ffe4b8;
     }
 
-    /* 宇宙：深紫夜空＋偏冷藍點綴 */
-    body.theme-cosmos{
-      --bg:#050316;
-      --card:#0b0724;
-      --border:#231b4a;
-      --fg:#f4eeff;
-      --muted:#a5a0d4;
-      --accent:#8b5cf6;
-      --btn:#1b123b;
-      --btn-fg:#f4eeff;
-      --pill:#120c2b;
-      background-image: radial-gradient(circle at top,#36207a 0%,#050316 60%);
+    /* 宇宙：霓虹星雲＋深藍紫，帶一點發光感 */
+    body.theme-cosmos {
+      --bg: radial-gradient(circle at top, #2b2d6f 0%, #050418 45%, #02000b 100%);
+      --card: rgba(10, 14, 40, 0.94);
+      --border: rgba(131, 213, 255, 0.35);
+      --fg: #f7f4ff;
+      --muted: #a9b2ff;
+      --accent: #83d5ff;
+      --btn: #141935;
+      --btn-fg: #f7f4ff;
+      --pill: #10162b;
     }
 
     body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", Segoe UI, Roboto, Helvetica, Arial, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;background:var(--bg);color:var(--fg);}
