@@ -10,9 +10,101 @@
   <meta name="theme-color" content="#000000"/>
   <style>
     :root{
-      --bg:#111; --fg:#fff; --muted:#aaa; --card:#1b1b1b; --border:#2a2a2a; --accent:#2f74ff;
-      --btn:#222; --btn-fg:#fff; --pill:#2a2a2a;
+      /* 預設：暗色（深藍灰） */
+      --bg:#050712;
+      --fg:#e5e7eb;
+      --muted:#9ca3af;
+      --card:#111827;
+      --border:#1f2937;
+      --accent:#60a5fa;
+      --btn:#111827;
+      --btn-fg:#e5e7eb;
+      --pill:#1b2333;
     }
+
+    /* 亮色主題：柔和暖白＋深灰文字 */
+    .light{
+      --bg:#f5f5f7;
+      --fg:#111827;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --accent:#2563eb;
+      --btn:#f3f4f6;
+      --btn-fg:#111827;
+      --pill:#e5e7eb;
+    }
+
+    /* 天空：清爽夜空藍，偏柔和 */
+    body.theme-sky{
+      --bg:#050816;
+      --card:#0b1220;
+      --border:#1d2a3f;
+      --fg:#e5f2ff;
+      --muted:#9fb7d6;
+      --accent:#60a5fa;
+      --btn:#111827;
+      --btn-fg:#e5f2ff;
+      --pill:#101827;
+      background-image: linear-gradient(160deg,#050816 0%,#0b1220 45%,#1d4ed8 100%);
+    }
+
+    /* 海洋：深海藍綠，穩定感強 */
+    body.theme-ocean{
+      --bg:#021016;
+      --card:#031a21;
+      --border:#05323b;
+      --fg:#e0fbff;
+      --muted:#80a3ab;
+      --accent:#14b8a6;
+      --btn:#043039;
+      --btn-fg:#e0fbff;
+      --pill:#052027;
+      background-image: radial-gradient(circle at top,#0b3947 0%,#021016 60%);
+    }
+
+    /* 森林：深綠＋一點淺咖啡，偏木質感 */
+    body.theme-forest{
+      --bg:#15100b;
+      --card:#201710;
+      --border:#3a2a1b;
+      --fg:#f7f0e6;
+      --muted:#b8a18c;
+      --accent:#89c07a;
+      --btn:#332419;
+      --btn-fg:#f7f0e6;
+      --pill:#271a12;
+      background-image: linear-gradient(150deg,#15100b 0%,#1f2b18 45%,#4f7c49 100%);
+    }
+
+    /* 蛋黃：溫暖但不刺眼的琥珀色系 */
+    body.theme-yolk{
+      --bg:#24160c;
+      --card:#301a0d;
+      --border:#4a2810;
+      --fg:#fff7e6;
+      --muted:#d4b892;
+      --accent:#fbbf24;
+      --btn:#4a2810;
+      --btn-fg:#fff7e6;
+      --pill:#3a200f;
+      background-image: linear-gradient(155deg,#24160c 0%,#5b3210 40%,#fbbf24 100%);
+    }
+
+    /* 宇宙：深紫夜空＋偏冷藍點綴 */
+    body.theme-cosmos{
+      --bg:#050316;
+      --card:#0b0724;
+      --border:#231b4a;
+      --fg:#f4eeff;
+      --muted:#a5a0d4;
+      --accent:#8b5cf6;
+      --btn:#1b123b;
+      --btn-fg:#f4eeff;
+      --pill:#120c2b;
+      background-image: radial-gradient(circle at top,#36207a 0%,#050316 60%);
+    }
+
     body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", Segoe UI, Roboto, Helvetica, Arial, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;background:var(--bg);color:var(--fg);}
     .light{--bg:#fff;--fg:#000;--card:#f7f7f8;--border:#e5e5e6;--muted:#666;--btn:#f1f1f1;--btn-fg:#000;--pill:#ececec;}
     .app{display:grid;grid-template-columns:240px 1fr 280px;gap:16px;min-height:100vh;align-items:start;padding:16px}
@@ -137,19 +229,7 @@
         grid-template-columns: 1fr;
       }
     }
-    #comment-nickname,
-    #comment-text {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      margin-top: 6px;
-      background: var(--card, #1b1b1b);
-      color: var(--fg, #fff);
-      border-radius: 10px;
-      border: 1px solid var(--border, #2a2a2a);
-      padding: 8px 10px;
-      font-size: 14px;
-    }
+
   </style>
 </head>
 <body class="">
@@ -176,7 +256,21 @@
       <label class="checkbox"><input id="showAns" type="checkbox">顯示答案</label>
       <button id="btnExam" class="btn">測驗模式</button>
       <button id="btnRecords" class="btn">作答紀錄</button>
-      <button id="btnTheme" class="btn">深色 / 淺色</button>
+      <!-- 主題選擇 -->
+      <div class="group">
+        <label for="themeSel" class="checkbox">
+          <select id="themeSel" class="select">
+            <option value="dark">暗色</option>
+            <option value="light">亮色</option>
+            <option value="sky">天空</option>
+            <option value="ocean">海洋</option>
+            <option value="forest">森林</option>
+            <option value="yolk">蛋黃</option>
+            <option value="cosmos">宇宙</option>
+          </select>
+        </label>
+      </div>
+
       <div id="group-section" class="group" style="margin-bottom: 16px;">
         <div style="display:flex; justify-content:space-between; align-items:center; font-weight:bold; margin-bottom:6px;">
           <span>群組</span>
