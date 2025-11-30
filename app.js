@@ -14,6 +14,8 @@ const state = {
 };
 // ===== 寵物狀態 =====
 
+// ===== 寵物狀態 =====
+
 const PETS_STORAGE_KEY = 'ntuvm-pets-state';
 
 let petState = {
@@ -25,7 +27,9 @@ let petState = {
     water: 100,
     lastFedAt: null,
     alive: true,
-    status: 'normal'
+    status: 'normal',
+    // 從最後一次餵食後，已經因為超過 12 小時而扣了幾次 BCS
+    bcsDropCount: 0
   },
   cat: {
     species: 'cat',
@@ -35,7 +39,8 @@ let petState = {
     water: 100,
     lastFedAt: null,
     alive: true,
-    status: 'normal'
+    status: 'normal',
+    bcsDropCount: 0
   },
   cow: {
     species: 'cow',
@@ -45,7 +50,8 @@ let petState = {
     water: 100,
     lastFedAt: null,
     alive: true,
-    status: 'normal'
+    status: 'normal',
+    bcsDropCount: 0
   }
 };
 
@@ -66,7 +72,10 @@ function mergePetState(defaults, loaded) {
       water: Number.isFinite(fromStorage.water) ? fromStorage.water : base.water,
       lastFedAt: fromStorage.lastFedAt || base.lastFedAt,
       alive: typeof fromStorage.alive === 'boolean' ? fromStorage.alive : base.alive,
-      status: typeof fromStorage.status === 'string' ? fromStorage.status : base.status
+      status: typeof fromStorage.status === 'string' ? fromStorage.status : base.status,
+      bcsDropCount: Number.isFinite(fromStorage.bcsDropCount)
+        ? fromStorage.bcsDropCount
+        : (base.bcsDropCount || 0)
     };
   }
   return out;
@@ -90,6 +99,7 @@ function savePetsToStorage() {
     console.error('儲存寵物狀態失敗：', e);
   }
 }
+
 
 // ===== 群組管理 =====
 
@@ -331,6 +341,8 @@ const petStatusLabelEl = document.getElementById('pet-status-label');
 const btnFeedPet = document.getElementById('btn-feed-pet');
 const btnWaterPet = document.getElementById('btn-water-pet');
 const btnRenamePet = document.getElementById('btn-rename-pet');
+const btnResetPet = document.getElementById('btn-reset-pet');
+
 
 
 const bSubj = $("#bSubj"), bYear = $("#bYear"), bRound = $("#bRound");
@@ -440,6 +452,8 @@ const subjectPrefix = s => {
 };
 // ===== 我的動物：動畫 class mapping =====
 
+// ===== 我的動物：動畫 class mapping =====
+
 function getPetAnimationClass(pet) {
   if (!pet || !pet.species) return '';
   const species = pet.species;
@@ -467,9 +481,72 @@ function updatePetAnimation(petKey) {
   if (cls) petAvatarEl.classList.add(cls);
 }
 
+// ===== 我的動物：BCS / 時間機制 =====
+
+const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000;
+
+/**
+ * 根據 lastFedAt 與 bcsDropCount，每 12 小時讓 BCS–1。
+ * 規則：
+ * - 若距離最後餵食 < 12 小時：不扣。
+ * - 超過後，每滿 12 小時扣 1 點，最低 0。
+ * - BCS=1 → status='sick'，彈出警告。
+ * - BCS=0 → alive=false, status='dead'。
+ */
+function updatePetBCSFromTime(petKey) {
+  const pet = petState[petKey];
+  if (!pet) return;
+
+  const now = Date.now();
+
+  // 第一次進來：把現在當成起點
+  if (!pet.lastFedAt) {
+    pet.lastFedAt = now;
+    pet.bcsDropCount = 0;
+    savePetsToStorage();
+    return;
+  }
+
+  if (!pet.alive) {
+    return;
+  }
+
+  const elapsedSinceFed = now - pet.lastFedAt;
+  if (elapsedSinceFed < TWELVE_HOURS_MS) {
+    // 未滿 12 小時，不扣
+    return;
+  }
+
+  const stepsSinceFed = Math.floor(elapsedSinceFed / TWELVE_HOURS_MS);
+  const prevSteps = Number.isFinite(pet.bcsDropCount) ? pet.bcsDropCount : 0;
+  const newSteps = stepsSinceFed - prevSteps;
+
+  if (newSteps <= 0) return; // 之前已經扣完了
+
+  pet.bcs = Math.max(0, pet.bcs - newSteps);
+  pet.bcsDropCount = stepsSinceFed;
+
+  if (pet.bcs <= 0) {
+    pet.bcs = 0;
+    pet.alive = false;
+    pet.status = 'dead';
+  } else if (pet.bcs === 1) {
+    pet.status = 'sick';
+    // 只在剛掉到 1 的那一次提醒
+    alert('BCS 只剩 1：我要生一場 10 萬塊的大病…');
+  } else if (pet.status === 'sick' && pet.bcs >= 2) {
+    pet.status = 'normal';
+  }
+
+  savePetsToStorage();
+}
+
 // ===== 我的動物：畫面渲染 =====
 
 function renderCurrentPet() {
+  // 每次渲染前先更新時間造成的 BCS 變化
+  updatePetBCSFromTime(currentPetKey);
+
   const pet = petState[currentPetKey];
   if (!pet || !petsGroup) return;
 
@@ -510,7 +587,17 @@ function renderCurrentPet() {
     petStatusLabelEl.textContent = label;
   }
 
+  // Avatar 動畫
   updatePetAnimation(currentPetKey);
+
+  // 按鈕啟用 / 停用與「重新養一隻」顯示
+  const isDead = !pet.alive;
+  if (btnFeedPet) btnFeedPet.disabled = isDead;
+  if (btnWaterPet) btnWaterPet.disabled = isDead;
+  if (btnRenamePet) btnRenamePet.disabled = isDead;
+  if (btnResetPet) {
+    btnResetPet.style.display = isDead ? 'inline-flex' : 'none';
+  }
 }
 
 // ===== 我的動物：事件綁定 =====
@@ -544,36 +631,606 @@ function bindPetUIEvents() {
   if (btnRenamePet) {
     btnRenamePet.addEventListener('click', onRenamePetClick);
   }
+  if (btnResetPet) {
+    btnResetPet.addEventListener('click', onResetPetClick);
+  }
 }
 
-// 餵食按鈕（未來會接「5 題測驗」）
+// ===== 我的動物：餵食／加水／改名／重養 =====
+// ===== 我的動物：餵食／加水／改名／重養 =====
+// ===== 我的動物：餵食／加水／改名／重養 =====
+
+// 牧場餵食小測驗的本地狀態（不要動到主考試的 state.user）
+const petQuizState = {
+  active: false,
+  petKey: null,
+  questions: [],   // 這一輪的題目 [{id,text,options,image,answerSet,scope}, ...]
+  user: {},        // { qid: 'A' | 'B' | ... }
+  index: 0,
+  reviewMode: false
+};
+
+// 幫餵食小測驗塞一次 CSS（只會注入一次）
+function ensurePetQuizStyle() {
+  if (document.getElementById('pet-quiz-style')) return;
+  const style = document.createElement('style');
+  style.id = 'pet-quiz-style';
+  style.textContent = `
+  .pet-quiz-mask {
+    position: fixed;
+    inset: 0;
+    z-index: 100003;
+    background: rgba(0,0,0,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .pet-quiz-card {
+    width: min(720px, 100%);
+    max-height: 90vh;
+    background: var(--card, #1b1b1b);
+    color: var(--fg, #fff);
+    border-radius: 14px;
+    border: 1px solid var(--border, #333);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .pet-quiz-head {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border, #333);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .pet-quiz-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .pet-quiz-sub {
+    font-size: 13px;
+    color: var(--muted, #aaa);
+  }
+  .pet-quiz-body {
+    padding: 12px 14px 14px;
+    overflow: auto;
+    flex: 1;
+  }
+  .pet-quiz-qnum {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .pet-quiz-qtext {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .pet-quiz-qimg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border, #333);
+    margin-bottom: 8px;
+  }
+  .pet-quiz-opts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .pet-quiz-opt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .pet-quiz-opt-row span {
+    flex: 1;
+  }
+  .pet-quiz-opt-note {
+    margin-left: 6px;
+    font-size: 12px;
+  }
+  .pet-quiz-foot {
+    padding: 10px 14px 12px;
+    border-top: 1px solid var(--border, #333);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .pet-quiz-btn {
+    padding: 8px 12px;
+    border-radius: 9999px;
+    border: 1px solid var(--border, #333);
+    background: transparent;
+    color: var(--fg, #fff);
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .pet-quiz-btn-primary {
+    background: var(--accent, #2f74ff);
+    border-color: var(--accent, #2f74ff);
+    color: #fff;
+  }
+  .pet-quiz-btn-danger {
+    border-color: #aa3333;
+    color: #ffaaaa;
+  }
+  .pet-quiz-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  `;
+  document.head.appendChild(style);
+}
+
+// 取得所有年份（目前這個科目下拉選單裡出現的年分）
+function getAllYearValuesForCurrentSubject() {
+  if (!yearSel) return [];
+  return Array.from(yearSel.options)
+    .map(o => String(o.value || '').trim())
+    .filter(v => v);
+}
+
+// 建立「跨卷池」的 5 題題目：同科目，但跨所有年份 × 梯次
+async function buildCrossVolumeQuizQuestions(maxCount) {
+  const result = [];
+  const subjValue = subjectSel ? subjectSel.value : '';
+  if (!subjValue) return [];
+
+  const years = getAllYearValuesForCurrentSubject();
+  const rounds = ['第一次', '第二次']; // 對應你原本 UI 的梯次文字 [attached_file:2][attached_file:3]
+
+  // 組出所有 (year, round) 組合
+  const scopes = [];
+  years.forEach(year => {
+    rounds.forEach(roundLabel => {
+      scopes.push({ year, roundLabel });
+    });
+  });
+  if (!scopes.length) return [];
+
+  // 打亂 scopes 順序（Fisher–Yates）
+  for (let i = scopes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
+  }
+
+  // 記住原本 scope，最後會切回來
+  const originalScope = {
+    subj: subjectSel ? subjectSel.value : '',
+    year: yearSel ? yearSel.value : '',
+    round: roundSel ? roundSel.value : ''
+  };
+
+  for (const s of scopes) {
+    if (result.length >= maxCount) break;
+
+    // 切換到這個 year/round，科目沿用目前選的科目
+    if (subjectSel) subjectSel.value = subjValue;
+    if (yearSel) yearSel.value = s.year;
+    if (roundSel) roundSel.value = s.roundLabel;
+
+    // 載入該卷題庫 [attached_file:3]
+    if (typeof onScopeChange === 'function') {
+      try {
+        // onScopeChange 是 async，群組模式那邊已經有用 await 呼叫 [attached_file:3]
+        await onScopeChange();
+      } catch (e) {
+        console.error('載入卷別失敗：', e);
+        continue;
+      }
+    }
+
+    const pool = (state.questions || []).filter(q => state.answers[String(q.id)]);
+    if (!pool.length) continue;
+
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    if (!picked) continue;
+
+    const qid = String(picked.id);
+    const caRaw = String(state.answers[qid] || '').toUpperCase();
+    const answerSet = Array.from(
+      new Set(caRaw.split(/[\\/ ,]/).filter(Boolean))
+    );
+    if (!answerSet.length) continue;
+
+    // 存成獨立物件，避免後續被 state.questions 改寫 [attached_file:3]
+    result.push({
+      id: picked.id,
+      text: picked.text,
+      options: picked.options,
+      image: picked.image,
+      answerSet,
+      scope: {
+        subj: subjValue,
+        year: s.year,
+        roundLabel: s.roundLabel
+      }
+    });
+  }
+
+  // 把畫面 scope 切回原本的卷 [attached_file:3]
+  try {
+    if (originalScope.subj && subjectSel) subjectSel.value = originalScope.subj;
+    if (originalScope.year && yearSel) yearSel.value = originalScope.year;
+    if (originalScope.round && roundSel) roundSel.value = originalScope.round;
+    if (typeof onScopeChange === 'function') {
+      await onScopeChange();
+    }
+  } catch (e) {
+    console.error('還原原本卷別失敗：', e);
+  }
+
+  return result;
+}
+
+function openPetQuizOverlay(petKey) {
+  ensurePetQuizStyle();
+
+  const old = document.getElementById('pet-quiz-mask');
+  if (old) old.remove();
+
+  const mask = document.createElement('div');
+  mask.id = 'pet-quiz-mask';
+  mask.className = 'pet-quiz-mask';
+
+  const card = document.createElement('div');
+  card.className = 'pet-quiz-card';
+
+  card.innerHTML = `
+    <div class="pet-quiz-head">
+      <div class="pet-quiz-title">餵食小測驗（跨卷池）</div>
+      <div class="pet-quiz-sub">
+        會從目前科目的所有年度＋梯次隨機抽題，這一輪要全對才餵得下去喔！<br>
+        目前動物：<span id="pet-quiz-pet-label"></span>
+      </div>
+    </div>
+    <div class="pet-quiz-body">
+      <div class="pet-quiz-qnum" id="pet-quiz-qnum"></div>
+      <div class="pet-quiz-qtext" id="pet-quiz-qtext"></div>
+      <img class="pet-quiz-qimg" id="pet-quiz-qimg" style="display:none;" />
+      <div class="pet-quiz-opts" id="pet-quiz-opts"></div>
+    </div>
+    <div class="pet-quiz-foot">
+      <button class="pet-quiz-btn" id="pet-quiz-prev">上一題</button>
+      <button class="pet-quiz-btn" id="pet-quiz-next">下一題</button>
+      <button class="pet-quiz-btn pet-quiz-btn-danger" id="pet-quiz-cancel">放棄餵食</button>
+      <button class="pet-quiz-btn pet-quiz-btn-primary" id="pet-quiz-submit">交卷</button>
+    </div>
+  `;
+
+  mask.appendChild(card);
+  document.body.appendChild(mask);
+
+  const btnPrev = document.getElementById('pet-quiz-prev');
+  const btnNext = document.getElementById('pet-quiz-next');
+  const btnSubmit = document.getElementById('pet-quiz-submit');
+  const btnCancel = document.getElementById('pet-quiz-cancel');
+
+  if (btnPrev) btnPrev.onclick = () => stepPetQuiz(-1);
+  if (btnNext) btnNext.onclick = () => stepPetQuiz(1);
+  if (btnSubmit) btnSubmit.onclick = () => submitPetQuiz();
+  if (btnCancel) btnCancel.onclick = () => closePetQuizOverlay(false);
+
+  const labelEl = document.getElementById('pet-quiz-pet-label');
+  if (labelEl) {
+    const pet = petState[petKey];
+    const name = pet?.name && pet.name.trim() ? pet.name.trim() : '';
+    let speciesLabel = '動物';
+    if (pet?.species === 'dog') speciesLabel = '狗狗';
+    else if (pet?.species === 'cat') speciesLabel = '貓貓';
+    else if (pet?.species === 'cow') speciesLabel = '小牛';
+    labelEl.textContent = name ? `${speciesLabel}（${name}）` : speciesLabel;
+  }
+
+  renderPetQuizQuestion();
+}
+
+function closePetQuizOverlay(success) {
+  const mask = document.getElementById('pet-quiz-mask');
+  if (mask) mask.remove();
+  petQuizState.active = false;
+  petQuizState.petKey = null;
+  petQuizState.questions = [];
+  petQuizState.user = {};
+  petQuizState.index = 0;
+  petQuizState.reviewMode = false;
+}
+
+// 顯示目前 index 的那一題
+function renderPetQuizQuestion() {
+  if (!petQuizState.active || !petQuizState.questions.length) return;
+
+  const q = petQuizState.questions[petQuizState.index];
+  if (!q) return;
+
+  const qnumEl = document.getElementById('pet-quiz-qnum');
+  const qtextEl = document.getElementById('pet-quiz-qtext');
+  const qimgEl = document.getElementById('pet-quiz-qimg');
+  const qoptsEl = document.getElementById('pet-quiz-opts');
+
+  if (qnumEl) {
+    const meta = q.scope || {};
+    const yr = meta.year || '?';
+    const rd = meta.roundLabel || '?';
+    qnumEl.textContent =
+      `第 ${petQuizState.index + 1} / ${petQuizState.questions.length} 題 ` +
+      `（${yr} 年${rd}，原卷第 ${q.id} 題）`;
+  }
+  if (qtextEl) {
+    qtextEl.textContent = String(q.text || '');
+  }
+
+  if (qimgEl) {
+    if (q.image) {
+      const raw = resolveImage(q.image);
+      const bust = (raw.includes('?') ? '&' : '?') + 'v=' + Date.now();
+      qimgEl.src = raw + bust;
+      qimgEl.style.display = '';
+    } else {
+      qimgEl.removeAttribute('src');
+      qimgEl.style.display = 'none';
+    }
+  }
+
+  if (qoptsEl) {
+    qoptsEl.innerHTML = '';
+    const ua = (petQuizState.user[String(q.id)] || '').toUpperCase();
+    const correctSet = new Set(q.answerSet || []);
+
+    const letters = ['A', 'B', 'C', 'D'];
+    letters.forEach(L => {
+      const row = document.createElement('div');
+      row.className = 'pet-quiz-opt-row';
+
+      const rb = document.createElement('input');
+      rb.type = 'radio';
+      rb.name = 'pet-quiz-opt';
+      rb.checked = (ua === L);
+      rb.onchange = () => {
+        petQuizState.user[String(q.id)] = L;
+      };
+      row.appendChild(rb);
+
+      const span = document.createElement('span');
+      span.textContent = `${L}. ${q.options?.[L] ?? ''}`;
+      row.appendChild(span);
+
+      if (petQuizState.reviewMode) {
+        const note = document.createElement('span');
+        note.className = 'pet-quiz-opt-note';
+        let text = '';
+        let color = '';
+
+        if (ua === L) {
+          text += '你選';
+          color = '#6aa0ff';
+        }
+        if (correctSet.has(L)) {
+          text += (text ? ' / ' : '') + '正解';
+          color = '#c40000';
+        }
+        if (text) {
+          note.textContent = text;
+          note.style.color = color;
+          row.appendChild(note);
+        }
+      }
+
+      qoptsEl.appendChild(row);
+    });
+  }
+
+  const btnPrev = document.getElementById('pet-quiz-prev');
+  const btnNext = document.getElementById('pet-quiz-next');
+  if (btnPrev) btnPrev.disabled = (petQuizState.index === 0);
+  if (btnNext) btnNext.disabled = (petQuizState.index >= petQuizState.questions.length - 1);
+}
+
+function stepPetQuiz(delta) {
+  if (!petQuizState.active || !petQuizState.questions.length) return;
+  const next = petQuizState.index + delta;
+  if (next < 0 || next >= petQuizState.questions.length) return;
+  petQuizState.index = next;
+  renderPetQuizQuestion();
+}
+
+function submitPetQuiz() {
+  if (!petQuizState.active || !petQuizState.questions.length) return;
+
+  const wrong = [];
+  const unanswered = [];
+
+  petQuizState.questions.forEach(q => {
+    const qid = String(q.id);
+    const ua = (petQuizState.user[qid] || '').toUpperCase();
+    const correctSet = new Set(q.answerSet || []);
+
+    if (!ua) {
+      unanswered.push(q);
+    } else if (!correctSet.has(ua) && !correctSet.has('ALL')) {
+      wrong.push({
+        q,
+        ua,
+        ca: [...correctSet].join('/')
+      });
+    }
+  });
+
+  if (unanswered.length) {
+    const ok = window.confirm(`還有 ${unanswered.length} 題沒選，確定要直接交卷嗎？`);
+    if (!ok) return;
+  }
+
+  if (!wrong.length) {
+    alert('5 題全部答對！餵食成功 🎉');
+    const key = petQuizState.petKey;
+    closePetQuizOverlay(true);
+    if (key) onPetFedSuccess(key);
+    return;
+  }
+
+  petQuizState.reviewMode = true;
+  renderPetQuizQuestion();
+
+  let msg = `這一輪還沒全對喔～\\n\\n`;
+  msg += wrong.map(w => {
+    const uaLabel = w.ua || '未答';
+    const caLabel = w.ca || '-';
+    const meta = w.q.scope || {};
+    const yr = meta.year || '?';
+    const rd = meta.roundLabel || '?';
+    return `${yr} 年${rd}，原卷第 ${w.q.id} 題：你選 ${uaLabel}，正解 ${caLabel}`;
+  }).join('\\n');
+
+  msg += `\\n\\n可以根據標示修正答案，再按一次「交卷」，全對才算成功餵食。`;
+  alert(msg);
+}
+
+// ★ 之後「真正的 5 題跨卷測驗」入口（現在已經是跨卷版）
+async function startPetQuiz(petKey) {
+  const pet = petState[petKey];
+  if (!pet) return;
+
+  // 確認這隻還活著
+  updatePetBCSFromTime(petKey);
+  if (!pet.alive) {
+    alert('這隻動物已經死亡，請先按「重新養一隻」。');
+    renderCurrentPet();
+    return;
+  }
+
+  // 至少要載過一卷，確保 onScopeChange 可運作 [attached_file:3]
+  if (!yearSel || !roundSel || !subjectSel) {
+    alert('目前頁面還沒準備好題庫選單，請先載入任意一卷題目。');
+    return;
+  }
+
+  const qs = await buildCrossVolumeQuizQuestions(5);
+  if (!qs.length) {
+    alert('目前找不到可用來出題的題目（可能是答案檔沒載入成功，或題庫是空的）。');
+    return;
+  }
+
+  petQuizState.active = true;
+  petQuizState.petKey = petKey;
+  petQuizState.questions = qs;
+  petQuizState.user = {};
+  petQuizState.index = 0;
+  petQuizState.reviewMode = false;
+
+  openPetQuizOverlay(petKey);
+}
+
+// 餵食成功後要做的事情（之前版本的邏輯保留）
+function onPetFedSuccess(petKey) {
+  const pet = petState[petKey];
+  if (!pet) return;
+  if (!pet.alive) return;
+
+  updatePetBCSFromTime(petKey);
+  if (!pet.alive) {
+    renderCurrentPet();
+    return;
+  }
+
+  const BCS_MAX = 9;
+  const HEARTS_MAX = 10;
+
+  pet.bcs = Math.min(BCS_MAX, (Number(pet.bcs) || 0) + 1);
+  pet.hearts = Math.min(HEARTS_MAX, (Number(pet.hearts) || 0) + 1);
+  pet.lastFedAt = Date.now();
+  pet.bcsDropCount = 0;
+  pet.status = 'happy';
+
+  savePetsToStorage();
+  renderCurrentPet();
+
+  setTimeout(() => {
+    const p2 = petState[petKey];
+    if (!p2 || !p2.alive) return;
+    if (p2.status === 'happy') {
+      p2.status = 'normal';
+      savePetsToStorage();
+      renderCurrentPet();
+    }
+  }, 3000);
+}
+
+// 餵食按鈕：現在改成真正進入「跨卷池」小測驗
 function onFeedPetClick() {
   const key = currentPetKey;
-  console.log('準備餵食：', key);
-  // 之後要接測驗時：startPetQuiz(key);
+  const pet = petState[key];
+  if (!pet) return;
+
+  startPetQuiz(key);
 }
 
-// 加水：直接把 water 補滿 100，並重新渲染
+// 加水：直接把 water 補滿 100，死亡時則禁止
 function onWaterPetClick() {
-  const pet = petState[currentPetKey];
+  const key = currentPetKey;
+  const pet = petState[key];
   if (!pet) return;
+
+  updatePetBCSFromTime(key);
+  if (!petState[key].alive) {
+    alert('這隻動物已經死亡，無法再加水，請先重新養一隻。');
+    renderCurrentPet();
+    return;
+  }
+
   pet.water = 100;
-  // 之後可以依照 water 改變 status 或動畫
   savePetsToStorage();
   renderCurrentPet();
 }
 
-// 改名字：用 prompt，空字串視為不改
+// 改名字：死亡時就不讓改，只能重養
 function onRenamePetClick() {
-  const pet = petState[currentPetKey];
+  const key = currentPetKey;
+  const pet = petState[key];
   if (!pet) return;
+
+  updatePetBCSFromTime(key);
+  if (!petState[key].alive) {
+    alert('這隻動物已經死亡，如果要繼續玩，請先按「重新養一隻」。');
+    renderCurrentPet();
+    return;
+  }
+
   const name = window.prompt('幫這隻動物取個名字吧：', pet.name || '');
-  if (name == null) return; // 按取消
+  if (name == null) return;
   const trimmed = name.trim();
   pet.name = trimmed;
   savePetsToStorage();
   renderCurrentPet();
 }
+
+// 重新養一隻：把這一隻的狀態重置（名字保留）
+function onResetPetClick() {
+  const key = currentPetKey;
+  const pet = petState[key];
+  if (!pet) return;
+
+  const ok = window.confirm('確定要重新養一隻嗎？\\n這會重置 BCS、愛心與水量。');
+  if (!ok) return;
+
+  pet.bcs = 5;
+  pet.hearts = 5;
+  pet.water = 100;
+  pet.lastFedAt = Date.now();
+  pet.bcsDropCount = 0;
+  pet.alive = true;
+  pet.status = 'normal';
+  // 想要連名字一起重置的話，把下一行打開
+  // pet.name = '';
+
+  savePetsToStorage();
+  renderCurrentPet();
+}
+
+
 
 // ==== 留言區 DOM ==== //
 const commentsSection  = document.getElementById('comments-section');
@@ -2986,6 +3643,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('初始化寵物狀態失敗：', e);
   }
 
+  // 進來時先對三隻都跑一次時間更新
+  ['dog', 'cat', 'cow'].forEach(k => {
+    if (petState[k]) updatePetBCSFromTime(k);
+  });
+
   // 預設顯示狗狗（或未來從 storage 記最後一次選擇）
   if (!petState[currentPetKey]) {
     currentPetKey = 'dog';
@@ -2994,4 +3656,5 @@ document.addEventListener('DOMContentLoaded', () => {
   bindPetUIEvents();
   renderCurrentPet();
 });
+
 
