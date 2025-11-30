@@ -1160,7 +1160,7 @@ function enterFullscreenQuiz(){
   const mask = document.createElement("div");
   mask.id = "fsQuizMask";
   mask.style.cssText = `
-    position:fixed; inset:0; z-index:99999;
+    position:fixed; inset:0; z-index:100002;
     background:var(--bg,#111);
     display:flex; flex-direction:column;
   `;
@@ -1200,7 +1200,7 @@ function enterFullscreenQuiz(){
 
       /* ===== 測驗準備遮罩卡片 ===== */
       .fs-start-overlay{
-        position:fixed; inset:0; z-index:100000;
+        position:fixed; inset:0; z-index:100002;
         display:flex; align-items:center; justify-content:center;
         background:rgba(0,0,0,.65);
       }
