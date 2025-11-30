@@ -350,6 +350,70 @@
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-4px); }
     }
+/* ===== 我的動物：彈出視窗 ===== */
+
+    .pet-panel-mask {
+      position: fixed;
+      inset: 0;
+      z-index: 100004;
+      background: rgba(0,0,0,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    
+    .pet-panel-card {
+      width: min(520px, 100%);
+      max-height: 90vh;
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 16px;
+      border: 1px solid var(--border, #333);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .pet-panel-head {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border, #333);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .pet-panel-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .pet-panel-spacer {
+      flex: 1;
+    }
+    
+    .pet-panel-close {
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    
+    .pet-panel-close:hover {
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+    }
+    
+    .pet-panel-body {
+      padding: 12px 14px 14px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
   </style>
 </head>
 <body class="">
@@ -400,36 +464,12 @@
         <button id="show-all-questions-btn" class="btn" style="margin-top:6px; width:100%;">顯示全部題目</button>
       </div>
       <!-- 我的動物 區塊 -->
-      <div class="group" id="pets-group">
-        <div class="group-title">我的動物(還沒好先不要按)</div>
-      
-        <!-- 動物切換 tab -->
-        <div class="pet-selector">
-          <button class="btn pet-tab active" data-pet="dog">狗狗</button>
-          <button class="btn pet-tab" data-pet="cat">貓貓</button>
-          <button class="btn pet-tab" data-pet="cow">小牛</button>
-        </div>
-      
-        <!-- 動物資訊卡片 -->
-        <div class="pet-card">
-          <div class="pet-avatar pet-dog-idle"></div>
-          <div class="pet-info">
-            <div>名字：<span id="pet-name">還沒取名</span></div>
-            <div>BCS：<span id="pet-bcs">5</span></div>
-            <div>滿足度：<span id="pet-hearts">❤️❤️❤️❤️❤️</span></div>
-            <div>狀態：<span id="pet-status-label">正常</span></div>
-          </div>
-        </div>
-      
-        <div class="pet-actions">
-          <button id="btn-feed-pet" class="btn">餵食</button>
-          <button id="btn-water-pet" class="btn">加水</button>
-          <button id="btn-rename-pet" class="btn">改名字</button>
-          <!-- 只有動物死亡時才顯示 -->
-          <button id="btn-reset-pet" class="btn" style="display:none;">重新養一隻</button>
-        </div>
-
+      <!-- 我的動物 啟動按鈕（不直接顯示動物） -->
+      <div class="group" id="pets-launch-group">
+        <div class="group-title">我的動物</div>
+        <button id="btn-open-pets" class="btn" style="width:100%;">打開牧場(先不要按)</button>
       </div>
+
 
       <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
       <div class="group">
