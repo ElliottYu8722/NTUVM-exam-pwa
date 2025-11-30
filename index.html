@@ -60,25 +60,24 @@
       --pill: #052631;
     }
 
-    /* 咖啡豆：溫暖咖啡廳＋木頭桌感覺（沿用 theme-forest 的 class） */
+    /* 咖啡豆：溫暖咖啡廳＋木頭桌（背景改成接近純色） */
     body.theme-forest {
-      /* 背景：深咖啡牆＋幾塊比較亮的光暈，像咖啡廳角落 */
+      /* 背景：主色是深咖啡，只加一層很淡的大光暈 */
       --bg:
-        radial-gradient(circle at 15% 0%,   #5b3624 0%,  transparent 55%),
-        radial-gradient(circle at 85% 100%, #7a4a2a 0%,  transparent 55%),
-        linear-gradient(180deg, #1b0f0a 0%, #120a07 40%, #090504 100%);
+        radial-gradient(circle at 50% 0%, rgba(122, 74, 42, 0.25) 0%, transparent 60%),
+        #1b0f0a; /* 主底色：深咖啡牆 */
     
       /* 卡片 / 功能欄 / 題目 / 留言區 = 木頭桌面 */
-      --card: #3d2819;               /* 深胡桃木 */
-      --border: #e2c296;             /* 偏淺木色邊框 */
+      --card: #3d2819;         /* 深胡桃木 */
+      --border: #e2c296;       /* 淺木色邊框 */
     
-      --fg: #fff8eb;                 /* 卡片上的主文字 */
-      --muted: #d9c3a4;              /* 次要文字 */
+      --fg: #fff8eb;
+      --muted: #d9c3a4;
     
-      --accent: #ffc86a;             /* 按鈕高亮：焦糖色 */
-      --btn: #4a2f1d;                /* 深木頭色按鈕 */
+      --accent: #ffc86a;       /* 焦糖色按鈕高亮 */
+      --btn: #4a2f1d;
       --btn-fg: #fff8eb;
-      --pill: #2f1f14;               /* 下拉選單、膠囊底色 */
+      --pill: #2f1f14;
     }
 
 
