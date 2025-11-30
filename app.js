@@ -12,6 +12,84 @@ const state = {
   timerId: null,
   dark: true
 };
+// ===== 寵物狀態 =====
+
+const PETS_STORAGE_KEY = 'ntuvm-pets-state';
+
+let petState = {
+  dog: {
+    species: 'dog',
+    name: '',
+    bcs: 5,
+    hearts: 5,
+    water: 100,
+    lastFedAt: null,
+    alive: true,
+    status: 'normal'
+  },
+  cat: {
+    species: 'cat',
+    name: '',
+    bcs: 5,
+    hearts: 5,
+    water: 100,
+    lastFedAt: null,
+    alive: true,
+    status: 'normal'
+  },
+  cow: {
+    species: 'cow',
+    name: '',
+    bcs: 5,
+    hearts: 5,
+    water: 100,
+    lastFedAt: null,
+    alive: true,
+    status: 'normal'
+  }
+};
+
+// dog | cat | cow
+let currentPetKey = 'dog';
+
+/** 將載入到的資料安全地 merge 回預設 petState，避免舊資料缺欄位 */
+function mergePetState(defaults, loaded) {
+  const out = {};
+  for (const key of Object.keys(defaults)) {
+    const base = defaults[key];
+    const fromStorage = (loaded && loaded[key]) || {};
+    out[key] = {
+      species: fromStorage.species || base.species,
+      name: typeof fromStorage.name === 'string' ? fromStorage.name : base.name,
+      bcs: Number.isFinite(fromStorage.bcs) ? fromStorage.bcs : base.bcs,
+      hearts: Number.isFinite(fromStorage.hearts) ? fromStorage.hearts : base.hearts,
+      water: Number.isFinite(fromStorage.water) ? fromStorage.water : base.water,
+      lastFedAt: fromStorage.lastFedAt || base.lastFedAt,
+      alive: typeof fromStorage.alive === 'boolean' ? fromStorage.alive : base.alive,
+      status: typeof fromStorage.status === 'string' ? fromStorage.status : base.status
+    };
+  }
+  return out;
+}
+
+function loadPetsFromStorage() {
+  try {
+    const raw = localStorage.getItem(PETS_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    petState = mergePetState(petState, parsed);
+  } catch (e) {
+    console.error('載入寵物狀態失敗：', e);
+  }
+}
+
+function savePetsToStorage() {
+  try {
+    localStorage.setItem(PETS_STORAGE_KEY, JSON.stringify(petState));
+  } catch (e) {
+    console.error('儲存寵物狀態失敗：', e);
+  }
+}
 
 // ===== 群組管理 =====
 
@@ -241,6 +319,20 @@ const yearSel   = $("#yearSel");
 const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
 
+// ===== 我的動物 DOM =====
+
+const petsGroup = document.getElementById('pets-group');
+const petAvatarEl = petsGroup ? petsGroup.querySelector('.pet-avatar') : null;
+const petNameEl = document.getElementById('pet-name');
+const petBCSEl = document.getElementById('pet-bcs');
+const petHeartsEl = document.getElementById('pet-hearts');
+const petStatusLabelEl = document.getElementById('pet-status-label');
+
+const btnFeedPet = document.getElementById('btn-feed-pet');
+const btnWaterPet = document.getElementById('btn-water-pet');
+const btnRenamePet = document.getElementById('btn-rename-pet');
+
+
 const bSubj = $("#bSubj"), bYear = $("#bYear"), bRound = $("#bRound");
 const showAns = $("#showAns");
 const btnToggleAns = $("#btnToggleAns");
@@ -346,7 +438,142 @@ const subjectPrefix = s => {
   };
   return map[str] || "x";
 };
-// 取得選單上真正顯示給使用者看的科目文字（例如「獸醫病理學」）
+// ===== 我的動物：動畫 class mapping =====
+
+function getPetAnimationClass(pet) {
+  if (!pet || !pet.species) return '';
+  const species = pet.species;
+  const status = pet.status || 'normal';
+
+  // 目前所有狀態都先對應到 idle，之後要細分再改這裡
+  if (species === 'dog') return 'pet-dog-idle';
+  if (species === 'cat') return 'pet-cat-idle';
+  if (species === 'cow') return 'pet-cow-idle';
+  return '';
+}
+
+function updatePetAnimation(petKey) {
+  if (!petAvatarEl) return;
+  const pet = petState[petKey];
+  if (!pet) return;
+
+  // 先把舊的物種 / 狀態 class 拿掉
+  petAvatarEl.classList.remove(
+    'pet-dog-idle', 'pet-cat-idle', 'pet-cow-idle'
+    // 未來有 happy/hungry/sick/dead 再加進來
+  );
+
+  const cls = getPetAnimationClass(pet);
+  if (cls) petAvatarEl.classList.add(cls);
+}
+
+// ===== 我的動物：畫面渲染 =====
+
+function renderCurrentPet() {
+  const pet = petState[currentPetKey];
+  if (!pet || !petsGroup) return;
+
+  // 名字
+  if (petNameEl) {
+    petNameEl.textContent = pet.name && pet.name.trim()
+      ? pet.name.trim()
+      : '還沒取名';
+  }
+
+  // BCS
+  if (petBCSEl) {
+    petBCSEl.textContent = Number.isFinite(pet.bcs) ? String(pet.bcs) : '-';
+  }
+
+  // 愛心（0~10）
+  if (petHeartsEl) {
+    const maxHearts = 10;
+    const n = Math.max(0, Math.min(maxHearts, Number(pet.hearts) || 0));
+    const full = '❤️'.repeat(n);
+    const empty = '🤍'.repeat(maxHearts - n);
+    petHeartsEl.textContent = full + empty;
+  }
+
+  // 狀態文字
+  if (petStatusLabelEl) {
+    let label = '正常';
+    if (!pet.alive) {
+      label = '死亡';
+    } else {
+      switch (pet.status) {
+        case 'happy': label = '開心'; break;
+        case 'hungry': label = '肚子餓'; break;
+        case 'sick': label = '生病'; break;
+        default: label = '正常';
+      }
+    }
+    petStatusLabelEl.textContent = label;
+  }
+
+  updatePetAnimation(currentPetKey);
+}
+
+// ===== 我的動物：事件綁定 =====
+
+function bindPetUIEvents() {
+  if (!petsGroup) return;
+
+  const tabs = petsGroup.querySelectorAll('.pet-tab');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.pet;
+      if (!key || !petState[key]) return;
+
+      currentPetKey = key;
+
+      // 切換 active 樣式
+      tabs.forEach(b => b.classList.toggle('active', b === btn));
+
+      // 重新顯示目前這隻
+      renderCurrentPet();
+      savePetsToStorage();
+    });
+  });
+
+  if (btnFeedPet) {
+    btnFeedPet.addEventListener('click', onFeedPetClick);
+  }
+  if (btnWaterPet) {
+    btnWaterPet.addEventListener('click', onWaterPetClick);
+  }
+  if (btnRenamePet) {
+    btnRenamePet.addEventListener('click', onRenamePetClick);
+  }
+}
+
+// 餵食按鈕（未來會接「5 題測驗」）
+function onFeedPetClick() {
+  const key = currentPetKey;
+  console.log('準備餵食：', key);
+  // 之後要接測驗時：startPetQuiz(key);
+}
+
+// 加水：直接把 water 補滿 100，並重新渲染
+function onWaterPetClick() {
+  const pet = petState[currentPetKey];
+  if (!pet) return;
+  pet.water = 100;
+  // 之後可以依照 water 改變 status 或動畫
+  savePetsToStorage();
+  renderCurrentPet();
+}
+
+// 改名字：用 prompt，空字串視為不改
+function onRenamePetClick() {
+  const pet = petState[currentPetKey];
+  if (!pet) return;
+  const name = window.prompt('幫這隻動物取個名字吧：', pet.name || '');
+  if (name == null) return; // 按取消
+  const trimmed = name.trim();
+  pet.name = trimmed;
+  savePetsToStorage();
+  renderCurrentPet();
+}
 
 // ==== 留言區 DOM ==== //
 const commentsSection  = document.getElementById('comments-section');
@@ -2750,3 +2977,21 @@ window.addEventListener("message", (e)=>{
     toast("已儲存作答紀錄");
   }
 });
+
+// ===== 我的動物：初始化 =====
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    loadPetsFromStorage();
+  } catch (e) {
+    console.error('初始化寵物狀態失敗：', e);
+  }
+
+  // 預設顯示狗狗（或未來從 storage 記最後一次選擇）
+  if (!petState[currentPetKey]) {
+    currentPetKey = 'dog';
+  }
+
+  bindPetUIEvents();
+  renderCurrentPet();
+});
+
