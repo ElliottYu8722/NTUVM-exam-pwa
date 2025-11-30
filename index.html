@@ -60,29 +60,28 @@
       --pill: #052631;
     }
 
-
-    /* 森林：背景是綠林，所有 panel/卡片是木頭色 */
+    /* 咖啡豆：溫暖咖啡廳＋木頭桌感覺（沿用 theme-forest 的 class） */
     body.theme-forest {
-      /* 背景：上亮下深的森林綠，加一點光暈 */
+      /* 背景：深咖啡牆＋幾塊比較亮的光暈，像咖啡廳角落 */
       --bg:
-        radial-gradient(circle at 15% 0%, #b7ffcf 0%, transparent 55%),
-        radial-gradient(circle at 85% 0%, #c6ffd0 0%, transparent 55%),
-        linear-gradient(180deg, #0b2f27 0%, #145534 40%, #123723 75%, #0b2318 100%);
+        radial-gradient(circle at 15% 0%,   #5b3624 0%,  transparent 55%),
+        radial-gradient(circle at 85% 100%, #7a4a2a 0%,  transparent 55%),
+        linear-gradient(180deg, #1b0f0a 0%, #120a07 40%, #090504 100%);
     
-      /* 卡片＝木頭色（題目、側欄、留言區都吃這個） */
-      --card: #3b2819;                         /* 深胡桃木 */
-      --border: #e4c49a;                       /* 木紋邊線感覺 */
+      /* 卡片 / 功能欄 / 題目 / 留言區 = 木頭桌面 */
+      --card: #3d2819;               /* 深胡桃木 */
+      --border: #e2c296;             /* 偏淺木色邊框 */
     
-      --fg: #fff8eb;                           /* 卡片上的文字 */
-      --muted: #d6c0a1;
+      --fg: #fff8eb;                 /* 卡片上的主文字 */
+      --muted: #d9c3a4;              /* 次要文字 */
     
-      --accent: #9ef29a;                       /* 勾選 / 按鈕用亮葉綠 */
-      --btn: #46301f;                          /* 木頭色按鈕 */
+      --accent: #ffc86a;             /* 按鈕高亮：焦糖色 */
+      --btn: #4a2f1d;                /* 深木頭色按鈕 */
       --btn-fg: #fff8eb;
-      --pill: #2f2116;                         /* 小膠囊/選單底 */
-    
-      /* 讓右邊題號那條亮一點，比較像被光打到的木邊框 */
+      --pill: #2f1f14;               /* 下拉選單、膠囊底色 */
     }
+
+
     /* 蛋黃：偏亮黃＋奶油白，盡量減少橘調 */
     body.theme-yolk {
       /* 背景：偏淡檸檬奶油黃，由上到下微微變深 */
@@ -288,7 +287,7 @@
             <option value="light">亮色</option>
             <option value="sky">天空</option>
             <option value="ocean">海洋</option>
-            <option value="forest">森林</option>
+            <option value="forest">咖啡豆</option>
             <option value="yolk">蛋黃</option>
             <option value="cosmos">宇宙</option>
           </select>
