@@ -608,7 +608,7 @@ function openPetPanel() {
 
       <!-- 操作按鈕區 -->
       <div class="pet-actions">
-        <button id="btn-feed-pet" class="btn">餵題目</button>
+        <button id="btn-feed-pet" class="btn">餵食</button>
         <button id="btn-water-pet" class="btn">加水</button>
         <button id="btn-rename-pet" class="btn">改名字</button>
         <button id="btn-reset-pet" class="btn" style="display:none">復活 / 重置</button>
@@ -1283,7 +1283,7 @@ function openPetQuizOverlay(petKey) {
     <div class="pet-quiz-head">
       <div class="pet-quiz-title">餵食小測驗（跨卷池）</div>
       <div class="pet-quiz-sub">
-        會從目前科目的所有年度＋梯次隨機抽題，這一輪要全對才餵得下去喔！<br>
+        隨機抽五題，全對才能餵食！<br>
         目前動物：<span id="pet-quiz-pet-label"></span>
       </div>
     </div>
@@ -1479,7 +1479,7 @@ function submitPetQuiz() {
 
   // 全對 & 全部有作答：餵食成功
   if (!wrong.length && !unanswered.length) {
-    alert('全部答對！這次餵食非常成功！');
+    alert('餵食成功！');
 
     const key = petQuizState.petKey;
     if (!key) {
