@@ -229,7 +229,21 @@
         grid-template-columns: 1fr;
       }
     }
-
+    #comment-nickname,
+    #comment-text {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;  /* 關鍵：寬度含 padding，不會再凸出去 */
+      margin-top: 6px;
+  
+      /* 想順便讓它們長得跟整體風格一樣，可以加下面這幾行 */
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 10px;
+      border: 1px solid var(--border, #2a2a2a);
+      padding: 8px 10px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body class="">
