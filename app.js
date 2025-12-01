@@ -427,6 +427,27 @@ const subjectSel= $("#subjectSel");
 
 // 左欄那顆「打開牧場」按鈕
 const btnOpenPets = document.getElementById('btn-open-pets');
+// 只讓「遊戲入口／牧場」按鈕在 ?dev=9 時出現
+(function limitGameEntranceToDev9() {
+  try {
+    const usp = new URLSearchParams(location.search);
+    const isDev9 = usp.get('dev') === '9';
+
+    if (!isDev9) {
+      // 隱藏整個區塊（包含標題），避免留下空白
+      const petsGroup = document.getElementById('pets-launch-group');
+      if (petsGroup) {
+        petsGroup.style.display = 'none';
+      }
+    }
+  } catch (e) {
+    // 解析網址失敗就當成一般使用者，一樣隱藏
+    const petsGroup = document.getElementById('pets-launch-group');
+    if (petsGroup) {
+      petsGroup.style.display = 'none';
+    }
+  }
+})();
 
 // 牧場面板裡的節點：打開面板時才會被指向
 let petPanelMask = null;
