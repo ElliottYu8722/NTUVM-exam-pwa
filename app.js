@@ -427,13 +427,13 @@ const subjectSel= $("#subjectSel");
 
 // 左欄那顆「打開牧場」按鈕
 const btnOpenPets = document.getElementById('btn-open-pets');
-// 只讓「遊戲入口／牧場」按鈕在 ?dev=9 時出現
-(function limitGameEntranceToDev9() {
+// 只讓「遊戲入口／牧場」按鈕在 ?dev=8 時出現
+(function limitGameEntranceToDev8() {
   try {
     const usp = new URLSearchParams(location.search);
-    const isDev9 = usp.get('dev') === '9';
+    const isDev8 = usp.get('dev') === '8';
 
-    if (!isDev9) {
+    if (!isDev8) {
       // 隱藏整個區塊（包含標題），避免留下空白
       const petsGroup = document.getElementById('pets-launch-group');
       if (petsGroup) {
