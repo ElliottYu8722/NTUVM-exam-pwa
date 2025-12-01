@@ -1044,6 +1044,7 @@ const petQuizState = {
   user: {},        // { qid: 'A' | 'B' | ... }
   index: 0,
   reviewMode: false
+  submitCount: 0   // 本次餵食測驗已經「實際交卷」幾次
 };
 
 // 幫餵食小測驗塞一次 CSS（只會注入一次）
@@ -1478,69 +1479,74 @@ function submitPetQuiz() {
   const wrong = [];
   const unanswered = [];
 
-  // 檢查每一題的作答狀況
   petQuizState.questions.forEach(q => {
     const qid = String(q.id);
-    const ua = (petQuizState.user[qid] || '').toUpperCase();
+    const ua = String(petQuizState.user[qid] || "").toUpperCase();
     const correctSet = new Set(q.answerSet || []);
 
     if (!ua) {
       unanswered.push(q);
-    } else if (!correctSet.has(ua) && !correctSet.has('ALL')) {
-      wrong.push({ q, ua, ca: Array.from(correctSet).join('/') });
+    } else if (!correctSet.has(ua) && !correctSet.has("ALL")) {
+      wrong.push({ q, ua, ca: Array.from(correctSet).join("/") });
     }
   });
 
-  // 若還有未作答的題目，先確認使用者是否真的要送出
   if (unanswered.length) {
-    const ok = window.confirm(`還有 ${unanswered.length} 題沒有作答，確定要送出嗎？`);
+    const ok = window.confirm(
+      `還有 ${unanswered.length} 題沒作答，確定要交卷嗎？`
+    );
     if (!ok) return;
   }
 
-  // 全對 & 全部有作答：餵食成功
+  // 到這裡表示這一次「真的」交卷了
+  petQuizState.submitCount = (petQuizState.submitCount || 0) + 1;
+
+  // 全部答對 → 餵食成功
   if (!wrong.length && !unanswered.length) {
-    alert('餵食成功！');
-
     const key = petQuizState.petKey;
-    if (!key) {
-      closePetQuizOverlay(true);
-      return;
-    }
-
     const now = new Date();
 
-    // 把這一輪的題目 scope 都整理出來，等一下一併存進餵食紀錄
     const scopes = petQuizState.questions.map(q => q.scope || {});
-
     appendPetFeedRecord({
       ts: now.toLocaleString(),
       petKey: key,
-      petName: petState[key]?.name || '',
+      petName: petState[key]?.name || "",
       questionCount: petQuizState.questions.length,
       fromScopes: scopes,
       questions: petQuizState.questions.map(q => ({
         id: q.id,
-        subj: q.scope?.subj || '',       // 科目代碼或名稱
-        year: q.scope?.year || '',       // 年份
-        roundLabel: q.scope?.roundLabel || '', // 梯次文字
-      })),
+        subj: q.scope?.subj,
+        year: q.scope?.year,
+        roundLabel: q.scope?.roundLabel
+      }))
     });
-
-    savePetFeedRecords();
     renderPetFeedLog();
 
+    // ★ 依照 submitCount 發寵物幣：第 1 輪 10 個、第 2 輪 5 個、第 3 輪以後 0 個
+    const n = petQuizState.submitCount;
+    let reward = 0;
+    if (n === 1) reward = 10;
+    else if (n === 2) reward = 5;
+    else reward = 0;
+
+    if (reward > 0 && typeof addCoins === "function") {
+      addCoins(reward);
+      alert(`餵食成功！本輪全部答對，獎勵 🪙${reward} 寵物幣！`);
+    } else {
+      alert("餵食成功！");
+    }
+
     closePetQuizOverlay(true);
-    onPetFedSuccess(key);
+    if (key) onPetFedSuccess(key);
     return;
   }
 
-  // 有錯或有空白：進入回顧模式，讓你檢查看哪裡錯
-  alert('有一些題目答錯或未作答，進入檢討模式。');
-
+  // 還有錯題 → 進入檢討模式
   petQuizState.reviewMode = true;
-  petQuizState.index = 0;
   renderPetQuizQuestion();
+  alert("有幾題錯了，先改完再送出一次喔。");
 }
+
 
 
 
@@ -1587,7 +1593,7 @@ async function startPetQuiz(petKey) {
   petQuizState.user = {};
   petQuizState.index = 0;
   petQuizState.reviewMode = false;
-
+  petQuizState.submitCount = 0;
   openPetQuizOverlay(petKey);
 }
 
@@ -2828,49 +2834,74 @@ function enterFullscreenQuiz(){
     fs.fsTimer.textContent = `剩餘 ${m}:${s}`;
     if(qs.remain===0){ submitFS(); }
   }
-
-  function submitFS(){
-    let correct=0, wrong=[];
-    state.questions.forEach((q,idx)=>{
+  function submitFS() {
+    let correct = 0;
+    const wrong = [];
+  
+    state.questions.forEach((q, idx) => {
       const qid = String(q.id);
-      const caRaw = String(state.answers[qid]||"").toUpperCase();
-      const set = new Set(caRaw.split("/").filter(Boolean));
-      const ua = (state.user[qid]||"").toUpperCase();
-      if(set.has("ALL") || set.has(ua)){ correct++; } else { wrong.push({qid, idx, ua, ca:[...set].join("/")}); }
+      const caRaw = String(state.answers[qid] || "").toUpperCase();
+      const set = new Set(
+        caRaw
+          .split(/[\/,]/)
+          .map(s => s.trim())
+          .filter(Boolean)
+      );
+      const ua = String(state.user[qid] || "").toUpperCase();
+  
+      if (set.has("ALL") || set.has(ua)) {
+        correct++;
+      } else {
+        wrong.push({
+          qid,
+          idx,
+          ua,
+          ca: Array.from(set).join("/")
+        });
+      }
     });
+  
     const total = state.questions.length;
-    const score = total ? (correct/total*100).toFixed(2) : "0.00";
-
+    const score = total ? ((correct / total) * 100).toFixed(2) : "0.00";
+  
     const row = {
       ts: new Date().toLocaleString(),
-      subj: subjectSel.options[subjectSel.selectedIndex]?.text || subjectSel.value,
-      year: yearSel.value,
-      round: roundSel.value,
-      total, correct, score,
-      wrongIds: wrong.map(w=>w.qid).join(";") || "無",
-      wrongDetail: wrong.map(w=>`${w.qid}:${w.ua||"-"}→${w.ca||"-"}`).join(";"),
+      subj: getSubjectLabel(),
+      year: yearSel ? yearSel.value : "",
+      round: roundSel ? roundSel.value : "",
+      total,
+      correct,
+      score,
+      wrongIds: wrong.map(w => w.qid).join(","),
+      wrongDetail: wrong.map(w => `${w.qid}:${w.ua || "-"}→${w.ca || "-"}`).join("、"),
       summary: summarizeChoices()
     };
+  
     appendRecord(row);
-
-    if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
-
-    const goReview = confirm(
-      `測驗提交！\n正確：${correct}/${total}\n得分：${score}\n錯誤題號：${row.wrongIds}\n\n要進入『僅看錯題』回顧模式嗎？`
+  
+    if (qs.timerId) {
+      clearInterval(qs.timerId);
+      qs.timerId = null;
+    }
+  
+    const goReview = window.confirm(
+      `本卷得分：${score} 分（${correct}/${total}）\n是否只看本次錯題？`
     );
-
-    if(goReview && wrong.length){
-      qs.mode="review";
+  
+    if (goReview && wrong.length) {
+      qs.mode = "review";
       fs.fsTimer.classList.add("fs-hidden");
       fs.fsSubmit.classList.add("fs-hidden");
-      qs.reviewOrder = wrong.map(w=>w.idx);
+      qs.reviewOrder = wrong.map(w => w.idx);
       qs.reviewPos = 0;
       qs.index = qs.reviewOrder[0];
       renderFS();
-    }else{
+    } else {
       closeFS();
     }
   }
+
+
 
   function closeFS(){
     if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
@@ -2942,53 +2973,87 @@ function tick(){
   if(state.remain===0){ submitQuiz(); }
 }
 
-function submitQuiz(){
-  if(state.mode!=="quiz"){ closeQuiz(); return; }
-  // 計分
-  let correct=0, wrong=[];
-  state.questions.forEach((q,idx)=>{
-    const qid = String(q.id);
-    const caRaw = String(state.answers[qid]||"").toUpperCase();
-    const set = new Set(caRaw.split("/").filter(Boolean));
-    const ua = (state.user[qid]||"").toUpperCase();
-    if(set.has("ALL") || set.has(ua)){ correct++; } else { wrong.push({qid, idx, ua, ca:[...set].join("/")}); }
-  });
-  const total = state.questions.length;
-  const score = total ? (correct/total*100).toFixed(2) : "0.00";
+function submitQuiz() {
+  // 不是測驗模式就直接關閉
+  if (state.mode !== "quiz") {
+    closeQuiz();
+    return;
+  }
 
-  // 寫作答紀錄
+  let correct = 0;
+  const wrong = [];
+
+  state.questions.forEach((q, idx) => {
+    const qid = String(q.id);
+    const caRaw = String(state.answers[qid] || "").toUpperCase();
+
+    // 支援 "A/B" 或 "A,B" 這兩種格式
+    const set = new Set(
+      caRaw
+        .split(/[\/,]/)
+        .map(s => s.trim())
+        .filter(Boolean)
+    );
+
+    const ua = String(state.user[qid] || "").toUpperCase();
+
+    // 規則：
+    // - 若答案包含 "ALL"（全部皆是），就代表任何選項都算對
+    // - 或者只要有一個選項在 set 裡，就算答對
+    if (set.has("ALL") || set.has(ua)) {
+      correct++;
+    } else {
+      wrong.push({
+        qid,
+        idx,
+        ua,
+        ca: Array.from(set).join("/")
+      });
+    }
+  });
+
+  const total = state.questions.length;
+  const score = total ? ((correct / total) * 100).toFixed(2) : "0.00";
+
   const row = {
     ts: new Date().toLocaleString(),
-    subj: subjectSel.value,
-    year: yearSel.value,
-    round: roundSel.value,
-    total, correct, score,
-    wrongIds: wrong.map(w=>w.qid).join(";") || "無",
-    wrongDetail: wrong.map(w=>`${w.qid}:${w.ua||"-"}→${w.ca||"-"}`).join(";"),
+    subj: subjectSel ? subjectSel.value : "",
+    year: yearSel ? yearSel.value : "",
+    round: roundSel ? roundSel.value : "",
+    total,
+    correct,
+    score,
+    wrongIds: wrong.map(w => w.qid).join(","),
+    wrongDetail: wrong.map(w => `${w.qid}:${w.ua || "-"}→${w.ca || "-"}`).join("、"),
     summary: summarizeChoices()
   };
+
   appendRecord(row);
 
-  if(state.timerId){ clearInterval(state.timerId); state.timerId=null; }
+  if (state.timerId) {
+    clearInterval(state.timerId);
+    state.timerId = null;
+  }
 
-  const goReview = confirm(
-    `測驗提交！\n正確：${correct}/${total}\n得分：${score}\n錯誤題號：${row.wrongIds}\n\n要進入『僅看錯題』回顧模式嗎？`
+  const goReview = window.confirm(
+    `本卷得分：${score} 分（${correct}/${total}）\n是否只看本次錯題？`
   );
 
-  if(goReview && wrong.length){
-    state.mode="review";
+  if (goReview && wrong.length) {
+    state.mode = "review";
     timerBadge.classList.add("hidden");
     btnSubmit.classList.add("hidden");
     btnClose.classList.remove("hidden");
-    state.reviewOrder = wrong.map(w=>w.idx);
+    state.reviewOrder = wrong.map(w => w.idx);
     state.reviewPos = 0;
     state.index = state.reviewOrder[0];
     reviewTag.classList.remove("hidden");
     renderQuestion();
-  }else{
+  } else {
     closeQuiz();
   }
 }
+
 
 function summarizeChoices(){
   const cnt = {A:0,B:0,C:0,D:0,"未答":0};
