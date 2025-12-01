@@ -869,7 +869,6 @@ function openPetPanel() {
           <div><span id="pet-name">未命名</span></div>
           <div>BCS：<span id="pet-bcs">5</span></div>
           <div>水分：<span id="pet-water">100</span>%</div>
-          <div>愛心：<span id="pet-hearts">♥♥♥♥♥♡♡♡♡♡</span></div>
           <div>狀態：<span id="pet-status-label">正常</span></div>
         </div>
       </div>
@@ -1426,14 +1425,6 @@ function renderCurrentPet() {
     petBCSEl.textContent = Number.isFinite(pet.bcs) ? String(pet.bcs) : '-';
   }
 
-  // 愛心（0~10）
-  if (petHeartsEl) {
-    const maxHearts = 10;
-    const n = Math.max(0, Math.min(maxHearts, Number(pet.hearts) || 0));
-    const full = '❤️'.repeat(n);
-    const empty = '🤍'.repeat(maxHearts - n);
-    petHeartsEl.textContent = full + empty;
-  }
 
   // 狀態文字
   if (petStatusLabelEl) {
