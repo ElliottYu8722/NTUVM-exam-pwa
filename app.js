@@ -1511,7 +1511,7 @@ const petQuizState = {
   questions: [],   // 這一輪的題目 [{id,text,options,image,answerSet,scope}, ...]
   user: {},        // { qid: 'A' | 'B' | ... }
   index: 0,
-  reviewMode: false
+  reviewMode: false,
   submitCount: 0   // 本次餵食測驗已經「實際交卷」幾次
 };
 
