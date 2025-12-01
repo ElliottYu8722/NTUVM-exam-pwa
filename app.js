@@ -1717,8 +1717,7 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
     const answerSet = Array.from(
       new Set(
         caRaw
-          .split(',')
-          .map(x => x.trim())
+          .split(/[\/,]/)           // ← 這行是關鍵          .map(x => x.trim())
           .filter(Boolean)
       )
     );
@@ -1949,13 +1948,37 @@ function submitPetQuiz() {
 
   petQuizState.questions.forEach(q => {
     const qid = String(q.id);
-    const ua = String(petQuizState.user[qid] || "").toUpperCase();
-    const correctSet = new Set(q.answerSet || []);
+    const ua = String(petQuizState.user[qid] || "").trim().toUpperCase();
+
+    // 先整理正確答案集合：
+    // 1. 若 q.answerSet 已經有值，就優先使用（例如之前預先算好的陣列）
+    // 2. 否則就從 state.answers[qid] 重新 parse，一次支援 C/D、C,D 寫法
+    let correctLetters = [];
+
+    if (Array.isArray(q.answerSet) && q.answerSet.length) {
+      correctLetters = q.answerSet.map(x =>
+        String(x).trim().toUpperCase()
+      );
+    } else {
+      const raw = String(state.answers[qid] || "").toUpperCase();
+      correctLetters = raw
+        .split(/[\/,]/)           // 同時用 / 和 , 當分隔符
+        .map(x => x.trim())
+        .filter(Boolean);
+    }
+
+    const correctSet = new Set(correctLetters);
 
     if (!ua) {
+      // 完全沒作答
       unanswered.push(q);
     } else if (!correctSet.has(ua) && !correctSet.has("ALL")) {
-      wrong.push({ q, ua, ca: Array.from(correctSet).join("/") });
+      // 有作答，但不在正確答案集合裡，且也不是「ALL 題皆給分」的特例
+      wrong.push({
+        q,
+        ua,
+        ca: Array.from(correctSet).join("/") || "?"
+      });
     }
   });
 
@@ -2018,6 +2041,7 @@ function submitPetQuiz() {
 
 
 
+
 // ★ 之後「真正的 5 題跨卷測驗」入口（現在已經是跨卷版）
 async function startPetQuiz(petKey) {
   const pet = petState[petKey];
@@ -2063,6 +2087,27 @@ async function startPetQuiz(petKey) {
   petQuizState.reviewMode = false;
   petQuizState.submitCount = 0;
   openPetQuizOverlay(petKey);
+}
+// 判斷餵食小考某一題是否作對：答案集裡只要有選到一個就算對
+function isPetQuizAnswerCorrect(q, userChoice) {
+  if (!userChoice) return false;
+  const uc = String(userChoice).trim().toUpperCase();
+
+  let set = null;
+
+  // 優先用出題時算好的 answerSet
+  if (Array.isArray(q.answerSet) && q.answerSet.length) {
+    set = q.answerSet.map(x => String(x).trim().toUpperCase());
+  } else {
+    // 保險：萬一沒有 answerSet，就從 state.answers 重新解析一次
+    const raw = String(state.answers[String(q.id)] || '').toUpperCase();
+    set = raw
+      .split(/[\/,]/)
+      .map(x => x.trim())
+      .filter(Boolean);
+  }
+
+  return set.includes(uc);
 }
 
 // 餵食成功後要做的事情（之前版本的邏輯保留）
