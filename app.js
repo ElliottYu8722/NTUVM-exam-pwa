@@ -3672,7 +3672,21 @@ function openRecordsViewer(arr){
     tr.innerHTML = cells
       .map(c => `<td>${escapeHTML(String(c ?? ""))}</td>`)
       .join("");
-  
+    
+    const btnReview = document.createElement("button");
+    btnReview.textContent = "回顧錯題";
+    btnReview.style.padding = "4px 8px";
+    btnReview.style.borderRadius = "9999px";
+    btnReview.style.border = "1px solid var(--border)";
+    btnReview.style.background = "transparent";
+    btnReview.style.color = "var(--accent)";
+    btnReview.style.cursor = "pointer";
+    btnReview.style.fontSize = "12px";
+    btnReview.onclick = () => {
+      reviewRecordWrong(arr[idx]);
+    };
+    tdOp.appendChild(btnReview);
+    
     // 🆕 第 11 欄：操作（刪除按鈕）
     const tdOp = document.createElement("td");
     const btnDel = document.createElement("button");
@@ -3724,6 +3738,30 @@ function openRecordsViewer(arr){
   mask.appendChild(card);
   document.body.appendChild(mask);
 }
+function reviewRecordWrong(record) {
+  // 建立錯題回顧試題資料
+  state.mode = "review";
+  state.reviewOrder = [];
+  state.reviewPos = 0;
+  // 錯題資訊格式要跟 row.wrongIds 一致
+  if (record && record.wrongIds) {
+    let wrongIds = record.wrongIds.split(",");
+    state.reviewOrder = wrongIds.map(id =>
+      state.questions.findIndex(q => String(q.id) === id)
+    ).filter(idx => idx >= 0);
+    state.reviewPos = 0;
+    if(state.reviewOrder.length > 0){
+      state.index = state.reviewOrder[0];
+      document.getElementById("reviewTag")?.classList.remove("hidden");
+      renderQuestion();
+    } else {
+      alert("沒有錯題可以回顧！");
+    }
+  } else {
+    alert("這筆紀錄沒有紀錄錯題資訊。");
+  }
+}
+
 // ===== 匯出目前這一卷的詳解（作者模式專用） =====
 function exportNotesForCurrentScope(){
   // 先確保當前題目的筆記有存進去
