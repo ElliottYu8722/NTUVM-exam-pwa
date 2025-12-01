@@ -24,37 +24,60 @@ let petState = {
     name: '',
     bcs: 5,
     hearts: 5,
+    coins: 0,
     water: 100,
     lastFedAt: null,
     lastWaterAt: null,
     alive: true,
     status: 'normal',
-    // 從最後一次餵食後，已經因為超過 12 小時而扣了幾次 BCS
-    bcsDropCount: 0
+    bcsDropCount: 0,
+    walkDayKey: '',
+    walkCount: 0,
+    lastWalkAt: null,
+    playDayKey: '',
+    playCount: 0,
+    lastPlayAt: null
   },
   cat: {
     species: 'cat',
     name: '',
     bcs: 5,
     hearts: 5,
+    coins: 0,
     water: 100,
     lastFedAt: null,
+    lastWaterAt: null,
     alive: true,
     status: 'normal',
-    bcsDropCount: 0
+    bcsDropCount: 0,
+    walkDayKey: '',
+    walkCount: 0,
+    lastWalkAt: null,
+    playDayKey: '',
+    playCount: 0,
+    lastPlayAt: null
   },
   cow: {
     species: 'cow',
     name: '',
     bcs: 5,
     hearts: 5,
+    coins: 0,
     water: 100,
     lastFedAt: null,
+    lastWaterAt: null,
     alive: true,
     status: 'normal',
-    bcsDropCount: 0
+    bcsDropCount: 0,
+    walkDayKey: '',
+    walkCount: 0,
+    lastWalkAt: null,
+    playDayKey: '',
+    playCount: 0,
+    lastPlayAt: null
   }
 };
+
 // ===== 我的動物：餵食紀錄 =====
 const PET_FEED_RECORDS_KEY = 'ntuvm-pet-feed-records';
 let petFeedRecords = [];
@@ -161,6 +184,7 @@ function mergePetState(defaults, loaded) {
       name: typeof fromStorage.name === 'string' ? fromStorage.name : base.name,
       bcs: Number.isFinite(fromStorage.bcs) ? fromStorage.bcs : base.bcs,
       hearts: Number.isFinite(fromStorage.hearts) ? fromStorage.hearts : base.hearts,
+      coins: Number.isFinite(fromStorage.coins) ? fromStorage.coins : 0,
       water: Number.isFinite(fromStorage.water) ? fromStorage.water : base.water,
       lastFedAt: fromStorage.lastFedAt || base.lastFedAt,
       lastWaterAt: fromStorage.lastWaterAt || base.lastWaterAt,
@@ -168,11 +192,18 @@ function mergePetState(defaults, loaded) {
       status: typeof fromStorage.status === 'string' ? fromStorage.status : base.status,
       bcsDropCount: Number.isFinite(fromStorage.bcsDropCount)
         ? fromStorage.bcsDropCount
-        : (base.bcsDropCount || 0)
+        : (base.bcsDropCount || 0),
+      walkDayKey: typeof fromStorage.walkDayKey === 'string' ? fromStorage.walkDayKey : '',
+      walkCount: Number.isFinite(fromStorage.walkCount) ? fromStorage.walkCount : 0,
+      lastWalkAt: fromStorage.lastWalkAt || null,
+      playDayKey: typeof fromStorage.playDayKey === 'string' ? fromStorage.playDayKey : '',
+      playCount: Number.isFinite(fromStorage.playCount) ? fromStorage.playCount : 0,
+      lastPlayAt: fromStorage.lastPlayAt || null
     };
   }
   return out;
 }
+
 
 function loadPetsFromStorage() {
   try {
@@ -192,6 +223,209 @@ function savePetsToStorage() {
     console.error('儲存寵物狀態失敗：', e);
   }
 }
+// ====== 經濟與互動參數 ======
+const ECON = {
+  BIG_SNACK_COST: 50,
+  BIG_SNACK_HEARTS: 100,
+  SMALL_SNACK_COST: 20,
+  SMALL_SNACK_HEARTS: 30,
+  WALK_HEARTS: 5,
+  PLAY_HEARTS: 2,
+  WALK_INTERVAL_HRS: 12,
+  WALK_MAX_PER_DAY: 2,
+  PLAY_INTERVAL_HRS: 3,
+  PLAY_MAX_PER_DAY: 5
+};
+
+// ====== 小工具 ======
+function nowTs() { return Date.now(); }
+function hoursSince(ts) {
+  if (!ts) return Infinity;
+  return (nowTs() - new Date(ts).getTime()) / 36e5;
+}
+function dayKey(ts = nowTs()) {
+  const d = new Date(ts);
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${dd}`;
+}
+function getPet() { return petState[currentPetKey]; }
+function setPet(p) { petState[currentPetKey] = p; savePetsToStorage(); }
+
+// ====== 狀態文字（飽足感） ======
+function satietyLabel(p) {
+  const h = hoursSince(p.lastFedAt);
+  if (!isFinite(h)) return "一般";
+  if (h < 6) return "飽足";
+  if (h < 12) return "一般";
+  if (h < 24) return "飢餓";
+  return "超餓";
+}
+
+// ====== HUD 渲染 ======
+const coinCounterEl = document.getElementById("coinCounter");
+const heartCounterEl = document.getElementById("heartCounter");
+const btnWalkEl = document.getElementById("btnWalk");
+const btnPlayEl = document.getElementById("btnPlay");
+
+function renderTopCounters() {
+  const p = getPet();
+  if (!p) return;
+
+  if (coinCounterEl) coinCounterEl.textContent = Math.max(0, Math.floor(p.coins || 0));
+  if (heartCounterEl) heartCounterEl.textContent = Math.max(0, Math.floor(p.hearts || 0));
+
+  const dk = dayKey();
+
+  if (btnWalkEl) {
+    const used = (p.walkDayKey === dk) ? p.walkCount : 0;
+    const canByCount = used < ECON.WALK_MAX_PER_DAY;
+    const canByTime = hoursSince(p.lastWalkAt) >= ECON.WALK_INTERVAL_HRS;
+    btnWalkEl.disabled = !(canByCount && canByTime);
+  }
+
+  if (btnPlayEl) {
+    const used = (p.playDayKey === dk) ? p.playCount : 0;
+    const canByCount = used < ECON.PLAY_MAX_PER_DAY;
+    const canByTime = hoursSince(p.lastPlayAt) >= ECON.PLAY_INTERVAL_HRS;
+    btnPlayEl.disabled = !(canByCount && canByTime);
+  }
+}
+
+function addHearts(n) {
+  const p = getPet();
+  if (!p) return;
+  p.hearts = Math.max(0, Math.floor((p.hearts || 0) + n));
+  setPet(p);
+  renderTopCounters();
+}
+
+function addCoins(n) {
+  const p = getPet();
+  if (!p) return;
+  p.coins = Math.max(0, Math.floor((p.coins || 0) + n));
+  setPet(p);
+  renderTopCounters();
+}
+
+// ====== 商店邏輯 ======
+const shopMask = document.getElementById("shopMask");
+const shopClose = document.getElementById("shopClose");
+const shopCoin = document.getElementById("shopCoin");
+const shopHeart = document.getElementById("shopHeart");
+const shopStatus = document.getElementById("shopStatus");
+const buyBigSnack = document.getElementById("buyBigSnack");
+const buySmallSnack = document.getElementById("buySmallSnack");
+const buyToy = document.getElementById("buyToy");
+
+function openShop() {
+  const p = getPet();
+  if (!p) return;
+  if (shopCoin) shopCoin.textContent = Math.floor(p.coins || 0);
+  if (shopHeart) shopHeart.textContent = Math.floor(p.hearts || 0);
+  if (shopStatus) {
+    const sat = satietyLabel(p);
+    const water = Math.max(0, Math.min(100, Math.floor(p.water || 0)));
+    shopStatus.textContent = `狀態：${sat}｜水 ${water}%`;
+  }
+  if (shopMask) shopMask.style.display = "flex";
+}
+
+function closeShop() {
+  if (shopMask) shopMask.style.display = "none";
+}
+
+function tryBuy(cost, onSuccess) {
+  const p = getPet();
+  if (!p) return;
+  if ((p.coins || 0) < cost) {
+    alert("寵物幣不足 > <");
+    return;
+  }
+  p.coins -= cost;
+  setPet(p);
+  if (typeof onSuccess === "function") onSuccess();
+  renderTopCounters();
+  openShop();
+}
+
+if (shopClose) shopClose.addEventListener("click", closeShop);
+
+if (buyBigSnack) buyBigSnack.addEventListener("click", () => {
+  tryBuy(ECON.BIG_SNACK_COST, () => {
+    addHearts(ECON.BIG_SNACK_HEARTS);
+    alert("大零食購買成功，愛心 +100！");
+  });
+});
+
+if (buySmallSnack) buySmallSnack.addEventListener("click", () => {
+  tryBuy(ECON.SMALL_SNACK_COST, () => {
+    addHearts(ECON.SMALL_SNACK_HEARTS);
+    alert("小零食購買成功，愛心 +30！");
+  });
+});
+
+if (buyToy) buyToy.addEventListener("click", () => {
+  tryBuy(30, () => {
+    alert("玩具購買成功，之後可以在小遊戲區讓牠玩～");
+  });
+});
+
+// ====== 遛狗 / 玩耍 ======
+function walkOnce() {
+  const p = getPet();
+  if (!p) return;
+  const dk = dayKey();
+  const used = (p.walkDayKey === dk) ? p.walkCount : 0;
+  const canByCount = used < ECON.WALK_MAX_PER_DAY;
+  const canByTime = hoursSince(p.lastWalkAt) >= ECON.WALK_INTERVAL_HRS;
+
+  if (!canByCount) return alert("今天的遛狗次數已用完！");
+  if (!canByTime) return alert("還沒到 12 小時喔～");
+
+  p.walkDayKey = dk;
+  p.walkCount = used + 1;
+  p.lastWalkAt = new Date().toISOString();
+  setPet(p);
+  addHearts(ECON.WALK_HEARTS);
+}
+
+function playOnce() {
+  const p = getPet();
+  if (!p) return;
+  const dk = dayKey();
+  const used = (p.playDayKey === dk) ? p.playCount : 0;
+  const canByCount = used < ECON.PLAY_MAX_PER_DAY;
+  const canByTime = hoursSince(p.lastPlayAt) >= ECON.PLAY_INTERVAL_HRS;
+
+  if (!canByCount) return alert("今天的玩耍次數已用完！");
+  if (!canByTime) return alert("還沒到 3 小時喔～");
+
+  p.playDayKey = dk;
+  p.playCount = used + 1;
+  p.lastPlayAt = new Date().toISOString();
+  setPet(p);
+  addHearts(ECON.PLAY_HEARTS);
+
+  // 小遊戲區 3D 模型轉一圈
+  try {
+    const mv = document.getElementById("petModel");
+    if (mv) {
+      mv.setAttribute("auto-rotate", "");
+      setTimeout(() => mv.removeAttribute("auto-rotate"), 2500);
+    }
+  } catch {}
+}
+
+// 綁定頂部按鈕
+const btnOpenShopEl = document.getElementById("btnOpenShop");
+if (btnOpenShopEl) btnOpenShopEl.addEventListener("click", openShop);
+if (btnWalkEl) btnWalkEl.addEventListener("click", () => { walkOnce(); renderTopCounters(); });
+if (btnPlayEl) btnPlayEl.addEventListener("click", () => { playOnce(); renderTopCounters(); });
+
+// 載入寵物狀態並刷新 HUD（如果你在其他地方已經呼叫 loadPetsFromStorage，也沒關係）
+try { loadPetsFromStorage(); } catch {}
+renderTopCounters();
 
 
 // ===== 群組管理 =====
@@ -602,52 +836,113 @@ function openPetPanel() {
   const card = document.createElement('div');
   card.className = 'pet-panel-card';
   card.innerHTML = `
+    <!-- 面板頂部 -->
     <div class="pet-panel-head">
-      <div class="pet-panel-title">我的動物</div>
+      <div class="pet-panel-title">我的動物 🐾</div>
       <div class="pet-panel-spacer"></div>
-      <button type="button" class="pet-panel-close" id="btn-close-pet-panel">關閉</button>
+      <button type="button" class="pet-panel-close" id="btn-close-pet-panel">✕</button>
     </div>
+
     <div class="pet-panel-body">
-      <!-- 寵物切換 tab -->
-      <div class="pet-selector">
-        <button type="button" class="btn pet-tab" data-pet="dog">狗狗</button>
-        <button type="button" class="btn pet-tab" data-pet="cat">貓貓</button>
-        <button type="button" class="btn pet-tab" data-pet="cow">小牛</button>
+      <!-- 🪙/❤️ 顯示區 + 商店/遛狗/玩耍按鈕 -->
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:120px; padding:8px 12px; border-radius:10px; background:rgba(0,0,0,0.05); font-weight:600;">
+          🪙 <span id="pet-panel-coin">0</span>
+          &nbsp;&nbsp;❤️ <span id="pet-panel-hearts">0</span>
+        </div>
+        <button id="pet-btn-shop" class="btn" style="height:32px;">商店</button>
+        <button id="pet-btn-walk" class="btn" style="height:32px;">遛狗</button>
+        <button id="pet-btn-play" class="btn" style="height:32px;">玩耍</button>
       </div>
 
-      <!-- 寵物基本資訊 -->
+      <!-- 切換動物的 tab -->
+      <div class="pet-selector">
+        <button class="btn pet-tab" data-pet="dog">🐶 狗狗</button>
+        <button class="btn pet-tab" data-pet="cat">🐱 貓咪</button>
+        <button class="btn pet-tab" data-pet="cow">🐮 乳牛</button>
+      </div>
+
+      <!-- 寵物資訊卡片 -->
       <div class="pet-card">
         <div class="pet-avatar"></div>
         <div class="pet-info">
-          <div><span id="pet-name"></span></div>
+          <div><span id="pet-name">未命名</span></div>
           <div>BCS：<span id="pet-bcs">5</span></div>
-          <div>水分：<span id="pet-water">100</span></div>
-          <div>好感度：<span id="pet-hearts"></span></div>
-          <div>狀態：<span id="pet-status-label"></span></div>
+          <div>水分：<span id="pet-water">100</span>%</div>
+          <div>愛心：<span id="pet-hearts">♥♥♥♥♥♡♡♡♡♡</span></div>
+          <div>狀態：<span id="pet-status-label">正常</span></div>
         </div>
       </div>
 
-      <!-- 操作按鈕區 -->
+      <!-- 餵食 / 喝水 / 重新命名 / 重置 -->
       <div class="pet-actions">
-        <button id="btn-feed-pet" class="btn">餵食</button>
-        <button id="btn-water-pet" class="btn">加水</button>
-        <button id="btn-rename-pet" class="btn">改名字</button>
-        <button id="btn-reset-pet" class="btn" style="display:none">復活 / 重置</button>
-        <button id="btn-adopt-pet" class="btn">不想養了，給人領養</button>
+        <button id="btn-feed-pet" class="btn">餵食（小遊戲）</button>
+        <button id="btn-water-pet" class="btn">給水</button>
+        <button id="btn-rename-pet" class="btn">重新命名</button>
+        <button id="btn-reset-pet" class="btn" style="display:none;">復活寵物</button>
       </div>
 
-      <!-- 最近餵食紀錄 -->
+      <!-- 餵食成功記錄（最近 5 筆） -->
       <div class="pet-feed-log">
-        <div class="pet-feed-log-title">最近 5 次餵食紀錄</div>
+        <div class="pet-feed-log-title">最近 5 次餵食成功</div>
         <div class="pet-feed-log-list" id="pet-feed-log-list"></div>
+      </div>
+
+      <!-- 小遊戲區（草地 + 3D 模型） -->
+      <div style="margin-top:16px; border-radius:12px; overflow:hidden; height:280px; background:radial-gradient(circle at 20% 30%, #a8e6a3 0%, #7ddc7a 40%, #5dbf5f 100%); position:relative;">
+        <div style="position:absolute; left:12px; top:8px; font-weight:700; color:#0b3d0b; text-shadow:0 1px 0 #fff;">小遊戲區</div>
+        <div style="width:100%; height:100%; display:grid; place-items:center;">
+          <model-viewer id="pet-model-viewer"
+            src="assets/dog.glb"
+            alt="Pet 3D Model"
+            camera-controls
+            auto-rotate
+            exposure="1.1"
+            environment-image="neutral"
+            style="width:100%; height:100%;"
+            shadow-intensity="0.7">
+          </model-viewer>
+        </div>
+      </div>
+    </div>
+
+    <!-- 商店面板（隱藏在面板內的子彈窗） -->
+    <div id="pet-shop-overlay" style="display:none; position:absolute; inset:0; background:rgba(0,0,0,0.6); z-index:10; border-radius:14px; padding:16px; overflow:auto;">
+      <div style="background:#fff; color:#111; border-radius:12px; padding:16px; max-width:480px; margin:0 auto;">
+        <span style="float:right; cursor:pointer; font-size:20px;" id="pet-shop-close">✕</span>
+        <h3 style="margin:0 0 8px 0;">寵物商店</h3>
+        <div style="margin-bottom:12px;">
+          當前：🪙<span id="shop-coin-display">0</span>
+          &nbsp;❤️<span id="shop-heart-display">0</span>
+          <br><span id="shop-status-display"></span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="border:1px solid #ddd; border-radius:10px; padding:12px;">
+            <h4 style="margin:0 0 6px 0;">大零食</h4>
+            <div>價格：🪙50</div>
+            <div>效果：+100 ❤️</div>
+            <button id="shop-buy-big" style="margin-top:8px; width:100%; height:32px; border:none; border-radius:6px; background:#16a34a; color:#fff; cursor:pointer;">購買</button>
+          </div>
+          <div style="border:1px solid #ddd; border-radius:10px; padding:12px;">
+            <h4 style="margin:0 0 6px 0;">小零食</h4>
+            <div>價格：🪙20</div>
+            <div>效果：+30 ❤️</div>
+            <button id="shop-buy-small" style="margin-top:8px; width:100%; height:32px; border:none; border-radius:6px; background:#16a34a; color:#fff; cursor:pointer;">購買</button>
+          </div>
+          <div style="border:1px solid #ddd; border-radius:10px; padding:12px;">
+            <h4 style="margin:0 0 6px 0;">玩具</h4>
+            <div>價格：🪙30</div>
+            <div>效果：給寵物玩</div>
+            <button id="shop-buy-toy" style="margin-top:8px; width:100%; height:32px; border:none; border-radius:6px; background:#16a34a; color:#fff; cursor:pointer;">購買</button>
+          </div>
+        </div>
       </div>
     </div>
   `;
-
   mask.appendChild(card);
   document.body.appendChild(mask);
 
-  // 把 DOM 節點指到全域變數
+  // ========== 抓取面板內的元素 ==========
   petPanelMask = mask;
   petPanelCard = card;
   petAvatarEl = card.querySelector('.pet-avatar');
@@ -656,30 +951,203 @@ function openPetPanel() {
   petHeartsEl = document.getElementById('pet-hearts');
   petStatusLabelEl = document.getElementById('pet-status-label');
   petWaterEl = document.getElementById('pet-water');
+
   btnFeedPet = document.getElementById('btn-feed-pet');
   btnWaterPet = document.getElementById('btn-water-pet');
   btnRenamePet = document.getElementById('btn-rename-pet');
   btnResetPet = document.getElementById('btn-reset-pet');
-  btnAdoptPet = document.getElementById('btn-adopt-pet');
 
   const btnClosePanel = document.getElementById('btn-close-pet-panel');
-  if (btnClosePanel) {
-    btnClosePanel.addEventListener('click', closePetPanel);
-  }
-  // 點遮罩空白處也可以關閉
-  mask.addEventListener('click', e => {
+  if (btnClosePanel) btnClosePanel.addEventListener('click', closePetPanel);
+  mask.addEventListener('click', (e) => {
     if (e.target === mask) closePetPanel();
   });
 
-  // 綁定按鈕事件（含新加入的給人領養）
+  // ========== 面板內的 🪙/❤️ 顯示元素 ==========
+  const petPanelCoinEl = document.getElementById('pet-panel-coin');
+  const petPanelHeartsEl = document.getElementById('pet-panel-hearts');
+
+  // ========== 商店元素 ==========
+  const shopOverlay = document.getElementById('pet-shop-overlay');
+  const shopClose = document.getElementById('pet-shop-close');
+  const shopCoinDisplay = document.getElementById('shop-coin-display');
+  const shopHeartDisplay = document.getElementById('shop-heart-display');
+  const shopStatusDisplay = document.getElementById('shop-status-display');
+  const shopBuyBig = document.getElementById('shop-buy-big');
+  const shopBuySmall = document.getElementById('shop-buy-small');
+  const shopBuyToy = document.getElementById('shop-buy-toy');
+
+  // ========== 遛狗/玩耍按鈕 ==========
+  const btnShop = document.getElementById('pet-btn-shop');
+  const btnWalk = document.getElementById('pet-btn-walk');
+  const btnPlay = document.getElementById('pet-btn-play');
+
+  // ========== 工具函式（放在這裡或外面都可以） ==========
+  function getPet() { return petState[currentPetKey]; }
+  function setPet(p) { petState[currentPetKey] = p; savePetsToStorage(); }
+  function nowTs() { return Date.now(); }
+  function hoursSince(ts) {
+    if (!ts) return Infinity;
+    return (nowTs() - new Date(ts).getTime()) / 36e5;
+  }
+  function dayKey(ts = nowTs()) {
+    const d = new Date(ts);
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${d.getFullYear()}-${m}-${dd}`;
+  }
+  function satietyLabel(p) {
+    const h = hoursSince(p.lastFedAt);
+    if (!isFinite(h)) return '一般';
+    if (h < 6) return '飽足';
+    if (h < 12) return '一般';
+    if (h < 24) return '飢餓';
+    return '超餓';
+  }
+
+  // ========== 更新面板內的 🪙/❤️ 顯示 ==========
+  function updatePanelCounters() {
+    const p = getPet();
+    if (!p) return;
+    if (petPanelCoinEl) petPanelCoinEl.textContent = Math.max(0, Math.floor(p.coins || 0));
+    if (petPanelHeartsEl) petPanelHeartsEl.textContent = Math.max(0, Math.floor(p.hearts || 0));
+
+    // 遛狗/玩耍按鈕狀態
+    const dk = dayKey();
+    if (btnWalk) {
+      const used = (p.walkDayKey === dk) ? p.walkCount : 0;
+      const canByCount = used < 2; // 每日 2 次
+      const canByTime = hoursSince(p.lastWalkAt) >= 12; // 間隔 12 小時
+      btnWalk.disabled = !(canByCount && canByTime);
+    }
+    if (btnPlay) {
+      const used = (p.playDayKey === dk) ? p.playCount : 0;
+      const canByCount = used < 5; // 每日 5 次
+      const canByTime = hoursSince(p.lastPlayAt) >= 3; // 間隔 3 小時
+      btnPlay.disabled = !(canByCount && canByTime);
+    }
+  }
+
+  function addHearts(n) {
+    const p = getPet();
+    if (!p) return;
+    p.hearts = Math.max(0, Math.floor((p.hearts || 0) + n));
+    setPet(p);
+    updatePanelCounters();
+    renderCurrentPet(); // 同步更新主面板顯示
+  }
+
+  function addCoins(n) {
+    const p = getPet();
+    if (!p) return;
+    p.coins = Math.max(0, Math.floor((p.coins || 0) + n));
+    setPet(p);
+    updatePanelCounters();
+  }
+
+  // ========== 商店邏輯 ==========
+  function openShop() {
+    const p = getPet();
+    if (!p) return;
+    if (shopCoinDisplay) shopCoinDisplay.textContent = Math.floor(p.coins || 0);
+    if (shopHeartDisplay) shopHeartDisplay.textContent = Math.floor(p.hearts || 0);
+    if (shopStatusDisplay) {
+      const sat = satietyLabel(p);
+      const water = Math.max(0, Math.min(100, Math.floor(p.water || 0)));
+      shopStatusDisplay.textContent = `狀態：${sat}｜水 ${water}%`;
+    }
+    if (shopOverlay) shopOverlay.style.display = 'block';
+  }
+  function closeShop() {
+    if (shopOverlay) shopOverlay.style.display = 'none';
+  }
+  function tryBuy(cost, onSuccess) {
+    const p = getPet();
+    if (!p) return;
+    if ((p.coins || 0) < cost) {
+      alert('寵物幣不足 > <');
+      return;
+    }
+    p.coins -= cost;
+    setPet(p);
+    if (typeof onSuccess === 'function') onSuccess();
+    updatePanelCounters();
+    openShop(); // 重新刷新商店顯示
+  }
+
+  if (shopClose) shopClose.addEventListener('click', closeShop);
+  if (shopBuyBig) shopBuyBig.addEventListener('click', () => {
+    tryBuy(50, () => {
+      addHearts(100);
+      alert('大零食購買成功，愛心 +100！');
+    });
+  });
+  if (shopBuySmall) shopBuySmall.addEventListener('click', () => {
+    tryBuy(20, () => {
+      addHearts(30);
+      alert('小零食購買成功，愛心 +30！');
+    });
+  });
+  if (shopBuyToy) shopBuyToy.addEventListener('click', () => {
+    tryBuy(30, () => {
+      alert('玩具購買成功，之後可以在小遊戲區玩～');
+    });
+  });
+
+  // ========== 遛狗 / 玩耍 ==========
+  function walkOnce() {
+    const p = getPet();
+    if (!p) return;
+    const dk = dayKey();
+    const used = (p.walkDayKey === dk) ? p.walkCount : 0;
+    const canByCount = used < 2;
+    const canByTime = hoursSince(p.lastWalkAt) >= 12;
+    if (!canByCount) return alert('今天的遛狗次數已用完！');
+    if (!canByTime) return alert('還沒到 12 小時喔～');
+    p.walkDayKey = dk;
+    p.walkCount = used + 1;
+    p.lastWalkAt = new Date().toISOString();
+    setPet(p);
+    addHearts(5);
+  }
+  function playOnce() {
+    const p = getPet();
+    if (!p) return;
+    const dk = dayKey();
+    const used = (p.playDayKey === dk) ? p.playCount : 0;
+    const canByCount = used < 5;
+    const canByTime = hoursSince(p.lastPlayAt) >= 3;
+    if (!canByCount) return alert('今天的玩耍次數已用完！');
+    if (!canByTime) return alert('還沒到 3 小時喔～');
+    p.playDayKey = dk;
+    p.playCount = used + 1;
+    p.lastPlayAt = new Date().toISOString();
+    setPet(p);
+    addHearts(2);
+    // 小遊戲區 3D 模型轉一圈
+    try {
+      const mv = document.getElementById('pet-model-viewer');
+      if (mv) {
+        mv.setAttribute('auto-rotate', '');
+        setTimeout(() => mv.removeAttribute('auto-rotate'), 2500);
+      }
+    } catch {}
+  }
+
+  if (btnShop) btnShop.addEventListener('click', openShop);
+  if (btnWalk) btnWalk.addEventListener('click', () => { walkOnce(); updatePanelCounters(); });
+  if (btnPlay) btnPlay.addEventListener('click', () => { playOnce(); updatePanelCounters(); });
+
+  // ========== 綁定原本的面板事件（tab切換/餵食/喝水/重新命名/重置） ==========
   bindPetUIEvents();
 
-  // 第一次開啟，若還沒有幫任何一隻命名，就跳出 onboarding
+  // ========== 判斷初始狀態（如果還沒命名就跳 onboarding，否則顯示寵物） ==========
   if (!anyPetHasName()) {
     showPetOnboarding(currentPetKey);
   } else {
     renderCurrentPet();
     renderPetFeedLog();
+    updatePanelCounters(); // ★ 首次打開就刷新面板上的 🪙/❤️
   }
 }
 
