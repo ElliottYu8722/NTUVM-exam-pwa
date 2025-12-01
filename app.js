@@ -2965,7 +2965,34 @@ async function renderQuestion() {
   }
   // 🔥 回顧模式顯示結束按鈕
   if (state.mode === 'review') {
-    addExitReviewBtn();
+    // 找到下一題按鈕
+    const exitBtn = document.getElementById("btnExitReview");
+    if (!exitBtn) {
+      const btn = document.createElement("button");
+      btn.id = "btnExitReview";
+      btn.textContent = "結束回顧";
+      btn.style.padding = "6px 12px";
+      btn.style.borderRadius = "9999px";
+      btn.style.marginLeft = "10px"; // 跟下一題隔開
+      btn.style.border = "1px solid var(--border)";
+      btn.style.background = "transparent";
+      btn.style.color = "var(--accent)";
+      btn.style.cursor = "pointer";
+      btn.style.fontSize = "14px";
+      btn.onclick = () => {
+        state.mode = "browse";
+        state.reviewOrder = [];
+        state.reviewPos = 0;
+        document.getElementById("reviewTag")?.classList.add("hidden");
+        btn.remove();
+        renderQuestion();
+      };
+      // 插在下一題按鈕旁
+      nextBtn.parentNode.insertBefore(btn, nextBtn.nextSibling);
+    }
+  } else {
+    // 離開 review mode 就移除按鈕
+    document.getElementById("btnExitReview")?.remove();
   }
 }
 function addExitReviewBtn() {
@@ -3795,8 +3822,8 @@ function reviewRecordWrong(record) {
     alert("這筆紀錄沒有紀錄錯題資訊。");
   }
   // 🔥 自動關閉作答紀錄視窗
-  const recordsMask = document.getElementById("records-mask");
-  if (recordsMask) recordsMask.remove();
+  const mask = document.getElementById("rv-mask") || document.getElementById("records-mask");
+  if (mask) mask.remove();
 }
 
 // ===== 匯出目前這一卷的詳解（作者模式專用） =====
