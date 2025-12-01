@@ -3673,6 +3673,10 @@ function openRecordsViewer(arr){
       .map(c => `<td>${escapeHTML(String(c ?? ""))}</td>`)
       .join("");
     
+
+    
+    // 🆕 第 11 欄：操作（刪除按鈕）
+    const tdOp = document.createElement("td");
     const btnReview = document.createElement("button");
     btnReview.textContent = "回顧錯題";
     btnReview.style.padding = "4px 8px";
@@ -3686,9 +3690,6 @@ function openRecordsViewer(arr){
       reviewRecordWrong(arr[idx]);
     };
     tdOp.appendChild(btnReview);
-    
-    // 🆕 第 11 欄：操作（刪除按鈕）
-    const tdOp = document.createElement("td");
     const btnDel = document.createElement("button");
     btnDel.textContent = "刪除";
     btnDel.style.padding = "4px 8px";
