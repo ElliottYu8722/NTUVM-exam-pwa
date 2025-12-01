@@ -2963,7 +2963,40 @@ async function renderQuestion() {
       qExplain.innerHTML = '';
     }
   }
+  // 🔥 回顧模式顯示結束按鈕
+  if (state.mode === 'review') {
+    addExitReviewBtn();
+  }
 }
+function addExitReviewBtn() {
+  let existBtn = document.getElementById("btnExitReview");
+  if (existBtn) return; // 避免重複新增
+
+  const btn = document.createElement("button");
+  btn.id = "btnExitReview";
+  btn.textContent = "結束回顧";
+  btn.style.padding = "6px 12px";
+  btn.style.borderRadius = "9999px";
+  btn.style.border = "1px solid var(--border)";
+  btn.style.background = "transparent";
+  btn.style.color = "var(--accent)";
+  btn.style.cursor = "pointer";
+  btn.style.fontSize = "14px";
+  btn.style.position = "fixed";
+  btn.style.top = "16px";
+  btn.style.right = "16px";
+  btn.onclick = () => {
+    state.mode = "browse"; // 恢復正常模式
+    state.reviewOrder = [];
+    state.reviewPos = 0;
+    document.getElementById("reviewTag")?.classList.add("hidden");
+    document.getElementById("btnExitReview")?.remove();
+    renderQuestion();
+  };
+
+  document.body.appendChild(btn);
+}
+
 
 /* 逃脫字元 */
 function escapeHTML(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
@@ -3761,6 +3794,9 @@ function reviewRecordWrong(record) {
   } else {
     alert("這筆紀錄沒有紀錄錯題資訊。");
   }
+  // 🔥 自動關閉作答紀錄視窗
+  const recordsMask = document.getElementById("records-mask");
+  if (recordsMask) recordsMask.remove();
 }
 
 // ===== 匯出目前這一卷的詳解（作者模式專用） =====
