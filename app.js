@@ -1973,8 +1973,10 @@ function ensurePetQuizStyle() {
     gap: 8px;
     font-size: 14px;
   }
+  /* 選項文字佔滿中間 */
   .pet-quiz-opt-text {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
   }
   .pet-quiz-opt-note {
     margin-left: 8px;
@@ -2295,8 +2297,7 @@ function openRandomQuizOverlay(qs) {
         }
       }
 
-      row.appendChild(rb);
-      row.appendChild(span);
+
       elOpts.appendChild(row);
     });
 
