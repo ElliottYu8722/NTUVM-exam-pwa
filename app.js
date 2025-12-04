@@ -571,8 +571,10 @@ function showAllQuestions() {
   document.body.classList.remove('show-left-panel', 'show-right-panel');
   const backdrop = document.querySelector('.drawer-backdrop');
   if (backdrop) backdrop.style.display = 'none';
+  isGlobalSearchMode = false;   // 回到一般模式
   state.currentGroupId = null;
   state.index = 0; // 回到原卷第一題
+  state.visibleQuestions = state.questions;
   if (searchInput) {
     searchInput.value = "";
   }
@@ -781,7 +783,7 @@ const qList = $("#qList");
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
 function renderGlobalSearchList(results) {
   if (!qList) return;
-
+  isGlobalSearchMode = true;  // 進入搜尋模式
   qList.innerHTML = "";
 
   if (!results.length) {
@@ -799,6 +801,16 @@ function renderGlobalSearchList(results) {
       `${hit.year} 年 / ${hit.roundLabel} / 第 ${hit.qid} 題`;
 
     item.addEventListener("click", () => {
+
+
+      // 先清掉目前列表所有 active
+      Array.from(qList.children).forEach(el => {
+        el.classList.remove("active");
+      });
+      // 只亮被點的這一個
+      item.classList.add("active");
+
+      // 再跳到那一題
       jumpToSearchHit(hit);
     });
 
@@ -844,13 +856,14 @@ async function jumpToSearchHit(hit) {
 
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
 let isJumpingFromSearch = false;
-
+let isGlobalSearchMode = false;
 // 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
 async function searchAcrossVolumes(keyword) {
   const kw = (keyword || "").trim().toLowerCase();
 
   // 沒輸入就回到目前卷的完整列表
   if (!kw) {
+    isGlobalSearchMode = false;   // 離開搜尋模式
     if (typeof showAllQuestions === "function") {
       showAllQuestions();
     }
@@ -2906,8 +2919,15 @@ function removeQuestionFromGroupByEntry(entry, groupId) {
 
 
 
-function highlightList(){
-  [...qList.children].forEach((el,i)=> el.classList.toggle("active", i===state.index));
+function highlightList() {
+  if (!qList) return;
+
+  // 搜尋結果列表時，不用這個函式來決定 active
+  if (isGlobalSearchMode) return;
+
+  Array.from(qList.children).forEach((el, i) => {
+    el.classList.toggle("active", i === state.index);
+  });
 }
 
 async function renderQuestionInGroupMode() {
