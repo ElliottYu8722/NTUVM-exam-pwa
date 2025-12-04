@@ -865,72 +865,91 @@ async function jumpToSearchHit(hit) {
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
 let isJumpingFromSearch = false;
 // 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
+// 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 async function searchAcrossVolumes(keyword) {
-  const kw = (keyword || "").trim().toLowerCase();
+  const kw = String(keyword || '').trim().toLowerCase()
 
-  // 沒輸入就回到目前卷的完整列表
+  // 沒關鍵字就回到一般模式
   if (!kw) {
-    isGlobalSearchMode = false;   // 離開搜尋模式
-    globalSearchResults = [];
-    globalSearchIndex = -1;
-    if (typeof showAllQuestions === "function") {
-      showAllQuestions();
+    isGlobalSearchMode = false
+    globalSearchResults = []
+    globalSearchIndex = -1
+    if (typeof showAllQuestions === 'function') {
+      showAllQuestions()
     }
-    return;
+    return
   }
 
-  const subj = subjectSel ? subjectSel.value : "";
-  if (!subj || !yearSel || !roundSel) return;
+  // 基本保護：下拉選單沒準備好就不做事
+  if (!subjectSel || !yearSel || !roundSel) {
+    return
+  }
 
+  // ✅ 這裡：一次抓出「所有科目」
+  const subjects = Array.from(subjectSel.options)
+    .map(o => String(o.value).trim())
+    .filter(Boolean)
+
+  // 年份：沿用目前下拉選單裡有的所有年份
   const years = Array.from(yearSel.options)
     .map(o => String(o.value).trim())
-    .filter(Boolean);
+    .filter(Boolean)
 
+  // 梯次／卷別：用文字（沒有就用 value）
   const rounds = Array.from(roundSel.options)
-    .map(o => (o.textContent || o.value || "").trim())
-    .filter(Boolean);
+    .map(o => (o.textContent ? o.textContent : o.value).trim())
+    .filter(Boolean)
 
-  const hits = [];
+  const hits = []
 
-  // 逐卷載入並比對關鍵字
-  for (const year of years) {
-    for (const roundLabel of rounds) {
-      const qs = await loadQuestionsForScope(subj, year, roundLabel);
-      if (!qs.length) continue;
+  // 🔁 逐一把「科目 × 年份 × 梯次」都掃過
+  for (const subj of subjects) {
+    for (const year of years) {
+      for (const roundLabel of rounds) {
+        const qs = await loadQuestionsForScope(subj, year, roundLabel)
+        if (!qs || !qs.length) continue
 
-      qs.forEach(q => {
-        const texts = [];
+        qs.forEach(q => {
+          const texts = []
 
-        if (q.text) texts.push(q.text);
-        if (q.options) {
-          for (const k in q.options) {
-            if (q.options[k]) texts.push(q.options[k]);
+          if (q.text) texts.push(q.text)
+
+          if (q.options) {
+            for (const k in q.options) {
+              if (Object.prototype.hasOwnProperty.call(q.options, k) && q.options[k]) {
+                texts.push(q.options[k])
+              }
+            }
           }
-        }
-        if (q.explanation) texts.push(q.explanation);
 
-        const matched = texts.some(t =>
-          String(t).toLowerCase().includes(kw)
-        );
+          if (q.explanation) {
+            texts.push(q.explanation)
+          }
 
-        if (matched) {
-          hits.push({
-            subj,
-            year,
-            roundLabel,
-            qid: q.id
-          });
-        }
-      });
+          const matched = texts.some(t =>
+            String(t).toLowerCase().includes(kw)
+          )
+
+          if (matched) {
+            hits.push({
+              subj,
+              year,
+              roundLabel,
+              qid: q.id
+            })
+          }
+        })
+      }
     }
   }
 
-  // 將搜尋結果畫到右側列表
-// 將搜尋結果記錄起來並畫到右側列表
-  globalSearchResults = hits;
-  globalSearchIndex = hits.length ? 0 : -1;
-  renderGlobalSearchList(hits);
+  // 進入「全域搜尋模式」
+  isGlobalSearchMode = true
+  globalSearchResults = hits
+  globalSearchIndex = hits.length ? 0 : -1
+  renderGlobalSearchList(hits)
 }
+
 
 // 綁定輸入框：停止打字 400ms 後觸發跨卷搜尋（避免每個字都大量 fetch）
 let globalSearchTimer = null;
