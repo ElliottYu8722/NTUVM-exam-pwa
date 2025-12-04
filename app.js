@@ -782,12 +782,13 @@ const btnToggleAns = $("#btnToggleAns");
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
 const qExplain = $("#qExplain");   // 新增：詳解容器
 const qList = $("#qList");
-// ===== 跨卷搜尋：目前「科目」的所有年度＋梯次 =====
 
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
 function renderGlobalSearchList(results) {
   if (!qList) return;
-  isGlobalSearchMode = true;  // 進入搜尋模式
+
+  // 進入搜尋模式
+  isGlobalSearchMode = true;
   qList.innerHTML = "";
 
   if (!results.length) {
@@ -801,30 +802,41 @@ function renderGlobalSearchList(results) {
   results.forEach((hit, idx) => {
     const item = document.createElement("div");
     item.className = "q-item";
-    item.textContent =
-      `${hit.year} 年 / ${hit.roundLabel} / 第 ${hit.qid} 題`;
 
+    // 把科目也一起顯示出來
+    const subjLabel  = hit.subj || "";
+    const yearLabel  = hit.year ? `${hit.year} 年` : "";
+    const roundLabel = hit.roundLabel || "";
+    const idLabel    = (hit.qid != null) ? `第 ${hit.qid} 題` : "";
 
-    // 若這筆就是目前 globalSearchIndex，進來時就先亮起來
+    const parts = [];
+    if (subjLabel)  parts.push(subjLabel);    // 例：獸醫病理學
+    if (yearLabel)  parts.push(yearLabel);    // 例：114 年
+    if (roundLabel) parts.push(roundLabel);   // 例：第一次
+    if (idLabel)    parts.push(idLabel);      // 例：第 10 題
+
+    item.textContent = parts.join(" / ");
+
+    // 目前 active 的搜尋結果
     if (idx === globalSearchIndex) {
       item.classList.add("active");
     }
 
     item.addEventListener("click", () => {
-      // 先清掉目前列表所有 active
+      // 清掉其他 active
       Array.from(qList.children).forEach(el => {
         el.classList.remove("active");
       });
-      // 只亮被點的這一個
+      // 點到的這一個亮起來
       item.classList.add("active");
-
-      // 再跳到那一題
+      // 跳到那一題（會自動切換科目／年度／梯次）
       jumpToSearchHit(hit);
     });
 
     qList.appendChild(item);
   });
 }
+
 
 // 點搜尋結果：自動切卷並跳到那一題
 async function jumpToSearchHit(hit) {
