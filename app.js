@@ -4248,7 +4248,7 @@ function openRecordsViewer(arr){
     ];
     cells.forEach(c => {
       const td = document.createElement("td");
-      td.innerHTML = escapeHTMLString(c ?? "");
+      td.innerHTML = escapeHTML(c ?? "");
       tr.appendChild(td);
     });
   
