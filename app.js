@@ -673,8 +673,15 @@ let globalSearchResults = [];       // [{subj, year, roundLabel, qid}, ...]
 let globalSearchIndex = -1;         // 目前在搜尋結果中的第幾筆（0-based）
 
 // 依「科目 / 年份 / 梯次」載入題目（給搜尋用），會做快取
+// 依「科目 / 年份 /梯次」載入題目（給搜尋用），會做快取
 async function loadQuestionsForScope(subj, year, roundLabel) {
   if (!subj || !year || !roundLabel) return [];
+
+  // 🔒 110 年（含）之後沒有第二次，直接略過，避免 404
+  const yearNum = Number(year);
+  if (roundLabel === "第二次" && Number.isFinite(yearNum) && yearNum >= 110) {
+    return [];
+  }
 
   const cacheKey = `${subj}|${year}|${roundLabel}`;
   if (searchCache[cacheKey]) {
@@ -715,6 +722,7 @@ async function loadQuestionsForScope(subj, year, roundLabel) {
     return [];
   }
 }
+
 
 // ===== 我的動物 DOM =====
 // ===== 我的動物 DOM / 面板 =====
@@ -3313,11 +3321,19 @@ function persistAnswer(){
 }
 
 // 綁定搜尋輸入框：打字就即時搜尋
+// 綁定搜尋輸入框：停止打字 400ms 後觸發「跨科目＋跨年度＋跨梯次」搜尋
+let globalSearchTimer = null;
+
 if (searchInput) {
   searchInput.addEventListener("input", (e) => {
-    applyQuestionSearch(e.target.value);
+    const value = e.target.value;
+    if (globalSearchTimer) clearTimeout(globalSearchTimer);
+    globalSearchTimer = setTimeout(() => {
+      searchAcrossVolumes(value);   // 這就是我們剛剛改好的跨科目搜尋
+    }, 400);
   });
 }
+
 
 
 /* 導航 */
