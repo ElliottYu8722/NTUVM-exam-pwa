@@ -2155,212 +2155,49 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
 // ====== 跨卷隨機測驗 Overlay ======
 
-// 專門給「跨卷隨機測驗」用的樣式
+// 隨機測驗直接沿用寵物小考的樣式
 function ensureRandomQuizStyle() {
-  if (document.getElementById('random-quiz-style')) return;
-
-  const style = document.createElement('style');
-  style.id = 'random-quiz-style';
-  style.textContent = `
-    .random-quiz-mask {
-      position: fixed;
-      inset: 0;
-      z-index: 100010;
-      background: rgba(0, 0, 0, 0.78);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      backdrop-filter: blur(6px);
-    }
-
-    .random-quiz-card {
-      width: min(780px, 95vw);
-      max-height: 80vh;
-      background: #101322;
-      color: #f9fafb;
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.85);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .random-quiz-head {
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      background: linear-gradient(90deg, #1d2236, #111827);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 14px;
-    }
-
-    .random-quiz-title {
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .random-quiz-sub {
-      font-size: 13px;
-      color: #9ca3af;
-    }
-
-    .random-quiz-body {
-      padding: 14px 18px 16px;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .random-quiz-qnum {
-      font-size: 14px;
-      margin-bottom: 6px;
-      color: #e5e7eb;
-    }
-
-    .random-quiz-qtext {
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 10px;
-    }
-
-    .random-quiz-qimg {
-      max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      margin-bottom: 10px;
-      display: none;
-    }
-
-    .random-quiz-qimg.show {
-      display: block;
-    }
-
-    .random-quiz-opts {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .random-quiz-opt-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      transition: background 0.12s ease;
-    }
-
-    .random-quiz-opt-row:hover {
-      background: rgba(148, 163, 184, 0.12);
-    }
-
-    .random-quiz-opt-row span {
-      flex: 1;
-    }
-
-    .random-quiz-foot {
-      padding: 10px 18px 14px;
-      border-top: 1px solid rgba(148, 163, 184, 0.35);
-      display: flex;
-      gap: 10px;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      background: rgba(15, 23, 42, 0.95);
-    }
-
-    .random-quiz-btn {
-      min-width: 80px;
-      padding: 8px 14px;
-      border-radius: 9999px;
-      border: none;
-      background: #1f2937;
-      color: #e5e7eb;
-      font-size: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition:
-        background 0.15s ease,
-        transform 0.06s ease,
-        box-shadow 0.15s ease;
-    }
-
-    .random-quiz-btn:hover:not(:disabled) {
-      background: #374151;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
-      transform: translateY(-1px);
-    }
-
-    .random-quiz-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .random-quiz-btn-primary {
-      background: #2563eb;
-      color: #ffffff;
-      box-shadow: 0 10px 26px rgba(37, 99, 235, 0.6);
-    }
-
-    .random-quiz-btn-primary:hover:not(:disabled) {
-      background: #1d4ed8;
-    }
-  `;
-  document.head.appendChild(style);
+  if (typeof ensurePetQuizStyle === 'function') {
+    ensurePetQuizStyle();
+  }
 }
+
 function openRandomQuizOverlay(qs) {
   if (!Array.isArray(qs) || !qs.length) {
     alert('目前沒有可用的隨機題目。');
     return;
   }
 
-  // 先確定樣式有被注入
+  // 一樣先確保樣式注入，不過現在借用的是 pet quiz 那套
   ensureRandomQuizStyle();
 
-  // 若已有舊的覆蓋視窗，先移除
   const old = document.getElementById('random-quiz-mask');
   if (old) old.remove();
 
   const mask = document.createElement('div');
   mask.id = 'random-quiz-mask';
-  mask.className = 'random-quiz-mask';
-
-  // 再保險一次：用內嵌 style 確保是全螢幕覆蓋
-  mask.style.position = 'fixed';
-  mask.style.inset = '0';
-  mask.style.zIndex = '100010';
-  mask.style.background = 'rgba(0,0,0,0.6)';
-  mask.style.display = 'flex';
-  mask.style.alignItems = 'center';
-  mask.style.justifyContent = 'center';
-  mask.style.padding = '16px';
+  mask.className = 'pet-quiz-mask';   // 🔸關鍵：用 pet-quiz-mask
 
   mask.innerHTML = `
-    <div class="random-quiz-card">
-      <div class="random-quiz-head">
-        <div class="random-quiz-title">跨卷隨機測驗</div>
-        <div class="random-quiz-sub">
+    <div class="pet-quiz-card">
+      <div class="pet-quiz-head">
+        <div class="pet-quiz-title">跨卷隨機測驗</div>
+        <div class="pet-quiz-sub">
           共 <span id="rq-total">${qs.length}</span> 題，
           來源涵蓋多個科目 / 年份 / 梯次。
         </div>
       </div>
-      <div class="random-quiz-body">
-        <div id="rq-qnum" class="random-quiz-qnum"></div>
-        <div id="rq-qtext" class="random-quiz-qtext"></div>
-        <img id="rq-qimg" class="random-quiz-qimg" alt="">
-        <div id="rq-opts" class="random-quiz-opts"></div>
+      <div class="pet-quiz-body">
+        <div id="rq-qnum"  class="pet-quiz-qnum"></div>
+        <div id="rq-qtext" class="pet-quiz-qtext"></div>
+        <img  id="rq-qimg" class="pet-quiz-qimg" style="display:none;" alt="">
+        <div id="rq-opts"  class="pet-quiz-opts"></div>
       </div>
-      <div class="random-quiz-foot">
-        <button id="rq-prev"   class="random-quiz-btn">上一題</button>
-        <button id="rq-next"   class="random-quiz-btn">下一題</button>
-        <button id="rq-submit" class="random-quiz-btn random-quiz-btn-primary">交卷並看成績</button>
-        <button id="rq-close"  class="random-quiz-btn">關閉</button>
+      <div class="pet-quiz-foot">
+        <button id="rq-prev"   class="pet-quiz-btn">上一題</button>
+        <button id="rq-next"   class="pet-quiz-btn">下一題</button>
+        <button id="rq-submit" class="pet-quiz-btn pet-quiz-btn-primary">交卷並看成績</button>
+        <button id="rq-close"  class="pet-quiz-btn">關閉</button>
       </div>
     </div>
   `;
@@ -2383,26 +2220,22 @@ function openRandomQuizOverlay(qs) {
     const q = qs[index];
     if (!q) return;
 
-    // 題號＋來源
     const src = q.scope
       ? `（${q.scope.subj || ''} / ${q.scope.year || ''} / ${q.scope.roundLabel || ''}）`
       : '';
     elQNum.textContent = `第 ${index + 1} / ${qs.length} 題 ${src}`;
 
-    // 題幹
     elQText.innerHTML = (q.text || '');
 
-    // 圖片
     if (q.image) {
       const raw = resolveImage(q.image);
       elQImg.src = raw;
-      elQImg.classList.add('show');
+      elQImg.style.display = '';
     } else {
-      elQImg.classList.remove('show');
       elQImg.removeAttribute('src');
+      elQImg.style.display = 'none';
     }
 
-    // 選項
     elOpts.innerHTML = '';
     const letters = ['A','B','C','D'];
     const current = user[index] || '';
@@ -2412,7 +2245,7 @@ function openRandomQuizOverlay(qs) {
       if (!text) return;
 
       const row = document.createElement('label');
-      row.className = 'random-quiz-opt-row';
+      row.className = 'pet-quiz-opt-row';  // 🔸關鍵：用 pet-quiz-opt-row
 
       const rb = document.createElement('input');
       rb.type = 'radio';
@@ -2442,51 +2275,18 @@ function openRandomQuizOverlay(qs) {
   function submit() {
     let correct = 0;
     const total = qs.length;
-    const detail = [];
 
     qs.forEach((q, i) => {
-      const ua = String(user[i] || '').toUpperCase();
+      const ua = (user[i] || '').toUpperCase();
       const set = new Set(
-        Array.isArray(q.answerSet)
-          ? q.answerSet.map(s => String(s).toUpperCase())
-          : []
+        Array.isArray(q.answerSet) ? q.answerSet.map(s => String(s).toUpperCase()) : []
       );
-      const isCorrect = set.has('ALL') || (ua && set.has(ua));
-      if (isCorrect) correct++;
-
-      detail.push({
-        subj: q.scope?.subj || '',
-        year: q.scope?.year || '',
-        roundLabel: q.scope?.roundLabel || '',
-        id: q.id,
-        userAns: ua || '',
-        correctAns: Array.from(set).join('/') || ''
-      });
+      if (set.has('ALL') || (ua && set.has(ua))) {
+        correct++;
+      }
     });
 
     const score = total ? ((correct / total) * 100).toFixed(2) : '0.00';
-
-    // 寫入隨機測驗紀錄，沿用你第二部分的結構
-    try {
-      const now = new Date();
-      const ts = now.toLocaleString('zh-TW', { hour12: false });
-
-      const record = {
-        ts,
-        count: total,
-        correctCount: correct,
-        questions: detail
-      };
-
-      randomQuizRecords.unshift(record);
-      if (randomQuizRecords.length > 50) {
-        randomQuizRecords = randomQuizRecords.slice(0, 50);
-      }
-      saveRandomQuizRecords();
-    } catch (e) {
-      console.error('寫入隨機測驗紀錄失敗：', e);
-    }
-
     alert(`本次隨機測驗得分：${score} 分（${correct}/${total}）`);
     closeOverlay();
   }
@@ -2506,10 +2306,9 @@ function openRandomQuizOverlay(qs) {
   btnSubmit.onclick = submit;
   btnClose.onclick  = closeOverlay;
 
-  // 點背景不關，避免誤觸
   mask.addEventListener('click', e => {
     if (e.target === mask) {
-      // 想要點外面關掉可以在這裡加 confirm
+      // 點外面目前不關
     }
   });
 
