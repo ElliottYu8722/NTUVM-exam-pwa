@@ -2271,14 +2271,26 @@ function openRandomQuizOverlay(qs) {
     return;
   }
 
+  // 先確定樣式有被注入
   ensureRandomQuizStyle();
 
+  // 若已有舊的覆蓋視窗，先移除
   const old = document.getElementById('random-quiz-mask');
   if (old) old.remove();
 
   const mask = document.createElement('div');
   mask.id = 'random-quiz-mask';
   mask.className = 'random-quiz-mask';
+
+  // 🔴 這裡額外用「內嵌 style」強制讓它是全螢幕覆蓋視窗
+  mask.style.position = 'fixed';
+  mask.style.inset = '0';
+  mask.style.zIndex = '100010';
+  mask.style.background = 'rgba(0,0,0,0.6)';
+  mask.style.display = 'flex';
+  mask.style.alignItems = 'center';
+  mask.style.justifyContent = 'center';
+  mask.style.padding = '16px';
 
   mask.innerHTML = `
     <div class="random-quiz-card">
@@ -2424,6 +2436,7 @@ function openRandomQuizOverlay(qs) {
 
   render();
 }
+
 
 // ===== 隨機測驗：跨卷抽題＋自己的作答紀錄 =====
 
