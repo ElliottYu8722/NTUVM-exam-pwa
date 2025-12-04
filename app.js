@@ -3590,6 +3590,10 @@ function enterFullscreenQuiz(){
         display:flex; align-items:center; gap:10px;
         padding:12px 14px; border-bottom:1px solid var(--border,#2a2a2a);
         background:var(--card,#1b1b1b);
+            /* ★ 這三行是新加的關鍵 */
+        flex-wrap: nowrap;                 /* 不要自動換行 */
+        overflow-x: auto;                  /* 超出寬度就可以左右滑 */
+        -webkit-overflow-scrolling: touch; /* iPhone 上滑起來順一點 */
       }
       .fs-badge{
         padding:6px 10px; border:1px solid var(--border,#2a2a2a);
