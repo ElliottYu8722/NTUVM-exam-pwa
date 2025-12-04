@@ -4163,9 +4163,17 @@ function openRecordsViewer(arr){
   const table = document.createElement("table"); table.className = "rv-table";
   table.innerHTML = `
     <colgroup>
-      <col class="c-date"><col class="c-subj"><col class="c-year"><col class="c-round">
-      <col class="c-total"><col class="c-corr"><col class="c-score">
-      <col class="c-wids"><col class="c-wdet"><col class="c-sum"><col class="c-op">
+      <col class="c-op">
+      <col class="c-date">
+      <col class="c-subj">
+      <col class="c-year">
+      <col class="c-round">
+      <col class="c-total">
+      <col class="c-corr">
+      <col class="c-score">
+      <col class="c-wids">
+      <col class="c-wdet">
+      <col class="c-sum">
     </colgroup>
     <thead><tr>
       <th>操作</th><th>測驗日期</th><th>科目</th><th>年份</th><th>梯次</th>
