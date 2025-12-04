@@ -825,20 +825,25 @@ async function jumpToSearchHit(hit) {
     needChangeScope = true;
   }
 
-  // 若卷別不同，先切換範圍（會載入該卷題目）
+  // 差別在這裡：告訴 onScopeChange「現在是搜尋跳題」，暫時不要改右邊
   if (needChangeScope && typeof onScopeChange === "function") {
+    isJumpingFromSearch = true;
     await onScopeChange();
+    isJumpingFromSearch = false;
   }
 
-  // 在當前卷裡找到對應題號
+  // 在目前卷裡找到那一題
   const targetId = Number(hit.qid);
   const idx = state.questions.findIndex(q => Number(q.id) === targetId);
   if (idx >= 0) {
     state.index = idx;
     renderQuestion();
-    highlightList();
+    // 不呼叫 highlightList()，讓右邊保持搜尋結果
   }
 }
+
+// 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
+let isJumpingFromSearch = false;
 
 // 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
 async function searchAcrossVolumes(keyword) {
@@ -4495,25 +4500,19 @@ async function onScopeChange(){
       const arr = await qRes.json();
       if(Array.isArray(arr)){
         state.questions = arr;
-
-        // 🔥 只有「非群組模式」才把 index 歸零＋重畫整卷清單
-        if (!state.currentGroupId) {
+        // 一般切卷：才重畫清單／清空搜尋框
+        if (!state.currentGroupId && !isJumpingFromSearch) {
           state.index = 0;
-          // 👉 換卷時順便清空搜尋關鍵字
           if (searchInput) searchInput.value = "";
-
           renderList();
         }
-
         loadedQ = true;
-        console.log("[onScopeChange] 題目載入成功，題數:", arr.length);
       }else{
-        console.error("[onScopeChange] 題目檔格式錯誤（不是陣列）", qName, arr);
-        alert(`題目檔格式錯誤（不是陣列）：${qName}`);
         state.questions = [];
-
-        if (!state.currentGroupId) {
+      
+        if (!state.currentGroupId && !isJumpingFromSearch) {
           state.index = 0;
+          if (searchInput) searchInput.value = "";
           renderList();
         }
       }
@@ -4558,9 +4557,10 @@ async function onScopeChange(){
   state.scope = getScopeFromUI();
 
   // 一樣：只有非群組模式才在這裡主動畫題目
-  if (!state.currentGroupId) {
+  if (!state.currentGroupId && !isJumpingFromSearch) {
     renderQuestion();
   }
+
 }
 
 
