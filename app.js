@@ -4131,6 +4131,7 @@ function openRecordsViewer(arr){
       .rv-table{width:100%;border-collapse:collapse;table-layout:fixed;}
       .rv-table th,.rv-table td{border:1px solid var(--border);padding:8px;font-size:14px;vertical-align:top;word-break:break-word;white-space:normal;}
       .rv-table thead th{position:sticky;top:0;background:var(--bg);z-index:1;}
+      .rv-table col.c-op{width:90px;}
       .rv-table col.c-date{width:140px;}
       .rv-table col.c-subj{width:120px;}
       .rv-table col.c-year{width:70px;}
