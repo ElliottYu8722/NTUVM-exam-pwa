@@ -573,6 +573,14 @@ function showAllQuestions() {
   if (backdrop) backdrop.style.display = 'none';
   state.currentGroupId = null;
   state.index = 0; // 回到原卷第一題
+  if (searchInput) {
+    searchInput.value = "";
+  }
+
+  renderList(state.questions, { renumber: false });
+  renderQuestion();
+  highlightList();
+  }
   state.visibleQuestions = state.questions;
   renderList(state.questions, { renumber: false });
   renderQuestion();
@@ -655,6 +663,7 @@ const toolbar = document.querySelector(".toolbar");
 const yearSel   = $("#yearSel");
 const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
+const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
 
 // ===== 我的動物 DOM =====
 // ===== 我的動物 DOM / 面板 =====
@@ -2507,6 +2516,48 @@ function renderList(list, options = {}) {
   });
 }
 
+// 即時搜尋題目：依關鍵字過濾題目並重畫列表
+function applyQuestionSearch(keyword) {
+  const kw = (keyword || "").trim().toLowerCase();
+
+  // 沒打字：顯示目前卷內全部題目
+  if (!kw) {
+    state.currentGroupId = null;   // 離開群組模式
+    state.index = 0;
+    renderList(state.questions, { renumber: false });
+    renderQuestion();
+    highlightList();
+    return;
+  }
+
+  // 有關鍵字：從題幹、選項、詳解裡面找
+  state.currentGroupId = null;     // 搜尋時一律不用群組模式
+
+  const filtered = state.questions.filter(q => {
+    const texts = [];
+
+    if (q.text) texts.push(q.text);
+    if (q.options) {
+      for (const key in q.options) {
+        if (q.options[key]) texts.push(q.options[key]);
+      }
+    }
+    if (q.explanation) {
+      texts.push(q.explanation);
+    }
+
+    return texts.some(t =>
+      String(t).toLowerCase().includes(kw)
+    );
+  });
+
+  state.index = 0;
+  renderList(filtered, { renumber: false });
+  renderQuestion();
+  highlightList();
+}
+
+
 // 從 Firestore 載入目前題目的留言
 async function loadCommentsForCurrentQuestion() {
   if (!window.db || !commentsList) return;
@@ -3047,6 +3098,14 @@ function resetUserAnswersForCurrentScope(){
 function persistAnswer(){
   localStorage.setItem(nsKey(), JSON.stringify(state.user));
 }
+
+// 綁定搜尋輸入框：打字就即時搜尋
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    applyQuestionSearch(e.target.value);
+  });
+}
+
 
 /* 導航 */
 prevBtn.onclick = () => {
@@ -4295,6 +4354,9 @@ async function onScopeChange(){
         // 🔥 只有「非群組模式」才把 index 歸零＋重畫整卷清單
         if (!state.currentGroupId) {
           state.index = 0;
+          // 👉 換卷時順便清空搜尋關鍵字
+          if (searchInput) searchInput.value = "";
+
           renderList();
         }
 
