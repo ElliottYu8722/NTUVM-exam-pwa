@@ -4577,166 +4577,67 @@ const themeSel = document.getElementById('themeSel');
 
 // 所有可選主題（字串要跟 <option value="..."> 一樣）
 const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos'];
-// 新增：桌布 DOM 與儲存 key
-const btnSetWallpaper = document.getElementById("btnSetWallpaper");
-const btnClearWallpaper = document.getElementById("btnClearWallpaper");
-const wallpaperFile = document.getElementById("wallpaperFile");
-const WALLPAPER_KEY = "ntuvm-custom-wallpaper-v1";
 
-function applyTheme(name, opts) {
-  const save = !opts || opts.save !== false;
+function applyTheme(name, opts = {}) {
+  const save = opts.save !== false;
 
+  // 把所有主題 class 先拿掉
   document.body.classList.remove(
-    "light",
-    "theme-sky",
-    "theme-ocean",
-    "theme-forest",
-    "theme-yolk",
-    "theme-cosmos"
+    'light',
+    'theme-sky',
+    'theme-ocean',
+    'theme-forest',
+    'theme-yolk',
+    'theme-cosmos'
   );
 
+  // 根據名稱決定要加哪一個 class
   switch (name) {
-    case "light":
-      document.body.classList.add("light");
+    case 'light':
+      document.body.classList.add('light');
       break;
-    case "sky":
-      document.body.classList.add("theme-sky");
+    case 'sky':
+      document.body.classList.add('theme-sky');
       break;
-    case "ocean":
-      document.body.classList.add("theme-ocean");
+    case 'ocean':
+      document.body.classList.add('theme-ocean');
       break;
-    case "forest":
-      document.body.classList.add("theme-forest");
+    case 'forest':
+      document.body.classList.add('theme-forest');
       break;
-    case "yolk":
-      document.body.classList.add("theme-yolk");
+    case 'yolk':
+      document.body.classList.add('theme-yolk');
       break;
-    case "cosmos":
-      document.body.classList.add("theme-cosmos");
+    case 'cosmos':
+      document.body.classList.add('theme-cosmos');
       break;
-    default:
-      // dark
-      break;
+    // 'dark' 就是走 :root 預設，不加任何主題 class
   }
 
   if (save) {
-    try {
-      localStorage.setItem("themeName", name);
-    } catch (e) {
-      console.error("儲存主題失敗：", e);
-    }
+    localStorage.setItem('themeName', name);
   }
-
   if (themeSel && themeSel.value !== name) {
     themeSel.value = name;
   }
 }
 
-// ===== 桌布相關函式 =====
-function applyWallpaper(dataUrl) {
-  if (dataUrl) {
-    document.body.style.backgroundImage = `url(${dataUrl})`;
-    document.body.style.backgroundSize = "cover";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundAttachment = "fixed";
-    document.body.style.backgroundPosition = "center center";
-  } else {
-    document.body.style.backgroundImage = "";
-    document.body.style.backgroundSize = "";
-    document.body.style.backgroundRepeat = "";
-    document.body.style.backgroundAttachment = "";
-    document.body.style.backgroundPosition = "";
-  }
-}
-
-function saveWallpaper(dataUrl) {
-  try {
-    if (dataUrl) {
-      localStorage.setItem(WALLPAPER_KEY, dataUrl);
-    } else {
-      localStorage.removeItem(WALLPAPER_KEY);
-    }
-  } catch (e) {
-    console.error("儲存桌布失敗：", e);
-  }
-}
-
-function loadWallpaper() {
-  try {
-    const dataUrl = localStorage.getItem(WALLPAPER_KEY);
-    if (dataUrl) {
-      applyWallpaper(dataUrl);
-    }
-  } catch (e) {
-    console.error("載入桌布失敗：", e);
-  }
-}
-
-// ===== 初始化主題 =====
-function initTheme() {
-  let saved = null;
-  try {
-    saved = localStorage.getItem("themeName");
-  } catch {
-    saved = null;
-  }
-  const initial = THEMES.includes(saved) ? saved : "dark";
-  applyTheme(initial, { save: false });
-}
-
-// 立即初始化主題與桌布
-initTheme();
-loadWallpaper();
-
-// 主題下拉選單改變
+// 下拉選單改變時，套用主題
 if (themeSel) {
-  themeSel.addEventListener("change", () => {
+  themeSel.addEventListener('change', () => {
     const v = themeSel.value;
-    if (THEMES.includes(v)) applyTheme(v);
-  });
-}
-
-// ===== 綁定桌布按鈕事件 =====
-if (btnSetWallpaper && wallpaperFile) {
-  btnSetWallpaper.addEventListener("click", (e) => {
-    e.preventDefault();
-    wallpaperFile.click();
-  });
-}
-
-if (wallpaperFile) {
-  wallpaperFile.addEventListener("change", (e) => {
-    const file = e.target.files && e.target.files[0];
-    if (!file) return;
-    if (!file.type || !file.type.startsWith("image/")) {
-      alert("請選擇圖片檔喔～");
-      return;
+    if (THEMES.includes(v)) {
+      applyTheme(v);
     }
-
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const dataUrl = ev.target.result;
-      if (!dataUrl) return;
-      applyWallpaper(dataUrl);
-      saveWallpaper(dataUrl);
-    };
-    reader.onerror = (err) => {
-      console.error("讀取桌布檔案失敗：", err);
-      alert("讀取桌布檔案失敗 QQ");
-    };
-    reader.readAsDataURL(file);
   });
 }
 
-if (btnClearWallpaper) {
-  btnClearWallpaper.addEventListener("click", (e) => {
-    e.preventDefault();
-    applyWallpaper(null);
-    saveWallpaper(null);
-    if (wallpaperFile) wallpaperFile.value = "";
-  });
-}
-
+// 初始化主題（預設暗色）
+(function initTheme() {
+  const saved = localStorage.getItem('themeName');
+  const initial = THEMES.includes(saved) ? saved : 'dark';
+  applyTheme(initial, { save: false });
+})();
 
 
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
@@ -5325,6 +5226,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
-
-
