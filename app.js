@@ -580,12 +580,13 @@ function showAllQuestions() {
   renderList(state.questions, { renumber: false });
   renderQuestion();
   highlightList();
-  }
-  state.visibleQuestions = state.questions;
-  renderList(state.questions, { renumber: false });
-  renderQuestion();
-  highlightList();
 }
+
+//  state.visibleQuestions = state.questions;
+//  renderList(state.questions, { renumber: false });
+//  renderQuestion();
+//  highlightList();
+//}
 
 
 
