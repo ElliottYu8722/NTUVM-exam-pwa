@@ -1967,23 +1967,29 @@ function ensurePetQuizStyle() {
     gap: 6px;
     margin-bottom: 8px;
   }
+
+  /* 每一個選項是一行，內容全部靠左就好 */
   .pet-quiz-opt-row {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 14px;
+    justify-content: flex-start; /* 🔸避免被撐到兩邊 */
   }
-  /* 選項文字佔滿中間 */
+
+  /* 選項文字：不要再用 flex:1 撐滿 */
   .pet-quiz-opt-text {
-    flex: 1 1 auto;
-    min-width: 0;
+    /* 不設 flex，維持預設 inline 大小就好 */
   }
+
+  /* 右側「你選 / 正解」小標籤，緊貼在文字右邊 */
   .pet-quiz-opt-note {
     margin-left: 8px;
     font-size: 12px;
     white-space: nowrap;
-    flex: 0 0 auto;
+    /* 不用特別設 flex，讓它跟在文字後面 */
   }
+
 
   .pet-quiz-foot {
     padding: 10px 14px 12px;
