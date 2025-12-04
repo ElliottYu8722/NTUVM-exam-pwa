@@ -668,6 +668,10 @@ const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
 const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
 const searchCache = {};  // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
+let isGlobalSearchMode = false;     // 是否正在顯示搜尋結果列表
+let globalSearchResults = [];       // [{subj, year, roundLabel, qid}, ...]
+let globalSearchIndex = -1;         // 目前在搜尋結果中的第幾筆（0-based）
+
 // 依「科目 / 年份 / 梯次」載入題目（給搜尋用），會做快取
 async function loadQuestionsForScope(subj, year, roundLabel) {
   if (!subj || !year || !roundLabel) return [];
@@ -800,9 +804,13 @@ function renderGlobalSearchList(results) {
     item.textContent =
       `${hit.year} 年 / ${hit.roundLabel} / 第 ${hit.qid} 題`;
 
+
+    // 若這筆就是目前 globalSearchIndex，進來時就先亮起來
+    if (idx === globalSearchIndex) {
+      item.classList.add("active");
+    }
+
     item.addEventListener("click", () => {
-
-
       // 先清掉目前列表所有 active
       Array.from(qList.children).forEach(el => {
         el.classList.remove("active");
@@ -864,6 +872,8 @@ async function searchAcrossVolumes(keyword) {
   // 沒輸入就回到目前卷的完整列表
   if (!kw) {
     isGlobalSearchMode = false;   // 離開搜尋模式
+    globalSearchResults = [];
+    globalSearchIndex = -1;
     if (typeof showAllQuestions === "function") {
       showAllQuestions();
     }
@@ -917,6 +927,9 @@ async function searchAcrossVolumes(keyword) {
   }
 
   // 將搜尋結果畫到右側列表
+// 將搜尋結果記錄起來並畫到右側列表
+  globalSearchResults = hits;
+  globalSearchIndex = hits.length ? 0 : -1;
   renderGlobalSearchList(hits);
 }
 
@@ -3279,7 +3292,27 @@ if (searchInput) {
 
 /* 導航 */
 prevBtn.onclick = () => {
-  saveNotes();
+  saveNotes(state.scope || getScopeFromUI());  // 1) 搜尋模式：在搜尋結果裡往前
+  if (isGlobalSearchMode && globalSearchResults.length > 0) {
+    if (globalSearchIndex > 0) {
+      globalSearchIndex--;
+    } else {
+      globalSearchIndex = 0;
+    }
+
+    const hit = globalSearchResults[globalSearchIndex];
+    if (hit) {
+      // 更新右側 active
+      if (qList) {
+        Array.from(qList.children).forEach((el, i) => {
+          el.classList.toggle("active", i === globalSearchIndex);
+        });
+      }
+      // 跳到那一題
+      jumpToSearchHit(hit);
+    }
+    return;
+  }
   if (state.mode === "review") {
     stepReview(-1);
   } else {
@@ -3294,7 +3327,28 @@ prevBtn.onclick = () => {
 };
 
 nextBtn.onclick = () => {
-  saveNotes();
+  saveNotes(state.scope || getScopeFromUI());
+
+  // 1) 搜尋模式：在搜尋結果裡往後
+  if (isGlobalSearchMode && globalSearchResults.length > 0) {
+    if (globalSearchIndex < globalSearchResults.length - 1) {
+      globalSearchIndex++;
+    } else {
+      globalSearchIndex = globalSearchResults.length - 1;
+    }
+
+    const hit = globalSearchResults[globalSearchIndex];
+    if (hit) {
+      if (qList) {
+        Array.from(qList.children).forEach((el, i) => {
+          el.classList.toggle("active", i === globalSearchIndex);
+        });
+      }
+      jumpToSearchHit(hit);
+    }
+    return;
+  }
+  
   if (state.mode === "review") {
     stepReview(1);
   } else {
