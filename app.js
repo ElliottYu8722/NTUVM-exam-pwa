@@ -1615,7 +1615,7 @@ function updatePetBCSFromTime(petKey) {
   } else if (pet.bcs === 1) {
     pet.status = 'sick';
     // 只在剛掉到 1 的那一次提醒
-    alert('BCS 只剩 1：我要生一場 10 萬塊的大病…');
+    //alert('BCS 只剩 1：我要生一場 10 萬塊的大病…');
   } else if (pet.status === 'sick' && pet.bcs >= 2) {
     pet.status = 'normal';
   }
