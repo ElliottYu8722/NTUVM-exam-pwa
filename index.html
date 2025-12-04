@@ -134,43 +134,7 @@
     .btn:hover{border-color:var(--accent);color:var(--accent)}
     .checkbox{display:flex;align-items:center;gap:8px;color:var(--fg)}
     .center .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
-    @media (max-width: 768px) {
-      /* 把一般模式的 topbar 改成 2 欄：左邊是 科目/年度/梯次，右邊是其他東西 */
-      .center .topbar {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        grid-auto-rows: auto;
-        column-gap: 8px;
-        row-gap: 6px;
-        align-items: flex-start;
-      }
-    
-      /* 第 1、2、3 個 badge（科目 / 年度 / 梯次）固定在左側一欄，縱向疊起來 */
-      .center .topbar span.badge:nth-child(1),
-      .center .topbar span.badge:nth-child(2),
-      .center .topbar span.badge:nth-child(3) {
-        grid-column: 1;
-      }
-    
-      /* 搜尋框放右側上方 */
-      .center .topbar #questionSearch {
-        grid-column: 2;
-      }
-    
-      /* 計時器、回顧標籤、空白 spacer、交卷 / 關閉按鈕 都放在右側這一欄的下面 */
-      .center .topbar span.badge.timer,
-      .center .topbar span.badge#reviewTag,
-      .center .topbar .spacer,
-      .center .topbar #btnSubmit,
-      .center .topbar #btnClose {
-        grid-column: 2;
-      }
-    
-      /* 手機版不需要 spacer 撐開空間，直接隱藏 */
-      .center .topbar .spacer {
-        display: none;
-      }
-    }
+
 
     body.quiz-mode .center .topbar{
       flex-wrap: nowrap;
