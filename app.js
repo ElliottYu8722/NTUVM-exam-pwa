@@ -2023,90 +2023,107 @@ function getAllYearValuesForCurrentSubject() {
 
 // 建立「跨卷池」的 5 題題目：同科目，但跨所有年份 × 梯次
 // 建立「跨科目＋跨年度＋跨梯次」的寵物小考題目
+// 跨卷抽題：從多科目 / 多年度 / 多梯次裡面，隨機抽 maxCount 題
+// 🔒 110 年（含）以後沒有「第二次」，這裡會自動略過那些組合，避免 404
 async function buildCrossVolumeQuizQuestions(maxCount) {
   const result = [];
-
-  // 三個下拉元件都必須存在
   if (!subjectSel || !yearSel || !roundSel) return result;
 
-  // 1. 收集所有科目（用 option 的 value，跟你平常切換卷別時一樣）
-  const subjects = Array.from(subjectSel.options)
-    .map(o => String(o.value || '').trim())
+  // 1. 把所有科目 / 年度 / 梯次的「選項值」抓出來
+  const subjects = Array.from(subjectSel.options || [])
+    .map(o => String(o.value).trim())
     .filter(Boolean);
 
-  // 2. 收集所有年份
-  const years = Array.from(yearSel.options)
-    .map(o => String(o.value || '').trim())
+  const years = Array.from(yearSel.options || [])
+    .map(o => String(o.value).trim())
     .filter(Boolean);
 
-  // 3. 收集所有梯次（直接用下拉的 value 或文字）
-  const rounds = Array.from(roundSel.options)
-    .map(o => String(o.value || o.textContent || '').trim())
+  const rounds = Array.from(roundSel.options || [])
+    .map(o => {
+      const text = (o.textContent || "").trim();
+      const val = (o.value || "").trim();
+      return text || val; // 例如「第一次」「第二次」
+    })
     .filter(Boolean);
 
-  // 4. 組出所有 (subj, year, round) 的組合
+  // 2. 組合出所有要嘗試的 scope（但會跳過 110+ 年的「第二次」）
   const scopes = [];
-  subjects.forEach(subj => {
-    years.forEach(year => {
-      rounds.forEach(roundLabel => {
+  for (const subj of subjects) {
+    for (const year of years) {
+      const yearNum = Number(year);
+      for (const raw of rounds) {
+        const roundLabel = String(raw).trim();
+        const isSecond =
+          roundLabel === "第二次" ||
+          roundLabel === "第二" ||
+          roundLabel === "2";
+
+        // 🔒 110 年（含）以後沒有第二次 → 直接略過這種組合
+        if (Number.isFinite(yearNum) && yearNum >= 110 && isSecond) {
+          continue;
+        }
+
         scopes.push({ subj, year, roundLabel });
-      });
-    });
-  });
+      }
+    }
+  }
 
   if (!scopes.length) return result;
 
-  // 5. 洗牌，讓出題順序隨機
+  // 3. 打亂 scopes 順序，讓抽題比較隨機
   for (let i = scopes.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
   }
 
-  // 6. 記住原本畫面上選的卷別，等一下抽完題要切回來
+  // 4. 記下現在原本選到的卷別，抽題完要切回來
   const originalScope = {
     subj: subjectSel.value,
     year: yearSel.value,
     round: roundSel.value,
   };
 
-  // 7. 依序走訪每個 scope，切換卷別後從該卷抽一題進來
+  // 5. 依序嘗試每個 scope，抽題直到湊齊 maxCount 或沒有卷可用了
   for (const s of scopes) {
     if (result.length >= maxCount) break;
 
-    // 切換 UI 下拉
+    // 切到該科目 / 年度 / 梯次
     subjectSel.value = s.subj;
     yearSel.value = s.year;
     roundSel.value = s.roundLabel;
 
-    // 觸發既有的 onScopeChange，實際載入那一卷的題目與答案
-    if (typeof onScopeChange === 'function') {
-      try {
-        await onScopeChange();
-      } catch (e) {
-        console.error('onScopeChange error in cross-subject quiz', e);
-        continue;
+    try {
+      if (typeof onScopeChange === "function") {
+        await onScopeChange(); // 這裡會去載入題目 + 答案檔 [file:21]
       }
+    } catch (e) {
+      console.error("onScopeChange error in cross-subject quiz:", e);
+      continue;
     }
 
-    // 從這一卷裡挑一題「有標好答案」的題目
-    const pool = state.questions.filter(q => state.answers[String(q.id)]);
+    // 從這一卷裡挑一題「有答案的題目」
+    const pool = (state.questions || []).filter(q => {
+      const key = String(q.id);
+      return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
+    });
+
     if (!pool.length) continue;
 
     const picked = pool[Math.floor(Math.random() * pool.length)];
     if (!picked) continue;
 
     const qid = String(picked.id);
-    const caRaw = String(state.answers[qid]).toUpperCase();
+    const caRaw = String(state.answers[qid] || "").toUpperCase();
     const answerSet = Array.from(
       new Set(
         caRaw
-          .split(/[\/,]/)           // ← 這行是關鍵          .map(x => x.trim())
+          .split(",")
+          .map(x => x.trim())
           .filter(Boolean)
       )
     );
     if (!answerSet.length) continue;
 
-    // 存下這題，連同科目／年份／梯次，一起存進 scope
     result.push({
       id: picked.id,
       text: picked.text,
@@ -2121,21 +2138,21 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
     });
   }
 
-  // 8. 抽完題之後，把畫面上的卷別切回原本選的那一卷
+  // 6. 抽題完成後，把畫面切回原本那一卷
   try {
     subjectSel.value = originalScope.subj;
     yearSel.value = originalScope.year;
     roundSel.value = originalScope.round;
-
-    if (typeof onScopeChange === 'function') {
+    if (typeof onScopeChange === "function") {
       await onScopeChange();
     }
   } catch (e) {
-    console.error('restore scope error after cross-subject quiz', e);
+    console.error("restore scope error after cross-subject quiz:", e);
   }
 
   return result;
 }
+
 
 // ===== 隨機測驗：跨卷抽題＋自己的作答紀錄 =====
 
