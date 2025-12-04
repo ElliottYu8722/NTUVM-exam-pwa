@@ -864,7 +864,6 @@ async function jumpToSearchHit(hit) {
 
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
 let isJumpingFromSearch = false;
-let isGlobalSearchMode = false;
 // 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
 async function searchAcrossVolumes(keyword) {
   const kw = (keyword || "").trim().toLowerCase();
