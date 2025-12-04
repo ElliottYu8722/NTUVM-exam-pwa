@@ -660,14 +660,61 @@ function resolveImage(src){
 }
 
 /* DOM */
+/* DOM */
 const $ = sel => document.querySelector(sel);
 const $$ = sel => document.querySelectorAll(sel);
 const toolbar = document.querySelector(".toolbar");
-const yearSel   = $("#yearSel");
-const roundSel  = $("#roundSel");
-const subjectSel= $("#subjectSel");
+const yearSel = $("#yearSel");
+const roundSel = $("#roundSel");
+const subjectSel = $("#subjectSel");
 const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
-const searchCache = {};  // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
+const searchCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
+
+// ★ 新增：110 年（含）之後沒有第二次 → 自動鎖定「第一次」，並隱藏「第二次」
+function updateRoundOptionsByYear() {
+  if (!yearSel || !roundSel) return;
+
+  const yearNum = Number(yearSel.value);
+  const options = Array.from(roundSel.options || []);
+
+  // 找出「第二次」那個選項（兼容 value 寫 2 或文字寫 第二次）
+  const secondOpt = options.find(o => {
+    const text = (o.textContent || "").trim();
+    const val = (o.value || "").trim();
+    return text === "第二次" || text === "第二"
+      || val === "第二次" || val === "第二" || val === "2";
+  });
+
+  if (!secondOpt) return;
+
+  if (Number.isFinite(yearNum) && yearNum >= 110) {
+    // 110 年（含）以後：隱藏＆停用第二次
+    secondOpt.disabled = true;
+    secondOpt.style.display = "none";
+
+    // 如果現在剛好選在第二次，就自動切回第一個可用的選項
+    if (roundSel.value === secondOpt.value) {
+      const firstOpt = options.find(o => !o.disabled);
+      if (firstOpt) {
+        roundSel.value = firstOpt.value;
+      }
+    }
+  } else {
+    // 109 年（含）以前：恢復顯示第二次
+    secondOpt.disabled = false;
+    secondOpt.style.display = "";
+  }
+}
+
+// 綁定年份變更事件 ＋ 載入頁面時先跑一次
+if (yearSel) {
+  yearSel.addEventListener("change", updateRoundOptionsByYear);
+  updateRoundOptionsByYear();
+}
+
+
+
+
 let isGlobalSearchMode = false;     // 是否正在顯示搜尋結果列表
 let globalSearchResults = [];       // [{subj, year, roundLabel, qid}, ...]
 let globalSearchIndex = -1;         // 目前在搜尋結果中的第幾筆（0-based）
@@ -886,89 +933,100 @@ async function jumpToSearchHit(hit) {
 let isJumpingFromSearch = false;
 // 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
+// 🔍 跨科目＋跨年份＋跨梯次 全域搜尋（加上 debug log）
 async function searchAcrossVolumes(keyword) {
-  const kw = String(keyword || '').trim().toLowerCase()
+  const kw = String(keyword || '').trim().toLowerCase();
 
   // 沒關鍵字就回到一般模式
   if (!kw) {
-    isGlobalSearchMode = false
-    globalSearchResults = []
-    globalSearchIndex = -1
+    isGlobalSearchMode = false;
+    globalSearchResults = [];
+    globalSearchIndex = -1;
     if (typeof showAllQuestions === 'function') {
-      showAllQuestions()
+      showAllQuestions();
     }
-    return
+    return;
   }
 
   // 基本保護：下拉選單沒準備好就不做事
   if (!subjectSel || !yearSel || !roundSel) {
-    return
+    return;
   }
 
-  // ✅ 這裡：一次抓出「所有科目」
+  // 抓出「所有科目／所有年份／所有梯次」
   const subjects = Array.from(subjectSel.options)
     .map(o => String(o.value).trim())
-    .filter(Boolean)
+    .filter(Boolean);
 
-  // 年份：沿用目前下拉選單裡有的所有年份
   const years = Array.from(yearSel.options)
     .map(o => String(o.value).trim())
-    .filter(Boolean)
+    .filter(Boolean);
 
-  // 梯次／卷別：用文字（沒有就用 value）
   const rounds = Array.from(roundSel.options)
     .map(o => (o.textContent ? o.textContent : o.value).trim())
-    .filter(Boolean)
+    .filter(Boolean);
 
-  const hits = []
+  const hits = [];
 
-  // 🔁 逐一把「科目 × 年份 × 梯次」都掃過
   for (const subj of subjects) {
     for (const year of years) {
       for (const roundLabel of rounds) {
-        const qs = await loadQuestionsForScope(subj, year, roundLabel)
-        if (!qs || !qs.length) continue
+        const qs = await loadQuestionsForScope(subj, year, roundLabel);
+        if (!qs || !qs.length) continue;
 
         qs.forEach(q => {
-          const texts = []
+          const texts = [];
 
-          if (q.text) texts.push(q.text)
+          // 題目本身
+          if (q.text) texts.push({ where: '題幹', value: q.text });
 
+          // 選項內容
           if (q.options) {
             for (const k in q.options) {
               if (Object.prototype.hasOwnProperty.call(q.options, k) && q.options[k]) {
-                texts.push(q.options[k])
+                texts.push({ where: `選項 ${k}`, value: q.options[k] });
               }
             }
           }
 
-          if (q.explanation) {
-            texts.push(q.explanation)
-          }
+          // ⚠️ 不再把詳解拿來搜尋，避免未來詳解干擾
+          // if (q.explanation) {
+          //   texts.push({ where: '詳解', value: q.explanation });
+          // }
 
-          const matched = texts.some(t =>
-            String(t).toLowerCase().includes(kw)
-          )
+          // 先找出真正有包含關鍵字的那些片段
+          const matchedPieces = texts.filter(t =>
+            String(t.value).toLowerCase().includes(kw)
+          );
 
-          if (matched) {
+          if (matchedPieces.length > 0) {
+            // ✅ debug：印出是哪裡有關鍵字
+            console.log(
+              '[SEARCH MATCH]',
+              `關鍵字：「${kw}」`,
+              `→ ${subj} / ${year} / ${roundLabel} / 題號 ${q.id}`,
+              matchedPieces.map(m => `${m.where}：${m.value}`).join('  |  ')
+            );
+
             hits.push({
               subj,
               year,
               roundLabel,
               qid: q.id
-            })
+            });
           }
-        })
+        });
       }
     }
   }
 
   // 進入「全域搜尋模式」
-  isGlobalSearchMode = true
-  globalSearchResults = hits
-  globalSearchIndex = hits.length ? 0 : -1
-  renderGlobalSearchList(hits)
+  isGlobalSearchMode = true;
+  globalSearchResults = hits;
+  globalSearchIndex = hits.length ? 0 : -1;
+  renderGlobalSearchList(hits);
 }
+
 
 
 // 綁定輸入框：停止打字 400ms 後觸發跨卷搜尋（避免每個字都大量 fetch）
