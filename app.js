@@ -2155,6 +2155,7 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
 // ====== 跨卷隨機測驗 Overlay ======
 
+// 專門給「跨卷隨機測驗」用的樣式
 function ensureRandomQuizStyle() {
   if (document.getElementById('random-quiz-style')) return;
 
@@ -2313,7 +2314,6 @@ function ensureRandomQuizStyle() {
   `;
   document.head.appendChild(style);
 }
-
 function openRandomQuizOverlay(qs) {
   if (!Array.isArray(qs) || !qs.length) {
     alert('目前沒有可用的隨機題目。');
@@ -2331,7 +2331,7 @@ function openRandomQuizOverlay(qs) {
   mask.id = 'random-quiz-mask';
   mask.className = 'random-quiz-mask';
 
-  // 🔴 這裡額外用「內嵌 style」強制讓它是全螢幕覆蓋視窗
+  // 再保險一次：用內嵌 style 確保是全螢幕覆蓋
   mask.style.position = 'fixed';
   mask.style.inset = '0';
   mask.style.zIndex = '100010';
@@ -2442,21 +2442,51 @@ function openRandomQuizOverlay(qs) {
   function submit() {
     let correct = 0;
     const total = qs.length;
-    const wrong = [];
+    const detail = [];
 
     qs.forEach((q, i) => {
-      const ua = (user[i] || '').toUpperCase();
+      const ua = String(user[i] || '').toUpperCase();
       const set = new Set(
-        Array.isArray(q.answerSet) ? q.answerSet.map(s => String(s).toUpperCase()) : []
+        Array.isArray(q.answerSet)
+          ? q.answerSet.map(s => String(s).toUpperCase())
+          : []
       );
-      if (set.has('ALL') || (ua && set.has(ua))) {
-        correct++;
-      } else {
-        wrong.push({ idx: i, ua, ca: Array.from(set).join('/') });
-      }
+      const isCorrect = set.has('ALL') || (ua && set.has(ua));
+      if (isCorrect) correct++;
+
+      detail.push({
+        subj: q.scope?.subj || '',
+        year: q.scope?.year || '',
+        roundLabel: q.scope?.roundLabel || '',
+        id: q.id,
+        userAns: ua || '',
+        correctAns: Array.from(set).join('/') || ''
+      });
     });
 
     const score = total ? ((correct / total) * 100).toFixed(2) : '0.00';
+
+    // 寫入隨機測驗紀錄，沿用你第二部分的結構
+    try {
+      const now = new Date();
+      const ts = now.toLocaleString('zh-TW', { hour12: false });
+
+      const record = {
+        ts,
+        count: total,
+        correctCount: correct,
+        questions: detail
+      };
+
+      randomQuizRecords.unshift(record);
+      if (randomQuizRecords.length > 50) {
+        randomQuizRecords = randomQuizRecords.slice(0, 50);
+      }
+      saveRandomQuizRecords();
+    } catch (e) {
+      console.error('寫入隨機測驗紀錄失敗：', e);
+    }
+
     alert(`本次隨機測驗得分：${score} 分（${correct}/${total}）`);
     closeOverlay();
   }
