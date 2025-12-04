@@ -2338,69 +2338,189 @@ function submitRandomQuiz() {
 }
 
 /** 開啟隨機測驗本體卡片 */
-function openRandomQuizOverlay(questions) {
-  ensureRandomQuizStyle();
+/** 顯示「隨機測驗作答紀錄」列表（可刪除單筆） */
+function openRandomQuizRecordsOverlay() {
+  loadRandomQuizRecords();
 
-  const old = document.getElementById('random-quiz-mask');
+  const old = document.getElementById('random-quiz-records-mask');
   if (old) old.remove();
 
-  randomQuizState.active = true;
-  randomQuizState.questions = questions || [];
-  randomQuizState.user = {};
-  randomQuizState.index = 0;
-  randomQuizState.reviewMode = false;
-  randomQuizState.submitCount = 0;
-
   const mask = document.createElement('div');
-  mask.id = 'random-quiz-mask';
-  mask.className = 'pet-quiz-mask';
+  mask.id = 'random-quiz-records-mask';
+  mask.style.position = 'fixed';
+  mask.style.inset = '0';
+  mask.style.zIndex = '100011';
+  mask.style.background = 'rgba(0,0,0,0.5)';
+  mask.style.display = 'flex';
+  mask.style.alignItems = 'center';
+  mask.style.justifyContent = 'center';
+  mask.style.padding = '16px';
 
   const card = document.createElement('div');
-  card.className = 'pet-quiz-card';
-  card.innerHTML = `
-    <div class="pet-quiz-head">
-      <div class="pet-quiz-title">隨機測驗</div>
-      <div class="pet-quiz-sub" id="random-quiz-title-sub">跨卷隨機題目</div>
-    </div>
-    <div class="pet-quiz-body">
-      <div class="pet-quiz-qnum" id="random-quiz-qnum"></div>
-      <div class="pet-quiz-qtext" id="random-quiz-qtext"></div>
-      <img class="pet-quiz-qimg" id="random-quiz-qimg" style="display:none">
-      <div class="pet-quiz-opts" id="random-quiz-opts"></div>
-    </div>
-    <div class="pet-quiz-foot">
-      <button class="pet-quiz-btn" id="random-quiz-prev">上一題</button>
-      <button class="pet-quiz-btn" id="random-quiz-next">下一題</button>
-      <button class="pet-quiz-btn" id="random-quiz-reset">重填作答</button>
-      <button class="pet-quiz-btn pet-quiz-btn-danger" id="random-quiz-close">關閉</button>
-      <button class="pet-quiz-btn pet-quiz-btn-primary" id="random-quiz-submit">交卷 / 回顧</button>
-    </div>
-  `;
+  card.style.background = 'var(--card, #1b1b1b)';
+  card.style.color = 'var(--fg, #fff)';
+  card.style.borderRadius = '14px';
+  card.style.border = '1px solid var(--border, #333)';
+  card.style.maxWidth = '720px';
+  card.style.width = '100%';
+  card.style.maxHeight = '90vh';
+  card.style.padding = '16px';
+  card.style.display = 'flex';
+  card.style.flexDirection = 'column';
+  card.style.gap = '8px';
+  card.style.overflow = 'auto';
 
+  const head = document.createElement('div');
+  head.style.display = 'flex';
+  head.style.justifyContent = 'space-between';
+  head.style.alignItems = 'center';
+  head.style.gap = '8px';
+
+  const title = document.createElement('div');
+  title.textContent = '隨機測驗作答紀錄';
+  title.style.fontSize = '16px';
+  title.style.fontWeight = '700';
+
+  const headRight = document.createElement('div');
+  headRight.style.display = 'flex';
+  headRight.style.gap = '6px';
+
+  // 關閉按鈕
+  const btnClose = document.createElement('button');
+  btnClose.textContent = '關閉';
+  btnClose.style.borderRadius = '9999px';
+  btnClose.style.border = '1px solid var(--border, #444)';
+  btnClose.style.background = 'transparent';
+  btnClose.style.color = 'var(--fg, #fff)';
+  btnClose.style.padding = '4px 10px';
+  btnClose.style.cursor = 'pointer';
+  btnClose.style.fontSize = '13px';
+  btnClose.onclick = () => mask.remove();
+
+  // （可選）清空全部紀錄
+  const btnClearAll = document.createElement('button');
+  btnClearAll.textContent = '全部清除';
+  btnClearAll.style.borderRadius = '9999px';
+  btnClearAll.style.border = '1px solid var(--border, #444)';
+  btnClearAll.style.background = 'transparent';
+  btnClearAll.style.color = 'var(--muted, #aaa)';
+  btnClearAll.style.padding = '4px 10px';
+  btnClearAll.style.cursor = 'pointer';
+  btnClearAll.style.fontSize = '13px';
+
+  btnClearAll.onclick = () => {
+    if (!randomQuizRecords.length) return;
+    const ok = window.confirm('確定要刪除所有隨機測驗紀錄嗎？這個動作無法復原。');
+    if (!ok) return;
+    randomQuizRecords = [];
+    saveRandomQuizRecords();
+    mask.remove();
+    // 刪完直接關掉視窗，之後再開會是空的
+  };
+
+  headRight.appendChild(btnClearAll);
+  headRight.appendChild(btnClose);
+
+  head.appendChild(title);
+  head.appendChild(headRight);
+
+  const body = document.createElement('div');
+  body.style.display = 'flex';
+  body.style.flexDirection = 'column';
+  body.style.gap = '8px';
+  body.style.fontSize = '14px';
+
+  if (!randomQuizRecords.length) {
+    const empty = document.createElement('div');
+    empty.textContent = '目前還沒有隨機測驗紀錄。';
+    body.appendChild(empty);
+  } else {
+    randomQuizRecords.forEach((rec, idx) => {
+      const box = document.createElement('div');
+      box.style.border = '1px solid var(--border, #333)';
+      box.style.borderRadius = '10px';
+      box.style.padding = '8px 10px';
+      box.style.background = 'rgba(255,255,255,0.02)';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '4px';
+
+      // 每一筆紀錄自己的頭（時間 + 成績 + 刪除）
+      const headLine = document.createElement('div');
+      headLine.style.display = 'flex';
+      headLine.style.justifyContent = 'space-between';
+      headLine.style.alignItems = 'center';
+      headLine.style.gap = '6px';
+
+      const left = document.createElement('span');
+      left.textContent = rec.ts || '';
+
+      const middle = document.createElement('span');
+      middle.textContent = `${rec.correctCount}/${rec.count} 題正確`;
+      middle.style.flex = '0 0 auto';
+
+      const btnDel = document.createElement('button');
+      btnDel.textContent = '刪除這筆';
+      btnDel.style.borderRadius = '9999px';
+      btnDel.style.border = '1px solid var(--border, #444)';
+      btnDel.style.background = 'transparent';
+      btnDel.style.color = 'var(--muted, #aaa)';
+      btnDel.style.padding = '2px 8px';
+      btnDel.style.cursor = 'pointer';
+      btnDel.style.fontSize = '12px';
+      btnDel.style.flex = '0 0 auto';
+
+      btnDel.onclick = () => {
+        const ok = window.confirm('確定要刪除這筆隨機測驗紀錄嗎？');
+        if (!ok) return;
+        // idx 是目前這一輪 forEach 的索引，對應 randomQuizRecords 中同一筆
+        randomQuizRecords.splice(idx, 1);
+        saveRandomQuizRecords();
+        // 重新打開畫面刷新列表
+        mask.remove();
+        openRandomQuizRecordsOverlay();
+      };
+
+      headLine.appendChild(left);
+      headLine.appendChild(middle);
+      headLine.appendChild(btnDel);
+
+      box.appendChild(headLine);
+
+      // 題目明細
+      if (Array.isArray(rec.questions) && rec.questions.length) {
+        rec.questions.forEach(q => {
+          const line = document.createElement('div');
+          line.style.fontSize = '13px';
+          line.style.color = 'var(--muted, #aaa)';
+
+          const parts = [];
+          if (q.subj) parts.push(q.subj);
+          if (q.year) parts.push(`${q.year} 年`);
+          if (q.roundLabel) parts.push(`第 ${q.roundLabel} 次`);
+          if (q.id != null) parts.push(`第 ${q.id} 題`);
+          const src = parts.join(' / ') || '來源未知';
+
+          const ua = q.userAns || '-';
+          const ca = q.correctAns || '-';
+
+          line.textContent = `${src}｜作答：${ua}｜正解：${ca}`;
+          box.appendChild(line);
+        });
+      }
+
+      body.appendChild(box);
+    });
+  }
+
+  card.appendChild(head);
+  card.appendChild(body);
   mask.appendChild(card);
   document.body.appendChild(mask);
 
-  const btnPrev   = document.getElementById('random-quiz-prev');
-  const btnNext   = document.getElementById('random-quiz-next');
-  const btnSubmit = document.getElementById('random-quiz-submit');
-  const btnClose  = document.getElementById('random-quiz-close');
-  const btnReset  = document.getElementById('random-quiz-reset');
-
-  if (btnPrev)   btnPrev.onclick   = () => stepRandomQuiz(-1);
-  if (btnNext)   btnNext.onclick   = () => stepRandomQuiz(1);
-  if (btnSubmit) btnSubmit.onclick = submitRandomQuiz;
-  if (btnClose)  btnClose.onclick  = closeRandomQuizOverlay;
-  if (btnReset)  btnReset.onclick  = () => {
-    randomQuizState.user = {};
-    randomQuizState.reviewMode = false;
-    renderRandomQuizQuestion();
-  };
-
   mask.addEventListener('click', e => {
-    if (e.target === mask) closeRandomQuizOverlay();
+    if (e.target === mask) mask.remove();
   });
-
-  renderRandomQuizQuestion();
 }
 
 /** 顯示「隨機測驗作答紀錄」列表 */
