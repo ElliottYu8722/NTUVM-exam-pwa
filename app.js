@@ -1121,8 +1121,9 @@ const timerBadge = $("#timer"), reviewTag = $("#reviewTag");
 
 const btnRecords = $("#btnRecords"), btnTheme = $("#btnTheme");
 const btnExportNotes = $("#btnExportNotes");  // 作者模式匯出按鈕
-
+const btnRandomQuiz = $("#btnRandomQuiz");
 // ===== 作者模式：用 ?dev=1 或 localStorage 控制 =====
+
 const AUTHOR_MODE = (()=>{
   try{
     const usp = new URLSearchParams(location.search);   // 讀網址上的 query 參數
