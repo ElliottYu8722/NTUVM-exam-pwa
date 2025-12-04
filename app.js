@@ -4638,107 +4638,116 @@ if (themeSel) {
 
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
 [yearSel, roundSel, subjectSel].forEach(sel=> sel.addEventListener("change", onScopeChange));
-/* 選單變更 → 自動載入 data/題目 與 data/答案 */
-/* --- debug friendly onScopeChange --- */
-async function onScopeChange(){
-  // 1) 在切換前，用舊範圍快照保存當前題筆記，避免用新鍵覆蓋舊內容
-  const oldScope = state.scope || getScopeFromUI();
+
+// --- debug friendly onScopeChange ---
+async function onScopeChange() {
+  // 1. 先把目前卷別的筆記存起來，避免切卷弄丟
+  const oldScope = state.scope;
   saveNotes(oldScope);
 
-  // 2) 以新範圍讀取作答紀錄
+  // 2. 從 localStorage 載入對應答案（如果之前有存）
   loadAnswersFromStorage();
 
-  // 3) 以下維持原本載入題目/答案的流程（依新 select 值）
+  // 3. 準備題目／答案檔案路徑
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
   const qName = `${p}${yearSel.value}_${r}.json`;
   const aName = `${p}w${yearSel.value}_${r}.json`;
 
-  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName) + `?v=${Date.now()}`;
-  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers,   aName) + `?v=${Date.now()}`;
+  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, `${qName}?v=${Date.now()}`);
+  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers, `${aName}?v=${Date.now()}`);
 
-  console.groupCollapsed("[onScopeChange] 嘗試載入題庫");
+  console.groupCollapsed("onScopeChange");
   console.log("subjectSel.value =", subjectSel.value);
-  console.log("subjectPrefix ->", p);
-  console.log("qName =", qName, "aName =", aName);
-  console.log("qURL =", qURL);
-  console.log("aURL =", aURL);
+  console.log("subjectPrefix   =", p);
+  console.log("qName / aName   =", qName, aName);
+  console.log("qURL            =", qURL);
+  console.log("aURL            =", aURL);
   console.log("CONFIG.basePath =", CONFIG.basePath, "CONFIG.dirs =", CONFIG.dirs);
   console.groupEnd();
 
-  let loadedQ = false, loadedA = false;
+  let loadedQ = false;
+  let loadedA = false;
 
-  try{
-    const qRes = await fetch(qURL, { cache:"no-store" });
-    console.log("[fetch] qRes", qRes);
-    if(qRes.ok){
-      const ctype = qRes.headers.get("content-type") || "";
-      console.log("[fetch] q content-type =", ctype);
+  // 3-1. 載入題目檔
+  try {
+    const qRes = await fetch(qURL, { cache: "no-store" });
+    console.log("[fetch Q]", qRes);
+
+    if (qRes.ok) {
+      const ctype = qRes.headers.get("content-type");
+      console.log("[fetch Q] content-type =", ctype);
+
       const arr = await qRes.json();
-      if(Array.isArray(arr)){
+      if (Array.isArray(arr)) {
+        // ✅ 每次換卷都先更新題目本體
         state.questions = arr;
-        // 一般切卷：才重畫清單／清空搜尋框
+
+        // ✅ 若「不是群組模式」，就讓 visibleQuestions 跟著指向這一卷的題目
+        //    這樣即使是從全域搜尋跳題（isJumpingFromSearch = true），
+        //    中央顯示也會用到正確卷別的題目陣列，而不是前一卷殘留的列表。
+        if (!state.currentGroupId) {
+          state.visibleQuestions = state.questions;
+        }
+
+        // ✅ 只有在「一般切卷」的情況下，才重設 index + 重畫右側卷內清單
+        //    若是從搜尋結果跳過來（isJumpingFromSearch = true），就不要洗掉右欄。
         if (!state.currentGroupId && !isJumpingFromSearch) {
           state.index = 0;
           if (searchInput) searchInput.value = "";
-          renderList();
+          renderList(state.questions, { renumber: false });
         }
+
         loadedQ = true;
-      }else{
-        state.questions = [];
-      
-        if (!state.currentGroupId && !isJumpingFromSearch) {
-          state.index = 0;
-          if (searchInput) searchInput.value = "";
-          renderList();
-        }
+      } else {
+        console.warn("onScopeChange：題目 JSON 格式不是陣列", qName, arr);
       }
     } else {
-      console.warn("[onScopeChange] fetch qRes not ok:", qRes.status, qRes.statusText);
+      console.warn("onScopeChange：載入題目失敗", qRes.status, qRes.statusText);
     }
-  }catch(e){
-    console.error("[onScopeChange] fetch 題目發生錯誤:", e);
+  } catch (e) {
+    console.error("onScopeChange：載入題目檔錯誤", e);
   }
 
-  try{
-    const aRes = await fetch(aURL, { cache:"no-store" });
-    console.log("[fetch] aRes", aRes);
-    if(aRes.ok){
-      const ctype = aRes.headers.get("content-type") || "";
-      console.log("[fetch] a content-type =", ctype);
+  // 3-2. 載入答案檔
+  try {
+    const aRes = await fetch(aURL, { cache: "no-store" });
+    console.log("[fetch A]", aRes);
+
+    if (aRes.ok) {
+      const ctype = aRes.headers.get("content-type");
+      console.log("[fetch A] content-type =", ctype);
+
       const obj = await aRes.json();
-      if(obj && typeof obj === "object"){
+      if (obj && typeof obj === "object") {
         state.answers = obj;
         loadedA = true;
-        console.log("[onScopeChange] 答案載入成功，條目數:", Object.keys(obj).length);
-      }else{
-        console.error("[onScopeChange] 答案檔格式錯誤（不是物件）", aName, obj);
-        alert(`答案檔格式錯誤（不是物件）：${aName}`);
-        state.answers = {};
+        console.log("onScopeChange：答案載入完成，數量 =", Object.keys(obj).length);
+      } else {
+        console.error("onScopeChange：答案 JSON 格式錯誤", aName, obj);
+        alert(`答案檔格式錯誤：${aName}`);
       }
     } else {
-      console.warn("[onScopeChange] fetch aRes not ok:", aRes.status, aRes.statusText);
+      console.warn("onScopeChange：載入答案失敗", aRes.status, aRes.statusText);
     }
-  }catch(e){
-    console.error("[onScopeChange] fetch 答案發生錯誤:", e);
+  } catch (e) {
+    console.error("onScopeChange：載入答案檔錯誤", e);
   }
 
-  if(!loadedQ){
-    toast(`找不到題目檔：${qName}（看 console 有更詳細錯誤）`);
-  }
-  if(!loadedA){
-    toast(`找不到答案檔：${aName}（看 console 有更詳細錯誤）`);
-  }
+  // 3-3. 若真的找不到檔案，給個提示
+  if (!loadedQ) toast(`找不到題目檔：${qName}`);
+  if (!loadedA) toast(`找不到答案檔：${aName}`);
 
-  // 4) 切換完成後，更新「現行範圍快照」為新 scope，之後渲染時會用新鍵讀取筆記
+  // 4. 更新目前 scope 記錄
   state.scope = getScopeFromUI();
 
-  // 一樣：只有非群組模式才在這裡主動畫題目
+  // 5. 只有在「一般切卷」時，自動重畫目前題目
+  //    若是從搜尋結果跳題，會由 jumpToSearchHit 自己決定要跳到哪一題再 render。
   if (!state.currentGroupId && !isJumpingFromSearch) {
     renderQuestion();
   }
-
 }
+
 
 
 /* 自動儲存提示 */
