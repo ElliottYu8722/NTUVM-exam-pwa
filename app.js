@@ -1967,6 +1967,12 @@ function ensurePetQuizStyle() {
     gap: 6px;
     margin-bottom: 8px;
   }
+  .pet-quiz-opt-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
   .pet-quiz-opt-text {
     flex: 1;
   }
