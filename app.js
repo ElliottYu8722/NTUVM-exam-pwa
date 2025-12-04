@@ -2268,6 +2268,8 @@ function openRandomQuizOverlay(qs) {
       const span = document.createElement('span');
       span.className = 'pet-quiz-opt-text';  // 讓它吃上面那條 flex:1
       span.textContent = `${L}. ${text}`;
+      row.appendChild(rb);
+      row.appendChild(span);
 
       // 🔸 檢討模式：標示你選 & 正解
       if (reviewMode) {
