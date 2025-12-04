@@ -1977,8 +1977,10 @@ function ensurePetQuizStyle() {
     flex: 1;
   }
   .pet-quiz-opt-note {
-    margin-left: 6px;
+    margin-left: 8px;
     font-size: 12px;
+    white-space: nowrap;
+    flex: 0 0 auto;
   }
   .pet-quiz-foot {
     padding: 10px 14px 12px;
@@ -2263,6 +2265,7 @@ function openRandomQuizOverlay(qs) {
       };
 
       const span = document.createElement('span');
+      span.className = 'pet-quiz-opt-text';  // 讓它吃上面那條 flex:1
       span.textContent = `${L}. ${text}`;
 
       // 🔸 檢討模式：標示你選 & 正解
