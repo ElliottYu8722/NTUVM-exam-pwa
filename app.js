@@ -4240,6 +4240,7 @@ function enterFullscreenQuiz(){
   `;
 
 // 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
+// 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
 if (!document.getElementById("fs-quiz-style")) {
   const css = document.createElement("style");
   css.id = "fs-quiz-style";
@@ -4370,9 +4371,29 @@ if (!document.getElementById("fs-quiz-style")) {
       background:var(--accent,#2f74ff);
       color:#fff;
     }
+
+    /* ===== 手機直立時：只改全螢幕測驗上方列的排版 ===== */
+    @media (max-width: 600px) and (orientation: portrait) {
+      .fs-topbar{
+        flex-wrap:wrap;
+      }
+
+      /* 科目 / 年份 / 梯次 三個 badge 各占一整行，往下疊 */
+      .fs-topbar .fs-badge:nth-child(1),
+      .fs-topbar .fs-badge:nth-child(2),
+      .fs-topbar .fs-badge:nth-child(3) {
+        flex-basis: 100%;
+      }
+
+      /* 手機直立時不需要 spacer 撐開，避免擠掉按鈕 */
+      .fs-topbar .fs-spacer {
+        display:none;
+      }
+    }
   `;
   document.head.appendChild(css);
 }
+
 
 
   // 先把完整測驗畫面 + 準備卡片都畫出來（準備卡片會蓋在最上面）
