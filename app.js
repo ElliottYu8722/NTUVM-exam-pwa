@@ -665,6 +665,50 @@ const yearSel   = $("#yearSel");
 const roundSel  = $("#roundSel");
 const subjectSel= $("#subjectSel");
 const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
+const searchCache = {};  // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
+// 依「科目 / 年份 / 梯次」載入題目（給搜尋用），會做快取
+async function loadQuestionsForScope(subj, year, roundLabel) {
+  if (!subj || !year || !roundLabel) return [];
+
+  const cacheKey = `${subj}|${year}|${roundLabel}`;
+  if (searchCache[cacheKey]) {
+    return searchCache[cacheKey];
+  }
+
+  const p = subjectPrefix(subj);
+  const r = (roundLabel === "第一次") ? "1" : "2";
+  const qName = `${p}${year}_${r}.json`;
+  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName);
+
+  try {
+    const res = await fetch(qURL, { cache: "force-cache" });
+    if (!res.ok) {
+      console.warn("[search] 無法載入題目檔：", qName, res.status);
+      searchCache[cacheKey] = [];
+      return [];
+    }
+
+    const arr = await res.json();
+    if (!Array.isArray(arr)) {
+      console.warn("[search] 題目檔格式不是陣列：", qName);
+      searchCache[cacheKey] = [];
+      return [];
+    }
+
+    // 確保每題都有 id
+    const withId = arr.map((q, idx) => ({
+      ...q,
+      id: q.id != null ? q.id : idx + 1
+    }));
+
+    searchCache[cacheKey] = withId;
+    return withId;
+  } catch (e) {
+    console.error("[search] 載入題目檔錯誤：", qName, e);
+    searchCache[cacheKey] = [];
+    return [];
+  }
+}
 
 // ===== 我的動物 DOM =====
 // ===== 我的動物 DOM / 面板 =====
@@ -732,6 +776,144 @@ const btnToggleAns = $("#btnToggleAns");
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
 const qExplain = $("#qExplain");   // 新增：詳解容器
 const qList = $("#qList");
+// ===== 跨卷搜尋：目前「科目」的所有年度＋梯次 =====
+
+// 把搜尋結果畫到右側列表（不影響原本 renderList）
+function renderGlobalSearchList(results) {
+  if (!qList) return;
+
+  qList.innerHTML = "";
+
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "q-item";
+    empty.textContent = "沒有找到符合關鍵字的題目";
+    qList.appendChild(empty);
+    return;
+  }
+
+  results.forEach((hit, idx) => {
+    const item = document.createElement("div");
+    item.className = "q-item";
+    item.textContent =
+      `${hit.year} 年 / ${hit.roundLabel} / 第 ${hit.qid} 題`;
+
+    item.addEventListener("click", () => {
+      jumpToSearchHit(hit);
+    });
+
+    qList.appendChild(item);
+  });
+}
+
+// 點搜尋結果：自動切卷並跳到那一題
+async function jumpToSearchHit(hit) {
+  if (!hit) return;
+
+  let needChangeScope = false;
+
+  if (subjectSel && subjectSel.value !== hit.subj) {
+    subjectSel.value = hit.subj;
+    needChangeScope = true;
+  }
+  if (yearSel && yearSel.value !== hit.year) {
+    yearSel.value = hit.year;
+    needChangeScope = true;
+  }
+  if (roundSel && roundSel.value !== hit.roundLabel) {
+    roundSel.value = hit.roundLabel;
+    needChangeScope = true;
+  }
+
+  // 若卷別不同，先切換範圍（會載入該卷題目）
+  if (needChangeScope && typeof onScopeChange === "function") {
+    await onScopeChange();
+  }
+
+  // 在當前卷裡找到對應題號
+  const targetId = Number(hit.qid);
+  const idx = state.questions.findIndex(q => Number(q.id) === targetId);
+  if (idx >= 0) {
+    state.index = idx;
+    renderQuestion();
+    highlightList();
+  }
+}
+
+// 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
+async function searchAcrossVolumes(keyword) {
+  const kw = (keyword || "").trim().toLowerCase();
+
+  // 沒輸入就回到目前卷的完整列表
+  if (!kw) {
+    if (typeof showAllQuestions === "function") {
+      showAllQuestions();
+    }
+    return;
+  }
+
+  const subj = subjectSel ? subjectSel.value : "";
+  if (!subj || !yearSel || !roundSel) return;
+
+  const years = Array.from(yearSel.options)
+    .map(o => String(o.value).trim())
+    .filter(Boolean);
+
+  const rounds = Array.from(roundSel.options)
+    .map(o => (o.textContent || o.value || "").trim())
+    .filter(Boolean);
+
+  const hits = [];
+
+  // 逐卷載入並比對關鍵字
+  for (const year of years) {
+    for (const roundLabel of rounds) {
+      const qs = await loadQuestionsForScope(subj, year, roundLabel);
+      if (!qs.length) continue;
+
+      qs.forEach(q => {
+        const texts = [];
+
+        if (q.text) texts.push(q.text);
+        if (q.options) {
+          for (const k in q.options) {
+            if (q.options[k]) texts.push(q.options[k]);
+          }
+        }
+        if (q.explanation) texts.push(q.explanation);
+
+        const matched = texts.some(t =>
+          String(t).toLowerCase().includes(kw)
+        );
+
+        if (matched) {
+          hits.push({
+            subj,
+            year,
+            roundLabel,
+            qid: q.id
+          });
+        }
+      });
+    }
+  }
+
+  // 將搜尋結果畫到右側列表
+  renderGlobalSearchList(hits);
+}
+
+// 綁定輸入框：停止打字 400ms 後觸發跨卷搜尋（避免每個字都大量 fetch）
+let globalSearchTimer = null;
+
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    const value = e.target.value;
+    if (globalSearchTimer) clearTimeout(globalSearchTimer);
+    globalSearchTimer = setTimeout(() => {
+      searchAcrossVolumes(value);
+    }, 400);
+  });
+}
 
 const prevBtn = $("#prev"), nextBtn = $("#next");
 const btnExam = $("#btnExam"), btnSubmit = $("#btnSubmit"), btnClose = $("#btnClose");
@@ -2517,46 +2699,8 @@ function renderList(list, options = {}) {
   });
 }
 
-// 即時搜尋題目：依關鍵字過濾題目並重畫列表
-function applyQuestionSearch(keyword) {
-  const kw = (keyword || "").trim().toLowerCase();
 
-  // 沒打字：顯示目前卷內全部題目
-  if (!kw) {
-    state.currentGroupId = null;   // 離開群組模式
-    state.index = 0;
-    renderList(state.questions, { renumber: false });
-    renderQuestion();
-    highlightList();
-    return;
-  }
 
-  // 有關鍵字：從題幹、選項、詳解裡面找
-  state.currentGroupId = null;     // 搜尋時一律不用群組模式
-
-  const filtered = state.questions.filter(q => {
-    const texts = [];
-
-    if (q.text) texts.push(q.text);
-    if (q.options) {
-      for (const key in q.options) {
-        if (q.options[key]) texts.push(q.options[key]);
-      }
-    }
-    if (q.explanation) {
-      texts.push(q.explanation);
-    }
-
-    return texts.some(t =>
-      String(t).toLowerCase().includes(kw)
-    );
-  });
-
-  state.index = 0;
-  renderList(filtered, { renumber: false });
-  renderQuestion();
-  highlightList();
-}
 
 
 // 從 Firestore 載入目前題目的留言
