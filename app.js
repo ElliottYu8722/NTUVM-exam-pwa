@@ -1967,13 +1967,7 @@ function ensurePetQuizStyle() {
     gap: 6px;
     margin-bottom: 8px;
   }
-  .pet-quiz-opt-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-  }
-  .pet-quiz-opt-row span {
+  .pet-quiz-opt-text {
     flex: 1;
   }
   .pet-quiz-opt-note {
@@ -1982,6 +1976,7 @@ function ensurePetQuizStyle() {
     white-space: nowrap;
     flex: 0 0 auto;
   }
+
   .pet-quiz-foot {
     padding: 10px 14px 12px;
     border-top: 1px solid var(--border, #333);
