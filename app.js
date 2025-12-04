@@ -3758,7 +3758,7 @@ if (!document.getElementById("fs-quiz-style")) {
     </div>
   `;
   document.body.appendChild(mask);
-  const fsTopbar = card.querySelector('.fs-topbar');
+  const fsTopbar = mask.querySelector('.fs-topbar');  // 這裡用 mask
   function updateFsTopbarScrollable() {
     if (!fsTopbar) return;
   
