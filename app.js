@@ -3949,6 +3949,7 @@ function startQuiz(){
   resetUserAnswersForCurrentScope();
 
   state.mode="quiz";
+  document.body.classList.add("quiz-mode");
   state.remain = 60*60; // 60 分鐘
   timerBadge.classList.remove("hidden");
   btnSubmit.classList.remove("hidden");
@@ -3983,8 +3984,12 @@ function openQuizWindow(payload){
 }
 function closeQuiz(){
   if(state.timerId){ clearInterval(state.timerId); state.timerId=null; }
-  state.mode="browse"; timerBadge.classList.add("hidden");
-  btnSubmit.classList.add("hidden"); btnClose.classList.add("hidden"); reviewTag.classList.add("hidden");
+  state.mode="browse";
+  document.body.classList.remove("quiz-mode");
+  timerBadge.classList.add("hidden");
+  btnSubmit.classList.add("hidden");
+  btnClose.classList.add("hidden");
+  reviewTag.classList.add("hidden");
   renderQuestion();
 }
 
@@ -4163,17 +4168,64 @@ function openRecordsViewer(arr){
       <col class="c-wids"><col class="c-wdet"><col class="c-sum"><col class="c-op">
     </colgroup>
     <thead><tr>
-      <th>測驗日期</th><th>科目</th><th>年份</th><th>梯次</th>
+      <th>操作</th><th>測驗日期</th><th>科目</th><th>年份</th><th>梯次</th>
       <th>總題數</th><th>正確題數</th><th>得分</th>
-      <th>錯誤題號</th><th>錯題詳情</th><th>作答概覽</th><th>操作</th>
+      <th>錯誤題號</th><th>錯題詳情</th><th>作答概覽</th>
     </tr></thead>
     <tbody></tbody>
   `;
   const tbody = table.querySelector("tbody");
-  
   arr.forEach((r, idx) => {
     const tr = document.createElement("tr");
   
+    // 1. 先建立「操作」欄（最左邊）
+    const tdOp = document.createElement("td");
+  
+    const btnReview = document.createElement("button");
+    btnReview.textContent = "回顧錯題";
+    btnReview.style.padding = "4px 8px";
+    btnReview.style.borderRadius = "9999px";
+    btnReview.style.border = "1px solid var(--border)";
+    btnReview.style.background = "transparent";
+    btnReview.style.color = "var(--accent)";
+    btnReview.style.cursor = "pointer";
+    btnReview.style.fontSize = "12px";
+    btnReview.onclick = () => reviewRecordWrong(arr[idx]);
+  
+    const btnDel = document.createElement("button");
+    btnDel.textContent = "刪除";
+    btnDel.style.padding = "4px 8px";
+    btnDel.style.borderRadius = "9999px";
+    btnDel.style.border = "1px solid var(--border)";
+    btnDel.style.background = "transparent";
+    btnDel.style.color = "var(--fg)";
+    btnDel.style.cursor = "pointer";
+    btnDel.style.fontSize = "12px";
+    btnDel.style.marginLeft = "6px";
+    btnDel.onclick = () => {
+      const ok = confirm(`確定要刪除這筆紀錄嗎？\n科目：${r.subj}\n年份：${r.year}\n梯次：${r.round}\n時間：${r.ts}`);
+      if (!ok) return;
+  
+      const rows = Array.from(tbody.children);
+      const index = rows.indexOf(tr);
+      if (index === -1) return;
+  
+      arr.splice(index, 1);
+      try {
+        localStorage.setItem("examRecords", JSON.stringify(arr));
+      } catch (e) {
+        console.error("save examRecords error:", e);
+        alert("儲存刪除結果時發生錯誤。");
+        return;
+      }
+      tr.remove();
+    };
+  
+    tdOp.appendChild(btnReview);
+    tdOp.appendChild(btnDel);
+    tr.appendChild(tdOp);
+  
+    // 2. 再塞其他 10 欄資料（依照新的表頭順序）
     const cells = [
       r.ts,
       r.subj,
@@ -4186,78 +4238,21 @@ function openRecordsViewer(arr){
       r.wrongDetail,
       r.summary
     ];
+    cells.forEach(c => {
+      const td = document.createElement("td");
+      td.innerHTML = escapeHTMLString(c ?? "");
+      tr.appendChild(td);
+    });
   
-    // 先建立前 10 欄
-    tr.innerHTML = cells
-      .map(c => `<td>${escapeHTML(String(c ?? ""))}</td>`)
-      .join("");
-    
-
-    
-    // 🆕 第 11 欄：操作（刪除按鈕）
-    const tdOp = document.createElement("td");
-    const btnReview = document.createElement("button");
-    btnReview.textContent = "回顧錯題";
-    btnReview.style.padding = "4px 8px";
-    btnReview.style.borderRadius = "9999px";
-    btnReview.style.border = "1px solid var(--border)";
-    btnReview.style.background = "transparent";
-    btnReview.style.color = "var(--accent)";
-    btnReview.style.cursor = "pointer";
-    btnReview.style.fontSize = "12px";
-    btnReview.onclick = () => {
-      reviewRecordWrong(arr[idx]);
-    };
-    tdOp.appendChild(btnReview);
-    const btnDel = document.createElement("button");
-    btnDel.textContent = "刪除";
-    btnDel.style.padding = "4px 8px";
-    btnDel.style.borderRadius = "9999px";
-    btnDel.style.border = "1px solid var(--border)";
-    btnDel.style.background = "transparent";
-    btnDel.style.color = "var(--fg)";
-    btnDel.style.cursor = "pointer";
-    btnDel.style.fontSize = "12px";
-    
-    btnDel.onclick = () => {
-    const ok = confirm(
-      `確定要刪除這筆作答紀錄嗎？\n\n` +
-      `科目：${r.subj}\n` +
-      `年份：${r.year}\n` +
-      `梯次：${r.round}\n` +
-      `日期：${r.ts}`
-    );
-    if (!ok) return;
-  
-    // 重新根據目前表格位置算 index
-    const rows = Array.from(tbody.children);
-    const index = rows.indexOf(tr);
-    if (index === -1) return;
-  
-    arr.splice(index, 1);
-    try {
-      localStorage.setItem("examRecords", JSON.stringify(arr));
-    } catch (e) {
-      console.error("save examRecords error", e);
-      alert("刪除失敗，請稍後再試");
-      return;
-    }
-  
-    tr.remove();
-  };
-  
-    tdOp.appendChild(btnDel);
-    tr.appendChild(tdOp);
     tbody.appendChild(tr);
   });
-
-
   body.appendChild(table);
   card.appendChild(head);
   card.appendChild(body);
   mask.appendChild(card);
   document.body.appendChild(mask);
 }
+
 function reviewRecordWrong(record) {
   // 建立錯題回顧試題資料
   state.mode = "review";
