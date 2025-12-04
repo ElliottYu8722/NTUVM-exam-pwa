@@ -134,6 +134,23 @@
     .btn:hover{border-color:var(--accent);color:var(--accent)}
     .checkbox{display:flex;align-items:center;gap:8px;color:var(--fg)}
     .center .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+    /* 題目搜尋輸入框 */
+    .topbar .q-search {
+      flex: 0 0 260px;
+      max-width: 100%;
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      background: var(--pill);
+      color: var(--fg);
+      font-size: 14px;
+      outline: none;
+    }
+    
+    .topbar .q-search::placeholder {
+      color: var(--muted);
+    }
+
     .badge{padding:6px 10px;border:1px solid var(--border);border-radius:9999px;background:transparent;color:var(--fg);font-size:14px}
     .question-card{border-radius:16px;border:1px solid var(--border);padding:16px;background:var(--card)}
     .qtext{font-size:18px;line-height:1.6}
@@ -723,6 +740,13 @@
         <span class="badge">科目：<span id="bSubj">獸醫病理學</span></span>
         <span class="badge">年份：<span id="bYear">114</span></span>
         <span class="badge">梯次：<span id="bRound">第一</span></span>
+        <input
+          id="questionSearch"
+          type="search"
+          class="q-search"
+          placeholder="搜尋題目關鍵字…"
+          autocomplete="off"
+        />
         <span class="badge timer hidden" id="timer">剩餘 60:00</span>
         <span class="badge hidden" id="reviewTag">回顧模式（僅看錯題）</span>
         <span class="spacer"></span>
