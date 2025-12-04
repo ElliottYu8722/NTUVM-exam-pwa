@@ -1030,12 +1030,6 @@ async function searchAcrossVolumes(keyword) {
 }
 
 
-  // 進入「全域搜尋模式」
-  isGlobalSearchMode = true;
-  globalSearchResults = hits;
-  globalSearchIndex = hits.length ? 0 : -1;
-  renderGlobalSearchList(hits);
-}
 
 
 
