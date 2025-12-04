@@ -839,17 +839,18 @@ const qExplain = $("#qExplain");   // 新增：詳解容器
 const qList = $("#qList");
 
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
+// 全卷搜尋結果列表（含「+」加入群組按鈕）
 function renderGlobalSearchList(results) {
   if (!qList) return;
 
-  // 進入搜尋模式
   isGlobalSearchMode = true;
   qList.innerHTML = "";
 
+  // 沒有結果的情況
   if (!results.length) {
     const empty = document.createElement("div");
     empty.className = "q-item";
-    empty.textContent = "沒有找到符合關鍵字的題目";
+    empty.textContent = "找不到符合關鍵字的題目。";
     qList.appendChild(empty);
     return;
   }
@@ -858,39 +859,95 @@ function renderGlobalSearchList(results) {
     const item = document.createElement("div");
     item.className = "q-item";
 
-    // 把科目也一起顯示出來
-    const subjLabel  = hit.subj || "";
-    const yearLabel  = hit.year ? `${hit.year} 年` : "";
+    // 讓整個 item 排成「左文字 / 右按鈕」
+    item.style.display = "flex";
+    item.style.alignItems = "center";
+    item.style.justifyContent = "space-between";
+    item.style.gap = "8px";
+
+    // 左邊 label：科目 / 年 / 次 / 題號
+    const label = document.createElement("span");
+    label.style.flex = "1";
+
+    const subjLabel = hit.subj || "";
+    const yearLabel = hit.year || "";
     const roundLabel = hit.roundLabel || "";
-    const idLabel    = (hit.qid != null) ? `第 ${hit.qid} 題` : "";
+    const idLabel = hit.qid != null ? String(hit.qid) : "";
 
     const parts = [];
-    if (subjLabel)  parts.push(subjLabel);    // 例：獸醫病理學
-    if (yearLabel)  parts.push(yearLabel);    // 例：114 年
-    if (roundLabel) parts.push(roundLabel);   // 例：第一次
-    if (idLabel)    parts.push(idLabel);      // 例：第 10 題
+    if (subjLabel) parts.push(subjLabel);
+    if (yearLabel) parts.push(yearLabel);
+    if (roundLabel) parts.push(roundLabel);
+    if (idLabel) parts.push(idLabel);
 
-    item.textContent = parts.join(" / ");
+    label.textContent = parts.join(" / ");
 
-    // 目前 active 的搜尋結果
+    // 點整列（或左邊文字）＝跳到該題
+    item.addEventListener("click", async () => {
+      // 更新 active 樣式
+      const children = Array.from(qList.children);
+      children.forEach(el => el.classList.remove("active"));
+      item.classList.add("active");
+      globalSearchIndex = idx;
+
+      if (typeof jumpToSearchHit === "function") {
+        try {
+          await jumpToSearchHit(hit);
+        } catch (e) {
+          console.error("jumpToSearchHit failed in search list", e);
+        }
+      }
+    });
+
+    item.appendChild(label);
+
+    // 右邊「+」按鈕：加入群組
+    const btn = document.createElement("button");
+    btn.textContent = "+";
+    btn.title = "加入群組";
+
+    // 跟 renderList 裡右邊那顆按鈕用相同風格
+    btn.style.minWidth = "32px";
+    btn.style.height = "28px";
+    btn.style.borderRadius = "9999px";
+    btn.style.border = "1px solid var(--border)";
+    btn.style.background = "var(--pill)";
+    btn.style.color = "var(--fg)";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "16px";
+    btn.style.flexShrink = "0";
+
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation(); // 不要觸發外層 item 的 click
+
+      // 先確保 scope / 題目切到這個 hit
+      if (typeof jumpToSearchHit === "function") {
+        try {
+          await jumpToSearchHit(hit);
+        } catch (err) {
+          console.error("jumpToSearchHit failed before openAddToGroupDialog", err);
+        }
+      }
+
+      const qid = hit.qid != null ? String(hit.qid) : null;
+      if (!qid) return;
+
+      if (typeof openAddToGroupDialog === "function") {
+        openAddToGroupDialog(qid);
+      }
+    });
+
+    item.appendChild(btn);
+
+    // 初始 active 樣式：第一筆
     if (idx === globalSearchIndex) {
       item.classList.add("active");
     }
 
-    item.addEventListener("click", () => {
-      // 清掉其他 active
-      Array.from(qList.children).forEach(el => {
-        el.classList.remove("active");
-      });
-      // 點到的這一個亮起來
-      item.classList.add("active");
-      // 跳到那一題（會自動切換科目／年度／梯次）
-      jumpToSearchHit(hit);
-    });
-
     qList.appendChild(item);
   });
 }
+
 
 
 // 點搜尋結果：自動切卷並跳到那一題
