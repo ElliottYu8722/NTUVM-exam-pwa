@@ -3597,12 +3597,14 @@ function enterFullscreenQuiz(){
       }
       .fs-badge{
         padding:6px 10px; border:1px solid var(--border,#2a2a2a);
-        border-radius:9999px; background:transparent; color:var(--fg,#fff); font-size:14px;
+        border-radius:9999px; background:transparent; color:var(--fg,#fff); font-size:14px;flex: 0 0 auto;
+        white-space: nowrap;
       }
       .fs-spacer{ flex:1; }
       .fs-btn{
         padding:10px 14px; border-radius:9999px; border:1px solid var(--border,#2a2a2a);
-        background:transparent; color:var(--fg,#fff); cursor:pointer; font-size:16px;
+        background:transparent; color:var(--fg,#fff); cursor:pointer; font-size:16px;flex: 0 0 auto;
+        white-space: nowrap;
       }
       .fs-btn:hover{ border-color:var(--accent,#2f74ff); color:var(--accent,#2f74ff); }
       .fs-main{
