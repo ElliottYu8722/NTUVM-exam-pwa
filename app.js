@@ -2500,7 +2500,7 @@ function openRandomQuizRecordsOverlay() {
           const parts = [];
           if (q.subj) parts.push(q.subj);
           if (q.year) parts.push(`${q.year} 年`);
-          if (q.roundLabel) parts.push(`第 ${q.roundLabel} 次`);
+          if (q.roundLabel) parts.push(` ${q.roundLabel} `);
           if (q.id != null) parts.push(`第 ${q.id} 題`);
           const src = parts.join(' / ') || '來源未知';
 
