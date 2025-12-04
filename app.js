@@ -2168,7 +2168,7 @@ function openRandomQuizOverlay(qs) {
     return;
   }
 
-  // 一樣先確保樣式注入，不過現在借用的是 pet quiz 那套
+  // 一樣先確保樣式注入（沿用 pet-quiz 樣式）
   ensureRandomQuizStyle();
 
   const old = document.getElementById('random-quiz-mask');
@@ -2176,7 +2176,7 @@ function openRandomQuizOverlay(qs) {
 
   const mask = document.createElement('div');
   mask.id = 'random-quiz-mask';
-  mask.className = 'pet-quiz-mask';   // 🔸關鍵：用 pet-quiz-mask
+  mask.className = 'pet-quiz-mask';
 
   mask.innerHTML = `
     <div class="pet-quiz-card">
@@ -2214,7 +2214,8 @@ function openRandomQuizOverlay(qs) {
   const btnClose  = document.getElementById('rq-close');
 
   let index = 0;
-  const user = {}; // key: index -> 'A' | 'B'...
+  const user = {};      // key: index -> 'A' | 'B'...
+  let reviewMode = false; // 🔸 是否在檢討模式中
 
   function render() {
     const q = qs[index];
@@ -2238,26 +2239,55 @@ function openRandomQuizOverlay(qs) {
 
     elOpts.innerHTML = '';
     const letters = ['A','B','C','D'];
-    const current = user[index] || '';
+    const current = (user[index] || '').toUpperCase();
+    const ansSet = new Set(
+      Array.isArray(q.answerSet) ? q.answerSet.map(x => String(x).toUpperCase()) : []
+    );
 
     letters.forEach(L => {
       const text = q.options && q.options[L] ? q.options[L] : '';
       if (!text) return;
 
-      const row = document.createElement('label');
-      row.className = 'pet-quiz-opt-row';  // 🔸關鍵：用 pet-quiz-opt-row
+      const row = document.createElement('div');
+      row.className = 'pet-quiz-opt-row';
 
       const rb = document.createElement('input');
       rb.type = 'radio';
       rb.name = 'rq-opt';
       rb.value = L;
       rb.checked = (current === L);
+      rb.disabled = reviewMode; // 檢討模式中不能改選
       rb.onchange = () => {
+        if (reviewMode) return;
         user[index] = L;
       };
 
       const span = document.createElement('span');
       span.textContent = `${L}. ${text}`;
+
+      // 🔸 檢討模式：標示你選 & 正解
+      if (reviewMode) {
+        const note = document.createElement('span');
+        note.className = 'pet-quiz-opt-note';
+
+        const isUser = (current === L);
+        const isCorrect = ansSet.has(L) || ansSet.has('ALL');
+
+        let labelParts = [];
+        if (isUser)   labelParts.push('你選');
+        if (isCorrect) labelParts.push('正解');
+
+        if (labelParts.length) {
+          note.textContent = labelParts.join(' / ');
+          if (isCorrect) {
+            note.style.color = '#c40000';
+            span.style.fontWeight = '600';
+          } else if (isUser) {
+            note.style.color = '#6aa0ff';
+          }
+          row.appendChild(note);
+        }
+      }
 
       row.appendChild(rb);
       row.appendChild(span);
@@ -2266,29 +2296,75 @@ function openRandomQuizOverlay(qs) {
 
     btnPrev.disabled = (index === 0);
     btnNext.disabled = (index === qs.length - 1);
+
+    // 🔸 檢討模式時，把主按鈕文字改成「重新作答」
+    btnSubmit.textContent = reviewMode ? '重新作答' : '交卷並看成績';
   }
 
   function closeOverlay() {
     try { mask.remove(); } catch {}
   }
-
-  function submit() {
+  function doSubmitOnce() {
+    // 第一次交卷：算分＋寫入隨機測驗紀錄，再進入檢討模式
     let correct = 0;
     const total = qs.length;
+    const detail = [];
 
     qs.forEach((q, i) => {
-      const ua = (user[i] || '').toUpperCase();
+      const ua = String(user[i] || '').toUpperCase();
       const set = new Set(
         Array.isArray(q.answerSet) ? q.answerSet.map(s => String(s).toUpperCase()) : []
       );
-      if (set.has('ALL') || (ua && set.has(ua))) {
-        correct++;
-      }
+      const isCorrect = set.has('ALL') || (ua && set.has(ua));
+      if (isCorrect) correct++;
+
+      detail.push({
+        subj: q.scope?.subj || '',
+        year: q.scope?.year || '',
+        roundLabel: q.scope?.roundLabel || '',
+        id: q.id,
+        userAns: ua || '',
+        correctAns: Array.from(set).join('/') || ''
+      });
     });
 
     const score = total ? ((correct / total) * 100).toFixed(2) : '0.00';
+
+    // 🔸寫入隨機測驗紀錄（用你第二部分那組 randomQuizRecords 結構）
+    try {
+      const now = new Date();
+      const ts = now.toLocaleString('zh-TW', { hour12: false });
+
+      const record = {
+        ts,
+        count: total,
+        correctCount: correct,
+        questions: detail
+      };
+
+      // randomQuizRecords / saveRandomQuizRecords 已經在第二部分定義好了
+      randomQuizRecords.unshift(record);
+      if (randomQuizRecords.length > 50) {
+        randomQuizRecords = randomQuizRecords.slice(0, 50);
+      }
+      saveRandomQuizRecords();
+    } catch (e) {
+      console.error('寫入隨機測驗紀錄失敗：', e);
+    }
+
     alert(`本次隨機測驗得分：${score} 分（${correct}/${total}）`);
-    closeOverlay();
+
+    reviewMode = true;
+    render();
+  }
+
+  function resetAnswers() {
+    const ok = window.confirm('要清除這一輪作答，重新練一次嗎？');
+    if (!ok) return;
+    Object.keys(user).forEach(k => { delete user[k]; });
+    index = 0;
+    reviewMode = false;
+    render();
   }
 
   btnPrev.onclick = () => {
@@ -2303,17 +2379,27 @@ function openRandomQuizOverlay(qs) {
       render();
     }
   };
-  btnSubmit.onclick = submit;
+
+  // 🔸 同一顆按鈕：沒檢討時→交卷，檢討中→重新作答
+  btnSubmit.onclick = () => {
+    if (!reviewMode) {
+      doSubmitOnce();
+    } else {
+      resetAnswers();
+    }
+  };
+
   btnClose.onclick  = closeOverlay;
 
   mask.addEventListener('click', e => {
     if (e.target === mask) {
-      // 點外面目前不關
+      // 點背景目前不關
     }
   });
 
   render();
 }
+
 
 
 // ===== 隨機測驗：跨卷抽題＋自己的作答紀錄 =====
