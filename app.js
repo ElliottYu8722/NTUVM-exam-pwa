@@ -1331,7 +1331,6 @@ function openPetPanel() {
     </div>
   `;
   mask.appendChild(card);
-  document.body.appendChild(mask);
 
   // ========== 抓取面板內的元素 ==========
   petPanelMask = mask;
@@ -3581,79 +3580,141 @@ function enterFullscreenQuiz(){
     display:flex; flex-direction:column;
   `;
 
-  // 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
-  if(!document.getElementById("fs-quiz-style")){
-    const css = document.createElement("style");
-    css.id = "fs-quiz-style";
-    css.textContent = `
-      .fs-topbar{
-        display:flex; align-items:center; gap:10px;
-        padding:12px 14px; border-bottom:1px solid var(--border,#2a2a2a);
-        background:var(--card,#1b1b1b);
-            /* ★ 這三行是新加的關鍵 */
-        flex-wrap: nowrap;                 /* 不要自動換行 */
-        overflow-x: auto;                  /* 超出寬度就可以左右滑 */
-        -webkit-overflow-scrolling: touch; /* iPhone 上滑起來順一點 */
-      }
-      .fs-badge{
-        padding:6px 10px; border:1px solid var(--border,#2a2a2a);
-        border-radius:9999px; background:transparent; color:var(--fg,#fff); font-size:14px;flex: 0 0 auto;
-        white-space: nowrap;
-      }
-      .fs-spacer{ flex:1; }
-      .fs-btn{
-        padding:10px 14px; border-radius:9999px; border:1px solid var(--border,#2a2a2a);
-        background:transparent; color:var(--fg,#fff); cursor:pointer; font-size:16px;flex: 0 0 auto;
-        white-space: nowrap;
-      }
-      .fs-btn:hover{ border-color:var(--accent,#2f74ff); color:var(--accent,#2f74ff); }
-      .fs-main{
-        flex:1; display:flex; flex-direction:column; gap:12px;
-        padding:16px; overflow:auto;
-      }
-      .fs-card{
-        border:1px solid var(--border,#2a2a2a); border-radius:16px; padding:16px; background:var(--card,#1b1b1b);
-      }
-      .fs-qtext{ font-size:18px; line-height:1.6; }
-      .fs-qimg{ margin-top:10px; max-width:100%; height:auto; border-radius:8px; border:1px solid var(--border,#2a2a2a); }
-      .fs-opts{ margin-top:10px; display:flex; flex-direction:column; gap:8px; }
-      .fs-nav{ display:flex; gap:8px; align-items:center; margin-top:14px; }
-      .fs-hidden{ display:none !important; }
+// 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
+if (!document.getElementById("fs-quiz-style")) {
+  const css = document.createElement("style");
+  css.id = "fs-quiz-style";
+  css.textContent = `
+    .fs-topbar{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border,#2a2a2a);
+      background:var(--card,#1b1b1b);
+    }
 
-      /* ===== 測驗準備遮罩卡片 ===== */
-      .fs-start-overlay{
-        position:fixed; inset:0; z-index:100002;
-        display:flex; align-items:center; justify-content:center;
-        background:rgba(0,0,0,.65);
-      }
-      .fs-start-card{
-        min-width:280px; max-width:420px;
-        background:var(--card,#1b1b1b);
-        border-radius:16px;
-        border:1px solid var(--border,#2a2a2a);
-        padding:20px 18px;
-        box-shadow:0 18px 45px rgba(0,0,0,.4);
-      }
-      .fs-start-title{
-        font-size:18px; font-weight:600; margin-bottom:12px;
-      }
-      .fs-start-row{
-        font-size:15px; margin:4px 0;
-      }
-      .fs-start-row .value{
-        font-weight:600;
-      }
-      .fs-start-actions{
-        margin-top:16px;
-        display:flex; justify-content:flex-end; gap:10px;
-      }
-      .fs-btn-primary{
-        background:var(--accent,#2f74ff);
-        color:#fff;
-      }
-    `;
-    document.head.appendChild(css);
-  }
+    /* 只有在手機且真的超出寬度時，JS 會加上這個 class，才會啟用橫向捲動 */
+    .fs-topbar.scrollable{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .fs-badge{
+      padding:6px 10px;
+      border:1px solid var(--border,#2a2a2a);
+      border-radius:9999px;
+      background:transparent;
+      color:var(--fg,#fff);
+      font-size:14px;
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+
+    .fs-spacer{ flex:1; min-width:0; }
+
+    .fs-btn{
+      padding:10px 14px;
+      border-radius:9999px;
+      border:1px solid var(--border,#2a2a2a);
+      background:transparent;
+      color:var(--fg,#fff);
+      cursor:pointer;
+      font-size:16px;
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+    .fs-btn:hover{
+      border-color:var(--accent,#2f74ff);
+      color:var(--accent,#2f74ff);
+    }
+
+    .fs-main{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px;
+      overflow:auto;
+    }
+    .fs-card{
+      border:1px solid var(--border,#2a2a2a);
+      border-radius:16px;
+      padding:16px;
+      background:var(--card,#1b1b1b);
+    }
+    .fs-qtext{
+      font-size:18px;
+      line-height:1.6;
+    }
+    .fs-qimg{
+      margin-top:10px;
+      max-width:100%;
+      height:auto;
+      border-radius:8px;
+      border:1px solid var(--border,#2a2a2a);
+    }
+    .fs-opts{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .fs-nav{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top:14px;
+    }
+    .fs-hidden{
+      display:none !important;
+    }
+
+    /* ===== 測驗準備遮罩卡片 ===== */
+    .fs-start-overlay{
+      position:fixed;
+      inset:0;
+      z-index:100002;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.65);
+    }
+    .fs-start-card{
+      min-width:280px;
+      max-width:420px;
+      background:var(--card,#1b1b1b);
+      border-radius:16px;
+      border:1px solid var(--border,#2a2a2a);
+      padding:20px 18px;
+      box-shadow:0 18px 45px rgba(0,0,0,.4);
+    }
+    .fs-start-title{
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:12px;
+    }
+    .fs-start-row{
+      font-size:15px;
+      margin:4px 0;
+    }
+    .fs-start-row .value{
+      font-weight:600;
+    }
+    .fs-start-actions{
+      margin-top:16px;
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+    }
+    .fs-btn-primary{
+      background:var(--accent,#2f74ff);
+      color:#fff;
+    }
+  `;
+  document.head.appendChild(css);
+}
+
 
   // 先把完整測驗畫面 + 準備卡片都畫出來（準備卡片會蓋在最上面）
   mask.innerHTML = `
@@ -3697,7 +3758,25 @@ function enterFullscreenQuiz(){
     </div>
   `;
   document.body.appendChild(mask);
-
+  const fsTopbar = card.querySelector('.fs-topbar');
+  function updateFsTopbarScrollable() {
+    if (!fsTopbar) return;
+  
+    const isPhone = window.innerWidth <= 768; // 你可以自己調門檻
+    // scrollWidth > clientWidth 代表有超出寬度
+    const isOverflow = fsTopbar.scrollWidth > fsTopbar.clientWidth;
+  
+    if (isPhone && isOverflow) {
+      fsTopbar.classList.add('scrollable');
+    } else {
+      fsTopbar.classList.remove('scrollable');
+    }
+  }
+  
+  // 初次進入時判一次
+  setTimeout(updateFsTopbarScrollable, 0);
+  // 視窗尺寸變化時也更新一次（例如旋轉手機）
+  window.addEventListener('resize', updateFsTopbarScrollable);
   // 測驗本體用到的節點
   const fs = {
     mask,
