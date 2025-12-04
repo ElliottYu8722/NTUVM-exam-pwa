@@ -3322,7 +3322,6 @@ function persistAnswer(){
 
 // 綁定搜尋輸入框：打字就即時搜尋
 // 綁定搜尋輸入框：停止打字 400ms 後觸發「跨科目＋跨年度＋跨梯次」搜尋
-let globalSearchTimer = null;
 
 if (searchInput) {
   searchInput.addEventListener("input", (e) => {
