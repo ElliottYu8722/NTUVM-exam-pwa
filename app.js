@@ -2092,9 +2092,15 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
   };
 
   // 5. 走遍所有 scope，把「有答案的題目」全部塞進大池 allCandidates
+  //    但：每卷只收最多 perScopeLimit 題，且當大池夠大時就提前停止
   const allCandidates = [];
+  const perScopeLimit = Math.max(5, Math.ceil(maxCount / 2)); // 每卷上限
+  const targetPoolSize = maxCount * 3; // 大池目標大小：最多抓到 3 倍再停
+  let done = false;
 
   for (const s of scopes) {
+    if (done) break;
+
     // 切到該科目 / 年度 / 梯次
     subjectSel.value = s.subj;
     yearSel.value = s.year;
@@ -2117,7 +2123,16 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
     if (!pool.length) continue;
 
-    for (const q of pool) {
+    // 先洗牌這一卷的題目，避免永遠只抓前面幾題
+    const local = pool.slice();
+    for (let i = local.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [local[i], local[j]] = [local[j], local[i]];
+    }
+
+    const take = Math.min(perScopeLimit, local.length);
+    for (let i = 0; i < take; i++) {
+      const q = local[i];
       const qid = String(q.id);
       const caRaw = String(state.answers[qid] || "").toUpperCase();
       const answerSet = Array.from(
@@ -2142,6 +2157,11 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
           roundLabel: s.roundLabel,
         },
       });
+
+      if (allCandidates.length >= targetPoolSize) {
+        done = true;
+        break;
+      }
     }
   }
 
@@ -2175,7 +2195,6 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
   return result;
 }
-
 
 // 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
 async function buildSingleSubjectQuizQuestions(maxCount) {
@@ -2239,8 +2258,13 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
 
   // 5. 走遍所有「本科目」的 scope，把題目統一丟進大池 allCandidates
   const allCandidates = [];
+  const perScopeLimit = Math.max(5, Math.ceil(maxCount / 2));
+  const targetPoolSize = maxCount * 3;
+  let done = false;
 
   for (const s of scopes) {
+    if (done) break;
+
     subjectSel.value = s.subj;
     yearSel.value = s.year;
     roundSel.value = s.roundLabel;
@@ -2261,7 +2285,15 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
 
     if (!pool.length) continue;
 
-    for (const q of pool) {
+    const local = pool.slice();
+    for (let i = local.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [local[i], local[j]] = [local[j], local[i]];
+    }
+
+    const take = Math.min(perScopeLimit, local.length);
+    for (let i = 0; i < take; i++) {
+      const q = local[i];
       const qid = String(q.id);
       const caRaw = String(state.answers[qid] || "").toUpperCase();
       const answerSet = Array.from(
@@ -2286,6 +2318,11 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
           roundLabel: s.roundLabel,
         },
       });
+
+      if (allCandidates.length >= targetPoolSize) {
+        done = true;
+        break;
+      }
     }
   }
 
