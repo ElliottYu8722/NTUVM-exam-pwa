@@ -2361,14 +2361,14 @@ function openRandomQuizOverlay(qs) {
       console.error('寫入隨機測驗紀錄失敗：', e);
     }
 
-    alert(`本次隨機測驗得分：${score} 分（${correct}/${total}）`);
+    alert(`分數：${score} 分（${correct}/${total}）`);
 
     reviewMode = true;
     render();
   }
 
   function resetAnswers() {
-    const ok = window.confirm('要清除這一輪作答，重新練一次嗎？');
+    const ok = window.confirm('清除前一次作答，再答一次');
     if (!ok) return;
     Object.keys(user).forEach(k => { delete user[k]; });
     index = 0;
