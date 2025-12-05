@@ -2493,6 +2493,7 @@ function openRandomQuizOverlay(qs) {
     alert(`分數：${score} 分（${correct}/${total}）`);
 
     reviewMode = true;
+    index = 0;
     render();
   }
 
