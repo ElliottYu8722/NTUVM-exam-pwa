@@ -2032,9 +2032,7 @@ function getAllYearValuesForCurrentSubject() {
     .filter(v => v);
 }
 
-// 建立「跨卷池」的 5 題題目：同科目，但跨所有年份 × 梯次
-// 建立「跨科目＋跨年度＋跨梯次」的寵物小考題目
-// 跨卷抽題：從多科目 / 多年度 / 多梯次裡面，隨機抽 maxCount 題
+
 // 🔒 110 年（含）以後沒有「第二次」，這裡會自動略過那些組合，避免 404
 async function buildCrossVolumeQuizQuestions(maxCount) {
   const result = [];
@@ -2164,7 +2162,6 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
   return result;
 }
 
-// ====== 跨卷隨機測驗 Overlay ======
 
 // 隨機測驗直接沿用寵物小考的樣式
 function ensureRandomQuizStyle() {
@@ -2194,8 +2191,7 @@ function openRandomQuizOverlay(qs) {
       <div class="pet-quiz-head">
         <div class="pet-quiz-title">跨卷隨機測驗</div>
         <div class="pet-quiz-sub">
-          共 <span id="rq-total">${qs.length}</span> 題，
-          來源涵蓋多個科目 / 年份 / 梯次。
+          共 <span id="rq-total">${qs.length}</span> 題
         </div>
       </div>
       <div class="pet-quiz-body">
@@ -2233,7 +2229,7 @@ function openRandomQuizOverlay(qs) {
     if (!q) return;
 
     const src = q.scope
-      ? `（${q.scope.subj || ''} / ${q.scope.year || ''} / ${q.scope.roundLabel || ''}）`
+      ? `（${q.scope.year || ''}年 ${q.scope.roundLabel || ''} ${q.scope.subj || ''} ）`
       : '';
     elQNum.textContent = `第 ${index + 1} / ${qs.length} 題 ${src}`;
 
