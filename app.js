@@ -2189,7 +2189,7 @@ function openRandomQuizOverlay(qs) {
   mask.innerHTML = `
     <div class="pet-quiz-card">
       <div class="pet-quiz-head">
-        <div class="pet-quiz-title">跨卷隨機測驗</div>
+        <div class="pet-quiz-title">隨機測驗</div>
         <div class="pet-quiz-sub">
           共 <span id="rq-total">${qs.length}</span> 題
         </div>
@@ -2830,7 +2830,7 @@ function openRandomQuizPrepOverlay() {
   card.style.gap = '12px';
 
   const title = document.createElement('div');
-  title.textContent = '隨機測驗準備';
+  title.textContent = '選擇題數';
   title.style.fontWeight = '700';
   title.style.fontSize = '16px';
 
