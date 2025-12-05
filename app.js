@@ -4026,7 +4026,7 @@ async function renderQuestion() {
       btn.style.background = "transparent";
       btn.style.color = "var(--accent)";
       btn.style.cursor = "pointer";
-      btn.style.fontSize = "14px";
+      btn.style.fontSize = "16px";
       btn.onclick = () => {
         state.mode = "browse";
         state.reviewOrder = [];
