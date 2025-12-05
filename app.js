@@ -2032,7 +2032,6 @@ function getAllYearValuesForCurrentSubject() {
     .filter(v => v);
 }
 
-
 // 🔒 110 年（含）以後沒有「第二次」，這裡會自動略過那些組合，避免 404
 async function buildCrossVolumeQuizQuestions(maxCount) {
   const result = [];
@@ -2092,10 +2091,10 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
     round: roundSel.value,
   };
 
-  // 5. 依序嘗試每個 scope，抽題直到湊齊 maxCount 或沒有卷可用了
-  for (const s of scopes) {
-    if (result.length >= maxCount) break;
+  // 5. 走遍所有 scope，把「有答案的題目」全部塞進大池 allCandidates
+  const allCandidates = [];
 
+  for (const s of scopes) {
     // 切到該科目 / 年度 / 梯次
     subjectSel.value = s.subj;
     yearSel.value = s.year;
@@ -2103,14 +2102,14 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
     try {
       if (typeof onScopeChange === "function") {
-        await onScopeChange(); // 這裡會去載入題目 + 答案檔 [file:21]
+        await onScopeChange(); // 這裡會去載入題目 + 答案檔
       }
     } catch (e) {
       console.error("onScopeChange error in cross-subject quiz:", e);
       continue;
     }
 
-    // 從這一卷裡挑一題「有答案的題目」
+    // 這一卷裡所有「有答案的題目」
     const pool = (state.questions || []).filter(q => {
       const key = String(q.id);
       return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
@@ -2118,33 +2117,32 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
 
     if (!pool.length) continue;
 
-    const picked = pool[Math.floor(Math.random() * pool.length)];
-    if (!picked) continue;
+    for (const q of pool) {
+      const qid = String(q.id);
+      const caRaw = String(state.answers[qid] || "").toUpperCase();
+      const answerSet = Array.from(
+        new Set(
+          caRaw
+            .split(",")
+            .map(x => x.trim())
+            .filter(Boolean)
+        )
+      );
+      if (!answerSet.length) continue;
 
-    const qid = String(picked.id);
-    const caRaw = String(state.answers[qid] || "").toUpperCase();
-    const answerSet = Array.from(
-      new Set(
-        caRaw
-          .split(",")
-          .map(x => x.trim())
-          .filter(Boolean)
-      )
-    );
-    if (!answerSet.length) continue;
-
-    result.push({
-      id: picked.id,
-      text: picked.text,
-      options: picked.options,
-      image: picked.image,
-      answerSet,
-      scope: {
-        subj: s.subj,
-        year: s.year,
-        roundLabel: s.roundLabel,
-      },
-    });
+      allCandidates.push({
+        id: q.id,
+        text: q.text,
+        options: q.options,
+        image: q.image,
+        answerSet,
+        scope: {
+          subj: s.subj,
+          year: s.year,
+          roundLabel: s.roundLabel,
+        },
+      });
+    }
   }
 
   // 6. 抽題完成後，把畫面切回原本那一卷
@@ -2159,16 +2157,33 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
     console.error("restore scope error after cross-subject quiz:", e);
   }
 
+  // 7. 沒有可用題目就直接回傳空陣列
+  if (!allCandidates.length) {
+    return result;
+  }
+
+  // 8. 把所有候選題目洗牌，再抽 maxCount 題
+  for (let i = allCandidates.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allCandidates[i], allCandidates[j]] = [allCandidates[j], allCandidates[i]];
+  }
+
+  const pickCount = Math.min(maxCount, allCandidates.length);
+  for (let i = 0; i < pickCount; i++) {
+    result.push(allCandidates[i]);
+  }
+
   return result;
 }
 
-// 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，其他邏輯沿用跨卷抽題
+
+// 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
 async function buildSingleSubjectQuizQuestions(maxCount) {
   const result = [];
   if (!subjectSel || !yearSel || !roundSel) return result;
 
   // 目前選到的科目（本科目）
-  const currentSubj = String(subjectSel.value || '').trim();
+  const currentSubj = String(subjectSel.value || "").trim();
   if (!currentSubj) return result;
 
   // 1. 只用「目前科目」，年度 / 梯次則跟著選單全部跑
@@ -2222,10 +2237,10 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
     round: roundSel.value,
   };
 
-  // 5. 依序嘗試每個 scope，抽題直到湊齊 maxCount 或沒有卷可用了
-  for (const s of scopes) {
-    if (result.length >= maxCount) break;
+  // 5. 走遍所有「本科目」的 scope，把題目統一丟進大池 allCandidates
+  const allCandidates = [];
 
+  for (const s of scopes) {
     subjectSel.value = s.subj;
     yearSel.value = s.year;
     roundSel.value = s.roundLabel;
@@ -2246,33 +2261,32 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
 
     if (!pool.length) continue;
 
-    const picked = pool[Math.floor(Math.random() * pool.length)];
-    if (!picked) continue;
+    for (const q of pool) {
+      const qid = String(q.id);
+      const caRaw = String(state.answers[qid] || "").toUpperCase();
+      const answerSet = Array.from(
+        new Set(
+          caRaw
+            .split(",")
+            .map(x => x.trim())
+            .filter(Boolean)
+        )
+      );
+      if (!answerSet.length) continue;
 
-    const qid = String(picked.id);
-    const caRaw = String(state.answers[qid] || "").toUpperCase();
-    const answerSet = Array.from(
-      new Set(
-        caRaw
-          .split(",")
-          .map(x => x.trim())
-          .filter(Boolean)
-      )
-    );
-    if (!answerSet.length) continue;
-
-    result.push({
-      id: picked.id,
-      text: picked.text,
-      options: picked.options,
-      image: picked.image,
-      answerSet,
-      scope: {
-        subj: s.subj,
-        year: s.year,
-        roundLabel: s.roundLabel,
-      },
-    });
+      allCandidates.push({
+        id: q.id,
+        text: q.text,
+        options: q.options,
+        image: q.image,
+        answerSet,
+        scope: {
+          subj: s.subj,
+          year: s.year,
+          roundLabel: s.roundLabel,
+        },
+      });
+    }
   }
 
   // 6. 抽題完成後，把畫面切回原本那一卷
@@ -2285,6 +2299,22 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
     }
   } catch (e) {
     console.error("restore scope error after single-subject quiz:", e);
+  }
+
+  // 7. 沒有可用題目就直接回傳空陣列
+  if (!allCandidates.length) {
+    return result;
+  }
+
+  // 8. 把所有候選題目洗牌，再抽 maxCount 題
+  for (let i = allCandidates.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allCandidates[i], allCandidates[j]] = [allCandidates[j], allCandidates[i]];
+  }
+
+  const pickCount = Math.min(maxCount, allCandidates.length);
+  for (let i = 0; i < pickCount; i++) {
+    result.push(allCandidates[i]);
   }
 
   return result;
