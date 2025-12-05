@@ -2162,6 +2162,134 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
   return result;
 }
 
+// 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，其他邏輯沿用跨卷抽題
+async function buildSingleSubjectQuizQuestions(maxCount) {
+  const result = [];
+  if (!subjectSel || !yearSel || !roundSel) return result;
+
+  // 目前選到的科目（本科目）
+  const currentSubj = String(subjectSel.value || '').trim();
+  if (!currentSubj) return result;
+
+  // 1. 只用「目前科目」，年度 / 梯次則跟著選單全部跑
+  const subjects = [currentSubj];
+
+  const years = Array.from(yearSel.options || [])
+    .map(o => String(o.value).trim())
+    .filter(Boolean);
+
+  const rounds = Array.from(roundSel.options || [])
+    .map(o => {
+      const text = (o.textContent || "").trim();
+      const val = (o.value || "").trim();
+      return text || val; // 例如「第一次」「第二次」
+    })
+    .filter(Boolean);
+
+  // 2. 組合出所有要嘗試的 scope（但會跳過 110+ 年的「第二次」）
+  const scopes = [];
+  for (const subj of subjects) {
+    for (const year of years) {
+      const yearNum = Number(year);
+      for (const raw of rounds) {
+        const roundLabel = String(raw).trim();
+        const isSecond =
+          roundLabel === "第二次" ||
+          roundLabel === "第二" ||
+          roundLabel === "2";
+
+        if (Number.isFinite(yearNum) && yearNum >= 110 && isSecond) {
+          continue;
+        }
+
+        scopes.push({ subj, year, roundLabel });
+      }
+    }
+  }
+
+  if (!scopes.length) return result;
+
+  // 3. 打亂 scopes 順序
+  for (let i = scopes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
+  }
+
+  // 4. 記下現在原本選到的卷別，抽題完要切回來
+  const originalScope = {
+    subj: subjectSel.value,
+    year: yearSel.value,
+    round: roundSel.value,
+  };
+
+  // 5. 依序嘗試每個 scope，抽題直到湊齊 maxCount 或沒有卷可用了
+  for (const s of scopes) {
+    if (result.length >= maxCount) break;
+
+    subjectSel.value = s.subj;
+    yearSel.value = s.year;
+    roundSel.value = s.roundLabel;
+
+    try {
+      if (typeof onScopeChange === "function") {
+        await onScopeChange();
+      }
+    } catch (e) {
+      console.error("onScopeChange error in single-subject quiz:", e);
+      continue;
+    }
+
+    const pool = (state.questions || []).filter(q => {
+      const key = String(q.id);
+      return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
+    });
+
+    if (!pool.length) continue;
+
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    if (!picked) continue;
+
+    const qid = String(picked.id);
+    const caRaw = String(state.answers[qid] || "").toUpperCase();
+    const answerSet = Array.from(
+      new Set(
+        caRaw
+          .split(",")
+          .map(x => x.trim())
+          .filter(Boolean)
+      )
+    );
+    if (!answerSet.length) continue;
+
+    result.push({
+      id: picked.id,
+      text: picked.text,
+      options: picked.options,
+      image: picked.image,
+      answerSet,
+      scope: {
+        subj: s.subj,
+        year: s.year,
+        roundLabel: s.roundLabel,
+      },
+    });
+  }
+
+  // 6. 抽題完成後，把畫面切回原本那一卷
+  try {
+    subjectSel.value = originalScope.subj;
+    yearSel.value = originalScope.year;
+    roundSel.value = originalScope.round;
+    if (typeof onScopeChange === "function") {
+      await onScopeChange();
+    }
+  } catch (e) {
+    console.error("restore scope error after single-subject quiz:", e);
+  }
+
+  return result;
+}
+
 
 // 隨機測驗直接沿用寵物小考的樣式
 function ensureRandomQuizStyle() {
@@ -2169,6 +2297,7 @@ function ensureRandomQuizStyle() {
     ensurePetQuizStyle();
   }
 }
+
 
 function openRandomQuizOverlay(qs) {
   if (!Array.isArray(qs) || !qs.length) {
@@ -2681,6 +2810,73 @@ function openRandomQuizPrepOverlay() {
   card.style.flexDirection = 'column';
   card.style.gap = '12px';
 
+  // 🔹 目前抽題模式：subject = 本科目（預設） / cross = 跨科別
+  let currentScopeMode = 'subject';
+
+  // 🔹 本科目 / 跨科別 按鈕列（第一行）
+  const rowScope = document.createElement('div');
+  rowScope.style.display = 'flex';
+  rowScope.style.gap = '8px';
+
+  const btnSubject = document.createElement('button');
+  btnSubject.textContent = '本科目';
+  btnSubject.style.flex = '1';
+  btnSubject.style.minWidth = '0';
+  btnSubject.style.padding = '8px 0';
+  btnSubject.style.borderRadius = '9999px';
+  btnSubject.style.border = '1px solid var(--border, #444)';
+  btnSubject.style.cursor = 'pointer';
+  btnSubject.style.fontSize = '14px';
+
+  const btnCross = document.createElement('button');
+  btnCross.textContent = '跨科別';
+  btnCross.style.flex = '1';
+  btnCross.style.minWidth = '0';
+  btnCross.style.padding = '8px 0';
+  btnCross.style.borderRadius = '9999px';
+  btnCross.style.border = '1px solid var(--border, #444)';
+  btnCross.style.cursor = 'pointer';
+  btnCross.style.fontSize = '14px';
+
+  // 共用：依 currentScopeMode 更新兩顆按鈕樣式
+  function refreshScopeButtons() {
+    if (currentScopeMode === 'subject') {
+      // 本科目選中
+      btnSubject.style.background = 'var(--accent, #2f74ff)';
+      btnSubject.style.color = '#fff';
+      btnSubject.style.borderColor = 'var(--accent, #2f74ff)';
+
+      btnCross.style.background = 'transparent';
+      btnCross.style.color = 'var(--fg, #fff)';
+      btnCross.style.borderColor = 'var(--border, #444)';
+    } else {
+      // 跨科別選中
+      btnCross.style.background = 'var(--accent, #2f74ff)';
+      btnCross.style.color = '#fff';
+      btnCross.style.borderColor = 'var(--accent, #2f74ff)';
+
+      btnSubject.style.background = 'transparent';
+      btnSubject.style.color = 'var(--fg, #fff)';
+      btnSubject.style.borderColor = 'var(--border, #444)';
+    }
+  }
+
+  btnSubject.onclick = () => {
+    currentScopeMode = 'subject';
+    refreshScopeButtons();
+  };
+  btnCross.onclick = () => {
+    currentScopeMode = 'cross';
+    refreshScopeButtons();
+  };
+
+  // 預設：本科目模式
+  currentScopeMode = 'subject';
+  refreshScopeButtons();
+
+  rowScope.appendChild(btnSubject);
+  rowScope.appendChild(btnCross);
+
   const title = document.createElement('div');
   title.textContent = '選擇題數';
   title.style.fontWeight = '700';
@@ -2709,7 +2905,15 @@ function openRandomQuizPrepOverlay() {
     btn.onclick = async () => {
       mask.remove();
       try {
-        const qs = await buildCrossVolumeQuizQuestions(n); // 用既有的跨卷抽題函式 [file:21]
+        let qs;
+        if (currentScopeMode === 'cross') {
+          // 跨科別：沿用原本的跨卷抽題（所有科目）
+          qs = await buildCrossVolumeQuizQuestions(n);
+        } else {
+          // 本科目：只用目前選到的科目
+          qs = await buildSingleSubjectQuizQuestions(n);
+        }
+
         if (!qs || !qs.length) {
           alert('目前範圍內找不到足夠的題目可以組成隨機測驗。');
           return;
@@ -2764,6 +2968,7 @@ function openRandomQuizPrepOverlay() {
   row3.appendChild(btnCancel);
 
   card.appendChild(title);
+  card.appendChild(rowScope);
   card.appendChild(row1);
   card.appendChild(row2);
   card.appendChild(row3);
