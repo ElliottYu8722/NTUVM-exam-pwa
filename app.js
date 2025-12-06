@@ -4601,162 +4601,173 @@ function enterFullscreenQuiz(){
     display:flex; flex-direction:column;
   `;
 
-// 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
-// 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
-if (!document.getElementById("fs-quiz-style")) {
-  const css = document.createElement("style");
-  css.id = "fs-quiz-style";
-  css.textContent = `
-    .fs-topbar{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      padding:12px 14px;
-      border-bottom:1px solid var(--border,#2a2a2a);
-      background:var(--card,#1b1b1b);
-    }
-
-    /* 只有在手機且真的超出寬度時，JS 會加上這個 class，才會啟用橫向捲動 */
-    .fs-topbar.scrollable{
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-    }
-
-    .fs-badge{
-      padding:6px 10px;
-      border:1px solid var(--border,#2a2a2a);
-      border-radius:9999px;
-      background:transparent;
-      color:var(--fg,#fff);
-      font-size:14px;
-      flex:0 0 auto;
-      white-space:nowrap;
-    }
-
-    .fs-spacer{ flex:1; min-width:0; }
-
-    .fs-btn{
-      padding:10px 14px;
-      border-radius:9999px;
-      border:1px solid var(--border,#2a2a2a);
-      background:transparent;
-      color:var(--fg,#fff);
-      cursor:pointer;
-      font-size:16px;
-      flex:0 0 auto;
-      white-space:nowrap;
-    }
-    .fs-btn:hover{
-      border-color:var(--accent,#2f74ff);
-      color:var(--accent,#2f74ff);
-    }
-
-    .fs-main{
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:16px;
-      overflow:auto;
-    }
-    .fs-card{
-      border:1px solid var(--border,#2a2a2a);
-      border-radius:16px;
-      padding:16px;
-      background:var(--card,#1b1b1b);
-    }
-    .fs-qtext{
-      font-size:18px;
-      line-height:1.6;
-    }
-    .fs-qimg{
-      margin-top:10px;
-      max-width:100%;
-      height:auto;
-      border-radius:8px;
-      border:1px solid var(--border,#2a2a2a);
-    }
-    .fs-opts{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .fs-nav{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      margin-top:14px;
-    }
-    .fs-hidden{
-      display:none !important;
-    }
-
-    /* ===== 測驗準備遮罩卡片 ===== */
-    .fs-start-overlay{
-      position:fixed;
-      inset:0;
-      z-index:100002;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,.65);
-    }
-    .fs-start-card{
-      min-width:280px;
-      max-width:420px;
-      background:var(--card,#1b1b1b);
-      border-radius:16px;
-      border:1px solid var(--border,#2a2a2a);
-      padding:20px 18px;
-      box-shadow:0 18px 45px rgba(0,0,0,.4);
-    }
-    .fs-start-title{
-      font-size:18px;
-      font-weight:600;
-      margin-bottom:12px;
-    }
-    .fs-start-row{
-      font-size:15px;
-      margin:4px 0;
-    }
-    .fs-start-row .value{
-      font-weight:600;
-    }
-    .fs-start-actions{
-      margin-top:16px;
-      display:flex;
-      justify-content:flex-end;
-      gap:10px;
-    }
-    .fs-btn-primary{
-      background:var(--accent,#2f74ff);
-      color:#fff;
-    }
-
-    /* ===== 手機直立時：只改全螢幕測驗上方列的排版 ===== */
-    @media (max-width: 600px) and (orientation: portrait) {
+  // 一次性注入樣式（包含測驗頁 + 測驗準備卡片）
+  if (!document.getElementById("fs-quiz-style")) {
+    const css = document.createElement("style");
+    css.id = "fs-quiz-style";
+    css.textContent = `
       .fs-topbar{
-        flex-wrap:wrap;
+        display:flex;
+        align-items:flex-start;
+        gap:10px;
+        padding:12px 14px;
+        border-bottom:1px solid var(--border,#2a2a2a);
+        background:var(--card,#1b1b1b);
       }
 
-      /* 科目 / 年份 / 梯次 三個 badge 各占一整行，往下疊 */
-      .fs-topbar .fs-badge:nth-child(1),
-      .fs-topbar .fs-badge:nth-child(2),
-      .fs-topbar .fs-badge:nth-child(3) {
-        flex-basis: 100%;
+      /* 只有在手機且真的超出寬度時，JS 會加上這個 class，才會啟用橫向捲動 */
+      .fs-topbar.scrollable{
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
       }
 
-      /* 手機直立時不需要 spacer 撐開，避免擠掉按鈕 */
-      .fs-topbar .fs-spacer {
-        display:none;
+      .fs-badge{
+        padding:6px 10px;
+        border:1px solid var(--border,#2a2a2a);
+        border-radius:9999px;
+        background:transparent;
+        color:var(--fg,#fff);
+        font-size:14px;
+        flex:0 0 auto;
+        white-space:nowrap;
       }
-    }
-  `;
-  document.head.appendChild(css);
-}
 
+      .fs-spacer{ flex:1; min-width:0; }
 
+      .fs-btn{
+        padding:10px 14px;
+        border-radius:9999px;
+        border:1px solid var(--border,#2a2a2a);
+        background:transparent;
+        color:var(--fg,#fff);
+        cursor:pointer;
+        font-size:16px;
+        flex:0 0 auto;
+        white-space:nowrap;
+      }
+      .fs-btn:hover{
+        border-color:var(--accent,#2f74ff);
+        color:var(--accent,#2f74ff);
+      }
+
+      .fs-main{
+        flex:1;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        padding:16px;
+        overflow:auto;
+      }
+      .fs-card{
+        border:1px solid var(--border,#2a2a2a);
+        border-radius:16px;
+        padding:16px;
+        background:var(--card,#1b1b1b);
+      }
+      .fs-qtext{
+        font-size:18px;
+        line-height:1.6;
+      }
+      .fs-qimg{
+        margin-top:10px;
+        max-width:100%;
+        height:auto;
+        border-radius:8px;
+        border:1px solid var(--border,#2a2a2a);
+      }
+
+      /* ★ 新增：全螢幕模式的「第二張以後」圖片區塊，維持原圖比例、最多 100% 寬 */
+      .fs-qimgs{
+        margin-top:10px;
+      }
+      .fs-qimgs img{
+        display:block;
+        max-width:100%;
+        height:auto;
+        border-radius:8px;
+        border:1px solid var(--border,#2a2a2a);
+        margin-top:10px;
+      }
+
+      .fs-opts{
+        margin-top:10px;
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+      }
+      .fs-nav{
+        display:flex;
+        gap:8px;
+        align-items:center;
+        margin-top:14px;
+      }
+      .fs-hidden{
+        display:none !important;
+      }
+
+      /* ===== 測驗準備遮罩卡片 ===== */
+      .fs-start-overlay{
+        position:fixed;
+        inset:0;
+        z-index:100002;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:rgba(0,0,0,.65);
+      }
+      .fs-start-card{
+        min-width:280px;
+        max-width:420px;
+        background:var(--card,#1b1b1b);
+        border-radius:16px;
+        border:1px solid var(--border,#2a2a2a);
+        padding:20px 18px;
+        box-shadow:0 18px 45px rgba(0,0,0,.4);
+      }
+      .fs-start-title{
+        font-size:18px;
+        font-weight:600;
+        margin-bottom:12px;
+      }
+      .fs-start-row{
+        font-size:15px;
+        margin:4px 0;
+      }
+      .fs-start-row .value{
+        font-weight:600;
+      }
+      .fs-start-actions{
+        margin-top:16px;
+        display:flex;
+        justify-content:flex-end;
+        gap:10px;
+      }
+      .fs-btn-primary{
+        background:var(--accent,#2f74ff);
+        color:#fff;
+      }
+
+      /* ===== 手機直立時：只改全螢幕測驗上方列的排版 ===== */
+      @media (max-width: 600px) and (orientation: portrait) {
+        .fs-topbar{
+          flex-wrap:wrap;
+        }
+
+        /* 科目 / 年份 / 梯次 三個 badge 各占一整行，往下疊 */
+        .fs-topbar .fs-badge:nth-child(1),
+        .fs-topbar .fs-badge:nth-child(2),
+        .fs-topbar .fs-badge:nth-child(3) {
+          flex-basis: 100%;
+        }
+
+        /* 手機直立時不需要 spacer 撐開，避免擠掉按鈕 */
+        .fs-topbar .fs-spacer {
+          display:none;
+        }
+      }
+    `;
+    document.head.appendChild(css);
+  }
 
   // 先把完整測驗畫面 + 準備卡片都畫出來（準備卡片會蓋在最上面）
   mask.innerHTML = `
@@ -4776,6 +4787,8 @@ if (!document.getElementById("fs-quiz-style")) {
         <div id="fsQNum" class="fs-badge" style="margin-bottom:8px">第 1 題</div>
         <div id="fsQText" class="fs-qtext"></div>
         <img id="fsQImg" class="fs-qimg fs-hidden" alt="">
+        <!-- ★ 新增：全螢幕模式的多圖容器 -->
+        <div id="fsQImgs" class="fs-qimgs"></div>
         <div id="fsQOpts" class="fs-opts"></div>
         <div class="fs-nav">
           <button id="fsPrev" class="fs-btn">上一題</button>
@@ -4800,25 +4813,21 @@ if (!document.getElementById("fs-quiz-style")) {
     </div>
   `;
   document.body.appendChild(mask);
-  const fsTopbar = mask.querySelector('.fs-topbar');  // 這裡用 mask
+
+  const fsTopbar = mask.querySelector('.fs-topbar');
   function updateFsTopbarScrollable() {
     if (!fsTopbar) return;
-  
-    const isPhone = window.innerWidth <= 768; // 你可以自己調門檻
-    // scrollWidth > clientWidth 代表有超出寬度
+    const isPhone = window.innerWidth <= 768;
     const isOverflow = fsTopbar.scrollWidth > fsTopbar.clientWidth;
-  
     if (isPhone && isOverflow) {
       fsTopbar.classList.add('scrollable');
     } else {
       fsTopbar.classList.remove('scrollable');
     }
   }
-  
-  // 初次進入時判一次
   setTimeout(updateFsTopbarScrollable, 0);
-  // 視窗尺寸變化時也更新一次（例如旋轉手機）
   window.addEventListener('resize', updateFsTopbarScrollable);
+
   // 測驗本體用到的節點
   const fs = {
     mask,
@@ -4830,6 +4839,7 @@ if (!document.getElementById("fs-quiz-style")) {
     fsQNum: document.getElementById("fsQNum"),
     fsQText: document.getElementById("fsQText"),
     fsQImg: document.getElementById("fsQImg"),
+    fsQImgs: document.getElementById("fsQImgs"),    // ★ 新增：多圖容器
     fsQOpts: document.getElementById("fsQOpts"),
     fsPrev: document.getElementById("fsPrev"),
     fsNext: document.getElementById("fsNext"),
@@ -4846,7 +4856,7 @@ if (!document.getElementById("fs-quiz-style")) {
   const fsStartCancel  = document.getElementById("fsStartCancel");
 
   // 卷別資訊填入（上方列 + 準備卡片共用）
-  const subjLabel = getSubjectLabel(); // 前面已經寫好的工具函式
+  const subjLabel = getSubjectLabel();
   if (fs.fsSubj)  fs.fsSubj.textContent  = subjLabel;
   if (fs.fsYear)  fs.fsYear.textContent  = yearSel.value;
   if (fs.fsRound) fs.fsRound.textContent = roundSel.value;
@@ -4865,36 +4875,46 @@ if (!document.getElementById("fs-quiz-style")) {
     timerId: null
   };
 
-  // 導覽 / 提交 / 關閉：邏輯維持原本
-  bindTapClick(fs.fsPrev,  ()=> { if(qs.mode==="review"){ stepReview(-1); } else { if(qs.index>0) qs.index--; } renderFS(); });
-  bindTapClick(fs.fsNext,  ()=> { if(qs.mode==="review"){ stepReview( 1); } else { if(qs.index<state.questions.length-1) qs.index++; } renderFS(); });
+  // 導覽 / 提交 / 關閉
+  bindTapClick(fs.fsPrev,  ()=> {
+    if(qs.mode==="review"){
+      stepReview(-1);
+    } else {
+      if(qs.index>0) qs.index--;
+    }
+    renderFS();
+  });
+  bindTapClick(fs.fsNext,  ()=> {
+    if(qs.mode==="review"){
+      stepReview( 1);
+    } else {
+      if(qs.index<state.questions.length-1) qs.index++;
+    }
+    renderFS();
+  });
   bindTapClick(fs.fsSubmit, ()=> submitFS());
   bindTapClick(fs.fsClose,  ()=> closeFS());
 
   // ✅「進入作答」：這個時候才清除舊作答 + 啟動計時
   if (fsStartBtn){
     bindTapClick(fsStartBtn, ()=>{
-      // 1) 清除目前科目/年/梯次的舊作答
       resetUserAnswersForCurrentScope();
 
-      // 2) 重設倒數時間
       qs.mode   = "quiz";
       qs.index  = 0;
       qs.reviewOrder = [];
       qs.reviewPos   = 0;
       qs.remain = 60*60;
 
-      // 3) 先渲染第一題，再開始計時
       renderFS();
       tickFS();
       qs.timerId = setInterval(tickFS, 1000);
 
-      // 4) 把「測驗準備」卡片藏起來
       fsStartOverlay?.classList.add("fs-hidden");
     });
   }
 
-  // ❌「取消」：關掉整個全螢幕，回到原本頁面，完全不影響原本作答
+  // ❌「取消」：關掉整個全螢幕，回到原本頁面
   if (fsStartCancel){
     bindTapClick(fsStartCancel, ()=>{
       if(qs.timerId){ clearInterval(qs.timerId); qs.timerId = null; }
@@ -4915,26 +4935,60 @@ if (!document.getElementById("fs-quiz-style")) {
       fs.fsQText.textContent = "題目載入失敗";
       fs.fsQOpts.innerHTML = "";
       fs.fsQImg.classList.add("fs-hidden");
+      if (fs.fsQImgs) fs.fsQImgs.innerHTML = "";
       return;
     }
 
     fs.fsQNum.textContent = `第 ${q.id} 題`;
     fs.fsQText.innerHTML  = escapeHTML(q.text);
 
-    if(q.image){
-      const raw = resolveImage(q.image);
+    // ★ 整合 image / images：第一張進 fsQImg，其餘進 fsQImgs
+    let imgs = [];
+    if (Array.isArray(q.images) && q.images.length) {
+      imgs = q.images.slice();
+    } else if (q.image) {
+      imgs = [q.image];
+    }
+
+    // 主圖處理（第一張）
+    if (imgs.length) {
+      const first = imgs[0];
+      const raw = resolveImage(first);
       const bust = (raw.includes("?") ? "&" : "?") + "v=" + Date.now();
       fs.fsQImg.src = raw + bust;
       fs.fsQImg.classList.remove("fs-hidden");
-    }else{
+    } else {
       fs.fsQImg.classList.add("fs-hidden");
       fs.fsQImg.removeAttribute("src");
     }
 
+    // 額外圖片（第二張以後）
+    if (fs.fsQImgs) {
+      fs.fsQImgs.innerHTML = "";
+      if (imgs.length > 1) {
+        const extra = imgs.slice(1);
+        extra.forEach(src => {
+          const url = resolveImage(src);
+          if (!url) return;
+          const bust = (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+          const img = document.createElement("img");
+          img.src = url + bust;
+          img.alt = q.text ? String(q.text).slice(0, 40) : "question image";
+          fs.fsQImgs.appendChild(img);
+        });
+      }
+    }
+
+    // 選項
     fs.fsQOpts.innerHTML = "";
     const ua = (state.user[String(q.id)]||"").toUpperCase();
     const letters = ["A","B","C","D"];
-    const correctSet = new Set(String(state.answers[String(q.id)]||"").toUpperCase().split("/").filter(Boolean));
+    const correctSet = new Set(
+      String(state.answers[String(q.id)]||"")
+        .toUpperCase()
+        .split("/")
+        .filter(Boolean)
+    );
 
     letters.forEach(L=>{
       const line = document.createElement("label");
@@ -4984,10 +5038,11 @@ if (!document.getElementById("fs-quiz-style")) {
     fs.fsTimer.textContent = `剩餘 ${m}:${s}`;
     if(qs.remain===0){ submitFS(); }
   }
+
   function submitFS() {
     let correct = 0;
     const wrong = [];
-  
+
     state.questions.forEach((q, idx) => {
       const qid = String(q.id);
       const caRaw = String(state.answers[qid] || "").toUpperCase();
@@ -4998,7 +5053,7 @@ if (!document.getElementById("fs-quiz-style")) {
           .filter(Boolean)
       );
       const ua = String(state.user[qid] || "").toUpperCase();
-  
+
       if (set.has("ALL") || set.has(ua)) {
         correct++;
       } else {
@@ -5010,10 +5065,10 @@ if (!document.getElementById("fs-quiz-style")) {
         });
       }
     });
-  
+
     const total = state.questions.length;
     const score = total ? ((correct / total) * 100).toFixed(2) : "0.00";
-  
+
     const row = {
       ts: new Date().toLocaleString(),
       subj: getSubjectLabel(),
@@ -5026,18 +5081,18 @@ if (!document.getElementById("fs-quiz-style")) {
       wrongDetail: wrong.map(w => `${w.qid}:${w.ua || "-"}→${w.ca || "-"}`).join("、"),
       summary: summarizeChoices()
     };
-  
+
     appendRecord(row);
-  
+
     if (qs.timerId) {
       clearInterval(qs.timerId);
       qs.timerId = null;
     }
-  
+
     const goReview = window.confirm(
       `本卷得分：${score} 分（${correct}/${total}）\n是否只看本次錯題？`
     );
-  
+
     if (goReview && wrong.length) {
       qs.mode = "review";
       fs.fsTimer.classList.add("fs-hidden");
@@ -5051,8 +5106,6 @@ if (!document.getElementById("fs-quiz-style")) {
     }
   }
 
-
-
   function closeFS(){
     if(qs.timerId){ clearInterval(qs.timerId); qs.timerId=null; }
     try{ document.body.removeChild(mask); }catch{}
@@ -5061,6 +5114,7 @@ if (!document.getElementById("fs-quiz-style")) {
     renderQuestion();
   }
 }
+
 
 bindTapClick(btnSubmit, submitQuiz);
 bindTapClick(btnClose,  closeQuiz);
