@@ -659,6 +659,7 @@ function resolveImage(src){
   return pathJoin(CONFIG.basePath, CONFIG.dirs.images, s);
 }
 // 根據目前題目資料，把所有圖片渲染到 #question-images 容器
+// 根據目前題目資料，把「第二張以後的圖片」渲染到 #question-images
 function renderQuestionImagesFromState() {
   if (!questionImagesContainer) return;
 
@@ -676,17 +677,16 @@ function renderQuestionImagesFromState() {
   const q = list[idx];
   if (!q) return;
 
-  // 新版：優先使用 images 陣列，多張圖
-  const imgs = Array.isArray(q.images) ? q.images : [];
-
-  // 如果 images 沒東西，但有舊的 image 欄位，就當成一張圖
-  if (!imgs.length && q.image) {
-    imgs.push(q.image);
+  // 只處理「真的有多張圖片」的情況
+  if (!Array.isArray(q.images) || q.images.length <= 1) {
+    // 一張圖或沒有圖 → 交給原本的 qImg 邏輯就好，不多畫
+    return;
   }
 
-  if (!imgs.length) return; // 這題沒有圖
+  // 第一張已經由原本的 qImg 顯示，這裡只畫第 2 張之後的圖片
+  const extraImages = q.images.slice(1);
 
-  imgs.forEach(src => {
+  extraImages.forEach(src => {
     const url = resolveImage(src);
     if (!url) return;
     const img = document.createElement("img");
@@ -695,6 +695,7 @@ function renderQuestionImagesFromState() {
     questionImagesContainer.appendChild(img);
   });
 }
+
 
 /* DOM */
 /* DOM */
@@ -1963,6 +1964,18 @@ function ensurePetQuizStyle() {
     flex-direction: column;
     overflow: hidden;
   }
+  .pet-quiz-qimgs {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pet-quiz-qimgs img {
+    max-width: 100%;
+    max-height: 260px;
+    border-radius: 4px;
+    border: 1px solid var(--border, #333);
+  }
   .pet-quiz-head {
     padding: 12px 14px;
     border-bottom: 1px solid var(--border, #333);
@@ -2183,11 +2196,17 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
       );
       if (!answerSet.length) continue;
 
+      // ★ 新增：把多張圖一起帶進來
+      const images = Array.isArray(q.images)
+        ? q.images
+        : (q.image ? [q.image] : []);
+      
       allCandidates.push({
         id: q.id,
         text: q.text,
         options: q.options,
         image: q.image,
+        images,           // ★ 新增：多張圖
         answerSet,
         scope: {
           subj: s.subj,
@@ -2230,9 +2249,9 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
   for (let i = 0; i < pickCount; i++) {
     result.push(allCandidates[i]);
   }
-
-  return result;
-}
+  
+    return result;
+  }
 
 // 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
 async function buildSingleSubjectQuizQuestions(maxCount) {
@@ -2343,12 +2362,16 @@ async function buildSingleSubjectQuizQuestions(maxCount) {
         )
       );
       if (!answerSet.length) continue;
-
+      // ★ 新增：把多張圖一起帶進來
+      const images = Array.isArray(q.images)
+        ? q.images
+        : (q.image ? [q.image] : []);
       allCandidates.push({
         id: q.id,
         text: q.text,
         options: q.options,
         image: q.image,
+        images,           // ★ 新增：多圖陣列
         answerSet,
         scope: {
           subj: s.subj,
@@ -2432,6 +2455,7 @@ function openRandomQuizOverlay(qs) {
         <div id="rq-qnum"  class="pet-quiz-qnum"></div>
         <div id="rq-qtext" class="pet-quiz-qtext"></div>
         <img  id="rq-qimg" class="pet-quiz-qimg" style="display:none;" alt="">
+        <div id="rq-qimgs" class="pet-quiz-qimgs"></div>
         <div id="rq-opts"  class="pet-quiz-opts"></div>
       </div>
       <div class="pet-quiz-foot">
@@ -2448,6 +2472,7 @@ function openRandomQuizOverlay(qs) {
   const elQNum  = document.getElementById('rq-qnum');
   const elQText = document.getElementById('rq-qtext');
   const elQImg  = document.getElementById('rq-qimg');
+  const elQImgs = document.getElementById('rq-qimgs'); // ★ 新增
   const elOpts  = document.getElementById('rq-opts');
   const btnPrev = document.getElementById('rq-prev');
   const btnNext = document.getElementById('rq-next');
@@ -2476,6 +2501,22 @@ function openRandomQuizOverlay(qs) {
     } else {
       elQImg.removeAttribute('src');
       elQImg.style.display = 'none';
+    }
+    // 額外圖片：顯示在 rq-qimgs 容器（第二張之後）
+    if (elQImgs) {
+      elQImgs.innerHTML = '';
+      const imgs = Array.isArray(q.images) ? q.images : [];
+
+      if (imgs.length > 1) {
+        imgs.slice(1).forEach(src => {
+          const url = resolveImage(src);
+          if (!url) return;
+          const imgEl = document.createElement('img');
+          imgEl.src = url;
+          imgEl.alt = (q.text || '').slice(0, 40);
+          elQImgs.appendChild(imgEl);
+        });
+      }
     }
 
     elOpts.innerHTML = '';
