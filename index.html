@@ -176,17 +176,17 @@
     .timer{font-weight:700}
     .footer-hint{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
     .question-images {
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
-      flex-wrap: wrap;   /* 太多張就自動換行 */
-      gap: 8px;          /* 圖片之間的間距 */
+      flex-wrap: wrap;
+      gap: 8px;
     }
     .question-images img {
-      flex: 0 0 calc(50% - 8px); /* 每張大約佔一半寬度 */
+      flex: 0 0 calc(50% - 8px);   /* 每張大約佔一半寬度，兩張並排 */
       max-width: calc(50% - 8px);
       height: auto;
-      border-radius: 4px;
-      box-shadow: 0 0 4px rgba(0,0,0,.2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
     .color-palette{
       position:absolute;
