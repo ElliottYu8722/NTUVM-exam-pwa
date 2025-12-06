@@ -178,12 +178,13 @@
     .question-images {
       margin-top: 8px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-wrap: wrap;   /* 太多張就自動換行 */
+      gap: 8px;          /* 圖片之間的間距 */
     }
     .question-images img {
-      max-width: 100%;
-      max-height: 260px;
+      flex: 0 0 calc(50% - 8px); /* 每張大約佔一半寬度 */
+      max-width: calc(50% - 8px);
+      height: auto;
       border-radius: 4px;
       box-shadow: 0 0 4px rgba(0,0,0,.2);
     }
