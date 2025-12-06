@@ -658,6 +658,43 @@ function resolveImage(src){
   // 否則視為單純檔名：補成 data/圖片/檔名
   return pathJoin(CONFIG.basePath, CONFIG.dirs.images, s);
 }
+// 根據目前題目資料，把所有圖片渲染到 #question-images 容器
+function renderQuestionImagesFromState() {
+  if (!questionImagesContainer) return;
+
+  // 先清空
+  questionImagesContainer.innerHTML = "";
+
+  // 取得目前顯示中的題目（優先看 visibleQuestions）
+  const list = (state.visibleQuestions && state.visibleQuestions.length)
+    ? state.visibleQuestions
+    : state.questions;
+
+  if (!list || !list.length) return;
+
+  const idx = Math.min(Math.max(state.index, 0), list.length - 1);
+  const q = list[idx];
+  if (!q) return;
+
+  // 新版：優先使用 images 陣列，多張圖
+  const imgs = Array.isArray(q.images) ? q.images : [];
+
+  // 如果 images 沒東西，但有舊的 image 欄位，就當成一張圖
+  if (!imgs.length && q.image) {
+    imgs.push(q.image);
+  }
+
+  if (!imgs.length) return; // 這題沒有圖
+
+  imgs.forEach(src => {
+    const url = resolveImage(src);
+    if (!url) return;
+    const img = document.createElement("img");
+    img.src = url;
+    img.alt = q.text ? String(q.text).slice(0, 40) : "question image";
+    questionImagesContainer.appendChild(img);
+  });
+}
 
 /* DOM */
 /* DOM */
@@ -668,6 +705,7 @@ const yearSel = $("#yearSel");
 const roundSel = $("#roundSel");
 const subjectSel = $("#subjectSel");
 const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
+const questionImagesContainer = document.getElementById("question-images");
 const searchCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
 
 // ★ 新增：110 年（含）之後沒有第二次 → 自動鎖定「第一次」，並隱藏「第二次」
@@ -4315,6 +4353,7 @@ async function renderQuestion() {
     // 離開 review mode 就移除按鈕
     document.getElementById("btnExitReview")?.remove();
   }
+  renderQuestionImagesFromState();
 }
 function addExitReviewBtn() {
   let existBtn = document.getElementById("btnExitReview");
