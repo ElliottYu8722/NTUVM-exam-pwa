@@ -660,41 +660,53 @@ function resolveImage(src){
 }
 // 根據目前題目資料，把所有圖片渲染到 #question-images 容器
 // 根據目前題目資料，把「第二張以後的圖片」渲染到 #question-images
+// 🔁 讓一般測驗模式也能顯示多張圖片
 function renderQuestionImagesFromState() {
+  // 容器沒抓到就直接跳出
   if (!questionImagesContainer) return;
 
-  // 先清空
+  // 先清空舊的縮圖
   questionImagesContainer.innerHTML = "";
 
-  // 取得目前顯示中的題目（優先看 visibleQuestions）
+  // 目前題目的列表（有群組時用 visibleQuestions，沒有就用 questions）
   const list = (state.visibleQuestions && state.visibleQuestions.length)
     ? state.visibleQuestions
     : state.questions;
 
   if (!list || !list.length) return;
 
+  // 安全地拿目前題目
   const idx = Math.min(Math.max(state.index, 0), list.length - 1);
   const q = list[idx];
   if (!q) return;
 
-  // 只處理「真的有多張圖片」的情況
-  if (!Array.isArray(q.images) || q.images.length <= 1) {
-    // 一張圖或沒有圖 → 交給原本的 qImg 邏輯就好，不多畫
-    return;
+  // 把 image / images 統一成一個陣列
+  let imgs = [];
+  if (Array.isArray(q.images) && q.images.length) {
+    imgs = q.images.slice(); // 複製一份，避免動到原本資料
+  } else if (q.image) {
+    imgs = [q.image];
   }
 
-  // 第一張已經由原本的 qImg 顯示，這裡只畫第 2 張之後的圖片
-  const extraImages = q.images.slice(1);
+  // 沒圖就不用畫了
+  if (!imgs.length) return;
 
-  extraImages.forEach(src => {
-    const url = resolveImage(src);
+  // 第一張已經由 renderQuestion() 塞進 #qImg，所以這裡只畫「第二張之後」
+  const extraImages = imgs.slice(1);
+  if (!extraImages.length) return;
+
+  extraImages.forEach((src) => {
+    const url = resolveImageSrc(src); // ✅ 跟隨機測驗一樣，用 resolveImageSrc 處理路徑
     if (!url) return;
+
     const img = document.createElement("img");
     img.src = url;
     img.alt = q.text ? String(q.text).slice(0, 40) : "question image";
+
     questionImagesContainer.appendChild(img);
   });
 }
+
 
 
 /* DOM */
