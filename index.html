@@ -175,6 +175,18 @@
     .editor{border:1px solid var(--border);border-radius:12px;background:var(--card);min-height:180px;padding:12px;margin-top:8px;outline:none}
     .timer{font-weight:700}
     .footer-hint{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
+    .question-images {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .question-images img {
+      max-width: 100%;
+      max-height: 260px;
+      border-radius: 4px;
+      box-shadow: 0 0 4px rgba(0,0,0,.2);
+    }
     .color-palette{
       position:absolute;
       display:grid;
@@ -764,6 +776,7 @@
       <div class="question-card">
         <div id="qNum" class="badge" style="margin-bottom:8px">第 1 題</div>
         <div id="qText" class="qtext">請先載入題目</div>
+        <div id="question-images" class="question-images"></div>
         <img id="qImg" class="qimg hidden" alt="">
         <div id="qOpts" class="options"></div>
         <div id="qExplain" class="qtext hidden"
