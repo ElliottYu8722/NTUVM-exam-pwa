@@ -1965,14 +1965,15 @@ function ensurePetQuizStyle() {
     overflow: hidden;
   }
   .pet-quiz-qimgs {
-    margin-top: 4px;
+    margin-top: 8px;
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
   }
   .pet-quiz-qimgs img {
-    max-width: 100%;
-    max-height: 260px;
+    flex: 0 0 calc(50% - 8px);
+    max-width: calc(50% - 8px);
+    height: auto;
     border-radius: 4px;
     border: 1px solid var(--border, #333);
   }
