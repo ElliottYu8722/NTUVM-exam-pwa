@@ -1,0 +1,970 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列何項不是造成馬肺炎的可能原因？",
+        "options": {
+            "A": "全身麻醉",
+            "B": "運輸",
+            "C": "賽前密集訓練",
+            "D": "sarcoid"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.下列馬的傷口以二期癒合（second-intention healing）處理，何者最不易癒合？",
+        "options": {
+            "A": "臀部肌肉外傷",
+            "B": "掌骨段外傷",
+            "C": "耳咽管憩室引流（Viborg's Triangle approach for drainage of the guttural pouch）後的傷口",
+            "D": "鼻竇圓鋸術（sinus trephination）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.下列何種手術常用於治療馬喉頭偏癱（laryngeal hemiplegia）？",
+        "options": {
+            "A": "laryngeal ventriculectomy",
+            "B": "partial resection of the soft palate",
+            "C": "hyovertebrotomy",
+            "D": "partial resection of the epiglottis"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.犢牛發生急性鉛中毒時，下列何種症狀較少發生？",
+        "options": {
+            "A": "強直性和間接性痙攣",
+            "B": "眼球震顫",
+            "C": "瞳孔散大",
+            "D": "潰瘍性口炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.有關牛隻急性砷中毒之敘述，下列何者正確？",
+        "options": {
+            "A": "動物呈現圈狀運動",
+            "B": "嚴重時造成失明現象",
+            "C": "惡臭性出血性下痢",
+            "D": "動物呈現興奮狂躁"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.牛隻草酸鹽中毒會導致血液中何種離子下降？",
+        "options": {
+            "A": "磷",
+            "B": "鈉",
+            "C": "鎂",
+            "D": "鈣"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.乳牛最常用來界定健康乳房及乳房炎的體細胞數值為多少cells/mL？",
+        "options": {
+            "A": "50,000",
+            "B": "200,000",
+            "C": "500,000",
+            "D": "1,000,000"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.下列何者為乳牛乳房炎之環境性（environmental）病原菌？",
+        "options": {
+            "A": "乳房鏈球菌（Streptococcus uberis）",
+            "B": "金黃色葡萄球菌（Staphylococcus aureus）",
+            "C": "牛黴漿菌（Mycoplasma bovis）",
+            "D": "無乳鏈球菌（Streptococcus agalactiae）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.乳牛場流行黴漿菌性乳房炎時，場內小牛若喝入未消毒生乳常引發其他疾病，下列何者最不常見？",
+        "options": {
+            "A": "肺炎",
+            "B": "多發性漿膜炎",
+            "C": "關節炎",
+            "D": "中耳炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.乳牛的眼癌（cancer eye）主要是下列何種腫瘤？",
+        "options": {
+            "A": "fibrosarcoma",
+            "B": "adenocarcinoma",
+            "C": "lymphosarcoma",
+            "D": "squamous cell carcinoma"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.初生仔牛餵食母牛初乳非常重要，有關影響仔牛吸收免疫球蛋白之效能，下列何者最不重要？",
+        "options": {
+            "A": "初乳是否來自仔牛的親生母牛",
+            "B": "初乳中免疫球蛋白濃度",
+            "C": "仔牛出生後餵食初乳的時間",
+            "D": "仔牛餵食初乳的量"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.在牛右側第11~13肋上方進行ping test呈現金屬反響音，應懷疑下列那一項疾病？",
+        "options": {
+            "A": "迴腸擴張症",
+            "B": "空腸積氣",
+            "C": "皺胃左側異位",
+            "D": "結腸臌脹症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.下列何項不是牛胸膜炎之主要症狀？",
+        "options": {
+            "A": "胸膜摩擦音出現",
+            "B": "腹式呼吸",
+            "C": "流鼻液",
+            "D": "脈搏增快"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.牛大腦皮質壞死症與下列何種維生素缺乏有關？",
+        "options": {
+            "A": "B 2",
+            "B": "B 1",
+            "C": "B 6",
+            "D": "B 12"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15.牛酮病的症狀無下列何型？",
+        "options": {
+            "A": "消化器型",
+            "B": "神經型",
+            "C": "乳熱型",
+            "D": "生殖道型"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 16,
+        "text": "16.牛在下列何種中毒情況下黏膜會出現發紺？",
+        "options": {
+            "A": "硝酸鹽",
+            "B": "鉛",
+            "C": "銅",
+            "D": "鉬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.乳牛正確的擠乳作業程序中，擠乳前藥浴（predipping）最主要在預防下列那一種病原菌所引起的乳房炎？",
+        "options": {
+            "A": "腸道菌群（coliforms）",
+            "B": "金黃色葡萄球菌（Staphylococcus aureus）",
+            "C": "異乳鏈球菌（Streptococcus dysgalactiae）",
+            "D": "無乳鏈球菌（Streptococcus agalactiae）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.在防治牛乳房炎之策略上，處方維生素Ｅ於懷孕後期之乳牛，建議之飼料添加量應為多少？",
+        "options": {
+            "A": "100 IU／日",
+            "B": "250 IU／日",
+            "C": "1,000 IU／日",
+            "D": "不用添加"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.牛隻在進行眼球摘除手術前，進行Peterson Block所麻醉的幾條神經中，不包括下列何者？",
+        "options": {
+            "A": "視神經",
+            "B": "動眼神經",
+            "C": "滑車神經",
+            "D": "三叉神經"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.牛隻開腹術前所使用之遠端脊椎旁神經阻斷法（distal paravertebral block），麻醉針刺入之橫突部位為下列 何者？",
+        "options": {
+            "A": "第13胸椎橫突、第1、2腰椎橫突",
+            "B": "第1、2、3腰椎橫突",
+            "C": "第1、2、4腰椎橫突",
+            "D": "第2、3、4腰椎橫突"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.成牛手術前施行之硬膜外麻醉（epidural anesthesia），可於2% lidocaine中添加多少mg/kg之xylazine，以 延長麻醉作用時間？",
+        "options": {
+            "A": "0.01",
+            "B": "0.03",
+            "C": "0.1",
+            "D": "0.3"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.當牛隻進行帝王切開術時，下圖何者為最適當的子宮切開部位？",
+        "options": {
+            "A": "A",
+            "B": "B",
+            "C": "C",
+            "D": "D"
+        },
+        "image": "./圖片/d1072_img1.jpg",
+        "images": [
+            "./圖片/d1072_img1.jpg"
+        ]
+    },
+    {
+        "id": 23,
+        "text": "23.下列那一種牛隻手術可應用於蜂巢胃內之金屬異物取出？",
+        "options": {
+            "A": "rumenostomy（rumenal fistulation）",
+            "B": "rumenotomy",
+            "C": "left-flank omentopexy",
+            "D": "right-flank abomasopexy"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.有關使用ventral paramedian abomasopexy法治療乳牛第四胃異位之優點，下列何者錯誤？",
+        "options": {
+            "A": "第四胃很容易可以矯正回正確位置",
+            "B": "第四胃通常立即回到正確位置",
+            "C": "第四胃很容易可以詳細檢查",
+            "D": "術後併發第四胃沾黏的機會少"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.若以腹側近中線切開（ventral paramedian incision）法進行乳牛帝王切開術，下列切創部位何者正確？",
+        "options": {
+            "A": "腹中線與左側皮下腹靜脈間、臍孔後至乳房前緣",
+            "B": "腹中線與右側皮下腹靜脈間、臍孔後至乳房前緣",
+            "C": "腹中線與左側皮下腹靜脈間、劍突下方8公分處至臍孔前",
+            "D": "腹中線與右側皮下腹靜脈間、劍突下方8公分處至臍孔前"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.一般認為羊運輸痙攣是血液中何種元素低下所引起？",
+        "options": {
+            "A": "鈣",
+            "B": "磷",
+            "C": "鎂",
+            "D": "銅"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.羊軟骨症與下列何者較無相關？",
+        "options": {
+            "A": "飼料中鈣磷比不平衡",
+            "B": "副甲狀腺機能亢進",
+            "C": "維生素D不足",
+            "D": "飼料中鈷不足"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.下列何種原因通常不會造成懷孕母羊的流產？",
+        "options": {
+            "A": "靜脈注射chlorpromazine",
+            "B": "使用驅蟲藥phenothiazine",
+            "C": "靜脈注射flunixin meglumine",
+            "D": "母羊長期發高燒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 29,
+        "text": "29.進行母豬帝王切開術時，子宮的切創部位最好位於下列何處？",
+        "options": {
+            "A": "越靠近子宮頸越好",
+            "B": "越靠近子宮體越好",
+            "C": "越靠近子宮角大彎越好",
+            "D": "左右兩個子宮角各開創一處"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 30,
+        "text": "30.何種公畜精液的平均精子濃度最高？",
+        "options": {
+            "A": "牛",
+            "B": "豬",
+            "C": "犬",
+            "D": "馬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.何種公畜陰莖不屬於纖維彈性（fibroelastic）陰莖？",
+        "options": {
+            "A": "馬",
+            "B": "牛",
+            "C": "豬",
+            "D": "羊"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.下列何種母畜進入發情活動時，只有單一個動情週期（monocyclic）？",
+        "options": {
+            "A": "兔",
+            "B": "犬",
+            "C": "豬",
+            "D": "牛"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.母犬以X-ray進行妊娠診斷時，最早可於懷孕開始第幾天後看見胎兒骨化構造？",
+        "options": {
+            "A": "25~28",
+            "B": "35~38",
+            "C": "45~48",
+            "D": "55~58"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.下列何種公畜有陰莖骨（os penis）的構造？",
+        "options": {
+            "A": "豬",
+            "B": "馬",
+            "C": "犬",
+            "D": "羊"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.有關牛隻freemartin之敘述，下列何者錯誤？",
+        "options": {
+            "A": "發生於一公一母雙胞胎的小母牛",
+            "B": "只分娩出一頭的小母牛也可能發生",
+            "C": "freemartin的小母牛可能帶有雄性性腺器官",
+            "D": "freemartin的小母牛體內性染色體可能同時出現XX與XY的組合"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.為泌乳牛隻進行直腸檢診時，發現雙側卵巢無功能性結構，體態正常且無營養缺乏情形，子宮有強收縮力並 在外陰部見到略帶血液之黏液，該牛隻最適當之處置為何？",
+        "options": {
+            "A": "注射GnRH與維生素A、D、E",
+            "B": "不須處置，注意3週後是否有發情現象",
+            "C": "注射PGF 2α",
+            "D": "裝置CIDR陰道塞劑"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.下列何者為牛隻發生染色體1/29易位（translocation）時所帶來的影響？",
+        "options": {
+            "A": "上顎裂",
+            "B": "反轉裂胎",
+            "C": "繁殖率下降",
+            "D": "重複外子宮口"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.母貓的品種與難產有關，下列何品種最容易發生難產？",
+        "options": {
+            "A": "短毛貓，如British short-hair",
+            "B": "短毛貓，如Foreign short-hair",
+            "C": "長毛波斯貓",
+            "D": "中長毛貓，如Balinese"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.胎兒出生前肺部呼吸功能的成熟，主要受下列那項內泌素的促進作用？",
+        "options": {
+            "A": "胰島素（insulin）",
+            "B": "甲狀腺素（thyroxin）",
+            "C": "腎上腺素（adrenaline）",
+            "D": "生長素（growth hormone）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.罹患子宮積水（hydrometra）的山羊抽血檢查，會發現下列那項內泌素的濃度增加？",
+        "options": {
+            "A": "濾泡刺激素（FSH）",
+            "B": "前列腺素F （PGF ） 2α 2α",
+            "C": "鬆弛素（relaxin）",
+            "D": "助孕素（progesterone）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.經由牛直腸檢查卵巢疾病，僅一次診斷常有困難，應於幾天後再檢查確認？",
+        "options": {
+            "A": "3~6",
+            "B": "7~10",
+            "C": "11~14",
+            "D": "15~18"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.犬心衰竭使用毛地黃（digoxin）過量出現中毒時，心電圖可見何種變化？",
+        "options": {
+            "A": "P波平坦（flat P wave）",
+            "B": "QRS波變寬（widened QRS）",
+            "C": "ST分割下降（ST segment depression）",
+            "D": "PR間隔延長（PR interval prolongation）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.下列何種因素會引起犬貓竇性心搏過速（sinus tachycardia）？",
+        "options": {
+            "A": "低體溫",
+            "B": "使用β受體阻斷藥（β-blockers）",
+            "C": "心衰竭",
+            "D": "低甲狀腺功能症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.聽診犬隻時可聽到大聲的心雜音，同時也可在胸部心前區觸診到顫抖的感覺。此為第幾級心雜音？",
+        "options": {
+            "A": "III",
+            "B": "IV",
+            "C": "V",
+            "D": "VI"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.在正常生理情況下，犬隻牙齦黏膜微血管回流時間CRT（capillary refill time）為多少秒？",
+        "options": {
+            "A": "0.5",
+            "B": "1~2",
+            "C": "3~5",
+            "D": "大於5"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.有關犬淋巴瘤之敘述，下列何者正確？",
+        "options": {
+            "A": "淋巴瘤通常發展快速，當懷疑為淋巴瘤時，應先用類固醇類藥物抑制腫瘤之進展",
+            "B": "進行化療時為確保療效，療程應嚴格遵守，身體的血相變化及化療毒性僅作為參考",
+            "C": "當淋巴瘤合併有肝脾浸潤，代表臨床分期較高",
+            "D": "淋巴瘤的抗藥性多屬多重抗藥性，所以應儘量使用單方化療，避免產生抗藥性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.犬隻胃扭轉是一種多因子疾病，下列何者不是可能之致病或好發因子？",
+        "options": {
+            "A": "進食前後激烈運動造成攝入過多空氣（aerophagia）",
+            "B": "胃排空延遲或減緩（病理性或生理性）",
+            "C": "競爭性進食及進食過速或狼吞虎嚥（fast eating speed）",
+            "D": "少量多餐、限制進食量"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.10歲已去勢之法國鬥牛公犬因鼠蹊部皮膚腫塊就診。在完成理學檢查及觸診數分鐘後，鼠蹊部腫瘤變成紅腫 並延伸到附近組織。此種腫瘤最可能出現的副腫瘤症候群為何？",
+        "options": {
+            "A": "高血鈣",
+            "B": "血小板增多",
+            "C": "白血球低下",
+            "D": "胃潰瘍"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.犬貓的吸入性肺炎在初期時之放射線影像上可能會出現不同的相（pattern），下列何者最不可能？",
+        "options": {
+            "A": "血管相（vascular pattern）",
+            "B": "間質相（interstitial pattern）",
+            "C": "肺泡相（alveolar pattern）",
+            "D": "肺實質化（consolidation）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.犬隻的自體免疫多重內分泌症候群（autoimmune polyendocrine syndromes）最不常見下列何種併發症？",
+        "options": {
+            "A": "低甲狀腺功能症（hypothyroidism）",
+            "B": "低腎上腺功能症（hypoadrenocorticism）",
+            "C": "低生長內泌素功能症（growth hormone deficiency）",
+            "D": "糖尿病（diabetes mellitus）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.犬貓下列何項尿路結石，無法利用藥物或適當的飲食將其溶解？",
+        "options": {
+            "A": "磷酸胺鎂（struvite）",
+            "B": "草酸鈣（calcium oxalate）",
+            "C": "胱胺酸（cystine）",
+            "D": "尿酸銨（ammonium urate）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.有關犬貓使用replacement fluid和maintenance fluid之敘述，下列何者錯誤？",
+        "options": {
+            "A": "前者為高張，後者為等張",
+            "B": "前者適合短期使用，後者較適合長期使用",
+            "C": "前者較適合volume resuscitation，後者不合適",
+            "D": "前者多不含dextrose，後者常會加上dextrose"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.有關貓的輸血，下列何種情況最危險？",
+        "options": {
+            "A": "A型貓輸血給AB型貓",
+            "B": "B型貓輸血給A型貓",
+            "C": "A型貓輸血給B型貓",
+            "D": "B型貓輸血給AB型貓"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.下列何者不是犬隻左心衰竭（left heart failure）時的胸腔影像特徵？",
+        "options": {
+            "A": "胸膜積液（pleural effusion）",
+            "B": "尾背側肺葉出現肺泡影徵（alveolar pattern）",
+            "C": "心臟輪廓側照可見1~2點鐘方向變大突出",
+            "D": "尾背側肺葉肺靜脈直徑比肺動脈直徑寬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.8歲混種犬，咳嗽、喘及運動不耐，胸腔左側照及腹背照X光影像如下，箭頭處所指心臟部位為何？",
+        "options": {
+            "A": "變大突出的右心房（right atrium）",
+            "B": "變大突出的主動脈幹（aorta）",
+            "C": "變大突出的肺動脈幹（main pulmonary artery）",
+            "D": "變大突出的左心房（left atrium）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.犬貓尿路感染，最容易繼發下列何項疾病？",
+        "options": {
+            "A": "腎絲球體性腎炎",
+            "B": "腎盂腎炎",
+            "C": "間質性腎炎",
+            "D": "水腎"
+        },
+        "image": "./圖片/d1072_img2.jpg",
+        "images": [
+            "./圖片/d1072_img2.jpg",
+            "./圖片/d1072_img3.jpg",
+            "./圖片/d1072_img4.jpg",
+            "./圖片/d1072_img5.jpg",
+            "./圖片/d1072_img6.jpg"
+        ]
+    },
+    {
+        "id": 57,
+        "text": "57.下列何項貓疾病，會引發結膜炎、潰瘍性舌炎、口炎、鼻炎和間質性肺炎？",
+        "options": {
+            "A": "貓白血病病毒感染",
+            "B": "貓杯狀（卡里西）病毒感染",
+            "C": "貓免疫不全病毒感染",
+            "D": "貓傳染性腹膜炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.犬貓呼吸困難且胸膜腔出現下列何情況時，移除氣體或液體不是必要的處理方式？",
+        "options": {
+            "A": "氣胸",
+            "B": "血胸",
+            "C": "膿胸",
+            "D": "乳糜胸"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.有關惡性腫瘤（癌）轉移之敘述，下列何者錯誤？",
+        "options": {
+            "A": "血管內皮細胞在正常組織會快速增殖，而腫瘤組織則不會",
+            "B": "血管分化越好的腫瘤，其遠端轉移的機會也越大",
+            "C": "血管豐富的腫瘤，腫瘤細胞進入循環中的表面積也增加",
+            "D": "為了在實質組織中增長，腫瘤轉移必須建立新的血管並躲避宿主的免疫系統"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.下列何項臨床症狀不常在犬隻胰液分泌不足時發生？",
+        "options": {
+            "A": "下痢",
+            "B": "嘔吐",
+            "C": "體重下降",
+            "D": "皮毛乾燥無光澤"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.犬貓巨食道症最常見的併發症為何？",
+        "options": {
+            "A": "敗血症",
+            "B": "貧血",
+            "C": "脫水",
+            "D": "吸入性肺炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 62,
+        "text": "62.下列何項NSAIDs藥物，較適用於治療犬慢性結腸炎？",
+        "options": {
+            "A": "aspirin",
+            "B": "flunixin meglumine",
+            "C": "mesalamine",
+            "D": "ibuprofen"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 63,
+        "text": "63.下列何項病症不出現在貓的triaditis？",
+        "options": {
+            "A": "膽管肝炎",
+            "B": "胃炎",
+            "C": "胰臟炎",
+            "D": "炎症性腸道疾病（inflammatory bowel disease）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.有關犬隻休克（shock）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "休克初期心搏徐緩，以減少心臟耗氧量",
+            "B": "休克中期會刺激renin-angiotensin-aldosterone axis，以增加心輸出量",
+            "C": "休克中期會四肢冰冷，肛溫下降",
+            "D": "敗血症性休克可能導致低血糖"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 65,
+        "text": "65.有關犬肉芽腫性腦膜腦脊髓炎（granulomatous meningoencephalomyelitis）的敘述，下列何項正確？",
+        "options": {
+            "A": "德國狼犬（German shepherd dog）是好發犬種之一",
+            "B": "腦脊髓液中的葡萄糖濃度下降是主要的特徵",
+            "C": "腦脊髓液中的白血球以單核球為主",
+            "D": "無藥物可治療或控制"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.犬胃流通阻塞（gastric outflow obstruction）最容易發生於胃的那一部位？",
+        "options": {
+            "A": "賁門部",
+            "B": "胃底部",
+            "C": "胃小彎處",
+            "D": "幽門部"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.犬罹患下列何項疾病，疼痛的現象較為明顯，因此止痛劑在此病的治療上也非常重要？",
+        "options": {
+            "A": "慢性肝衰竭",
+            "B": "急性胰臟炎",
+            "C": "慢性腎衰竭",
+            "D": "二尖瓣逆流"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.有關犬貓鼓室切開術之敘述，下列何者錯誤？",
+        "options": {
+            "A": "從外側進行切創（lateral approach）的方式，其鼓室內的術野較從腹側切開（ventral approach）的方式大",
+            "B": "若要同時進行全耳道切除，通常會採用從外側進行切創（lateral approach）的方式進行",
+            "C": "貓的鼻咽部息肉（nasopharyngeal polyps）的移除，一般會採用從腹側切開（ventral approach）的方式進 行",
+            "D": "貓在術後容易發生顏面神經麻痺的併發症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.有關治療貓自發性膀胱炎引起之下泌尿道阻塞，下列敘述何者錯誤？",
+        "options": {
+            "A": "與緊迫、環境因子的相關性高",
+            "B": "高血鈉常是本疾病的死因",
+            "C": "常發生在肥胖已結紮的公貓",
+            "D": "需要以尿道造口術治療的病例，最常見的術後併發症為尿道狹窄"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.下列何種方法最不適合用來修復8歲雜種犬股骨中段的粉碎性骨折？",
+        "options": {
+            "A": "加壓骨板（dynamic compression plate）",
+            "B": "第一型骨外固定（Type 1 ESF）",
+            "C": "鎖定骨板（locking plate）",
+            "D": "中和骨板加鋼針（neutralization plate-rod）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.有關犬隻脊髓軟化症（myelomalacia）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "目前無有效的藥物治療方法",
+            "B": "上行性脊髓軟化症的死因通常是呼吸抑制",
+            "C": "緊急開刀進行脊椎減壓可以改善症狀",
+            "D": "神經學檢查中皮肌反射（cutaneous trunci reflex）結果可以幫助診斷病變部位"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.下列何者不是造成犬短吻呼吸道阻塞症候群的主因？",
+        "options": {
+            "A": "軟顎過長",
+            "B": "喉頭塌陷",
+            "C": "鼻孔開口狹窄",
+            "D": "喉小囊外翻"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.下列何者不是常見採集犬貓自體海綿骨的部位？",
+        "options": {
+            "A": "股骨近端",
+            "B": "肱骨近端",
+            "C": "脛骨近端",
+            "D": "腸骨翼"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.一隻12歲混種犬有發燒、嘔吐、黃疸等臨床症狀，經檢查發現原因可能來自膽囊結石造成的膽囊炎，下列處 置方法何者不恰當？",
+        "options": {
+            "A": "若總膽管通暢，可進行膽囊切除術",
+            "B": "若總膽管阻塞，可進行膽囊及十二指腸的吻合術",
+            "C": "以膽囊切開術移除結石，侵襲性及併發症最小",
+            "D": "膽汁可進行細菌培養，做抗生素感受性試驗"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 75,
+        "text": "75.下列何者不是犬骨軟骨病／剝離性骨軟骨炎（osteochondrosis/osteochondritis dissecans）好發的位置？",
+        "options": {
+            "A": "近端肱骨頭後緣（caudal aspect of the proximal humeral head）",
+            "B": "遠端肱骨外側滑車（distolateral aspect of the humeral trochlea）",
+            "C": "股骨內髁（the medial femoral condyle）",
+            "D": "距骨內側滑車脊（the medial trochlear ridges of the talus）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.下列何項犬貓供氧方式，可達到最高的氧氣濃度？",
+        "options": {
+            "A": "鼻管",
+            "B": "氣管插管",
+            "C": "氧氣箱",
+            "D": "面罩"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.犬貓進行胸腔內的食道手術時，最常採用的體位為何？",
+        "options": {
+            "A": "right lateral recumbency",
+            "B": "left lateral recumbency",
+            "C": "dorsal recumbency",
+            "D": "ventral recumbency"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.有關犬貓會陰赫尼亞的敘述，下列何項正確？",
+        "options": {
+            "A": "母犬較公犬好發",
+            "B": "好發於未摘除睪丸的公犬",
+            "C": "好發於年輕犬",
+            "D": "貓不會發生此病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.主人主述為馬匹激烈運動完後精神差，呼吸時腹部抖動。臨床檢查馬匹體溫38.9℃，心跳80次/分鐘，呼吸60 次/分鐘，微血管回流時間3秒，黏膜蒼白，寡尿，下列處置何者不適當？",
+        "options": {
+            "A": "吹風扇",
+            "B": "乳酸林格氏液點滴",
+            "C": "禁食禁水",
+            "D": "沖冷水"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.承上題，馬匹血液學及尿液學檢查的結果，下列何者最不可能出現在上述狀況中？",
+        "options": {
+            "A": "血中CK值上升",
+            "B": "尿比重降低",
+            "C": "肌紅素尿",
+            "D": "低血鈉"
+        },
+        "image": null,
+        "images": []
+    }
+]
