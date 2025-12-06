@@ -1,0 +1,968 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列何種檢查結果在慢性散播性血管內凝血（DIC）病例中最容易穩定上升？",
+        "options": {
+            "A": "纖維素原（fibrinogen）濃度",
+            "B": "血小板數目",
+            "C": "纖維素降解產物（FDP）濃度",
+            "D": "活化凝血時間（ACT）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.有關犬隻淋巴瘤之症狀，下列敘述何者錯誤？",
+        "options": {
+            "A": "胸腺型會發生呼吸及吞嚥困難",
+            "B": "多中心型可能出現多處淋巴結無痛性腫大",
+            "C": "皮膚型有潰瘍性紅斑，且通常會出現劇癢",
+            "D": "白血病型之骨髓及脾皆有病變，但淋巴結卻不一定有病變"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.下列有關犬淋巴瘤之實驗室診斷，何者正確？",
+        "options": {
+            "A": "血片檢查一定可見腫瘤細胞",
+            "B": "骨髓片中一定可見腫瘤細胞",
+            "C": "於血片之羽狀末端較易找到淋巴胚細胞",
+            "D": "70％以上病犬有低蛋白血症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.有關牛胸腺－青年期（thymic-adolescent）型淋巴瘤之敘述，下列何者錯誤？",
+        "options": {
+            "A": "特徵為胸腺腫大",
+            "B": "好發於6～30月齡",
+            "C": "常見有全身性淋巴瘤",
+            "D": "多為散發性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.下列何者不是再生性貧血的特徵？",
+        "options": {
+            "A": "多染色性（polychromasia）紅血球相",
+            "B": "網狀球（reticulocyte）增加",
+            "C": "大紅血球性（macrocytosis）紅血球相",
+            "D": "M/E ratio偏高值"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.下列何種白血球的增多最常和寄生蟲感染症或過敏性疾病有關？",
+        "options": {
+            "A": "嗜中性球",
+            "B": "嗜酸性球",
+            "C": "嗜鹼性球",
+            "D": "單核球"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.羅列小體（Döhle bodies）較常見於下列何種動物？",
+        "options": {
+            "A": "牛",
+            "B": "貓",
+            "C": "犬",
+            "D": "豬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.成牛感染何種病毒時，會引起牛白血病（bovine leukosis）？",
+        "options": {
+            "A": "leukemia virus",
+            "B": "coronavirus",
+            "C": "enterovirus",
+            "D": "calicivirus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.骨髓中下列那一種細胞系的增生並不屬於骨髓增殖性疾病（myeloproliferative disorder，MPD）之一？",
+        "options": {
+            "A": "淋巴球系",
+            "B": "單核球系",
+            "C": "紅血球系",
+            "D": "巨核細胞系"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.血片白血球分類時發現單核球數減少，臨床上代表之意義為何？",
+        "options": {
+            "A": "不具有很大的意義",
+            "B": "有免疫性疾病",
+            "C": "可能正在用類固醇治療",
+            "D": "有重度緊迫"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.封魏氏病（von Willebrand's disease）引起之止血障礙病畜，常見下列何種異常？",
+        "options": {
+            "A": "血小板數減少",
+            "B": "口腔黏膜出血時間（buccal mucosal bleeding time）延長",
+            "C": "一段式凝血酶原時間（one-stage prothrombin time）延長",
+            "D": "活化部分成栓質時間（activated partial thromboplastin time）嚴重延長"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.犬呈現中度貧血，MCV輕度下降，血清鐵量輕度降低，血清總鐵結合能力降低，血清ferritin增加。下列何者 為最可能的貧血原因？",
+        "options": {
+            "A": "缺鐵性貧血末期",
+            "B": "失血性貧血之早期",
+            "C": "骨髓纖維化",
+            "D": "慢性炎症性疾病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.下列何者於臨床上，用於指出紅血球大小分布時最為有用？",
+        "options": {
+            "A": "MCV",
+            "B": "MCH",
+            "C": "MCHC",
+            "D": "RDW"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.下圖劉氏（Liu's）染色骨髓抹片中，箭頭所指者最可能是：",
+        "options": {
+            "A": "紅血球系之細胞",
+            "B": "骨髓球系之細胞",
+            "C": "血小板系之細胞",
+            "D": "造骨胚細胞"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15.下列正常家畜中，何者之血液抹片，紅血球最常呈現明顯之中央淡染？",
+        "options": {
+            "A": "犬",
+            "B": "牛",
+            "C": "豬",
+            "D": "雞"
+        },
+        "image": "./圖片/c1071_img1.jpg",
+        "images": [
+            "./圖片/c1071_img1.jpg"
+        ]
+    },
+    {
+        "id": 16,
+        "text": "16.形成穩定血栓時，參與之鈣離子為第幾凝血因子？",
+        "options": {
+            "A": "II",
+            "B": "IV",
+            "C": "VIII",
+            "D": "XI"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.下列那種疾病或症狀與低白蛋白血症無關？",
+        "options": {
+            "A": "慢性肝病",
+            "B": "散播性血管內凝血",
+            "C": "嚴重滲出性皮膚病",
+            "D": "腹水"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.何種藥物不會造成高血脂症？",
+        "options": {
+            "A": "prednisolone",
+            "B": "aminoglycoside",
+            "C": "phenytoin",
+            "D": "thiazide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.犬血清GGT之主要來源為：",
+        "options": {
+            "A": "腎",
+            "B": "胰",
+            "C": "肝",
+            "D": "骨"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.下列何者會造成creatine kinase活性值的假性升高？",
+        "options": {
+            "A": "犬之低甲狀腺功能症",
+            "B": "高膽紅素血症",
+            "C": "黃麴毒素中毒",
+            "D": "靜脈注射刺激藥物之意外漏出"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.一般而言當動物的腎元損壞多少％時，即易出現氮血症？",
+        "options": {
+            "A": "25",
+            "B": "50",
+            "C": "66",
+            "D": "75"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.尿中出現血紅素尿及肌紅素尿很難以試紙驗出，懷疑血紅素尿時，可由血中何種數值幫助判定？",
+        "options": {
+            "A": "hematocrit",
+            "B": "creatinine",
+            "C": "creatine kinase",
+            "D": "BUN"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 23,
+        "text": "23.下列關於血鈣的敘述，何者錯誤？",
+        "options": {
+            "A": "鹼血症嚴重時，鈣離子濃度降低，且血清總鈣量也會下降",
+            "B": "酸血症時，鈣離子濃度增加",
+            "C": "高血鈣時，其鈣離子濃度大多也會示高值",
+            "D": "低血鈣症時，其鈣離子濃度仍可在正常範圍內"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.下列關於腦垂腺前葉的功能測試之敘述，何者正確？",
+        "options": {
+            "A": "可以直接測定血中抗利尿激素（antidiuretic hormone，ADH）濃度來評估",
+            "B": "德國狼犬（German Shepherd）易有腦垂腺矮小症（pituitary dwarfism）之發生",
+            "C": "進行生長激素（growth hormone，GH）刺激試驗時，其血液樣本經heparin抗凝遠心分離後即不 必冷凍保存",
+            "D": "犬GH濃度無日間波動現象，故其測定值可信度高"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.體液與體液滲透壓的調節由那些荷爾蒙調控？①cortisol ②ADH ③somatotropin ④aldosterone",
+        "options": {
+            "A": "①③",
+            "B": "①④",
+            "C": "②③",
+            "D": "②④"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.下列關於動脈血氧分壓（PaO ）的敘述，何者正確？ 2",
+        "options": {
+            "A": "可計算血漿中的O 溶量 2",
+            "B": "能反應血中的總帶氧量",
+            "C": "高PaO 可見於法洛氏四畸型患者（Fallot's tetrad） 2",
+            "D": "高PaO 可見於肺有血栓的患者 2"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.造成酸鹼／電解質不平衡最常見的原因為：",
+        "options": {
+            "A": "心臟疾病",
+            "B": "胃腸道疾病",
+            "C": "肝臟疾病",
+            "D": "腎臟疾病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.犬之皮膚腫塊，細胞學採樣鏡檢觀察結果如下圖，該犬最可能罹患下列何種腫瘤？",
+        "options": {
+            "A": "黑色素瘤（melanoma）",
+            "B": "肥胖細胞瘤（mast cell tumor）",
+            "C": "漿細胞瘤（plasmacytoma）",
+            "D": "組織細胞瘤（histiocytoma）"
+        },
+        "image": "./圖片/c1071_img3.jpg",
+        "images": [
+            "./圖片/c1071_img3.jpg"
+        ]
+    },
+    {
+        "id": 29,
+        "text": "29.嚴重低蛋白血症所引發之腹水常屬於下列何者？",
+        "options": {
+            "A": "純粹性漏出液",
+            "B": "修飾性漏出液",
+            "C": "化膿性滲出液",
+            "D": "修飾性滲出液"
+        },
+        "image": "./圖片/c1071_img2.jpg",
+        "images": [
+            "./圖片/c1071_img2.jpg"
+        ]
+    },
+    {
+        "id": 30,
+        "text": "30.貓傳染性腹膜炎時，其腦脊髓液常見多細胞症，但通常不包含那種細胞？",
+        "options": {
+            "A": "嗜中性球",
+            "B": "嗜酸性球",
+            "C": "單核球",
+            "D": "淋巴球"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.下列何種血清中化學物質，當密封於瓶中並保存於負20℃冰箱時，可保存長達6個月之久？",
+        "options": {
+            "A": "aldolase",
+            "B": "cholinesterase",
+            "C": "ALT",
+            "D": "cholesterol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.下列有關尿液樣本之採集何者錯誤？",
+        "options": {
+            "A": "若無法取得早晨尿，則可以食後3小時之尿液作為檢查材料",
+            "B": "導尿或自然排出之尿液均可施行細胞學檢查",
+            "C": "甲苯會妨礙尿化學檢查，所以不常被廣泛應用",
+            "D": "自然排尿之尿液應採中段或末段之排出尿液為宜"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.下列何種組織檢體之保存方法最適合使用於冷凍切片檢查？",
+        "options": {
+            "A": "冰塊法",
+            "B": "液態氮法",
+            "C": "乾冰法",
+            "D": "冷藏法"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.下列何者最適於免疫檢查用血清之防腐？",
+        "options": {
+            "A": "0.5%石炭酸",
+            "B": "10%中性福馬林液",
+            "C": "甲苯",
+            "D": "Zenker氏液"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.下列何者不是嗜酸性球增多症之原因？",
+        "options": {
+            "A": "服用四環素反應",
+            "B": "纖維肉瘤",
+            "C": "貓之高甲狀腺功能症",
+            "D": "庫興症候群"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.Russell's viper venom time（RVVT）正常，但one-stage prothrombin time（OSPT）延長為第幾凝血因子 缺乏造成？",
+        "options": {
+            "A": "Ⅶ",
+            "B": "Ⅹ",
+            "C": "Ⅷ",
+            "D": "Ⅸ"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.下列關於von Willebrand's disease（vWD）的敘述，何者正確？",
+        "options": {
+            "A": "犬vWD病例90%以上為Type 2",
+            "B": "Type 1 vWD為正染色體隱性遺傳型",
+            "C": "Type 3 vWD為正染色體顯性遺傳型",
+            "D": "喜樂蒂牧羊犬曾有Type 3 vWD之病例報告"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.以EDTA採血管用於血小板計數時，何種動物之血小板最易產生聚集（clumping）？",
+        "options": {
+            "A": "馬",
+            "B": "犬",
+            "C": "牛",
+            "D": "豬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.下列有關鐵的代謝，何者正確？",
+        "options": {
+            "A": "血漿中鐵為Fe2+，由運鐵蛋白（transferrin）輸送",
+            "B": "肝殺菌素（hepcidin）可提高小腸對鐵的吸收",
+            "C": "膜鐵轉運輔助蛋白（hephaestin）是將鐵移入腸細胞的開關",
+            "D": "運鐵蛋白（transferrin）和藍胞漿素兩者均由肝臟合成"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.下列何者會加強紅血球的形成作用？",
+        "options": {
+            "A": "estrogens",
+            "B": "interleukin-1",
+            "C": "tumor necrosis factor",
+            "D": "androgens"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.下列何種pathway可造成氧對血紅素之親和性降低？",
+        "options": {
+            "A": "Embden-Meyerhof pathway",
+            "B": "hexose-monophosphate pathway",
+            "C": "methemoglobin reductase pathway",
+            "D": "Luebering-Rapoport pathway"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.在鐵的代謝過程中，hepcidin在血中藉由下列何者運輸？",
+        "options": {
+            "A": "α-2-巨球蛋白",
+            "B": "β-球蛋白",
+            "C": "γ-球蛋白",
+            "D": "白蛋白"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.下列何種動物之MNP（marginal neutrophil pool）明顯大於CNP（circulating neutrophil pool）？",
+        "options": {
+            "A": "犬",
+            "B": "貓",
+            "C": "犢牛",
+            "D": "馬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.下列何者缺乏常使mean corpuscular volume變小？",
+        "options": {
+            "A": "維生素B 12",
+            "B": "葉酸",
+            "C": "鈷",
+            "D": "鐵"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.下列何種情形會導致高蛋白血症？①脫水 ②急性發炎 ③慢性消化不良 ④大出血",
+        "options": {
+            "A": "①②",
+            "B": "②③",
+            "C": "③④",
+            "D": "①④"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.正常血糖值由高至低排列，何者正確？",
+        "options": {
+            "A": "雞 > 犬 > 牛",
+            "B": "犬 > 牛 > 雞",
+            "C": "犬 > 雞 > 牛",
+            "D": "雞 > 牛 > 犬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.血清蛋白質電泳時，下列何種蛋白質會移動至靠近陰極處？",
+        "options": {
+            "A": "γ-球蛋白",
+            "B": "β-球蛋白",
+            "C": "α-球蛋白",
+            "D": "白蛋白"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.下列那一項並不是造成血糖檢驗值會偏低的原因？",
+        "options": {
+            "A": "抽血後血漿與血球沒有立刻分離",
+            "B": "用草酸鉀為抗凝劑",
+            "C": "動物有脂血症",
+            "D": "抽血後，置放於室溫"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.犬之血糖值超過多少mg/dL時，即可驗到尿糖？",
+        "options": {
+            "A": "60",
+            "B": "100",
+            "C": "180",
+            "D": "240"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.選出臨床上具有診斷意義的動物別：臟器：酵素之配對：①犬：肝：LDH1 ②牛：肝：ALT ③貓：肝： AST ④馬：骨骼肌：CK-BB ⑤牛：骨骼肌：CK-MB ⑥牛：肝：SDH",
+        "options": {
+            "A": "②③",
+            "B": "④⑤",
+            "C": "③⑥",
+            "D": "①⑥"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.下列有關酵素異構酶之敘述，何者正確？",
+        "options": {
+            "A": "AST有ASTs、ASTm異構酶",
+            "B": "CK有CK-AA、CK-BB、CK-AB異構酶",
+            "C": "Aldolase有Ⅰ-Ⅳ型異構酶",
+            "D": "ALT有肝臟及肌肉來源之異構酶"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.關於血清中酵素活性的變動機轉何者正確？",
+        "options": {
+            "A": "心肌梗塞時，細胞會製造大量AST作為急性期蛋白（acute phase proteins，APPs）",
+            "B": "肝細胞壞死時，會釋出大量的ALP",
+            "C": "佝僂症時，血中的ALP活性值上升導因於骨髓胚細胞的製造量增加",
+            "D": "膽汁滯留時，LDH活性值上升乃因酵素排除不良所造成"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.BSP與ICG廓清試驗，目前已被下列何種測試方法取代？",
+        "options": {
+            "A": "膽汁酸（bile acids）",
+            "B": "膽紅素（bilirubin）",
+            "C": "血氨（ammonia）",
+            "D": "Phylloerythin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.Biliverdin之測定可用於診斷下列何種動物之肝臟病變？",
+        "options": {
+            "A": "馬",
+            "B": "牛",
+            "C": "鳥",
+            "D": "犬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.在馬、牛、羊中測定肝細胞傷害的最佳指標為：",
+        "options": {
+            "A": "glutamate dehydrogenase（GLDH）",
+            "B": "sorbitol dehydrogenase（SDH）",
+            "C": "alkaline phosphatase（ALP）",
+            "D": "lactate dehydrogenase（LDH）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.下列有關血清鹼磷酶（ALP）相關之敘述，何者錯誤？",
+        "options": {
+            "A": "膽汁鬱滯會誘起此酶活性值上升",
+            "B": "動物有造骨胚細胞活動增加時，此酶活性值上升",
+            "C": "內因性腎上腺皮質酮會抑制其血清中活性值",
+            "D": "有些老犬於乳腺癌時，此酶活性值會高度上升"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 57,
+        "text": "57.臨床診斷上把體液中酵素分為分泌酵素和細胞內酵素，下列何者是由肝臟生產釋入血中之分泌酵素？",
+        "options": {
+            "A": "胞漿素原（plasminogen）",
+            "B": "山梨醇脫氫酶（SDH）",
+            "C": "阿金氨酸酶（arginase）",
+            "D": "膽鹼酯酶（cholinesterase）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.下列何者為犬貓肝病診斷上最常用之肝特異性酵素？",
+        "options": {
+            "A": "天門冬酸鹽轉氨酶（AST）",
+            "B": "氨基丙酸轉氨酶（ALT）",
+            "C": "阿金氨酸酶（arginase）",
+            "D": "麩氨酸鹽脫氫酶（GLDH）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.正常犬血清澱粉酶（amylase）活性值比人高幾倍？",
+        "options": {
+            "A": "1-4",
+            "B": "5-10",
+            "C": "11-15",
+            "D": "16-20"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.明膠消化試驗的檢體是下列何者？",
+        "options": {
+            "A": "血液",
+            "B": "尿液",
+            "C": "糞便",
+            "D": "唾液"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.豬緊迫症候群（porcine stress syndrome）是屬於那種肌病？",
+        "options": {
+            "A": "發炎性",
+            "B": "創傷性",
+            "C": "代謝性",
+            "D": "缺血性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 62,
+        "text": "62.乳酸鹽脫氫酶（lactate dehydrogenase）的異構酶中，存在於骨骼肌及紅血球的是下列何者？",
+        "options": {
+            "A": "LDH2",
+            "B": "LDH3",
+            "C": "LDH4",
+            "D": "LDH5"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 63,
+        "text": "63.腎臟有調節循環體液量與血壓的功能，下列何者為緻密斑（macula densa）所分泌？",
+        "options": {
+            "A": "angiotensin I",
+            "B": "angiotensin II",
+            "C": "antidiuretic hormone",
+            "D": "renin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.尿濃縮試驗的原理，主要是刺激何處？釋放何種荷爾蒙來促進水分重吸收？",
+        "options": {
+            "A": "腦垂腺前葉、抗利尿荷爾蒙",
+            "B": "腦垂腺後葉、抗利尿荷爾蒙",
+            "C": "腦垂腺前葉、醛固酮",
+            "D": "腦垂腺後葉、醛固酮"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 65,
+        "text": "65.犬混濁尿經60℃加熱後呈透明者，可能為下列何種結晶 ?",
+        "options": {
+            "A": "胱氨酸",
+            "B": "草酸鹽",
+            "C": "磷酸鹽",
+            "D": "尿酸鹽"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.關於犬隻尿分析的敘述何者正確？①放太久會導致pH值下降 ②放太久會導致膽紅素下降 ③正常時可能有 微量（trace）的蛋白質 ④正常時可能有少量的葡萄糖",
+        "options": {
+            "A": "①②",
+            "B": "②③",
+            "C": "③④",
+            "D": "①④"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.下列那一項檢測可用來評估犬的尿濃縮能力？",
+        "options": {
+            "A": "urine protein/creatinine ratio",
+            "B": "urine specific gravity",
+            "C": "serum BUN",
+            "D": "urine sediment analysis"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.有一犬隻疑似患有內分泌相關疾病，故進行相關檢查，結果如下：Total T4下降、cTSH（canine thyroid stimulating hormone）上升、free T4下降、thyroglobulin autoantibody陽性，此犬最可能罹患：",
+        "options": {
+            "A": "hypothyroidism",
+            "B": "euthyroid sick syndrome",
+            "C": "hyperthyroidism",
+            "D": "steroid induced hypothyroidism"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者為貓最常見之內分泌疾病？",
+        "options": {
+            "A": "高腎上腺皮質功能症",
+            "B": "低腎上腺皮質功能症",
+            "C": "低甲狀腺功能症",
+            "D": "高甲狀腺功能症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.下列那種動物最不常見由淋巴肉瘤所引起的偽高副甲狀腺功能症？",
+        "options": {
+            "A": "馬",
+            "B": "貓",
+            "C": "犬",
+            "D": "牛"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.親甲狀腺釋放激素刺激試驗之判讀，如果後T4值比前值上升多少％即判定為高甲狀腺功能症？",
+        "options": {
+            "A": "20",
+            "B": "30",
+            "C": "40",
+            "D": "50"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.下列何種內源性物質對細胞外液之滲透力影響最小？",
+        "options": {
+            "A": "glucose",
+            "B": "protein",
+            "C": "urea",
+            "D": "Cl-"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.下列何者不是分泌性酸中毒之電解質型式？",
+        "options": {
+            "A": "血清HCO -減少 3",
+            "B": "陰離子差增加",
+            "C": "血清Cl-偏高",
+            "D": "血清TCO 減少 2"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.健康犬陰離子差值為多少mEq / L？",
+        "options": {
+            "A": "5-10",
+            "B": "15-25",
+            "C": "26-35",
+            "D": "36-45"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 75,
+        "text": "75.犬肝硬化（cirrhosis）所產生的滲液屬於：",
+        "options": {
+            "A": "純粹性漏出液",
+            "B": "修飾性漏出液",
+            "C": "非化膿性滲出液",
+            "D": "膿性滲出液"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.下列何者最不可能引起非化膿性滲出液？",
+        "options": {
+            "A": "尿液",
+            "B": "膽汁",
+            "C": "胰臟酵素",
+            "D": "血液"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.犬陰道抹片鏡檢可見parabasal and intermediate為主之上皮細胞，並見少數neutrophils，不見紅血球，此犬 最可能處於發情周期之那一期？",
+        "options": {
+            "A": "anestrus",
+            "B": "estrus",
+            "C": "diestrus",
+            "D": "proestrus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.下列何者不屬於圓形細胞瘤之類型？",
+        "options": {
+            "A": "basal cell tumor",
+            "B": "mast cell tumor",
+            "C": "histiocytoma",
+            "D": "transmissible venereal tumor"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.2歲混種犬，雖貪食但體型消瘦，有貧血現象。欲檢查其消化功能而進行糞檢，首先使用蘇丹III染劑，其目的 在檢查糞便中是否有下列何物質的存在？",
+        "options": {
+            "A": "澱粉",
+            "B": "肌肉纖維",
+            "C": "脂肪",
+            "D": "鐵質"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.承上題，若在上述檢驗法中，需進一步經過加酸加熱處理後，方能於糞便中發現欲檢測之物質，則該犬最有 可能是下列何種疾病？",
+        "options": {
+            "A": "肉質漏瀉",
+            "B": "胰臟性脂肪漏瀉",
+            "C": "腸管性脂肪漏瀉",
+            "D": "澱粉漏瀉"
+        },
+        "image": null,
+        "images": []
+    }
+]
