@@ -3160,6 +3160,7 @@ function openPetQuizOverlay(petKey) {
       <div class="pet-quiz-qnum" id="pet-quiz-qnum"></div>
       <div class="pet-quiz-qtext" id="pet-quiz-qtext"></div>
       <img class="pet-quiz-qimg" id="pet-quiz-qimg" style="display:none;" />
+      <div class="pet-quiz-qimgs" id="pet-quiz-qimgs"></div>
       <div class="pet-quiz-opts" id="pet-quiz-opts"></div>
     </div>
     <div class="pet-quiz-foot">
@@ -3234,6 +3235,7 @@ function renderPetQuizQuestion() {
   const qtextEl = document.getElementById('pet-quiz-qtext');
   const qimgEl = document.getElementById('pet-quiz-qimg');
   const qoptsEl = document.getElementById('pet-quiz-opts');
+  const qimgsEl = document.getElementById('pet-quiz-qimgs'); // ★ 新增：多圖容器
 
   if (qnumEl) {
     const meta = q.scope || {};
@@ -3255,6 +3257,24 @@ function renderPetQuizQuestion() {
     } else {
       qimgEl.removeAttribute('src');
       qimgEl.style.display = 'none';
+    }
+  }
+  // 額外圖片：顯示在 pet-quiz-qimgs 容器（第二張之後）
+  if (qimgsEl) {
+    qimgsEl.innerHTML = '';
+
+    const imgs = Array.isArray(q.images) ? q.images : [];
+
+    // 只有多於一張時才畫第二張之後，第一張交給 qimgEl
+    if (imgs.length > 1) {
+      imgs.slice(1).forEach(src => {
+        const url = resolveImage(src);
+        if (!url) return;
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = (q.text || '').slice(0, 40);
+        qimgsEl.appendChild(img);
+      });
     }
   }
 
