@@ -854,8 +854,11 @@
             "C": "Photobacterium damselae subsp. piscicida",
             "D": "Photobacterium damselae subsp. damselae"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1071_img5.jpg",
+        "images": [
+            "./圖片/e1071_img5.jpg",
+            "./圖片/e1071_img6.jpg"
+        ]
     },
     {
         "id": 72,
@@ -866,11 +869,8 @@
             "C": "Aeromonas salmonicida",
             "D": "Photobacterium damselae subspecies damselae"
         },
-        "image": "./圖片/e1071_img5.jpg",
-        "images": [
-            "./圖片/e1071_img5.jpg",
-            "./圖片/e1071_img6.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 73,
