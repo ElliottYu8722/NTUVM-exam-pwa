@@ -661,31 +661,38 @@ function resolveImage(src){
 // 根據目前題目資料，把所有圖片渲染到 #question-images 容器
 // 根據目前題目資料，把「第二張以後的圖片」渲染到 #question-images
 // 🔁 讓一般測驗模式也能顯示多張圖片
-function renderQuestionImagesFromState() {
+function renderQuestionImagesFromState(qFromParam) {
   if (!questionImagesContainer) return;
 
-  // 先清空
+  // 一律先清空，確保舊圖片不殘留
   questionImagesContainer.innerHTML = "";
 
-  // 取得目前顯示中的題目（優先看 visibleQuestions）
-  const list = (state.visibleQuestions && state.visibleQuestions.length)
-    ? state.visibleQuestions
-    : state.questions;
+  // 如果有從外面傳進來的題目，就直接用
+  let q = qFromParam;
 
-  if (!list || !list.length) return;
+  // 沒有傳進來的話，才回退用目前的 list + state.index
+  if (!q) {
+    const list = (state.visibleQuestions && state.visibleQuestions.length)
+      ? state.visibleQuestions
+      : state.questions;
 
-  const idx = Math.min(Math.max(state.index, 0), list.length - 1);
-  const q = list[idx];
+    if (!list || !list.length) return;
+
+    const idx = Math.min(Math.max(state.index, 0), list.length - 1);
+    q = list[idx];
+  }
+
   if (!q) return;
 
-  // 只處理「真的有多張圖片」的情況
-  if (!Array.isArray(q.images) || q.images.length <= 1) {
-    // 一張圖或沒有圖 → 交給原本的 qImg 邏輯就好，不多畫
+  const images = Array.isArray(q.images) ? q.images : null;
+
+  // 沒有 images 或只有一張，就不在多圖區塊畫東西
+  if (!images || images.length <= 1) {
     return;
   }
 
-  // 第一張已經由原本的 qImg 顯示，這裡只畫第 2 張之後的圖片
-  const extraImages = q.images.slice(1);
+  // 第一張交給主圖 qImg，這裡只畫第 2 張之後
+  const extraImages = images.slice(1);
 
   extraImages.forEach(src => {
     const url = resolveImage(src);
@@ -4138,6 +4145,8 @@ async function renderQuestionInGroupMode() {
     qText.textContent = '這個群組目前沒有題目';
     qOpts.innerHTML = '';
     qImg.classList.add('hidden');
+    // 群組沒有題目時，也順便清空多圖區
+    renderQuestionImagesFromState(null);
     return;
   }
 
@@ -4168,6 +4177,8 @@ async function renderQuestionInGroupMode() {
     qText.textContent = `找不到這一題（題號 ${entry.qid}）`;
     qOpts.innerHTML = '';
     qImg.classList.add('hidden');
+    // 找不到題目的時候，同樣清空多圖區
+    renderQuestionImagesFromState(null);
     return;
   }
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
@@ -4190,6 +4201,9 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     qImg.removeAttribute('src');
   }
+
+  // ⭐ 這裡新增：處理多張圖片（第 2 張之後）
+  renderQuestionImagesFromState(q);
 
   // 選項
   qOpts.innerHTML = '';
@@ -4260,6 +4274,8 @@ async function renderQuestionInGroupMode() {
   }
 }
 
+
+/* 題目顯示（完整覆蓋） */
 /* 題目顯示（完整覆蓋） */
 async function renderQuestion() {
   // 🔥 群組模式：走專屬流程
@@ -4277,6 +4293,8 @@ async function renderQuestion() {
     qText.textContent = '請先載入題目';
     qOpts.innerHTML = '';
     qImg.classList.add('hidden');
+    // 沒有題目時也把多圖區清空
+    renderQuestionImagesFromState(null);
     return;
   }
 
@@ -4327,7 +4345,12 @@ async function renderQuestion() {
   qOpts.innerHTML = '';
   const ua = (state.user[String(q.id)] || '').toUpperCase();
   const letters = ['A', 'B', 'C', 'D'];
-  const correctSet = new Set(String(state.answers[String(q.id)] || '').toUpperCase().split('/').filter(Boolean));
+  const correctSet = new Set(
+    String(state.answers[String(q.id)] || '')
+      .toUpperCase()
+      .split('/')
+      .filter(Boolean)
+  );
   const showRadio = (state.mode === 'quiz' || state.mode === 'review');
 
   letters.forEach(L => {
@@ -4397,7 +4420,7 @@ async function renderQuestion() {
       btn.style.borderRadius = "9999px";
       btn.style.marginLeft = "10px"; // 跟下一題隔開
       btn.style.border = "1px solid var(--border)";
-      btn.style.background = "transparent";
+      btn.style.background = "透明";
       btn.style.color = "var(--accent)";
       btn.style.cursor = "pointer";
       btn.style.fontSize = "16px";
@@ -4416,8 +4439,11 @@ async function renderQuestion() {
     // 離開 review mode 就移除按鈕
     document.getElementById("btnExitReview")?.remove();
   }
-  renderQuestionImagesFromState();
+
+  // ⭐ 最後改成帶目前的題目 q，讓多圖區正確對應
+  renderQuestionImagesFromState(q);
 }
+
 function addExitReviewBtn() {
   let existBtn = document.getElementById("btnExitReview");
   if (existBtn) return; // 避免重複新增
