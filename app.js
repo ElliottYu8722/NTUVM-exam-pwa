@@ -6167,13 +6167,14 @@ const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos', 'cu
 
 // 存自訂背景圖用的 key（存在 localStorage 裡）
 const CUSTOM_BG_STORAGE_KEY = 'ntuvm-custom-bg-image';
+
 function ensureCustomBgStyle() {
   if (document.getElementById('custom-bg-style')) return;
 
   const style = document.createElement('style');
   style.id = 'custom-bg-style';
   style.textContent = `
-    /* 自訂背景：背景圖保持清楚，只鋪滿畫面 */
+    /* 自訂背景：鋪滿畫面，不加全畫面遮罩 */
     body.theme-has-custom-bg {
       background-size: cover;
       background-position: center center;
@@ -6181,47 +6182,54 @@ function ensureCustomBgStyle() {
       background-attachment: fixed;
     }
 
-    /* 左邊欄 / 中間大區塊 / 右邊欄：深色毛玻璃卡片 */
+    /* ===== Mac 風格卡片：統一所有主要區塊 =====
+       左側 panel / 題目卡 / 留言區 / 筆記區 / 右側題號清單 */
     body.theme-has-custom-bg .panel,
     body.theme-has-custom-bg .question-card,
-    body.theme-has-custom-bg .right .q-list,
+    body.theme-has-custom-bg #comments-section,
     body.theme-has-custom-bg .notes,
-    body.theme-has-custom-bg .editor {
-      background: rgba(12, 12, 12, 0.80);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    body.theme-has-custom-bg .editor,
+    body.theme-has-custom-bg .right .q-list {
+      background: rgba(8, 8, 8, 0.32);               /* 更透明，像 mac 的 frosted glass */
+      backdrop-filter: blur(22px) saturate(1.2);
+      -webkit-backdrop-filter: blur(22px) saturate(1.2);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.35);   /* 亮亮的描邊 */
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.55),            /* 外側陰影 */
+        0 0 0 0.5px rgba(0, 0, 0, 0.45);            /* 很淡的外框，增加立體感 */
     }
 
-    /* 題號清單每個 item 稍微半透明 */
+    /* 題號清單每一列：取消深藍底，改成 mac 風格小膠囊 */
     body.theme-has-custom-bg .right .q-item {
-      background-color: rgba(15, 23, 42, 0.78);
+      background: rgba(8, 8, 8, 0.40);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
     }
 
-    /* —— 頂部「科目／年度／梯次」那條 —— */
-    /* 整條 topbar 做成一條長膠囊玻璃 */
+    /* ===== 上方「科目／年份／梯次／搜尋」那條 ===== */
+
     body.theme-has-custom-bg .center .topbar {
-      background: rgba(12, 12, 12, 0.85);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      background: rgba(8, 8, 8, 0.32);
+      backdrop-filter: blur(24px) saturate(1.25);
+      -webkit-backdrop-filter: blur(24px) saturate(1.25);
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.55),
+        0 0 0 0.5px rgba(0, 0, 0, 0.4);
       padding: 6px 10px;
     }
 
-    /* topbar 裡面的 badge（科目／年份／梯次）＋搜尋框 */
     body.theme-has-custom-bg .topbar .badge,
     body.theme-has-custom-bg .topbar .q-search {
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(8, 8, 8, 0.42);
       border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.30);
     }
   `;
   document.head.appendChild(style);
 }
-
 
 
 // 確保下拉選單裡有「自訂背景」這個選項
