@@ -5857,19 +5857,21 @@ const bHL              = $("#bHL");
 const hlPalette        = $("#hlPalette");
 
 // 小工具：切換色盤顯示
-function togglePalette(palette, btn){
+function togglePalette(palette, btn) {
   if (!palette || !btn) return;
-  const isShown = !palette.classList.contains("hidden");
 
-  // 先關掉兩個色盤，避免重疊
-  fontColorPalette?.classList.add("hidden");
-  hlPalette?.classList.add("hidden");
+  const isShown = !palette.classList.contains('hidden');
 
-  if (!isShown){
-    const rect = btn.getBoundingClientRect();
-    palette.style.top  = (rect.bottom + window.scrollY + 4) + "px";
-    palette.style.left = (rect.left   + window.scrollX) + "px";
-    palette.classList.remove("hidden");
+  // 一律先關掉兩個 palette
+  if (fontColorPalette) fontColorPalette.classList.add('hidden');
+  if (hlPalette) hlPalette.classList.add('hidden');
+
+  // 如果原本是關的，就打開；位置交給 CSS (.color-palette) 控制
+  if (!isShown) {
+    // 清掉任何舊的 inline top/left，避免被之前版本影響
+    palette.style.top = '';
+    palette.style.left = '';
+    palette.classList.remove('hidden');
   }
 }
 
