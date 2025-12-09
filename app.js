@@ -6174,62 +6174,68 @@ function ensureCustomBgStyle() {
   const style = document.createElement('style');
   style.id = 'custom-bg-style';
   style.textContent = `
-    /* 自訂背景：鋪滿畫面，不加全畫面遮罩 */
+    /* 自訂背景模式：
+       1. 改寫顏色變數，拿掉深藍卡片
+       2. 背景圖保持清楚，只讓卡片有毛玻璃＋一點點黑 */
     body.theme-has-custom-bg {
+      /* 保持原有字色配置，稍微變亮一點 */
+      --fg: #f9fafb;
+      --muted: #9ca3af;
+
+      /* 把原本深藍 #0b1220 / #141b2b 改成半透明的黑玻璃 */
+      --card: rgba(8, 8, 8, 0.48);   /* 大卡片、留言區、題號區底色 */
+      --pill: rgba(8, 8, 8, 0.42);   /* 小膠囊、badge、按鈕底色 */
+      --border: rgba(255, 255, 255, 0.22);
+      --btn: rgba(8, 8, 8, 0.45);
+      --btn-fg: #f9fafb;
+
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;
     }
 
-    /* ===== Mac 風格卡片：統一所有主要區塊 =====
-       左側 panel / 題目卡 / 留言區 / 筆記區 / 右側題號清單 */
+    /* 主要區塊：左欄 panel / 題目卡 / 留言區 / 筆記區 / 右欄題號清單
+       → 用 var(--card) + 毛玻璃，圓角維持接近原本的 16px，不再誇張 */
     body.theme-has-custom-bg .panel,
     body.theme-has-custom-bg .question-card,
     body.theme-has-custom-bg #comments-section,
     body.theme-has-custom-bg .notes,
     body.theme-has-custom-bg .editor,
     body.theme-has-custom-bg .right .q-list {
-      background: rgba(8, 8, 8, 0.32);               /* 更透明，像 mac 的 frosted glass */
-      backdrop-filter: blur(22px) saturate(1.2);
-      -webkit-backdrop-filter: blur(22px) saturate(1.2);
-      border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.35);   /* 亮亮的描邊 */
-      box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.55),            /* 外側陰影 */
-        0 0 0 0.5px rgba(0, 0, 0, 0.45);            /* 很淡的外框，增加立體感 */
-    }
-
-    /* 題號清單每一列：取消深藍底，改成 mac 風格小膠囊 */
-    body.theme-has-custom-bg .right .q-item {
-      background: rgba(8, 8, 8, 0.40);
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
     }
 
-    /* ===== 上方「科目／年份／梯次／搜尋」那條 ===== */
+    /* 題號清單每一行：統一成淺黑玻璃，不要深藍 */
+    body.theme-has-custom-bg .right .q-item {
+      background: rgba(8, 8, 8, 0.50);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
 
+    /* 頂部 topbar：只加一點玻璃效果，不改圓角（沿用原本 CSS 的半膠囊） */
     body.theme-has-custom-bg .center .topbar {
-      background: rgba(8, 8, 8, 0.32);
-      backdrop-filter: blur(24px) saturate(1.25);
-      -webkit-backdrop-filter: blur(24px) saturate(1.25);
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow:
-        0 14px 35px rgba(0, 0, 0, 0.55),
-        0 0 0 0.5px rgba(0, 0, 0, 0.4);
-      padding: 6px 10px;
+      background: rgba(8, 8, 8, 0.40);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
     }
 
+    /* topbar 裡的小膠囊 badge ＋搜尋框，用 pill 色就好，不再額外放超大圓角 */
     body.theme-has-custom-bg .topbar .badge,
     body.theme-has-custom-bg .topbar .q-search {
-      background: rgba(8, 8, 8, 0.42);
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.30);
+      background: var(--pill);
+      border: 1px solid rgba(255, 255, 255, 0.24);
     }
   `;
   document.head.appendChild(style);
 }
+
 
 
 // 確保下拉選單裡有「自訂背景」這個選項
