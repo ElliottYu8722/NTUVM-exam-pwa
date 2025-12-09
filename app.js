@@ -6071,20 +6071,167 @@ function hilite(color){
   // 還原
   try{ document.execCommand("styleWithCSS", false, false); }catch{}
 }
-function fileToDataURL(file){
-  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
+// 把檔案讀成 DataURL（用來存到 localStorage）
+function fileToDataURL(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
 }
+
+// ===== 主題自訂背景：按鈕＋檔案選擇 =====
+
+function initCustomBgControls() {
+  if (!themeSel) return;
+  // 確保毛玻璃 CSS 已經掛上
+  if (typeof ensureCustomBgStyle === 'function') {
+    ensureCustomBgStyle();
+  }
+
+  // 1) 建立隱藏的 <input type="file">
+  let input = document.getElementById('customBgInput');
+  if (!input) {
+    input = document.createElement('input');
+    input.type = 'file';
+    input.id = 'customBgInput';
+    input.accept = 'image/*';
+    input.style.display = 'none';
+    document.body.appendChild(input);
+  }
+
+  // 2) 在主題下拉旁邊加一顆「選擇背景圖片」按鈕
+  let btn = document.getElementById('btnCustomBg');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.id = 'btnCustomBg';
+    btn.textContent = '選擇背景圖片';
+    btn.style.marginLeft = '8px';
+    btn.style.padding = '4px 10px';
+    btn.style.borderRadius = '9999px';
+    btn.style.border = '1px solid var(--border, #444)';
+    btn.style.background = 'rgba(0, 0, 0, 0.4)';
+    btn.style.color = 'var(--fg, #fff)';
+    btn.style.cursor = 'pointer';
+    btn.style.fontSize = '13px';
+    btn.style.whiteSpace = 'nowrap';
+
+    const parent = themeSel.parentElement || themeSel.closest('label') || themeSel;
+    parent.insertBefore(btn, themeSel.nextSibling);
+  }
+
+  // 點按鈕 → 觸發檔案選擇
+  btn.addEventListener('click', () => {
+    input.click();
+  });
+
+  // 選完圖 → 轉成 DataURL 存 localStorage，然後套用 custom-bg
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    try {
+      const dataUrl = await fileToDataURL(file);
+      localStorage.setItem(CUSTOM_BG_STORAGE_KEY, dataUrl);
+      applyTheme('custom-bg');
+    } catch (err) {
+      console.error('讀取自訂背景失敗', err);
+      alert('讀取圖片失敗，換一張試試看～');
+    } finally {
+      // 清空 input，避免同一張圖無法再次選取
+      input.value = '';
+    }
+  });
+}
+
+// 頁面載入完成後，初始化自訂背景按鈕
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    try { initCustomBgControls(); } catch (e) { console.error(e); }
+  }, { once: true });
+} else {
+  try { initCustomBgControls(); } catch (e) { console.error(e); }
+}
+
 
 /* 皮膚 */
 /* 主題系統 */
 
+// ===== 主題 ＋ 自訂背景 =====
+
 const themeSel = document.getElementById('themeSel');
 
-// 所有可選主題（字串要跟 <option value="..."> 一樣）
-const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos'];
+// 多一個 custom-bg 主題
+const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos', 'custom-bg'];
+
+// 存自訂背景圖用的 key（存在 localStorage 裡）
+const CUSTOM_BG_STORAGE_KEY = 'ntuvm-custom-bg-image';
+
+// 動態塞一小段 CSS：處理毛玻璃 & 遮罩
+function ensureCustomBgStyle() {
+  if (document.getElementById('custom-bg-style')) return;
+
+  const style = document.createElement('style');
+  style.id = 'custom-bg-style';
+  style.textContent = `
+    /* 套用自訂背景時：整頁背景圖＋黑色半透明遮罩 */
+    body.theme-has-custom-bg {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-color: #000;
+    }
+
+    body.theme-has-custom-bg::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* 主要卡片：深色毛玻璃，讓白字更清楚
+       左右兩邊的 panel 也一起套用 */
+    body.theme-has-custom-bg .toolbar,
+    body.theme-has-custom-bg .rv-card,
+    body.theme-has-custom-bg .fs-card,
+    body.theme-has-custom-bg .fs-start-card,
+    body.theme-has-custom-bg .pet-panel-card,
+    body.theme-has-custom-bg .left-panel,
+    body.theme-has-custom-bg .right-panel {
+      background: rgba(12, 12, 12, 0.78);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
+
+  `;
+  document.head.appendChild(style);
+}
+
+// 確保下拉選單裡有「自訂背景」這個選項
+function ensureThemeOptions() {
+  if (!themeSel) return;
+
+  if (!themeSel.querySelector('option[value="custom-bg"]')) {
+    const opt = document.createElement('option');
+    opt.value = 'custom-bg';
+    opt.textContent = '自訂背景';
+    themeSel.appendChild(opt);
+  }
+}
 
 function applyTheme(name, opts = {}) {
   const save = opts.save !== false;
+
+  ensureCustomBgStyle();
 
   // 把所有主題 class 先拿掉
   document.body.classList.remove(
@@ -6093,8 +6240,12 @@ function applyTheme(name, opts = {}) {
     'theme-ocean',
     'theme-forest',
     'theme-yolk',
-    'theme-cosmos'
+    'theme-cosmos',
+    'theme-has-custom-bg'
   );
+
+  // 預設先清掉背景圖（非 custom 時用）
+  document.body.style.backgroundImage = '';
 
   // 根據名稱決定要加哪一個 class
   switch (name) {
@@ -6116,6 +6267,14 @@ function applyTheme(name, opts = {}) {
     case 'cosmos':
       document.body.classList.add('theme-cosmos');
       break;
+    case 'custom-bg': {
+      const img = localStorage.getItem(CUSTOM_BG_STORAGE_KEY);
+      if (img) {
+        document.body.style.backgroundImage = `url("${img}")`;
+        document.body.classList.add('theme-has-custom-bg');
+      }
+      break;
+    }
     // 'dark' 就是走 :root 預設，不加任何主題 class
   }
 
@@ -6139,10 +6298,14 @@ if (themeSel) {
 
 // 初始化主題（預設暗色）
 (function initTheme() {
+  ensureCustomBgStyle();
+  ensureThemeOptions();
+
   const saved = localStorage.getItem('themeName');
   const initial = THEMES.includes(saved) ? saved : 'dark';
   applyTheme(initial, { save: false });
 })();
+
 
 
 /* 選單變更 → 嘗試自動載入慣用命名檔案（若存在於同 repo） */
