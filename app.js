@@ -2491,6 +2491,33 @@ function openRandomQuizOverlay(qs) {
   let index = 0;
   const user = {};      // key: index -> 'A' | 'B'...
   let reviewMode = false; // 🔸 是否在檢討模式中
+  // 共同工具：把這一題的正確答案整理成 Set，例如 { 'A', 'B' }
+  function getAnswerSet(q) {
+    const set = new Set();
+    if (!q) return set;
+
+    // 1) 優先用 q.answerSet（隨機測驗預先塞好的）
+    if (Array.isArray(q.answerSet) && q.answerSet.length) {
+      q.answerSet.forEach(x => {
+        const raw = String(x).toUpperCase();
+        // 支援 "A/B" 或 "A,B" 這兩種分隔
+        raw.split(/[\/,]/)
+          .map(t => t.trim())
+          .filter(Boolean)
+          .forEach(ch => set.add(ch));
+      });
+    } else if (window.state && state.answers && q.id != null) {
+      // 2) 保險：如果沒有 answerSet，就直接從全域 state.answers 解析一次
+      const key = String(q.id);
+      const raw = String(state.answers[key] || '').toUpperCase();
+      raw.split(/[\/,]/)
+        .map(t => t.trim())
+        .filter(Boolean)
+        .forEach(ch => set.add(ch));
+    }
+
+    return set;
+  }
 
   function render() {
     const q = qs[index];
@@ -2531,9 +2558,8 @@ function openRandomQuizOverlay(qs) {
     elOpts.innerHTML = '';
     const letters = ['A','B','C','D'];
     const current = (user[index] || '').toUpperCase();
-    const ansSet = new Set(
-      Array.isArray(q.answerSet) ? q.answerSet.map(x => String(x).toUpperCase()) : []
-    );
+    const ansSet = getAnswerSet(q);
+
 
     letters.forEach(L => {
       const text = q.options && q.options[L] ? q.options[L] : '';
@@ -2573,12 +2599,20 @@ function openRandomQuizOverlay(qs) {
 
         if (labelParts.length) {
           note.textContent = labelParts.join(' / ');
-          if (isCorrect) {
+
+          if (isUser && isCorrect) {
+            // ✅ 你有選，而且選對：你選 / 正解 → 藍字
+            note.style.color = '#2f74ff';
+            span.style.fontWeight = '600';
+          } else if (!isUser && isCorrect) {
+            // ✅ 正解但你沒選到：只顯示「正解」→ 紅字
             note.style.color = '#c40000';
             span.style.fontWeight = '600';
           } else if (isUser) {
-            note.style.color = '#6aa0ff';
+            // ❌ 你選了但不是正解：只顯示「你選」→ 藍字
+            note.style.color = '#2f74ff';
           }
+
           row.appendChild(note);
         }
       }
@@ -2605,11 +2639,25 @@ function openRandomQuizOverlay(qs) {
 
     qs.forEach((q, i) => {
       const ua = String(user[i] || '').toUpperCase();
-      const set = new Set(
-        Array.isArray(q.answerSet) ? q.answerSet.map(s => String(s).toUpperCase()) : []
-      );
-      const isCorrect = set.has('ALL') || (ua && set.has(ua));
+      const set = getAnswerSet(q);
+
+      // 判斷對錯：
+      // - 一般情況：ua 在正確集合裡 → 對
+      // - 特殊：如果答案有寫 'ALL'，代表任一選項都接受，但空白不算對
+      const isCorrect =
+        !!ua && (set.has(ua) || set.has('ALL'));
+
       if (isCorrect) correct++;
+
+      // 顯示用的正解字串：優先用原始答案檔，沒有再用 set 組回去
+      let correctAnsStr = '';
+      if (window.state && state.answers && q.id != null) {
+        const key = String(q.id);
+        correctAnsStr = String(state.answers[key] || '').toUpperCase();
+      }
+      if (!correctAnsStr) {
+        correctAnsStr = Array.from(set).join('/');
+      }
 
       detail.push({
         subj: q.scope?.subj || '',
@@ -2617,9 +2665,10 @@ function openRandomQuizOverlay(qs) {
         roundLabel: q.scope?.roundLabel || '',
         id: q.id,
         userAns: ua || '',
-        correctAns: Array.from(set).join('/') || ''
+        correctAns: correctAnsStr || ''
       });
     });
+
 
     const score = total ? ((correct / total) * 100).toFixed(2) : '0.00';
 
