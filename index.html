@@ -188,10 +188,7 @@
       margin-top: 10px;
     }
     .color-palette{
-      position:absolute;
-      top: 100%;        /* 從工具列底部開始 */
-      left: 0;          /* 對齊工具列左邊 */
-      margin-top: 8px;  /* 和工具列留一點距離 */
+      position:fixed;   /* 改成固定在視窗上，用 JS 算座標 */
       display:grid;
       grid-template-columns: repeat(5, 1fr); /* 5 個一行 → 3 行 = 15 色 */
       gap:6px;
