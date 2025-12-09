@@ -168,7 +168,7 @@
     .q-item{padding:8px 10px;border-radius:8px;cursor:pointer}
     .q-item.active{background:var(--accent);color:#fff}
     .notes{margin-top:14px}
-    .toolbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border:1px solid var(--border);border-radius:10px;background:transparent;padding:6px}
+    .toolbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border:1px solid var(--border);border-radius:10px;background:transparent;padding:6pxposition: relative;}
     .toolbar .pill{padding:6px 10px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer;font-size:14px}
     .toolbar .pill.active{border-color:var(--accent);color:var(--accent)}
     .toolbar select, .toolbar input[type=color]{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:8px;padding:6px 8px}
@@ -189,6 +189,9 @@
     }
     .color-palette{
       position:absolute;
+      top: 100%;        /* 從工具列底部開始 */
+      left: 0;          /* 對齊工具列左邊 */
+      margin-top: 8px;  /* 和工具列留一點距離 */
       display:grid;
       grid-template-columns: repeat(5, 1fr); /* 5 個一行 → 3 行 = 15 色 */
       gap:6px;
