@@ -5862,18 +5862,23 @@ function togglePalette(palette, btn) {
 
   const isShown = !palette.classList.contains('hidden');
 
-  // 一律先關掉兩個 palette
+  // 一律先關掉兩個 palette，避免重疊
   if (fontColorPalette) fontColorPalette.classList.add('hidden');
   if (hlPalette) hlPalette.classList.add('hidden');
 
-  // 如果原本是關的，就打開；位置交給 CSS (.color-palette) 控制
+  // 原本是關的 → 打開，並擺在按鈕正下方
   if (!isShown) {
-    // 清掉任何舊的 inline top/left，避免被之前版本影響
-    palette.style.top = '';
-    palette.style.left = '';
+    const rect = btn.getBoundingClientRect(); // 取得按鈕在視窗的位置
+
+    // top / left 以「視窗座標」計算，配合 CSS 的 position: fixed
+    const margin = 6; // 按鈕和調色盤之間的小間距
+    palette.style.top = (rect.bottom + margin) + 'px';
+    palette.style.left = rect.left + 'px';
+
     palette.classList.remove('hidden');
   }
 }
+
 
 // ===== 字體顏色：打開 / 關閉色盤 ＋ toggle 邏輯 =====
 const DEFAULT_TEXT_COLOR = "#ffffff";
