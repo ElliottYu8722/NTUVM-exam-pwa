@@ -6183,10 +6183,10 @@ function ensureCustomBgStyle() {
       --muted: #9ca3af;
 
       /* 把原本深藍 #0b1220 / #141b2b 改成半透明的黑玻璃 */
-      --card: rgba(8, 8, 8, 0.48);   /* 大卡片、留言區、題號區底色 */
-      --pill: rgba(8, 8, 8, 0.42);   /* 小膠囊、badge、按鈕底色 */
+      --card: rgba(8, 8, 8, 0.36);   /* 大卡片、留言區、題號區底色 */
+      --pill: rgba(8, 8, 8, 0.30);   /* 小膠囊、badge、按鈕底色 */
       --border: rgba(255, 255, 255, 0.22);
-      --btn: rgba(8, 8, 8, 0.45);
+      --btn: rgba(8, 8, 8, 0.30);
       --btn-fg: #f9fafb;
 
       background-size: cover;
@@ -6213,7 +6213,7 @@ function ensureCustomBgStyle() {
 
     /* 題號清單每一行：統一成淺黑玻璃，不要深藍 */
     body.theme-has-custom-bg .right .q-item {
-      background: rgba(8, 8, 8, 0.50);
+      background: var(--card);
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.16);
     }
