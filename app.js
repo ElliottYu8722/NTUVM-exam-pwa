@@ -3089,6 +3089,53 @@ function openRandomQuizRecordsOverlay() {
 }
 
 
+// 共用：隨機測驗載入中遮罩
+function showRandomQuizLoading(message) {
+  // 若已經有就不要重複建立
+  if (document.getElementById('random-quiz-loading-mask')) return;
+
+  const mask = document.createElement('div');
+  mask.id = 'random-quiz-loading-mask';
+  mask.style.position = 'fixed';
+  mask.style.inset = '0';
+  mask.style.zIndex = '100020';
+  mask.style.background = 'rgba(0,0,0,0.6)';
+  mask.style.display = 'flex';
+  mask.style.alignItems = 'center';
+  mask.style.justifyContent = 'center';
+  mask.style.padding = '16px';
+
+  const box = document.createElement('div');
+  box.style.background = 'var(--card, #1b1b1b)';
+  box.style.color = 'var(--fg, #fff)';
+  box.style.borderRadius = '12px';
+  box.style.border = '1px solid var(--border, #333)';
+  box.style.padding = '16px 20px';
+  box.style.fontSize = '14px';
+  box.style.display = 'flex';
+  box.style.alignItems = 'center';
+  box.style.gap = '8px';
+
+  const dot = document.createElement('span');
+  dot.textContent = '●';
+  dot.style.color = 'var(--accent, #2f74ff)';
+  dot.style.fontSize = '18px';
+
+  const text = document.createElement('span');
+  text.textContent = message || '隨機題目載入中，請稍候…';
+
+  box.appendChild(dot);
+  box.appendChild(text);
+  mask.appendChild(box);
+  document.body.appendChild(mask);
+}
+
+function hideRandomQuizLoading() {
+  const mask = document.getElementById('random-quiz-loading-mask');
+  if (mask) {
+    try { mask.remove(); } catch {}
+  }
+}
 
 
 /** 打開「隨機測驗準備視窗」：直接選 5 / 10 / 15 / 20 題，或看紀錄 */
@@ -3215,7 +3262,12 @@ function openRandomQuizPrepOverlay() {
     btn.style.fontSize = '14px';
 
     btn.onclick = async () => {
-      mask.remove();
+      // 先關掉準備視窗
+      try { mask.remove(); } catch {}
+
+      // 顯示「載入中」遮罩
+      showRandomQuizLoading('隨機題目載入中，請稍候…');
+
       try {
         let qs;
         if (currentScopeMode === 'cross') {
@@ -3230,10 +3282,14 @@ function openRandomQuizPrepOverlay() {
           alert('目前範圍內找不到足夠的題目可以組成隨機測驗。');
           return;
         }
+
         openRandomQuizOverlay(qs);
       } catch (e) {
         console.error('隨機測驗抽題失敗：', e);
         alert('抽題時發生錯誤，請稍後再試。');
+      } finally {
+        // 不管成功失敗，都把載入中遮罩拿掉
+        hideRandomQuizLoading();
       }
     };
 
@@ -3291,6 +3347,7 @@ function openRandomQuizPrepOverlay() {
     if (e.target === mask) mask.remove();
   });
 }
+
 
 // 載入隨機測驗紀錄（初始化）
 try {
