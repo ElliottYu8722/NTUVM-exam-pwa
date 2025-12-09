@@ -6220,10 +6220,10 @@ function ensureCustomBgStyle() {
 
     /* 頂部 topbar：只加一點玻璃效果，不改圓角（沿用原本 CSS 的半膠囊） */
     body.theme-has-custom-bg .center .topbar {
-      background: rgba(8, 8, 8, 0.40);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
     }
 
     /* topbar 裡的小膠囊 badge ＋搜尋框，用 pill 色就好，不再額外放超大圓角 */
