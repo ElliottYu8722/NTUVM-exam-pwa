@@ -6167,15 +6167,13 @@ const THEMES = ['dark', 'light', 'sky', 'ocean', 'forest', 'yolk', 'cosmos', 'cu
 
 // 存自訂背景圖用的 key（存在 localStorage 裡）
 const CUSTOM_BG_STORAGE_KEY = 'ntuvm-custom-bg-image';
-
-// 動態塞一小段 CSS：處理毛玻璃 & 遮罩
 function ensureCustomBgStyle() {
   if (document.getElementById('custom-bg-style')) return;
 
   const style = document.createElement('style');
   style.id = 'custom-bg-style';
   style.textContent = `
-    /* 自訂背景：只負責讓背景圖鋪滿，其他都交給各卡片的玻璃效果 */
+    /* 自訂背景：背景圖保持清楚，只鋪滿畫面 */
     body.theme-has-custom-bg {
       background-size: cover;
       background-position: center center;
@@ -6183,9 +6181,8 @@ function ensureCustomBgStyle() {
       background-attachment: fixed;
     }
 
-    /* 左邊欄、中間欄、右邊欄，以及裡面的 panel / 卡片：深色毛玻璃 */
+    /* 左邊欄 / 中間大區塊 / 右邊欄：深色毛玻璃卡片 */
     body.theme-has-custom-bg .panel,
-    body.theme-has-custom-bg .toolbar,
     body.theme-has-custom-bg .question-card,
     body.theme-has-custom-bg .right .q-list,
     body.theme-has-custom-bg .notes,
@@ -6198,13 +6195,33 @@ function ensureCustomBgStyle() {
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
     }
 
-    /* 題號清單裡每一個 item 也稍微透明一點（右邊那一排） */
+    /* 題號清單每個 item 稍微半透明 */
     body.theme-has-custom-bg .right .q-item {
-      background-color: rgba(15, 23, 42, 0.75);
+      background-color: rgba(15, 23, 42, 0.78);
+    }
+
+    /* —— 頂部「科目／年度／梯次」那條 —— */
+    /* 整條 topbar 做成一條長膠囊玻璃 */
+    body.theme-has-custom-bg .center .topbar {
+      background: rgba(12, 12, 12, 0.85);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      padding: 6px 10px;
+    }
+
+    /* topbar 裡面的 badge（科目／年份／梯次）＋搜尋框 */
+    body.theme-has-custom-bg .topbar .badge,
+    body.theme-has-custom-bg .topbar .q-search {
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
   `;
   document.head.appendChild(style);
 }
+
 
 
 // 確保下拉選單裡有「自訂背景」這個選項
