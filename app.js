@@ -2794,77 +2794,89 @@ function saveRandomQuizRecords() {
  * 會依 rec.questions 的順序顯示題目，並帶入當時的 userAns。
  */
 async function openRandomQuizFromRecord(rec) {
-  if (!rec || !Array.isArray(rec.questions) || !rec.questions.length) {
-    alert('這筆紀錄沒有詳細題目資料，無法回顧。');
-    return;
-  }
+  // 顯示載入中遮罩（特別給回顧用）
+  showRandomQuizLoading('隨機測驗紀錄載入中，請稍候…');
 
-  const scopeCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷所有題目
-  const rebuilt = [];
-
-  for (const item of rec.questions) {
-    const subj = item.subj || '';
-    const year = item.year || '';
-    const roundLabel = item.roundLabel || '';
-    const qid = item.id;
-
-    if (!subj || !year || !roundLabel || qid == null) continue;
-
-    const key = `${subj}|${year}|${roundLabel}`;
-    if (!scopeCache[key]) {
-      try {
-        scopeCache[key] = await loadQuestionsForScope(subj, year, roundLabel);
-      } catch (e) {
-        console.error('loadQuestionsForScope failed in openRandomQuizFromRecord:', e);
-        scopeCache[key] = [];
-      }
+  try {
+    if (!rec || !Array.isArray(rec.questions) || !rec.questions.length) {
+      alert('這筆紀錄沒有詳細題目資料，無法回顧。');
+      return;
     }
 
-    const qsInScope = scopeCache[key] || [];
-    if (!qsInScope.length) continue;
+    const scopeCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷所有題目
+    const rebuilt = [];
 
-    const full = qsInScope.find(q => String(q.id) === String(qid));
-    if (!full) continue;
+    for (const item of rec.questions) {
+      const subj = item.subj || '';
+      const year = item.year || '';
+      const roundLabel = item.roundLabel || '';
+      const qid = item.id;
 
-    // 用當時紀錄下來的 correctAns 來算 answerSet（避免後來改答案檔影響回顧）
-    const caRaw = String(item.correctAns || '').toUpperCase();
-    const answerSet = Array.from(new Set(
-      caRaw.split(/[\/,]/).map(s => s.trim()).filter(Boolean)
-    ));
+      if (!subj || !year || !roundLabel || qid == null) continue;
 
-    rebuilt.push({
-      id: full.id,
-      text: full.text,
-      options: full.options,
-      image: full.image,
-      images: Array.isArray(full.images)
-        ? full.images
-        : (full.image ? [full.image] : []),
-      answerSet,
-      scope: {
-        subj,
-        year,
-        roundLabel,
-      },
+      const key = `${subj}|${year}|${roundLabel}`;
+      if (!scopeCache[key]) {
+        try {
+          scopeCache[key] = await loadQuestionsForScope(subj, year, roundLabel);
+        } catch (e) {
+          console.error('loadQuestionsForScope failed in openRandomQuizFromRecord:', e);
+          scopeCache[key] = [];
+        }
+      }
+
+      const qsInScope = scopeCache[key] || [];
+      if (!qsInScope.length) continue;
+
+      const full = qsInScope.find(q => String(q.id) === String(qid));
+      if (!full) continue;
+
+      // 用當時紀錄下來的 correctAns 來算 answerSet（避免後來改答案檔影響回顧）
+      const caRaw = String(item.correctAns || '').toUpperCase();
+      const answerSet = Array.from(new Set(
+        caRaw.split(/[\/,]/).map(s => s.trim()).filter(Boolean)
+      ));
+
+      rebuilt.push({
+        id: full.id,
+        text: full.text,
+        options: full.options,
+        image: full.image,
+        images: Array.isArray(full.images)
+          ? full.images
+          : (full.image ? [full.image] : []),
+        answerSet,
+        scope: {
+          subj,
+          year,
+          roundLabel,
+        },
+      });
+    }
+
+    if (!rebuilt.length) {
+      alert('找不到這筆紀錄對應的題目，可能題庫已刪除或改版。');
+      return;
+    }
+
+    // 依照當時的作答順序，整理出初始 userAns 陣列（index 對應 rec.questions 順序）
+    const initialUser = rec.questions.map(q =>
+      String(q.userAns || '').trim().toUpperCase()
+    );
+
+    // 直接開隨機測驗 overlay，從檢討模式開始
+    openRandomQuizOverlay(rebuilt, {
+      startInReviewMode: true,
+      initialUser,
     });
+  } catch (e) {
+    console.error('openRandomQuizFromRecord 失敗：', e);
+    alert('載入這筆隨機測驗紀錄時發生錯誤，請稍後再試。');
+  } finally {
+    // 不論成功或失敗，都關掉載入中遮罩
+    hideRandomQuizLoading();
   }
-
-  if (!rebuilt.length) {
-    alert('找不到這筆紀錄對應的題目，可能題庫已刪除或改版。');
-    return;
-  }
-
-  // 依照當時的作答順序，整理出初始 userAns 陣列（index 對應 rec.questions 順序）
-  const initialUser = rec.questions.map(q =>
-    String(q.userAns || '').trim().toUpperCase()
-  );
-
-  // 直接開隨機測驗 overlay，從檢討模式開始
-  openRandomQuizOverlay(rebuilt, {
-    startInReviewMode: true,
-    initialUser,
-  });
 }
+
 
 // 單次隨機測驗的狀態（純測驗，不牽涉寵物）
 const randomQuizState = {
