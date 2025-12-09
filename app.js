@@ -2435,8 +2435,7 @@ function ensureRandomQuizStyle() {
   }
 }
 
-
-function openRandomQuizOverlay(qs) {
+function openRandomQuizOverlay(qs, options) {
   if (!Array.isArray(qs) || !qs.length) {
     alert('目前沒有可用的隨機題目。');
     return;
@@ -2481,7 +2480,7 @@ function openRandomQuizOverlay(qs) {
   const elQNum  = document.getElementById('rq-qnum');
   const elQText = document.getElementById('rq-qtext');
   const elQImg  = document.getElementById('rq-qimg');
-  const elQImgs = document.getElementById('rq-qimgs'); // ★ 新增
+  const elQImgs = document.getElementById('rq-qimgs');
   const elOpts  = document.getElementById('rq-opts');
   const btnPrev = document.getElementById('rq-prev');
   const btnNext = document.getElementById('rq-next');
@@ -2490,7 +2489,27 @@ function openRandomQuizOverlay(qs) {
 
   let index = 0;
   const user = {};      // key: index -> 'A' | 'B'...
-  let reviewMode = false; // 🔸 是否在檢討模式中
+  const opts = options || {};
+  let reviewMode = !!opts.startInReviewMode; // 若外面要求一開始就檢討模式
+
+  // 如果有從外面傳進來的初始作答，就先放進 user
+  if (opts.initialUser) {
+    if (Array.isArray(opts.initialUser)) {
+      opts.initialUser.forEach((val, i) => {
+        if (!val) return;
+        user[i] = String(val).trim().toUpperCase();
+      });
+    } else if (typeof opts.initialUser === 'object') {
+      Object.keys(opts.initialUser).forEach(k => {
+        const idx = Number(k);
+        if (!Number.isFinite(idx) || idx < 0 || idx >= qs.length) return;
+        const v = opts.initialUser[k];
+        if (!v) return;
+        user[idx] = String(v).trim().toUpperCase();
+      });
+    }
+  }
+
   // 共同工具：把這一題的正確答案整理成 Set，例如 { 'A', 'B' }
   function getAnswerSet(q) {
     const set = new Set();
@@ -2538,6 +2557,7 @@ function openRandomQuizOverlay(qs) {
       elQImg.removeAttribute('src');
       elQImg.style.display = 'none';
     }
+
     // 額外圖片：顯示在 rq-qimgs 容器（第二張之後）
     if (elQImgs) {
       elQImgs.innerHTML = '';
@@ -2556,10 +2576,9 @@ function openRandomQuizOverlay(qs) {
     }
 
     elOpts.innerHTML = '';
-    const letters = ['A','B','C','D'];
+    const letters = ['A', 'B', 'C', 'D'];
     const current = (user[index] || '').toUpperCase();
     const ansSet = getAnswerSet(q);
-
 
     letters.forEach(L => {
       const text = q.options && q.options[L] ? q.options[L] : '';
@@ -2580,7 +2599,7 @@ function openRandomQuizOverlay(qs) {
       };
 
       const span = document.createElement('span');
-      span.className = 'pet-quiz-opt-text';  // 讓它吃上面那條 flex:1
+      span.className = 'pet-quiz-opt-text';
       span.textContent = `${L}. ${text}`;
       row.appendChild(rb);
       row.appendChild(span);
@@ -2617,7 +2636,6 @@ function openRandomQuizOverlay(qs) {
         }
       }
 
-
       elOpts.appendChild(row);
     });
 
@@ -2631,6 +2649,7 @@ function openRandomQuizOverlay(qs) {
   function closeOverlay() {
     try { mask.remove(); } catch {}
   }
+
   function doSubmitOnce() {
     // 第一次交卷：算分＋寫入隨機測驗紀錄，再進入檢討模式
     let correct = 0;
@@ -2669,10 +2688,9 @@ function openRandomQuizOverlay(qs) {
       });
     });
 
-
     const score = total ? ((correct / total) * 100).toFixed(2) : '0.00';
 
-    // 🔸寫入隨機測驗紀錄（用你第二部分那組 randomQuizRecords 結構）
+    // 🔸寫入隨機測驗紀錄
     try {
       const now = new Date();
       const ts = now.toLocaleString('zh-TW', { hour12: false });
@@ -2684,7 +2702,6 @@ function openRandomQuizOverlay(qs) {
         questions: detail
       };
 
-      // randomQuizRecords / saveRandomQuizRecords 已經在第二部分定義好了
       randomQuizRecords.unshift(record);
       if (randomQuizRecords.length > 50) {
         randomQuizRecords = randomQuizRecords.slice(0, 50);
@@ -2744,7 +2761,6 @@ function openRandomQuizOverlay(qs) {
 }
 
 
-
 // ===== 隨機測驗：跨卷抽題＋自己的作答紀錄 =====
 
 // 專門給隨機測驗紀錄用的 localStorage key
@@ -2773,6 +2789,83 @@ function saveRandomQuizRecords() {
   }
 }
 
+/**
+ * 從一筆隨機測驗紀錄重建當時的題目內容，並打開回顧用的 overlay
+ * 會依 rec.questions 的順序顯示題目，並帶入當時的 userAns。
+ */
+async function openRandomQuizFromRecord(rec) {
+  if (!rec || !Array.isArray(rec.questions) || !rec.questions.length) {
+    alert('這筆紀錄沒有詳細題目資料，無法回顧。');
+    return;
+  }
+
+  const scopeCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷所有題目
+  const rebuilt = [];
+
+  for (const item of rec.questions) {
+    const subj = item.subj || '';
+    const year = item.year || '';
+    const roundLabel = item.roundLabel || '';
+    const qid = item.id;
+
+    if (!subj || !year || !roundLabel || qid == null) continue;
+
+    const key = `${subj}|${year}|${roundLabel}`;
+    if (!scopeCache[key]) {
+      try {
+        scopeCache[key] = await loadQuestionsForScope(subj, year, roundLabel);
+      } catch (e) {
+        console.error('loadQuestionsForScope failed in openRandomQuizFromRecord:', e);
+        scopeCache[key] = [];
+      }
+    }
+
+    const qsInScope = scopeCache[key] || [];
+    if (!qsInScope.length) continue;
+
+    const full = qsInScope.find(q => String(q.id) === String(qid));
+    if (!full) continue;
+
+    // 用當時紀錄下來的 correctAns 來算 answerSet（避免後來改答案檔影響回顧）
+    const caRaw = String(item.correctAns || '').toUpperCase();
+    const answerSet = Array.from(new Set(
+      caRaw.split(/[\/,]/).map(s => s.trim()).filter(Boolean)
+    ));
+
+    rebuilt.push({
+      id: full.id,
+      text: full.text,
+      options: full.options,
+      image: full.image,
+      images: Array.isArray(full.images)
+        ? full.images
+        : (full.image ? [full.image] : []),
+      answerSet,
+      scope: {
+        subj,
+        year,
+        roundLabel,
+      },
+    });
+  }
+
+  if (!rebuilt.length) {
+    alert('找不到這筆紀錄對應的題目，可能題庫已刪除或改版。');
+    return;
+  }
+
+  // 依照當時的作答順序，整理出初始 userAns 陣列（index 對應 rec.questions 順序）
+  const initialUser = rec.questions.map(q =>
+    String(q.userAns || '').trim().toUpperCase()
+  );
+
+  // 直接開隨機測驗 overlay，從檢討模式開始
+  openRandomQuizOverlay(rebuilt, {
+    startInReviewMode: true,
+    initialUser,
+  });
+}
+
 // 單次隨機測驗的狀態（純測驗，不牽涉寵物）
 const randomQuizState = {
   active: false,
@@ -2786,7 +2879,7 @@ const randomQuizState = {
 /** 共用 pet-quiz 的 CSS */
 function ensureRandomQuizStyle() {
   if (typeof ensurePetQuizStyle === 'function') {
-    ensurePetQuizStyle(); // 這個函式在寵物小測驗那邊已經有定義 [file:21]
+    ensurePetQuizStyle(); // 這個函式在寵物小測驗那邊已經有定義
   }
 }
 
@@ -2797,8 +2890,7 @@ function closeRandomQuizOverlay() {
   randomQuizState.active = false;
 }
 
-/** 開啟隨機測驗本體卡片 */
-/** 顯示「隨機測驗作答紀錄」列表（可刪除單筆） */
+/** 顯示「隨機測驗作答紀錄」列表（可刪除單筆 & 回顧） */
 function openRandomQuizRecordsOverlay() {
   loadRandomQuizRecords();
 
@@ -2857,7 +2949,7 @@ function openRandomQuizRecordsOverlay() {
   btnClose.style.fontSize = '13px';
   btnClose.onclick = () => mask.remove();
 
-  // （可選）清空全部紀錄
+  // 清空全部紀錄
   const btnClearAll = document.createElement('button');
   btnClearAll.textContent = '全部清除';
   btnClearAll.style.borderRadius = '9999px';
@@ -2875,7 +2967,6 @@ function openRandomQuizRecordsOverlay() {
     randomQuizRecords = [];
     saveRandomQuizRecords();
     mask.remove();
-    // 刪完直接關掉視窗，之後再開會是空的
   };
 
   headRight.appendChild(btnClearAll);
@@ -2905,7 +2996,7 @@ function openRandomQuizRecordsOverlay() {
       box.style.flexDirection = 'column';
       box.style.gap = '4px';
 
-      // 每一筆紀錄自己的頭（時間 + 成績 + 刪除）
+      // 每一筆紀錄自己的頭（時間 + 成績 + 回顧 + 刪除）
       const headLine = document.createElement('div');
       headLine.style.display = 'flex';
       headLine.style.justifyContent = 'space-between';
@@ -2918,6 +3009,21 @@ function openRandomQuizRecordsOverlay() {
       const middle = document.createElement('span');
       middle.textContent = `${rec.correctCount}/${rec.count} 題正確`;
       middle.style.flex = '0 0 auto';
+
+      const btnReview = document.createElement('button');
+      btnReview.textContent = '回顧';
+      btnReview.style.borderRadius = '9999px';
+      btnReview.style.border = '1px solid var(--border, #444)';
+      btnReview.style.background = 'transparent';
+      btnReview.style.color = 'var(--accent, #2f74ff)';
+      btnReview.style.padding = '2px 8px';
+      btnReview.style.cursor = 'pointer';
+      btnReview.style.fontSize = '12px';
+      btnReview.style.flex = '0 0 auto';
+      btnReview.onclick = () => {
+        try { mask.remove(); } catch {}
+        openRandomQuizFromRecord(rec);
+      };
 
       const btnDel = document.createElement('button');
       btnDel.textContent = '刪除這筆';
@@ -2933,16 +3039,15 @@ function openRandomQuizRecordsOverlay() {
       btnDel.onclick = () => {
         const ok = window.confirm('確定要刪除這筆隨機測驗紀錄嗎？');
         if (!ok) return;
-        // idx 是目前這一輪 forEach 的索引，對應 randomQuizRecords 中同一筆
         randomQuizRecords.splice(idx, 1);
         saveRandomQuizRecords();
-        // 重新打開畫面刷新列表
         mask.remove();
         openRandomQuizRecordsOverlay();
       };
 
       headLine.appendChild(left);
       headLine.appendChild(middle);
+      headLine.appendChild(btnReview);
       headLine.appendChild(btnDel);
 
       box.appendChild(headLine);
@@ -2982,6 +3087,8 @@ function openRandomQuizRecordsOverlay() {
     if (e.target === mask) mask.remove();
   });
 }
+
+
 
 
 /** 打開「隨機測驗準備視窗」：直接選 5 / 10 / 15 / 20 題，或看紀錄 */
