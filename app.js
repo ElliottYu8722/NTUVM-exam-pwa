@@ -6175,46 +6175,37 @@ function ensureCustomBgStyle() {
   const style = document.createElement('style');
   style.id = 'custom-bg-style';
   style.textContent = `
-    /* 套用自訂背景時：整頁背景圖＋黑色半透明遮罩 */
+    /* 自訂背景：只負責讓背景圖鋪滿，其他都交給各卡片的玻璃效果 */
     body.theme-has-custom-bg {
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;
-      background-color: #000;
     }
 
-    body.theme-has-custom-bg::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    /* 主要卡片：深色毛玻璃，讓白字更清楚
-       左右兩邊的 panel 也一起套用 */
+    /* 左邊欄、中間欄、右邊欄，以及裡面的 panel / 卡片：深色毛玻璃 */
+    body.theme-has-custom-bg .panel,
     body.theme-has-custom-bg .toolbar,
-    body.theme-has-custom-bg .rv-card,
-    body.theme-has-custom-bg .fs-card,
-    body.theme-has-custom-bg .fs-start-card,
-    body.theme-has-custom-bg .pet-panel-card,
-    body.theme-has-custom-bg .left-panel,
-    body.theme-has-custom-bg .right-panel {
-      background: rgba(12, 12, 12, 0.78);
+    body.theme-has-custom-bg .question-card,
+    body.theme-has-custom-bg .right .q-list,
+    body.theme-has-custom-bg .notes,
+    body.theme-has-custom-bg .editor {
+      background: rgba(12, 12, 12, 0.80);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-      border-radius: 18px;
+      border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
     }
 
+    /* 題號清單裡每一個 item 也稍微透明一點（右邊那一排） */
+    body.theme-has-custom-bg .right .q-item {
+      background-color: rgba(15, 23, 42, 0.75);
+    }
   `;
   document.head.appendChild(style);
 }
+
 
 // 確保下拉選單裡有「自訂背景」這個選項
 function ensureThemeOptions() {
