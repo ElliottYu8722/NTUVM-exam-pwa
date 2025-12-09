@@ -5866,39 +5866,11 @@ function togglePalette(palette, btn) {
   if (fontColorPalette) fontColorPalette.classList.add('hidden');
   if (hlPalette) hlPalette.classList.add('hidden');
 
+  // 只負責開關，不再設定位置，讓 CSS (.color-palette) 控制
   if (!isShown) {
-    // 先暫時顯示出來，才能量高度 / 寬度
     palette.classList.remove('hidden');
-    palette.style.visibility = 'hidden';
-    palette.style.top = '0px';
-    palette.style.left = '0px';
-
-    const btnRect = btn.getBoundingClientRect();
-    const palRect = palette.getBoundingClientRect();
-    const margin = 6;
-
-    // 預設：顯示在按鈕「下方」
-    let top = btnRect.bottom + margin;
-
-    // 如果下面空間不夠 (例如被鍵盤擋住)，就改顯示在「上方」
-    const maxBottom = window.innerHeight - 8; // 保留一點邊界
-    if (top + palRect.height > maxBottom) {
-      top = btnRect.top - margin - palRect.height;
-    }
-
-    // 水平位置：盡量跟按鈕左邊對齊，但不要超出畫面
-    let left = btnRect.left;
-    const maxLeft = window.innerWidth - palRect.width - 8;
-    if (left > maxLeft) left = maxLeft;
-    if (left < 8) left = 8;
-
-    palette.style.top = `${top}px`;
-    palette.style.left = `${left}px`;
-    palette.style.visibility = 'visible';
   }
 }
-
-
 
 // ===== 字體顏色：打開 / 關閉色盤 ＋ toggle 邏輯 =====
 const DEFAULT_TEXT_COLOR = "#ffffff";
