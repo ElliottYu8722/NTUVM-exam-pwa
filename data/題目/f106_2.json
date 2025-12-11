@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列何者最有可能為亨德拉病毒（Hendra virus）的自然帶原宿主？",
+        "options": {
+            "A": "囓齒類動物",
+            "B": "馬",
+            "C": "豬",
+            "D": "狐蝠"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.所有哺乳類動物感染下列何種人畜共通傳染病後均會發病？",
+        "options": {
+            "A": "狂犬病",
+            "B": "日本腦炎",
+            "C": "伊波拉病毒",
+            "D": "禽流感"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.下列人畜共通傳染病中，何者尚未有上市之動物用疫苗可供預防使用？",
+        "options": {
+            "A": "狂犬病",
+            "B": "西尼羅病毒感染症",
+            "C": "日本腦炎",
+            "D": "伊波拉病毒感染症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.至目前為止，臺灣養雞場中曾經發生的禽流感病毒，以下列何種型別為主？",
+        "options": {
+            "A": "H7N9",
+            "B": "H5N1",
+            "C": "H5N2",
+            "D": "H7N7"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.狂犬病之預防措施對我國傳染病之防疫工作非常重要，應注意事項中何者是錯誤的？",
+        "options": {
+            "A": "政府衛生和防疫檢疫部門應確立監控體系，包括流浪犬貓之處理",
+            "B": "工作、職務上有危險性的人，應接受疫苗注射",
+            "C": "自國外疫區輸入犬貓之檢疫期間為7天",
+            "D": "犬貓在3～6個月齡時應接受第一劑疫苗"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.下列關於牛海綿狀腦病（Bovine spongiform encephalopathy）之敘述，何者錯誤？",
+        "options": {
+            "A": "於1986年首度在英國爆發，流行率已逐年下降",
+            "B": "好發於3.5歲至5歲齡之牛隻",
+            "C": "感染牛隻的大腦皮質有嚴重之空泡化病變",
+            "D": "運動失調，對於碰觸、光線以及聲音敏感為其主要臨床症狀"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.下列何種人畜共通傳染病源自於非洲國家？①腎病症候群出血熱 ②伊波拉病毒感染症 ③西尼羅病 ④登革 出血熱 ⑤克里米亞剛果出血熱",
+        "options": {
+            "A": "①②",
+            "B": "②③",
+            "C": "③④",
+            "D": "④⑤"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.下列何種疾病的典型病例會出現雙相式發熱病程？",
+        "options": {
+            "A": "腎症候性出血熱（Hemorrhagic fever with renal syndrome）",
+            "B": "壁蝨性腦炎（Tick-borne encephalitis）",
+            "C": "疱疹B病毒感染症（Herpesvirus B virus infection）",
+            "D": "猴痘（Monkeypox）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.對於腎症候性出血熱（Hemorrhagic fever with renal syndrome）疾病之敘述何者錯誤？",
+        "options": {
+            "A": "臺灣尚未有人類病例報告",
+            "B": "發燒和腎臟障礙是人類病例的主要病徵",
+            "C": "其感染病原是漢他病毒",
+            "D": "人類病例可能有肌肉疼痛與腹痛等其他病徵"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.人若感染疱疹B病毒，除發熱、噁心、頭痛外，其他主要影響下列何種系統？",
+        "options": {
+            "A": "神經",
+            "B": "消化",
+            "C": "心血管",
+            "D": "呼吸"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.拉薩病毒（Lassa virus）與下列何種病毒抗原性最接近？",
+        "options": {
+            "A": "漢他病毒（Hantavirus）",
+            "B": "淋巴球性脈絡髓膜炎病毒（Lymphocytic choriomeningitis virus）",
+            "C": "西尼羅病毒（West Nile virus）",
+            "D": "登革熱病毒（Dengue virus）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.下列那一種疾病是屬於病毒性的人畜共通傳染病？",
+        "options": {
+            "A": "Q熱",
+            "B": "鸚鵡病",
+            "C": "洛磯山斑點熱",
+            "D": "黃熱病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.傳播人類顆粒球艾利希體症（human granulocytic ehrlichiosis）的病媒與下列何種疾病的主要病媒相同？",
+        "options": {
+            "A": "西尼羅病",
+            "B": "非洲睡眠病",
+            "C": "萊姆病",
+            "D": "利什曼原蟲症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.下列何種疾病屬於真性人畜共通傳染病（euzoonoses）？",
+        "options": {
+            "A": "日本住血吸蟲",
+            "B": "假性鼻疽",
+            "C": "牛、豬肉絛蟲",
+            "D": "鈎端螺旋體"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15. 披衣菌屬中，在人類所引起的鸚鵡病其病原之種別名為何？",
+        "options": {
+            "A": "C. abortus",
+            "B": "C. trachomatis",
+            "C": "C. psittaci",
+            "D": "C. muridarum"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 16,
+        "text": "16.2009年八八水災過後一週，屏東縣萬丹鄉數個村陸續爆發疫情，患者出現高燒、頭痛、眼結膜充血、全身肌 骨痠痛，嚴重者甚至出現黃疸、急性腎衰竭等症狀，最有可能感染下列何種疾病？",
+        "options": {
+            "A": "類丹毒症",
+            "B": "鈎端螺旋體病",
+            "C": "彎曲桿菌症",
+            "D": "巴氏桿菌症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.一般草食動物或野生動物感染分枝桿菌主要由下列那一型別引起？",
+        "options": {
+            "A": "Mycobacterium tuberculosis",
+            "B": "Mycobacterium bovis",
+            "C": "Mycobacterium africanum",
+            "D": "Mycobacterium marinum"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.布氏桿菌病之動物感染途徑，下列何者錯誤？",
+        "options": {
+            "A": "經乳汁感染",
+            "B": "傷口感染",
+            "C": "病媒傳播",
+            "D": "交配感染"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.人類之李斯特菌症病原為下列何者？",
+        "options": {
+            "A": "Listeria ivanovii",
+            "B": "Listeria monocytogenes",
+            "C": "Listeria grayi",
+            "D": "Listeria innocua"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.引起「惡癰（malignant pustule）」的人類皮膚型感染，為下列何種細菌？",
+        "options": {
+            "A": "Listeria monocytogenes",
+            "B": "Yersinia pestis",
+            "C": "Bacillus anthracis",
+            "D": "Bartonella henselae"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.下列有關類丹毒（erysipeloid）的敘述中，何者正確？",
+        "options": {
+            "A": "人類感染時，主要是造成呼吸道症狀",
+            "B": "紅斑丹毒絲狀菌（Erysipelothrix rhusiopathiae）對外界環境的抵抗力極弱",
+            "C": "豬可經由消化道及創傷感染",
+            "D": "家禽不感染"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.下列何者是細菌性赤痢之病原？",
+        "options": {
+            "A": "Serpulina dysenteriae",
+            "B": "Salmonella dysenteriae",
+            "C": "Shigella dysenteriae",
+            "D": "E. coli"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 23,
+        "text": "23.依據人畜共通傳染病之分類，Lyme disease屬於何種人畜共通傳染病？",
+        "options": {
+            "A": "直接型",
+            "B": "循環型",
+            "C": "異型",
+            "D": "腐生型"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.別名為「鏈桿菌熱（streptobacillary fever）」或「黑佛丘熱（Haverhill fever）」的人畜共通傳染病，即是 指：",
+        "options": {
+            "A": "土拉倫斯病（Tularemia）",
+            "B": "鼠咬熱（Rat-bite fever）",
+            "C": "耶氏菌症（Yersinosis）",
+            "D": "第二型豬鏈球菌感染症（Streptococcus suis type Ⅱ infection）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.下列何種病的病原體會破壞網狀內皮系統細胞，導致免疫下降而易感染其他病原，若不治療死亡率會相當 高？",
+        "options": {
+            "A": "黑頭病",
+            "B": "黑腿病",
+            "C": "黑死病",
+            "D": "黑熱病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.下列何種原蟲性疾病是由人類擔任終宿主（definitive host）的角色？",
+        "options": {
+            "A": "住肉胞子蟲症（Sarcocystosis）",
+            "B": "隱胞子蟲病（Cryptosporidiosis）",
+            "C": "弓蟲病（Toxoplasmosis）",
+            "D": "錐蟲病（Trypanosomiasis）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.下列何種人畜寄生蟲症，人類是藉由吃肉而感染？",
+        "options": {
+            "A": "二腔吸血症（dicrocoeliasis）",
+            "B": "布氏薑片症（fasciolopsiasis）",
+            "C": "蛔蟲症（toxocariasis）",
+            "D": "裂頭絛蟲症（diphyllobothriasis）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.許多人畜共通感染之寄生絛蟲，利用哺乳類動物作為中間宿主，在其體內形成囊蟲（cysticercus）來感染給終 宿主，下列何種寄生蟲屬於此類型？",
+        "options": {
+            "A": "豆狀絛蟲（Taenia pisiformis）",
+            "B": "瓜實絛蟲（Dipylidium caninum）",
+            "C": "方形絛蟲（Raillietina tetragona）",
+            "D": "縮小包膜絛蟲（Hymenolepis diminuta）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 29,
+        "text": "29.若人類意外感染犬心絲蟲（Dirofilaria immitis）後，下列何者是其最主要的寄生部位？",
+        "options": {
+            "A": "肺臟",
+            "B": "心臟",
+            "C": "胃腸道",
+            "D": "腎臟"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 30,
+        "text": "30.下列何種寄生蟲感染經由糞口途徑，且整個生活史發育都在小腸上皮細胞微絨毛（microvilli）上進行？",
+        "options": {
+            "A": "新胞子蟲（Neospora spp.）",
+            "B": "隱胞子蟲（Cryptosporidium spp.）",
+            "C": "大腸纖毛蟲（Balantidium spp.）",
+            "D": "阿米巴原蟲（Entamoeba spp.）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.下列何者為非蔬菜類所攜帶的人畜共通寄生蟲症？",
+        "options": {
+            "A": "鈎蟲症",
+            "B": "蛔蟲症",
+            "C": "薑片吸蟲症",
+            "D": "日本住血吸蟲症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.有棘顎口蟲（Gnathostoma spinigerum）之感染是由於人類喜歡食用未煮熟之何種食品所引起？",
+        "options": {
+            "A": "蔬菜",
+            "B": "魚或蛙肉",
+            "C": "熱狗",
+            "D": "螺肉"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.臺灣動物用藥殘留標準對於魚、十足目、龜鱉目及無尾目之肌肉中，氯四環黴素（chlortetracycline）、羥四 環黴素（oxytetracycline）及四環黴素（tetracycline）規定之敘述，下列何者正確？",
+        "options": {
+            "A": "僅准予殘留 oxytetracycline，而不得殘留 chlortetracycline 及 tetracycline",
+            "B": "僅准予殘留 chlortetracycline，而不得殘留 oxytetracycline 及 tetracycline",
+            "C": "僅准予殘留 tetracycline，而不得殘留 chlortetracycline 及 oxytetracycline",
+            "D": "均不得殘留"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.行政院衛生福利部「乳品類衛生標準」中，保久乳中的細菌容許規定，下列何者正確？",
+        "options": {
+            "A": "李斯特菌可被檢出",
+            "B": "沙氏桿菌可被檢出",
+            "C": "大腸桿菌群可被檢出",
+            "D": "李斯特菌、沙氏桿菌、大腸桿菌群皆不得檢出"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.操作洗選蛋時，清洗蛋最適宜的溫度為多少℃？",
+        "options": {
+            "A": "4",
+            "B": "30",
+            "C": "55",
+            "D": "70"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.用於臘腸與臘肉之食品添加物，下列何者用量過高時會抑制血紅素與氧之結合？",
+        "options": {
+            "A": "有機氟劑",
+            "B": "有機砷劑",
+            "C": "硫酸銅",
+            "D": "亞硝酸鹽"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.臺灣動物用藥殘留標準規定，牛肉萊克多巴胺最高容許殘留量（MRL）為0.01 ppm，請問豬肉之MRL為何？",
+        "options": {
+            "A": "不得檢出",
+            "B": "0.005 ppm",
+            "C": "0.01 ppm",
+            "D": "0.1 ppm"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.關於腸炎弧菌（Vibrio parahaemolyticus）的敘述，下列何者錯誤？",
+        "options": {
+            "A": "本菌會製造三種以上的溶血物質，所以又稱為副溶血性弧菌",
+            "B": "主要引起中毒的原因食品為生鮮海產、魚貝類、或受其污染的其他食品",
+            "C": "食物只要經少量的腸炎弧菌污染，在適當條件下，短時間內即可達到致病菌量",
+            "D": "本菌耐熱、耐酸"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.下列何種疾病，常以逆游性鮭與鱒為中間宿主，生魚肉為感染源，成蟲寄生人腸管，因蟲體長達4～5公尺， 常會導致腸阻塞造成消化障礙與惡性貧血？",
+        "options": {
+            "A": "有棘顎口蟲症",
+            "B": "海獸胃線蟲症",
+            "C": "廣節裂頭絛蟲症",
+            "D": "薑片吸蟲症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.人類食媒性彎曲桿菌症大多數是與下列何種肉品的食用相關？",
+        "options": {
+            "A": "豬肉",
+            "B": "雞肉",
+            "C": "鹿肉",
+            "D": "羊肉"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.乳牛場倉儲衛生管理之青貯飼料發酵處理，應注重其pH值，否則容易造成下列何種污染病原細菌的繁殖傳 播？",
+        "options": {
+            "A": "Q熱",
+            "B": "鈎端螺旋菌",
+            "C": "李斯特菌",
+            "D": "布氏桿菌"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.乳汁成分中，下列何種成分占最多數？",
+        "options": {
+            "A": "水分",
+            "B": "碳水化合物",
+            "C": "脂肪",
+            "D": "蛋白質"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.屠前檢查發現活禽顯著瘦弱或發育不全者，應如何判定？",
+        "options": {
+            "A": "准予屠宰",
+            "B": "廢棄",
+            "C": "判為疑禽",
+            "D": "緊急屠宰"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.家畜屠後檢查時，發現顯著放血不完全之屠體，應如何處理？",
+        "options": {
+            "A": "清洗血液後合格",
+            "B": "廢棄內臟後，屠體判定合格",
+            "C": "直接判定廢棄",
+            "D": "屠體四肢判定合格"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.家畜屠宰場設有冷藏庫、凍藏庫者，其冷藏庫滿裝時應能使產品中心溫度經常維持攝氏多少度？",
+        "options": {
+            "A": "8",
+            "B": "4",
+            "C": "-5",
+            "D": "-18"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.屠宰廠工作人員進出屠宰室，應依下列何方向進出？",
+        "options": {
+            "A": "由清潔區入，由污染區出",
+            "B": "由污染區入，由清潔區出",
+            "C": "由清潔區和污染區的中間分別進入各區，再由清潔區出",
+            "D": "並無硬性的規定"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.對整批鮮蛋的品質而言，下列何者不得含有「劣級蛋」？",
+        "options": {
+            "A": "普通鮮蛋",
+            "B": "甲等鮮蛋",
+            "C": "乙等鮮蛋",
+            "D": "丙等鮮蛋"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.下列何法規中規定家畜有特殊情形時，可報請屠宰衛生檢查獸醫師同意後，施以緊急屠宰？",
+        "options": {
+            "A": "屠宰場設置標準",
+            "B": "屠宰作業準則",
+            "C": "屠宰衛生檢查規則",
+            "D": "屠宰衛生收費標準"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.在正常使用劑量下，注射下列何者，其於肝、腎等處的殘留時間最長？",
+        "options": {
+            "A": "安比西林（ampicillin）",
+            "B": "氯四環素（chlortetracycline）",
+            "C": "盤尼西林G（penicillin G）",
+            "D": "鏈黴素（streptomycin）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.屠宰場設置標準規定家畜屠宰場設置之緊急屠宰室，其檢查場所照明光度應在多少米燭光以上？",
+        "options": {
+            "A": "500",
+            "B": "400",
+            "C": "300",
+            "D": "100"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.蛋品磺胺劑殘留容許量為多少ppm？",
+        "options": {
+            "A": "0.01",
+            "B": "0.1",
+            "C": "1",
+            "D": "10"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.水質沉澱處理使用硫酸鋁之用量為多少ppm？",
+        "options": {
+            "A": "1～5",
+            "B": "5～35",
+            "C": "100～200",
+            "D": "500～1000"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.適用於養豬場廢水排放之畜牧業放流水標準中的懸浮固體為多少毫克／公升？",
+        "options": {
+            "A": "80",
+            "B": "150",
+            "C": "450",
+            "D": "600"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.下列對於石炭酸類環境消毒劑之敘述何者正確？",
+        "options": {
+            "A": "屬於離子界面活性消毒劑",
+            "B": "具刺激性臭味，不建議肉品相關處理使用",
+            "C": "滲透性強，有機物質會明顯干擾消毒效率",
+            "D": "對原蟲、黴菌、綠膿桿菌、豬水疱病毒之效果明顯"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.石綿製品為人類與動物之致癌物，其主要引發之動物癌症為：",
+        "options": {
+            "A": "adenoma",
+            "B": "leukemia",
+            "C": "mesothelioma",
+            "D": "neurofibrosarcoma"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.下列有關世界動物衛生組織的敘述何者錯誤？",
+        "options": {
+            "A": "負責蒐集、分析與傳送獸醫科技資訊",
+            "B": "總部設於瑞士日內瓦",
+            "C": "訂定動物及其產品國際間貿易應採行之檢疫規範",
+            "D": "確保世界動物傳染病疫情的透明化"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 57,
+        "text": "57.根據世界衛生組織的國際疫情資訊，針對牛海綿狀腦病，臺灣目前被認定為：",
+        "options": {
+            "A": "非疫國（BSE free）",
+            "B": "風險已控制國家（controlled BSE risk）",
+            "C": "風險可忽略國家（negligible BSE risk）",
+            "D": "無相關資訊"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.流行病學研究法中針對如何改善（或去除）干擾因子之影響，下列敘述何者錯誤？",
+        "options": {
+            "A": "可在研究設計時，只對干擾因子的其中一層次的個體進行研究（限制法）",
+            "B": "可在研究設計時，選取相同人數的對照組與暴露組（病例對照研究）",
+            "C": "可在資料處理時，採分層分析法（stratified analysis）",
+            "D": "可在資料處理時，採多變項模式分析法（modeling）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.有關抽樣的原理和方法，下列何者正確？",
+        "options": {
+            "A": "使用系統抽樣（systematic sampling）時，不必先知道樣本骨架（sampling frame）",
+            "B": "簡單逢機抽樣法（simple random sampling）所得的結果較分層抽樣法有更多優點且更精確",
+            "C": "使用集體抽樣（cluster sampling）時，必須先了解每一地區內的動物數量",
+            "D": "使用分層抽樣法（stratified sampling）時，分層數多寡並不影響結果的精確性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.下列何者不是影響流行曲線變化的因子？",
+        "options": {
+            "A": "動物的生長紀錄",
+            "B": "疾病的潛伏期",
+            "C": "動物的飼養密度",
+            "D": "病原的傳染力"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.有關流行病學研究中常見的錯誤（error）、偏差（bias）以及干擾（confounding），下列敘述何者錯誤？",
+        "options": {
+            "A": "盲目試驗可幫助預防資訊偏差（information bias）",
+            "B": "分層分析（stratified analysis）是一種用來控制干擾因子（confounding）的方法",
+            "C": "抽樣錯誤（sampling error）之大小不影響抽樣結果之變異性（variation）",
+            "D": "選樣偏差（selection bias）可藉由提高樣本數來預防"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 62,
+        "text": "62.對各種疾病因子（factor）分類之相關舉證敘述，下列何者正確？",
+        "options": {
+            "A": "前置因子（predisposing factors）：當前置因子出現時，宿主對疾病之感受力上升，如犬瘟熱（canine distemper virus）之病毒之出現",
+            "B": "促進因子（enabling factors）：當促進因子存在時，可促進疾病之表現，如營養不良",
+            "C": "誘發因子（precipitating factors）：當誘發因子出現時，對疾病之出現具有決定性之因素，如日夜溫差過大",
+            "D": "增強因子（reinforcing factors）：當增強因子出現時，會加劇疾病的呈現，如病媒蚊的出現"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 63,
+        "text": "63.下列那一項為新城病發生的必須因子（necessary cause）？",
+        "options": {
+            "A": "運輸緊迫",
+            "B": "免疫注射",
+            "C": "營養狀態",
+            "D": "新城病病毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.評估沙氏桿菌感染是否與飼養寵物爬蟲類動物有關，研究者由醫院中隨機選取100名有此病的人與100名的捐 血者，並以問卷方式詢問飼養寵物爬蟲類動物的狀況，進而加以比較兩組個案飼養寵物爬蟲類動物的比例是 否有顯著差異，此種流行病學研究法為：",
+        "options": {
+            "A": "橫斷式研究法（cross-sectional study）",
+            "B": "世代研究法（cohort study）",
+            "C": "病例對照研究法（case-control study）",
+            "D": "臨床試驗（clinical trial）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 65,
+        "text": "65.以下那一個特性不適合用來評估病原的感染力？",
+        "options": {
+            "A": "50％致死劑量（LD ） 50",
+            "B": "二次侵襲率（secondary attack rate）",
+            "C": "50％胚胎感染劑量（EID ） 50",
+            "D": "50％細胞培養感染劑量（TCID ） 50"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.牛隻流行熱為臺灣重要之疾病，若某一研究以邏輯迴歸分析牛場有無流行熱與場內相關之資料指出，糠蚊之 存在對流行熱之勝算比（odds ratio, OR）為2.00，環境消毒對流行熱之OR為1.20，二者均有統計上之顯著關 係，下列敍述何者正確？",
+        "options": {
+            "A": "撲滅糠蚊有助於減少流行熱之發生",
+            "B": "進行環境消毒無助於流行熱之發生",
+            "C": "撲滅糠蚊有助於減少一半之流行熱之發生率",
+            "D": "撲滅糠蚊無助於減少流行熱之發生"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.以下有關發生率與盛行率的敘述何者錯誤？",
+        "options": {
+            "A": "盛行率通常為橫斷研究法的調查結果",
+            "B": "計算盛行率時，分母為某一時間段內的風險群體數量",
+            "C": "發生率為對疾病作靜態的估計，而盛行率則為動態的觀察",
+            "D": "採用世代研究法可以計算疾病的發生率"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.有兩位獸醫師根據X-ray影像來評估犬是否有髖關節發育不全的疾病，下列何種統計量最適合用來衡量這兩位 獸醫師對於此疾病評估的一致性？",
+        "options": {
+            "A": "卡帕（Kappa）值",
+            "B": "敏感性（sensitivity）",
+            "C": "特異性（specificity）",
+            "D": "陽性預測值（positive predictive value）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.「白肉雞50隻中，得Ａ病者有25隻，主要的臨床症狀有下痢」，句中何者為量化數據？",
+        "options": {
+            "A": "白肉雞",
+            "B": "50隻",
+            "C": "Ａ病",
+            "D": "下痢"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.假設一疾病盛行率為20％，採用5％的精確度（precision），試問在那一個統計的信心水準之下，所需的樣本 數最高？",
+        "options": {
+            "A": "50％",
+            "B": "90％",
+            "C": "95％",
+            "D": "99％"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.研究者利用皮內結核菌素試驗和巢式聚合酶連鎖反應 2種不同方法檢驗牛隻結核病，檢驗結果如下表，請問此 檢驗結果之間的觀察一致性百分比（observed proportion agreement）為： 皮內結核菌素試驗 巢式聚合酶連鎖反應 positive negative Total positive 100 40 140 negative 20 40 60 Total 120 80 200",
+        "options": {
+            "A": "40%",
+            "B": "50%",
+            "C": "60%",
+            "D": "70%"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.最有可能增加臨床試驗統計檢力（statistical power）的方法為：",
+        "options": {
+            "A": "評估臨床效果的獸醫師進行盲目試驗（blinded test）",
+            "B": "增加一個只給與無藥理作用物質的比較組",
+            "C": "增加參與臨床試驗的病畜的數目",
+            "D": "限制只有症狀輕微的病畜可以參與臨床試驗"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.在研究豬瘟的一項病例對照研究中，疫苗接種的勝算比（odds ratio）為0.6，而95%的信賴區間（95% confidence interval）為0.4到0.9。基於上述數據，在5％的統計顯著水準下，預防豬瘟與疫苗接種的相關性 （association）是：",
+        "options": {
+            "A": "達統計學上顯著意義",
+            "B": "未達統計學上顯著意義",
+            "C": "沒有經過假說測試（hypothesis test）無法確定",
+            "D": "疫苗接種不具保護作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.某一飼有200頭乳牛之養牛場發生某種傳染病疫情，經調查此期間出現相同臨床症狀者有50頭，其中死亡有10 頭，請問此一傳染病疫情的死亡率多少？",
+        "options": {
+            "A": "5%",
+            "B": "10%",
+            "C": "20%",
+            "D": "25%"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 75,
+        "text": "75.某學者利用90%敏感度與80%特異度之鈎端螺旋體快速診斷試劑進行流浪狗之感染率調查，隨機抽樣100隻狗 血清檢測後顯示陽性率為34%，請問理論上實際真陽性盛行率（true positive prevalence）應為多少%？",
+        "options": {
+            "A": "10",
+            "B": "20",
+            "C": "30",
+            "D": "40"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.以禽流感病毒H5N1的診斷方式而言，考量在診斷結果陽性的個案中也有較高機率找出真正感染禽流感病毒 H5N1的雞隻，這種觀點主要是選擇一個診斷工具具有較高的：",
+        "options": {
+            "A": "敏感度",
+            "B": "特異度",
+            "C": "陽性預測值",
+            "D": "陰性預測值"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.畜牧法規定欲申請設立屠宰場者，應報請所在地直轄市或縣（市）主管機關核轉中央主管機關會同相關機關 會勘，合格後發給屠宰場登記證書。請問中央主管機關會同相關機關是指下列何者機關？",
+        "options": {
+            "A": "中央工業及環境保護主管機關",
+            "B": "中央衛生及環境保護主管機關",
+            "C": "中央商業及環境保護主管機關",
+            "D": "中央衛生及商業主管機關"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.動物罹患芽孢性病原傳染病而致撲殺掩埋，依動物傳染病防治條例施行細則規定，此掩埋場所在至少多少年 後才得以開掘？",
+        "options": {
+            "A": "1",
+            "B": "3",
+            "C": "6",
+            "D": "12"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.屠宰場應依下列何者機關之規定實施微生物污染之抽驗，以確保其所生產之屠體及內臟適合供人食用？",
+        "options": {
+            "A": "行政院農業委員會畜牧處",
+            "B": "行政院農業委員會動植物防疫檢疫局",
+            "C": "衛生福利部",
+            "D": "經濟部"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.依據畜牧法中乳業管理規定，下列何單位得不定期抽驗酪農生乳品質？",
+        "options": {
+            "A": "中央主管機關",
+            "B": "各直轄市及縣（市）主管機關",
+            "C": "財團法人中央畜產會",
+            "D": "中華民國乳業發展協會"
+        },
+        "image": null,
+        "images": []
+    }
+]
