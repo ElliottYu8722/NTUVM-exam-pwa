@@ -8,11 +8,8 @@
             "C": "equine Cushing's disease",
             "D": "pemphigus foliaceus"
         },
-        "image": "./圖片/d1071_img2.jpg",
-        "images": [
-            "./圖片/d1071_img2.jpg",
-            "./圖片/d1071_img3.jpg"
-        ]
+        "image": "./圖片/d1071_img1.jpg",
+        "images": []
     },
     {
         "id": 2,
@@ -23,10 +20,8 @@
             "C": "ethmoid hematoma",
             "D": "軟顎背側異位（dorsal displacement of the soft palate）"
         },
-        "image": "./圖片/d1071_img1.jpg",
-        "images": [
-            "./圖片/d1071_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 3,
