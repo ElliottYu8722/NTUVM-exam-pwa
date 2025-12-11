@@ -658,8 +658,11 @@
             "C": "變大突出的肺動脈幹（main pulmonary artery）",
             "D": "變大突出的左心房（left atrium）"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1072_img2.jpg",
+        "images": [
+        "./圖片/d1072_img2.jpg",
+        "./圖片/d1072_img3.jpg"
+        ]
     },
     {
         "id": 56,
@@ -670,14 +673,8 @@
             "C": "間質性腎炎",
             "D": "水腎"
         },
-        "image": "./圖片/d1072_img2.jpg",
-        "images": [
-            "./圖片/d1072_img2.jpg",
-            "./圖片/d1072_img3.jpg",
-            "./圖片/d1072_img4.jpg",
-            "./圖片/d1072_img5.jpg",
-            "./圖片/d1072_img6.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 57,
