@@ -1,0 +1,970 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列有關豬丹毒桿菌之敘述，何者正確？",
+        "options": {
+            "A": "主要藉由配種傳染",
+            "B": "屬於厭氧菌",
+            "C": "屬於革蘭氏陽性菌",
+            "D": "會分泌毒素"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.下列何者寄生在豬胃內，其蟲體細長呈紅色？",
+        "options": {
+            "A": "Hyostrongylus rubidus",
+            "B": "Oesophagostomum dentatum",
+            "C": "Strogyloides ransomi",
+            "D": "Haemonchus contortus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.下列何者的生長最慢？",
+        "options": {
+            "A": "金黃葡萄球菌",
+            "B": "結核分枝桿菌",
+            "C": "無乳鏈球菌",
+            "D": "海洋弧菌"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.下列何者不屬於我國乙類動物傳染病？",
+        "options": {
+            "A": "禽痘",
+            "B": "豬水疱病",
+            "C": "馬傳染性貧血",
+            "D": "日本腦炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.下列那一種病毒會引起豬生殖與呼吸綜合症？",
+        "options": {
+            "A": "Arterivirus",
+            "B": "Coronavirus",
+            "C": "Iridovirus",
+            "D": "Pneumovirus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.傳染性胃腸炎（transmissible gastroenteritis）是由下列何種病原所引起？",
+        "options": {
+            "A": "輪狀病毒",
+            "B": "疱疹病毒",
+            "C": "冠狀病毒",
+            "D": "腺病毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.豬水疱病（swine vesicular disease）之病原屬於下列那一種病毒？",
+        "options": {
+            "A": "Flavivirus",
+            "B": "Enterovirus",
+            "C": "Calicivirus",
+            "D": "Vesiculovirus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.由Clostridium perfringens type C引發之豬病，在下列何種年齡層之豬隻死亡率最高？",
+        "options": {
+            "A": "肥育豬",
+            "B": "保育豬",
+            "C": "剛離乳仔豬",
+            "D": "出生後數日內仔豬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.下列有關日本腦炎的敘述，何者錯誤？",
+        "options": {
+            "A": "為人畜共通傳染病",
+            "B": "豬、馬皆有感受性",
+            "C": "豬為最重要的自然保毒者",
+            "D": "主要以糞口途徑傳染"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.下列何者屬於人畜共通傳染病？",
+        "options": {
+            "A": "豬瘟",
+            "B": "牛瘟",
+            "C": "新城病",
+            "D": "犬瘟熱"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.豬赤痢菌的培養條件為下列何者？",
+        "options": {
+            "A": "好氧",
+            "B": "兼性厭氧",
+            "C": "對氧氣有耐性之厭氧",
+            "D": "絕對厭氧"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.Lancefield分類法僅應用於下列何者？",
+        "options": {
+            "A": "布氏桿菌",
+            "B": "鏈球菌",
+            "C": "沙門氏菌",
+            "D": "禽流感病毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.下列有關血球凝集腦脊髓炎病毒之敘述，何者錯誤？",
+        "options": {
+            "A": "大部分為不顯性感染",
+            "B": "病毒屬於冠狀病毒科",
+            "C": "目前已知只有一種血清型",
+            "D": "主要感染對象是肥育期豬隻"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.下列那一種鏈球菌感染會引起豬腦膜炎？",
+        "options": {
+            "A": "Streptococcus agalactiae",
+            "B": "Streptococcus faecium",
+            "C": "Streptococcus suis",
+            "D": "Streptococcus porcinus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15.下列有關豬放線桿菌胸膜肺炎之敘述，何者錯誤？",
+        "options": {
+            "A": "已知最少有15種血清型",
+            "B": "剖檢以纖維素性胸膜肺炎為主",
+            "C": "具毒力的菌株大多具有莢膜",
+            "D": "好發於保育前期"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 16,
+        "text": "16.下列有關動物黴菌毒素中毒所造成病變之敘述，何者錯誤？",
+        "options": {
+            "A": "黃麴毒素會造成肝細胞脂肪變性、腫大、變黃",
+            "B": "Ochratoxin A會造成間質性腎炎及腎腫大、蒼白",
+            "C": "F-2毒素的中毒常會造成乳房和會陰的腫脹",
+            "D": "黃麴毒素常會造成淋巴結和脾臟腫大"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.分離家禽白血病病毒使用的細胞，表現型C/E是表示下列何種意義？",
+        "options": {
+            "A": "此細胞對C、D、E、J亞群無感受性",
+            "B": "此細胞對C、D、E、J亞群皆有感受性",
+            "C": "此細胞對E亞群有感受性",
+            "D": "此細胞對E亞群無感受性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.下列有關雞傳染性貧血之敘述，何者正確？",
+        "options": {
+            "A": "病原為DNA病毒",
+            "B": "主要發生在6－9週齡雞隻",
+            "C": "骨髓中只有紅血球母細胞會減少",
+            "D": "移行抗體對子代並無保護作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.下列何種疾病之病原為家禽肺病毒？",
+        "options": {
+            "A": "傳染性支氣管炎",
+            "B": "傳染性喉頭氣管炎",
+            "C": "雞腫頭症",
+            "D": "傳染性可利查"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.下列有關傳染性華氏囊病病毒之敘述，何者正確？",
+        "options": {
+            "A": "目前已知的血清型病毒株對雞都有高病原性",
+            "B": "目前至少有四種以上的血清型",
+            "C": "高病原性病毒株與目前使用疫苗株之抗原性無顯著差異",
+            "D": "變異株病毒均會引起嚴重的華氏囊炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.下列何種疾病在腦部有圍管現象及神經小膠質細胞增生？",
+        "options": {
+            "A": "禽痘",
+            "B": "里奧病毒感染症",
+            "C": "淋巴球性白血病",
+            "D": "新城病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.下列何者是家禽白血病之主要病變？",
+        "options": {
+            "A": "腺胃出血",
+            "B": "肝臟腫大",
+            "C": "氣管出血",
+            "D": "腎尿酸鹽沉積"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 23,
+        "text": "23.分離傳染性喉頭氣管炎病毒，以接種在雞胚胎的那一部位為最佳？",
+        "options": {
+            "A": "卵黃內",
+            "B": "尿囊腔內",
+            "C": "羊膜腔內",
+            "D": "絨毛尿囊膜上"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.下列那一種黴漿菌會造成雞及火雞的感染發病？",
+        "options": {
+            "A": "Mycoplasma columbinasale",
+            "B": "Mycoplasma columborale",
+            "C": "Mycoplasma columbinum",
+            "D": "Mycoplasma gallisepticum"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.家禽肺病毒（pneumovirus）主要引起下列何種疾病？",
+        "options": {
+            "A": "傳染性喉頭氣管炎",
+            "B": "傳染性支氣管炎",
+            "C": "火雞鼻氣管炎",
+            "D": "火雞淋巴球增生症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.下列有關雞球蟲病之敘述，何者正確？",
+        "options": {
+            "A": "所有年齡雞隻皆具感受性",
+            "B": "所有的Eimeria屬球蟲都寄生在禽隻小腸",
+            "C": "球蟲並無宿主特異性",
+            "D": "不同球蟲種別間具交叉保護作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.雞包涵體肝炎的病原為下列何者？",
+        "options": {
+            "A": "Adenovirus",
+            "B": "Poxvirus",
+            "C": "Reovirus",
+            "D": "Rotavirus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.Malassezia pachydermatis曾在鸚鵡和燕雀的下列何種病變組織中發現？",
+        "options": {
+            "A": "肺臟肉芽腫",
+            "B": "皮膚炎",
+            "C": "胃腸炎",
+            "D": "全身性肉芽腫"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 29,
+        "text": "29.下列何種與鴿子有關之病原會引起人之腦膜炎？",
+        "options": {
+            "A": "披衣體",
+            "B": "隱球菌",
+            "C": "梭菌",
+            "D": "葡萄球菌"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 30,
+        "text": "30.家禽念珠菌病的控制，以下列何種藥物的投予最有效？",
+        "options": {
+            "A": "土黴素",
+            "B": "Hyamine 1622",
+            "C": "丙酸鈉",
+            "D": "硫酸銅"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.下列那一種疾病與鴨瘟的病因屬於同一病毒科？",
+        "options": {
+            "A": "傳染性支氣管炎",
+            "B": "傳染性喉頭氣管炎",
+            "C": "鵝病毒性腸炎",
+            "D": "雞病毒性關節炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.蛋雞發生下列何種疾病時，常有明顯的產蛋率下降和畸形蛋？",
+        "options": {
+            "A": "家禽里奧病毒感染症",
+            "B": "傳染性貧血",
+            "C": "傳染性喉頭氣管炎",
+            "D": "傳染性支氣管炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.鵪鶉病的病原為下列何者？",
+        "options": {
+            "A": "Clostridium colinum",
+            "B": "Clostridium novyi",
+            "C": "Clostridium perfringens",
+            "D": "Clostridium septicum"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.下列何種病原菌可在MacConkey agar上生長，並可造成幼禽關節炎？",
+        "options": {
+            "A": "Staphylococcus aureus",
+            "B": "Salmonella pullorum",
+            "C": "Pasteurella multocida",
+            "D": "Erysipelothrix rhusiopathiae"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.下列那一種病原可引起鴨垂頸症（limberneck）？",
+        "options": {
+            "A": "Bacillus anthracis",
+            "B": "Clostridium botulinum",
+            "C": "Riemerella anatipestifer",
+            "D": "Staphylococcus aureus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.下列那一種雞舍條件最容易引起雛雞的麴菌病？",
+        "options": {
+            "A": "潮濕",
+            "B": "氨氣過重",
+            "C": "墊料發黴",
+            "D": "溫度太低"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.下列那一種疾病為甲類動物傳染病？",
+        "options": {
+            "A": "牛流行熱",
+            "B": "牛傳染性鼻氣管炎",
+            "C": "牛乳頭狀瘤病",
+            "D": "非洲馬疫"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.下列那一種疾病不是由Listeria monocytogenes感染所引起？",
+        "options": {
+            "A": "迴旋病",
+            "B": "傳染性單核球增生症",
+            "C": "李氏菌症",
+            "D": "青貯料病"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.下列那一病原造成牛的接觸傳染性胸膜肺炎？",
+        "options": {
+            "A": "Mycoplasma mycoides",
+            "B": "Mycoplasma bovis",
+            "C": "Mycoplasma hyopneumoniae",
+            "D": "Mycoplasma hyorhinis"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.牛的放線菌病（actinomycosis）於外科手術去除肉芽腫病變組織後，可用下列何種藥物治療？",
+        "options": {
+            "A": "注射Amphotericin-B",
+            "B": "口服Mycostatin",
+            "C": "局部傷口灌注碘液和注射青黴素",
+            "D": "局部傷口灌注紫藥水"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.下列何者為傳染性血栓栓塞性腦膜腦炎的病因？",
+        "options": {
+            "A": "嗜血桿菌",
+            "B": "李氏菌",
+            "C": "梭狀桿菌",
+            "D": "大腸桿菌"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.牛感染下列那一種病毒會造成狂癢？",
+        "options": {
+            "A": "第1型牛疱疹病毒",
+            "B": "犬疱疹病毒",
+            "C": "假性狂犬病病毒",
+            "D": "第3型牛疱疹病毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.下列那一種病主要引起牛不孕及胚早期死亡？",
+        "options": {
+            "A": "彎曲菌病",
+            "B": "布氏桿菌症",
+            "C": "鉤端螺旋體症",
+            "D": "傳染性鼻氣管炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.下列何者為牛副結核病之病原？",
+        "options": {
+            "A": "Mycobacterium paratuberculosis",
+            "B": "Mycobacterium tuberculosis",
+            "C": "Pasteurella multocida",
+            "D": "Actinobacillus lignieresi"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.馬流行性感冒的病毒是屬於那一型？",
+        "options": {
+            "A": "A",
+            "B": "B",
+            "C": "C",
+            "D": "D"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.下列何者不會感染牛？",
+        "options": {
+            "A": "秉尼待絛蟲（Moniezia benedeni）",
+            "B": "方形絛蟲（Raillietina tetragona）",
+            "C": "日本血吸蟲（Schistosoma japonicum）",
+            "D": "肝蛭（Fasciola hepatica）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.下列那一種毒素是甘藷為了抵抗黴菌的侵害所產生的，可造成牛肺水腫？",
+        "options": {
+            "A": "Deoxynivalenol",
+            "B": "Ipomeamarone",
+            "C": "T-2 toxin",
+            "D": "F-2 toxin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.下列那一種疾病會造成硬蹠症？",
+        "options": {
+            "A": "犬瘟熱",
+            "B": "狂犬病",
+            "C": "犬傳染性肝炎",
+            "D": "犬疱疹病毒感染症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.下列何者其臨床症狀以突然發生、流鼻水、發熱及咳嗽為特徵？",
+        "options": {
+            "A": "犬傳染性肝炎",
+            "B": "犬冠狀病毒感染症",
+            "C": "犬副流行性感冒",
+            "D": "犬疱疹病毒感染症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.下列何者可自糞便排出第一期仔蟲？",
+        "options": {
+            "A": "犬鞭蟲（Trichuris vulpis）",
+            "B": "糞桿線蟲（Strongyloides stercoralis）",
+            "C": "犬心絲蟲（Dirofilaria immitis）",
+            "D": "犬絛蟲（Dipylidium caninum）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.下列何者感染犬貓可在新鮮糞便檢出已芽孢化之卵囊與sporocyst？",
+        "options": {
+            "A": "肝簇蟲（Hepatozoon spp.）",
+            "B": "住肉孢子蟲（Sarcocystis spp.）",
+            "C": "犬貓鉤蟲（Ancylostoma spp.）",
+            "D": "球蟲（coccidia）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.下列何者為犬心絲蟲的中間宿主？",
+        "options": {
+            "A": "蠅類",
+            "B": "蚤類",
+            "C": "壁蝨類",
+            "D": "蚊類"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.下列何者並非犬艾利希體症（canine ehrlichiosis）之病變？",
+        "options": {
+            "A": "肝腫大",
+            "B": "脾腫大",
+            "C": "淋巴結腫大",
+            "D": "腎腫大"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.下列何者可引起貓白血病？",
+        "options": {
+            "A": "杯狀病毒",
+            "B": "桿狀病毒",
+            "C": "小DNA病毒",
+            "D": "反轉錄病毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.下列有關Q熱之敘述，何者正確？",
+        "options": {
+            "A": "由原蟲感染",
+            "B": "人類感染病例常和職業別有關",
+            "C": "蚊子叮咬是主要的傳播媒介",
+            "D": "台灣尚無病例報告"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.下列何者不是犬感染鉤端螺旋體的症狀？",
+        "options": {
+            "A": "黃疸",
+            "B": "腎衰竭",
+            "C": "腦炎",
+            "D": "貧血"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 57,
+        "text": "57.下列那一種葡萄球菌最常感染犬隻？",
+        "options": {
+            "A": "Staphylococcus aureus",
+            "B": "Staphylococcus intermedius",
+            "C": "Staphylococcus epidermidis",
+            "D": "Staphylococcus simulans"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.下列何者會造成犬、貓之下痢？",
+        "options": {
+            "A": "Giardia spp.",
+            "B": "Trichomonas foetus",
+            "C": "Trypanosoma evansi",
+            "D": "Trypanosoma congolense"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.下列有關Edwardsiella（E.）spp.的敘述，何者正確？",
+        "options": {
+            "A": "E. ictaluri主要感染石斑魚造成重大損失",
+            "B": "E. tarda主要感染冷水魚類",
+            "C": "E. tarda是水生動物腸道內的正常菌叢",
+            "D": "E. ictaluri是農委會規範進口鮭魚需檢疫的病原"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.分離水黴菌可採用下列何種培養基？",
+        "options": {
+            "A": "Sabouraud's dextrose agar",
+            "B": "Thiosulphate-citrate-bile salt-source agar",
+            "C": "Lowenstein-Jensen media",
+            "D": "Tryptic soy agar"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.台灣養殖香魚常感染一種線蟲，其蟲體呈紅色由肛門伸出（如圖），最可能為下列何者？",
+        "options": {
+            "A": "Anguillicola",
+            "B": "Anisakis",
+            "C": "Pseudoterranova",
+            "D": "Camallanus"
+        },
+        "image": "./圖片/e1021_img1.jpg",
+        "images": [
+            "./圖片/e1021_img1.jpg"
+        ]
+    },
+    {
+        "id": 62,
+        "text": "62.台灣養殖錦鯉常發現如圖中箭頭所指的病變，這是由下列何種病原所造成的？",
+        "options": {
+            "A": "Myxobolus spp.",
+            "B": "Pleistophora spp.",
+            "C": "Glugea spp.",
+            "D": "Ichthyophonus spp."
+        },
+        "image": "./圖片/e1021_img2.jpg",
+        "images": [
+            "./圖片/e1021_img2.jpg"
+        ]
+    },
+    {
+        "id": 63,
+        "text": "63. 下圖中蟲體通常寄生在魚體那個部位？",
+        "options": {
+            "A": "腸道",
+            "B": "泄殖道",
+            "C": "鰓部",
+            "D": "口腔四週"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.引起條紋鱸魚淋巴囊腫之病原屬於下列何者？",
+        "options": {
+            "A": "Iridovirus",
+            "B": "Birnavirus",
+            "C": "Herpesvirus",
+            "D": "Rhabdovirus"
+        },
+        "image": "./圖片/e1021_img3.jpg",
+        "images": [
+            "./圖片/e1021_img3.jpg"
+        ]
+    },
+    {
+        "id": 65,
+        "text": "65.下列有關指環蟲（Dactylogyrus）之敘述，何者正確？",
+        "options": {
+            "A": "海水魚常見的寄生蟲",
+            "B": "蟲體生活史只在魚體進行，故稱單殖吸蟲或單生類",
+            "C": "主要寄生在體表或鰓，診斷時刮取體表及鰓黏液進行鏡檢",
+            "D": "食用魚的治療，採用孔雀綠最有效，且符合經濟效益"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.海水性白點蟲學名為下列何者？",
+        "options": {
+            "A": "Cryptocaryon irritans",
+            "B": "Cryptocaryon multifiliis",
+            "C": "Amyloodinium ocellatum",
+            "D": "Anguillicola crassus"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.下列何種病原感染魚類時不會造成結節？",
+        "options": {
+            "A": "Citrobacter freundii",
+            "B": "Aeromonas hydrophila",
+            "C": "Serratia liquefaciens",
+            "D": "Mycobacterium neoaurum"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.下列有關魚類病毒性神經壞死病之敘述，何者錯誤？",
+        "options": {
+            "A": "石斑魚幼苗死亡率高",
+            "B": "迴旋是症狀之一",
+            "C": "石斑魚成魚感染，但死亡率低",
+            "D": "蝦類也會感染，但死亡率低"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者又稱為salmonid blood clot？",
+        "options": {
+            "A": "傳染性胰壞死病毒（IPNV）感染",
+            "B": "神經壞死病毒（NNV）感染",
+            "C": "弧菌（Vibrio anguillarum）感染",
+            "D": "耶氏菌（Yersinia ruckeri）感染"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.下列有關魚孢黴感染症（ichthyophonosis）之敘述，何者正確？",
+        "options": {
+            "A": "僅感染鮭、鱒魚，為進口檢疫項目之一",
+            "B": "魚體內各處有白色結節",
+            "C": "引起甚急性死亡，在引進新魚至養殖場時要特別小心",
+            "D": "本病原由寄生在鮭魚的魚蝨（Argulid matuii）傳播，平日應注意驅蟲"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.可造成野鴨與鵝死亡之住血原蟲（Leucocytozoon spp.）為下列何者？",
+        "options": {
+            "A": "L. caulleryi",
+            "B": "L. smithi",
+            "C": "L. simondi",
+            "D": "L. sabrazesi"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.下列有關鼠咬熱（rat bite fever）的敘述，何者正確？",
+        "options": {
+            "A": "病原為Streptobacillus moniliformis及Spirillum muris",
+            "B": "病原為漢他病毒",
+            "C": "病原已不存在",
+            "D": "病原為Corynebacterium kutscheri"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.下列有關囓齒動物感染泰熱氏病（Tyzzer's disease）的敘述，何者正確？",
+        "options": {
+            "A": "會感染小鼠、大鼠及倉鼠，但不會感染沙鼠（gerbil）",
+            "B": "空氣傳染為主要傳播方式",
+            "C": "主要病變器官包括腸道、肝臟及心臟",
+            "D": "細菌培養為主要的診斷方式"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.在小鼠寄生蟲檢查中發現蟲卵（如下圖），最可能為下列何者感染？",
+        "options": {
+            "A": "Syphacia obvelata",
+            "B": "Aspiculuris tetraptera",
+            "C": "Hymenolepis diminuta",
+            "D": "Rodentolepis nana"
+        },
+        "image": "./圖片/e1021_img4.jpg",
+        "images": [
+            "./圖片/e1021_img4.jpg"
+        ]
+    },
+    {
+        "id": 75,
+        "text": "75.下列有關鼠肝炎病毒（murine hepatitis virus）之敘述，何者正確？",
+        "options": {
+            "A": "僅會感染肝臟與腸道，不會感染其他器官",
+            "B": "SJL小鼠對polytropic strain的病毒具有抵抗力",
+            "C": "免疫健全小鼠也會有臨床疾病",
+            "D": "垂直傳染是主要途徑"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.下列何者是裸鼠鱗狀皮膚炎的病原？",
+        "options": {
+            "A": "Streptobacillus moniliformis",
+            "B": "Corynebacterium kutscheri",
+            "C": "Mycobacterium avium-intracellulare",
+            "D": "Corynebacterium bovis"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.下列何種結核菌不會感染雪貂？",
+        "options": {
+            "A": "Mycobacterium avium",
+            "B": "Mycobacterium bovis",
+            "C": "Mycobacterium chelonei",
+            "D": "Mycobacterium tuberculosis"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.寄生在金絲雀呼吸道的Sternostoma tracheacolum為下列何者?",
+        "options": {
+            "A": "氣管蟎",
+            "B": "氣囊蟎",
+            "C": "支氣管蟎",
+            "D": "鼻腔蟎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.下列何者為傳播靈長類利什曼原蟲（Leishmania spp.）之病媒？",
+        "options": {
+            "A": "壁蝨（ticks）",
+            "B": "白蛉（Phlebotomus spp.）",
+            "C": "采采蠅（tsetse fly）",
+            "D": "貓蚤（Ctenocephalides felis）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.下列何者為巨大腎蟲（Dioctophyme renale）之主要終宿主？",
+        "options": {
+            "A": "反芻獸",
+            "B": "貂",
+            "C": "浣熊",
+            "D": "鳥類"
+        },
+        "image": null,
+        "images": []
+    }
+]

@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列何者的葡萄醛酸接合反應（glucuronidation）能力最低？",
+        "options": {
+            "A": "犬",
+            "B": "貓",
+            "C": "豬",
+            "D": "人"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.下列何者最適合顯示藥物之AUC（area under curve）？",
+        "options": {
+            "A": "血漿中藥物之分布容積",
+            "B": "血漿中結合態之藥物濃度",
+            "C": "藥物之絲球體濾過清除率",
+            "D": "藥物血中濃度"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.當定時定量給與藥物，經過多少個半衰期之後，其血漿中藥物濃度可達到穩定狀態之93.75%？",
+        "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "5"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.大多數藥品經皮下注射後，會以何種機制被吸收？",
+        "options": {
+            "A": "被動擴散（passive diffusion）",
+            "B": "主動運輸（active transport）",
+            "C": "吞噬作用（phagocytosis）",
+            "D": "促進性擴散（facilitated diffusion）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.腎臟排泄藥物的二種主要機制為何？",
+        "options": {
+            "A": "絲球體過濾、被動分泌",
+            "B": "尿液濃縮、主動分泌",
+            "C": "主動分泌、絲球體過濾",
+            "D": "絲球體過濾、尿液濃縮"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.若以肌肉注射投藥，為減少血中藥物高低濃度的差距，則下列方法中，何者較可行？",
+        "options": {
+            "A": "增加藥品生物轉換速率",
+            "B": "增加藥品分布體積",
+            "C": "增加藥品排泄速率",
+            "D": "增加投藥頻率"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.已知尿液pH=6.4，甲藥物pKa=5.4，乙藥物pKa=8.4，若同時靜脈注射這二種弱鹼性藥物，乙藥物於尿中之離子型態所占百分 比為何？",
+        "options": {
+            "A": "9",
+            "B": "1",
+            "C": "99",
+            "D": "50"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.關於clomipramine的作用機制與治療用途的敘述，下列何者錯誤？",
+        "options": {
+            "A": "抑制正腎上腺素及血清素的再吸收",
+            "B": "不可用於治療犬的強迫性障礙",
+            "C": "在貓使用於治療尿噴行為和心因性禿毛",
+            "D": "可用於治療犬的優越性攻擊（dominance-related aggression）行為"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.關於buspirone的敘述，下列何者錯誤？",
+        "options": {
+            "A": "為不具有鎮靜作用的抗焦慮劑",
+            "B": "是一個5-HT 1A 受體部分致效劑",
+            "C": "引起的中樞神經抑制作用非常大",
+            "D": "不引起精神運動性的困擾（psychomotor disturbance）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.關於抗焦慮劑chlordiazepoxide之敘述，下列何者錯誤？",
+        "options": {
+            "A": "不具有刺激食慾，但有抗焦慮，以及鎮靜的特性",
+            "B": "使用於治療多種動物園動物的攻擊和極度的恐懼",
+            "C": "作用於腦的邊緣系統，因而調節情感反應",
+            "D": "在中等劑量時，對心臟或血壓很少有作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.Benzodiazepine類衍生物對神經之影響主要造成以下何種現象？",
+        "options": {
+            "A": "神經之去極化",
+            "B": "神經之過極化",
+            "C": "促使神經電位趨向於零",
+            "D": "對神經電位無影響"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.下列有關chloral hydrate的敘述中，何者正確？",
+        "options": {
+            "A": "在體內可被代謝而產生chloroform",
+            "B": "僅可靜脈注射投藥",
+            "C": "麻醉劑量遠低於半致死劑量",
+            "D": "具有抑制中樞神經的作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.Morphine 對犬造成嘔吐之作用機制主要為透過活化何種受體所引起？",
+        "options": {
+            "A": "多巴胺D 2 受體",
+            "B": "µ受體",
+            "C": "δ受體",
+            "D": "κ受體"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.氣體麻醉機的氣體衝出瓣（pop-off valve）的主要功用為何？",
+        "options": {
+            "A": "預防nitrous oxide的吸入",
+            "B": "協助二氧化碳的排出",
+            "C": "預防呼吸循環中的壓力過高",
+            "D": "用於分隔吸入與呼出的氣體"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15.治療貓之膀胱無力最適宜使用下列何種藥物？",
+        "options": {
+            "A": "carbachol",
+            "B": "methacholine",
+            "C": "acetylcholine",
+            "D": "bethanechol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 16,
+        "text": "16.以下那一抗痙攣藥物經口投予之後可於肝臟代謝產生phenobarbital？",
+        "options": {
+            "A": "primidone",
+            "B": "phenytoin",
+            "C": "diazepam",
+            "D": "acepromazine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.下列何者是acetazolamide之利尿作用主要影響部位？",
+        "options": {
+            "A": "遠端彎曲腎小管",
+            "B": "近端彎曲腎小管",
+            "C": "亨利氏環（loop of Henle）",
+            "D": "集尿管"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.下列何者為強心配醣體digoxin之主要作用機轉？",
+        "options": {
+            "A": "增加心肌纖維對Ca++之敏感性",
+            "B": "抑制phosphodiesterase而增加cAMP之含量",
+            "C": "抑制對ATP敏感之K+通道",
+            "D": "抑制心肌細胞之Na+, K+-ATPase"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.下列何者能明顯地減緩心臟傳導，但不改變動作電位時程？",
+        "options": {
+            "A": "phenytoin",
+            "B": "procainamide",
+            "C": "propranolol",
+            "D": "flecainide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.Dalteparin sodium對下列何種凝血因子的抑制作用最強？",
+        "options": {
+            "A": "XII",
+            "B": "XI",
+            "C": "X",
+            "D": "IX"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.下列何者抗血小板凝集作用很微弱，但冠狀動脈擴張作用很強？",
+        "options": {
+            "A": "dipyrimadole",
+            "B": "ticlopidine",
+            "C": "clopidogrel",
+            "D": "aspirin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.下列何種治療鬱血性心臟衰竭藥物，並非自然界產物？",
+        "options": {
+            "A": "digoxin",
+            "B": "ouabain",
+            "C": "amrinone",
+            "D": "digitoxin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 23,
+        "text": "23.下列何者為Ca++阻斷劑，且其抑制心肌收縮作用最強？",
+        "options": {
+            "A": "amlodipine",
+            "B": "verapamil",
+            "C": "nifedipine",
+            "D": "diltiazem"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.下列何者能抑制phosphodiesterase III而增強心肌收縮力？",
+        "options": {
+            "A": "dobutamine",
+            "B": "digoxin",
+            "C": "epinephrine",
+            "D": "amrinone"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.下列何者會加重糖尿病的病況？",
+        "options": {
+            "A": "acetazolamide",
+            "B": "bumetanide",
+            "C": "dichlorphenamide",
+            "D": "chlorothiazide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.早產新生動物因先天性缺乏介面活性劑導致呼吸窘迫症（respiratory distress syndrome），下列何者療效最佳？",
+        "options": {
+            "A": "epinephrine",
+            "B": "calfactant",
+            "C": "prednisolone",
+            "D": "terbutaline"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.下列何者是N-acetylcysteine的作用機制？",
+        "options": {
+            "A": "破壞氣管黏液分子的雙硫鍵降低黏度",
+            "B": "抑制氣管平滑肌phosphodiesterase的活性",
+            "C": "增強呼吸道纖毛運動排除黏液",
+            "D": "阻斷平滑肌細胞內cyclic AMP的降解"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.下列何者為天然釀酒酵母中耐糖因子（glucose tolerance factor）的成分，此成分可促進葡萄糖代謝，協助胰島素調節血糖？",
+        "options": {
+            "A": "鉻",
+            "B": "銅",
+            "C": "鈣",
+            "D": "鎂"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 29,
+        "text": "29.下列何者可阻斷serotonin及H 1 -histamine的受體？",
+        "options": {
+            "A": "diphenhydramine",
+            "B": "hydroxyzine",
+            "C": "cyproheptadine",
+            "D": "cromolyn sodium"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 30,
+        "text": "30.缺乏維生素K的動物不易止血的原因為何？",
+        "options": {
+            "A": "血小板數量減少",
+            "B": "血小板功能受損",
+            "C": "血中凝血因子含量不足",
+            "D": "血鈣濃度過低"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.下列有關中樞性鎮咳劑的敘述，何者錯誤？",
+        "options": {
+            "A": "常伴有鎮定作用",
+            "B": "長期使用鴉片類可造成便秘",
+            "C": "Noscapine不屬鴉片類製劑",
+            "D": "Codeine具輕微的止痛作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.下列何者最適合使用於癌症化療嘔吐副作用的控制？",
+        "options": {
+            "A": "cisapride",
+            "B": "diphenhydramine",
+            "C": "ondansetron",
+            "D": "scopolamine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.下列制酸劑藥物中，何者經口投予後的全身性作用最顯著？",
+        "options": {
+            "A": "碳酸氫鈉",
+            "B": "氫氧化鋁",
+            "C": "氫氧化鎂",
+            "D": "氧化鎂"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.下列何種藥物可用於視診評估犬在輕度麻醉中之喉頭麻痺情形，並作為呼吸甦醒劑？",
+        "options": {
+            "A": "ipratropium",
+            "B": "sildenafil",
+            "C": "clenbuterol",
+            "D": "doxapram"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.下列何者為前驅藥物（prodrug），在酸性條件下才轉變為活性藥物？",
+        "options": {
+            "A": "famotidine",
+            "B": "misoprostol",
+            "C": "omeprazole",
+            "D": "sucralfate"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.經口投予含emodin的藥物如大黃，下列何者是其發揮藥效的作用部位？",
+        "options": {
+            "A": "十二指腸",
+            "B": "空腸",
+            "C": "迴腸",
+            "D": "結腸"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.下列何者刺激胃酸分泌的作用最強？",
+        "options": {
+            "A": "serotonin",
+            "B": "histamine",
+            "C": "PGI 2",
+            "D": "dopamine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.Xylazine用於貓靜脈或肌肉注射可誘導催吐，其作用於下列何種受體？",
+        "options": {
+            "A": "α 1",
+            "B": "α 2",
+            "C": "µ",
+            "D": "κ"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.關於meloxicam之敘述，下列何者錯誤？",
+        "options": {
+            "A": "為cyclooxygenase-2選擇性抑制劑",
+            "B": "使用於犬、貓骨關節炎（osteoarthritis）之慢性疼痛",
+            "C": "可有效的控制手術後之疼痛",
+            "D": "可使用於懷孕、泌乳或小於4月齡之動物"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.關於phenylbutazone的敘述，下列何者錯誤？",
+        "options": {
+            "A": "在馬及犬具有抑制cyclooxygenase-2之效應",
+            "B": "經口投予有效",
+            "C": "可用於跛腳及骨關節炎等疼痛情況",
+            "D": "代謝產物oxyphenbutazone不具藥理活性"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.下列何者的抗發炎作用效價最高？",
+        "options": {
+            "A": "prednisolone",
+            "B": "hydrocortisone",
+            "C": "cortisone",
+            "D": "dexamethasone"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.下列何者為H 2 -組織胺受體的阻斷劑？",
+        "options": {
+            "A": "histidine",
+            "B": "cyproheptadine",
+            "C": "famotidine",
+            "D": "amantadine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.下列何者是非固醇類消炎藥（NSAIDs）最常見及最嚴重之副作用？",
+        "options": {
+            "A": "胃腸道潰瘍",
+            "B": "便秘",
+            "C": "下痢",
+            "D": "白血球增加症"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.Testosterone常與下列何者聯合刺激精子的發生及精蟲的成熟？",
+        "options": {
+            "A": "ADH",
+            "B": "FSH",
+            "C": "TSH",
+            "D": "STH"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.下列何者屬於sulfonylureas類藥物？",
+        "options": {
+            "A": "glipizide",
+            "B": "insulin",
+            "C": "finasteride",
+            "D": "flumethasone"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.關於firocoxib的敘述，下列何者正確？",
+        "options": {
+            "A": "具cyclooxygenase-2選擇性之抑制劑",
+            "B": "具cyclooxygenase-1選擇性之抑制劑",
+            "C": "屬於salicylates藥物",
+            "D": "通常使用於犬胃潰瘍發作"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.盤尼西林類無法用於治療Mycoplasma感染的原因為何？",
+        "options": {
+            "A": "因脂溶性過低",
+            "B": "因被水解的速度過快",
+            "C": "因Mycoplasma無細胞壁",
+            "D": "因Mycoplasma能產生大量的β-lactamase"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.下列有關spectinomycin和aminoglycosides比較的敘述中，何者正確？",
+        "options": {
+            "A": "spectinomycin較不易造成腎毒性",
+            "B": "spectinomycin可抗大多數的厭氧菌",
+            "C": "兩者的分布體積均大於1 L/kg",
+            "D": "兩者經口投予的吸收率均高於50%"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.併用trimethoprim-sulfonamide，通常對下列何種病原有效？",
+        "options": {
+            "A": "Campylobacter jejuni",
+            "B": "Psedomonas spp.",
+            "C": "Bacteriodes",
+            "D": "Toxoplasma gondii"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.Carbapenems較penicillin G 抗革蘭氏陰性菌作用為佳的主要原因為何？",
+        "options": {
+            "A": "生體可用率較高",
+            "B": "蛋白結合率較低",
+            "C": "具有抗β-lactamase作用",
+            "D": "不易誘導細菌產生突變"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.革蘭氏陰性菌對antistaphylococcal penicillins具抗藥性的主因為：",
+        "options": {
+            "A": "不易穿過G（–）的細胞膜",
+            "B": "與核醣體可逆性的結合",
+            "C": "噬菌體較容易攜抗藥基因入侵",
+            "D": "僅為抑菌性的抗菌劑"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.下列有關antiseptics或disinfectants作用的敘述中，何者正確？",
+        "options": {
+            "A": "環境有機質對含iodines者的活性影響較小",
+            "B": "環境有機質對含glutaraldehyde者的活性影響較小",
+            "C": "環境有機質對含hypochlorites者的活性影響較小",
+            "D": "使用硬水稀釋不會對四級銨化合物的作用造成影響"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.難溶性磺胺劑在泌尿道中產生晶尿症是因下列何種生物轉換（biotransformation）所致？",
+        "options": {
+            "A": "乙醯化（acetylation）",
+            "B": "羧化（carboxylation）",
+            "C": "羥基化（hydroxylation）",
+            "D": "氧化（oxidation）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.關於amphotericin B，下列何者錯誤？",
+        "options": {
+            "A": "具腎毒性",
+            "B": "治療犬histoplasmosis",
+            "C": "治療犬blastomycosis",
+            "D": "macrolides類抗生素"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.何者為可用於治療牛呼吸性疾病之第三代cephalosporins？",
+        "options": {
+            "A": "cephalexin",
+            "B": "cephapirin",
+            "C": "ceftiofur",
+            "D": "cefuroxime"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.Penicillin G常用注射方式給藥的原因為何？",
+        "options": {
+            "A": "具有苦味不易入口",
+            "B": "容易潮解不易製劑",
+            "C": "易受胃酸不活化",
+            "D": "易滋生黴菌污染"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 57,
+        "text": "57.下列何者最適合使用於治療犬貓結腸炎的細菌感染？",
+        "options": {
+            "A": "sulfadiazine",
+            "B": "sulfamethoxazole",
+            "C": "sulfasalazine",
+            "D": "sulfathiazole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.磺胺劑和下列何者併用時，可具協同之抗菌效果？",
+        "options": {
+            "A": "butyrophenones",
+            "B": "diaminopyrimidines",
+            "C": "acetaminophen",
+            "D": "cisapride"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.下列何者可用於驅除牛的Anaplasma marginale？",
+        "options": {
+            "A": "niclofolan",
+            "B": "hexachlorophene",
+            "C": "oxytetracycline",
+            "D": "levamisole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.在密飼之豬場中使用tiamulin後，豬隻會有紅斑和搔癢的皮膚炎之原因為何？",
+        "options": {
+            "A": "藥物直接引起皮膚過敏",
+            "B": "尿中刺激性代謝產物所致",
+            "C": "豬隻免疫力降低所致",
+            "D": "藥物直接刺激末梢神經所致"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.下列何者不是胺基醣苷類（aminoglycosides）抗生素常見的不良反應？",
+        "options": {
+            "A": "腎毒性",
+            "B": "耳毒性",
+            "C": "骨髓抑制",
+            "D": "神經肌肉阻斷"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 62,
+        "text": "62.多少重量百分比的isopropyl alcohol的抗菌作用與70%（重量）乙醇相近？",
+        "options": {
+            "A": "5",
+            "B": "10",
+            "C": "30",
+            "D": "50"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 63,
+        "text": "63.下列何者無法用於治療觀賞魚類的外寄生蟲感染？",
+        "options": {
+            "A": "sodium sulfate",
+            "B": "copper sulfate",
+            "C": "hydrogen peroxide",
+            "D": "formalin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.獸醫師給與病貓畜主一瓶含有idoxuridine之眼藥水，請問該藥物主要用於治療下列何者？",
+        "options": {
+            "A": "青光眼",
+            "B": "病毒性結膜炎",
+            "C": "黴菌性結膜炎",
+            "D": "披衣菌結膜炎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 65,
+        "text": "65.下列何者的抗菌作用機制為藥物結合於30S核醣體，進而抑制蛋白質的合成？",
+        "options": {
+            "A": "spectinomycin",
+            "B": "rifampin",
+            "C": "lincomycin",
+            "D": "vancomycin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.屬於一種抗代謝劑，可阻斷黴菌DNA與RNA合成的藥物是：",
+        "options": {
+            "A": "amphotericin B",
+            "B": "flucytosine",
+            "C": "itraconazole",
+            "D": "nystatin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.下列benzimidazoles的藥物中，其化學構造內不含S原子的是：",
+        "options": {
+            "A": "albendazole",
+            "B": "fenbendazole",
+            "C": "oxfendazole",
+            "D": "oxibendazole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.Piperazine對下列何種寄生蟲有效？",
+        "options": {
+            "A": "蛔蟲",
+            "B": "鈎蟲",
+            "C": "鞭蟲",
+            "D": "絛蟲"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者為昆蟲菸鹼性受體致效劑？",
+        "options": {
+            "A": "tiamulin",
+            "B": "dinotefuran",
+            "C": "rotenone",
+            "D": "lindane"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.下列何者不屬於攜帶離子型（ionophores）藥物？",
+        "options": {
+            "A": "salinomycin",
+            "B": "monensin",
+            "C": "maduramicin",
+            "D": "nicarbazin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.下列何者可用於治療貓的Taenia taeniaeformis感染症？",
+        "options": {
+            "A": "cisplatin",
+            "B": "methotrexate",
+            "C": "piroxicam",
+            "D": "epsiprantel"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.下列何者結合到黴菌微管（microtubule）而抑制有絲分裂？",
+        "options": {
+            "A": "griseofulvin",
+            "B": "natamycin",
+            "C": "nystatin",
+            "D": "fluconazole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.下列何者適合用於治療犬弓蟲症？",
+        "options": {
+            "A": "pyrantel",
+            "B": "levamisole",
+            "C": "clindamycin",
+            "D": "zidovudine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.下列何者非抑制黴菌之麥角固醇的合成？",
+        "options": {
+            "A": "flubendazole",
+            "B": "ketoconazole",
+            "C": "itraconazole",
+            "D": "fluconazole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 75,
+        "text": "75.巧克力中因含有下列何種成分，而易造成犬隻中毒？",
+        "options": {
+            "A": "methylxanthines",
+            "B": "digitalis",
+            "C": "salicylates",
+            "D": "sugar"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.動物因氯酸鹽中毒時，其死後血液顏色為何？",
+        "options": {
+            "A": "櫻紅色",
+            "B": "褐色",
+            "C": "綠色",
+            "D": "藍紫色"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.Ethylene glycol中毒時，血液酸鹼值的改變主要是因：",
+        "options": {
+            "A": "呼吸性酸中毒",
+            "B": "代謝性酸中毒",
+            "C": "呼吸性鹼中毒",
+            "D": "代謝性鹼中毒"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.Dimercaprol為砷中毒的解毒劑，因其具有：",
+        "options": {
+            "A": "雙硫醇",
+            "B": "單硫醇",
+            "C": "酮酸",
+            "D": "乙醯基"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.下列何者最適合使用於拮抗atropine過量中毒所造成之中樞神經興奮作用？",
+        "options": {
+            "A": "diazepam",
+            "B": "neostigmine",
+            "C": "tolazoline",
+            "D": "glycopyrrolate"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.下列何者為中樞神經系統之dopaminergic D 2 受體活化後所產生之主要藥理作用？",
+        "options": {
+            "A": "血管擴張造成血壓下降",
+            "B": "抑制神經內分泌之釋放",
+            "C": "造成中樞性之解熱鎮痛作用",
+            "D": "促進GABA之分泌"
+        },
+        "image": null,
+        "images": []
+    }
+]
