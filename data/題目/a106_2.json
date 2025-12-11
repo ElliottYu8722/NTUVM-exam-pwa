@@ -732,8 +732,10 @@
             "C": "allergic pneumonia",
             "D": "suppurative bronchopneumonia"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1062_img3.jpg",
+        "images": [
+            "./圖片/a1062_img3.jpg"
+        ]
     },
     {
         "id": 62,
@@ -744,10 +746,8 @@
             "C": "每一視野下相對細胞核數目增加",
             "D": "鏡檢局部心肌纖維比正常寬2-3倍"
         },
-        "image": "./圖片/a1062_img3.jpg",
-        "images": [
-            "./圖片/a1062_img3.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 63,
@@ -866,8 +866,10 @@
             "C": "肉毒桿菌毒素中毒",
             "D": "化膿性腦膜腦炎"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1062_img4.jpg",
+        "images": [
+            "./圖片/a1062_img4.jpg"
+        ]
     },
     {
         "id": 73,
@@ -878,10 +880,8 @@
             "C": "paraneoplastic pemphigus",
             "D": "bullous pemphigoid"
         },
-        "image": "./圖片/a1062_img4.jpg",
-        "images": [
-            "./圖片/a1062_img4.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 74,
