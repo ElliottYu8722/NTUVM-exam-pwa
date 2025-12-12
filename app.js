@@ -2093,14 +2093,29 @@ function getAllYearValuesForCurrentSubject() {
 }
 
 // 🔒 110 年（含）以後沒有「第二次」，這裡會自動略過那些組合，避免 404
-async function buildCrossVolumeQuizQuestions(maxCount) {
+// 跨科別／跨年度／跨梯次隨機抽題
+// maxCount：要抽幾題
+// opts.subjects：可選，只從這些科目（subjectSel 的 value）裡抽；不傳就是全部科目
+async function buildCrossVolumeQuizQuestions(maxCount, opts) {
   const result = [];
   if (!subjectSel || !yearSel || !roundSel) return result;
 
+  // 如果有傳入 opts.subjects，就先整理成 Set 方便比對
+  const selectedSet = (opts && Array.isArray(opts.subjects) && opts.subjects.length)
+    ? new Set(
+        opts.subjects
+          .map(v => String(v || "").trim())
+          .filter(Boolean)
+      )
+    : null;
+
   // 1. 把所有科目 / 年度 / 梯次的「選項值」抓出來
-  const subjects = Array.from(subjectSel.options || [])
+  const allSubjects = Array.from(subjectSel.options || [])
     .map(o => String(o.value).trim())
     .filter(Boolean);
+
+  // 若有指定科目，就只保留那些科別；沒有就全部用
+  const subjects = allSubjects.filter(s => !selectedSet || selectedSet.has(s));
 
   const years = Array.from(yearSel.options || [])
     .map(o => String(o.value).trim())
@@ -2205,17 +2220,17 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
       );
       if (!answerSet.length) continue;
 
-      // ★ 新增：把多張圖一起帶進來
+      // 把多張圖一起帶進來
       const images = Array.isArray(q.images)
         ? q.images
         : (q.image ? [q.image] : []);
-      
+
       allCandidates.push({
         id: q.id,
         text: q.text,
         options: q.options,
         image: q.image,
-        images,           // ★ 新增：多張圖
+        images,
         answerSet,
         scope: {
           subj: s.subj,
@@ -2258,9 +2273,9 @@ async function buildCrossVolumeQuizQuestions(maxCount) {
   for (let i = 0; i < pickCount; i++) {
     result.push(allCandidates[i]);
   }
-  
-    return result;
-  }
+
+  return result;
+}
 
 // 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
 async function buildSingleSubjectQuizQuestions(maxCount) {
@@ -3148,6 +3163,163 @@ function hideRandomQuizLoading() {
     try { mask.remove(); } catch {}
   }
 }
+// 新增：跨科別隨機測驗時，先讓使用者勾要抽的科目（可複選）
+function openRandomQuizCrossSubjectOverlay(questionCount) {
+  // 如果之前有殘留就先砍掉
+  const old = document.getElementById('random-quiz-cross-mask');
+  if (old) {
+    try { old.remove(); } catch {}
+  }
+
+  const mask = document.createElement('div');
+  mask.id = 'random-quiz-cross-mask';
+  mask.style.position = 'fixed';
+  mask.style.inset = '0';
+  mask.style.zIndex = '100015';
+  mask.style.background = 'rgba(0, 0, 0, 0.6)';
+  mask.style.display = 'flex';
+  mask.style.alignItems = 'center';
+  mask.style.justifyContent = 'center';
+  mask.style.padding = '16px';
+
+  const card = document.createElement('div');
+  card.style.background = 'var(--card, #1b1b1b)';
+  card.style.color = 'var(--fg, #fff)';
+  card.style.borderRadius = '14px';
+  card.style.border = '1px solid var(--border, #333)';
+  card.style.maxWidth = '420px';
+  card.style.width = '100%';
+  card.style.padding = '16px';
+  card.style.display = 'flex';
+  card.style.flexDirection = 'column';
+  card.style.gap = '10px';
+
+  const title = document.createElement('div');
+  title.textContent = '請勾選要抽題的科目（可複選）';
+  title.style.fontSize = '16px';
+  title.style.fontWeight = '700';
+
+  const hint = document.createElement('div');
+  hint.textContent = '例如：病理 + 藥理 + 普通疾病等，至少勾選一個科目。';
+  hint.style.fontSize = '13px';
+  hint.style.color = 'var(--muted, #aaa)';
+
+  const list = document.createElement('div');
+  list.style.display = 'flex';
+  list.style.flexDirection = 'column';
+  list.style.gap = '6px';
+  list.style.maxHeight = '55vh';
+  list.style.overflow = 'auto';
+  list.style.marginTop = '4px';
+  list.style.marginBottom = '4px';
+
+  // 從 subjectSel 的選項自動抓所有科目，做成勾選清單
+  if (subjectSel) {
+    const seen = new Set();
+    Array.from(subjectSel.options || []).forEach(opt => {
+      const value = String(opt.value || '').trim();
+      if (!value || seen.has(value)) return;
+      seen.add(value);
+
+      const labelText = (opt.textContent || opt.label || value).trim() || value;
+
+      const row = document.createElement('label');
+      row.style.display = 'flex';
+      row.style.alignItems = 'center';
+      row.style.gap = '8px';
+      row.style.fontSize = '14px';
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = value;
+      cb.checked = true; // 預設全部勾選
+
+      const span = document.createElement('span');
+      span.textContent = labelText;
+
+      row.appendChild(cb);
+      row.appendChild(span);
+      list.appendChild(row);
+    });
+  }
+
+  const rowButtons = document.createElement('div');
+  rowButtons.style.display = 'flex';
+  rowButtons.style.justifyContent = 'flex-end';
+  rowButtons.style.gap = '8px';
+  rowButtons.style.marginTop = '8px';
+
+  const btnCancel = document.createElement('button');
+  btnCancel.textContent = '取消';
+  btnCancel.style.padding = '6px 12px';
+  btnCancel.style.borderRadius = '9999px';
+  btnCancel.style.border = '1px solid var(--border, #444)';
+  btnCancel.style.background = 'transparent';
+  btnCancel.style.color = 'var(--fg, #fff)';
+  btnCancel.style.cursor = 'pointer';
+  btnCancel.style.fontSize = '14px';
+  btnCancel.onclick = () => {
+    try { mask.remove(); } catch {}
+  };
+
+  const btnOk = document.createElement('button');
+  btnOk.textContent = '開始隨機測驗';
+  btnOk.style.padding = '6px 12px';
+  btnOk.style.borderRadius = '9999px';
+  btnOk.style.border = '1px solid var(--accent, #2f74ff)';
+  btnOk.style.background = 'var(--accent, #2f74ff)';
+  btnOk.style.color = '#fff';
+  btnOk.style.cursor = 'pointer';
+  btnOk.style.fontSize = '14px';
+
+  btnOk.onclick = async () => {
+    const checked = Array.from(
+      list.querySelectorAll('input[type="checkbox"]:checked')
+    ).map(cb => String(cb.value || '').trim())
+     .filter(Boolean);
+
+    if (!checked.length) {
+      alert('請至少勾選一個科目');
+      return;
+    }
+
+    try { mask.remove(); } catch {}
+
+    // 這裡才真正去抽題
+    showRandomQuizLoading('隨機抽題中，請稍候…');
+    try {
+      const qs = await buildCrossVolumeQuizQuestions(questionCount, { subjects: checked });
+      if (!qs || !qs.length) {
+        alert('找不到符合條件的題目 QQ');
+        return;
+      }
+      openRandomQuizOverlay(qs);
+    } catch (e) {
+      console.error('cross-subject random quiz failed', e);
+      alert('抽題時發生錯誤 QQ');
+    } finally {
+      hideRandomQuizLoading();
+    }
+  };
+
+  rowButtons.appendChild(btnCancel);
+  rowButtons.appendChild(btnOk);
+
+  card.appendChild(title);
+  card.appendChild(hint);
+  card.appendChild(list);
+  card.appendChild(rowButtons);
+
+  mask.appendChild(card);
+  document.body.appendChild(mask);
+
+  // 點遮罩空白處也可以關閉
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) {
+      try { mask.remove(); } catch {}
+    }
+  });
+}
 
 
 /** 打開「隨機測驗準備視窗」：直接選 5 / 10 / 15 / 20 題，或看紀錄 */
@@ -3260,9 +3432,10 @@ function openRandomQuizPrepOverlay() {
 
   const counts = [5, 10, 15, 20];
 
-  const makeCountBtn = n => {
+
+  const makeCountBtn = (n) => {
     const btn = document.createElement('button');
-    btn.textContent = `${n} 題`;
+    btn.textContent = String(n);
     btn.style.flex = '1';
     btn.style.minWidth = '0';
     btn.style.padding = '8px 0';
@@ -3274,33 +3447,28 @@ function openRandomQuizPrepOverlay() {
     btn.style.fontSize = '14px';
 
     btn.onclick = async () => {
-      // 先關掉準備視窗
+      // 關掉準備視窗本身
       try { mask.remove(); } catch {}
 
-      // 顯示「載入中」遮罩
-      showRandomQuizLoading('隨機題目載入中，請稍候…');
+      // 🔹跨科別模式：先開「科目複選」視窗，由那邊再去抽題
+      if (currentScopeMode === 'cross') {
+        openRandomQuizCrossSubjectOverlay(n);
+        return;
+      }
 
+      // 🔹單科模式：維持原本流程，直接抽題
+      showRandomQuizLoading('隨機抽題中，請稍候…');
       try {
-        let qs;
-        if (currentScopeMode === 'cross') {
-          // 跨科別：沿用原本的跨卷抽題（所有科目）
-          qs = await buildCrossVolumeQuizQuestions(n);
-        } else {
-          // 本科目：只用目前選到的科目
-          qs = await buildSingleSubjectQuizQuestions(n);
-        }
-
+        const qs = await buildSingleSubjectQuizQuestions(n);
         if (!qs || !qs.length) {
-          alert('目前範圍內找不到足夠的題目可以組成隨機測驗。');
+          alert('找不到任何可用題目 QQ');
           return;
         }
-
         openRandomQuizOverlay(qs);
       } catch (e) {
-        console.error('隨機測驗抽題失敗：', e);
-        alert('抽題時發生錯誤，請稍後再試。');
+        console.error('random quiz prep failed', e);
+        alert('抽題時發生錯誤 QQ');
       } finally {
-        // 不管成功失敗，都把載入中遮罩拿掉
         hideRandomQuizLoading();
       }
     };
@@ -6110,8 +6278,8 @@ function initCustomBgControls() {
     btn.style.padding = '4px 10px';
     btn.style.borderRadius = '9999px';
     btn.style.border = '1px solid var(--border, #444)';
-    btn.style.background = 'rgba(0, 0, 0, 0.4)';
-    btn.style.color = 'var(--fg, #fff)';
+    btn.style.background = 'var(--btn, #222)';
+    btn.style.color = 'var(--btn-fg, #f9fafb)';
     btn.style.cursor = 'pointer';
     btn.style.fontSize = '13px';
     btn.style.whiteSpace = 'nowrap';
@@ -6192,6 +6360,9 @@ function ensureCustomBgStyle() {
       background-position: center center;
       background-repeat: no-repeat;
       background-attachment: fixed;
+    }
+    body.theme-has-custom-bg .pet-quiz-card {
+      background: rgba(8, 8, 8, 0.60);
     }
 
     /* 主要區塊：左欄 panel / 題目卡 / 留言區 / 筆記區 / 右欄題號清單
