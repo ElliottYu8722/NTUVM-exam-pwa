@@ -3195,7 +3195,7 @@ function openRandomQuizCrossSubjectOverlay(questionCount) {
   card.style.gap = '10px';
 
   const title = document.createElement('div');
-  title.textContent = '請勾選要抽題的科目（可複選）';
+  title.textContent = '請勾選要抽題的科目';
   title.style.fontSize = '16px';
   title.style.fontWeight = '700';
 
