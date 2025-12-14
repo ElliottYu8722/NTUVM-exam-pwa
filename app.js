@@ -7940,3 +7940,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+function ensureScrollTopPaddingFix() {
+  if (document.getElementById("scroll-top-padding-fix")) return;
+
+  const style = document.createElement("style");
+  style.id = "scroll-top-padding-fix";
+  style.textContent = `
+    /* 這些區塊在 app.js 內都有出現 overflow: auto 的用法，容易發生頂端被裁切 [file:1] */
+    .pet-quiz-body,
+    .rv-body,
+    .fs-main,
+    .fc-body,
+    .fc-viewer-card,
+    #pet-shop-overlay {
+      padding-top: 10px !important;
+      box-sizing: border-box;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// 立刻套用一次（就算 DOM 還沒完整好也沒關係，因為只是塞一個 style）
+try { ensureScrollTopPaddingFix(); } catch (e) {}
+
+// 保險：等 DOM 好了再套一次（有些環境/載入順序比較龜毛）
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    try { ensureScrollTopPaddingFix(); } catch (e) {}
+  });
+} else {
+  try { ensureScrollTopPaddingFix(); } catch (e) {}
+}
