@@ -5845,6 +5845,169 @@ function fcEnsureStyle() {
   `;
   document.head.appendChild(s);
 }
+// ---------- 編輯器：新增/編輯主題（字卡列表） ----------
+function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 'topic' }) {
+  fcEnsureStyle();
+  fcLoad();
+
+  let node = null;
+  if (mode === 'edit') {
+    node = fcGetNode(nodeId);
+    if (!node) {
+      alert('找不到該主題！');
+      return;
+    }
+  }
+
+  const old = document.getElementById('fc-editor-screen');
+  if (old) old.remove();
+
+  const screen = document.createElement('div');
+  screen.id = 'fc-editor-screen';
+  screen.className = 'fc-screen';
+
+  screen.innerHTML = `
+    <div class="fc-top">
+      <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
+      <div class="title">${mode === 'edit' ? '編輯主題' : '新增主題'}</div>
+      <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
+    </div>
+
+    <div class="fc-body">
+      <div class="fc-panel">
+        <div class="fc-subtitle">名稱</div>
+        <input class="fc-input" id="fc-editor-name" type="text" placeholder="輸入主題名稱..." />
+      </div>
+
+      <div class="fc-panel">
+        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7">(正面 | 背面)</span></div>
+        <div class="fc-list" id="fc-editor-cards"></div>
+        <button class="fc-floating-plus" id="fc-editor-add-card">+</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(screen);
+
+  const nameInput = document.getElementById('fc-editor-name');
+  const cardsList = document.getElementById('fc-editor-cards');
+  const btnSave = document.getElementById('fc-editor-save');
+  const btnClose = document.getElementById('fc-editor-close');
+  const btnAddCard = document.getElementById('fc-editor-add-card');
+
+  // 載入現有資料
+  if (mode === 'edit' && node) {
+    nameInput.value = node.name || '';
+    const cardIds = node.items || [];
+    cardIds.forEach(cid => {
+      const card = state.flashcards.cards[cid];
+      if (card) addCardRow({ front: card.front, back: card.back });
+    });
+  }
+
+  // 如果沒有任何卡片，預設加一張
+  if (!cardsList.children.length) {
+    addCardRow({ front: '', back: '' });
+  }
+
+  function addCardRow({ front = '', back = '' } = {}) {
+    const row = document.createElement('div');
+    row.className = 'fc-cardrow';
+    
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    
+    const idxSpan = document.createElement('span');
+    idxSpan.className = 'idx';
+    meta.appendChild(idxSpan);
+    
+    const btnDel = document.createElement('button');
+    btnDel.className = 'fc-btn danger';
+    btnDel.textContent = '刪';
+    btnDel.onclick = () => {
+      row.remove();
+      updateCardNumbers();
+    };
+    meta.appendChild(btnDel);
+    
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    
+    const inp1 = document.createElement('input');
+    inp1.className = 'fc-input';
+    inp1.placeholder = '正面（問題）';
+    inp1.value = front;
+    
+    const inp2 = document.createElement('input');
+    inp2.className = 'fc-input';
+    inp2.placeholder = '背面（答案）';
+    inp2.value = back;
+    
+    grid.appendChild(inp1);
+    grid.appendChild(inp2);
+    
+    row.appendChild(meta);
+    row.appendChild(grid);
+    cardsList.appendChild(row);
+    
+    updateCardNumbers();
+  }
+
+  function updateCardNumbers() {
+    Array.from(cardsList.children).forEach((row, i) => {
+      const span = row.querySelector('.idx');
+      if (span) span.textContent = `#${i + 1}`;
+    });
+  }
+
+  btnAddCard.onclick = () => {
+    addCardRow();
+    cardsList.lastChild?.querySelector('input')?.focus();
+  };
+
+  btnClose.onclick = () => screen.remove();
+
+  btnSave.onclick = () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      alert('請輸入主題名稱！');
+      nameInput.focus();
+      return;
+    }
+
+    // 收集卡片資料
+    const rows = Array.from(cardsList.children).map(row => {
+      const inputs = row.querySelectorAll('input');
+      return {
+        front: inputs[0]?.value.trim() || '',
+        back: inputs[1]?.value.trim() || ''
+      };
+    }).filter(r => r.front || r.back); // 過濾空白卡
+
+    if (mode === 'create') {
+      // 建立新主題
+      const newNode = fcCreateNode({ name, parentId, type: 'topic' });
+      if (newNode) {
+        fcReplaceCardsOfNode(newNode.id, rows);
+        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片✅`);
+        screen.remove();
+        if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+      }
+    } else {
+      // 編輯模式
+      node.name = name;
+      fcReplaceCardsOfNode(node.id, rows);
+      fcSave();
+      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片✅`);
+      screen.remove();
+      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+    }
+  };
+
+  // 自動對焦
+  setTimeout(() => nameInput.focus(), 100);
+}
+
 
 // ---------- 主畫面：資料夾/主題清單 ----------
 function fcOpenHome() {
