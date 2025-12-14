@@ -6003,15 +6003,15 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   };
 
   btnClose.onclick = () => screen.remove();
-  btnSave.onclick = function () {
+  btnSave.onclick = () => {
     const name = nameInput.value.trim();
     if (!name) {
-      alert('請輸入主題名稱');
+      alert('請輸入主題名稱！');
       nameInput.focus();
       return;
     }
-
-    // 把畫面上每一行卡片讀出來
+  
+    // 收集卡片資料（注意：卡片欄位是 textarea）[file:1]
     const rows = Array.from(cardsList.children)
       .map((row) => {
         const inputs = row.querySelectorAll('textarea.fc-input');
@@ -6019,43 +6019,39 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
         const back = (inputs[1]?.value || '').trim();
         return { front, back };
       })
-      .filter((r) => r.front && r.back);
-
+      .filter((r) => r.front || r.back); // 沿用你原本的規則：任一邊有字就保留 [file:1]
+  
     if (mode === 'create') {
-      // 新增一個主題（在根目錄或某個資料夾底下）
-      const newNode = fcCreateNode(name, parentId, type || 'topic');
+      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' }); // 這裡要用物件版 [file:1]
       if (newNode) {
         fcReplaceCardsOfNode(newNode.id, rows);
-        alert(name + ' · ' + rows.length + ' 張');
+        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
         screen.remove();
-
-        // 更新首頁的列表（如果首頁有開著）
-        if (typeof window.fcRenderHomeList === 'function') {
-          window.fcRenderHomeList();
+  
+        // 更新首頁列表（你原本的命名是 __fcRenderHomeList）[file:1]
+        if (typeof window.__fcRenderHomeList === 'function') {
+          window.__fcRenderHomeList();
         }
-        // 更新目前開著的資料夾列表（如果現在是在資料夾裡新增的話）
-        if (typeof window.fcRenderFolderList === 'function') {
-          window.fcRenderFolderList();
+        // 更新資料夾列表（等你做完下面「修改 A」才會有）[file:1]
+        if (typeof window.__fcRenderFolderList === 'function') {
+          window.__fcRenderFolderList();
         }
       }
     } else {
-      // 編輯既有主題
       node.name = name;
       fcReplaceCardsOfNode(node.id, rows);
       fcSave();
-      alert(name + ' · ' + rows.length + ' 張');
+      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
       screen.remove();
-
-      // 同樣同時更新首頁與資料夾列表
-      if (typeof window.fcRenderHomeList === 'function') {
-        window.fcRenderHomeList();
+  
+      if (typeof window.__fcRenderHomeList === 'function') {
+        window.__fcRenderHomeList();
       }
-      if (typeof window.fcRenderFolderList === 'function') {
-        window.fcRenderFolderList();
+      if (typeof window.__fcRenderFolderList === 'function') {
+        window.__fcRenderFolderList();
       }
     }
   };
-
 
     // 收集卡片資料（注意：卡片欄位是 textarea）
     const rows = Array.from(cardsList.children).map(row => {
