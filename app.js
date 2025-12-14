@@ -5844,13 +5844,18 @@ function fcEnsureStyle() {
       position:relative;
       backdrop-filter: blur(8px);
 
-      /* 關鍵：可捲動 + 內容從上方開始 */
       overflow:auto;
       -webkit-overflow-scrolling:touch;
+
       display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .fc-viewer-card.fc-scroll{
       align-items:flex-start;
       justify-content:flex-start;
     }
+
     .fc-viewer-text{
       font-size:44px;
       font-weight:800;
@@ -6296,13 +6301,18 @@ function fcEnsureStudyStyle() {
       backdrop-filter: blur(8px);
       user-select:none;
 
-      /* 關鍵：可捲動 + 內容從上方開始 */
       overflow:auto;
       -webkit-overflow-scrolling:touch;
+
       display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .fc-study-card.fc-scroll{
       align-items:flex-start;
       justify-content:flex-start;
     }
+
     .fc-study-text{
       font-size:44px;
       font-weight:800;
@@ -6347,6 +6357,21 @@ function fcEnsureStudyStyle() {
     }
   `;
   document.head.appendChild(s);
+}
+function fcSyncCenterScroll(containerEl) {
+  if (!containerEl) return;
+
+  // 等瀏覽器排版完成後再量高度，避免量到舊的尺寸
+  requestAnimationFrame(() => {
+    const needScroll =
+      containerEl.scrollHeight > containerEl.clientHeight + 1 ||
+      containerEl.scrollWidth > containerEl.clientWidth + 1;
+
+    containerEl.classList.toggle('fc-scroll', needScroll);
+
+    // 若需要捲動，初始從最上方開始（比較符合閱讀）
+    if (needScroll) containerEl.scrollTop = 0;
+  });
 }
 
 function fcOpenStudy(nodeId, startIndex = 0) {
@@ -6411,6 +6436,7 @@ function fcOpenStudy(nodeId, startIndex = 0) {
     if (!c) return;
     progressEl.textContent = `${idx + 1} / ${cards.length}`;
     textEl.textContent = isFront ? (c.front || '') : (c.back || '');
+    fcSyncCenterScroll(cardEl);
     btnPrev.disabled = idx <= 0;
     btnNext.disabled = idx >= cards.length - 1;
   }
@@ -6499,12 +6525,25 @@ function fcOpenViewer(cardId) {
   document.body.appendChild(closeBtn);
 
   let isFront = true;
-  cardEl.onclick = () => {
-    isFront = !isFront;
+
+  const applyText = () => {
     text.textContent = isFront ? (card.front || '') : (card.back || '');
+    fcSyncCenterScroll(cardEl);
   };
 
+  // 初次套用（決定要不要捲動、要不要置中）
+  fcSyncCenterScroll(cardEl);
+
+  cardEl.onclick = () => {
+    isFront = !isFront;
+    applyText();
+  };
+
+  const onResize = () => fcSyncCenterScroll(cardEl);
+  window.addEventListener('resize', onResize);
+
   const close = () => {
+    window.removeEventListener('resize', onResize);
     try { mask.remove(); } catch {}
     try { closeBtn.remove(); } catch {}
   };
@@ -6512,6 +6551,7 @@ function fcOpenViewer(cardId) {
   closeBtn.onclick = close;
   mask.onclick = (e) => { if (e.target === mask) close(); };
 }
+
 
 // ---------- 綁定左欄按鈕 ----------
 const btnFlashcards = document.getElementById('btnFlashcards');
