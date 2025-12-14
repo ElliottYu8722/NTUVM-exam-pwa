@@ -5808,6 +5808,12 @@ function fcEnsureStyle() {
     .fc-panel{border:1px solid var(--border,#333);border-radius:16px;background:var(--card,#0b1220);padding:12px}
     .fc-row{display:flex;gap:10px;align-items:center}
     .fc-input{width:100%;box-sizing:border-box;padding:12px 12px;border-radius:14px;border:1px solid var(--border,#333);background:rgba(255,255,255,.06);color:var(--fg,#fff);outline:none;font-size:15px}
+    textarea.fc-input{
+      min-height:96px;
+      resize:vertical;
+      line-height:1.4;
+      white-space:pre-wrap;
+    }
     .fc-input:focus{border-color:var(--accent,#2f74ff)}
     .fc-list{display:flex;flex-direction:column;gap:10px}
     .fc-node{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 12px;border:1px solid var(--border,#333);border-radius:14px;background:rgba(255,255,255,.04)}
@@ -5828,7 +5834,7 @@ function fcEnsureStyle() {
     /* Viewer */
     .fc-viewer-mask{position:fixed;inset:0;z-index:100200;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px}
     .fc-viewer-card{width:min(520px,92vw);height:min(540px,72vh);background:rgba(255,255,255,.06);border:1px solid var(--border,#333);border-radius:24px;display:flex;align-items:center;justify-content:center;padding:26px;cursor:pointer;position:relative;backdrop-filter: blur(8px)}
-    .fc-viewer-text{font-size:44px;font-weight:800;letter-spacing:.5px;text-align:center;line-height:1.25;word-break:break-word}
+    .fc-viewer-text{font-size:44px;font-weight:800;letter-spacing:.5px;text-align:center;line-height:1.25;word-break:break-word;white-space:pre-wrap;}
     .fc-viewer-close{position:fixed;top:16px;left:16px;z-index:100210;width:44px;height:44px;border-radius:9999px;border:1px solid var(--border,#333);background:rgba(0,0,0,.25);color:var(--fg,#fff);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
     .fc-viewer-close:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
 
@@ -5932,16 +5938,17 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
     
     const grid = document.createElement('div');
     grid.className = 'grid';
-    
-    const inp1 = document.createElement('input');
+    const inp1 = document.createElement('textarea');
     inp1.className = 'fc-input';
     inp1.placeholder = '正面（問題）';
     inp1.value = front;
+    inp1.rows = 3;
     
-    const inp2 = document.createElement('input');
+    const inp2 = document.createElement('textarea');
     inp2.className = 'fc-input';
     inp2.placeholder = '背面（答案）';
     inp2.value = back;
+    inp2.rows = 3;
     
     grid.appendChild(inp1);
     grid.appendChild(inp2);
@@ -6272,6 +6279,7 @@ function fcEnsureStudyStyle() {
       font-weight:800;
       line-height:1.25;
       word-break:break-word;
+      white-space:pre-wrap;
     }
     .fc-study-hint{
       position:absolute;
