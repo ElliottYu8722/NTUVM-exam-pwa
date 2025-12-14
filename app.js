@@ -7941,31 +7941,59 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 // ---------- Flashcard viewer overflow fix ----------
-// 只修正「字卡顯示」：.fc-viewer-card（單張檢視）與 .fc-study-card（學習模式）[file:1]
-function ensureFlashcardOverflowTopFix() {
-  if (document.getElementById("flashcard-overflow-top-fix")) return;
+// ---------- Flashcard center/scroll behavior fix ----------
+// 規則：不需要 scrollbar → 垂直置中；需要 scrollbar → 從上開始 + 留 padding-top，避免第一行被吃掉
+function ensureFlashcardScrollFixStyle() {
+  if (document.getElementById("fc-scroll-fix-style")) return;
 
-  const style = document.createElement("style");
-  style.id = "flashcard-overflow-top-fix";
-  style.textContent = `
-    /* 你的原始樣式讓 .fc-viewer-card / .fc-study-card 用 flex 置中 + overflow:auto [file:1]
-       內容一旦超高，就可能看起來「上緣被吃掉」。
-       直接改成 block，保留 text-align:center（文字仍會置中），但避免 flex overflow 的坑。 */
+  const s = document.createElement("style");
+  s.id = "fc-scroll-fix-style";
+  s.textContent = `
+    /* 預設：保持垂直置中（符合你「沒 overflow 要在正中央」的需求） */
     .fc-viewer-card,
     .fc-study-card,
     #fc-study-card {
-      display: block !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+
+    /* 一旦內容超高需要捲動：改成從上開始排，避免上下平均溢出導致「上緣被吃掉」 */
+    .fc-viewer-card.fc-overflow,
+    .fc-study-card.fc-overflow,
+    #fc-study-card.fc-overflow {
+      justify-content: flex-start !important;
+      align-items: stretch !important; /* 水平仍可靠 text-align:center 視覺置中 */
+      padding-top: 28px !important;
+      padding-bottom: 28px !important;
+      box-sizing: border-box !important;
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(s);
 }
 
-try { ensureFlashcardOverflowTopFix(); } catch (e) {}
+function fcSyncCenterScroll(containerEl) {
+  if (!containerEl) return;
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => {
-    try { ensureFlashcardOverflowTopFix(); } catch (e) {}
+  ensureFlashcardScrollFixStyle();
+
+  // 等 DOM/排版完成後再判斷，避免剛換文字時量到舊高度
+  requestAnimationFrame(() => {
+    const isOverflow = containerEl.scrollHeight > containerEl.clientHeight + 1;
+
+    const wasOverflow = containerEl.dataset.fcOverflow === "1";
+    containerEl.dataset.fcOverflow = isOverflow ? "1" : "0";
+    containerEl.classList.toggle("fc-overflow", isOverflow);
+
+    // 只有「剛從不 overflow 變成 overflow」時，才把捲動拉回頂端，避免一進來就卡在怪位置
+    if (isOverflow && !wasOverflow) {
+      containerEl.scrollTop = 0;
+    }
+
+    // 如果回到不 overflow，確保狀態乾淨
+    if (!isOverflow) {
+      containerEl.scrollTop = 0;
+    }
   });
-} else {
-  try { ensureFlashcardOverflowTopFix(); } catch (e) {}
 }
