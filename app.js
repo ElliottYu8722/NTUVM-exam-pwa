@@ -5697,408 +5697,551 @@ function summarizeChoices(){
 }
 bindTapClick(btnRecords, showRecords);
 
-// ========== 字卡功能 Flashcards ==========
-const FLASHCARDS_STORAGE_KEY = 'ntuvm-flashcards-data';
+// ===================== 字卡功能 Flashcards（表單式介面） =====================
+const FLASHCARDS_STORAGE_KEY = 'ntuvm-flashcards-data-v2';
 
-function loadFlashcards() {
+function fcLoad() {
   try {
     const raw = localStorage.getItem(FLASHCARDS_STORAGE_KEY);
-    if (raw) {
-      state.flashcards = JSON.parse(raw);
-    }
+    if (raw) state.flashcards = JSON.parse(raw);
   } catch (e) {
-    console.error('loadFlashcards error:', e);
-    state.flashcards = { folders: [], cards: {} };
+    console.error('fcLoad error:', e);
   }
+  if (!state.flashcards || typeof state.flashcards !== 'object') state.flashcards = {};
+  if (!Array.isArray(state.flashcards.folders)) state.flashcards.folders = [];
+  if (!state.flashcards.cards || typeof state.flashcards.cards !== 'object') state.flashcards.cards = {};
 }
 
-function saveFlashcards() {
+function fcSave() {
   try {
     localStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(state.flashcards));
   } catch (e) {
-    console.error('saveFlashcards error:', e);
+    console.error('fcSave error:', e);
   }
 }
 
-function addFlashcardFolder(name, parentId = null, type = 'folder') {
-  const id = 'fc-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-  const folder = { id, name: name.trim(), parentId, type, items: [] };
-  state.flashcards.folders.push(folder);
-  saveFlashcards();
-  return folder;
+function fcId(prefix) {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-function addFlashcard(folderId, front, back) {
-  const id = 'card-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
-  const card = { id, folderId, front: front.trim(), back: back.trim() };
-  state.flashcards.cards[id] = card;
-  
-  const folder = state.flashcards.folders.find(f => f.id === folderId);
-  if (folder) {
-    folder.items.push(id);
+function fcGetNode(id) {
+  return state.flashcards.folders.find(x => x.id === id) || null;
+}
+
+function fcChildren(parentId) {
+  const pid = parentId || null;
+  return state.flashcards.folders.filter(x => (x.parentId || null) === pid);
+}
+
+function fcCreateNode({ name, parentId = null, type = 'folder' }) {
+  const trimmed = String(name || '').trim();
+  if (!trimmed) return null;
+
+  const parent = parentId ? fcGetNode(parentId) : null;
+  // 主題底下不要主題
+  if (type === 'topic' && parent && parent.type === 'topic') {
+    alert('主題底下不能再新增主題，只能新增資料夾或字卡。');
+    return null;
   }
-  saveFlashcards();
-  return card;
+
+  const node = {
+    id: fcId('fc'),
+    name: trimmed,
+    parentId: parentId || null,
+    type: type === 'topic' ? 'topic' : 'folder',
+    items: [] // cardIds
+  };
+  state.flashcards.folders.push(node);
+  fcSave();
+  return node;
 }
 
-function deleteFlashcardFolder(folderId) {
-  // 遞迴刪除子資料夾和字卡
-  const folder = state.flashcards.folders.find(f => f.id === folderId);
-  if (!folder) return;
-  
-  // 刪除此資料夾下的所有字卡
-  folder.items.forEach(itemId => {
-    if (state.flashcards.cards[itemId]) {
-      delete state.flashcards.cards[itemId];
-    }
+function fcDeleteNodeRecursive(nodeId) {
+  const node = fcGetNode(nodeId);
+  if (!node) return;
+
+  // 刪掉此節點字卡
+  (node.items || []).forEach(cid => { delete state.flashcards.cards[cid]; });
+
+  // 刪掉子節點
+  fcChildren(nodeId).forEach(ch => fcDeleteNodeRecursive(ch.id));
+
+  // 移除節點本身
+  state.flashcards.folders = state.flashcards.folders.filter(x => x.id !== nodeId);
+  fcSave();
+}
+
+function fcReplaceCardsOfNode(nodeId, rows) {
+  const node = fcGetNode(nodeId);
+  if (!node) return;
+
+  // 清空舊卡
+  (node.items || []).forEach(cid => { delete state.flashcards.cards[cid]; });
+  node.items = [];
+
+  // 建立新卡
+  (rows || []).forEach(r => {
+    const front = String(r.front || '').trim();
+    const back = String(r.back || '').trim();
+    if (!front && !back) return; // 空列略過
+    const id = fcId('card');
+    state.flashcards.cards[id] = { id, folderId: nodeId, front, back };
+    node.items.push(id);
   });
-  
-  // 刪除子資料夾
-  const children = state.flashcards.folders.filter(f => f.parentId === folderId);
-  children.forEach(child => deleteFlashcardFolder(child.id));
-  
-  // 移除資料夾本身
-  state.flashcards.folders = state.flashcards.folders.filter(f => f.id !== folderId);
-  saveFlashcards();
+
+  fcSave();
 }
 
-function deleteFlashcard(cardId) {
-  const card = state.flashcards.cards[cardId];
-  if (!card) return;
-  
-  // 從資料夾的 items 移除
-  const folder = state.flashcards.folders.find(f => f.id === card.folderId);
-  if (folder) {
-    folder.items = folder.items.filter(id => id !== cardId);
-  }
-  
-  delete state.flashcards.cards[cardId];
-  saveFlashcards();
+// ---------- Style ----------
+function fcEnsureStyle() {
+  if (document.getElementById('fc-style-v2')) return;
+  const s = document.createElement('style');
+  s.id = 'fc-style-v2';
+  s.textContent = `
+    .fc-mask{position:fixed;inset:0;z-index:100120;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center}
+    .fc-screen{position:fixed;inset:0;z-index:100121;background:var(--bg,#0b1220);color:var(--fg,#fff);display:flex;flex-direction:column}
+    .fc-top{display:flex;align-items:center;gap:10px;padding:14px 14px;border-bottom:1px solid var(--border,#233);background:rgba(0,0,0,.12)}
+    .fc-top .title{font-weight:800;font-size:16px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fc-iconbtn{width:40px;height:36px;border-radius:12px;border:1px solid var(--border,#333);background:transparent;color:var(--fg,#fff);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center}
+    .fc-iconbtn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+    .fc-body{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .fc-panel{border:1px solid var(--border,#333);border-radius:16px;background:var(--card,#0b1220);padding:12px}
+    .fc-row{display:flex;gap:10px;align-items:center}
+    .fc-input{width:100%;box-sizing:border-box;padding:12px 12px;border-radius:14px;border:1px solid var(--border,#333);background:rgba(255,255,255,.06);color:var(--fg,#fff);outline:none;font-size:15px}
+    .fc-input:focus{border-color:var(--accent,#2f74ff)}
+    .fc-list{display:flex;flex-direction:column;gap:10px}
+    .fc-node{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 12px;border:1px solid var(--border,#333);border-radius:14px;background:rgba(255,255,255,.04)}
+    .fc-node .label{font-weight:700;cursor:pointer;flex:1;min-width:0}
+    .fc-btn{padding:8px 12px;border-radius:9999px;border:1px solid var(--border,#333);background:transparent;color:var(--fg,#fff);cursor:pointer;font-size:13px}
+    .fc-btn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+    .fc-btn.danger{color:#ff6b6b}
+    .fc-btn.danger:hover{border-color:#ff6b6b;color:#ff6b6b}
+    .fc-subtitle{font-weight:800;margin:2px 2px 8px 2px;opacity:.9}
+    .fc-cardrow{border:1px solid var(--border,#333);border-radius:16px;padding:12px;background:rgba(255,255,255,.03)}
+    .fc-cardrow .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
+    .fc-cardrow .meta .idx{font-weight:800;opacity:.75}
+    .fc-cardrow .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .fc-floating-plus{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:54px;height:54px;border-radius:9999px;border:none;background:var(--accent,#2f74ff);color:#fff;font-size:28px;cursor:pointer;z-index:100130;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    .fc-floating-plus:active{transform:translateX(-50%) scale(.98)}
+    .fc-hint{color:var(--muted,#aaa);font-size:13px;line-height:1.6}
+
+    /* Viewer */
+    .fc-viewer-mask{position:fixed;inset:0;z-index:100200;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px}
+    .fc-viewer-card{width:min(520px,92vw);height:min(540px,72vh);background:rgba(255,255,255,.06);border:1px solid var(--border,#333);border-radius:24px;display:flex;align-items:center;justify-content:center;padding:26px;cursor:pointer;position:relative;backdrop-filter: blur(8px)}
+    .fc-viewer-text{font-size:44px;font-weight:800;letter-spacing:.5px;text-align:center;line-height:1.25;word-break:break-word}
+    .fc-viewer-close{position:fixed;top:16px;left:16px;z-index:100210;width:44px;height:44px;border-radius:9999px;border:1px solid var(--border,#333);background:rgba(0,0,0,.25);color:var(--fg,#fff);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    .fc-viewer-close:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+
+    /* 平板 */
+    @media (max-width: 1024px){
+      .fc-viewer-text{font-size:36px}
+    }
+    /* 手機 */
+    @media (max-width: 768px){
+      .fc-body{padding:12px}
+      .fc-cardrow .grid{grid-template-columns:1fr;gap:10px}
+      .fc-viewer-text{font-size:30px}
+    }
+  `;
+  document.head.appendChild(s);
 }
 
-function updateFlashcard(cardId, front, back) {
-  if (!state.flashcards.cards[cardId]) return;
-  state.flashcards.cards[cardId].front = front.trim();
-  state.flashcards.cards[cardId].back = back.trim();
-  saveFlashcards();
-}
+// ---------- 主畫面：資料夾/主題清單 ----------
+function fcOpenHome() {
+  fcEnsureStyle();
+  fcLoad();
 
-// 打開字卡主介面
-function openFlashcardsMain() {
-  if (document.getElementById('flashcards-main-mask')) return;
-  
-  const mask = document.createElement('div');
-  mask.id = 'flashcards-main-mask';
-  mask.className = 'flashcards-main-mask';
-  
-  const panel = document.createElement('div');
-  panel.className = 'flashcards-main-panel';
-  
-  panel.innerHTML = `
-    <div class="flashcards-main-header">
-      <div class="flashcards-main-title">字卡管理</div>
-      <div class="flashcards-main-spacer"></div>
-      <button class="flashcards-btn" id="fc-add-folder-btn">新增資料夾</button>
-      <button class="flashcards-btn" id="fc-add-topic-btn">新增主題</button>
-      <button class="flashcards-btn" id="fc-close-btn">退出</button>
+  if (document.getElementById('fc-screen')) return;
+
+  const screen = document.createElement('div');
+  screen.id = 'fc-screen';
+  screen.className = 'fc-screen';
+
+  screen.innerHTML = `
+    <div class="fc-top">
+      <button class="fc-iconbtn" id="fc-home-close" title="退出">✕</button>
+      <div class="title">字卡</div>
+      <button class="fc-iconbtn" id="fc-home-add-folder" title="新增資料夾">📁</button>
+      <button class="fc-iconbtn" id="fc-home-add-topic" title="新增主題">📘</button>
     </div>
-    <div class="flashcards-main-body" id="fc-main-body">
-      <div class="fc-folder-list" id="fc-folder-list"></div>
+
+    <div class="fc-body">
+      <div class="fc-panel">
+        <div class="fc-subtitle">資料夾 / 主題</div>
+        <div class="fc-list" id="fc-home-list"></div>
+        <div class="fc-hint" style="margin-top:10px">
+          點一個資料夾/主題進去後，就會像你截圖那樣：直接用「正面 / 背面」表單新增多張字卡。
+        </div>
+      </div>
     </div>
   `;
-  
-  mask.appendChild(panel);
-  document.body.appendChild(mask);
-  
-  // 綁定事件
-  document.getElementById('fc-close-btn').addEventListener('click', () => mask.remove());
-  document.getElementById('fc-add-folder-btn').addEventListener('click', () => {
-    const name = prompt('請輸入資料夾名稱：');
-    if (name && name.trim()) {
-      addFlashcardFolder(name, null, 'folder');
-      renderFlashcardFolders();
-    }
-  });
-  document.getElementById('fc-add-topic-btn').addEventListener('click', () => {
-    const name = prompt('請輸入主題名稱：');
-    if (name && name.trim()) {
-      addFlashcardFolder(name, null, 'topic');
-      renderFlashcardFolders();
-    }
-  });
-  
-  renderFlashcardFolders();
-  
-  mask.addEventListener('click', (e) => {
-    if (e.target === mask) mask.remove();
-  });
-}
 
-// 渲染資料夾列表
-function renderFlashcardFolders(parentId = null, containerEl = null) {
-  const container = containerEl || document.getElementById('fc-folder-list');
-  if (!container) return;
-  
-  if (!containerEl) {
-    container.innerHTML = '';
-  }
-  
-  const folders = state.flashcards.folders.filter(f => f.parentId === parentId);
-  
-  if (folders.length === 0 && !parentId) {
-    container.innerHTML = '<div class="fc-empty-hint">尚無資料夾或主題，請點選上方按鈕新增</div>';
-    return;
-  }
-  
-  folders.forEach(folder => {
-    const row = document.createElement('div');
-    row.className = 'fc-folder-row';
-    
-    const icon = folder.type === 'folder' ? '📁' : '📘';
-    const label = document.createElement('div');
-    label.className = 'fc-folder-label';
-    label.textContent = `${icon} ${folder.name}`;
-    label.style.cursor = 'pointer';
-    label.addEventListener('click', () => openFolderDetail(folder));
-    
-    const btnGroup = document.createElement('div');
-    btnGroup.className = 'fc-folder-btn-group';
-    
-    const btnAddSub = document.createElement('button');
-    btnAddSub.className = 'fc-folder-btn-small';
-    btnAddSub.textContent = '+子';
-    btnAddSub.title = '新增子項目';
-    btnAddSub.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showAddSubMenu(folder);
-    });
-    
-    const btnDel = document.createElement('button');
-    btnDel.className = 'fc-folder-btn-small fc-folder-btn-danger';
-    btnDel.textContent = '刪除';
-    btnDel.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (confirm(`確定刪除「${folder.name}」及其所有內容？`)) {
-        deleteFlashcardFolder(folder.id);
-        renderFlashcardFolders();
-      }
-    });
-    
-    btnGroup.appendChild(btnAddSub);
-    btnGroup.appendChild(btnDel);
-    row.appendChild(label);
-    row.appendChild(btnGroup);
-    container.appendChild(row);
-  });
-}
+  document.body.appendChild(screen);
 
-// 顯示新增子項目選單
-function showAddSubMenu(parent) {
-  const choices = prompt(`在「${parent.name}」下新增：\n1. 輸入 "資料夾 名稱" 新增子資料夾\n2. 輸入 "主題 名稱" 新增子主題\n3. 輸入 "字卡 正面|背面" 新增字卡\n\n範例：資料夾 期中考範圍`);
-  if (!choices) return;
-  
-  const parts = choices.trim().split(/\s+/);
-  const type = parts[0];
-  const rest = parts.slice(1).join(' ');
-  
-  if (type === '資料夾' && rest) {
-    addFlashcardFolder(rest, parent.id, 'folder');
-    renderFlashcardFolders();
-  } else if (type === '主題' && rest) {
-    addFlashcardFolder(rest, parent.id, 'topic');
-    renderFlashcardFolders();
-  } else if (type === '字卡' && rest.includes('|')) {
-    const [front, back] = rest.split('|').map(s => s.trim());
-    if (front && back) {
-      addFlashcard(parent.id, front, back);
-      alert('字卡已新增！');
-    } else {
-      alert('格式錯誤，請使用：字卡 正面|背面');
-    }
-  } else {
-    alert('格式錯誤，請重新輸入');
-  }
-}
+  const close = () => { try { screen.remove(); } catch {} };
+  document.getElementById('fc-home-close').onclick = close;
 
-// 打開資料夾詳細內容
-function openFolderDetail(folder) {
-  if (document.getElementById('fc-detail-mask')) {
-    document.getElementById('fc-detail-mask').remove();
-  }
-  
-  const mask = document.createElement('div');
-  mask.id = 'fc-detail-mask';
-  mask.className = 'flashcards-main-mask';
-  
-  const panel = document.createElement('div');
-  panel.className = 'flashcards-main-panel';
-  
-  panel.innerHTML = `
-    <div class="flashcards-main-header">
-      <div class="flashcards-main-title">${folder.name}</div>
-      <div class="flashcards-main-spacer"></div>
-      <button class="flashcards-btn" id="fc-detail-add-card">新增字卡</button>
-      <button class="flashcards-btn" id="fc-detail-back">返回</button>
-    </div>
-    <div class="flashcards-main-body" id="fc-detail-body">
-      <div class="fc-card-grid" id="fc-card-grid"></div>
-    </div>
-  `;
-  
-  mask.appendChild(panel);
-  document.body.appendChild(mask);
-  
-  document.getElementById('fc-detail-back').addEventListener('click', () => mask.remove());
-  document.getElementById('fc-detail-add-card').addEventListener('click', () => {
-    const input = prompt('請輸入字卡內容（格式：正面|背面）：');
-    if (!input || !input.includes('|')) {
-      alert('格式錯誤，請使用：正面|背面');
+  document.getElementById('fc-home-add-folder').onclick = () => {
+    fcOpenEditor({ mode: 'create', parentId: null, type: 'folder' });
+  };
+
+  document.getElementById('fc-home-add-topic').onclick = () => {
+    fcOpenEditor({ mode: 'create', parentId: null, type: 'topic' });
+  };
+
+  function renderHomeList() {
+    const list = document.getElementById('fc-home-list');
+    if (!list) return;
+    list.innerHTML = '';
+
+    const roots = fcChildren(null);
+    if (!roots.length) {
+      list.innerHTML = `<div class="fc-hint">目前沒有資料夾/主題，右上角 📁/📘 建一個吧。</div>`;
       return;
     }
-    const [front, back] = input.split('|').map(s => s.trim());
-    if (front && back) {
-      addFlashcard(folder.id, front, back);
-      renderFolderCards(folder);
-    }
-  });
-  
-  renderFolderCards(folder);
-  
-  mask.addEventListener('click', (e) => {
-    if (e.target === mask) mask.remove();
-  });
-}
 
-// 渲染資料夾內的字卡（橫向卡片展示）
-function renderFolderCards(folder) {
-  const container = document.getElementById('fc-card-grid');
-  if (!container) return;
-  
-  container.innerHTML = '';
-  
-  const cardIds = folder.items || [];
-  if (cardIds.length === 0) {
-    container.innerHTML = '<div class="fc-empty-hint">此資料夾尚無字卡，請點選上方新增</div>';
-    return;
+    roots.forEach(node => {
+      const row = document.createElement('div');
+      row.className = 'fc-node';
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = `${node.type === 'topic' ? '📘' : '📁'} ${node.name}`;
+      label.onclick = () => fcOpenEditor({ mode: 'edit', nodeId: node.id });
+
+      const right = document.createElement('div');
+      right.style.display = 'flex';
+      right.style.gap = '8px';
+
+      const del = document.createElement('button');
+      del.className = 'fc-btn danger';
+      del.textContent = '刪除';
+      del.onclick = () => {
+        if (!confirm(`確定刪除「${node.name}」及其所有內容？`)) return;
+        fcDeleteNodeRecursive(node.id);
+        renderHomeList();
+      };
+
+      right.appendChild(del);
+      row.appendChild(label);
+      row.appendChild(right);
+      list.appendChild(row);
+    });
   }
-  
-  cardIds.forEach(cardId => {
-    const card = state.flashcards.cards[cardId];
-    if (!card) return;
-    
-    const cardEl = document.createElement('div');
-    cardEl.className = 'fc-card-item';
-    
-    const front = document.createElement('div');
-    front.className = 'fc-card-front';
-    front.textContent = card.front;
-    
-    const btnRow = document.createElement('div');
-    btnRow.className = 'fc-card-btn-row';
-    
-    const btnView = document.createElement('button');
-    btnView.className = 'fc-card-btn-small';
-    btnView.textContent = '檢視';
-    btnView.addEventListener('click', () => openCardViewer(cardId));
-    
-    const btnEdit = document.createElement('button');
-    btnEdit.className = 'fc-card-btn-small';
-    btnEdit.textContent = '編輯';
-    btnEdit.addEventListener('click', () => {
-      const input = prompt('請輸入新內容（格式：正面|背面）：', `${card.front}|${card.back}`);
-      if (!input || !input.includes('|')) return;
-      const [f, b] = input.split('|').map(s => s.trim());
-      if (f && b) {
-        updateFlashcard(cardId, f, b);
-        renderFolderCards(folder);
-      }
-    });
-    
-    const btnDel = document.createElement('button');
-    btnDel.className = 'fc-card-btn-small fc-folder-btn-danger';
-    btnDel.textContent = '刪除';
-    btnDel.addEventListener('click', () => {
-      if (confirm('確定刪除此字卡？')) {
-        deleteFlashcard(cardId);
-        renderFolderCards(folder);
-      }
-    });
-    
-    btnRow.appendChild(btnView);
-    btnRow.appendChild(btnEdit);
-    btnRow.appendChild(btnDel);
-    
-    cardEl.appendChild(front);
-    cardEl.appendChild(btnRow);
-    container.appendChild(cardEl);
-  });
+
+  // 給 editor 回來時用
+  window.__fcRenderHomeList = renderHomeList;
+  renderHomeList();
 }
 
-// 打開單張字卡檢視器（可翻面）
-function openCardViewer(cardId) {
+// ---------- 編輯器：像你截圖的「建立單詞卡學習集」 ----------
+function fcOpenEditor({ mode, nodeId = null, parentId = null, type = 'folder' }) {
+  fcEnsureStyle();
+  fcLoad();
+
+  // 先把 home 留著（不關），直接蓋一層 editor
+  const old = document.getElementById('fc-editor-screen');
+  if (old) try { old.remove(); } catch {}
+
+  let node = null;
+  let isCreate = mode === 'create';
+
+  if (isCreate) {
+    // 先建立節點（按 ✓ 才會真正寫卡片）
+    node = { id: fcId('tmp'), name: '', parentId: parentId || null, type: type === 'topic' ? 'topic' : 'folder', items: [] };
+  } else {
+    node = fcGetNode(nodeId);
+    if (!node) return;
+  }
+
+  const allowAddTopicInside = (!isCreate && node.type === 'folder') ? true : (isCreate && type === 'folder');
+  // 只有「資料夾」內才允許新增「主題」，主題內不允許新增主題
+  // 你也可以決定：根目錄才有主題，資料夾內不要主題；如果要那樣我再幫你改。
+
+  // 組出 rows
+  const rows = [];
+  if (!isCreate) {
+    const ids = Array.isArray(node.items) ? node.items : [];
+    ids.forEach(cid => {
+      const c = state.flashcards.cards[cid];
+      if (c) rows.push({ front: c.front || '', back: c.back || '' });
+    });
+  }
+  if (!rows.length) {
+    // 預設給兩列，像你截圖
+    rows.push({ front: '', back: '' });
+    rows.push({ front: '', back: '' });
+  }
+
+  const screen = document.createElement('div');
+  screen.id = 'fc-editor-screen';
+  screen.className = 'fc-screen';
+
+  const titleText = isCreate ? '建立字卡集' : '編輯字卡集';
+  screen.innerHTML = `
+    <div class="fc-top">
+      <button class="fc-iconbtn" id="fc-editor-cancel" title="取消">✕</button>
+      <div class="title">${titleText}</div>
+      <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
+    </div>
+
+    <div class="fc-body">
+      <div class="fc-panel">
+        <div class="fc-subtitle">標題</div>
+        <input class="fc-input" id="fc-node-name" placeholder="例如：微生物 - 腸道菌" />
+        <div class="fc-hint" style="margin-top:8px">
+          新增字卡時只有「正面 / 背面」，不會再出現主題欄位。
+        </div>
+      </div>
+
+      <div class="fc-panel">
+        <div class="fc-subtitle">字卡（正面 / 背面）</div>
+        <div class="fc-list" id="fc-card-rows"></div>
+      </div>
+
+      <div class="fc-panel" id="fc-child-panel">
+        <div class="fc-subtitle">子資料夾</div>
+        <div class="fc-list" id="fc-child-list"></div>
+        <div class="fc-row" style="margin-top:10px;justify-content:flex-end;gap:8px">
+          <button class="fc-btn" id="fc-add-child-folder">新增資料夾</button>
+          ${allowAddTopicInside ? `<button class="fc-btn" id="fc-add-child-topic">新增主題</button>` : ``}
+        </div>
+        <div class="fc-hint" style="margin-top:8px">
+          主題底下不會出現「新增主題」，只會有新增資料夾。
+        </div>
+      </div>
+    </div>
+
+    <button class="fc-floating-plus" id="fc-add-row" title="新增一張字卡">+</button>
+  `;
+
+  document.body.appendChild(screen);
+
+  const nameInput = screen.querySelector('#fc-node-name');
+  nameInput.value = isCreate ? '' : (node.name || '');
+
+  const rowsEl = screen.querySelector('#fc-card-rows');
+
+  function renderRows() {
+    rowsEl.innerHTML = '';
+    rows.forEach((r, idx) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'fc-cardrow';
+
+      wrap.innerHTML = `
+        <div class="meta">
+          <div class="idx">${idx + 1}</div>
+          <div style="display:flex;gap:8px">
+            <button class="fc-btn danger" data-del="${idx}">刪除</button>
+          </div>
+        </div>
+        <div class="grid">
+          <input class="fc-input" data-front="${idx}" placeholder="正面（例如：E. coli）" />
+          <input class="fc-input" data-back="${idx}"  placeholder="背面（例如：local form / systemic form...）" />
+        </div>
+      `;
+
+      rowsEl.appendChild(wrap);
+
+      const inF = wrap.querySelector(`[data-front="${idx}"]`);
+      const inB = wrap.querySelector(`[data-back="${idx}"]`);
+      inF.value = r.front || '';
+      inB.value = r.back || '';
+
+      inF.oninput = () => { rows[idx].front = inF.value; };
+      inB.oninput = () => { rows[idx].back = inB.value; };
+
+      const delBtn = wrap.querySelector(`[data-del="${idx}"]`);
+      delBtn.onclick = () => {
+        if (rows.length <= 1) {
+          rows[0].front = '';
+          rows[0].back = '';
+        } else {
+          rows.splice(idx, 1);
+        }
+        renderRows();
+      };
+    });
+  }
+
+  function renderChildList() {
+    const panel = screen.querySelector('#fc-child-panel');
+    const list = screen.querySelector('#fc-child-list');
+    if (!panel || !list) return;
+
+    // create mode 時先不顯示子資料夾（因為 node 尚未真的建立）
+    if (isCreate) {
+      panel.style.display = 'none';
+      return;
+    } else {
+      panel.style.display = '';
+    }
+
+    list.innerHTML = '';
+    const kids = fcChildren(node.id);
+    if (!kids.length) {
+      list.innerHTML = `<div class="fc-hint">目前沒有子資料夾。</div>`;
+      return;
+    }
+
+    kids.forEach(ch => {
+      const row = document.createElement('div');
+      row.className = 'fc-node';
+
+      const label = document.createElement('div');
+      label.className = 'label';
+      label.textContent = `${ch.type === 'topic' ? '📘' : '📁'} ${ch.name}`;
+      label.onclick = () => fcOpenEditor({ mode: 'edit', nodeId: ch.id });
+
+      const right = document.createElement('div');
+      right.style.display = 'flex';
+      right.style.gap = '8px';
+
+      const del = document.createElement('button');
+      del.className = 'fc-btn danger';
+      del.textContent = '刪除';
+      del.onclick = () => {
+        if (!confirm(`確定刪除「${ch.name}」及其所有內容？`)) return;
+        fcDeleteNodeRecursive(ch.id);
+        renderChildList();
+      };
+
+      right.appendChild(del);
+      row.appendChild(label);
+      row.appendChild(right);
+      list.appendChild(row);
+    });
+  }
+
+  // + 增加一列（像你截圖底部 +）
+  screen.querySelector('#fc-add-row').onclick = () => {
+    rows.push({ front: '', back: '' });
+    renderRows();
+    // 捲到底
+    setTimeout(() => {
+      try { rowsEl.lastElementChild?.scrollIntoView({ block: 'end', behavior: 'smooth' }); } catch {}
+    }, 0);
+  };
+
+  // 取消
+  screen.querySelector('#fc-editor-cancel').onclick = () => {
+    try { screen.remove(); } catch {}
+  };
+
+  // 儲存
+  screen.querySelector('#fc-editor-save').onclick = () => {
+    const name = String(nameInput.value || '').trim();
+    if (!name) {
+      alert('請先輸入標題。');
+      nameInput.focus();
+      return;
+    }
+
+    if (isCreate) {
+      const created = fcCreateNode({ name, parentId, type });
+      if (!created) return;
+      fcReplaceCardsOfNode(created.id, rows);
+      try { screen.remove(); } catch {}
+      if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+      return;
+    }
+
+    // edit
+    node.name = name;
+    fcReplaceCardsOfNode(node.id, rows);
+    fcSave();
+    renderChildList();
+    alert('已儲存！');
+    if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+  };
+
+  // 子資料夾新增（只在 edit 模式）
+  const btnAddChildFolder = screen.querySelector('#fc-add-child-folder');
+  if (btnAddChildFolder) {
+    btnAddChildFolder.onclick = () => {
+      if (isCreate) return;
+      const nm = prompt('子資料夾名稱：');
+      if (!nm || !nm.trim()) return;
+      fcCreateNode({ name: nm, parentId: node.id, type: 'folder' });
+      renderChildList();
+      if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+    };
+  }
+
+  const btnAddChildTopic = screen.querySelector('#fc-add-child-topic');
+  if (btnAddChildTopic) {
+    btnAddChildTopic.onclick = () => {
+      if (isCreate) return;
+      const nm = prompt('子主題名稱：');
+      if (!nm || !nm.trim()) return;
+      fcCreateNode({ name: nm, parentId: node.id, type: 'topic' });
+      renderChildList();
+      if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+    };
+  }
+
+  renderRows();
+  renderChildList();
+  setTimeout(() => nameInput.focus(), 0);
+}
+
+// ---------- 檢視器：直式大卡，點一下翻面 ----------
+function fcOpenViewer(cardId) {
+  fcEnsureStyle();
+  fcLoad();
+
   const card = state.flashcards.cards[cardId];
   if (!card) return;
-  
-  if (document.getElementById('fc-viewer-mask')) {
-    document.getElementById('fc-viewer-mask').remove();
-  }
-  
+
+  const old = document.getElementById('fc-viewer-mask');
+  if (old) try { old.remove(); } catch {}
+  const oldBtn = document.getElementById('fc-viewer-close');
+  if (oldBtn) try { oldBtn.remove(); } catch {}
+
   const mask = document.createElement('div');
   mask.id = 'fc-viewer-mask';
   mask.className = 'fc-viewer-mask';
-  
-  const viewer = document.createElement('div');
-  viewer.className = 'fc-viewer-card';
-  viewer.id = 'fc-viewer-card';
-  
-  const content = document.createElement('div');
-  content.className = 'fc-viewer-content';
-  content.id = 'fc-viewer-content';
-  content.textContent = card.front;
-  
-  const hint = document.createElement('div');
-  hint.className = 'fc-viewer-hint';
-  hint.textContent = '點擊卡片翻面';
-  
-  viewer.appendChild(content);
-  viewer.appendChild(hint);
-  
-  let isFront = true;
-  viewer.addEventListener('click', () => {
-    viewer.classList.add('fc-flip');
-    setTimeout(() => {
-      content.textContent = isFront ? card.back : card.front;
-      isFront = !isFront;
-      hint.textContent = isFront ? '點擊卡片翻面' : '點擊卡片翻回正面';
-      viewer.classList.remove('fc-flip');
-    }, 150);
-  });
-  
+
   const closeBtn = document.createElement('button');
+  closeBtn.id = 'fc-viewer-close';
   closeBtn.className = 'fc-viewer-close';
-  closeBtn.textContent = '×';
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    mask.remove();
-  });
-  
-  mask.appendChild(viewer);
-  mask.appendChild(closeBtn);
+  closeBtn.textContent = '✕';
+
+  const cardEl = document.createElement('div');
+  cardEl.className = 'fc-viewer-card';
+
+  const text = document.createElement('div');
+  text.className = 'fc-viewer-text';
+  text.textContent = card.front || '';
+
+  cardEl.appendChild(text);
+  mask.appendChild(cardEl);
   document.body.appendChild(mask);
-  
-  mask.addEventListener('click', (e) => {
-    if (e.target === mask) mask.remove();
-  });
+  document.body.appendChild(closeBtn);
+
+  let isFront = true;
+  cardEl.onclick = () => {
+    isFront = !isFront;
+    text.textContent = isFront ? (card.front || '') : (card.back || '');
+  };
+
+  const close = () => {
+    try { mask.remove(); } catch {}
+    try { closeBtn.remove(); } catch {}
+  };
+
+  closeBtn.onclick = close;
+  mask.onclick = (e) => { if (e.target === mask) close(); };
 }
 
-// 初始化字卡按鈕事件
+// ---------- 綁定左欄按鈕 ----------
 const btnFlashcards = document.getElementById('btnFlashcards');
 if (btnFlashcards) {
-  bindTapClick(btnFlashcards, () => {
-    loadFlashcards();
-    openFlashcardsMain();
-  });
+  bindTapClick(btnFlashcards, fcOpenHome);
 }
+// =================== 字卡功能結束 ===================
+
+
 
 
 function appendRecord(row){
