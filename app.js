@@ -5833,8 +5833,37 @@ function fcEnsureStyle() {
 
     /* Viewer */
     .fc-viewer-mask{position:fixed;inset:0;z-index:100200;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;padding:16px}
-    .fc-viewer-card{width:min(520px,92vw);height:min(540px,72vh);background:rgba(255,255,255,.06);border:1px solid var(--border,#333);border-radius:24px;display:flex;align-items:center;justify-content:center;padding:26px;cursor:pointer;position:relative;backdrop-filter: blur(8px)}
-    .fc-viewer-text{font-size:44px;font-weight:800;letter-spacing:.5px;text-align:center;line-height:1.25;word-break:break-word;white-space:pre-wrap;}
+    .fc-viewer-card{
+      width:min(520px,92vw);
+      height:min(540px,72vh);
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border,#333);
+      border-radius:24px;
+      padding:26px;
+      cursor:pointer;
+      position:relative;
+      backdrop-filter: blur(8px);
+
+      /* 關鍵：可捲動 + 內容從上方開始 */
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+    }
+    .fc-viewer-text{
+      font-size:44px;
+      font-weight:800;
+      letter-spacing:.5px;
+      text-align:center;
+      line-height:1.25;
+      word-break:break-word;
+      white-space:pre-wrap;
+
+      /* 讓長內容在卡片內捲動時不會怪怪的 */
+      width:100%;
+    }
+
     .fc-viewer-close{position:fixed;top:16px;left:16px;z-index:100210;width:44px;height:44px;border-radius:9999px;border:1px solid var(--border,#333);background:rgba(0,0,0,.25);color:var(--fg,#fff);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center}
     .fc-viewer-close:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
 
@@ -6262,13 +6291,17 @@ function fcEnsureStudyStyle() {
       border:1px solid var(--border,#333);
       border-radius:24px;
       padding:28px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
       text-align:center;
       cursor:pointer;
       backdrop-filter: blur(8px);
       user-select:none;
+
+      /* 關鍵：可捲動 + 內容從上方開始 */
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
     }
     .fc-study-text{
       font-size:44px;
