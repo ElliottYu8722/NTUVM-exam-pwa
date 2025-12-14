@@ -5870,7 +5870,6 @@ function fcOpenHome() {
         <div class="fc-subtitle">資料夾 / 主題</div>
         <div class="fc-list" id="fc-home-list"></div>
         <div class="fc-hint" style="margin-top:10px">
-          點一個資料夾/主題進去後，就會像你截圖那樣：直接用「正面 / 背面」表單新增多張字卡。
         </div>
       </div>
     </div>
@@ -5990,7 +5989,6 @@ function fcOpenEditor({ mode, nodeId = null, parentId = null, type = 'folder' })
         <div class="fc-subtitle">標題</div>
         <input class="fc-input" id="fc-node-name" placeholder="例如：微生物 - 腸道菌" />
         <div class="fc-hint" style="margin-top:8px">
-          新增字卡時只有「正面 / 背面」，不會再出現主題欄位。
         </div>
       </div>
 
@@ -6007,7 +6005,6 @@ function fcOpenEditor({ mode, nodeId = null, parentId = null, type = 'folder' })
           ${allowAddTopicInside ? `<button class="fc-btn" id="fc-add-child-topic">新增主題</button>` : ``}
         </div>
         <div class="fc-hint" style="margin-top:8px">
-          主題底下不會出現「新增主題」，只會有新增資料夾。
         </div>
       </div>
     </div>
