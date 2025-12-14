@@ -5844,16 +5844,12 @@ function fcEnsureStyle() {
       position:relative;
       backdrop-filter: blur(8px);
 
+      /* 永遠置中，單純交給 overflow:auto 控制 scrollbar */
       overflow:auto;
       -webkit-overflow-scrolling:touch;
-
       display:flex;
       align-items:center;
       justify-content:center;
-    }
-    .fc-viewer-card.fc-scroll{
-      align-items:flex-start;
-      justify-content:flex-start;
     }
 
     .fc-viewer-text{
@@ -6301,16 +6297,12 @@ function fcEnsureStudyStyle() {
       backdrop-filter: blur(8px);
       user-select:none;
 
+      /* 永遠置中，scrollbar 自動出現就好 */
       overflow:auto;
       -webkit-overflow-scrolling:touch;
-
       display:flex;
       align-items:center;
       justify-content:center;
-    }
-    .fc-study-card.fc-scroll{
-      align-items:flex-start;
-      justify-content:flex-start;
     }
 
     .fc-study-text{
@@ -6360,19 +6352,10 @@ function fcEnsureStudyStyle() {
 }
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
-
-  // 等瀏覽器排版完成後再量高度，避免量到舊的尺寸
-  requestAnimationFrame(() => {
-    const needScroll =
-      containerEl.scrollHeight > containerEl.clientHeight + 1 ||
-      containerEl.scrollWidth > containerEl.clientWidth + 1;
-
-    containerEl.classList.toggle('fc-scroll', needScroll);
-
-    // 若需要捲動，初始從最上方開始（比較符合閱讀）
-    if (needScroll) containerEl.scrollTop = 0;
-  });
+  // 現在不再改變置中方式，也不強制捲到最上面
+  // overflow:auto 會自動決定要不要顯示 scrollbar，就交給瀏覽器處理就好
 }
+
 
 function fcOpenStudy(nodeId, startIndex = 0) {
   fcEnsureStyle?.();       // 你原本的樣式（如果有）
