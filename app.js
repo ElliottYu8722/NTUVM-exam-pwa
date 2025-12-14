@@ -6200,8 +6200,16 @@ function fcOpenFolder(nodeId) {
   `;
 
   document.body.appendChild(screen);
-
-  const close = () => { try { screen.remove(); } catch {} };
+  // ✕：如果有上一層資料夾，就回上一層；否則才回到根目錄（關掉資料夾畫面）
+  const close = () => {
+    if (node.parentId) {
+      // 回上一層資料夾
+      fcOpenFolder(node.parentId);
+    } else {
+      // 已經是最上層資料夾 → 關掉資料夾畫面，露出首頁
+      try { screen.remove(); } catch {}
+    }
+  };
   document.getElementById('fc-folder-close').onclick = close;
 
   // 在此資料夾內新增資料夾
