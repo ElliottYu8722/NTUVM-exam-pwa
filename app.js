@@ -5906,11 +5906,15 @@ function fcOpenHome() {
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${node.type === 'topic' ? '📘' : '📁'} ${node.name}`;
-      label.onclick = () => fcOpenEditor({ mode: 'edit', nodeId: node.id });
-
+      label.onclick = () => fcOpenStudy(node.id);
       const right = document.createElement('div');
       right.style.display = 'flex';
       right.style.gap = '8px';
+      
+      const edit = document.createElement('button');
+      edit.className = 'fc-btn';
+      edit.textContent = '編輯';
+      edit.onclick = () => fcOpenEditor({ mode: 'edit', nodeId: node.id });
 
       const del = document.createElement('button');
       del.className = 'fc-btn danger';
@@ -5920,7 +5924,7 @@ function fcOpenHome() {
         fcDeleteNodeRecursive(node.id);
         renderHomeList();
       };
-
+      right.appendChild(edit);
       right.appendChild(del);
       row.appendChild(label);
       row.appendChild(right);
@@ -6181,6 +6185,189 @@ function fcOpenEditor({ mode, nodeId = null, parentId = null, type = 'folder' })
   renderChildList();
   setTimeout(() => nameInput.focus(), 0);
 }
+
+function fcEnsureStudyStyle() {
+  if (document.getElementById('fc-study-style')) return;
+  const s = document.createElement('style');
+  s.id = 'fc-study-style';
+  s.textContent = `
+    .fc-study-topright{display:flex;gap:10px;align-items:center}
+    .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
+    .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
+    .fc-study-card{
+      width:min(620px, 92vw);
+      height:min(720px, 72vh);
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border,#333);
+      border-radius:24px;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      cursor:pointer;
+      backdrop-filter: blur(8px);
+      user-select:none;
+    }
+    .fc-study-text{
+      font-size:44px;
+      font-weight:800;
+      line-height:1.25;
+      word-break:break-word;
+    }
+    .fc-study-hint{
+      position:absolute;
+      bottom:18px;
+      left:0; right:0;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted,#aaa);
+      pointer-events:none;
+    }
+    .fc-study-bottom{
+      padding:14px;
+      border-top:1px solid var(--border,#333);
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      background:rgba(0,0,0,.12);
+    }
+    .fc-study-navbtn{
+      padding:10px 16px;
+      border-radius:9999px;
+      border:1px solid var(--border,#333);
+      background:transparent;
+      color:var(--fg,#fff);
+      cursor:pointer;
+      font-size:14px;
+      min-width:90px;
+    }
+    .fc-study-navbtn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+    .fc-study-navbtn:disabled{opacity:.45;cursor:not-allowed}
+
+    @media (max-width: 1024px){ .fc-study-text{font-size:36px} }
+    @media (max-width: 768px){
+      .fc-study-text{font-size:30px}
+      .fc-study-card{height:min(640px, 68vh)}
+    }
+  `;
+  document.head.appendChild(s);
+}
+
+function fcOpenStudy(nodeId, startIndex = 0) {
+  fcEnsureStyle?.();       // 你原本的樣式（如果有）
+  fcEnsureStudyStyle();
+  fcLoad?.();              // 你原本的 load（如果有）
+
+  const node = fcGetNode(nodeId);
+  if (!node) return;
+
+  const ids = Array.isArray(node.items) ? node.items : [];
+  const cards = ids.map(id => state.flashcards.cards[id]).filter(Boolean);
+
+  if (!cards.length) {
+    alert('這個字卡集還沒有任何字卡，先去編輯新增幾張再來背～');
+    return;
+  }
+
+  const old = document.getElementById('fc-study-screen');
+  if (old) old.remove();
+
+  const screen = document.createElement('div');
+  screen.id = 'fc-study-screen';
+  screen.className = 'fc-screen';
+
+  let idx = Math.max(0, Math.min(startIndex, cards.length - 1));
+  let isFront = true;
+
+  screen.innerHTML = `
+    <div class="fc-top">
+      <button class="fc-iconbtn" id="fc-study-exit" title="退出">✕</button>
+      <div class="title">${node.name || '字卡'}</div>
+      <div class="fc-study-topright">
+        <div class="fc-study-progress" id="fc-study-progress"></div>
+        <button class="fc-iconbtn" id="fc-study-edit" title="編輯">✎</button>
+      </div>
+    </div>
+
+    <div class="fc-study-stage" style="position:relative">
+      <div class="fc-study-card" id="fc-study-card">
+        <div class="fc-study-text" id="fc-study-text"></div>
+      </div>
+      <div class="fc-study-hint">點一下翻面</div>
+    </div>
+
+    <div class="fc-study-bottom">
+      <button class="fc-study-navbtn" id="fc-study-prev">上一張</button>
+      <button class="fc-study-navbtn" id="fc-study-next">下一張</button>
+    </div>
+  `;
+
+  document.body.appendChild(screen);
+
+  const progressEl = screen.querySelector('#fc-study-progress');
+  const textEl = screen.querySelector('#fc-study-text');
+  const cardEl = screen.querySelector('#fc-study-card');
+  const btnPrev = screen.querySelector('#fc-study-prev');
+  const btnNext = screen.querySelector('#fc-study-next');
+
+  function render() {
+    const c = cards[idx];
+    if (!c) return;
+    progressEl.textContent = `${idx + 1} / ${cards.length}`;
+    textEl.textContent = isFront ? (c.front || '') : (c.back || '');
+    btnPrev.disabled = idx <= 0;
+    btnNext.disabled = idx >= cards.length - 1;
+  }
+
+  function flip() {
+    isFront = !isFront;
+    render();
+  }
+
+  function prev() {
+    if (idx <= 0) return;
+    idx -= 1;
+    isFront = true;
+    render();
+  }
+
+  function next() {
+    if (idx >= cards.length - 1) return;
+    idx += 1;
+    isFront = true;
+    render();
+  }
+
+  // 點卡片翻面
+  cardEl.addEventListener('click', flip);
+
+  // 上一張 / 下一張
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
+
+  // 方向鍵（電腦更順）
+  screen.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === ' ' || e.key === 'Enter') flip();
+  });
+  screen.tabIndex = -1;
+  screen.focus();
+
+  // 退出
+  screen.querySelector('#fc-study-exit').addEventListener('click', () => screen.remove());
+
+  // 編輯（回到你現有的編輯器）
+  screen.querySelector('#fc-study-edit').addEventListener('click', () => {
+    screen.remove();
+    fcOpenEditor({ mode: 'edit', nodeId: node.id });
+  });
+
+  render();
+}
+
+
 
 // ---------- 檢視器：直式大卡，點一下翻面 ----------
 function fcOpenViewer(cardId) {
