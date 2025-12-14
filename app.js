@@ -1,6 +1,10 @@
 /* 基本狀態 */
 const state = {
   questions: [],          // [{id,text,options:{A..D},image?}]
+  flashcards: {
+    folders: [], // { id, name, parentId, type: 'folder'|'topic', items: [] }
+    cards: {} // { cardId: { id, folderId, front, back } }
+  }
   visibleQuestions: [],   // 新增：目前在右側清單顯示的題目
   answers: {},            // {"1":"B", ...} 或 "1":"A/B"
   index: 0,
@@ -5692,6 +5696,411 @@ function summarizeChoices(){
   return Object.entries(cnt).map(([k,v])=>`${k}:${v}`).join(",");
 }
 bindTapClick(btnRecords, showRecords);
+
+// ========== 字卡功能 Flashcards ==========
+const FLASHCARDS_STORAGE_KEY = 'ntuvm-flashcards-data';
+
+function loadFlashcards() {
+  try {
+    const raw = localStorage.getItem(FLASHCARDS_STORAGE_KEY);
+    if (raw) {
+      state.flashcards = JSON.parse(raw);
+    }
+  } catch (e) {
+    console.error('loadFlashcards error:', e);
+    state.flashcards = { folders: [], cards: {} };
+  }
+}
+
+function saveFlashcards() {
+  try {
+    localStorage.setItem(FLASHCARDS_STORAGE_KEY, JSON.stringify(state.flashcards));
+  } catch (e) {
+    console.error('saveFlashcards error:', e);
+  }
+}
+
+function addFlashcardFolder(name, parentId = null, type = 'folder') {
+  const id = 'fc-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  const folder = { id, name: name.trim(), parentId, type, items: [] };
+  state.flashcards.folders.push(folder);
+  saveFlashcards();
+  return folder;
+}
+
+function addFlashcard(folderId, front, back) {
+  const id = 'card-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+  const card = { id, folderId, front: front.trim(), back: back.trim() };
+  state.flashcards.cards[id] = card;
+  
+  const folder = state.flashcards.folders.find(f => f.id === folderId);
+  if (folder) {
+    folder.items.push(id);
+  }
+  saveFlashcards();
+  return card;
+}
+
+function deleteFlashcardFolder(folderId) {
+  // 遞迴刪除子資料夾和字卡
+  const folder = state.flashcards.folders.find(f => f.id === folderId);
+  if (!folder) return;
+  
+  // 刪除此資料夾下的所有字卡
+  folder.items.forEach(itemId => {
+    if (state.flashcards.cards[itemId]) {
+      delete state.flashcards.cards[itemId];
+    }
+  });
+  
+  // 刪除子資料夾
+  const children = state.flashcards.folders.filter(f => f.parentId === folderId);
+  children.forEach(child => deleteFlashcardFolder(child.id));
+  
+  // 移除資料夾本身
+  state.flashcards.folders = state.flashcards.folders.filter(f => f.id !== folderId);
+  saveFlashcards();
+}
+
+function deleteFlashcard(cardId) {
+  const card = state.flashcards.cards[cardId];
+  if (!card) return;
+  
+  // 從資料夾的 items 移除
+  const folder = state.flashcards.folders.find(f => f.id === card.folderId);
+  if (folder) {
+    folder.items = folder.items.filter(id => id !== cardId);
+  }
+  
+  delete state.flashcards.cards[cardId];
+  saveFlashcards();
+}
+
+function updateFlashcard(cardId, front, back) {
+  if (!state.flashcards.cards[cardId]) return;
+  state.flashcards.cards[cardId].front = front.trim();
+  state.flashcards.cards[cardId].back = back.trim();
+  saveFlashcards();
+}
+
+// 打開字卡主介面
+function openFlashcardsMain() {
+  if (document.getElementById('flashcards-main-mask')) return;
+  
+  const mask = document.createElement('div');
+  mask.id = 'flashcards-main-mask';
+  mask.className = 'flashcards-main-mask';
+  
+  const panel = document.createElement('div');
+  panel.className = 'flashcards-main-panel';
+  
+  panel.innerHTML = `
+    <div class="flashcards-main-header">
+      <div class="flashcards-main-title">字卡管理</div>
+      <div class="flashcards-main-spacer"></div>
+      <button class="flashcards-btn" id="fc-add-folder-btn">新增資料夾</button>
+      <button class="flashcards-btn" id="fc-add-topic-btn">新增主題</button>
+      <button class="flashcards-btn" id="fc-close-btn">退出</button>
+    </div>
+    <div class="flashcards-main-body" id="fc-main-body">
+      <div class="fc-folder-list" id="fc-folder-list"></div>
+    </div>
+  `;
+  
+  mask.appendChild(panel);
+  document.body.appendChild(mask);
+  
+  // 綁定事件
+  document.getElementById('fc-close-btn').addEventListener('click', () => mask.remove());
+  document.getElementById('fc-add-folder-btn').addEventListener('click', () => {
+    const name = prompt('請輸入資料夾名稱：');
+    if (name && name.trim()) {
+      addFlashcardFolder(name, null, 'folder');
+      renderFlashcardFolders();
+    }
+  });
+  document.getElementById('fc-add-topic-btn').addEventListener('click', () => {
+    const name = prompt('請輸入主題名稱：');
+    if (name && name.trim()) {
+      addFlashcardFolder(name, null, 'topic');
+      renderFlashcardFolders();
+    }
+  });
+  
+  renderFlashcardFolders();
+  
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) mask.remove();
+  });
+}
+
+// 渲染資料夾列表
+function renderFlashcardFolders(parentId = null, containerEl = null) {
+  const container = containerEl || document.getElementById('fc-folder-list');
+  if (!container) return;
+  
+  if (!containerEl) {
+    container.innerHTML = '';
+  }
+  
+  const folders = state.flashcards.folders.filter(f => f.parentId === parentId);
+  
+  if (folders.length === 0 && !parentId) {
+    container.innerHTML = '<div class="fc-empty-hint">尚無資料夾或主題，請點選上方按鈕新增</div>';
+    return;
+  }
+  
+  folders.forEach(folder => {
+    const row = document.createElement('div');
+    row.className = 'fc-folder-row';
+    
+    const icon = folder.type === 'folder' ? '📁' : '📘';
+    const label = document.createElement('div');
+    label.className = 'fc-folder-label';
+    label.textContent = `${icon} ${folder.name}`;
+    label.style.cursor = 'pointer';
+    label.addEventListener('click', () => openFolderDetail(folder));
+    
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'fc-folder-btn-group';
+    
+    const btnAddSub = document.createElement('button');
+    btnAddSub.className = 'fc-folder-btn-small';
+    btnAddSub.textContent = '+子';
+    btnAddSub.title = '新增子項目';
+    btnAddSub.addEventListener('click', (e) => {
+      e.stopPropagation();
+      showAddSubMenu(folder);
+    });
+    
+    const btnDel = document.createElement('button');
+    btnDel.className = 'fc-folder-btn-small fc-folder-btn-danger';
+    btnDel.textContent = '刪除';
+    btnDel.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (confirm(`確定刪除「${folder.name}」及其所有內容？`)) {
+        deleteFlashcardFolder(folder.id);
+        renderFlashcardFolders();
+      }
+    });
+    
+    btnGroup.appendChild(btnAddSub);
+    btnGroup.appendChild(btnDel);
+    row.appendChild(label);
+    row.appendChild(btnGroup);
+    container.appendChild(row);
+  });
+}
+
+// 顯示新增子項目選單
+function showAddSubMenu(parent) {
+  const choices = prompt(`在「${parent.name}」下新增：\n1. 輸入 "資料夾 名稱" 新增子資料夾\n2. 輸入 "主題 名稱" 新增子主題\n3. 輸入 "字卡 正面|背面" 新增字卡\n\n範例：資料夾 期中考範圍`);
+  if (!choices) return;
+  
+  const parts = choices.trim().split(/\s+/);
+  const type = parts[0];
+  const rest = parts.slice(1).join(' ');
+  
+  if (type === '資料夾' && rest) {
+    addFlashcardFolder(rest, parent.id, 'folder');
+    renderFlashcardFolders();
+  } else if (type === '主題' && rest) {
+    addFlashcardFolder(rest, parent.id, 'topic');
+    renderFlashcardFolders();
+  } else if (type === '字卡' && rest.includes('|')) {
+    const [front, back] = rest.split('|').map(s => s.trim());
+    if (front && back) {
+      addFlashcard(parent.id, front, back);
+      alert('字卡已新增！');
+    } else {
+      alert('格式錯誤，請使用：字卡 正面|背面');
+    }
+  } else {
+    alert('格式錯誤，請重新輸入');
+  }
+}
+
+// 打開資料夾詳細內容
+function openFolderDetail(folder) {
+  if (document.getElementById('fc-detail-mask')) {
+    document.getElementById('fc-detail-mask').remove();
+  }
+  
+  const mask = document.createElement('div');
+  mask.id = 'fc-detail-mask';
+  mask.className = 'flashcards-main-mask';
+  
+  const panel = document.createElement('div');
+  panel.className = 'flashcards-main-panel';
+  
+  panel.innerHTML = `
+    <div class="flashcards-main-header">
+      <div class="flashcards-main-title">${folder.name}</div>
+      <div class="flashcards-main-spacer"></div>
+      <button class="flashcards-btn" id="fc-detail-add-card">新增字卡</button>
+      <button class="flashcards-btn" id="fc-detail-back">返回</button>
+    </div>
+    <div class="flashcards-main-body" id="fc-detail-body">
+      <div class="fc-card-grid" id="fc-card-grid"></div>
+    </div>
+  `;
+  
+  mask.appendChild(panel);
+  document.body.appendChild(mask);
+  
+  document.getElementById('fc-detail-back').addEventListener('click', () => mask.remove());
+  document.getElementById('fc-detail-add-card').addEventListener('click', () => {
+    const input = prompt('請輸入字卡內容（格式：正面|背面）：');
+    if (!input || !input.includes('|')) {
+      alert('格式錯誤，請使用：正面|背面');
+      return;
+    }
+    const [front, back] = input.split('|').map(s => s.trim());
+    if (front && back) {
+      addFlashcard(folder.id, front, back);
+      renderFolderCards(folder);
+    }
+  });
+  
+  renderFolderCards(folder);
+  
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) mask.remove();
+  });
+}
+
+// 渲染資料夾內的字卡（橫向卡片展示）
+function renderFolderCards(folder) {
+  const container = document.getElementById('fc-card-grid');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  const cardIds = folder.items || [];
+  if (cardIds.length === 0) {
+    container.innerHTML = '<div class="fc-empty-hint">此資料夾尚無字卡，請點選上方新增</div>';
+    return;
+  }
+  
+  cardIds.forEach(cardId => {
+    const card = state.flashcards.cards[cardId];
+    if (!card) return;
+    
+    const cardEl = document.createElement('div');
+    cardEl.className = 'fc-card-item';
+    
+    const front = document.createElement('div');
+    front.className = 'fc-card-front';
+    front.textContent = card.front;
+    
+    const btnRow = document.createElement('div');
+    btnRow.className = 'fc-card-btn-row';
+    
+    const btnView = document.createElement('button');
+    btnView.className = 'fc-card-btn-small';
+    btnView.textContent = '檢視';
+    btnView.addEventListener('click', () => openCardViewer(cardId));
+    
+    const btnEdit = document.createElement('button');
+    btnEdit.className = 'fc-card-btn-small';
+    btnEdit.textContent = '編輯';
+    btnEdit.addEventListener('click', () => {
+      const input = prompt('請輸入新內容（格式：正面|背面）：', `${card.front}|${card.back}`);
+      if (!input || !input.includes('|')) return;
+      const [f, b] = input.split('|').map(s => s.trim());
+      if (f && b) {
+        updateFlashcard(cardId, f, b);
+        renderFolderCards(folder);
+      }
+    });
+    
+    const btnDel = document.createElement('button');
+    btnDel.className = 'fc-card-btn-small fc-folder-btn-danger';
+    btnDel.textContent = '刪除';
+    btnDel.addEventListener('click', () => {
+      if (confirm('確定刪除此字卡？')) {
+        deleteFlashcard(cardId);
+        renderFolderCards(folder);
+      }
+    });
+    
+    btnRow.appendChild(btnView);
+    btnRow.appendChild(btnEdit);
+    btnRow.appendChild(btnDel);
+    
+    cardEl.appendChild(front);
+    cardEl.appendChild(btnRow);
+    container.appendChild(cardEl);
+  });
+}
+
+// 打開單張字卡檢視器（可翻面）
+function openCardViewer(cardId) {
+  const card = state.flashcards.cards[cardId];
+  if (!card) return;
+  
+  if (document.getElementById('fc-viewer-mask')) {
+    document.getElementById('fc-viewer-mask').remove();
+  }
+  
+  const mask = document.createElement('div');
+  mask.id = 'fc-viewer-mask';
+  mask.className = 'fc-viewer-mask';
+  
+  const viewer = document.createElement('div');
+  viewer.className = 'fc-viewer-card';
+  viewer.id = 'fc-viewer-card';
+  
+  const content = document.createElement('div');
+  content.className = 'fc-viewer-content';
+  content.id = 'fc-viewer-content';
+  content.textContent = card.front;
+  
+  const hint = document.createElement('div');
+  hint.className = 'fc-viewer-hint';
+  hint.textContent = '點擊卡片翻面';
+  
+  viewer.appendChild(content);
+  viewer.appendChild(hint);
+  
+  let isFront = true;
+  viewer.addEventListener('click', () => {
+    viewer.classList.add('fc-flip');
+    setTimeout(() => {
+      content.textContent = isFront ? card.back : card.front;
+      isFront = !isFront;
+      hint.textContent = isFront ? '點擊卡片翻面' : '點擊卡片翻回正面';
+      viewer.classList.remove('fc-flip');
+    }, 150);
+  });
+  
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'fc-viewer-close';
+  closeBtn.textContent = '×';
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mask.remove();
+  });
+  
+  mask.appendChild(viewer);
+  mask.appendChild(closeBtn);
+  document.body.appendChild(mask);
+  
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) mask.remove();
+  });
+}
+
+// 初始化字卡按鈕事件
+const btnFlashcards = document.getElementById('btnFlashcards');
+if (btnFlashcards) {
+  bindTapClick(btnFlashcards, () => {
+    loadFlashcards();
+    openFlashcardsMain();
+  });
+}
+
+
 function appendRecord(row){
   let arr = [];
   try { arr = JSON.parse(localStorage.getItem("examRecords") || "[]"); } catch { arr = []; }
