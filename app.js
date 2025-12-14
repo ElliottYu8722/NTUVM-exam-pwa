@@ -5966,7 +5966,6 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   };
 
   btnClose.onclick = () => screen.remove();
-
   btnSave.onclick = () => {
     const name = nameInput.value.trim();
     if (!name) {
@@ -5974,7 +5973,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       nameInput.focus();
       return;
     }
-
+  
     // 收集卡片資料
     const rows = Array.from(cardsList.children).map(row => {
       const inputs = row.querySelectorAll('input');
@@ -5983,24 +5982,32 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
         back: inputs[1]?.value.trim() || ''
       };
     }).filter(r => r.front || r.back); // 過濾空白卡
-
+  
     if (mode === 'create') {
       // 建立新主題
       const newNode = fcCreateNode({ name, parentId, type: 'topic' });
       if (newNode) {
         fcReplaceCardsOfNode(newNode.id, rows);
-        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片✅`);
+        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
         screen.remove();
-        if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+  
+        // 關鍵：存檔後要刷新首頁清單
+        if (typeof window.__fcRenderHomeList === 'function') {
+          window.__fcRenderHomeList();
+        }
       }
     } else {
       // 編輯模式
       node.name = name;
       fcReplaceCardsOfNode(node.id, rows);
       fcSave();
-      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片✅`);
+      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
       screen.remove();
-      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+  
+      // 關鍵：存檔後要刷新首頁清單
+      if (typeof window.__fcRenderHomeList === 'function') {
+        window.__fcRenderHomeList();
+      }
     }
   };
 
