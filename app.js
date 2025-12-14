@@ -4,7 +4,7 @@ const state = {
   flashcards: {
     folders: [], // { id, name, parentId, type: 'folder'|'topic', items: [] }
     cards: {} // { cardId: { id, folderId, front, back } }
-  }
+  },
   visibleQuestions: [],   // 新增：目前在右側清單顯示的題目
   answers: {},            // {"1":"B", ...} 或 "1":"A/B"
   index: 0,
