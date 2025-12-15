@@ -6010,8 +6010,8 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       nameInput.focus();
       return;
     }
-  
-    // 收集卡片資料（注意：卡片欄位是 textarea）[file:1]
+
+    // 收集卡片資料（注意：卡片欄位是 textarea）
     const rows = Array.from(cardsList.children)
       .map((row) => {
         const inputs = row.querySelectorAll('textarea.fc-input');
@@ -6019,20 +6019,18 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
         const back = (inputs[1]?.value || '').trim();
         return { front, back };
       })
-      .filter((r) => r.front || r.back); // 沿用你原本的規則：任一邊有字就保留 [file:1]
-  
+      .filter((r) => r.front || r.back); // 任一邊有字就保留
+
     if (mode === 'create') {
-      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' }); // 這裡要用物件版 [file:1]
+      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' });
       if (newNode) {
         fcReplaceCardsOfNode(newNode.id, rows);
         alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
         screen.remove();
-  
-        // 更新首頁列表（你原本的命名是 __fcRenderHomeList）[file:1]
+
         if (typeof window.__fcRenderHomeList === 'function') {
           window.__fcRenderHomeList();
         }
-        // 更新資料夾列表（等你做完下面「修改 A」才會有）[file:1]
         if (typeof window.__fcRenderFolderList === 'function') {
           window.__fcRenderFolderList();
         }
@@ -6043,7 +6041,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       fcSave();
       alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
       screen.remove();
-  
+
       if (typeof window.__fcRenderHomeList === 'function') {
         window.__fcRenderHomeList();
       }
@@ -6053,38 +6051,6 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
     }
   };
 
-    // 收集卡片資料（注意：卡片欄位是 textarea）
-    const rows = Array.from(cardsList.children).map(row => {
-      const inputs = row.querySelectorAll('textarea.fc-input');
-      return {
-        front: (inputs[0]?.value || '').trim(),
-        back: (inputs[1]?.value || '').trim()
-      };
-    }).filter(r => r.front || r.back); // 過濾空白卡
-
-    if (mode === 'create') {
-      const newNode = fcCreateNode({ name, parentId, type: 'topic' });
-      if (newNode) {
-        fcReplaceCardsOfNode(newNode.id, rows);
-        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
-        screen.remove();
-
-        if (typeof window.__fcRenderHomeList === 'function') {
-          window.__fcRenderHomeList();
-        }
-      }
-    } else {
-      node.name = name;
-      fcReplaceCardsOfNode(node.id, rows);
-      fcSave();
-      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
-      screen.remove();
-
-      if (typeof window.__fcRenderHomeList === 'function') {
-        window.__fcRenderHomeList();
-      }
-    }
-  };
 
   // 自動對焦
   setTimeout(() => nameInput.focus(), 100);
@@ -6235,9 +6201,18 @@ function fcOpenFolder(nodeId) {
   `;
 
   document.body.appendChild(screen);
-
-  const close = () => { try { screen.remove(); } catch {} };
+  // ✕：如果有上一層資料夾，就回上一層；否則才回到根目錄（關掉資料夾畫面）
+  const close = () => {
+    if (node.parentId) {
+      // 回上一層資料夾
+      fcOpenFolder(node.parentId);
+    } else {
+      // 已經是最上層資料夾 → 關掉資料夾畫面，露出首頁
+      try { screen.remove(); } catch {}
+    }
+  };
   document.getElementById('fc-folder-close').onclick = close;
+
 
   // 在此資料夾內新增資料夾
   document.getElementById('fc-folder-add-folder').onclick = () => {
@@ -6315,6 +6290,7 @@ function fcOpenFolder(nodeId) {
     });
   }
   window.fcRenderFolderList = renderFolderList;
+  window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
 
