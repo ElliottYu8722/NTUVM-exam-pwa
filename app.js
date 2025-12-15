@@ -5942,7 +5942,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   screen.innerHTML = `
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
-      <button class="fc-iconbtn" id="fc-editor-export" title="匯出字卡">⤓</button>
+      <button class="fc-btn" id="fc-editor-export" title="匯出字卡">匯出字卡</button>
       <div class="title">${mode === 'edit' ? '編輯主題' : '新增主題'}</div>
       <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
     </div>
