@@ -6128,7 +6128,7 @@ function fcOpenHome() {
       <div class="title">字卡</div>
       <button class="fc-iconbtn" id="fc-home-add-folder" title="新增資料夾">📁</button>
       <button class="fc-iconbtn" id="fc-home-add-topic" title="新增主題">📘</button>
-      <button class="fc-iconbtn" id="fc-home-import" title="匯入字卡">⤴︎</button>    
+      <button class="fc-iconbtn" id="fc-home-import" title="匯入字卡">匯入字卡</button>    
     </div>
 
     <div class="fc-body">
@@ -6263,7 +6263,7 @@ function fcOpenFolder(nodeId) {
       <div class="title">${node.name || '資料夾'}</div>
       <button class="fc-iconbtn" id="fc-folder-add-folder" title="新增資料夾">📁</button>
       <button class="fc-iconbtn" id="fc-folder-add-topic" title="新增主題">📘</button>
-      <button class="fc-iconbtn" id="fc-folder-import" title="匯入字卡">⤴︎</button>    
+      <button class="fc-iconbtn" id="fc-folder-import" title="匯入字卡">匯入字卡</button>    
     </div>
 
     <div class="fc-body">
