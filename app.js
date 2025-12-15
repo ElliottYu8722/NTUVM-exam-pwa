@@ -5699,6 +5699,43 @@ bindTapClick(btnRecords, showRecords);
 
 // ===================== 字卡功能 Flashcards（表單式介面） =====================
 const FLASHCARDS_STORAGE_KEY = 'ntuvm-flashcards-data-v2';
+function fcImportFlashcards(parentId = null) {
+  const pick = document.createElement('input');
+  pick.type = 'file';
+  pick.accept = 'application/json';
+  pick.onchange = async (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    try {
+      const text = await f.text();
+      const data = JSON.parse(text);
+      let name = '';
+      let rows = [];
+      if (Array.isArray(data)) {
+        rows = data.filter(x => x && (x.front || x.back))
+                   .map(x => ({ front: String(x.front || ''), back: String(x.back || '') }));
+        name = prompt('請輸入主題名稱：', (f.name || '').replace(/\\.json$/i,'').slice(0,40)) || '未命名主題';
+      } else if (data && Array.isArray(data.cards)) {
+        name = String(data.name || '').trim() || prompt('請輸入主題名稱：', '新主題') || '未命名主題';
+        rows = data.cards.filter(x => x && (x.front || x.back))
+                         .map(x => ({ front: String(x.front || ''), back: String(x.back || '') }));
+      } else {
+        alert('匯入格式不支援，請提供 JSON：[{front,back}] 或 {name, cards:[...]}');
+        return;
+      }
+      const newNode = fcCreateNode({ name, parentId: parentId ?? null, type: 'topic' });
+      if (!newNode) return;
+      fcReplaceCardsOfNode(newNode.id, rows);
+      alert(`已匯入主題「${name}」，共 ${rows.length} 張卡片。`);
+      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+      if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+    } catch (err) {
+      console.error('匯入失敗：', err);
+      alert('匯入失敗，請確認檔案內容。');
+    }
+  };
+  pick.click();
+}
 
 function fcLoad() {
   try {
@@ -5905,6 +5942,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   screen.innerHTML = `
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
+      <button class="fc-iconbtn" id="fc-editor-export" title="匯出字卡">⤓</button>
       <div class="title">${mode === 'edit' ? '編輯主題' : '新增主題'}</div>
       <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
     </div>
@@ -5930,7 +5968,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   const btnSave = document.getElementById('fc-editor-save');
   const btnClose = document.getElementById('fc-editor-close');
   const btnAddCard = document.getElementById('fc-editor-add-card');
-
+  const btnExport = document.getElementById('fc-editor-export');
   // 載入現有資料
   if (mode === 'edit' && node) {
     nameInput.value = node.name || '';
@@ -5996,10 +6034,33 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       if (span) span.textContent = `#${i + 1}`;
     });
   }
+  function collectEditorRows() {
+    return Array.from(cardsList.children).map(row => {
+      const inputs = row.querySelectorAll('textarea.fc-input');
+      const front = (inputs[0]?.value || '').trim();
+      const back  = (inputs[1]?.value || '').trim();
+      return { front, back };
+    }).filter(r => r.front || r.back);
+  }
+  function sanitizeFilename(s) {
+    return String(s || 'flashcards').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60);
+  }
 
   btnAddCard.onclick = () => {
     addCardRow();
     cardsList.lastChild?.querySelector('textarea')?.focus();
+  };
+  if (btnExport) btnExport.onclick = () => {
+    const name = (nameInput.value.trim() || '未命名主題');
+    const rows = collectEditorRows();
+    const payload = { name, cards: rows };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = sanitizeFilename(name) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   };
 
   btnClose.onclick = () => screen.remove();
@@ -6012,14 +6073,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
     }
 
     // 收集卡片資料（注意：卡片欄位是 textarea）
-    const rows = Array.from(cardsList.children)
-      .map((row) => {
-        const inputs = row.querySelectorAll('textarea.fc-input');
-        const front = (inputs[0]?.value || '').trim();
-        const back = (inputs[1]?.value || '').trim();
-        return { front, back };
-      })
-      .filter((r) => r.front || r.back); // 任一邊有字就保留
+    const rows = collectEditorRows();
 
     if (mode === 'create') {
       const newNode = fcCreateNode({ name, parentId, type: type || 'topic' });
@@ -6074,6 +6128,7 @@ function fcOpenHome() {
       <div class="title">字卡</div>
       <button class="fc-iconbtn" id="fc-home-add-folder" title="新增資料夾">📁</button>
       <button class="fc-iconbtn" id="fc-home-add-topic" title="新增主題">📘</button>
+      <button class="fc-iconbtn" id="fc-home-import" title="匯入字卡">⤴︎</button>    
     </div>
 
     <div class="fc-body">
@@ -6101,6 +6156,8 @@ function fcOpenHome() {
   document.getElementById('fc-home-add-topic').onclick = () => {
     fcOpenEditor({ mode: 'create', parentId: null, type: 'topic' });
   };
+ 
+  document.getElementById('fc-home-import').onclick = () => fcImportFlashcards(null);
 
   function renderHomeList() {
     const list = document.getElementById('fc-home-list');
@@ -6130,6 +6187,22 @@ function fcOpenHome() {
       const right = document.createElement('div');
       right.style.display = 'flex';
       right.style.gap = '8px';
+      
+      // 只對主題（topic）顯示：照順序 / 洗牌
+      if (node.type === 'topic') {
+        const btnSeq = document.createElement('button');
+        btnSeq.className = 'fc-btn';
+        btnSeq.textContent = '照順序顯示字卡';
+        btnSeq.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: false }); };
+
+        const btnShuffle = document.createElement('button');
+        btnShuffle.className = 'fc-btn';
+        btnShuffle.textContent = '洗牌出卡';
+        btnShuffle.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: true }); };
+
+        right.appendChild(btnSeq);
+        right.appendChild(btnShuffle);
+      }
 
       // 主題提供編輯；資料夾也可編輯名稱（可選）
       const edit = document.createElement('button');
@@ -6190,6 +6263,7 @@ function fcOpenFolder(nodeId) {
       <div class="title">${node.name || '資料夾'}</div>
       <button class="fc-iconbtn" id="fc-folder-add-folder" title="新增資料夾">📁</button>
       <button class="fc-iconbtn" id="fc-folder-add-topic" title="新增主題">📘</button>
+      <button class="fc-iconbtn" id="fc-folder-import" title="匯入字卡">⤴︎</button>    
     </div>
 
     <div class="fc-body">
@@ -6227,6 +6301,7 @@ function fcOpenFolder(nodeId) {
   document.getElementById('fc-folder-add-topic').onclick = () => {
     fcOpenEditor({ mode: 'create', parentId: node.id, type: 'topic' });
   };
+  document.getElementById('fc-folder-import').onclick = () => fcImportFlashcards(node.id);
 
   function renderFolderList() {
     const list = document.getElementById('fc-folder-list');
