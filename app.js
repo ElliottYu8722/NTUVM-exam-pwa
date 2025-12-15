@@ -6011,7 +6011,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       return;
     }
   
-    // 收集卡片資料（注意：卡片欄位是 textarea）
+    // 收集卡片資料（注意：卡片欄位是 textarea）[file:1]
     const rows = Array.from(cardsList.children)
       .map((row) => {
         const inputs = row.querySelectorAll('textarea.fc-input');
@@ -6019,18 +6019,20 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
         const back = (inputs[1]?.value || '').trim();
         return { front, back };
       })
-      .filter((r) => r.front || r.back); // 任一邊有字就保留
+      .filter((r) => r.front || r.back); // 沿用你原本的規則：任一邊有字就保留 [file:1]
   
     if (mode === 'create') {
-      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' });
+      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' }); // 這裡要用物件版 [file:1]
       if (newNode) {
         fcReplaceCardsOfNode(newNode.id, rows);
         alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
         screen.remove();
   
+        // 更新首頁列表（你原本的命名是 __fcRenderHomeList）[file:1]
         if (typeof window.__fcRenderHomeList === 'function') {
           window.__fcRenderHomeList();
         }
+        // 更新資料夾列表（等你做完下面「修改 A」才會有）[file:1]
         if (typeof window.__fcRenderFolderList === 'function') {
           window.__fcRenderFolderList();
         }
@@ -6047,6 +6049,39 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
       }
       if (typeof window.__fcRenderFolderList === 'function') {
         window.__fcRenderFolderList();
+      }
+    }
+  };
+
+    // 收集卡片資料（注意：卡片欄位是 textarea）
+    const rows = Array.from(cardsList.children).map(row => {
+      const inputs = row.querySelectorAll('textarea.fc-input');
+      return {
+        front: (inputs[0]?.value || '').trim(),
+        back: (inputs[1]?.value || '').trim()
+      };
+    }).filter(r => r.front || r.back); // 過濾空白卡
+
+    if (mode === 'create') {
+      const newNode = fcCreateNode({ name, parentId, type: 'topic' });
+      if (newNode) {
+        fcReplaceCardsOfNode(newNode.id, rows);
+        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
+        screen.remove();
+
+        if (typeof window.__fcRenderHomeList === 'function') {
+          window.__fcRenderHomeList();
+        }
+      }
+    } else {
+      node.name = name;
+      fcReplaceCardsOfNode(node.id, rows);
+      fcSave();
+      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
+      screen.remove();
+
+      if (typeof window.__fcRenderHomeList === 'function') {
+        window.__fcRenderHomeList();
       }
     }
   };
@@ -6200,16 +6235,8 @@ function fcOpenFolder(nodeId) {
   `;
 
   document.body.appendChild(screen);
-  // ✕：如果有上一層資料夾，就回上一層；否則才回到根目錄（關掉資料夾畫面）
-  const close = () => {
-    if (node.parentId) {
-      // 回上一層資料夾
-      fcOpenFolder(node.parentId);
-    } else {
-      // 已經是最上層資料夾 → 關掉資料夾畫面，露出首頁
-      try { screen.remove(); } catch {}
-    }
-  };
+
+  const close = () => { try { screen.remove(); } catch {} };
   document.getElementById('fc-folder-close').onclick = close;
 
   // 在此資料夾內新增資料夾
@@ -6288,7 +6315,6 @@ function fcOpenFolder(nodeId) {
     });
   }
   window.fcRenderFolderList = renderFolderList;
-  window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
 
@@ -6299,6 +6325,13 @@ function fcEnsureStudyStyle() {
   s.id = 'fc-study-style';
   s.textContent = `
     .fc-study-topright{display:flex;gap:10px;align-items:center}
+    .fc-study-modebtn{
+      white-space: nowrap;
+    }
+    .fc-study-modebtn.active{
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+    }
     .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
     .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
     .fc-study-card{
@@ -6382,7 +6415,11 @@ function fcOpenStudy(nodeId, startIndex = 0) {
   if (!node) return;
 
   const ids = Array.isArray(node.items) ? node.items : [];
-  const cards = ids.map(id => state.flashcards.cards[id]).filter(Boolean);
+  const baseCards = ids.map(id => state.flashcards.cards[id]).filter(Boolean);
+
+  // 目前顯示用的 cards（可能是原順序，也可能是洗牌順序）
+  let cards = baseCards.slice();
+  let playMode = 'seq'; // 'seq' | 'shuffle'
 
   if (!cards.length) {
     alert('這個字卡集還沒有任何字卡，先去編輯新增幾張再來背～');
@@ -6405,8 +6442,13 @@ function fcOpenStudy(nodeId, startIndex = 0) {
       <div class="title">${node.name || '字卡'}</div>
       <div class="fc-study-topright">
         <div class="fc-study-progress" id="fc-study-progress"></div>
+
+        <button class="fc-btn fc-study-modebtn" id="fc-study-mode-seq" type="button">照順序顯示字卡</button>
+        <button class="fc-btn fc-study-modebtn" id="fc-study-mode-shuffle" type="button">洗牌出卡</button>
+
         <button class="fc-iconbtn" id="fc-study-edit" title="編輯">✎</button>
       </div>
+
     </div>
 
     <div class="fc-study-stage" style="position:relative">
@@ -6429,6 +6471,52 @@ function fcOpenStudy(nodeId, startIndex = 0) {
   const cardEl = screen.querySelector('#fc-study-card');
   const btnPrev = screen.querySelector('#fc-study-prev');
   const btnNext = screen.querySelector('#fc-study-next');
+  const btnModeSeq = screen.querySelector('#fc-study-mode-seq');
+  const btnModeShuffle = screen.querySelector('#fc-study-mode-shuffle');
+
+  function shuffleInPlace(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function updateModeButtons() {
+    if (btnModeSeq) btnModeSeq.classList.toggle('active', playMode === 'seq');
+    if (btnModeShuffle) btnModeShuffle.classList.toggle('active', playMode === 'shuffle');
+  }
+
+  function applyMode(nextMode, reshuffle = false) {
+    const curCardId = cards[idx]?.id;
+
+    if (nextMode === 'seq') {
+      playMode = 'seq';
+      cards = baseCards.slice();
+    } else {
+      playMode = 'shuffle';
+      // 第一次切到洗牌、或在洗牌模式再按一次 → 重新洗牌
+      cards = baseCards.slice();
+      shuffleInPlace(cards);
+    }
+
+    // 盡量讓「目前這張」在切換模式後仍維持同一張
+    const newIdx = curCardId ? cards.findIndex(c => c && c.id === curCardId) : -1;
+    idx = newIdx >= 0 ? newIdx : 0;
+    isFront = true;
+
+    updateModeButtons();
+    render();
+  }
+
+  if (btnModeSeq) {
+    btnModeSeq.addEventListener('click', () => applyMode('seq'));
+  }
+  if (btnModeShuffle) {
+    btnModeShuffle.addEventListener('click', () => applyMode('shuffle', true));
+  }
 
   function render() {
     const c = cards[idx];
@@ -6483,7 +6571,7 @@ function fcOpenStudy(nodeId, startIndex = 0) {
     screen.remove();
     fcOpenEditor({ mode: 'edit', nodeId: node.id });
   });
-
+  updateModeButtons();
   render();
 }
 
