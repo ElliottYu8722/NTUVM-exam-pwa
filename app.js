@@ -5723,7 +5723,7 @@ function fcImportFlashcards(parentId = null) {
         alert('匯入格式不支援，請提供 JSON：[{front,back}] 或 {name, cards:[...]}');
         return;
       }
-      const newNode = fcCreateNode({ name, parentId: parentId ?? null, type: 'topic' });
+      const newNode = fcCreateNode(name, parentId ?? null, 'topic');
       if (!newNode) return;
       fcReplaceCardsOfNode(newNode.id, rows);
       // fcReplaceCardsOfNode(newNode.id, rows) 之後
@@ -7807,7 +7807,7 @@ function ensureNotesRecordsBackupButtons() {
   // 避免重複插入
   if (document.getElementById('btnNotesRecordsBackup')) return;
 
-  // 插在「搜尋框」左邊 => 梯次右邊、搜尋左邊
+  // 找搜尋框
   const ref = (typeof searchInput !== 'undefined' && searchInput)
     ? searchInput
     : document.getElementById('questionSearch');
@@ -7840,8 +7840,20 @@ function ensureNotesRecordsBackupButtons() {
   actions.appendChild(btnBackup);
   actions.appendChild(btnRestore);
 
-  toolbarEl.insertBefore(actions, ref);
+  // ✅ 把 ref 往上爬到 toolbar 的「直接子節點」
+  let anchor = ref;
+  while (anchor && anchor.parentElement !== toolbarEl) {
+    anchor = anchor.parentElement;
+  }
+
+  // 找不到就退而求其次：直接 append（至少不噴錯）
+  if (anchor && anchor.parentElement === toolbarEl) {
+    toolbarEl.insertBefore(actions, anchor);
+  } else {
+    toolbarEl.appendChild(actions);
+  }
 }
+
 
 
 
