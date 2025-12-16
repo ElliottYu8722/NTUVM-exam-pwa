@@ -8400,74 +8400,105 @@ function fcSyncCenterScroll(containerEl) {
     }
   });
 }
+
 /* =========================================
-   題庫：左右滑動換題（不與側欄衝突）
+   題庫：左右滑動換題（改善上下抖動/滾動）
    - 左滑：下一題
    - 右滑：上一題
+   - 只在「題目內容區」啟用
+   - 水平意圖時會 preventDefault()，避免整頁跟著上下動
    ========================================= */
 (function initSwipeGestures() {
   let startX = 0;
   let startY = 0;
+  let lock = null; // 'h' | 'v' | null
   let tracking = false;
 
-  const MIN_SWIPE_X = 70;     // 水平滑動要超過多少才算
-  const MAX_SWIPE_Y = 60;     // 垂直位移太大視為上下捲動
-  const EDGE_GUARD = 26;      // 螢幕左右邊緣保留，避免跟側欄手勢打架
+  const MIN_SWIPE_X = 70;      // 最終要換題的水平距離
+  const START_LOCK_DIST = 12;  // 開始判斷意圖的最小位移
+  const EDGE_GUARD = 26;       // 避免跟側欄/系統邊緣手勢衝突
 
   function panelIsOpen() {
     return document.body.classList.contains('show-left-panel')
       || document.body.classList.contains('show-right-panel');
   }
 
-  function shouldIgnoreTarget(t) {
-    if (!t) return true;
+  function inQuestionArea(target) {
+    if (!target) return false;
+    // 只允許在題目內容區滑動才換題（避免滑到留言/其他區塊誤觸）
+    return !!target.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
+  }
 
-    // 側欄/遮罩/題目列表區：不要在這些地方觸發換題
-    if (t.closest('#qList') || t.closest('.drawer-backdrop')) return true;
+  function shouldIgnoreTarget(target) {
+    if (!target) return true;
+    if (!inQuestionArea(target)) return true;
 
-    // 表單輸入時不要換題
-    if (t.closest('input, textarea, select')) return true;
+    // 輸入框/選單不要觸發
+    if (target.closest('input, textarea, select')) return true;
 
-    // 字卡畫面或任何 fc overlay 出現時，不要觸發題目換題
-    if (t.closest('.fc-screen') || t.closest('#fc-viewer-mask') || t.closest('.fc-viewer-mask')) return true;
+    // 右側題目列表、側欄遮罩區不要觸發
+    if (target.closest('#qList') || target.closest('.drawer-backdrop')) return true;
 
-    // 只允許在「題目內容區」滑動才換題（避免滑在工具列/其他區塊誤觸）
-    const inQuestionArea = t.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
-    return !inQuestionArea;
+    // 字卡畫面出現時不要搶手勢
+    if (target.closest('.fc-screen') || target.closest('#fc-viewer-mask') || target.closest('.fc-viewer-mask')) return true;
+
+    return false;
   }
 
   document.addEventListener('touchstart', (e) => {
-    if (panelIsOpen()) { tracking = false; return; }
-    if (!e.touches || e.touches.length !== 1) { tracking = false; return; }
+    if (panelIsOpen()) { tracking = false; lock = null; return; }
+    if (!e.touches || e.touches.length !== 1) { tracking = false; lock = null; return; }
 
-    const touch = e.touches[0];
+    const t = e.touches[0];
 
-    // 邊緣保護：靠近左右邊緣就不啟用（留給側欄）
-    if (touch.clientX <= EDGE_GUARD || touch.clientX >= (window.innerWidth - EDGE_GUARD)) {
-      tracking = false;
-      return;
+    // 邊緣保護：左右邊緣留給側欄或系統手勢
+    if (t.clientX <= EDGE_GUARD || t.clientX >= (window.innerWidth - EDGE_GUARD)) {
+      tracking = false; lock = null; return;
     }
 
-    if (shouldIgnoreTarget(e.target)) { tracking = false; return; }
+    if (shouldIgnoreTarget(e.target)) { tracking = false; lock = null; return; }
 
-    startX = touch.clientX;
-    startY = touch.clientY;
+    startX = t.clientX;
+    startY = t.clientY;
+    lock = null;
     tracking = true;
   }, { passive: true, capture: true });
+
+  // 這個是關鍵：水平意圖時阻止瀏覽器捲動
+  document.addEventListener('touchmove', (e) => {
+    if (!tracking) return;
+    if (!e.touches || e.touches.length !== 1) return;
+
+    const t = e.touches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+
+    // 還沒離開起點太多就先不鎖定
+    if (!lock) {
+      if (Math.abs(dx) < START_LOCK_DIST && Math.abs(dy) < START_LOCK_DIST) return;
+
+      // 意圖鎖定：水平位移明顯大於垂直才算水平滑動
+      lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
+    }
+
+    if (lock === 'h') {
+      // 只有可 cancel 時才 preventDefault，避免 iOS 某些情況報錯
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false, capture: true });
 
   document.addEventListener('touchend', (e) => {
     if (!tracking) return;
     tracking = false;
 
-    if (!e.changedTouches || e.changedTouches.length !== 1) return;
-    if (panelIsOpen()) return;
+    if (panelIsOpen()) { lock = null; return; }
+    if (lock !== 'h') { lock = null; return; }
 
-    const touch = e.changedTouches[0];
-    const dx = touch.clientX - startX;   // end - start；dx<0 左滑，dx>0 右滑
-    const dy = touch.clientY - startY;
+    if (!e.changedTouches || e.changedTouches.length !== 1) { lock = null; return; }
+    const t = e.changedTouches[0];
 
-    if (Math.abs(dy) > MAX_SWIPE_Y) return;      // 上下捲動就不換題
-    if (Math.abs(dx) < MIN_SWIPE_X) return;      // 不夠「滑」就忽略
+    const dx = t.clientX - startX;
+    if (Math.abs(dx) < MIN_SWIPE_X) { lock = null; return; }
 
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
@@ -8479,23 +8510,25 @@ function fcSyncCenterScroll(containerEl) {
       // 右滑：上一題
       if (prevBtn && !prevBtn.disabled) prevBtn.click();
     }
+
+    lock = null;
   }, { passive: true, capture: true });
 })();
 
 /* =========================================
-   字卡「背卡畫面」：左右滑動換卡
-   - 只在 #fc-study-screen 存在時啟用
+   字卡背卡畫面（fcOpenStudy）：左右滑動換卡（改善上下抖動/滾動）
    - 左滑：下一張（#fc-study-next）
    - 右滑：上一張（#fc-study-prev）
    ========================================= */
 (function initFlashcardSwipe() {
   let startX = 0;
   let startY = 0;
+  let lock = null; // 'h' | 'v' | null
   let tracking = false;
 
-  const MIN_SWIPE_X = 70;     // 水平滑動距離門檻
-  const MAX_SWIPE_Y = 70;     // 垂直位移太大視為上下捲動
-  const EDGE_GUARD = 26;      // 螢幕左右邊緣保留，避免跟側欄/系統返回手勢打架
+  const MIN_SWIPE_X = 70;
+  const START_LOCK_DIST = 12;
+  const EDGE_GUARD = 26;
 
   function getStudyScreen() {
     return document.getElementById('fc-study-screen');
@@ -8503,54 +8536,72 @@ function fcSyncCenterScroll(containerEl) {
 
   document.addEventListener('touchstart', (e) => {
     const screen = getStudyScreen();
-    if (!screen) { tracking = false; return; }
+    if (!screen) { tracking = false; lock = null; return; }
 
-    if (!e.touches || e.touches.length !== 1) { tracking = false; return; }
+    if (!e.touches || e.touches.length !== 1) { tracking = false; lock = null; return; }
 
     const t = e.touches[0];
-
-    // 邊緣保護：避免 iOS 邊緣返回、或你未來若做側欄手勢會互撞
     if (t.clientX <= EDGE_GUARD || t.clientX >= (window.innerWidth - EDGE_GUARD)) {
-      tracking = false;
-      return;
+      tracking = false; lock = null; return;
     }
 
-    // 若在可捲動內容（卡片本體會 overflow:auto）內上下滑，盡量不要誤觸
-    // 這裡不阻止，留給 touchend 的 dy 判斷
+    // 限制在背卡畫面內才吃手勢
+    if (!e.target || !e.target.closest('#fc-study-screen')) {
+      tracking = false; lock = null; return;
+    }
+
     startX = t.clientX;
     startY = t.clientY;
+    lock = null;
     tracking = true;
   }, { passive: true, capture: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!tracking) return;
+    const screen = getStudyScreen();
+    if (!screen) return;
+    if (!e.touches || e.touches.length !== 1) return;
+
+    const t = e.touches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+
+    if (!lock) {
+      if (Math.abs(dx) < START_LOCK_DIST && Math.abs(dy) < START_LOCK_DIST) return;
+      lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
+    }
+
+    // 水平意圖：阻止頁面/容器跟著上下動
+    if (lock === 'h') {
+      if (e.cancelable) e.preventDefault();
+    }
+  }, { passive: false, capture: true });
 
   document.addEventListener('touchend', (e) => {
     if (!tracking) return;
     tracking = false;
 
     const screen = getStudyScreen();
-    if (!screen) return;
+    if (!screen) { lock = null; return; }
+    if (lock !== 'h') { lock = null; return; }
 
-    if (!e.changedTouches || e.changedTouches.length !== 1) return;
-
+    if (!e.changedTouches || e.changedTouches.length !== 1) { lock = null; return; }
     const t = e.changedTouches[0];
-    const dx = t.clientX - startX;  // dx<0 左滑，dx>0 右滑
-    const dy = t.clientY - startY;
+    const dx = t.clientX - startX;
 
-    // 上下捲動就不換卡
-    if (Math.abs(dy) > MAX_SWIPE_Y) return;
-
-    // 不夠「滑」就忽略
-    if (Math.abs(dx) < MIN_SWIPE_X) return;
+    if (Math.abs(dx) < MIN_SWIPE_X) { lock = null; return; }
 
     const btnPrev = screen.querySelector('#fc-study-prev');
     const btnNext = screen.querySelector('#fc-study-next');
 
     if (dx < 0) {
-      // 左滑：下一張
       if (btnNext && !btnNext.disabled) btnNext.click();
     } else {
-      // 右滑：上一張
       if (btnPrev && !btnPrev.disabled) btnPrev.click();
     }
+
+    lock = null;
   }, { passive: true, capture: true });
 })();
+
 
