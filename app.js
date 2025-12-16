@@ -8198,34 +8198,42 @@ function setupMobileDrawers() {
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAll();
   });
-// === 手機左右滑手勢：關閉側邊欄 ===
+  // === 手機左右滑手勢：開關側邊欄（防止上下捲動干擾）===
   let touchStartX = 0;
   let touchStartY = 0;
   let trackingSwipe = false;
   let swipeMode = null; // 'left-open' | 'right-open' | 'left-edge' | 'right-edge'
+  let swipeLock = null; // 'h' | 'v' | null
+  
+  const EDGE_ZONE = 24;        // 距離左右 24px 內算邊緣（可微調）
+  const START_LOCK_DIST = 12;  // 移動超過這個距離才開始鎖定意圖
+  const MIN_SWIPE = 40;        // 最終觸發開關的最小水平位移
   
   function isDrawerTouchMode() {
     const w = window.innerWidth;
     const h = window.innerHeight || 1;
-    const portrait = h >= w;              // 直立
-    return (w <= 768) || (portrait && w <= 1024);        // 手機 + 直立平板
+    const portrait = h >= w;
+    return (w <= 768) || (portrait && w <= 1024);
   }
-
+  
   function handleTouchStart(e) {
     if (!isDrawerTouchMode()) return;
-
+  
     const t = e.touches && e.touches[0];
     if (!t) return;
-
+  
     const w = window.innerWidth;
     const x = t.clientX;
     const y = t.clientY;
-    const edgeZone = 24; // 距離左右 24px 內算邊緣（可微調）
-
+  
     const leftOpen = document.body.classList.contains('show-left-panel');
     const rightOpen = document.body.classList.contains('show-right-panel');
-
-    // 已經有側欄開著：只負責「關閉」的滑動
+  
+    swipeLock = null;
+    trackingSwipe = false;
+    swipeMode = null;
+  
+    // 已經有側欄開著：允許從任何地方水平滑動來「關閉」
     if (leftOpen || rightOpen) {
       swipeMode = leftOpen ? 'left-open' : 'right-open';
       touchStartX = x;
@@ -8233,60 +8241,92 @@ function setupMobileDrawers() {
       trackingSwipe = true;
       return;
     }
-
+  
     // 沒有側欄開著：只有從左右邊緣起手才啟動「打開」手勢
-    if (x <= edgeZone) {
+    if (x <= EDGE_ZONE) {
       swipeMode = 'left-edge';
-    } else if (w - x <= edgeZone) {
+    } else if (w - x <= EDGE_ZONE) {
       swipeMode = 'right-edge';
     } else {
-      swipeMode = null;
-      trackingSwipe = false;
       return;
     }
-
+  
     touchStartX = x;
     touchStartY = y;
     trackingSwipe = true;
   }
-
+  
+  function handleTouchMove(e) {
+    if (!trackingSwipe || !swipeMode) return;
+    if (!isDrawerTouchMode()) return;
+  
+    const t = e.touches && e.touches[0];
+    if (!t) return;
+  
+    const dx = t.clientX - touchStartX;
+    const dy = t.clientY - touchStartY;
+  
+    // 還沒移動到能判斷意圖的距離就不鎖
+    if (!swipeLock) {
+      if (Math.abs(dx) < START_LOCK_DIST && Math.abs(dy) < START_LOCK_DIST) return;
+      swipeLock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
+    }
+  
+    // 水平意圖：立刻阻止頁面上下捲動（關鍵）
+    if (swipeLock === 'h') {
+      if (e.cancelable) e.preventDefault();
+    }
+  }
+  
   function handleTouchEnd(e) {
     if (!trackingSwipe || !swipeMode) return;
     trackingSwipe = false;
     if (!isDrawerTouchMode()) return;
-
+  
+    // 只有鎖定為水平意圖才處理（垂直意圖放行給捲動）
+    if (swipeLock !== 'h') { swipeMode = null; swipeLock = null; return; }
+  
     const t = e.changedTouches && e.changedTouches[0];
-    if (!t) return;
-
+    if (!t) { swipeMode = null; swipeLock = null; return; }
+  
     const dx = t.clientX - touchStartX;
     const dy = t.clientY - touchStartY;
-
-    // 垂直位移太大或水平太短，就當作一般捲動
-    if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
-
+  
+    // 水平不足 or 不夠水平，就不觸發
+    if (Math.abs(dx) < MIN_SWIPE || Math.abs(dx) <= Math.abs(dy) * 1.2) {
+      swipeMode = null;
+      swipeLock = null;
+      return;
+    }
+  
     switch (swipeMode) {
       case 'left-open':
         // 左欄已開 → 往左滑關閉
-        if (dx < -40) closeAll();
+        if (dx < -MIN_SWIPE) closeAll();
         break;
       case 'right-open':
         // 右欄已開 → 往右滑關閉
-        if (dx > 40) closeAll();
+        if (dx > MIN_SWIPE) closeAll();
         break;
       case 'left-edge':
         // 從左邊緣起手 → 往右滑打開左欄
-        if (dx > 40) openLeft();
+        if (dx > MIN_SWIPE) openLeft();
         break;
       case 'right-edge':
         // 從右邊緣起手 → 往左滑打開右欄
-        if (dx < -40) openRight();
+        if (dx < -MIN_SWIPE) openRight();
         break;
     }
+  
+    swipeMode = null;
+    swipeLock = null;
   }
-
+  
   // 掛在整個文件上，確保在側欄或 backdrop 上滑都抓得到
-  document.addEventListener('touchstart', handleTouchStart, { passive: true });
-  document.addEventListener('touchend', handleTouchEnd, { passive: true });
+  document.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
+  document.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true }); // ★ 重點：passive 必須是 false
+  document.addEventListener('touchend', handleTouchEnd, { passive: true, capture: true });
+
 }
 
 
