@@ -5699,6 +5699,7 @@ bindTapClick(btnRecords, showRecords);
 
 // ===================== 字卡功能 Flashcards（表單式介面） =====================
 const FLASHCARDS_STORAGE_KEY = 'ntuvm-flashcards-data-v2';
+// 修改後的 fcImportFlashcards 函式
 function fcImportFlashcards(parentId = null) {
   const pick = document.createElement('input');
   pick.type = 'file';
@@ -5714,7 +5715,7 @@ function fcImportFlashcards(parentId = null) {
       if (Array.isArray(data)) {
         rows = data.filter(x => x && (x.front || x.back))
                    .map(x => ({ front: String(x.front || ''), back: String(x.back || '') }));
-        name = prompt('請輸入主題名稱：', (f.name || '').replace(/\\.json$/i,'').slice(0,40)) || '未命名主題';
+        name = prompt('請輸入主題名稱：', (f.name || '').replace(/\.json$/i,'').slice(0,40)) || '未命名主題';
       } else if (data && Array.isArray(data.cards)) {
         name = String(data.name || '').trim() || prompt('請輸入主題名稱：', '新主題') || '未命名主題';
         rows = data.cards.filter(x => x && (x.front || x.back))
@@ -5723,18 +5724,26 @@ function fcImportFlashcards(parentId = null) {
         alert('匯入格式不支援，請提供 JSON：[{front,back}] 或 {name, cards:[...]}');
         return;
       }
-      const newNode = fcCreateNode(name, parentId ?? null, 'topic');
+      
+      // ★ 修正 1：這裡要傳物件 { name, parentId, type }
+      const newNode = fcCreateNode({ name: name, parentId: parentId ?? null, type: 'topic' });
       if (!newNode) return;
+      
       fcReplaceCardsOfNode(newNode.id, rows);
-      // fcReplaceCardsOfNode(newNode.id, rows) 之後
+
+      // ★ 修正 2：補上底線 __，確保能呼叫到全域函式
       if (parentId == null) {
-        window.fcRenderHomeList?.();
+        window.__fcRenderHomeList?.(); 
       } else {
-        window.fcRenderFolderList?.();
+        window.__fcRenderFolderList?.();
       }
+      
       alert(`已匯入主題「${name}」，共 ${rows.length} 張卡片。`);
-      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
-      if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+      
+      // 這裡也一起修正，保持一致
+      if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+      if (typeof window.__fcRenderFolderList === 'function') window.__fcRenderFolderList();
+
     } catch (err) {
       console.error('匯入失敗：', err);
       alert('匯入失敗，請確認檔案內容。');
@@ -5742,6 +5751,7 @@ function fcImportFlashcards(parentId = null) {
   };
   pick.click();
 }
+
 
 function fcLoad() {
   try {
