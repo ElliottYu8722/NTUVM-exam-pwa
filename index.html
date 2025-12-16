@@ -683,7 +683,12 @@
       display: grid;
       place-items: center;
     }
-
+    .left .group {
+      gap: 18px; /* 原本是 10px，加大間距來補償按鈕變細的高度，讓視覺距離維持不變 */
+    }
+    .left .group .btn {
+      padding: 6px 14px; /* 原本是 10px，改小讓按鈕變細 */
+    }
   </style>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
