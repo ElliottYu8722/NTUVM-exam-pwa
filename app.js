@@ -6180,18 +6180,20 @@ function fcOpenHome() {
     roots.forEach(node => {
       const row = document.createElement('div');
       row.className = 'fc-node';
-
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${node.type === 'topic' ? '📘' : '📁'} ${node.name}`;
 
-      // 點資料夾：進入資料夾檢視；點主題：開始背卡
-      label.onclick = () => {
+      // ★ 修改：移除 label.onclick，改綁在 row 上，讓整行空白處都能點
+      row.style.cursor = 'pointer'; 
+      row.onclick = () => {
         if (node.type === 'folder') fcOpenFolder(node.id);
         else fcOpenStudy(node.id);
       };
 
       const right = document.createElement('div');
+
+
       right.style.display = 'flex';
       right.style.gap = '8px';
       
