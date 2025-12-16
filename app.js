@@ -5726,6 +5726,12 @@ function fcImportFlashcards(parentId = null) {
       const newNode = fcCreateNode({ name, parentId: parentId ?? null, type: 'topic' });
       if (!newNode) return;
       fcReplaceCardsOfNode(newNode.id, rows);
+      // fcReplaceCardsOfNode(newNode.id, rows) 之後
+      if (parentId == null) {
+        window.fcRenderHomeList?.();
+      } else {
+        window.fcRenderFolderList?.();
+      }
       alert(`已匯入主題「${name}」，共 ${rows.length} 張卡片。`);
       if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
       if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
@@ -7658,6 +7664,12 @@ function ensureNoteRecordBackupStyle() {
       line-height: 1;
       white-space: nowrap;
     }
+    .nr-toolbar-actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex:0 0 auto;
+    }
     .nr-mini-btn:hover{
       border-color: var(--accent, #2f74ff);
       color: var(--accent, #2f74ff);
@@ -7789,21 +7801,20 @@ function openRestoreNotesRecordsDialog() {
 function ensureNotesRecordsBackupButtons() {
   ensureNoteRecordBackupStyle();
 
-  const qNumEl = document.getElementById('qNum');
-  if (!qNumEl) return;
+  const toolbarEl = document.querySelector('.toolbar');
+  if (!toolbarEl) return;
 
   // 避免重複插入
   if (document.getElementById('btnNotesRecordsBackup')) return;
 
-  const parent = qNumEl.parentElement;
-  if (!parent) return;
-
-  // 建立最上排：左題號 + 右兩顆按鈕
-  const row = document.createElement('div');
-  row.className = 'nr-qnum-row';
+  // 插在「搜尋框」左邊 => 梯次右邊、搜尋左邊
+  const ref = (typeof searchInput !== 'undefined' && searchInput)
+    ? searchInput
+    : document.getElementById('questionSearch');
+  if (!ref) return;
 
   const actions = document.createElement('div');
-  actions.className = 'nr-qnum-actions';
+  actions.className = 'nr-toolbar-actions';
 
   const btnBackup = document.createElement('button');
   btnBackup.id = 'btnNotesRecordsBackup';
@@ -7829,11 +7840,9 @@ function ensureNotesRecordsBackupButtons() {
   actions.appendChild(btnBackup);
   actions.appendChild(btnRestore);
 
-  // 把原本 qNumEl 從 parent 抽出來塞進 row（會自動移動節點）
-  parent.insertBefore(row, qNumEl);
-  row.appendChild(qNumEl);
-  row.appendChild(actions);
+  toolbarEl.insertBefore(actions, ref);
 }
+
 
 
 
