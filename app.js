@@ -7614,6 +7614,229 @@ function toast(msg){
   toastTimer=setTimeout(()=>el.remove(),1000);
 }
 
+// ==============================
+// 備份 / 恢復：筆記 + 紀錄（JSON）
+// 放在題號（qNum）旁邊
+// ==============================
+
+function safeJsonParse(raw) {
+  try {
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function ensureNoteRecordBackupStyle() {
+  if (document.getElementById('nr-backup-style')) return;
+
+  const style = document.createElement('style');
+  style.id = 'nr-backup-style';
+  style.textContent = `
+    .nr-qnum-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+    .nr-qnum-actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex:0 0 auto;
+    }
+    .nr-mini-btn{
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #444);
+      background: transparent;
+      color: var(--fg, #fff);
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .nr-mini-btn:hover{
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function buildNotesRecordsBackupPayload() {
+  // 這裡只抓你需求的「筆記/紀錄」
+  // 筆記：notesv2 / notesMetav2
+  // 紀錄：random quiz records、pet feed records（如果你不想含寵物紀錄可刪）
+  const notes = safeJsonParse(localStorage.getItem(STORAGE?.notes ?? 'notesv2')) ?? {};
+  const notesMeta = safeJsonParse(localStorage.getItem(STORAGE?.notesMeta ?? 'notesMetav2')) ?? {};
+
+  const randomQuizRecords =
+    safeJsonParse(localStorage.getItem(typeof RANDOMQUIZRECORDSKEY !== 'undefined' ? RANDOMQUIZRECORDSKEY : 'ntuvm-random-quiz-records')) ?? [];
+
+  const petFeedRecords =
+    safeJsonParse(localStorage.getItem(typeof PETFEEDRECORDSKEY !== 'undefined' ? PETFEEDRECORDSKEY : 'ntuvm-pet-feed-records')) ?? [];
+
+  return {
+    schema: 'ntuvm-notes-records-backup',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    data: {
+      notes,
+      notesMeta,
+      randomQuizRecords,
+      petFeedRecords,
+    },
+  };
+}
+
+function downloadJsonObject(obj, filename) {
+  const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+function applyNotesRecordsBackupPayload(payload) {
+  if (!payload || payload.schema !== 'ntuvm-notes-records-backup' || !payload.data) {
+    alert('備份檔格式不正確');
+    return false;
+  }
+
+  const data = payload.data || {};
+
+  // 寫回 localStorage（用你原本的 key）
+  localStorage.setItem(STORAGE?.notes ?? 'notesv2', JSON.stringify(data.notes ?? {}));
+  localStorage.setItem(STORAGE?.notesMeta ?? 'notesMetav2', JSON.stringify(data.notesMeta ?? {}));
+
+  if (typeof RANDOMQUIZRECORDSKEY !== 'undefined') {
+    localStorage.setItem(RANDOMQUIZRECORDSKEY, JSON.stringify(data.randomQuizRecords ?? []));
+  } else {
+    localStorage.setItem('ntuvm-random-quiz-records', JSON.stringify(data.randomQuizRecords ?? []));
+  }
+
+  if (typeof PETFEEDRECORDSKEY !== 'undefined') {
+    localStorage.setItem(PETFEEDRECORDSKEY, JSON.stringify(data.petFeedRecords ?? []));
+  } else {
+    localStorage.setItem('ntuvm-pet-feed-records', JSON.stringify(data.petFeedRecords ?? []));
+  }
+
+  // 讓目前畫面狀態跟著刷新
+  try {
+    if (typeof loadNotes === 'function') loadNotes();
+  } catch {}
+
+  try {
+    if (typeof loadRandomQuizRecords === 'function') loadRandomQuizRecords();
+  } catch {}
+
+  try {
+    if (typeof renderQuestion === 'function') renderQuestion();
+  } catch {}
+
+  try {
+    if (typeof renderPetFeedLog === 'function') renderPetFeedLog();
+  } catch {}
+
+  return true;
+}
+
+function openRestoreNotesRecordsDialog() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json';
+  input.style.display = 'none';
+  document.body.appendChild(input);
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) {
+      input.remove();
+      return;
+    }
+
+    const ok = confirm('要從備份檔恢復「筆記/紀錄」嗎？這會覆蓋你目前裝置上的筆記/紀錄。');
+    if (!ok) {
+      input.remove();
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const payload = JSON.parse(text);
+      const applied = applyNotesRecordsBackupPayload(payload);
+      if (applied) alert('恢復完成');
+    } catch (err) {
+      console.error(err);
+      alert('讀取備份檔失敗（可能不是 JSON 或檔案壞掉）');
+    } finally {
+      input.remove();
+    }
+  });
+
+  input.click();
+}
+
+function ensureNotesRecordsBackupButtons() {
+  ensureNoteRecordBackupStyle();
+
+  const qNumEl = document.getElementById('qNum');
+  if (!qNumEl) return;
+
+  // 避免重複插入
+  if (document.getElementById('btnNotesRecordsBackup')) return;
+
+  const parent = qNumEl.parentElement;
+  if (!parent) return;
+
+  // 建立最上排：左題號 + 右兩顆按鈕
+  const row = document.createElement('div');
+  row.className = 'nr-qnum-row';
+
+  const actions = document.createElement('div');
+  actions.className = 'nr-qnum-actions';
+
+  const btnBackup = document.createElement('button');
+  btnBackup.id = 'btnNotesRecordsBackup';
+  btnBackup.className = 'nr-mini-btn';
+  btnBackup.textContent = '備份筆記/紀錄';
+  btnBackup.onclick = () => {
+    const payload = buildNotesRecordsBackupPayload();
+    const ts = new Date();
+    const y = ts.getFullYear();
+    const m = String(ts.getMonth() + 1).padStart(2, '0');
+    const d = String(ts.getDate()).padStart(2, '0');
+    const hh = String(ts.getHours()).padStart(2, '0');
+    const mm = String(ts.getMinutes()).padStart(2, '0');
+    downloadJsonObject(payload, `ntuvm-notes-records-${y}${m}${d}-${hh}${mm}.json`);
+  };
+
+  const btnRestore = document.createElement('button');
+  btnRestore.id = 'btnNotesRecordsRestore';
+  btnRestore.className = 'nr-mini-btn';
+  btnRestore.textContent = '恢復筆記/紀錄';
+  btnRestore.onclick = () => openRestoreNotesRecordsDialog();
+
+  actions.appendChild(btnBackup);
+  actions.appendChild(btnRestore);
+
+  // 把原本 qNumEl 從 parent 抽出來塞進 row（會自動移動節點）
+  parent.insertBefore(row, qNumEl);
+  row.appendChild(qNumEl);
+  row.appendChild(actions);
+}
+
+
+
 /* 工具：debounce */
 function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); }; }
 
@@ -8030,7 +8253,7 @@ function init() {
   renderList();
   state.scope = getScopeFromUI();
   onScopeChange();
-
+  setTimeout(ensureNotesRecordsBackupButtons, 0);
   if (AUTHOR_MODE && btnExportNotes) {
     btnExportNotes.classList.remove("hidden");
   }
