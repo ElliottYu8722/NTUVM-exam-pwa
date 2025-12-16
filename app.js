@@ -6222,12 +6222,12 @@ function fcOpenHome() {
         right.appendChild(btnSeq);
         right.appendChild(btnShuffle);
       }
-
-      // 主題提供編輯；資料夾也可編輯名稱（可選）
       const edit = document.createElement('button');
       edit.className = 'fc-btn';
       edit.textContent = '編輯';
-      edit.onclick = () => {
+      edit.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
         if (node.type === 'topic') {
           fcOpenEditor({ mode: 'edit', nodeId: node.id });
         } else {
@@ -6242,11 +6242,14 @@ function fcOpenHome() {
       const del = document.createElement('button');
       del.className = 'fc-btn danger';
       del.textContent = '刪除';
-      del.onclick = () => {
+      del.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
         if (!confirm(`確定刪除「${node.name}」及其所有內容？`)) return;
         fcDeleteNodeRecursive(node.id);
         renderHomeList();
       };
+
 
       right.appendChild(edit);
       right.appendChild(del);
@@ -6261,6 +6264,7 @@ function fcOpenHome() {
   renderHomeList();
 }
 
+// ---------- 資料夾檢視：只顯示主題/子資料夾 ----------
 // ---------- 資料夾檢視：只顯示主題/子資料夾 ----------
 function fcOpenFolder(nodeId) {
   fcEnsureStyle();
@@ -6294,18 +6298,16 @@ function fcOpenFolder(nodeId) {
   `;
 
   document.body.appendChild(screen);
+
   // ✕：如果有上一層資料夾，就回上一層；否則才回到根目錄（關掉資料夾畫面）
   const close = () => {
     if (node.parentId) {
-      // 回上一層資料夾
       fcOpenFolder(node.parentId);
     } else {
-      // 已經是最上層資料夾 → 關掉資料夾畫面，露出首頁
       try { screen.remove(); } catch {}
     }
   };
   document.getElementById('fc-folder-close').onclick = close;
-
 
   // 在此資料夾內新增資料夾
   document.getElementById('fc-folder-add-folder').onclick = () => {
@@ -6320,6 +6322,7 @@ function fcOpenFolder(nodeId) {
   document.getElementById('fc-folder-add-topic').onclick = () => {
     fcOpenEditor({ mode: 'create', parentId: node.id, type: 'topic' });
   };
+
   document.getElementById('fc-folder-import').onclick = () => fcImportFlashcards(node.id);
 
   function renderFolderList() {
@@ -6340,6 +6343,7 @@ function fcOpenFolder(nodeId) {
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${ch.type === 'topic' ? '📘' : '📁'} ${ch.name}`;
+
       // 點資料夾遞迴進入；點主題開始背卡
       label.onclick = () => {
         if (ch.type === 'folder') fcOpenFolder(ch.id);
@@ -6349,12 +6353,14 @@ function fcOpenFolder(nodeId) {
       const right = document.createElement('div');
       right.style.display = 'flex';
       right.style.gap = '8px';
+
       // ✅ 只在「主題 topic」這列顯示：順序 / 洗牌
       if (ch.type === 'topic') {
         const btnSeq = document.createElement('button');
         btnSeq.className = 'fc-btn';
         btnSeq.textContent = '照順序顯示字卡';
         btnSeq.onclick = (e) => {
+          e.preventDefault();
           e.stopPropagation();
           fcOpenStudy(ch.id, 0, { shuffle: false });
         };
@@ -6363,6 +6369,7 @@ function fcOpenFolder(nodeId) {
         btnShuffle.className = 'fc-btn';
         btnShuffle.textContent = '洗牌出卡';
         btnShuffle.onclick = (e) => {
+          e.preventDefault();
           e.stopPropagation();
           fcOpenStudy(ch.id, 0, { shuffle: true });
         };
@@ -6374,7 +6381,9 @@ function fcOpenFolder(nodeId) {
       const edit = document.createElement('button');
       edit.className = 'fc-btn';
       edit.textContent = '編輯';
-      edit.onclick = () => {
+      edit.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
         if (ch.type === 'topic') {
           fcOpenEditor({ mode: 'edit', nodeId: ch.id });
         } else {
@@ -6390,24 +6399,31 @@ function fcOpenFolder(nodeId) {
       const del = document.createElement('button');
       del.className = 'fc-btn danger';
       del.textContent = '刪除';
-      del.onclick = () => {
+      del.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
         if (!confirm(`確定刪除「${ch.name}」及其所有內容？`)) return;
         fcDeleteNodeRecursive(ch.id);
         renderFolderList();
         if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
       };
 
+      // ★ 你剛剛就是少了下面這些 append + 結尾大括號
       right.appendChild(edit);
       right.appendChild(del);
+
       row.appendChild(label);
       row.appendChild(right);
       list.appendChild(row);
     });
   }
+
+  // 提供給編輯器儲存回來時刷新
   window.fcRenderFolderList = renderFolderList;
   window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
+
 
 
 function fcEnsureStudyStyle() {
@@ -8385,203 +8401,156 @@ function fcSyncCenterScroll(containerEl) {
   });
 }
 /* =========================================
-   手機版左右滑動手勢 (Swipe Gestures)
+   題庫：左右滑動換題（不與側欄衝突）
+   - 左滑：下一題
+   - 右滑：上一題
    ========================================= */
 (function initSwipeGestures() {
-  const container = document.querySelector('.main-content'); // 監聽主要內容區
-  if (!container) return;
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
 
-  let touchStartX = 0;
-  let touchStartY = 0;
-  const minSwipeDistance = 60; // 最小滑動距離 (px)
-  const maxVerticalDistance = 50; // 最大允許垂直誤差 (超過就不算左右滑)
+  const MIN_SWIPE_X = 70;     // 水平滑動要超過多少才算
+  const MAX_SWIPE_Y = 60;     // 垂直位移太大視為上下捲動
+  const EDGE_GUARD = 26;      // 螢幕左右邊緣保留，避免跟側欄手勢打架
 
-  container.addEventListener('touchstart', (e) => {
-    // 只有一隻手指頭時才偵測，避免縮放手勢干擾
-    if (e.touches.length === 1) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-
-  container.addEventListener('touchend', (e) => {
-    if (e.changedTouches.length !== 1) return;
-
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-
-    const diffX = touchStartX - touchEndX; // 正值=向左滑，負值=向右滑
-    const diffY = touchStartY - touchEndY;
-
-    // 1. 檢查垂直移動是否太多 (如果是在上下捲動頁面，就不要觸發切換題目)
-    if (Math.abs(diffY) > maxVerticalDistance) return;
-
-    // 2. 檢查水平滑動距離是否足夠
-    if (Math.abs(diffX) > minSwipeDistance) {
-      // 3. 判斷是在做什麼操作
-      // 如果側邊欄是打開的，就不要觸發 (避免跟關閉側欄衝突)
-      if (document.body.classList.contains('show-left-panel') || 
-          document.body.classList.contains('show-right-panel')) {
-        return;
-      }
-
-      // 4. 執行換題動作
-      if (diffX > 0) {
-        // 向左滑 -> 下一題 (Next)
-        const nextBtn = document.getElementById('next');
-        if (nextBtn && !nextBtn.disabled) {
-          nextBtn.click();
-          showSwipeFeedback('next');
-        }
-      } else {
-        // 向右滑 -> 上一題 (Prev)
-        const prevBtn = document.getElementById('prev');
-        if (prevBtn && !prevBtn.disabled) {
-          prevBtn.click();
-          showSwipeFeedback('prev');
-        }
-      }
-    }
-  }, { passive: true });
-
-  // 增加一點視覺回饋 (Optional)
-  function showSwipeFeedback(direction) {
-    const feedback = document.createElement('div');
-    feedback.className = 'swipe-feedback';
-    feedback.textContent = direction === 'next' ? '⏩' : '⏪';
-    
-    Object.assign(feedback.style, {
-      position: 'fixed',
-      top: '50%',
-      [direction === 'next' ? 'right' : 'left']: '20px',
-      transform: 'translateY(-50%)',
-      fontSize: '40px',
-      color: 'rgba(0,0,0,0.3)',
-      zIndex: '9999',
-      pointerEvents: 'none',
-      animation: 'fadeOut 0.5s forwards'
-    });
-
-    document.body.appendChild(feedback);
-    setTimeout(() => feedback.remove(), 500);
+  function panelIsOpen() {
+    return document.body.classList.contains('show-left-panel')
+      || document.body.classList.contains('show-right-panel');
   }
 
-  // 注入回饋動畫 CSS
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeOut {
-      0% { opacity: 1; transform: translateY(-50%) scale(1); }
-      100% { opacity: 0; transform: translateY(-50%) scale(1.5); }
-    }
-  `;
-  document.head.appendChild(style);
+  function shouldIgnoreTarget(t) {
+    if (!t) return true;
 
-})();
-/* =========================================
-   字卡瀏覽模式：左右滑動手勢 (Flashcard Swipe)
-   ========================================= */
-(function initFlashcardSwipe() {
-  // 因為字卡檢視器是動態產生的，所以我們監聽 document，然後用事件代理判斷目標
-  
-  let fcTouchStartX = 0;
-  let fcTouchStartY = 0;
-  const minSwipeDistance = 50;  // 字卡可以稍微靈敏一點
-  const maxVerticalDistance = 60; // 容許稍微歪掉
+    // 側欄/遮罩/題目列表區：不要在這些地方觸發換題
+    if (t.closest('#qList') || t.closest('.drawer-backdrop')) return true;
+
+    // 表單輸入時不要換題
+    if (t.closest('input, textarea, select')) return true;
+
+    // 字卡畫面或任何 fc overlay 出現時，不要觸發題目換題
+    if (t.closest('.fc-screen') || t.closest('#fc-viewer-mask') || t.closest('.fc-viewer-mask')) return true;
+
+    // 只允許在「題目內容區」滑動才換題（避免滑在工具列/其他區塊誤觸）
+    const inQuestionArea = t.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
+    return !inQuestionArea;
+  }
 
   document.addEventListener('touchstart', (e) => {
-    // 1. 檢查是否正在看字卡 (有沒有遮罩層)
-    const viewerMask = document.querySelector('.fc-viewer-mask');
-    if (!viewerMask) return; // 沒開字卡就不做事
+    if (panelIsOpen()) { tracking = false; return; }
+    if (!e.touches || e.touches.length !== 1) { tracking = false; return; }
 
-    // 2. 只有一隻手指頭才算
-    if (e.touches.length === 1) {
-      fcTouchStartX = e.touches[0].clientX;
-      fcTouchStartY = e.touches[0].clientY;
+    const touch = e.touches[0];
+
+    // 邊緣保護：靠近左右邊緣就不啟用（留給側欄）
+    if (touch.clientX <= EDGE_GUARD || touch.clientX >= (window.innerWidth - EDGE_GUARD)) {
+      tracking = false;
+      return;
     }
-  }, { passive: true });
+
+    if (shouldIgnoreTarget(e.target)) { tracking = false; return; }
+
+    startX = touch.clientX;
+    startY = touch.clientY;
+    tracking = true;
+  }, { passive: true, capture: true });
 
   document.addEventListener('touchend', (e) => {
-    // 1. 同樣檢查字卡檢視器是否存在
-    const viewerMask = document.querySelector('.fc-viewer-mask');
-    if (!viewerMask) return;
+    if (!tracking) return;
+    tracking = false;
 
-    if (e.changedTouches.length !== 1) return;
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+    if (panelIsOpen()) return;
 
-    const fcTouchEndX = e.changedTouches[0].clientX;
-    const fcTouchEndY = e.changedTouches[0].clientY;
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - startX;   // end - start；dx<0 左滑，dx>0 右滑
+    const dy = touch.clientY - startY;
 
-    const diffX = fcTouchStartX - fcTouchEndX;
-    const diffY = fcTouchStartY - fcTouchEndY;
+    if (Math.abs(dy) > MAX_SWIPE_Y) return;      // 上下捲動就不換題
+    if (Math.abs(dx) < MIN_SWIPE_X) return;      // 不夠「滑」就忽略
 
-    // 2. 垂直移動太多 -> 視為捲動長文字，不觸發換卡
-    if (Math.abs(diffY) > maxVerticalDistance) return;
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
 
-    // 3. 水平滑動足夠
-    if (Math.abs(diffX) > minSwipeDistance) {
-      
-      // 找出字卡介面上的「上一張」與「下一張」按鈕
-      // 注意：這裡要依據你的 fcRenderViewer 實作去找按鈕 class 或 id
-      // 假設按鈕有 .fc-btn.prev 和 .fc-btn.next 或是根據文字內容找
-      
-      // 嘗試透過 DOM 結構找按鈕 (這通常在 .fc-viewer-card 下面或 mask 上)
-      // 我們這裡用更通用的方式：模擬鍵盤事件 (ArrowLeft / ArrowRight)
-      // 因為通常字卡系統都會綁定鍵盤左右鍵，這樣最穩！
-      
-      if (diffX > 0) {
-        // 向左滑 -> 下一張 (Next)
-        triggerKey(39); // Right Arrow
-        showFcFeedback('next');
-      } else {
-        // 向右滑 -> 上一張 (Prev)
-        triggerKey(37); // Left Arrow
-        showFcFeedback('prev');
-      }
+    if (dx < 0) {
+      // 左滑：下一題
+      if (nextBtn && !nextBtn.disabled) nextBtn.click();
+    } else {
+      // 右滑：上一題
+      if (prevBtn && !prevBtn.disabled) prevBtn.click();
     }
-  }, { passive: true });
-
-  // 模擬鍵盤按鍵函式
-  function triggerKey(keyCode) {
-    const event = new KeyboardEvent('keydown', {
-      keyCode: keyCode,
-      which: keyCode,
-      bubbles: true
-    });
-    document.dispatchEvent(event);
-  }
-
-  // 視覺回饋 (跟題目的類似，但可以稍微區隔一下樣式)
-  function showFcFeedback(direction) {
-    const feedback = document.createElement('div');
-    feedback.textContent = direction === 'next' ? '👋 下一張' : '上一張 👋';
-    
-    Object.assign(feedback.style, {
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)', // 正中間顯示
-      fontSize: '24px',
-      fontWeight: 'bold',
-      color: '#fff',
-      background: 'rgba(0,0,0,0.6)',
-      padding: '12px 24px',
-      borderRadius: '20px',
-      zIndex: '100300', // 要比字卡遮罩 (z-index: 100200) 高
-      pointerEvents: 'none',
-      animation: 'fcFadeOut 0.6s forwards'
-    });
-
-    document.body.appendChild(feedback);
-    setTimeout(() => feedback.remove(), 600);
-  }
-
-  // 注入動畫 CSS (如果 app.js 裡還沒有的話)
-  const s = document.createElement('style');
-  s.textContent = `
-    @keyframes fcFadeOut {
-      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-    }
-  `;
-  document.head.appendChild(s);
-
+  }, { passive: true, capture: true });
 })();
+
+/* =========================================
+   字卡「背卡畫面」：左右滑動換卡
+   - 只在 #fc-study-screen 存在時啟用
+   - 左滑：下一張（#fc-study-next）
+   - 右滑：上一張（#fc-study-prev）
+   ========================================= */
+(function initFlashcardSwipe() {
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+
+  const MIN_SWIPE_X = 70;     // 水平滑動距離門檻
+  const MAX_SWIPE_Y = 70;     // 垂直位移太大視為上下捲動
+  const EDGE_GUARD = 26;      // 螢幕左右邊緣保留，避免跟側欄/系統返回手勢打架
+
+  function getStudyScreen() {
+    return document.getElementById('fc-study-screen');
+  }
+
+  document.addEventListener('touchstart', (e) => {
+    const screen = getStudyScreen();
+    if (!screen) { tracking = false; return; }
+
+    if (!e.touches || e.touches.length !== 1) { tracking = false; return; }
+
+    const t = e.touches[0];
+
+    // 邊緣保護：避免 iOS 邊緣返回、或你未來若做側欄手勢會互撞
+    if (t.clientX <= EDGE_GUARD || t.clientX >= (window.innerWidth - EDGE_GUARD)) {
+      tracking = false;
+      return;
+    }
+
+    // 若在可捲動內容（卡片本體會 overflow:auto）內上下滑，盡量不要誤觸
+    // 這裡不阻止，留給 touchend 的 dy 判斷
+    startX = t.clientX;
+    startY = t.clientY;
+    tracking = true;
+  }, { passive: true, capture: true });
+
+  document.addEventListener('touchend', (e) => {
+    if (!tracking) return;
+    tracking = false;
+
+    const screen = getStudyScreen();
+    if (!screen) return;
+
+    if (!e.changedTouches || e.changedTouches.length !== 1) return;
+
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;  // dx<0 左滑，dx>0 右滑
+    const dy = t.clientY - startY;
+
+    // 上下捲動就不換卡
+    if (Math.abs(dy) > MAX_SWIPE_Y) return;
+
+    // 不夠「滑」就忽略
+    if (Math.abs(dx) < MIN_SWIPE_X) return;
+
+    const btnPrev = screen.querySelector('#fc-study-prev');
+    const btnNext = screen.querySelector('#fc-study-next');
+
+    if (dx < 0) {
+      // 左滑：下一張
+      if (btnNext && !btnNext.disabled) btnNext.click();
+    } else {
+      // 右滑：上一張
+      if (btnPrev && !btnPrev.disabled) btnPrev.click();
+    }
+  }, { passive: true, capture: true });
+})();
+
