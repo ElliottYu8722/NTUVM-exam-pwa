@@ -8384,3 +8384,204 @@ function fcSyncCenterScroll(containerEl) {
     }
   });
 }
+/* =========================================
+   手機版左右滑動手勢 (Swipe Gestures)
+   ========================================= */
+(function initSwipeGestures() {
+  const container = document.querySelector('.main-content'); // 監聽主要內容區
+  if (!container) return;
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  const minSwipeDistance = 60; // 最小滑動距離 (px)
+  const maxVerticalDistance = 50; // 最大允許垂直誤差 (超過就不算左右滑)
+
+  container.addEventListener('touchstart', (e) => {
+    // 只有一隻手指頭時才偵測，避免縮放手勢干擾
+    if (e.touches.length === 1) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    if (e.changedTouches.length !== 1) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const diffX = touchStartX - touchEndX; // 正值=向左滑，負值=向右滑
+    const diffY = touchStartY - touchEndY;
+
+    // 1. 檢查垂直移動是否太多 (如果是在上下捲動頁面，就不要觸發切換題目)
+    if (Math.abs(diffY) > maxVerticalDistance) return;
+
+    // 2. 檢查水平滑動距離是否足夠
+    if (Math.abs(diffX) > minSwipeDistance) {
+      // 3. 判斷是在做什麼操作
+      // 如果側邊欄是打開的，就不要觸發 (避免跟關閉側欄衝突)
+      if (document.body.classList.contains('show-left-panel') || 
+          document.body.classList.contains('show-right-panel')) {
+        return;
+      }
+
+      // 4. 執行換題動作
+      if (diffX > 0) {
+        // 向左滑 -> 下一題 (Next)
+        const nextBtn = document.getElementById('next');
+        if (nextBtn && !nextBtn.disabled) {
+          nextBtn.click();
+          showSwipeFeedback('next');
+        }
+      } else {
+        // 向右滑 -> 上一題 (Prev)
+        const prevBtn = document.getElementById('prev');
+        if (prevBtn && !prevBtn.disabled) {
+          prevBtn.click();
+          showSwipeFeedback('prev');
+        }
+      }
+    }
+  }, { passive: true });
+
+  // 增加一點視覺回饋 (Optional)
+  function showSwipeFeedback(direction) {
+    const feedback = document.createElement('div');
+    feedback.className = 'swipe-feedback';
+    feedback.textContent = direction === 'next' ? '⏩' : '⏪';
+    
+    Object.assign(feedback.style, {
+      position: 'fixed',
+      top: '50%',
+      [direction === 'next' ? 'right' : 'left']: '20px',
+      transform: 'translateY(-50%)',
+      fontSize: '40px',
+      color: 'rgba(0,0,0,0.3)',
+      zIndex: '9999',
+      pointerEvents: 'none',
+      animation: 'fadeOut 0.5s forwards'
+    });
+
+    document.body.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 500);
+  }
+
+  // 注入回饋動畫 CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeOut {
+      0% { opacity: 1; transform: translateY(-50%) scale(1); }
+      100% { opacity: 0; transform: translateY(-50%) scale(1.5); }
+    }
+  `;
+  document.head.appendChild(style);
+
+})();
+/* =========================================
+   字卡瀏覽模式：左右滑動手勢 (Flashcard Swipe)
+   ========================================= */
+(function initFlashcardSwipe() {
+  // 因為字卡檢視器是動態產生的，所以我們監聽 document，然後用事件代理判斷目標
+  
+  let fcTouchStartX = 0;
+  let fcTouchStartY = 0;
+  const minSwipeDistance = 50;  // 字卡可以稍微靈敏一點
+  const maxVerticalDistance = 60; // 容許稍微歪掉
+
+  document.addEventListener('touchstart', (e) => {
+    // 1. 檢查是否正在看字卡 (有沒有遮罩層)
+    const viewerMask = document.querySelector('.fc-viewer-mask');
+    if (!viewerMask) return; // 沒開字卡就不做事
+
+    // 2. 只有一隻手指頭才算
+    if (e.touches.length === 1) {
+      fcTouchStartX = e.touches[0].clientX;
+      fcTouchStartY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    // 1. 同樣檢查字卡檢視器是否存在
+    const viewerMask = document.querySelector('.fc-viewer-mask');
+    if (!viewerMask) return;
+
+    if (e.changedTouches.length !== 1) return;
+
+    const fcTouchEndX = e.changedTouches[0].clientX;
+    const fcTouchEndY = e.changedTouches[0].clientY;
+
+    const diffX = fcTouchStartX - fcTouchEndX;
+    const diffY = fcTouchStartY - fcTouchEndY;
+
+    // 2. 垂直移動太多 -> 視為捲動長文字，不觸發換卡
+    if (Math.abs(diffY) > maxVerticalDistance) return;
+
+    // 3. 水平滑動足夠
+    if (Math.abs(diffX) > minSwipeDistance) {
+      
+      // 找出字卡介面上的「上一張」與「下一張」按鈕
+      // 注意：這裡要依據你的 fcRenderViewer 實作去找按鈕 class 或 id
+      // 假設按鈕有 .fc-btn.prev 和 .fc-btn.next 或是根據文字內容找
+      
+      // 嘗試透過 DOM 結構找按鈕 (這通常在 .fc-viewer-card 下面或 mask 上)
+      // 我們這裡用更通用的方式：模擬鍵盤事件 (ArrowLeft / ArrowRight)
+      // 因為通常字卡系統都會綁定鍵盤左右鍵，這樣最穩！
+      
+      if (diffX > 0) {
+        // 向左滑 -> 下一張 (Next)
+        triggerKey(39); // Right Arrow
+        showFcFeedback('next');
+      } else {
+        // 向右滑 -> 上一張 (Prev)
+        triggerKey(37); // Left Arrow
+        showFcFeedback('prev');
+      }
+    }
+  }, { passive: true });
+
+  // 模擬鍵盤按鍵函式
+  function triggerKey(keyCode) {
+    const event = new KeyboardEvent('keydown', {
+      keyCode: keyCode,
+      which: keyCode,
+      bubbles: true
+    });
+    document.dispatchEvent(event);
+  }
+
+  // 視覺回饋 (跟題目的類似，但可以稍微區隔一下樣式)
+  function showFcFeedback(direction) {
+    const feedback = document.createElement('div');
+    feedback.textContent = direction === 'next' ? '👋 下一張' : '上一張 👋';
+    
+    Object.assign(feedback.style, {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)', // 正中間顯示
+      fontSize: '24px',
+      fontWeight: 'bold',
+      color: '#fff',
+      background: 'rgba(0,0,0,0.6)',
+      padding: '12px 24px',
+      borderRadius: '20px',
+      zIndex: '100300', // 要比字卡遮罩 (z-index: 100200) 高
+      pointerEvents: 'none',
+      animation: 'fcFadeOut 0.6s forwards'
+    });
+
+    document.body.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 600);
+  }
+
+  // 注入動畫 CSS (如果 app.js 裡還沒有的話)
+  const s = document.createElement('style');
+  s.textContent = `
+    @keyframes fcFadeOut {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+    }
+  `;
+  document.head.appendChild(s);
+
+})();
