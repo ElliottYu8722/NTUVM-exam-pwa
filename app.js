@@ -6466,89 +6466,155 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
     textEl.style.fontSize = `${best}px`;
   });
 }
-
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
+
   const s = document.createElement('style');
   s.id = 'fc-study-style';
   s.textContent = `
-    .fc-study-topright{display:flex;gap:10px;align-items:center}
-    .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
-    .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
+    .fc-study-topright{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
 
+    .fc-study-progress{
+      opacity:.75;
+      font-weight:700;
+      min-width:64px;
+      text-align:center;
+    }
+
+    .fc-study-wrap-toggle{
+      padding:8px 12px;
+      border-radius:9999px;
+      border:1px solid var(--border, #333);
+      background:transparent;
+      color:var(--fg, #fff);
+      cursor:pointer;
+      font-size:13px;
+      line-height:1;
+      white-space:nowrap;
+    }
+    .fc-study-wrap-toggle:hover{
+      border-color:var(--accent, #2f74ff);
+      color:var(--accent, #2f74ff);
+    }
+
+    .fc-study-stage{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      position:relative;
+      overflow:hidden; /* 避免子元素把整個頁面撐出水平捲動 */
+    }
+
+    /* 卡片本體：改成 overflow:auto，才能在「不換行」時水平捲動 */
     .fc-study-card{
       width:min(620px, 92vw);
+      max-width:calc(100vw - 32px); /* 手機保守一點，避免右邊溢出 */
       height:min(720px, 72vh);
       background:rgba(255,255,255,.06);
-      border:1px solid var(--border,#333);
+      border:1px solid var(--border, #333);
       border-radius:24px;
       padding:28px;
       text-align:center;
       cursor:pointer;
-      backdrop-filter: blur(8px);
+      backdrop-filter:blur(8px);
       user-select:none;
+      box-sizing:border-box;
 
-      /* ✅ 改成不出現卷軸：靠縮字塞進去 */
-      overflow:hidden;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
 
-      /* ✅ 永遠置中（你要的原始模式） */
       display:flex;
       align-items:center;
       justify-content:center;
     }
 
+    /* 預設：換行模式（pre-wrap + 強制斷字），手機不會往右爆 */
     .fc-study-text{
       font-size:44px;
       font-weight:800;
       line-height:1.25;
 
-      /* ✅ 不自動換行：整句塞不下就縮字 */
-      white-space:pre;
-      word-break:normal;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      word-break:break-word;
 
       text-align:center;
-      display:inline-block;
-      max-width:none;
+      display:block;
+      width:100%;
+      max-width:100%;
+    }
+
+    /* 不換行模式：保留 pre，讓長行走水平捲動 */
+    .fc-study-text.fc-nowrap{
+      white-space:pre;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
+
+    /* 不換行時：建議只開水平捲動（垂直先關掉，體驗較像「左右滑」） */
+    .fc-study-card.fc-nowrap-container{
+      overflow-x:auto;
+      overflow-y:hidden;
     }
 
     .fc-study-hint{
       position:absolute;
       bottom:18px;
-      left:0; right:0;
+      left:0;
+      right:0;
       text-align:center;
       font-size:12px;
-      color:var(--muted,#aaa);
+      color:var(--muted, #aaa);
       pointer-events:none;
     }
+
     .fc-study-bottom{
       padding:14px;
-      border-top:1px solid var(--border,#333);
+      border-top:1px solid var(--border, #333);
       display:flex;
       gap:10px;
       justify-content:center;
       background:rgba(0,0,0,.12);
     }
+
     .fc-study-navbtn{
       padding:10px 16px;
       border-radius:9999px;
-      border:1px solid var(--border,#333);
+      border:1px solid var(--border, #333);
       background:transparent;
-      color:var(--fg,#fff);
+      color:var(--fg, #fff);
       cursor:pointer;
       font-size:14px;
       min-width:90px;
+      white-space:nowrap;
     }
-    .fc-study-navbtn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
-    .fc-study-navbtn:disabled{opacity:.45;cursor:not-allowed}
+    .fc-study-navbtn:hover{
+      border-color:var(--accent, #2f74ff);
+      color:var(--accent, #2f74ff);
+    }
+    .fc-study-navbtn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
 
-    @media (max-width: 1024px){ .fc-study-text{font-size:36px} }
+    @media (max-width: 1024px){
+      .fc-study-text{ font-size:36px; }
+    }
     @media (max-width: 768px){
-      .fc-study-text{font-size:30px}
-      .fc-study-card{height:min(640px, 68vh)}
+      .fc-study-text{ font-size:30px; }
+      .fc-study-card{ height:min(640px, 68vh); }
     }
   `;
+
   document.head.appendChild(s);
 }
+
 
 
 function fcSyncCenterScroll(containerEl) {
