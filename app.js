@@ -6424,6 +6424,46 @@ function fcOpenFolder(nodeId) {
   renderFolderList();
 }
 
+function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
+  if (!containerEl || !textEl) return;
+
+  const minPx = Number(opts.minPx ?? 14);
+  const maxPx = Number(opts.maxPx ?? parseFloat(getComputedStyle(textEl).fontSize) || 44);
+
+  // 先重設成最大字（避免上一張縮太小影響下一張）
+  textEl.style.fontSize = `${maxPx}px`;
+
+  // 等排版完成再量測
+  requestAnimationFrame(() => {
+    const cw = containerEl.clientWidth;
+    const ch = containerEl.clientHeight;
+    if (!cw || !ch) return;
+
+    // 二分搜尋找到「最大且塞得下」的字體大小
+    let lo = minPx;
+    let hi = maxPx;
+    let best = minPx;
+
+    const fits = (px) => {
+      textEl.style.fontSize = `${px}px`;
+      // 強制一次 reflow，避免 iOS/某些瀏覽器量到舊值
+      void textEl.offsetWidth;
+      return (textEl.scrollWidth <= cw) && (textEl.scrollHeight <= ch);
+    };
+
+    for (let i = 0; i < 12; i++) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (fits(mid)) {
+        best = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    textEl.style.fontSize = `${best}px`;
+  });
+}
 
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
@@ -6432,22 +6472,8 @@ function fcEnsureStudyStyle() {
   s.textContent = `
     .fc-study-topright{display:flex;gap:10px;align-items:center}
     .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
-
-    /* 新增：右上角切換按鈕（跟你現有 iconbtn 同一排） */
-    .fc-study-wrap-toggle{
-      height:36px;
-      padding:0 10px;
-      border-radius:9999px;
-      border:1px solid var(--border,#333);
-      background:transparent;
-      color:var(--fg,#fff);
-      cursor:pointer;
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .fc-study-wrap-toggle:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
-
     .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
+
     .fc-study-card{
       width:min(620px, 92vw);
       height:min(720px, 72vh);
@@ -6460,35 +6486,27 @@ function fcEnsureStudyStyle() {
       backdrop-filter: blur(8px);
       user-select:none;
 
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
+      /* ✅ 改成不出現卷軸：靠縮字塞進去 */
+      overflow:hidden;
+
+      /* ✅ 永遠置中（你要的原始模式） */
       display:flex;
       align-items:center;
       justify-content:center;
-    }
-
-    /* 新增：不換行模式下，容器改左上對齊（比較符合「用捲動看」） */
-    .fc-study-card.fc-nowrap-container{
-      align-items:flex-start;
-      justify-content:flex-start;
-      text-align:left;
     }
 
     .fc-study-text{
       font-size:44px;
       font-weight:800;
       line-height:1.25;
-      word-break:break-word;
-      white-space:pre-wrap;
-      width:100%;
-    }
 
-    /* 新增：不換行（用水平捲動看完整行） */
-    .fc-study-text.fc-nowrap{
+      /* ✅ 不自動換行：整句塞不下就縮字 */
       white-space:pre;
       word-break:normal;
-      width:auto;
+
+      text-align:center;
       display:inline-block;
+      max-width:none;
     }
 
     .fc-study-hint{
@@ -6529,6 +6547,8 @@ function fcEnsureStudyStyle() {
   `;
   document.head.appendChild(s);
 }
+
+
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
 
@@ -6688,6 +6708,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
 
     progressEl.textContent = `${idx + 1} / ${cards.length}`;
     textEl.textContent = isFront ? (c.front || '') : (c.back || '');
+    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
 
     applyWrapMode();
 
