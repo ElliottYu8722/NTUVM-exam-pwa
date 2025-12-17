@@ -6428,7 +6428,9 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   if (!containerEl || !textEl) return;
 
   const minPx = Number(opts.minPx ?? 14);
-  const maxPx = Number(opts.maxPx ?? parseFloat(getComputedStyle(textEl).fontSize) || 44);
+  const computed = parseFloat(getComputedStyle(textEl).fontSize);
+  const autoMax = Number.isFinite(computed) ? computed : 44;
+  const maxPx = Number(opts.maxPx ?? autoMax);
 
   // 先重設成最大字（避免上一張縮太小影響下一張）
   textEl.style.fontSize = `${maxPx}px`;
