@@ -6423,37 +6423,48 @@ function fcOpenFolder(nodeId) {
   window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
-
 function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   if (!containerEl || !textEl) return;
 
-  const minPx = Number(opts.minPx ?? 14);
-  const computed = parseFloat(getComputedStyle(textEl).fontSize);
-  const autoMax = Number.isFinite(computed) ? computed : 44;
-  const maxPx = Number(opts.maxPx ?? autoMax);
+  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
 
-  // 先重設成最大字（避免上一張縮太小影響下一張）
+  // 建立「基準字體」：一定要在沒有 inline font-size 的狀態下抓到 CSS 原始大小
+  if (!textEl.dataset.fcBaseFontPx) {
+    const prev = textEl.style.fontSize;
+    textEl.style.fontSize = ""; // 清掉 inline，拿到真正的 CSS 預設字體
+    const base = parseFloat(getComputedStyle(textEl).fontSize);
+    textEl.dataset.fcBaseFontPx = String(Number.isFinite(base) && base > 0 ? base : 44);
+    textEl.style.fontSize = prev;
+  }
+
+  const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
+  const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
+
+  // token：避免連續 render 時，舊的 requestAnimationFrame 結果覆蓋新的
+  const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
+  textEl.dataset.fcFitToken = token;
+
+  // 每次都先回到 max，再重新 fit（這一步是修掉「縮小後回不去」的關鍵）
   textEl.style.fontSize = `${maxPx}px`;
 
-  // 等排版完成再量測
   requestAnimationFrame(() => {
+    if (textEl.dataset.fcFitToken !== token) return;
+
     const cw = containerEl.clientWidth;
     const ch = containerEl.clientHeight;
     if (!cw || !ch) return;
 
-    // 二分搜尋找到「最大且塞得下」的字體大小
+    const fits = (px) => {
+      textEl.style.fontSize = `${px}px`;
+      void textEl.offsetWidth; // iOS reflow
+      return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
+    };
+
     let lo = minPx;
     let hi = maxPx;
     let best = minPx;
 
-    const fits = (px) => {
-      textEl.style.fontSize = `${px}px`;
-      // 強制一次 reflow，避免 iOS/某些瀏覽器量到舊值
-      void textEl.offsetWidth;
-      return (textEl.scrollWidth <= cw) && (textEl.scrollHeight <= ch);
-    };
-
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 14; i++) {
       const mid = Math.floor((lo + hi) / 2);
       if (fits(mid)) {
         best = mid;
@@ -6485,20 +6496,9 @@ function fcEnsureStudyStyle() {
       text-align:center;
     }
 
+    /* 不要再給使用者切換：直接隱藏 */
     .fc-study-wrap-toggle{
-      padding:8px 12px;
-      border-radius:9999px;
-      border:1px solid var(--border, #333);
-      background:transparent;
-      color:var(--fg, #fff);
-      cursor:pointer;
-      font-size:13px;
-      line-height:1;
-      white-space:nowrap;
-    }
-    .fc-study-wrap-toggle:hover{
-      border-color:var(--accent, #2f74ff);
-      color:var(--accent, #2f74ff);
+      display:none !important;
     }
 
     .fc-study-stage{
@@ -6508,13 +6508,13 @@ function fcEnsureStudyStyle() {
       justify-content:center;
       padding:18px;
       position:relative;
-      overflow:hidden; /* 避免子元素把整個頁面撐出水平捲動 */
+      overflow:hidden;
     }
 
-    /* 卡片本體：改成 overflow:auto，才能在「不換行」時水平捲動 */
+    /* 核心：完全不允許捲動 */
     .fc-study-card{
       width:min(620px, 92vw);
-      max-width:calc(100vw - 32px); /* 手機保守一點，避免右邊溢出 */
+      max-width:calc(100vw - 32px);
       height:min(720px, 72vh);
       background:rgba(255,255,255,.06);
       border:1px solid var(--border, #333);
@@ -6526,15 +6526,14 @@ function fcEnsureStudyStyle() {
       user-select:none;
       box-sizing:border-box;
 
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
+      overflow:hidden;
 
       display:flex;
       align-items:center;
       justify-content:center;
     }
 
-    /* 預設：換行模式（pre-wrap + 強制斷字），手機不會往右爆 */
+    /* 永遠允許換行 + 強制斷字，避免任何方向爆版 */
     .fc-study-text{
       font-size:44px;
       font-weight:800;
@@ -6548,19 +6547,6 @@ function fcEnsureStudyStyle() {
       display:block;
       width:100%;
       max-width:100%;
-    }
-
-    /* 不換行模式：保留 pre，讓長行走水平捲動 */
-    .fc-study-text.fc-nowrap{
-      white-space:pre;
-      overflow-wrap:normal;
-      word-break:normal;
-    }
-
-    /* 不換行時：建議只開水平捲動（垂直先關掉，體驗較像「左右滑」） */
-    .fc-study-card.fc-nowrap-container{
-      overflow-x:auto;
-      overflow-y:hidden;
     }
 
     .fc-study-hint{
@@ -6678,18 +6664,17 @@ function fcSetStudyWrapMode(isWrap) {
     localStorage.setItem(FC_STUDY_WRAP_KEY, isWrap ? "1" : "0");
   } catch {}
 }
-
-function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
-  fcEnsureStyle?.();       // 你原本的樣式（如果有）
-  fcEnsureStudyStyle();
-  fcLoad?.();              // 你原本的 load（如果有）
+function fcOpenStudy(nodeId, startIndex = 0, opts) {
+  try { fcEnsureStyle?.(); } catch {}
+  try { fcEnsureStudyStyle(); } catch {}
+  try { fcLoad?.(); } catch {}
+  try { fcLoad(); } catch {}
 
   const node = fcGetNode(nodeId);
   if (!node) return;
 
   const ids = Array.isArray(node.items) ? node.items : [];
 
-  // ✅ 這裡決定「這次」的出卡順序：順序 / 洗牌（每張仍只出現一次）
   function shuffleInPlace(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -6704,14 +6689,13 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   if (opts && opts.shuffle) shuffleInPlace(playIds);
 
   const cards = playIds.map(id => state.flashcards.cards[id]).filter(Boolean);
-
   if (!cards.length) {
-    alert('這個字卡集還沒有任何字卡，先去編輯新增幾張再來背～');
+    alert("這個題庫沒有卡片喔～");
     return;
   }
 
   const old = document.getElementById('fc-study-screen');
-  if (old) old.remove();
+  if (old) try { old.remove(); } catch {}
 
   const screen = document.createElement('div');
   screen.id = 'fc-study-screen';
@@ -6720,25 +6704,22 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   let idx = Math.max(0, Math.min(startIndex, cards.length - 1));
   let isFront = true;
 
-  // 新增：顯示模式（true=換行 / false=不換行改捲動）
-  let wrapMode = fcGetStudyWrapMode();
-
   screen.innerHTML = `
     <div class="fc-top">
-      <button class="fc-iconbtn" id="fc-study-exit" title="退出">✕</button>
-      <div class="title">${node.name || '字卡'}</div>
+      <button class="fc-iconbtn" id="fc-study-exit" title="返回">←</button>
+      <div class="title">${node.name}</div>
+
       <div class="fc-study-topright">
         <div class="fc-study-progress" id="fc-study-progress"></div>
-        <button class="fc-study-wrap-toggle" id="fc-study-wrap-toggle" type="button"></button>
         <button class="fc-iconbtn" id="fc-study-edit" title="編輯">✎</button>
       </div>
     </div>
 
-    <div class="fc-study-stage" style="position:relative">
+    <div class="fc-study-stage" style="position:relative;">
       <div class="fc-study-card" id="fc-study-card">
         <div class="fc-study-text" id="fc-study-text"></div>
       </div>
-      <div class="fc-study-hint">點一下翻面</div>
+      <div class="fc-study-hint">點一下翻面；左右鍵或下方按鈕換卡</div>
     </div>
 
     <div class="fc-study-bottom">
@@ -6754,37 +6735,34 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   const cardEl = screen.querySelector('#fc-study-card');
   const btnPrev = screen.querySelector('#fc-study-prev');
   const btnNext = screen.querySelector('#fc-study-next');
-  const btnWrap = screen.querySelector('#fc-study-wrap-toggle');
 
-  function applyWrapMode() {
-    if (!textEl || !cardEl || !btnWrap) return;
+  if (cardEl) cardEl.dataset.fcCenter = "1";
 
-    // true=換行(pre-wrap) / false=不換行(pre, 用捲動)
-    textEl.classList.toggle('fc-nowrap', !wrapMode);
-    cardEl.classList.toggle('fc-nowrap-container', !wrapMode);
+  function fitText() {
+    if (!cardEl || !textEl) return;
 
-    btnWrap.textContent = wrapMode ? '改成捲動' : '改成換行';
-    cardEl.dataset.fcCenter = wrapMode ? "1" : "0";
-    // 切換模式時，回到左上角，避免一打開在中間
-    cardEl.scrollTop = 0;
-    cardEl.scrollLeft = 0;
+    // 每次 render 都先清掉 inline font-size，確保可以「放大回去」
+    textEl.style.fontSize = "";
+
+    // 用 CSS 的預設字體當 max（fcAutoFitTextToContainer 會自己記 base）
+    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
+
+    // 仍然保留你的置中/溢出偵測邏輯（但我們已經 overflow hidden + fit，不該真的溢出）
+    try { fcSyncCenterScroll(cardEl); } catch {}
   }
 
   function render() {
     const c = cards[idx];
     if (!c) return;
 
-    progressEl.textContent = `${idx + 1} / ${cards.length}`;
-    textEl.textContent = isFront ? (c.front || '') : (c.back || '');
-    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
+    if (progressEl) progressEl.textContent = `${idx + 1} / ${cards.length}`;
+    if (textEl) textEl.textContent = isFront ? (c.front || "") : (c.back || "");
 
-    applyWrapMode();
+    if (btnPrev) btnPrev.disabled = idx <= 0;
+    if (btnNext) btnNext.disabled = idx >= cards.length - 1;
 
-    // 讓既有 overflow 行為（你的 scroll fix）繼續生效
-    fcSyncCenterScroll(cardEl);
-
-    btnPrev.disabled = idx <= 0;
-    btnNext.disabled = idx >= cards.length - 1;
+    // 等 DOM 內容更新後再 fit（更準）
+    requestAnimationFrame(fitText);
   }
 
   function flip() {
@@ -6806,42 +6784,36 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
     render();
   }
 
-  // 點卡片翻面
-  cardEl.addEventListener('click', flip);
+  const onResize = () => requestAnimationFrame(fitText);
+  window.addEventListener('resize', onResize);
 
-  // 上一張 / 下一張
-  btnPrev.addEventListener('click', prev);
-  btnNext.addEventListener('click', next);
+  if (cardEl) cardEl.addEventListener('click', flip);
+  if (btnPrev) btnPrev.addEventListener('click', prev);
+  if (btnNext) btnNext.addEventListener('click', next);
 
-  // 新增：切換換行 / 捲動（不要觸發翻面）
-  btnWrap.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    wrapMode = !wrapMode;
-    fcSetStudyWrapMode(wrapMode);
-    render();
-  });
-
-  // 方向鍵（電腦更順）
   screen.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
     if (e.key === ' ' || e.key === 'Enter') flip();
   });
+
   screen.tabIndex = -1;
   screen.focus();
 
-  // 退出
-  screen.querySelector('#fc-study-exit').addEventListener('click', () => screen.remove());
+  screen.querySelector('#fc-study-exit')?.addEventListener('click', () => {
+    window.removeEventListener('resize', onResize);
+    try { screen.remove(); } catch {}
+  });
 
-  // 編輯
-  screen.querySelector('#fc-study-edit').addEventListener('click', () => {
-    screen.remove();
+  screen.querySelector('#fc-study-edit')?.addEventListener('click', () => {
+    window.removeEventListener('resize', onResize);
+    try { screen.remove(); } catch {}
     fcOpenEditor({ mode: 'edit', nodeId: node.id });
   });
 
   render();
 }
+
 
 
 
