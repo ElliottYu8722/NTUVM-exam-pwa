@@ -6426,7 +6426,7 @@ function fcOpenFolder(nodeId) {
 function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   if (!containerEl || !textEl) return;
 
-  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
+  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 10;
 
   // 建立「基準字體」：一定要在沒有 inline font-size 的狀態下抓到 CSS 原始大小
   if (!textEl.dataset.fcBaseFontPx) {
@@ -6439,44 +6439,34 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 
   const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
   const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
-
-  // token：避免連續 render 時，舊的 requestAnimationFrame 結果覆蓋新的
-  const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
+  const token = String(Number(textEl.dataset.fcFitToken || 0) + 1);
   textEl.dataset.fcFitToken = token;
-
-  // 每次都先回到 max，再重新 fit（這一步是修掉「縮小後回不去」的關鍵）
-  textEl.style.fontSize = `${maxPx}px`;
-
-  requestAnimationFrame(() => {
-    if (textEl.dataset.fcFitToken !== token) return;
-    const cs = getComputedStyle(containerEl);
-    const cw = containerEl.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
-    const ch = containerEl.clientHeight - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0);
-
-    if (!cw || !ch) return;
-
-    const fits = (px) => {
-      textEl.style.fontSize = `${px}px`;
-      void textEl.offsetWidth; // iOS reflow
-      return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
-    };
-
-    let lo = minPx;
-    let hi = maxPx;
-    let best = minPx;
-
-    for (let i = 0; i < 14; i++) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (fits(mid)) {
-        best = mid;
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
-      }
-    }
-
-    textEl.style.fontSize = `${best}px`;
-  });
+  
+  // 你前面如果已經改成扣 padding 的 cw/ch，就保留你那版 cw/ch
+  const cs = getComputedStyle(containerEl);
+  const cw = containerEl.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+  const ch = containerEl.clientHeight - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0);
+  if (!cw || !ch) return;
+  
+  const fits = (px) => {
+    textEl.style.fontSize = `${px}px`;
+    void textEl.offsetWidth; // iOS reflow
+    return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
+  };
+  
+  let lo = minPx;
+  let hi = maxPx;
+  let best = minPx;
+  
+  for (let i = 0; i < 14; i++) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (fits(mid)) { best = mid; lo = mid + 1; }
+    else { hi = mid - 1; }
+  }
+  
+  // 防止舊呼叫蓋掉新結果
+  if (textEl.dataset.fcFitToken !== token) return;
+  textEl.style.fontSize = `${best}px`;
 }
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
