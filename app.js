@@ -6449,9 +6449,10 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 
   requestAnimationFrame(() => {
     if (textEl.dataset.fcFitToken !== token) return;
+    const cs = getComputedStyle(containerEl);
+    const cw = containerEl.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    const ch = containerEl.clientHeight - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0);
 
-    const cw = containerEl.clientWidth;
-    const ch = containerEl.clientHeight;
     if (!cw || !ch) return;
 
     const fits = (px) => {
@@ -6771,7 +6772,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     textEl.style.fontSize = "";
 
     // 用 CSS 的預設字體當 max（fcAutoFitTextToContainer 會自己記 base）
-    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
+    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 10 });
 
     // 置中/溢出偵測（你原本就有）
     try { fcSyncCenterScroll(cardEl); } catch {}
