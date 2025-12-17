@@ -6808,11 +6808,13 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   screen.querySelector('#fc-study-edit')?.addEventListener('click', () => {
     window.removeEventListener('resize', onResize);
     try { screen.remove(); } catch {}
-    fcOpenEditor({ mode: 'edit', nodeId: node.id });
+    fcOpenEditor('edit', null, node.id, 'topic');
   });
 
   render();
 }
+// 讓 Flashcards Study Patch v3 可以穩定掛勾（尤其是 script module / 封裝作用域時）
+try { window.fcOpenStudy = fcOpenStudy; } catch (e) {}
 
 
 
@@ -8488,6 +8490,8 @@ function init() {
     btnExportNotes.classList.remove("hidden");
   }
   setupMobileDrawers();
+  try { initFlashcardSwipe(); } catch (e) {}
+
 }
 document.addEventListener("DOMContentLoaded", init);
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
@@ -8766,23 +8770,19 @@ function ensureFlashcardScrollFixStyle() {
 (function () {
   const STYLE_ID = "fc-study-style-v3";
   const MODE_KEY = "fcStudyTextModeV3"; // wrap | nowrap
-
   function ensureStudyStyle() {
-    // 每次都把 style 移到 head 最後面，避免被後插入的 CSS 覆蓋
-    let s = document.getElementById(STYLE_ID);
+    let s = document.getElementById(STYLEID);
     if (s) s.remove();
 
-    s = document.createElement("style");
-    s.id = STYLE_ID;
+    s = document.createElement('style');
+    s.id = STYLEID;
     s.textContent = `
-      /* 把規則鎖在 study screen 內，避免影響其他頁面 */
+      /* study screen */
       #fc-study-screen{
         overflow:hidden !important;
         overscroll-behavior:none !important;
       }
-      #fc-study-screen .fc-study-stage{
-        overflow:hidden !important;
-      }
+      #fc-study-screen .fc-study-stage{ overflow:hidden !important; }
       #fc-study-screen .fc-study-card{
         overflow:hidden !important;
         -webkit-overflow-scrolling:auto !important;
@@ -8795,20 +8795,21 @@ function ensureFlashcardScrollFixStyle() {
         display:block !important;
         text-align:center !important;
         line-height:1.25 !important;
-
-        /* 預設：換行 + 強制斷字，避免任何方向爆版 */
         white-space:pre-wrap !important;
         overflow-wrap:anywhere !important;
         word-break:break-word !important;
       }
       #fc-study-screen .fc-study-text.fc-nowrap{
-        /* 不換行：仍然不滾動，所以會更容易觸發縮字 */
         white-space:pre !important;
         overflow-wrap:normal !important;
         word-break:normal !important;
       }
 
+      /* 反殺舊 CSS 的 display:none !important */
       #fc-study-screen .fc-study-wrap-toggle{
+        display:inline-flex !important;
+        align-items:center !important;
+        justify-content:center !important;
         padding:8px 12px !important;
         border-radius:9999px !important;
         border:1px solid var(--border, #333) !important;
@@ -8818,16 +8819,14 @@ function ensureFlashcardScrollFixStyle() {
         font-size:13px !important;
         line-height:1 !important;
         white-space:nowrap !important;
+        user-select:none !important;
       }
       #fc-study-screen .fc-study-wrap-toggle:hover{
         border-color:var(--accent, #2f74ff) !important;
         color:var(--accent, #2f74ff) !important;
       }
 
-      /* 防止整頁水平捲動（只在 study screen 開著時生效） */
-      html.fc-study-lock-x, body.fc-study-lock-x{
-        overflow-x:hidden !important;
-      }
+      html.fc-study-lock-x, body.fc-study-lock-x{ overflow-x:hidden !important; }
     `;
     document.head.appendChild(s);
   }
