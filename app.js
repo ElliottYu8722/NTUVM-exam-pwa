@@ -6479,26 +6479,36 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 }
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
-
   const s = document.createElement('style');
   s.id = 'fc-study-style';
   s.textContent = `
-    .fc-study-topright{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
+    .fc-study-topright{ display:flex; gap:10px; align-items:center; }
 
     .fc-study-progress{
       opacity:.75;
       font-weight:700;
       min-width:64px;
       text-align:center;
+      white-space:nowrap;
     }
 
-    /* 不要再給使用者切換：直接隱藏 */
+    /* 原本你這裡是 display:none !important；所以按鍵永遠不會出現 */
     .fc-study-wrap-toggle{
-      display:none !important;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:8px 12px;
+      border-radius:9999px;
+      border:1px solid var(--border, #333);
+      background:transparent;
+      color:var(--fg, #fff);
+      cursor:pointer;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .fc-study-wrap-toggle:hover{
+      border-color:var(--accent, #2f74ff);
+      color:var(--accent, #2f74ff);
     }
 
     .fc-study-stage{
@@ -6511,7 +6521,6 @@ function fcEnsureStudyStyle() {
       overflow:hidden;
     }
 
-    /* 核心：完全不允許捲動 */
     .fc-study-card{
       width:min(620px, 92vw);
       max-width:calc(100vw - 32px);
@@ -6525,35 +6534,36 @@ function fcEnsureStudyStyle() {
       backdrop-filter:blur(8px);
       user-select:none;
       box-sizing:border-box;
-
       overflow:hidden;
-
       display:flex;
       align-items:center;
       justify-content:center;
     }
 
-    /* 永遠允許換行 + 強制斷字，避免任何方向爆版 */
     .fc-study-text{
       font-size:44px;
       font-weight:800;
       line-height:1.25;
-
-      white-space:pre-wrap;
+      white-space:pre-wrap;     /* 預設：會換行 */
       overflow-wrap:anywhere;
       word-break:break-word;
-
       text-align:center;
       display:block;
       width:100%;
       max-width:100%;
     }
 
+    /* 不換行模式（單行 / 可左右捲） */
+    .fc-study-text.fc-nowrap{
+      white-space:pre;
+      overflow-wrap:normal;
+      word-break:normal;
+    }
+
     .fc-study-hint{
       position:absolute;
       bottom:18px;
-      left:0;
-      right:0;
+      left:0; right:0;
       text-align:center;
       font-size:12px;
       color:var(--muted, #aaa);
@@ -6589,15 +6599,9 @@ function fcEnsureStudyStyle() {
       cursor:not-allowed;
     }
 
-    @media (max-width: 1024px){
-      .fc-study-text{ font-size:36px; }
-    }
-    @media (max-width: 768px){
-      .fc-study-text{ font-size:30px; }
-      .fc-study-card{ height:min(640px, 68vh); }
-    }
+    @media (max-width:1024px){ .fc-study-text{ font-size:36px; } }
+    @media (max-width:768px){ .fc-study-text{ font-size:30px; } .fc-study-card{ height:min(640px, 68vh); } }
   `;
-
   document.head.appendChild(s);
 }
 
@@ -6664,6 +6668,7 @@ function fcSetStudyWrapMode(isWrap) {
     localStorage.setItem(FC_STUDY_WRAP_KEY, isWrap ? "1" : "0");
   } catch {}
 }
+
 function fcOpenStudy(nodeId, startIndex = 0, opts) {
   try { fcEnsureStyle?.(); } catch {}
   try { fcEnsureStudyStyle(); } catch {}
@@ -6736,6 +6741,27 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   const btnPrev = screen.querySelector('#fc-study-prev');
   const btnNext = screen.querySelector('#fc-study-next');
 
+  // 在 topbar 右側插入「換行/單行」切換按鍵（不靠任何 patch）
+  const topRight = screen.querySelector('.fc-study-topright') || screen.querySelector('.fc-top');
+  const btnWrap = document.createElement('button');
+  btnWrap.id = 'fc-study-wrap-toggle';
+  btnWrap.className = 'fc-study-wrap-toggle';
+  topRight.appendChild(btnWrap);
+
+  function isWrapMode() {
+    // 你原本就有 fcGetStudyWrapMode / fcSetStudyWrapMode / FCSTUDYWRAPKEY
+    // true = 換行(pre-wrap), false = 單行(pre)
+    try { return !!fcGetStudyWrapMode(); } catch { return true; }
+  }
+  function setWrapMode(v) {
+    try { fcSetStudyWrapMode(!!v); } catch {}
+  }
+  function syncWrapUIOnly() {
+    const wrap = isWrapMode();
+    if (textEl) textEl.classList.toggle('fc-nowrap', !wrap);
+    btnWrap.textContent = wrap ? '換行' : '單行';
+  }
+
   if (cardEl) cardEl.dataset.fcCenter = "1";
 
   function fitText() {
@@ -6747,7 +6773,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     // 用 CSS 的預設字體當 max（fcAutoFitTextToContainer 會自己記 base）
     fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
 
-    // 仍然保留你的置中/溢出偵測邏輯（但我們已經 overflow hidden + fit，不該真的溢出）
+    // 置中/溢出偵測（你原本就有）
     try { fcSyncCenterScroll(cardEl); } catch {}
   }
 
@@ -6761,7 +6787,9 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     if (btnPrev) btnPrev.disabled = idx <= 0;
     if (btnNext) btnNext.disabled = idx >= cards.length - 1;
 
-    // 等 DOM 內容更新後再 fit（更準）
+    // 每次內容更新都同步目前模式
+    syncWrapUIOnly();
+
     requestAnimationFrame(fitText);
   }
 
@@ -6783,6 +6811,13 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     isFront = true;
     render();
   }
+
+  btnWrap.addEventListener('click', (e) => {
+    try { e.preventDefault(); e.stopPropagation(); } catch {}
+    setWrapMode(!isWrapMode());
+    syncWrapUIOnly();
+    requestAnimationFrame(fitText);
+  });
 
   const onResize = () => requestAnimationFrame(fitText);
   window.addEventListener('resize', onResize);
@@ -8764,236 +8799,6 @@ function ensureFlashcardScrollFixStyle() {
 
     lock = null;
   }, { passive: true, capture: true });
-})();
-// ===== Flashcards Study Patch v3 =====
-// 目標：永遠不滾動 + 有切換鍵(換行/不換行) + 文字自動縮到不溢出 + 不會越切越小
-(function () {
-  const STYLE_ID = "fc-study-style-v3";
-  const MODE_KEY = "fcStudyTextModeV3"; // wrap | nowrap
-  function ensureStudyStyle() {
-    let s = document.getElementById(STYLEID);
-    if (s) s.remove();
-
-    s = document.createElement('style');
-    s.id = STYLEID;
-    s.textContent = `
-      /* study screen */
-      #fc-study-screen{
-        overflow:hidden !important;
-        overscroll-behavior:none !important;
-      }
-      #fc-study-screen .fc-study-stage{ overflow:hidden !important; }
-      #fc-study-screen .fc-study-card{
-        overflow:hidden !important;
-        -webkit-overflow-scrolling:auto !important;
-        max-width:calc(100vw - 32px) !important;
-        box-sizing:border-box !important;
-      }
-      #fc-study-screen .fc-study-text{
-        width:100% !important;
-        max-width:100% !important;
-        display:block !important;
-        text-align:center !important;
-        line-height:1.25 !important;
-        white-space:pre-wrap !important;
-        overflow-wrap:anywhere !important;
-        word-break:break-word !important;
-      }
-      #fc-study-screen .fc-study-text.fc-nowrap{
-        white-space:pre !important;
-        overflow-wrap:normal !important;
-        word-break:normal !important;
-      }
-
-      /* 反殺舊 CSS 的 display:none !important */
-      #fc-study-screen .fc-study-wrap-toggle{
-        display:inline-flex !important;
-        align-items:center !important;
-        justify-content:center !important;
-        padding:8px 12px !important;
-        border-radius:9999px !important;
-        border:1px solid var(--border, #333) !important;
-        background:transparent !important;
-        color:var(--fg, #fff) !important;
-        cursor:pointer !important;
-        font-size:13px !important;
-        line-height:1 !important;
-        white-space:nowrap !important;
-        user-select:none !important;
-      }
-      #fc-study-screen .fc-study-wrap-toggle:hover{
-        border-color:var(--accent, #2f74ff) !important;
-        color:var(--accent, #2f74ff) !important;
-      }
-
-      html.fc-study-lock-x, body.fc-study-lock-x{ overflow-x:hidden !important; }
-    `;
-    document.head.appendChild(s);
-  }
-
-  function getMode() {
-    try {
-      return localStorage.getItem(MODE_KEY) || "wrap";
-    } catch {
-      return "wrap";
-    }
-  }
-  function setMode(m) {
-    try {
-      localStorage.setItem(MODE_KEY, m);
-    } catch {}
-  }
-
-  // 文字自動縮到「不溢出」：每次都先回到 base font，再二分搜尋往下縮
-  function fitTextToBox(cardEl, textEl, opts = {}) {
-    if (!cardEl || !textEl) return;
-    const minPx = Number.isFinite(opts.minPx) ? opts.minPx : 14;
-
-    // 記住 base font（一定要清掉 inline 後抓，避免越切越小）
-    if (!textEl.dataset.fcBaseFontPx) {
-      const prev = textEl.style.fontSize;
-      textEl.style.fontSize = ""; // 清掉 inline
-      const base = parseFloat(getComputedStyle(textEl).fontSize);
-      textEl.dataset.fcBaseFontPx = String(Number.isFinite(base) && base > 0 ? base : 44);
-      textEl.style.fontSize = prev;
-    }
-
-    const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
-    const maxPx = Number.isFinite(opts.maxPx) ? opts.maxPx : baseMax;
-
-    // token 防止連點造成舊的 rAF 結果覆蓋新的
-    const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
-    textEl.dataset.fcFitToken = token;
-
-    // 每次先重置到 max（關鍵：避免永久小小的）
-    textEl.style.fontSize = `${maxPx}px`;
-
-    requestAnimationFrame(() => {
-      if (textEl.dataset.fcFitToken !== token) return;
-
-      const cw = cardEl.clientWidth;
-      const ch = cardEl.clientHeight;
-      if (!cw || !ch) return;
-
-      const fits = (px) => {
-        textEl.style.fontSize = `${px}px`;
-        void textEl.offsetWidth; // iOS reflow
-        return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
-      };
-
-      let lo = minPx;
-      let hi = maxPx;
-      let best = minPx;
-
-      for (let i = 0; i < 14; i++) {
-        const mid = Math.floor((lo + hi) / 2);
-        if (fits(mid)) {
-          best = mid;
-          lo = mid + 1;
-        } else {
-          hi = mid - 1;
-        }
-      }
-      textEl.style.fontSize = `${best}px`;
-    });
-  }
-
-  function setupStudyScreen() {
-    const screen = document.getElementById("fc-study-screen");
-    if (!screen) return;
-
-    ensureStudyStyle();
-
-    // 開 study 時，鎖住水平 overflow（避免整頁右滑）
-    document.documentElement.classList.add("fc-study-lock-x");
-    document.body.classList.add("fc-study-lock-x");
-
-    const cardEl =
-      document.getElementById("fc-study-card") ||
-      screen.querySelector(".fc-study-card");
-    const textEl =
-      document.getElementById("fc-study-text") ||
-      screen.querySelector(".fc-study-text");
-
-    if (!cardEl || !textEl) return;
-
-    // 建立/掛上切換鍵（只加一次）
-    let btn = screen.querySelector("#fc-study-wrap-toggle");
-    if (!btn) {
-      btn = document.createElement("button");
-      btn.id = "fc-study-wrap-toggle";
-      btn.className = "fc-study-wrap-toggle";
-
-      // 盡量塞到右上角；找不到就塞在 topbar 最後
-      const topRight = screen.querySelector(".fc-study-topright");
-      const topBar = screen.querySelector(".fc-top");
-      if (topRight) topRight.appendChild(btn);
-      else if (topBar) topBar.appendChild(btn);
-      else screen.appendChild(btn);
-    }
-
-    function applyModeAndFit() {
-      const mode = getMode();
-      textEl.classList.toggle("fc-nowrap", mode === "nowrap");
-      btn.textContent = mode === "nowrap" ? "不換行" : "換行";
-
-      // 重置 inline font-size，確保不會越切越小
-      textEl.style.fontSize = "";
-
-      fitTextToBox(cardEl, textEl, { minPx: 14 });
-    }
-
-    btn.onclick = (e) => {
-      try { e.preventDefault(); e.stopPropagation(); } catch {}
-      const next = getMode() === "wrap" ? "nowrap" : "wrap";
-      setMode(next);
-      applyModeAndFit();
-    };
-
-    // 監聽文字變化：翻面/下一張/上一張都會改 text，這裡自動重新 fit
-    if (!textEl.__fcStudyObserverV3) {
-      const obs = new MutationObserver(() => applyModeAndFit());
-      obs.observe(textEl, { childList: true, subtree: true, characterData: true });
-      textEl.__fcStudyObserverV3 = obs;
-    }
-
-    // resize 也要 fit
-    if (!screen.__fcStudyResizeV3) {
-      const onResize = () => applyModeAndFit();
-      window.addEventListener("resize", onResize);
-      screen.__fcStudyResizeV3 = onResize;
-
-      // 畫面關掉時自動解鎖 overflow-x
-      const cleanupObs = new MutationObserver(() => {
-        if (!document.getElementById("fc-study-screen")) {
-          window.removeEventListener("resize", onResize);
-          document.documentElement.classList.remove("fc-study-lock-x");
-          document.body.classList.remove("fc-study-lock-x");
-          cleanupObs.disconnect();
-        }
-      });
-      cleanupObs.observe(document.body, { childList: true, subtree: false });
-    }
-
-    applyModeAndFit();
-  }
-
-  // 用「包一層」方式 patch，不去動你原本函式內容
-  const original = window.fcOpenStudy;
-  if (typeof original !== "function" || original.__patchedV3) return;
-
-  function patchedFcOpenStudy(nodeId, startIndex = 0, opts) {
-    const ret = original(nodeId, startIndex, opts);
-
-    // 等原本 DOM 建好再做 setup
-    setTimeout(setupStudyScreen, 0);
-    requestAnimationFrame(setupStudyScreen);
-
-    return ret;
-  }
-
-  patchedFcOpenStudy.__patchedV3 = true;
-  window.fcOpenStudy = patchedFcOpenStudy;
 })();
 
 
