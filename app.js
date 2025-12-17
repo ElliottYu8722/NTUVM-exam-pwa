@@ -6425,7 +6425,6 @@ function fcOpenFolder(nodeId) {
 }
 
 
-
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
   const s = document.createElement('style');
@@ -6433,6 +6432,21 @@ function fcEnsureStudyStyle() {
   s.textContent = `
     .fc-study-topright{display:flex;gap:10px;align-items:center}
     .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
+
+    /* 新增：右上角切換按鈕（跟你現有 iconbtn 同一排） */
+    .fc-study-wrap-toggle{
+      height:36px;
+      padding:0 10px;
+      border-radius:9999px;
+      border:1px solid var(--border,#333);
+      background:transparent;
+      color:var(--fg,#fff);
+      cursor:pointer;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .fc-study-wrap-toggle:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+
     .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
     .fc-study-card{
       width:min(620px, 92vw);
@@ -6446,12 +6460,18 @@ function fcEnsureStudyStyle() {
       backdrop-filter: blur(8px);
       user-select:none;
 
-      /* 永遠置中，scrollbar 自動出現就好 */
       overflow:auto;
       -webkit-overflow-scrolling:touch;
       display:flex;
       align-items:center;
       justify-content:center;
+    }
+
+    /* 新增：不換行模式下，容器改左上對齊（比較符合「用捲動看」） */
+    .fc-study-card.fc-nowrap-container{
+      align-items:flex-start;
+      justify-content:flex-start;
+      text-align:left;
     }
 
     .fc-study-text{
@@ -6460,7 +6480,17 @@ function fcEnsureStudyStyle() {
       line-height:1.25;
       word-break:break-word;
       white-space:pre-wrap;
+      width:100%;
     }
+
+    /* 新增：不換行（用水平捲動看完整行） */
+    .fc-study-text.fc-nowrap{
+      white-space:pre;
+      word-break:normal;
+      width:auto;
+      display:inline-block;
+    }
+
     .fc-study-hint{
       position:absolute;
       bottom:18px;
@@ -6501,10 +6531,65 @@ function fcEnsureStudyStyle() {
 }
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
-  // 現在不再改變置中方式，也不強制捲到最上面
-  // overflow:auto 會自動決定要不要顯示 scrollbar，就交給瀏覽器處理就好
+
+  // 由外部（fcOpenStudy / fcOpenViewer）決定：這個容器要不要維持置中
+  const preferCenter = containerEl.dataset.fcCenter === "1";
+
+  // 置中模式：不套 overflow fix（避免被 flex-start 破壞置中）
+  if (preferCenter) {
+    // 清掉以前可能殘留的 overflow 狀態
+    containerEl.dataset.fcOverflow = "0";
+    containerEl.dataset.fcOverflowY = "0";
+    containerEl.dataset.fcOverflowX = "0";
+    containerEl.classList.remove("fc-overflow");
+    return;
+  }
+
+  // 非置中模式：維持你原本的 overflow fix 行為（並補上水平 overflow）
+  ensureFlashcardScrollFixStyle();
+
+  requestAnimationFrame(() => {
+    const isOverflowY = containerEl.scrollHeight > containerEl.clientHeight + 1;
+    const isOverflowX = containerEl.scrollWidth > containerEl.clientWidth + 1;
+
+    const wasOverflowY = containerEl.dataset.fcOverflowY === "1";
+    const wasOverflowX = containerEl.dataset.fcOverflowX === "1";
+
+    containerEl.dataset.fcOverflowY = isOverflowY ? "1" : "0";
+    containerEl.dataset.fcOverflowX = isOverflowX ? "1" : "0";
+
+    const isAnyOverflow = isOverflowY || isOverflowX;
+    containerEl.dataset.fcOverflow = isAnyOverflow ? "1" : "0";
+    containerEl.classList.toggle("fc-overflow", isAnyOverflow);
+
+    if (isOverflowY && !wasOverflowY) containerEl.scrollTop = 0;
+    if (isOverflowX && !wasOverflowX) containerEl.scrollLeft = 0;
+
+    if (!isOverflowY) containerEl.scrollTop = 0;
+    if (!isOverflowX) containerEl.scrollLeft = 0;
+  });
 }
 
+
+
+// ===== Flashcards：背卡顯示模式（換行 / 不換行改捲動）=====
+const FC_STUDY_WRAP_KEY = "ntuvm-fc-study-wrap"; // 1=換行(pre-wrap) / 0=不換行(pre)
+
+function fcGetStudyWrapMode() {
+  try {
+    const raw = localStorage.getItem(FC_STUDY_WRAP_KEY);
+    if (raw === null) return true; // 預設：換行
+    return raw === "1";
+  } catch {
+    return true;
+  }
+}
+
+function fcSetStudyWrapMode(isWrap) {
+  try {
+    localStorage.setItem(FC_STUDY_WRAP_KEY, isWrap ? "1" : "0");
+  } catch {}
+}
 
 function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   fcEnsureStyle?.();       // 你原本的樣式（如果有）
@@ -6547,12 +6632,16 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   let idx = Math.max(0, Math.min(startIndex, cards.length - 1));
   let isFront = true;
 
+  // 新增：顯示模式（true=換行 / false=不換行改捲動）
+  let wrapMode = fcGetStudyWrapMode();
+
   screen.innerHTML = `
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-study-exit" title="退出">✕</button>
       <div class="title">${node.name || '字卡'}</div>
       <div class="fc-study-topright">
         <div class="fc-study-progress" id="fc-study-progress"></div>
+        <button class="fc-study-wrap-toggle" id="fc-study-wrap-toggle" type="button"></button>
         <button class="fc-iconbtn" id="fc-study-edit" title="編輯">✎</button>
       </div>
     </div>
@@ -6577,13 +6666,34 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   const cardEl = screen.querySelector('#fc-study-card');
   const btnPrev = screen.querySelector('#fc-study-prev');
   const btnNext = screen.querySelector('#fc-study-next');
+  const btnWrap = screen.querySelector('#fc-study-wrap-toggle');
+
+  function applyWrapMode() {
+    if (!textEl || !cardEl || !btnWrap) return;
+
+    // true=換行(pre-wrap) / false=不換行(pre, 用捲動)
+    textEl.classList.toggle('fc-nowrap', !wrapMode);
+    cardEl.classList.toggle('fc-nowrap-container', !wrapMode);
+
+    btnWrap.textContent = wrapMode ? '改成捲動' : '改成換行';
+    cardEl.dataset.fcCenter = wrapMode ? "1" : "0";
+    // 切換模式時，回到左上角，避免一打開在中間
+    cardEl.scrollTop = 0;
+    cardEl.scrollLeft = 0;
+  }
 
   function render() {
     const c = cards[idx];
     if (!c) return;
+
     progressEl.textContent = `${idx + 1} / ${cards.length}`;
     textEl.textContent = isFront ? (c.front || '') : (c.back || '');
+
+    applyWrapMode();
+
+    // 讓既有 overflow 行為（你的 scroll fix）繼續生效
     fcSyncCenterScroll(cardEl);
+
     btnPrev.disabled = idx <= 0;
     btnNext.disabled = idx >= cards.length - 1;
   }
@@ -6614,6 +6724,15 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
   btnPrev.addEventListener('click', prev);
   btnNext.addEventListener('click', next);
 
+  // 新增：切換換行 / 捲動（不要觸發翻面）
+  btnWrap.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    wrapMode = !wrapMode;
+    fcSetStudyWrapMode(wrapMode);
+    render();
+  });
+
   // 方向鍵（電腦更順）
   screen.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') prev();
@@ -6634,6 +6753,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
 
   render();
 }
+
 
 
 
@@ -8198,42 +8318,34 @@ function setupMobileDrawers() {
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeAll();
   });
-  // === 手機左右滑手勢：開關側邊欄（防止上下捲動干擾）===
+// === 手機左右滑手勢：關閉側邊欄 ===
   let touchStartX = 0;
   let touchStartY = 0;
   let trackingSwipe = false;
   let swipeMode = null; // 'left-open' | 'right-open' | 'left-edge' | 'right-edge'
-  let swipeLock = null; // 'h' | 'v' | null
-  
-  const EDGE_ZONE = 24;        // 距離左右 24px 內算邊緣（可微調）
-  const START_LOCK_DIST = 12;  // 移動超過這個距離才開始鎖定意圖
-  const MIN_SWIPE = 40;        // 最終觸發開關的最小水平位移
   
   function isDrawerTouchMode() {
     const w = window.innerWidth;
     const h = window.innerHeight || 1;
-    const portrait = h >= w;
-    return (w <= 768) || (portrait && w <= 1024);
+    const portrait = h >= w;              // 直立
+    return (w <= 768) || (portrait && w <= 1024);        // 手機 + 直立平板
   }
-  
+
   function handleTouchStart(e) {
     if (!isDrawerTouchMode()) return;
-  
+
     const t = e.touches && e.touches[0];
     if (!t) return;
-  
+
     const w = window.innerWidth;
     const x = t.clientX;
     const y = t.clientY;
-  
+    const edgeZone = 24; // 距離左右 24px 內算邊緣（可微調）
+
     const leftOpen = document.body.classList.contains('show-left-panel');
     const rightOpen = document.body.classList.contains('show-right-panel');
-  
-    swipeLock = null;
-    trackingSwipe = false;
-    swipeMode = null;
-  
-    // 已經有側欄開著：允許從任何地方水平滑動來「關閉」
+
+    // 已經有側欄開著：只負責「關閉」的滑動
     if (leftOpen || rightOpen) {
       swipeMode = leftOpen ? 'left-open' : 'right-open';
       touchStartX = x;
@@ -8241,92 +8353,60 @@ function setupMobileDrawers() {
       trackingSwipe = true;
       return;
     }
-  
+
     // 沒有側欄開著：只有從左右邊緣起手才啟動「打開」手勢
-    if (x <= EDGE_ZONE) {
+    if (x <= edgeZone) {
       swipeMode = 'left-edge';
-    } else if (w - x <= EDGE_ZONE) {
+    } else if (w - x <= edgeZone) {
       swipeMode = 'right-edge';
     } else {
+      swipeMode = null;
+      trackingSwipe = false;
       return;
     }
-  
+
     touchStartX = x;
     touchStartY = y;
     trackingSwipe = true;
   }
-  
-  function handleTouchMove(e) {
-    if (!trackingSwipe || !swipeMode) return;
-    if (!isDrawerTouchMode()) return;
-  
-    const t = e.touches && e.touches[0];
-    if (!t) return;
-  
-    const dx = t.clientX - touchStartX;
-    const dy = t.clientY - touchStartY;
-  
-    // 還沒移動到能判斷意圖的距離就不鎖
-    if (!swipeLock) {
-      if (Math.abs(dx) < START_LOCK_DIST && Math.abs(dy) < START_LOCK_DIST) return;
-      swipeLock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
-    }
-  
-    // 水平意圖：立刻阻止頁面上下捲動（關鍵）
-    if (swipeLock === 'h') {
-      if (e.cancelable) e.preventDefault();
-    }
-  }
-  
+
   function handleTouchEnd(e) {
     if (!trackingSwipe || !swipeMode) return;
     trackingSwipe = false;
     if (!isDrawerTouchMode()) return;
-  
-    // 只有鎖定為水平意圖才處理（垂直意圖放行給捲動）
-    if (swipeLock !== 'h') { swipeMode = null; swipeLock = null; return; }
-  
+
     const t = e.changedTouches && e.changedTouches[0];
-    if (!t) { swipeMode = null; swipeLock = null; return; }
-  
+    if (!t) return;
+
     const dx = t.clientX - touchStartX;
     const dy = t.clientY - touchStartY;
-  
-    // 水平不足 or 不夠水平，就不觸發
-    if (Math.abs(dx) < MIN_SWIPE || Math.abs(dx) <= Math.abs(dy) * 1.2) {
-      swipeMode = null;
-      swipeLock = null;
-      return;
-    }
-  
+
+    // 垂直位移太大或水平太短，就當作一般捲動
+    if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+
     switch (swipeMode) {
       case 'left-open':
         // 左欄已開 → 往左滑關閉
-        if (dx < -MIN_SWIPE) closeAll();
+        if (dx < -40) closeAll();
         break;
       case 'right-open':
         // 右欄已開 → 往右滑關閉
-        if (dx > MIN_SWIPE) closeAll();
+        if (dx > 40) closeAll();
         break;
       case 'left-edge':
         // 從左邊緣起手 → 往右滑打開左欄
-        if (dx > MIN_SWIPE) openLeft();
+        if (dx > 40) openLeft();
         break;
       case 'right-edge':
         // 從右邊緣起手 → 往左滑打開右欄
-        if (dx < -MIN_SWIPE) openRight();
+        if (dx < -40) openRight();
         break;
     }
-  
-    swipeMode = null;
-    swipeLock = null;
   }
-  
-  // 掛在整個文件上，確保在側欄或 backdrop 上滑都抓得到
-  document.addEventListener('touchstart', handleTouchStart, { passive: true, capture: true });
-  document.addEventListener('touchmove', handleTouchMove, { passive: false, capture: true }); // ★ 重點：passive 必須是 false
-  document.addEventListener('touchend', handleTouchEnd, { passive: true, capture: true });
 
+  // 掛在整個文件上，確保在側欄或 backdrop 上滑都抓得到
+  document.addEventListener('touchstart', handleTouchStart, { passive: true });
+  document.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
 
 
@@ -8416,30 +8496,7 @@ function ensureFlashcardScrollFixStyle() {
   document.head.appendChild(s);
 }
 
-function fcSyncCenterScroll(containerEl) {
-  if (!containerEl) return;
 
-  ensureFlashcardScrollFixStyle();
-
-  // 等 DOM/排版完成後再判斷，避免剛換文字時量到舊高度
-  requestAnimationFrame(() => {
-    const isOverflow = containerEl.scrollHeight > containerEl.clientHeight + 1;
-
-    const wasOverflow = containerEl.dataset.fcOverflow === "1";
-    containerEl.dataset.fcOverflow = isOverflow ? "1" : "0";
-    containerEl.classList.toggle("fc-overflow", isOverflow);
-
-    // 只有「剛從不 overflow 變成 overflow」時，才把捲動拉回頂端，避免一進來就卡在怪位置
-    if (isOverflow && !wasOverflow) {
-      containerEl.scrollTop = 0;
-    }
-
-    // 如果回到不 overflow，確保狀態乾淨
-    if (!isOverflow) {
-      containerEl.scrollTop = 0;
-    }
-  });
-}
 
 /* =========================================
    題庫：左右滑動換題（改善上下抖動/滾動）
