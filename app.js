@@ -6516,10 +6516,10 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 
   const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
 
-  // 建立「基準字體」：一定要在沒有 inline font-size 的狀態下抓到 CSS 原始大小
+  // 記住「基準字級」（第一次進來才抓）
   if (!textEl.dataset.fcBaseFontPx) {
     const prev = textEl.style.fontSize;
-    textEl.style.fontSize = ""; // 清掉 inline，拿到真正的 CSS 預設字體
+    textEl.style.fontSize = ""; // 先清掉 inline，拿 CSS 設定的字級
     const base = parseFloat(getComputedStyle(textEl).fontSize);
     textEl.dataset.fcBaseFontPx = String(Number.isFinite(base) && base > 0 ? base : 44);
     textEl.style.fontSize = prev;
@@ -6528,23 +6528,28 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
   const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
 
-  // token：避免連續 render 時，舊的 requestAnimationFrame 結果覆蓋新的
-  const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
+  // token：避免連續 resize / render 時舊的 RAF 覆蓋新的結果
+  const token = String((Number(textEl.dataset.fcFitToken) || 0) + 1);
   textEl.dataset.fcFitToken = token;
 
-  // 每次都先回到 max，再重新 fit（這一步是修掉「縮小後回不去」的關鍵）
+  // 先用最大字級
   textEl.style.fontSize = `${maxPx}px`;
 
   requestAnimationFrame(() => {
     if (textEl.dataset.fcFitToken !== token) return;
 
-    const cw = containerEl.clientWidth;
-    const ch = containerEl.clientHeight;
+    // 這裡是關鍵：可用寬高要扣掉 container 的 padding
+    const cs = getComputedStyle(containerEl);
+    const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+    const padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+
+    const cw = Math.max(0, containerEl.clientWidth - padX);
+    const ch = Math.max(0, containerEl.clientHeight - padY);
     if (!cw || !ch) return;
 
     const fits = (px) => {
       textEl.style.fontSize = `${px}px`;
-      void textEl.offsetWidth; // iOS reflow
+      void textEl.offsetWidth; // iOS/Chromium 觸發 reflow
       return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
     };
 
@@ -6565,6 +6570,7 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
     textEl.style.fontSize = `${best}px`;
   });
 }
+
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
   const s = document.createElement('style');
@@ -6693,20 +6699,19 @@ function fcEnsureStudyStyle() {
   document.head.appendChild(s);
 }
 
-
-
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
 
-  // fcCenter=1：代表「不超高時要置中」
-  const preferCenter = containerEl.dataset.fcCenter === "1";
+  // 預設偏好置中（你原本就是這樣用）
+  containerEl.dataset.fcCenter = "1";
 
+  // 確保 overflow 修正的 CSS 有注入
   ensureFlashcardScrollFixStyle();
 
   requestAnimationFrame(() => {
-    // 門檻加大，避免 sub-pixel 誤判
-    const isOverflowY = containerEl.scrollHeight > containerEl.clientHeight + 2;
-    const isOverflowX = containerEl.scrollWidth > containerEl.clientWidth + 2;
+    // sub-pixel / rounding 留個門檻
+    const isOverflowY = (containerEl.scrollHeight - containerEl.clientHeight) > 2;
+    const isOverflowX = (containerEl.scrollWidth - containerEl.clientWidth) > 2;
 
     const wasOverflowY = containerEl.dataset.fcOverflowY === "1";
     const wasOverflowX = containerEl.dataset.fcOverflowX === "1";
@@ -6714,22 +6719,20 @@ function fcSyncCenterScroll(containerEl) {
     containerEl.dataset.fcOverflowY = isOverflowY ? "1" : "0";
     containerEl.dataset.fcOverflowX = isOverflowX ? "1" : "0";
 
-    // ✅ 置中模式：只看 Y（真的太高才改成 flex-start）
-    const isAnyOverflow = preferCenter ? isOverflowY : (isOverflowY || isOverflowX);
-
+    // 這裡是關鍵：不管有沒有 preferCenter，都要把 X overflow 算進去
+    const isAnyOverflow = isOverflowY || isOverflowX;
     containerEl.dataset.fcOverflow = isAnyOverflow ? "1" : "0";
     containerEl.classList.toggle("fc-overflow", isAnyOverflow);
 
+    // overflow 狀態剛出現時，讓捲動回到起點
     if (isOverflowY && !wasOverflowY) containerEl.scrollTop = 0;
     if (isOverflowX && !wasOverflowX) containerEl.scrollLeft = 0;
 
+    // 沒 overflow 時強制歸零，避免殘留位移
     if (!isOverflowY) containerEl.scrollTop = 0;
     if (!isOverflowX) containerEl.scrollLeft = 0;
   });
 }
-
-
-
 
 
 // ===== Flashcards：背卡顯示模式（換行 / 不換行改捲動）=====
