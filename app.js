@@ -8343,7 +8343,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-// ---------- Flashcard viewer overflow fix ----------
 // ---------- Flashcard center/scroll behavior fix ----------
 // 規則：不需要 scrollbar → 垂直置中；需要 scrollbar → 從上開始 + 留 padding-top，避免第一行被吃掉
 function ensureFlashcardScrollFixStyle() {
@@ -8352,26 +8351,44 @@ function ensureFlashcardScrollFixStyle() {
   const s = document.createElement("style");
   s.id = "fc-scroll-fix-style";
   s.textContent = `
-    /* 預設：保持垂直置中（符合你「沒 overflow 要在正中央」的需求） */
-    .fc-viewer-card,
-    .fc-study-card,
-    #fc-study-card {
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
-    }
+/* 防止整體水平溢出造成誤判 */
+.fc-viewer-mask,
+.fc-screen {
+  overflow-x: hidden !important;
+}
 
-    /* 一旦內容超高需要捲動：改成從上開始排，避免上下平均溢出導致「上緣被吃掉」 */
-    .fc-viewer-card.fc-overflow,
-    .fc-study-card.fc-overflow,
-    #fc-study-card.fc-overflow {
-      justify-content: flex-start !important;
-      align-items: stretch !important; /* 水平仍可靠 text-align:center 視覺置中 */
-      padding-top: 28px !important;
-      padding-bottom: 28px !important;
-      box-sizing: border-box !important;
-    }
+/* 讓 padding/border 算在寬度內，避免 width+padding 右溢出 */
+.fc-viewer-card,
+.fc-study-card,
+#fc-study-card {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+/* Viewer/Study：禁止水平捲動，避免 scrollWidth 比 clientWidth 多 1px */
+.fc-viewer-card { overflow-x: hidden !important; }
+.fc-study-card,
+#fc-study-card { overflow-x: hidden !important; }
+
+/* 預設：保持垂直置中（沒 overflow 時） */
+.fc-viewer-card,
+.fc-study-card,
+#fc-study-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* 一旦內容真的超高：改成從上開始排 */
+.fc-viewer-card.fc-overflow,
+.fc-study-card.fc-overflow,
+#fc-study-card.fc-overflow {
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
+}
   `;
   document.head.appendChild(s);
 }
@@ -8379,27 +8396,28 @@ function ensureFlashcardScrollFixStyle() {
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
 
+  // 由外部決定是否偏好置中（你在 Study 有設 dataset.fcCenter = "1"）
+  const preferCenter = containerEl.dataset.fcCenter === "1";
+
+  // 確保 CSS 修正有注入
   ensureFlashcardScrollFixStyle();
 
-  // 等 DOM/排版完成後再判斷，避免剛換文字時量到舊高度
   requestAnimationFrame(() => {
-    const isOverflow = containerEl.scrollHeight > containerEl.clientHeight + 1;
+    // 門檻加大一點，避免子像素/邊框造成 1px 誤判
+    const isOverflowY = containerEl.scrollHeight > containerEl.clientHeight + 2;
+    const isOverflowX = containerEl.scrollWidth > containerEl.clientWidth + 2;
 
-    const wasOverflow = containerEl.dataset.fcOverflow === "1";
-    containerEl.dataset.fcOverflow = isOverflow ? "1" : "0";
-    containerEl.classList.toggle("fc-overflow", isOverflow);
+    // ✅ 置中模式：只看「垂直」overflow（避免短字也被推到上面）
+    // 非置中模式：才看 X/Y 任一 overflow
+    const isAnyOverflow = preferCenter ? isOverflowY : (isOverflowY || isOverflowX);
 
-    // 只有「剛從不 overflow 變成 overflow」時，才把捲動拉回頂端，避免一進來就卡在怪位置
-    if (isOverflow && !wasOverflow) {
-      containerEl.scrollTop = 0;
-    }
-
-    // 如果回到不 overflow，確保狀態乾淨
-    if (!isOverflow) {
-      containerEl.scrollTop = 0;
-    }
+    containerEl.classList.toggle("fc-overflow", isAnyOverflow);
+    containerEl.dataset.fcOverflow = isAnyOverflow ? "1" : "0";
+    containerEl.dataset.fcOverflowY = isOverflowY ? "1" : "0";
+    containerEl.dataset.fcOverflowX = isOverflowX ? "1" : "0";
   });
 }
+
 
 /* =========================================
    題庫：左右滑動換題（改善上下抖動/滾動）
