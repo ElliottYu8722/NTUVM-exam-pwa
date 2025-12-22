@@ -5912,6 +5912,7 @@ function fcEnsureStyle() {
       text-align:center;
       line-height:1.25;
       word-break:break-word;
+      overflow-wrap:anywhere;
       white-space:pre-wrap;
 
       /* 讓長內容在卡片內捲動時不會怪怪的 */
@@ -6514,7 +6515,7 @@ function fcOpenFolder(nodeId) {
 function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   if (!containerEl || !textEl) return;
 
-  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
+  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 12;
 
   // 記住「基準字級」（第一次進來才抓）
   if (!textEl.dataset.fcBaseFontPx) {
