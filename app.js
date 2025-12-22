@@ -6142,8 +6142,8 @@ function fcOpenHome() {
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-home-close" title="退出">✕</button>
       <div class="title">字卡</div>
-      <button class="fc-iconbtn" id="fc-home-add-folder" title="新增資料夾">📁</button>
-      <button class="fc-iconbtn" id="fc-home-add-topic" title="新增主題">📘</button>
+      <button class="fc-btn" id="fc-home-add-folder" title="新增資料夾">新增資料夾</button>
+      <button class="fc-btn" id="fc-home-add-topic" title="新增主題">新增主題</button>
       <button class="fc-btn" id="fc-home-import" title="匯入字卡">匯入字卡</button>
 
     </div>
@@ -6183,55 +6183,82 @@ function fcOpenHome() {
 
     const roots = fcChildren(null);
     if (!roots.length) {
-      list.innerHTML = `<div class="fc-hint">目前沒有資料夾/主題，右上角 📁/📘 建一個吧。</div>`;
+      list.innerHTML = `<div class="fc-hint">目前沒有資料夾/主題</div>`;
       return;
     }
-
     roots.forEach(node => {
       const row = document.createElement('div');
       row.className = 'fc-node';
+
+      // 讓整列可點 + 可鍵盤操作
+      row.style.cursor = 'pointer';
+      row.tabIndex = 0;
+      row.setAttribute('role', 'button');
+
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${node.type === 'topic' ? '📘' : '📁'} ${node.name}`;
+      // 避免 CSS 還留著 cursor:pointer 時造成誤導
+      label.style.cursor = 'inherit';
 
-      // ★ 修改：移除 label.onclick，改綁在 row 上，讓整行空白處都能點
-      row.style.cursor = 'pointer'; 
-      row.onclick = () => {
+      const right = document.createElement('div');
+      right.className = 'fc-node-actions';
+      right.style.display = 'flex';
+      right.style.gap = '8px';
+      right.style.flexShrink = '0';
+
+      const openNode = () => {
         if (node.type === 'folder') fcOpenFolder(node.id);
         else fcOpenStudy(node.id);
       };
 
-      const right = document.createElement('div');
+      row.addEventListener('click', (e) => {
+        // 點到右側按鈕（或任何 button）就不要觸發整列開啟
+        if (e.target && (e.target.closest('button') || e.target.closest('.fc-node-actions'))) return;
+        openNode();
+      });
 
+      row.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openNode();
+        }
+      });
 
-      right.style.display = 'flex';
-      right.style.gap = '8px';
-      
-      // 只對主題（topic）顯示：照順序 / 洗牌
+      // topic 才顯示「依序/隨機」
       if (node.type === 'topic') {
         const btnSeq = document.createElement('button');
         btnSeq.className = 'fc-btn';
-        btnSeq.textContent = '照順序顯示字卡';
-        btnSeq.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: false }); };
+        btnSeq.textContent = '依序';
+        btnSeq.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          fcOpenStudy(node.id, 0, { shuffle: false });
+        };
 
         const btnShuffle = document.createElement('button');
         btnShuffle.className = 'fc-btn';
-        btnShuffle.textContent = '洗牌出卡';
-        btnShuffle.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: true }); };
+        btnShuffle.textContent = '隨機';
+        btnShuffle.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          fcOpenStudy(node.id, 0, { shuffle: true });
+        };
 
         right.appendChild(btnSeq);
         right.appendChild(btnShuffle);
       }
+
       const edit = document.createElement('button');
       edit.className = 'fc-btn';
       edit.textContent = '編輯';
       edit.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
+        e.stopPropagation();
         if (node.type === 'topic') {
-          fcOpenEditor({ mode: 'edit', nodeId: node.id });
+          fcOpenEditor('edit', null, node.id, 'topic');
         } else {
-          const newName = prompt('修改資料夾名稱：', node.name || '');
+          const newName = prompt('新名稱', node.name);
           if (!newName || !newName.trim()) return;
           node.name = newName.trim();
           fcSave();
@@ -6244,15 +6271,15 @@ function fcOpenHome() {
       del.textContent = '刪除';
       del.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
-        if (!confirm(`確定刪除「${node.name}」及其所有內容？`)) return;
+        e.stopPropagation();
+        if (!confirm(`確定刪除「${node.name}」？`)) return;
         fcDeleteNodeRecursive(node.id);
         renderHomeList();
       };
 
-
       right.appendChild(edit);
       right.appendChild(del);
+
       row.appendChild(label);
       row.appendChild(right);
       list.appendChild(row);
@@ -6284,8 +6311,8 @@ function fcOpenFolder(nodeId) {
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-folder-close" title="返回">✕</button>
       <div class="title">${node.name || '資料夾'}</div>
-      <button class="fc-iconbtn" id="fc-folder-add-folder" title="新增資料夾">📁</button>
-      <button class="fc-iconbtn" id="fc-folder-add-topic" title="新增主題">📘</button>
+      <button class="fc-btn" id="fc-folder-add-folder" title="新增資料夾">新增資料夾</button>
+      <button class="fc-btn" id="fc-folder-add-topic" title="新增主題">新增主題</button>
       <button class="fc-btn" id="fc-folder-import" title="匯入字卡">匯入字卡</button>
     </div>
 
@@ -6426,7 +6453,7 @@ function fcOpenFolder(nodeId) {
 function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
   if (!containerEl || !textEl) return;
 
-  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 10;
+  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
 
   // 建立「基準字體」：一定要在沒有 inline font-size 的狀態下抓到 CSS 原始大小
   if (!textEl.dataset.fcBaseFontPx) {
@@ -6439,34 +6466,43 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 
   const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
   const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
-  const token = String(Number(textEl.dataset.fcFitToken || 0) + 1);
+
+  // token：避免連續 render 時，舊的 requestAnimationFrame 結果覆蓋新的
+  const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
   textEl.dataset.fcFitToken = token;
-  
-  // 你前面如果已經改成扣 padding 的 cw/ch，就保留你那版 cw/ch
-  const cs = getComputedStyle(containerEl);
-  const cw = containerEl.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
-  const ch = containerEl.clientHeight - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0);
-  if (!cw || !ch) return;
-  
-  const fits = (px) => {
-    textEl.style.fontSize = `${px}px`;
-    void textEl.offsetWidth; // iOS reflow
-    return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
-  };
-  
-  let lo = minPx;
-  let hi = maxPx;
-  let best = minPx;
-  
-  for (let i = 0; i < 14; i++) {
-    const mid = Math.floor((lo + hi) / 2);
-    if (fits(mid)) { best = mid; lo = mid + 1; }
-    else { hi = mid - 1; }
-  }
-  
-  // 防止舊呼叫蓋掉新結果
-  if (textEl.dataset.fcFitToken !== token) return;
-  textEl.style.fontSize = `${best}px`;
+
+  // 每次都先回到 max，再重新 fit（這一步是修掉「縮小後回不去」的關鍵）
+  textEl.style.fontSize = `${maxPx}px`;
+
+  requestAnimationFrame(() => {
+    if (textEl.dataset.fcFitToken !== token) return;
+
+    const cw = containerEl.clientWidth;
+    const ch = containerEl.clientHeight;
+    if (!cw || !ch) return;
+
+    const fits = (px) => {
+      textEl.style.fontSize = `${px}px`;
+      void textEl.offsetWidth; // iOS reflow
+      return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
+    };
+
+    let lo = minPx;
+    let hi = maxPx;
+    let best = minPx;
+
+    for (let i = 0; i < 14; i++) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (fits(mid)) {
+        best = mid;
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+
+    textEl.style.fontSize = `${best}px`;
+  });
 }
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
@@ -6762,7 +6798,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     textEl.style.fontSize = "";
 
     // 用 CSS 的預設字體當 max（fcAutoFitTextToContainer 會自己記 base）
-    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 10 });
+    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
 
     // 置中/溢出偵測（你原本就有）
     try { fcSyncCenterScroll(cardEl); } catch {}
