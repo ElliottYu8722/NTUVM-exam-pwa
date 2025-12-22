@@ -5934,8 +5934,7 @@ function fcEnsureStyle() {
   `;
   document.head.appendChild(s);
 }
-// ---------- 編輯器：新增/編輯主題（字卡列表） ----------
-function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 'topic' }) {
+function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 'topic') {
   fcEnsureStyle();
   fcLoad();
 
@@ -5943,7 +5942,7 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   if (mode === 'edit') {
     node = fcGetNode(nodeId);
     if (!node) {
-      alert('找不到該主題！');
+      alert('找不到這個卡片集 / 節點');
       return;
     }
   }
@@ -5954,29 +5953,28 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   const screen = document.createElement('div');
   screen.id = 'fc-editor-screen';
   screen.className = 'fc-screen';
-
   screen.innerHTML = `
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
-      <button class="fc-btn" id="fc-editor-export" title="匯出字卡">匯出字卡</button>
-      <div class="title">${mode === 'edit' ? '編輯主題' : '新增主題'}</div>
+      <button class="fc-btn" id="fc-editor-export" title="匯出 JSON">匯出</button>
+      <div class="title">${mode === 'edit' ? '編輯卡片集' : '新增卡片集'}</div>
       <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
     </div>
 
     <div class="fc-body">
       <div class="fc-panel">
         <div class="fc-subtitle">名稱</div>
-        <input class="fc-input" id="fc-editor-name" type="text" placeholder="輸入主題名稱..." />
+        <input class="fc-input" id="fc-editor-name" type="text" placeholder="例如：病理學／內科／解剖…">
       </div>
 
       <div class="fc-panel">
-        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7">(正面 | 背面)</span></div>
+        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7;">（左=正面 / 右=背面）</span></div>
         <div class="fc-list" id="fc-editor-cards"></div>
-        <button class="fc-floating-plus" id="fc-editor-add-card">+</button>
       </div>
+
+      <button class="fc-floating-plus" id="fc-editor-add-card">＋</button>
     </div>
   `;
-
   document.body.appendChild(screen);
 
   const nameInput = document.getElementById('fc-editor-name');
@@ -5985,146 +5983,188 @@ function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 
   const btnClose = document.getElementById('fc-editor-close');
   const btnAddCard = document.getElementById('fc-editor-add-card');
   const btnExport = document.getElementById('fc-editor-export');
-  // 載入現有資料
-  if (mode === 'edit' && node) {
-    nameInput.value = node.name || '';
-    const cardIds = node.items || [];
-    cardIds.forEach(cid => {
-      const card = state.flashcards.cards[cid];
-      if (card) addCardRow({ front: card.front, back: card.back });
-    });
-  }
-
-  // 如果沒有任何卡片，預設加一張
-  if (!cardsList.children.length) {
-    addCardRow({ front: '', back: '' });
-  }
 
   function addCardRow({ front = '', back = '' } = {}) {
     const row = document.createElement('div');
     row.className = 'fc-cardrow';
-    
+
     const meta = document.createElement('div');
     meta.className = 'meta';
-    
+
     const idxSpan = document.createElement('span');
     idxSpan.className = 'idx';
     meta.appendChild(idxSpan);
-    
+
     const btnDel = document.createElement('button');
     btnDel.className = 'fc-btn danger';
-    btnDel.textContent = '刪';
+    btnDel.textContent = '刪除';
     btnDel.onclick = () => {
       row.remove();
       updateCardNumbers();
     };
     meta.appendChild(btnDel);
-    
+
     const grid = document.createElement('div');
     grid.className = 'grid';
+
     const inp1 = document.createElement('textarea');
     inp1.className = 'fc-input';
-    inp1.placeholder = '正面（問題）';
+    inp1.placeholder = '正面（題目）';
     inp1.value = front;
     inp1.rows = 3;
-    
+
     const inp2 = document.createElement('textarea');
     inp2.className = 'fc-input';
     inp2.placeholder = '背面（答案）';
     inp2.value = back;
     inp2.rows = 3;
-    
+
     grid.appendChild(inp1);
     grid.appendChild(inp2);
-    
+
     row.appendChild(meta);
     row.appendChild(grid);
+
     cardsList.appendChild(row);
-    
     updateCardNumbers();
   }
 
   function updateCardNumbers() {
     Array.from(cardsList.children).forEach((row, i) => {
       const span = row.querySelector('.idx');
-      if (span) span.textContent = `#${i + 1}`;
+      if (span) span.textContent = String(i + 1);
     });
   }
+
   function collectEditorRows() {
-    return Array.from(cardsList.children).map(row => {
-      const inputs = row.querySelectorAll('textarea.fc-input');
-      const front = (inputs[0]?.value || '').trim();
-      const back  = (inputs[1]?.value || '').trim();
-      return { front, back };
-    }).filter(r => r.front || r.back);
+    return Array.from(cardsList.children)
+      .map(row => {
+        const inputs = row.querySelectorAll('textarea.fc-input');
+        const front = (inputs[0]?.value ?? '').trim();
+        const back = (inputs[1]?.value ?? '').trim();
+        return { front, back };
+      })
+      .filter(r => r.front && r.back);
   }
+
   function sanitizeFilename(s) {
-    return String(s || 'flashcards').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60);
+    return String(s || 'flashcards')
+      .replace(/[\\/:*?"<>|]+/g, '_')
+      .slice(0, 60);
   }
+
+  // === 讀取既有資料（編輯模式）===
+  if (mode === 'edit') {
+    nameInput.value = node.name || '';
+
+    // 1) 先拿 node.items（預期是 cardId 陣列）
+    let cardIds = Array.isArray(node.items) ? node.items.slice() : [];
+
+    // 2) 若 node.items 壞掉或空掉：改用 cards 反查 folderId 來救回
+    if ((!cardIds || !cardIds.length) && state.flashcards && state.flashcards.cards) {
+      const recovered = Object.values(state.flashcards.cards)
+        .filter(c => c && String(c.folderId) === String(node.id))
+        .map(c => c.id)
+        .filter(Boolean);
+
+      if (recovered.length) {
+        // 用 id 裡的 timestamp 粗略排序（card-<ts>-xxxx）
+        recovered.sort((a, b) => {
+          const ta = Number(String(a).split('-')[1]) || 0;
+          const tb = Number(String(b).split('-')[1]) || 0;
+          return ta - tb;
+        });
+
+        cardIds = recovered;
+        node.items = recovered.slice();
+        fcSave();
+      }
+    }
+
+    // 3) 把卡片內容畫進編輯器
+    cardIds.forEach(cid => {
+      const card = state.flashcards.cards?.[cid];
+      if (card) addCardRow({ front: card.front, back: card.back });
+    });
+  }
+
+  // 如果完全沒有任何 row，至少放一列空白
+  if (!cardsList.children.length) addCardRow({ front: '', back: '' });
 
   btnAddCard.onclick = () => {
-    addCardRow();
+    addCardRow({ front: '', back: '' });
     cardsList.lastChild?.querySelector('textarea')?.focus();
   };
-  if (btnExport) btnExport.onclick = () => {
-    const name = (nameInput.value.trim() || '未命名主題');
-    const rows = collectEditorRows();
-    const payload = { name, cards: rows };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = sanitizeFilename(name) + '.json';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+
+  if (btnExport) {
+    btnExport.onclick = () => {
+      const name = (nameInput.value || '').trim();
+      const rows = collectEditorRows();
+      const payload = { name, cards: rows };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${sanitizeFilename(name)}.json`;
+      document.body.appendChild(a);
+      a.click();
+
+      setTimeout(() => {
+        try { URL.revokeObjectURL(a.href); } catch {}
+        try { a.remove(); } catch {}
+      }, 500);
+    };
+  }
+
+  btnClose.onclick = () => {
+    try { screen.remove(); } catch {}
   };
 
-  btnClose.onclick = () => screen.remove();
   btnSave.onclick = () => {
-    const name = nameInput.value.trim();
+    const name = (nameInput.value || '').trim();
     if (!name) {
-      alert('請輸入主題名稱！');
+      alert('請輸入名稱');
       nameInput.focus();
       return;
     }
 
-    // 收集卡片資料（注意：卡片欄位是 textarea）
     const rows = collectEditorRows();
 
-    if (mode === 'create') {
-      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' });
-      if (newNode) {
-        fcReplaceCardsOfNode(newNode.id, rows);
-        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
-        screen.remove();
-
-        if (typeof window.__fcRenderHomeList === 'function') {
-          window.__fcRenderHomeList();
-        }
-        if (typeof window.__fcRenderFolderList === 'function') {
-          window.__fcRenderFolderList();
-        }
-      }
-    } else {
-      node.name = name;
-      fcReplaceCardsOfNode(node.id, rows);
-      fcSave();
-      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
-      screen.remove();
-
-      if (typeof window.__fcRenderHomeList === 'function') {
-        window.__fcRenderHomeList();
-      }
-      if (typeof window.__fcRenderFolderList === 'function') {
-        window.__fcRenderFolderList();
+    // 防誤刪：如果原本有卡，現在 rows 卻是 0，先確認
+    if (mode === 'edit') {
+      const had = Array.isArray(node.items) && node.items.length > 0;
+      if (had && rows.length === 0) {
+        const ok = confirm('目前沒有任何有效字卡（正面+背面）內容。\n\n按「確定」會把這個卡片集清空。\n按「取消」回去再檢查一下。');
+        if (!ok) return;
       }
     }
+
+    if (mode === 'create') {
+      const newNode = fcCreateNode({ name, parentId, type: (type === 'topic' ? 'topic' : 'folder') });
+      if (newNode) {
+        fcReplaceCardsOfNode(newNode.id, rows);
+        alert(`已建立：${name}（${rows.length} 張）`);
+      }
+      try { screen.remove(); } catch {}
+      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+      if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+      return;
+    }
+
+    // edit
+    node.name = name;
+    fcReplaceCardsOfNode(node.id, rows);
+    fcSave();
+    alert(`已儲存：${name}（${rows.length} 張）`);
+    try { screen.remove(); } catch {}
+    if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+    if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+    setTimeout(() => nameInput.focus(), 100);
   };
 
-
-  // 自動對焦
-  setTimeout(() => nameInput.focus(), 100);
+  setTimeout(() => nameInput.focus(), 50);
 }
+
 
 
 // ---------- 主畫面：資料夾/主題清單 ----------
