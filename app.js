@@ -6512,34 +6512,34 @@ function fcOpenFolder(nodeId) {
   window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
-function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
+
+function fcAutoFitTextToContainer(containerEl, textEl, opts) {
   if (!containerEl || !textEl) return;
 
-  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 12;
+  const minPx = Number.isFinite(Number(opts?.minPx)) ? Number(opts.minPx) : 12;
+  const onDone = typeof opts?.onDone === "function" ? opts.onDone : null;
 
-  // 記住「基準字級」（第一次進來才抓）
   if (!textEl.dataset.fcBaseFontPx) {
     const prev = textEl.style.fontSize;
-    textEl.style.fontSize = ""; // 先清掉 inline，拿 CSS 設定的字級
+    textEl.style.fontSize = ""; // inline CSS clear
     const base = parseFloat(getComputedStyle(textEl).fontSize);
     textEl.dataset.fcBaseFontPx = String(Number.isFinite(base) && base > 0 ? base : 44);
     textEl.style.fontSize = prev;
   }
 
-  const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
-  const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
+  const baseMax = Number(textEl.dataset.fcBaseFontPx || 44);
+  const maxPx = Number.isFinite(Number(opts?.maxPx)) ? Number(opts.maxPx) : baseMax;
 
-  // token：避免連續 resize / render 時舊的 RAF 覆蓋新的結果
-  const token = String((Number(textEl.dataset.fcFitToken) || 0) + 1);
+  // token to cancel stale resize runs
+  const token = String(Number(textEl.dataset.fcFitToken || 0) + 1);
   textEl.dataset.fcFitToken = token;
 
-  // 先用最大字級
   textEl.style.fontSize = `${maxPx}px`;
 
   requestAnimationFrame(() => {
     if (textEl.dataset.fcFitToken !== token) return;
 
-    // 這裡是關鍵：可用寬高要扣掉 container 的 padding
+    // container padding
     const cs = getComputedStyle(containerEl);
     const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
     const padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
@@ -6550,7 +6550,8 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
 
     const fits = (px) => {
       textEl.style.fontSize = `${px}px`;
-      void textEl.offsetWidth; // iOS/Chromium 觸發 reflow
+      void textEl.offsetWidth; // iOS/Chromium reflow
+
       return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
     };
 
@@ -6569,8 +6570,21 @@ function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
     }
 
     textEl.style.fontSize = `${best}px`;
+    void textEl.offsetWidth;
+
+    // expose result
+    textEl.dataset.fcLastFitPx = String(best);
+    textEl.dataset.fcLastFitHitMin = best <= minPx ? "1" : "0";
+
+    const overflowX = textEl.scrollWidth > cw;
+    const overflowY = textEl.scrollHeight > ch;
+
+    if (onDone) {
+      onDone(best, { minPx, maxPx, cw, ch, overflowX, overflowY, hitMin: best <= minPx });
+    }
   });
 }
+
 
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
@@ -6794,6 +6808,8 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
 
   let idx = Math.max(0, Math.min(startIndex, cards.length - 1));
   let isFront = true;
+  let forceWrapThisCard = false; // 單行縮到 minPx 仍放不下時，該張卡自動換行救援
+
 
   screen.innerHTML = `
     <div class="fc-top">
@@ -6852,24 +6868,58 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   function fitText() {
     if (!cardEl || !textEl) return;
 
-    // 先隱藏，避免「先顯示大字一幀」的跳動
     textEl.style.visibility = "hidden";
 
-    // 每次 render 都先清掉 inline font-size，確保可以放大回去
-    textEl.style.fontSize = "";
+    try {
+      cardEl.scrollTop = 0;
+      cardEl.scrollLeft = 0;
+    } catch {}
 
-    // 先把 scroll 歸零，避免殘留捲動造成視覺抖動
-    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
+    // 使用者偏好：true=可換行、false=單行
+    const userWrap = isWrapMode();
+    // 這張卡若需要救援，就算 userWrap=false 也強制換行
+    const wrapNow = userWrap || forceWrapThisCard;
 
-    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
+    // 注意：這裡不要改 btnWrap 的文字（維持顯示使用者的選擇）
+    textEl.classList.toggle("fc-nowrap", !wrapNow);
 
-    try { fcSyncCenterScroll(cardEl); } catch {}
+    fcAutoFitTextToContainer(cardEl, textEl, {
+      minPx: 14,
+      onDone: (bestPx, info) => {
+        // 單行模式下：如果已經縮到 minPx 還是塞不進去（overflowX），就改成可換行再 fit 一次
+        if (!userWrap && !forceWrapThisCard && info.hitMin && info.overflowX) {
+          forceWrapThisCard = true;
+          textEl.classList.remove("fc-nowrap");
 
-    // fit 完再顯示
-    requestAnimationFrame(() => {
-      textEl.style.visibility = "visible";
+          fcAutoFitTextToContainer(cardEl, textEl, {
+            minPx: 14,
+            onDone: () => {
+              requestAnimationFrame(() => {
+                try {
+                  fcSyncCenterScroll(cardEl);
+                } catch {}
+                requestAnimationFrame(() => {
+                  textEl.style.visibility = "visible";
+                });
+              });
+            },
+          });
+
+          return;
+        }
+
+        requestAnimationFrame(() => {
+          try {
+            fcSyncCenterScroll(cardEl);
+          } catch {}
+          requestAnimationFrame(() => {
+            textEl.style.visibility = "visible";
+          });
+        });
+      },
     });
   }
+
 
   function render() {
     const c = cards[idx];
@@ -6881,6 +6931,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
       // 先藏再換字，搭配 fitText 不會跳
       textEl.style.visibility = "hidden";
       textEl.textContent = isFront ? (c.front || "") : (c.back || "");
+      forceWrapThisCard = false;
     }
 
     if (btnPrev) btnPrev.disabled = idx <= 0;
