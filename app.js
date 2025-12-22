@@ -5906,7 +5906,7 @@ function fcEnsureStyle() {
     }
 
     .fc-viewer-text{
-      font-size:44px;
+      font-size:40px;
       font-weight:800;
       letter-spacing:.5px;
       text-align:center;
@@ -5923,13 +5923,13 @@ function fcEnsureStyle() {
 
     /* 平板 */
     @media (max-width: 1024px){
-      .fc-viewer-text{font-size:36px}
+      .fc-viewer-text{font-size:34px}
     }
     /* 手機 */
     @media (max-width: 768px){
       .fc-body{padding:12px}
       .fc-cardrow .grid{grid-template-columns:1fr;gap:10px}
-      .fc-viewer-text{font-size:30px}
+      .fc-viewer-text{font-size:28px}
     }
   `;
   document.head.appendChild(s);
