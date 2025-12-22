@@ -5870,7 +5870,7 @@ function fcEnsureStyle() {
     .fc-input:focus{border-color:var(--accent,#2f74ff)}
     .fc-list{display:flex;flex-direction:column;gap:10px}
     .fc-node{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 12px;border:1px solid var(--border,#333);border-radius:14px;background:rgba(255,255,255,.04)}
-    .fc-node .label{font-weight:700;cursor:pointer;flex:1;min-width:0}
+    .fc-node .label{font-weight:700;cursor:inherit;flex:1;min-width:0}
     .fc-btn{padding:8px 12px;border-radius:9999px;border:1px solid var(--border,#333);background:transparent;color:var(--fg,#fff);cursor:pointer;font-size:13px}
     .fc-btn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
     .fc-btn.danger{color:#ff6b6b}
