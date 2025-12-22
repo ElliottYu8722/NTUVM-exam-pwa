@@ -6979,21 +6979,22 @@ function fcOpenViewer(cardId) {
   document.body.appendChild(closeBtn);
 
   let isFront = true;
-
-  const applyText = () => {
-    text.textContent = isFront ? (card.front || '') : (card.back || '');
+  const fitAndCenter = () => {
+    fcAutoFitTextToContainer(cardEl, text, { minPx: 14 });
     fcSyncCenterScroll(cardEl);
   };
 
-  // 初次套用（決定要不要捲動、要不要置中）
-  fcSyncCenterScroll(cardEl);
+  const applyText = () => {
+    text.textContent = isFront ? (card.front || '') : (card.back || '');
+    requestAnimationFrame(() => fitAndCenter());
+  };
 
+  applyText();
   cardEl.onclick = () => {
     isFront = !isFront;
     applyText();
   };
-
-  const onResize = () => fcSyncCenterScroll(cardEl);
+  const onResize = () => requestAnimationFrame(() => fitAndCenter());
   window.addEventListener('resize', onResize);
 
   const close = () => {
