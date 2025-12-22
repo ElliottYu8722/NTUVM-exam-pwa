@@ -6698,20 +6698,10 @@ function fcEnsureStudyStyle() {
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
 
-  // 由外部（fcOpenStudy / fcOpenViewer）決定：這個容器要不要維持置中
+  // 仍保留這個旗標，但「不要提前 return」
+  // 它只代表：不 overflow 的時候偏好置中
   const preferCenter = containerEl.dataset.fcCenter === "1";
 
-  // 置中模式：不套 overflow fix（避免被 flex-start 破壞置中）
-  if (preferCenter) {
-    // 清掉以前可能殘留的 overflow 狀態
-    containerEl.dataset.fcOverflow = "0";
-    containerEl.dataset.fcOverflowY = "0";
-    containerEl.dataset.fcOverflowX = "0";
-    containerEl.classList.remove("fc-overflow");
-    return;
-  }
-
-  // 非置中模式：維持你原本的 overflow fix 行為（並補上水平 overflow）
   ensureFlashcardScrollFixStyle();
 
   requestAnimationFrame(() => {
@@ -6728,6 +6718,12 @@ function fcSyncCenterScroll(containerEl) {
     containerEl.dataset.fcOverflow = isAnyOverflow ? "1" : "0";
     containerEl.classList.toggle("fc-overflow", isAnyOverflow);
 
+    // 置中模式：只有在「不 overflow」時才維持置中
+    // overflow 時一樣要讓 .fc-overflow 生效（就會變成 flex-start）
+    if (preferCenter && !isAnyOverflow) {
+      // nothing special; CSS :not(.fc-overflow) 會置中
+    }
+
     if (isOverflowY && !wasOverflowY) containerEl.scrollTop = 0;
     if (isOverflowX && !wasOverflowX) containerEl.scrollLeft = 0;
 
@@ -6735,6 +6731,7 @@ function fcSyncCenterScroll(containerEl) {
     if (!isOverflowX) containerEl.scrollLeft = 0;
   });
 }
+
 
 
 
@@ -6851,18 +6848,26 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   }
 
   if (cardEl) cardEl.dataset.fcCenter = "1";
-
   function fitText() {
     if (!cardEl || !textEl) return;
 
-    // 每次 render 都先清掉 inline font-size，確保可以「放大回去」
+    // 先隱藏，避免「先顯示大字一幀」的跳動
+    textEl.style.visibility = "hidden";
+
+    // 每次 render 都先清掉 inline font-size，確保可以放大回去
     textEl.style.fontSize = "";
 
-    // 用 CSS 的預設字體當 max（fcAutoFitTextToContainer 會自己記 base）
+    // 先把 scroll 歸零，避免殘留捲動造成視覺抖動
+    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
+
     fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
 
-    // 置中/溢出偵測（你原本就有）
     try { fcSyncCenterScroll(cardEl); } catch {}
+
+    // fit 完再顯示
+    requestAnimationFrame(() => {
+      textEl.style.visibility = "visible";
+    });
   }
 
   function render() {
@@ -6870,12 +6875,16 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     if (!c) return;
 
     if (progressEl) progressEl.textContent = `${idx + 1} / ${cards.length}`;
-    if (textEl) textEl.textContent = isFront ? (c.front || "") : (c.back || "");
+
+    if (textEl) {
+      // 先藏再換字，搭配 fitText 不會跳
+      textEl.style.visibility = "hidden";
+      textEl.textContent = isFront ? (c.front || "") : (c.back || "");
+    }
 
     if (btnPrev) btnPrev.disabled = idx <= 0;
     if (btnNext) btnNext.disabled = idx >= cards.length - 1;
 
-    // 每次內容更新都同步目前模式
     syncWrapUIOnly();
 
     requestAnimationFrame(fitText);
@@ -6979,22 +6988,36 @@ function fcOpenViewer(cardId) {
   document.body.appendChild(closeBtn);
 
   let isFront = true;
+
   const fitAndCenter = () => {
+    // 先隱藏，避免跳動
+    text.style.visibility = "hidden";
+
+    // scroll 歸零，避免抖動
+    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
+
     fcAutoFitTextToContainer(cardEl, text, { minPx: 14 });
     fcSyncCenterScroll(cardEl);
+
+    requestAnimationFrame(() => {
+      text.style.visibility = "visible";
+    });
   };
 
   const applyText = () => {
+    text.style.visibility = "hidden";
     text.textContent = isFront ? (card.front || '') : (card.back || '');
-    requestAnimationFrame(() => fitAndCenter());
+    requestAnimationFrame(fitAndCenter);
   };
 
   applyText();
+
   cardEl.onclick = () => {
     isFront = !isFront;
     applyText();
   };
-  const onResize = () => requestAnimationFrame(() => fitAndCenter());
+
+  const onResize = () => requestAnimationFrame(fitAndCenter);
   window.addEventListener('resize', onResize);
 
   const close = () => {
@@ -7006,6 +7029,7 @@ function fcOpenViewer(cardId) {
   closeBtn.onclick = close;
   mask.onclick = (e) => { if (e.target === mask) close(); };
 }
+
 
 
 // ---------- 綁定左欄按鈕 ----------
@@ -8654,36 +8678,60 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // ---------- Flashcard viewer overflow fix ----------
 // ---------- Flashcard center/scroll behavior fix ----------
-// 規則：不需要 scrollbar → 垂直置中；需要 scrollbar → 從上開始 + 留 padding-top，避免第一行被吃掉
 function ensureFlashcardScrollFixStyle() {
   if (document.getElementById("fc-scroll-fix-style")) return;
 
   const s = document.createElement("style");
   s.id = "fc-scroll-fix-style";
   s.textContent = `
-    /* 預設：保持垂直置中（符合你「沒 overflow 要在正中央」的需求） */
-    .fc-viewer-card,
-    .fc-study-card,
-    #fc-study-card {
-      display: flex !important;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
-    }
+/* ===== Flashcards: stop horizontal overflow ===== */
+.fc-viewer-mask,
+.fc-screen {
+  overflow-x: hidden !important;
+}
 
-    /* 一旦內容超高需要捲動：改成從上開始排，避免上下平均溢出導致「上緣被吃掉」 */
-    .fc-viewer-card.fc-overflow,
-    .fc-study-card.fc-overflow,
-    #fc-study-card.fc-overflow {
-      justify-content: flex-start !important;
-      align-items: stretch !important; /* 水平仍可靠 text-align:center 視覺置中 */
-      padding-top: 28px !important;
-      padding-bottom: 28px !important;
-      box-sizing: border-box !important;
-    }
-  `;
+/* Width should include padding/border, or it will overflow */
+.fc-viewer-card,
+.fc-study-card,
+#fc-study-card {
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+/* Fix vw rounding + padding causing 1~幾 px 右溢出 */
+.fc-viewer-card{
+  width: min(520px, calc(100vw - 32px)) !important; /* viewer-mask padding:16*2 */
+}
+
+.fc-study-card,
+#fc-study-card{
+  width: min(620px, calc(100vw - 36px)) !important; /* study-stage padding:18*2 */
+  max-width: calc(100vw - 36px) !important;
+}
+
+/* 預設：內容沒 overflow 時，保持垂直置中 */
+.fc-viewer-card:not(.fc-overflow),
+.fc-study-card:not(.fc-overflow),
+#fc-study-card:not(.fc-overflow){
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* 一旦 overflow：從上開始排，避免上緣被吃掉 */
+.fc-viewer-card.fc-overflow,
+.fc-study-card.fc-overflow,
+#fc-study-card.fc-overflow{
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+  padding-top: 28px !important;
+  padding-bottom: 28px !important;
+}
+`;
   document.head.appendChild(s);
 }
+
 
 
 
