@@ -5870,7 +5870,7 @@ function fcEnsureStyle() {
     .fc-input:focus{border-color:var(--accent,#2f74ff)}
     .fc-list{display:flex;flex-direction:column;gap:10px}
     .fc-node{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 12px;border:1px solid var(--border,#333);border-radius:14px;background:rgba(255,255,255,.04)}
-    .fc-node .label{font-weight:700;cursor:inherit;flex:1;min-width:0}
+    .fc-node .label{font-weight:700;cursor:pointer;flex:1;min-width:0}
     .fc-btn{padding:8px 12px;border-radius:9999px;border:1px solid var(--border,#333);background:transparent;color:var(--fg,#fff);cursor:pointer;font-size:13px}
     .fc-btn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
     .fc-btn.danger{color:#ff6b6b}
@@ -5906,7 +5906,7 @@ function fcEnsureStyle() {
     }
 
     .fc-viewer-text{
-      font-size:40px;
+      font-size:44px;
       font-weight:800;
       letter-spacing:.5px;
       text-align:center;
@@ -5923,18 +5923,19 @@ function fcEnsureStyle() {
 
     /* 平板 */
     @media (max-width: 1024px){
-      .fc-viewer-text{font-size:34px}
+      .fc-viewer-text{font-size:36px}
     }
     /* 手機 */
     @media (max-width: 768px){
       .fc-body{padding:12px}
       .fc-cardrow .grid{grid-template-columns:1fr;gap:10px}
-      .fc-viewer-text{font-size:28px}
+      .fc-viewer-text{font-size:30px}
     }
   `;
   document.head.appendChild(s);
 }
-function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 'topic') {
+// ---------- 編輯器：新增/編輯主題（字卡列表） ----------
+function fcOpenEditor({ mode = 'create', parentId = null, nodeId = null, type = 'topic' }) {
   fcEnsureStyle();
   fcLoad();
 
@@ -5942,7 +5943,7 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
   if (mode === 'edit') {
     node = fcGetNode(nodeId);
     if (!node) {
-      alert('找不到這個卡片集 / 節點');
+      alert('找不到該主題！');
       return;
     }
   }
@@ -5953,28 +5954,29 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
   const screen = document.createElement('div');
   screen.id = 'fc-editor-screen';
   screen.className = 'fc-screen';
+
   screen.innerHTML = `
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
-      <button class="fc-btn" id="fc-editor-export" title="匯出 JSON">匯出</button>
-      <div class="title">${mode === 'edit' ? '編輯卡片集' : '新增卡片集'}</div>
+      <button class="fc-btn" id="fc-editor-export" title="匯出字卡">匯出字卡</button>
+      <div class="title">${mode === 'edit' ? '編輯主題' : '新增主題'}</div>
       <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
     </div>
 
     <div class="fc-body">
       <div class="fc-panel">
         <div class="fc-subtitle">名稱</div>
-        <input class="fc-input" id="fc-editor-name" type="text" placeholder="例如：病理學／內科／解剖…">
+        <input class="fc-input" id="fc-editor-name" type="text" placeholder="輸入主題名稱..." />
       </div>
 
       <div class="fc-panel">
-        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7;">（左=正面 / 右=背面）</span></div>
+        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7">(正面 | 背面)</span></div>
         <div class="fc-list" id="fc-editor-cards"></div>
+        <button class="fc-floating-plus" id="fc-editor-add-card">+</button>
       </div>
-
-      <button class="fc-floating-plus" id="fc-editor-add-card">＋</button>
     </div>
   `;
+
   document.body.appendChild(screen);
 
   const nameInput = document.getElementById('fc-editor-name');
@@ -5983,188 +5985,146 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
   const btnClose = document.getElementById('fc-editor-close');
   const btnAddCard = document.getElementById('fc-editor-add-card');
   const btnExport = document.getElementById('fc-editor-export');
+  // 載入現有資料
+  if (mode === 'edit' && node) {
+    nameInput.value = node.name || '';
+    const cardIds = node.items || [];
+    cardIds.forEach(cid => {
+      const card = state.flashcards.cards[cid];
+      if (card) addCardRow({ front: card.front, back: card.back });
+    });
+  }
+
+  // 如果沒有任何卡片，預設加一張
+  if (!cardsList.children.length) {
+    addCardRow({ front: '', back: '' });
+  }
 
   function addCardRow({ front = '', back = '' } = {}) {
     const row = document.createElement('div');
     row.className = 'fc-cardrow';
-
+    
     const meta = document.createElement('div');
     meta.className = 'meta';
-
+    
     const idxSpan = document.createElement('span');
     idxSpan.className = 'idx';
     meta.appendChild(idxSpan);
-
+    
     const btnDel = document.createElement('button');
     btnDel.className = 'fc-btn danger';
-    btnDel.textContent = '刪除';
+    btnDel.textContent = '刪';
     btnDel.onclick = () => {
       row.remove();
       updateCardNumbers();
     };
     meta.appendChild(btnDel);
-
+    
     const grid = document.createElement('div');
     grid.className = 'grid';
-
     const inp1 = document.createElement('textarea');
     inp1.className = 'fc-input';
-    inp1.placeholder = '正面（題目）';
+    inp1.placeholder = '正面（問題）';
     inp1.value = front;
     inp1.rows = 3;
-
+    
     const inp2 = document.createElement('textarea');
     inp2.className = 'fc-input';
     inp2.placeholder = '背面（答案）';
     inp2.value = back;
     inp2.rows = 3;
-
+    
     grid.appendChild(inp1);
     grid.appendChild(inp2);
-
+    
     row.appendChild(meta);
     row.appendChild(grid);
-
     cardsList.appendChild(row);
+    
     updateCardNumbers();
   }
 
   function updateCardNumbers() {
     Array.from(cardsList.children).forEach((row, i) => {
       const span = row.querySelector('.idx');
-      if (span) span.textContent = String(i + 1);
+      if (span) span.textContent = `#${i + 1}`;
     });
   }
-
   function collectEditorRows() {
-    return Array.from(cardsList.children)
-      .map(row => {
-        const inputs = row.querySelectorAll('textarea.fc-input');
-        const front = (inputs[0]?.value ?? '').trim();
-        const back = (inputs[1]?.value ?? '').trim();
-        return { front, back };
-      })
-      .filter(r => r.front && r.back);
+    return Array.from(cardsList.children).map(row => {
+      const inputs = row.querySelectorAll('textarea.fc-input');
+      const front = (inputs[0]?.value || '').trim();
+      const back  = (inputs[1]?.value || '').trim();
+      return { front, back };
+    }).filter(r => r.front || r.back);
   }
-
   function sanitizeFilename(s) {
-    return String(s || 'flashcards')
-      .replace(/[\\/:*?"<>|]+/g, '_')
-      .slice(0, 60);
+    return String(s || 'flashcards').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60);
   }
-
-  // === 讀取既有資料（編輯模式）===
-  if (mode === 'edit') {
-    nameInput.value = node.name || '';
-
-    // 1) 先拿 node.items（預期是 cardId 陣列）
-    let cardIds = Array.isArray(node.items) ? node.items.slice() : [];
-
-    // 2) 若 node.items 壞掉或空掉：改用 cards 反查 folderId 來救回
-    if ((!cardIds || !cardIds.length) && state.flashcards && state.flashcards.cards) {
-      const recovered = Object.values(state.flashcards.cards)
-        .filter(c => c && String(c.folderId) === String(node.id))
-        .map(c => c.id)
-        .filter(Boolean);
-
-      if (recovered.length) {
-        // 用 id 裡的 timestamp 粗略排序（card-<ts>-xxxx）
-        recovered.sort((a, b) => {
-          const ta = Number(String(a).split('-')[1]) || 0;
-          const tb = Number(String(b).split('-')[1]) || 0;
-          return ta - tb;
-        });
-
-        cardIds = recovered;
-        node.items = recovered.slice();
-        fcSave();
-      }
-    }
-
-    // 3) 把卡片內容畫進編輯器
-    cardIds.forEach(cid => {
-      const card = state.flashcards.cards?.[cid];
-      if (card) addCardRow({ front: card.front, back: card.back });
-    });
-  }
-
-  // 如果完全沒有任何 row，至少放一列空白
-  if (!cardsList.children.length) addCardRow({ front: '', back: '' });
 
   btnAddCard.onclick = () => {
-    addCardRow({ front: '', back: '' });
+    addCardRow();
     cardsList.lastChild?.querySelector('textarea')?.focus();
   };
-
-  if (btnExport) {
-    btnExport.onclick = () => {
-      const name = (nameInput.value || '').trim();
-      const rows = collectEditorRows();
-      const payload = { name, cards: rows };
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `${sanitizeFilename(name)}.json`;
-      document.body.appendChild(a);
-      a.click();
-
-      setTimeout(() => {
-        try { URL.revokeObjectURL(a.href); } catch {}
-        try { a.remove(); } catch {}
-      }, 500);
-    };
-  }
-
-  btnClose.onclick = () => {
-    try { screen.remove(); } catch {}
+  if (btnExport) btnExport.onclick = () => {
+    const name = (nameInput.value.trim() || '未命名主題');
+    const rows = collectEditorRows();
+    const payload = { name, cards: rows };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = sanitizeFilename(name) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
   };
 
+  btnClose.onclick = () => screen.remove();
   btnSave.onclick = () => {
-    const name = (nameInput.value || '').trim();
+    const name = nameInput.value.trim();
     if (!name) {
-      alert('請輸入名稱');
+      alert('請輸入主題名稱！');
       nameInput.focus();
       return;
     }
 
+    // 收集卡片資料（注意：卡片欄位是 textarea）
     const rows = collectEditorRows();
 
-    // 防誤刪：如果原本有卡，現在 rows 卻是 0，先確認
-    if (mode === 'edit') {
-      const had = Array.isArray(node.items) && node.items.length > 0;
-      if (had && rows.length === 0) {
-        const ok = confirm('目前沒有任何有效字卡（正面+背面）內容。\n\n按「確定」會把這個卡片集清空。\n按「取消」回去再檢查一下。');
-        if (!ok) return;
-      }
-    }
-
     if (mode === 'create') {
-      const newNode = fcCreateNode({ name, parentId, type: (type === 'topic' ? 'topic' : 'folder') });
+      const newNode = fcCreateNode({ name, parentId, type: type || 'topic' });
       if (newNode) {
         fcReplaceCardsOfNode(newNode.id, rows);
-        alert(`已建立：${name}（${rows.length} 張）`);
-      }
-      try { screen.remove(); } catch {}
-      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
-      if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
-      return;
-    }
+        alert(`已建立主題「${name}」，共 ${rows.length} 張卡片。`);
+        screen.remove();
 
-    // edit
-    node.name = name;
-    fcReplaceCardsOfNode(node.id, rows);
-    fcSave();
-    alert(`已儲存：${name}（${rows.length} 張）`);
-    try { screen.remove(); } catch {}
-    if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
-    if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
-    setTimeout(() => nameInput.focus(), 100);
+        if (typeof window.__fcRenderHomeList === 'function') {
+          window.__fcRenderHomeList();
+        }
+        if (typeof window.__fcRenderFolderList === 'function') {
+          window.__fcRenderFolderList();
+        }
+      }
+    } else {
+      node.name = name;
+      fcReplaceCardsOfNode(node.id, rows);
+      fcSave();
+      alert(`已更新主題「${name}」，共 ${rows.length} 張卡片。`);
+      screen.remove();
+
+      if (typeof window.__fcRenderHomeList === 'function') {
+        window.__fcRenderHomeList();
+      }
+      if (typeof window.__fcRenderFolderList === 'function') {
+        window.__fcRenderFolderList();
+      }
+    }
   };
 
-  setTimeout(() => nameInput.focus(), 50);
-}
 
+  // 自動對焦
+  setTimeout(() => nameInput.focus(), 100);
+}
 
 
 // ---------- 主畫面：資料夾/主題清單 ----------
@@ -6223,82 +6183,55 @@ function fcOpenHome() {
 
     const roots = fcChildren(null);
     if (!roots.length) {
-      list.innerHTML = `<div class="fc-hint">目前沒有資料夾/主題</div>`;
+      list.innerHTML = `<div class="fc-hint">目前沒有資料夾/主題，右上角 📁/📘 建一個吧。</div>`;
       return;
     }
+
     roots.forEach(node => {
       const row = document.createElement('div');
       row.className = 'fc-node';
-
-      // 讓整列可點 + 可鍵盤操作
-      row.style.cursor = 'pointer';
-      row.tabIndex = 0;
-      row.setAttribute('role', 'button');
-
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${node.type === 'topic' ? '📘' : '📁'} ${node.name}`;
-      // 避免 CSS 還留著 cursor:pointer 時造成誤導
-      label.style.cursor = 'inherit';
 
-      const right = document.createElement('div');
-      right.className = 'fc-node-actions';
-      right.style.display = 'flex';
-      right.style.gap = '8px';
-      right.style.flexShrink = '0';
-
-      const openNode = () => {
+      // ★ 修改：移除 label.onclick，改綁在 row 上，讓整行空白處都能點
+      row.style.cursor = 'pointer'; 
+      row.onclick = () => {
         if (node.type === 'folder') fcOpenFolder(node.id);
         else fcOpenStudy(node.id);
       };
 
-      row.addEventListener('click', (e) => {
-        // 點到右側按鈕（或任何 button）就不要觸發整列開啟
-        if (e.target && (e.target.closest('button') || e.target.closest('.fc-node-actions'))) return;
-        openNode();
-      });
+      const right = document.createElement('div');
 
-      row.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openNode();
-        }
-      });
 
-      // topic 才顯示「依序/隨機」
+      right.style.display = 'flex';
+      right.style.gap = '8px';
+      
+      // 只對主題（topic）顯示：照順序 / 洗牌
       if (node.type === 'topic') {
         const btnSeq = document.createElement('button');
         btnSeq.className = 'fc-btn';
-        btnSeq.textContent = '依序';
-        btnSeq.onclick = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          fcOpenStudy(node.id, 0, { shuffle: false });
-        };
+        btnSeq.textContent = '照順序顯示字卡';
+        btnSeq.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: false }); };
 
         const btnShuffle = document.createElement('button');
         btnShuffle.className = 'fc-btn';
-        btnShuffle.textContent = '隨機';
-        btnShuffle.onclick = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          fcOpenStudy(node.id, 0, { shuffle: true });
-        };
+        btnShuffle.textContent = '洗牌出卡';
+        btnShuffle.onclick = (e) => { e.stopPropagation(); fcOpenStudy(node.id, 0, { shuffle: true }); };
 
         right.appendChild(btnSeq);
         right.appendChild(btnShuffle);
       }
-
       const edit = document.createElement('button');
       edit.className = 'fc-btn';
       edit.textContent = '編輯';
       edit.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
+        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
         if (node.type === 'topic') {
-          fcOpenEditor('edit', null, node.id, 'topic');
+          fcOpenEditor({ mode: 'edit', nodeId: node.id });
         } else {
-          const newName = prompt('新名稱', node.name);
+          const newName = prompt('修改資料夾名稱：', node.name || '');
           if (!newName || !newName.trim()) return;
           node.name = newName.trim();
           fcSave();
@@ -6311,15 +6244,15 @@ function fcOpenHome() {
       del.textContent = '刪除';
       del.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
-        if (!confirm(`確定刪除「${node.name}」？`)) return;
+        e.stopPropagation(); // ★ 重要：不要讓 row.onclick 被觸發
+        if (!confirm(`確定刪除「${node.name}」及其所有內容？`)) return;
         fcDeleteNodeRecursive(node.id);
         renderHomeList();
       };
 
+
       right.appendChild(edit);
       right.appendChild(del);
-
       row.appendChild(label);
       row.appendChild(right);
       list.appendChild(row);
@@ -6402,50 +6335,30 @@ function fcOpenFolder(nodeId) {
       list.innerHTML = `<div class="fc-hint">目前沒有內容。</div>`;
       return;
     }
+
     kids.forEach(ch => {
       const row = document.createElement('div');
       row.className = 'fc-node';
 
-      // 整列可點 + 可鍵盤操作
-      row.style.cursor = 'pointer';
-      row.tabIndex = 0;
-      row.setAttribute('role', 'button');
-
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${ch.type === 'topic' ? '📘' : '📁'} ${ch.name}`;
-      // 避免 CSS 還留著 cursor:pointer 時造成「看起來像只有字可點」
-      label.style.cursor = 'inherit';
 
-      const right = document.createElement('div');
-      right.className = 'fc-node-actions';
-      right.style.display = 'flex';
-      right.style.gap = '8px';
-      right.style.flexShrink = '0';
-
-      const openChild = () => {
+      // 點資料夾遞迴進入；點主題開始背卡
+      label.onclick = () => {
         if (ch.type === 'folder') fcOpenFolder(ch.id);
         else fcOpenStudy(ch.id);
       };
 
-      row.addEventListener('click', (e) => {
-        // 點到右側按鈕/按鈕區就不要觸發整列開啟
-        if (e.target && (e.target.closest('button') || e.target.closest('.fc-node-actions'))) return;
-        openChild();
-      });
+      const right = document.createElement('div');
+      right.style.display = 'flex';
+      right.style.gap = '8px';
 
-      row.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openChild();
-        }
-      });
-
-      // topic 才顯示「依序/隨機」
+      // ✅ 只在「主題 topic」這列顯示：順序 / 洗牌
       if (ch.type === 'topic') {
         const btnSeq = document.createElement('button');
         btnSeq.className = 'fc-btn';
-        btnSeq.textContent = '依序';
+        btnSeq.textContent = '照順序顯示字卡';
         btnSeq.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -6454,7 +6367,7 @@ function fcOpenFolder(nodeId) {
 
         const btnShuffle = document.createElement('button');
         btnShuffle.className = 'fc-btn';
-        btnShuffle.textContent = '隨機';
+        btnShuffle.textContent = '洗牌出卡';
         btnShuffle.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -6470,17 +6383,16 @@ function fcOpenFolder(nodeId) {
       edit.textContent = '編輯';
       edit.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
-
+        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
         if (ch.type === 'topic') {
-          fcOpenEditor('edit', null, ch.id, 'topic');
+          fcOpenEditor({ mode: 'edit', nodeId: ch.id });
         } else {
-          const newName = prompt('新名稱', ch.name);
+          const newName = prompt('修改資料夾名稱：', ch.name || '');
           if (!newName || !newName.trim()) return;
           ch.name = newName.trim();
           fcSave();
           renderFolderList();
-          if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+          if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
         }
       };
 
@@ -6489,14 +6401,14 @@ function fcOpenFolder(nodeId) {
       del.textContent = '刪除';
       del.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation();
-
-        if (!confirm(`確定刪除「${ch.name}」？`)) return;
+        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
+        if (!confirm(`確定刪除「${ch.name}」及其所有內容？`)) return;
         fcDeleteNodeRecursive(ch.id);
         renderFolderList();
-        if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+        if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
       };
 
+      // ★ 你剛剛就是少了下面這些 append + 結尾大括號
       right.appendChild(edit);
       right.appendChild(del);
 
@@ -6511,118 +6423,32 @@ function fcOpenFolder(nodeId) {
   window.__fcRenderFolderList = renderFolderList;
   renderFolderList();
 }
-function fcAutoFitTextToContainer(containerEl, textEl, opts = {}) {
-  if (!containerEl || !textEl) return;
 
-  const minPx = Number.isFinite(Number(opts.minPx)) ? Number(opts.minPx) : 14;
 
-  // 建立「基準字體」：一定要在沒有 inline font-size 的狀態下抓到 CSS 原始大小
-  if (!textEl.dataset.fcBaseFontPx) {
-    const prev = textEl.style.fontSize;
-    textEl.style.fontSize = ""; // 清掉 inline，拿到真正的 CSS 預設字體
-    const base = parseFloat(getComputedStyle(textEl).fontSize);
-    textEl.dataset.fcBaseFontPx = String(Number.isFinite(base) && base > 0 ? base : 44);
-    textEl.style.fontSize = prev;
-  }
 
-  const baseMax = Number(textEl.dataset.fcBaseFontPx) || 44;
-  const maxPx = Number.isFinite(Number(opts.maxPx)) ? Number(opts.maxPx) : baseMax;
-
-  // token：避免連續 render 時，舊的 requestAnimationFrame 結果覆蓋新的
-  const token = String((Number(textEl.dataset.fcFitToken || "0") || 0) + 1);
-  textEl.dataset.fcFitToken = token;
-
-  // 每次都先回到 max，再重新 fit（這一步是修掉「縮小後回不去」的關鍵）
-  textEl.style.fontSize = `${maxPx}px`;
-
-  requestAnimationFrame(() => {
-    if (textEl.dataset.fcFitToken !== token) return;
-
-    const cw = containerEl.clientWidth;
-    const ch = containerEl.clientHeight;
-    if (!cw || !ch) return;
-
-    const fits = (px) => {
-      textEl.style.fontSize = `${px}px`;
-      void textEl.offsetWidth; // iOS reflow
-      return textEl.scrollWidth <= cw && textEl.scrollHeight <= ch;
-    };
-
-    let lo = minPx;
-    let hi = maxPx;
-    let best = minPx;
-
-    for (let i = 0; i < 14; i++) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (fits(mid)) {
-        best = mid;
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
-      }
-    }
-
-    textEl.style.fontSize = `${best}px`;
-  });
-}
 function fcEnsureStudyStyle() {
   if (document.getElementById('fc-study-style')) return;
   const s = document.createElement('style');
   s.id = 'fc-study-style';
   s.textContent = `
-    .fc-study-topright{ display:flex; gap:10px; align-items:center; }
-
-    .fc-study-progress{
-      opacity:.75;
-      font-weight:700;
-      min-width:64px;
-      text-align:center;
-      white-space:nowrap;
-    }
-
-    /* 原本你這裡是 display:none !important；所以按鍵永遠不會出現 */
-    .fc-study-wrap-toggle{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 12px;
-      border-radius:9999px;
-      border:1px solid var(--border, #333);
-      background:transparent;
-      color:var(--fg, #fff);
-      cursor:pointer;
-      font-size:13px;
-      white-space:nowrap;
-    }
-    .fc-study-wrap-toggle:hover{
-      border-color:var(--accent, #2f74ff);
-      color:var(--accent, #2f74ff);
-    }
-
-    .fc-study-stage{
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      position:relative;
-      overflow:hidden;
-    }
-
+    .fc-study-topright{display:flex;gap:10px;align-items:center}
+    .fc-study-progress{opacity:.75;font-weight:700;min-width:64px;text-align:center}
+    .fc-study-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px}
     .fc-study-card{
       width:min(620px, 92vw);
-      max-width:calc(100vw - 32px);
       height:min(720px, 72vh);
       background:rgba(255,255,255,.06);
-      border:1px solid var(--border, #333);
+      border:1px solid var(--border,#333);
       border-radius:24px;
       padding:28px;
       text-align:center;
       cursor:pointer;
-      backdrop-filter:blur(8px);
+      backdrop-filter: blur(8px);
       user-select:none;
-      box-sizing:border-box;
-      overflow:hidden;
+
+      /* 永遠置中，scrollbar 自動出現就好 */
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -6632,139 +6458,65 @@ function fcEnsureStudyStyle() {
       font-size:44px;
       font-weight:800;
       line-height:1.25;
-      white-space:pre-wrap;     /* 預設：會換行 */
-      overflow-wrap:anywhere;
       word-break:break-word;
-      text-align:center;
-      display:block;
-      width:100%;
-      max-width:100%;
+      white-space:pre-wrap;
     }
-
-    /* 不換行模式（單行 / 可左右捲） */
-    .fc-study-text.fc-nowrap{
-      white-space:pre;
-      overflow-wrap:normal;
-      word-break:normal;
-    }
-
     .fc-study-hint{
       position:absolute;
       bottom:18px;
       left:0; right:0;
       text-align:center;
       font-size:12px;
-      color:var(--muted, #aaa);
+      color:var(--muted,#aaa);
       pointer-events:none;
     }
-
     .fc-study-bottom{
       padding:14px;
-      border-top:1px solid var(--border, #333);
+      border-top:1px solid var(--border,#333);
       display:flex;
       gap:10px;
       justify-content:center;
       background:rgba(0,0,0,.12);
     }
-
     .fc-study-navbtn{
       padding:10px 16px;
       border-radius:9999px;
-      border:1px solid var(--border, #333);
+      border:1px solid var(--border,#333);
       background:transparent;
-      color:var(--fg, #fff);
+      color:var(--fg,#fff);
       cursor:pointer;
       font-size:14px;
       min-width:90px;
-      white-space:nowrap;
     }
-    .fc-study-navbtn:hover{
-      border-color:var(--accent, #2f74ff);
-      color:var(--accent, #2f74ff);
-    }
-    .fc-study-navbtn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
+    .fc-study-navbtn:hover{border-color:var(--accent,#2f74ff);color:var(--accent,#2f74ff)}
+    .fc-study-navbtn:disabled{opacity:.45;cursor:not-allowed}
 
-    @media (max-width:1024px){ .fc-study-text{ font-size:36px; } }
-    @media (max-width:768px){ .fc-study-text{ font-size:30px; } .fc-study-card{ height:min(640px, 68vh); } }
+    @media (max-width: 1024px){ .fc-study-text{font-size:36px} }
+    @media (max-width: 768px){
+      .fc-study-text{font-size:30px}
+      .fc-study-card{height:min(640px, 68vh)}
+    }
   `;
   document.head.appendChild(s);
 }
-
-
-
 function fcSyncCenterScroll(containerEl) {
   if (!containerEl) return;
-
-  // 仍保留這個旗標，但「不要提前 return」
-  // 它只代表：不 overflow 的時候偏好置中
-  const preferCenter = containerEl.dataset.fcCenter === "1";
-
-  ensureFlashcardScrollFixStyle();
-
-  requestAnimationFrame(() => {
-    const isOverflowY = containerEl.scrollHeight > containerEl.clientHeight + 1;
-    const isOverflowX = containerEl.scrollWidth > containerEl.clientWidth + 1;
-
-    const wasOverflowY = containerEl.dataset.fcOverflowY === "1";
-    const wasOverflowX = containerEl.dataset.fcOverflowX === "1";
-
-    containerEl.dataset.fcOverflowY = isOverflowY ? "1" : "0";
-    containerEl.dataset.fcOverflowX = isOverflowX ? "1" : "0";
-
-    const isAnyOverflow = isOverflowY || isOverflowX;
-    containerEl.dataset.fcOverflow = isAnyOverflow ? "1" : "0";
-    containerEl.classList.toggle("fc-overflow", isAnyOverflow);
-
-    // 置中模式：只有在「不 overflow」時才維持置中
-    // overflow 時一樣要讓 .fc-overflow 生效（就會變成 flex-start）
-    if (preferCenter && !isAnyOverflow) {
-      // nothing special; CSS :not(.fc-overflow) 會置中
-    }
-
-    if (isOverflowY && !wasOverflowY) containerEl.scrollTop = 0;
-    if (isOverflowX && !wasOverflowX) containerEl.scrollLeft = 0;
-
-    if (!isOverflowY) containerEl.scrollTop = 0;
-    if (!isOverflowX) containerEl.scrollLeft = 0;
-  });
+  // 現在不再改變置中方式，也不強制捲到最上面
+  // overflow:auto 會自動決定要不要顯示 scrollbar，就交給瀏覽器處理就好
 }
 
 
-
-
-// ===== Flashcards：背卡顯示模式（換行 / 不換行改捲動）=====
-const FC_STUDY_WRAP_KEY = "ntuvm-fc-study-wrap"; // 1=換行(pre-wrap) / 0=不換行(pre)
-
-function fcGetStudyWrapMode() {
-  try {
-    const raw = localStorage.getItem(FC_STUDY_WRAP_KEY);
-    if (raw === null) return true; // 預設：換行
-    return raw === "1";
-  } catch {
-    return true;
-  }
-}
-
-function fcSetStudyWrapMode(isWrap) {
-  try {
-    localStorage.setItem(FC_STUDY_WRAP_KEY, isWrap ? "1" : "0");
-  } catch {}
-}
-
-function fcOpenStudy(nodeId, startIndex = 0, opts) {
-  try { fcEnsureStyle?.(); } catch {}
-  try { fcEnsureStudyStyle(); } catch {}
-  try { fcLoad?.(); } catch {}
-  try { fcLoad(); } catch {}
+function fcOpenStudy(nodeId, startIndex = 0, opts = {}) {
+  fcEnsureStyle?.();       // 你原本的樣式（如果有）
+  fcEnsureStudyStyle();
+  fcLoad?.();              // 你原本的 load（如果有）
 
   const node = fcGetNode(nodeId);
   if (!node) return;
 
   const ids = Array.isArray(node.items) ? node.items : [];
 
+  // ✅ 這裡決定「這次」的出卡順序：順序 / 洗牌（每張仍只出現一次）
   function shuffleInPlace(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -6779,13 +6531,14 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   if (opts && opts.shuffle) shuffleInPlace(playIds);
 
   const cards = playIds.map(id => state.flashcards.cards[id]).filter(Boolean);
+
   if (!cards.length) {
-    alert("這個題庫沒有卡片喔～");
+    alert('這個字卡集還沒有任何字卡，先去編輯新增幾張再來背～');
     return;
   }
 
   const old = document.getElementById('fc-study-screen');
-  if (old) try { old.remove(); } catch {}
+  if (old) old.remove();
 
   const screen = document.createElement('div');
   screen.id = 'fc-study-screen';
@@ -6796,20 +6549,19 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
 
   screen.innerHTML = `
     <div class="fc-top">
-      <button class="fc-iconbtn" id="fc-study-exit" title="返回">←</button>
-      <div class="title">${node.name}</div>
-
+      <button class="fc-iconbtn" id="fc-study-exit" title="退出">✕</button>
+      <div class="title">${node.name || '字卡'}</div>
       <div class="fc-study-topright">
         <div class="fc-study-progress" id="fc-study-progress"></div>
         <button class="fc-iconbtn" id="fc-study-edit" title="編輯">✎</button>
       </div>
     </div>
 
-    <div class="fc-study-stage" style="position:relative;">
+    <div class="fc-study-stage" style="position:relative">
       <div class="fc-study-card" id="fc-study-card">
         <div class="fc-study-text" id="fc-study-text"></div>
       </div>
-      <div class="fc-study-hint">點一下翻面；左右鍵或下方按鈕換卡</div>
+      <div class="fc-study-hint">點一下翻面</div>
     </div>
 
     <div class="fc-study-bottom">
@@ -6826,68 +6578,14 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
   const btnPrev = screen.querySelector('#fc-study-prev');
   const btnNext = screen.querySelector('#fc-study-next');
 
-  // 在 topbar 右側插入「換行/單行」切換按鍵（不靠任何 patch）
-  const topRight = screen.querySelector('.fc-study-topright') || screen.querySelector('.fc-top');
-  const btnWrap = document.createElement('button');
-  btnWrap.id = 'fc-study-wrap-toggle';
-  btnWrap.className = 'fc-study-wrap-toggle';
-  topRight.appendChild(btnWrap);
-
-  function isWrapMode() {
-    // 你原本就有 fcGetStudyWrapMode / fcSetStudyWrapMode / FCSTUDYWRAPKEY
-    // true = 換行(pre-wrap), false = 單行(pre)
-    try { return !!fcGetStudyWrapMode(); } catch { return true; }
-  }
-  function setWrapMode(v) {
-    try { fcSetStudyWrapMode(!!v); } catch {}
-  }
-  function syncWrapUIOnly() {
-    const wrap = isWrapMode();
-    if (textEl) textEl.classList.toggle('fc-nowrap', !wrap);
-    btnWrap.textContent = wrap ? '換行' : '單行';
-  }
-
-  if (cardEl) cardEl.dataset.fcCenter = "1";
-  function fitText() {
-    if (!cardEl || !textEl) return;
-
-    // 先隱藏，避免「先顯示大字一幀」的跳動
-    textEl.style.visibility = "hidden";
-
-    // 每次 render 都先清掉 inline font-size，確保可以放大回去
-    textEl.style.fontSize = "";
-
-    // 先把 scroll 歸零，避免殘留捲動造成視覺抖動
-    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
-
-    fcAutoFitTextToContainer(cardEl, textEl, { minPx: 14 });
-
-    try { fcSyncCenterScroll(cardEl); } catch {}
-
-    // fit 完再顯示
-    requestAnimationFrame(() => {
-      textEl.style.visibility = "visible";
-    });
-  }
-
   function render() {
     const c = cards[idx];
     if (!c) return;
-
-    if (progressEl) progressEl.textContent = `${idx + 1} / ${cards.length}`;
-
-    if (textEl) {
-      // 先藏再換字，搭配 fitText 不會跳
-      textEl.style.visibility = "hidden";
-      textEl.textContent = isFront ? (c.front || "") : (c.back || "");
-    }
-
-    if (btnPrev) btnPrev.disabled = idx <= 0;
-    if (btnNext) btnNext.disabled = idx >= cards.length - 1;
-
-    syncWrapUIOnly();
-
-    requestAnimationFrame(fitText);
+    progressEl.textContent = `${idx + 1} / ${cards.length}`;
+    textEl.textContent = isFront ? (c.front || '') : (c.back || '');
+    fcSyncCenterScroll(cardEl);
+    btnPrev.disabled = idx <= 0;
+    btnNext.disabled = idx >= cards.length - 1;
   }
 
   function flip() {
@@ -6909,46 +6607,33 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
     render();
   }
 
-  btnWrap.addEventListener('click', (e) => {
-    try { e.preventDefault(); e.stopPropagation(); } catch {}
-    setWrapMode(!isWrapMode());
-    syncWrapUIOnly();
-    requestAnimationFrame(fitText);
-  });
+  // 點卡片翻面
+  cardEl.addEventListener('click', flip);
 
-  const onResize = () => requestAnimationFrame(fitText);
-  window.addEventListener('resize', onResize);
+  // 上一張 / 下一張
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
 
-  if (cardEl) cardEl.addEventListener('click', flip);
-  if (btnPrev) btnPrev.addEventListener('click', prev);
-  if (btnNext) btnNext.addEventListener('click', next);
-
+  // 方向鍵（電腦更順）
   screen.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') prev();
     if (e.key === 'ArrowRight') next();
     if (e.key === ' ' || e.key === 'Enter') flip();
   });
-
   screen.tabIndex = -1;
   screen.focus();
 
-  screen.querySelector('#fc-study-exit')?.addEventListener('click', () => {
-    window.removeEventListener('resize', onResize);
-    try { screen.remove(); } catch {}
-  });
+  // 退出
+  screen.querySelector('#fc-study-exit').addEventListener('click', () => screen.remove());
 
-  screen.querySelector('#fc-study-edit')?.addEventListener('click', () => {
-    window.removeEventListener('resize', onResize);
-    try { screen.remove(); } catch {}
-    fcOpenEditor('edit', null, node.id, 'topic');
+  // 編輯
+  screen.querySelector('#fc-study-edit').addEventListener('click', () => {
+    screen.remove();
+    fcOpenEditor({ mode: 'edit', nodeId: node.id });
   });
 
   render();
 }
-// 讓 Flashcards Study Patch v3 可以穩定掛勾（尤其是 script module / 封裝作用域時）
-try { window.fcOpenStudy = fcOpenStudy; } catch (e) {}
-
-
 
 
 
@@ -6989,35 +6674,20 @@ function fcOpenViewer(cardId) {
 
   let isFront = true;
 
-  const fitAndCenter = () => {
-    // 先隱藏，避免跳動
-    text.style.visibility = "hidden";
-
-    // scroll 歸零，避免抖動
-    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
-
-    fcAutoFitTextToContainer(cardEl, text, { minPx: 14 });
-    fcSyncCenterScroll(cardEl);
-
-    requestAnimationFrame(() => {
-      text.style.visibility = "visible";
-    });
-  };
-
   const applyText = () => {
-    text.style.visibility = "hidden";
     text.textContent = isFront ? (card.front || '') : (card.back || '');
-    requestAnimationFrame(fitAndCenter);
+    fcSyncCenterScroll(cardEl);
   };
 
-  applyText();
+  // 初次套用（決定要不要捲動、要不要置中）
+  fcSyncCenterScroll(cardEl);
 
   cardEl.onclick = () => {
     isFront = !isFront;
     applyText();
   };
 
-  const onResize = () => requestAnimationFrame(fitAndCenter);
+  const onResize = () => fcSyncCenterScroll(cardEl);
   window.addEventListener('resize', onResize);
 
   const close = () => {
@@ -7029,7 +6699,6 @@ function fcOpenViewer(cardId) {
   closeBtn.onclick = close;
   mask.onclick = (e) => { if (e.target === mask) close(); };
 }
-
 
 
 // ---------- 綁定左欄按鈕 ----------
@@ -8638,8 +8307,6 @@ function init() {
     btnExportNotes.classList.remove("hidden");
   }
   setupMobileDrawers();
-  try { initFlashcardSwipe(); } catch (e) {}
-
 }
 document.addEventListener("DOMContentLoaded", init);
 // ====== 接收彈窗回傳的作答紀錄，寫入主頁的 localStorage ======
@@ -8678,62 +8345,61 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 // ---------- Flashcard viewer overflow fix ----------
 // ---------- Flashcard center/scroll behavior fix ----------
+// 規則：不需要 scrollbar → 垂直置中；需要 scrollbar → 從上開始 + 留 padding-top，避免第一行被吃掉
 function ensureFlashcardScrollFixStyle() {
   if (document.getElementById("fc-scroll-fix-style")) return;
 
   const s = document.createElement("style");
   s.id = "fc-scroll-fix-style";
   s.textContent = `
-/* ===== Flashcards: stop horizontal overflow ===== */
-.fc-viewer-mask,
-.fc-screen {
-  overflow-x: hidden !important;
-}
+    /* 預設：保持垂直置中（符合你「沒 overflow 要在正中央」的需求） */
+    .fc-viewer-card,
+    .fc-study-card,
+    #fc-study-card {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
 
-/* Width should include padding/border, or it will overflow */
-.fc-viewer-card,
-.fc-study-card,
-#fc-study-card {
-  box-sizing: border-box !important;
-  max-width: 100% !important;
-}
-
-/* Fix vw rounding + padding causing 1~幾 px 右溢出 */
-.fc-viewer-card{
-  width: min(520px, calc(100vw - 32px)) !important; /* viewer-mask padding:16*2 */
-}
-
-.fc-study-card,
-#fc-study-card{
-  width: min(620px, calc(100vw - 36px)) !important; /* study-stage padding:18*2 */
-  max-width: calc(100vw - 36px) !important;
-}
-
-/* 預設：內容沒 overflow 時，保持垂直置中 */
-.fc-viewer-card:not(.fc-overflow),
-.fc-study-card:not(.fc-overflow),
-#fc-study-card:not(.fc-overflow){
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-/* 一旦 overflow：從上開始排，避免上緣被吃掉 */
-.fc-viewer-card.fc-overflow,
-.fc-study-card.fc-overflow,
-#fc-study-card.fc-overflow{
-  justify-content: flex-start !important;
-  align-items: stretch !important;
-  padding-top: 28px !important;
-  padding-bottom: 28px !important;
-}
-`;
+    /* 一旦內容超高需要捲動：改成從上開始排，避免上下平均溢出導致「上緣被吃掉」 */
+    .fc-viewer-card.fc-overflow,
+    .fc-study-card.fc-overflow,
+    #fc-study-card.fc-overflow {
+      justify-content: flex-start !important;
+      align-items: stretch !important; /* 水平仍可靠 text-align:center 視覺置中 */
+      padding-top: 28px !important;
+      padding-bottom: 28px !important;
+      box-sizing: border-box !important;
+    }
+  `;
   document.head.appendChild(s);
 }
 
+function fcSyncCenterScroll(containerEl) {
+  if (!containerEl) return;
 
+  ensureFlashcardScrollFixStyle();
 
+  // 等 DOM/排版完成後再判斷，避免剛換文字時量到舊高度
+  requestAnimationFrame(() => {
+    const isOverflow = containerEl.scrollHeight > containerEl.clientHeight + 1;
+
+    const wasOverflow = containerEl.dataset.fcOverflow === "1";
+    containerEl.dataset.fcOverflow = isOverflow ? "1" : "0";
+    containerEl.classList.toggle("fc-overflow", isOverflow);
+
+    // 只有「剛從不 overflow 變成 overflow」時，才把捲動拉回頂端，避免一進來就卡在怪位置
+    if (isOverflow && !wasOverflow) {
+      containerEl.scrollTop = 0;
+    }
+
+    // 如果回到不 overflow，確保狀態乾淨
+    if (!isOverflow) {
+      containerEl.scrollTop = 0;
+    }
+  });
+}
 
 /* =========================================
    題庫：左右滑動換題（改善上下抖動/滾動）
