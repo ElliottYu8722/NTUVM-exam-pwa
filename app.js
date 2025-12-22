@@ -6989,21 +6989,32 @@ function fcOpenViewer(cardId) {
   document.body.appendChild(closeBtn);
 
   let isFront = true;
-
   const fitAndCenter = () => {
-    // 先隱藏，避免跳動
     text.style.visibility = "hidden";
 
-    // scroll 歸零，避免抖動
-    try { cardEl.scrollTop = 0; cardEl.scrollLeft = 0; } catch {}
+    // Reset scroll first
+    try {
+      cardEl.scrollTop = 0;
+      cardEl.scrollLeft = 0;
+    } catch {}
 
+    // Auto-fit font (runs measurement in rAF internally)
     fcAutoFitTextToContainer(cardEl, text, { minPx: 14 });
-    fcSyncCenterScroll(cardEl);
 
+    // IMPORTANT: wait 1 frame so auto-fit applies, then re-check overflow & centering
     requestAnimationFrame(() => {
-      text.style.visibility = "visible";
+      try {
+        fcSyncCenterScroll(cardEl);
+      } catch {}
+
+      // One more frame to ensure styles settle before showing
+      requestAnimationFrame(() => {
+        text.style.visibility = "visible";
+      });
     });
   };
+
+
 
   const applyText = () => {
     text.style.visibility = "hidden";
@@ -8685,46 +8696,42 @@ function ensureFlashcardScrollFixStyle() {
   const s = document.createElement("style");
   s.id = "fc-scroll-fix-style";
   s.textContent = `
-/* ===== Flashcards: stop horizontal overflow ===== */
-.fc-viewer-mask,
-.fc-screen {
+/* Flashcards: stop horizontal overflow */
+.fc-viewer-mask, .fc-screen {
   overflow-x: hidden !important;
 }
 
 /* Width should include padding/border */
-.fc-viewer-card,
-.fc-study-card,
-#fc-study-card {
+.fc-viewer-card, .fc-study-card, fc-study-card {
   box-sizing: border-box !important;
   max-width: 100% !important;
-  overflow-x: hidden !important; /* ✅ 關掉水平溢出，降低 scrollWidth 誤差機率 */
+  overflow-x: hidden !important;
 }
 
-/* Fix vw rounding + padding causing 1~幾 px 右溢出 */
-.fc-viewer-card{
-  width: min(520px, calc(100vw - 32px)) !important; /* viewer-mask padding:16*2 */
+/* Fix vw rounding / padding causing 1px overflow on iOS */
+.fc-viewer-card {
+  width: min(520px, calc(100vw - 32px)) !important; /* viewer-mask padding: 16*2 */
 }
 
-.fc-study-card,
-#fc-study-card{
-  width: min(620px, calc(100vw - 36px)) !important; /* study-stage padding:18*2 */
+.fc-study-card, fc-study-card {
+  width: min(620px, calc(100vw - 36px)) !important; /* study-stage padding: 18*2 */
   max-width: calc(100vw - 36px) !important;
 }
 
-/* 預設：內容沒 overflow 時，保持垂直置中 */
+/* Center only when NOT overflow */
 .fc-viewer-card:not(.fc-overflow),
 .fc-study-card:not(.fc-overflow),
-#fc-study-card:not(.fc-overflow){
+fc-study-card:not(.fc-overflow) {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
 }
 
-/* 一旦 overflow：從上開始排 */
+/* When overflow, start at top and allow scrolling naturally */
 .fc-viewer-card.fc-overflow,
 .fc-study-card.fc-overflow,
-#fc-study-card.fc-overflow{
+fc-study-card.fc-overflow {
   justify-content: flex-start !important;
   align-items: stretch !important;
   padding-top: 28px !important;
@@ -8733,8 +8740,6 @@ function ensureFlashcardScrollFixStyle() {
 `;
   document.head.appendChild(s);
 }
-
-
 
 
 
