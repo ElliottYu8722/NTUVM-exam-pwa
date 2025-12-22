@@ -6362,30 +6362,50 @@ function fcOpenFolder(nodeId) {
       list.innerHTML = `<div class="fc-hint">目前沒有內容。</div>`;
       return;
     }
-
     kids.forEach(ch => {
       const row = document.createElement('div');
       row.className = 'fc-node';
 
+      // 整列可點 + 可鍵盤操作
+      row.style.cursor = 'pointer';
+      row.tabIndex = 0;
+      row.setAttribute('role', 'button');
+
       const label = document.createElement('div');
       label.className = 'label';
       label.textContent = `${ch.type === 'topic' ? '📘' : '📁'} ${ch.name}`;
+      // 避免 CSS 還留著 cursor:pointer 時造成「看起來像只有字可點」
+      label.style.cursor = 'inherit';
 
-      // 點資料夾遞迴進入；點主題開始背卡
-      label.onclick = () => {
+      const right = document.createElement('div');
+      right.className = 'fc-node-actions';
+      right.style.display = 'flex';
+      right.style.gap = '8px';
+      right.style.flexShrink = '0';
+
+      const openChild = () => {
         if (ch.type === 'folder') fcOpenFolder(ch.id);
         else fcOpenStudy(ch.id);
       };
 
-      const right = document.createElement('div');
-      right.style.display = 'flex';
-      right.style.gap = '8px';
+      row.addEventListener('click', (e) => {
+        // 點到右側按鈕/按鈕區就不要觸發整列開啟
+        if (e.target && (e.target.closest('button') || e.target.closest('.fc-node-actions'))) return;
+        openChild();
+      });
 
-      // ✅ 只在「主題 topic」這列顯示：順序 / 洗牌
+      row.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openChild();
+        }
+      });
+
+      // topic 才顯示「依序/隨機」
       if (ch.type === 'topic') {
         const btnSeq = document.createElement('button');
         btnSeq.className = 'fc-btn';
-        btnSeq.textContent = '照順序顯示字卡';
+        btnSeq.textContent = '依序';
         btnSeq.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -6394,7 +6414,7 @@ function fcOpenFolder(nodeId) {
 
         const btnShuffle = document.createElement('button');
         btnShuffle.className = 'fc-btn';
-        btnShuffle.textContent = '洗牌出卡';
+        btnShuffle.textContent = '隨機';
         btnShuffle.onclick = (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -6410,16 +6430,17 @@ function fcOpenFolder(nodeId) {
       edit.textContent = '編輯';
       edit.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
+        e.stopPropagation();
+
         if (ch.type === 'topic') {
-          fcOpenEditor({ mode: 'edit', nodeId: ch.id });
+          fcOpenEditor('edit', null, ch.id, 'topic');
         } else {
-          const newName = prompt('修改資料夾名稱：', ch.name || '');
+          const newName = prompt('新名稱', ch.name);
           if (!newName || !newName.trim()) return;
           ch.name = newName.trim();
           fcSave();
           renderFolderList();
-          if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+          if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
         }
       };
 
@@ -6428,14 +6449,14 @@ function fcOpenFolder(nodeId) {
       del.textContent = '刪除';
       del.onclick = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // ★ 重要：不要讓 label.onclick 被觸發
-        if (!confirm(`確定刪除「${ch.name}」及其所有內容？`)) return;
+        e.stopPropagation();
+
+        if (!confirm(`確定刪除「${ch.name}」？`)) return;
         fcDeleteNodeRecursive(ch.id);
         renderFolderList();
-        if (typeof window.__fcRenderHomeList === 'function') window.__fcRenderHomeList();
+        if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
       };
 
-      // ★ 你剛剛就是少了下面這些 append + 結尾大括號
       right.appendChild(edit);
       right.appendChild(del);
 
