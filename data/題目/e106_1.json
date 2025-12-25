@@ -680,8 +680,10 @@
             "C": "Babesia gibsoni",
             "D": "Babesia cati"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1061_img1.jpg",
+        "images": [
+            "./圖片/e1061_img1.jpg"
+        ]
     },
     {
         "id": 58,
@@ -692,10 +694,8 @@
             "C": "Bordetella bronchiseptica單獨不會造成呼吸道症狀，為二次性感染",
             "D": "Chlamydophila felis感染會造成結膜炎及呼吸道症狀"
         },
-        "image": "./圖片/e1061_img1.jpg",
-        "images": [
-            "./圖片/e1061_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 59,
@@ -866,8 +866,10 @@
             "C": "myxoazoan",
             "D": "microsporidian"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1061_img4.jpg",
+        "images": [
+            "./圖片/e1061_img4.jpg"
+        ]
     },
     {
         "id": 73,
@@ -878,10 +880,8 @@
             "C": "只寄生在魚類腸道",
             "D": "通常可從魚之感染組織檢出囊尾幼蟲（metacercaria）"
         },
-        "image": "./圖片/e1061_img4.jpg",
-        "images": [
-            "./圖片/e1061_img4.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 74,
