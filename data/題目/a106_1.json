@@ -674,7 +674,8 @@
         },
         "image": "./圖片/a1061_img3.jpg",
         "images": [
-            "./圖片/a1061_img3.jpg"
+            "./圖片/a1061_img3.jpg",
+            "./圖片/a1061_img4.jpg"
         ]
     },
     {
@@ -686,11 +687,8 @@
             "C": "腦膜瘤",
             "D": "大腸癌"
         },
-        "image": "./圖片/a1061_img4.jpg",
-        "images": [
-            "./圖片/a1061_img4.jpg",
-            "./圖片/a1061_img5.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 58,
