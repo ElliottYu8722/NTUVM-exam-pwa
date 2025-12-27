@@ -5958,18 +5958,18 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
     <div class="fc-top">
       <button class="fc-iconbtn" id="fc-editor-close" title="關閉">✕</button>
       <button class="fc-btn" id="fc-editor-export" title="匯出 JSON">匯出</button>
-      <div class="title">${mode === 'edit' ? '編輯卡片集' : '新增卡片集'}</div>
+      <div class="title">${mode === 'edit' ? '編輯字卡' : '新增字卡'}</div>
       <button class="fc-iconbtn" id="fc-editor-save" title="儲存">✓</button>
     </div>
 
     <div class="fc-body">
       <div class="fc-panel">
         <div class="fc-subtitle">名稱</div>
-        <input class="fc-input" id="fc-editor-name" type="text" placeholder="例如：病理學／內科／解剖…">
+        <input class="fc-input" id="fc-editor-name" type="text" placeholder="例如：病理學...">
       </div>
 
       <div class="fc-panel">
-        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7;">（左=正面 / 右=背面）</span></div>
+        <div class="fc-subtitle">字卡 <span style="font-size:12px;opacity:0.7;"></span></div>
         <div class="fc-list" id="fc-editor-cards"></div>
       </div>
 
