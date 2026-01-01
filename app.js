@@ -6160,8 +6160,15 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
         alert(`已建立：${name}（${rows.length} 張）`);
       }
       try { screen.remove(); } catch {}
-      if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
-      if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+      setTimeout(() => {
+        try {
+          if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
+          if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
+        } catch (e) {
+          console.error('flashcards directory refresh failed', e);
+        }
+      }, 0);
+
       return;
     }
 
