@@ -6924,7 +6924,7 @@ function fcOpenStudy(nodeId, startIndex = 0, opts) {
           textEl.classList.remove("fc-nowrap");
 
           fcAutoFitTextToContainer(cardEl, textEl, {
-            minPx: 14,
+            minPx: 14, maxPx:14,
             onDone: () => {
               requestAnimationFrame(() => {
                 try {
