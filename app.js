@@ -6152,16 +6152,28 @@ function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 't
       return;
     }
 
-    // edit
-    node.name = name;
-    fcReplaceCardsOfNode(node.id, rows);
+    // === edit（加強防呆：存檔當下再抓一次 node）===
+    let liveNode = node;
+    if (!liveNode && nodeId) liveNode = fcGetNode(nodeId);
+
+    if (!liveNode) {
+      alert('找不到要儲存的卡片集（可能已被刪除、或 nodeId 沒有正確傳入）。');
+      return;
+    }
+
+    // 更新外層參照（避免後續邏輯仍拿到 null）
+    node = liveNode;
+
+    liveNode.name = name;
+    fcReplaceCardsOfNode(liveNode.id, rows);
     fcSave();
     alert(`已儲存：${name}（${rows.length} 張）`);
     try { screen.remove(); } catch {}
     if (typeof window.fcRenderHomeList === 'function') window.fcRenderHomeList();
     if (typeof window.fcRenderFolderList === 'function') window.fcRenderFolderList();
-    setTimeout(() => nameInput.focus(), 100);
+    if (document.body.contains(nameInput)) setTimeout(() => nameInput.focus(), 100);
   };
+   
 
   setTimeout(() => nameInput.focus(), 50);
 }
