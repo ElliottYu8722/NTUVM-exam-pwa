@@ -5936,6 +5936,19 @@ function fcEnsureStyle() {
   document.head.appendChild(s);
 }
 function fcOpenEditor(mode = 'create', parentId = null, nodeId = null, type = 'topic') {
+  
+    // ✅ 同時支援：fcOpenEditor('create', ...) 以及 fcOpenEditor({ mode:'create', ... })
+  if (mode && typeof mode === 'object') {
+    const opts = mode;
+    mode = opts.mode ?? 'create';
+    parentId = opts.parentId ?? null;
+    nodeId = opts.nodeId ?? null;
+    type = opts.type ?? 'topic';
+  }
+
+  mode = String(mode || 'create').toLowerCase();
+  type = (type === 'topic' ? 'topic' : 'folder');
+
   fcEnsureStyle();
   fcLoad();
 
