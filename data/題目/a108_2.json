@@ -576,8 +576,11 @@
             "C": "肥大細胞瘤",
             "D": "纖維瘤"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1082_img3.jpg",
+        "images": [
+            "./圖片/a1082_img3.jpg",
+            "./圖片/a1082_img4.jpg"
+        ]
     },
     {
         "id": 49,
@@ -588,11 +591,8 @@
             "C": "遲緩型",
             "D": "第一型"
         },
-        "image": "./圖片/a1082_img3.jpg",
-        "images": [
-            "./圖片/a1082_img3.jpg",
-            "./圖片/a1082_img4.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 50,
