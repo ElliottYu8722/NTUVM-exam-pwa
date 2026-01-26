@@ -3183,7 +3183,7 @@ function hideRandomQuizLoading() {
   }
 }
 // 新增：跨科別隨機測驗時，先讓使用者勾要抽的科目（可複選）
-function openRandomQuizCrossSubjectOverlay(questionCount) {
+function openRandomQuizCrossSubjectOverlay(questionCount, preselectedYears) {
   // 如果之前有殘留就先砍掉
   const old = document.getElementById('random-quiz-cross-mask');
   if (old) {
@@ -3301,12 +3301,15 @@ function openRandomQuizCrossSubjectOverlay(questionCount) {
       alert('請至少勾選一個科目');
       return;
     }
-    const checkedYears = Array.from(yearListContainer.querySelectorAll('input:checked'))
-        .map(cb => String(cb.value || "").trim())
-        .filter(Boolean); 
+    const checkedYears = Array.from(new Set(
+      (Array.isArray(preselectedYears) ? preselectedYears : getAllYearValuesForCurrentSubject())
+        .map(v => String(v || '').trim())
+        .filter(Boolean)
+    ));
+
     if (!checkedYears.length) {
-        alert("請至少選擇一個年份！");
-        return;
+      alert('請至少選擇一個年份！');
+      return;
     }
     
     try { mask.remove(); } catch {}
@@ -3582,7 +3585,7 @@ function openRandomQuizPrepOverlay() {
       }
       // 🔹跨科別模式：先開「科目複選」視窗，由那邊再去抽題
       if (currentScopeMode === 'cross') {
-        openRandomQuizCrossSubjectOverlay(n);
+        openRandomQuizCrossSubjectOverlay(n, checkedYears);
         return;
       }
 
