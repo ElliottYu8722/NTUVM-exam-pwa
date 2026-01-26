@@ -1064,10 +1064,16 @@ async function searchAcrossVolumes(keyword) {
   const subjects = Array.from(subjectSel.options || [])
     .map(o => String(o.value || "").trim())
     .filter(Boolean);
+  let years = [];
+  
+  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
+  years = opts.years;
+  } else {
+  years = Array.from(yearSel.options)
+  .map(o => String(o.value || "").trim())
+  .filter(Boolean);
+  }
 
-  const years = Array.from(yearSel.options || [])
-    .map(o => String(o.value || "").trim())
-    .filter(Boolean);
 
   const rounds = Array.from(roundSel.options || [])
     .map(o => {
