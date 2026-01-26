@@ -2121,10 +2121,15 @@ async function buildCrossVolumeQuizQuestions(maxCount, opts) {
   // 若有指定科目，就只保留那些科別；沒有就全部用
   const subjects = allSubjects.filter(s => !selectedSet || selectedSet.has(s));
 
-  const years = Array.from(yearSel.options || [])
-    .map(o => String(o.value).trim())
-    .filter(Boolean);
-
+  let years = [];
+  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
+      years = opts.years;
+  } else {
+      years = Array.from(yearSel.options)
+          .map(o => String(o.value || "").trim())
+          .filter(Boolean);
+  }
+  
   const rounds = Array.from(roundSel.options || [])
     .map(o => {
       const text = (o.textContent || "").trim();
@@ -3286,13 +3291,23 @@ function openRandomQuizCrossSubjectOverlay(questionCount) {
       alert('請至少勾選一個科目');
       return;
     }
-
+    const checkedYears = Array.from(yearListContainer.querySelectorAll('input:checked'))
+        .map(cb => String(cb.value || "").trim())
+        .filter(Boolean); 
+    if (!checkedYears.length) {
+        alert("請至少選擇一個年份！");
+        return;
+    }
+    
     try { mask.remove(); } catch {}
 
     // 這裡才真正去抽題
     showRandomQuizLoading('隨機抽題中，請稍候…');
     try {
-      const qs = await buildCrossVolumeQuizQuestions(questionCount, { subjects: checked });
+      const qs = await buildCrossVolumeQuizQuestions(questionCount, { 
+                subjects: checked,
+                years: checkedYears // 傳入我們選好的年份
+      });
       if (!qs || !qs.length) {
         alert('找不到符合條件的題目 QQ');
         return;
@@ -3312,6 +3327,103 @@ function openRandomQuizCrossSubjectOverlay(questionCount) {
   card.appendChild(title);
   card.appendChild(hint);
   card.appendChild(list);
+  const yearConfigRow = document.createElement("div");
+  yearConfigRow.style.display = "flex";
+  yearConfigRow.style.alignItems = "center";
+  yearConfigRow.style.gap = "8px";
+  yearConfigRow.style.marginBottom = "8px";
+
+  // 2. 建立「選擇年份」切換按鈕
+  const btnToggleYear = document.createElement("button");
+  btnToggleYear.textContent = "選擇年份 (預設全部)";
+  btnToggleYear.className = "pet-quiz-btn"; // 使用現有的樣式 class
+  btnToggleYear.style.fontSize = "13px";
+  btnToggleYear.style.padding = "4px 10px";
+
+  // 3. 建立年份勾選清單的容器 (預設隱藏)
+  const yearListContainer = document.createElement("div");
+  yearListContainer.style.display = "none"; // 預設摺疊
+  yearListContainer.style.flexWrap = "wrap";
+  yearListContainer.style.gap = "8px";
+  yearListContainer.style.padding = "8px";
+  yearListContainer.style.border = "1px solid var(--border)";
+  yearListContainer.style.borderRadius = "8px";
+  yearListContainer.style.marginTop = "4px";
+  yearListContainer.style.maxHeight = "150px";
+  yearListContainer.style.overflowY = "auto";
+
+  // 4. 取得目前所有的年份選項並產生 Checkbox
+  const allYearOpts = Array.from(yearSel.options)
+  .map(o => String(o.value || "").trim())
+  .filter(Boolean);
+
+  allYearOpts.forEach(y => {
+  const label = document.createElement("label");
+  label.style.display = "flex";
+  label.style.alignItems = "center";
+  label.style.gap = "4px";
+  label.style.fontSize = "13px";
+  label.style.cursor = "pointer";
+  label.style.marginRight = "8px";
+
+  const chk = document.createElement("input");
+  chk.type = "checkbox";
+  chk.value = y;
+  chk.checked = true; // 預設全選
+
+  // 綁定事件：如果有人取消勾選，按鈕文字就變「自訂年份」
+  chk.addEventListener('change', () => {
+  const checkedCount = yearListContainer.querySelectorAll('input:checked').length;
+  if (checkedCount === 0) {
+  btnToggleYear.textContent = "請至少選一個年份";
+  btnToggleYear.style.color = "#ff6b6b";
+  } else if (checkedCount === allYearOpts.length) {
+  btnToggleYear.textContent = "選擇年份 (預設全部)";
+  btnToggleYear.style.color = "";
+  } else {
+  btnToggleYear.textContent = `已選 ${checkedCount} 個年份`;
+  btnToggleYear.style.color = "var(--accent)";
+  }
+  });
+
+  label.appendChild(chk);
+  label.appendChild(document.createTextNode(y + "年"));
+  yearListContainer.appendChild(label);
+  });
+
+  // 5. 按鈕點擊事件：切換顯示/隱藏
+  btnToggleYear.onclick = () => {
+  if (yearListContainer.style.display === "none") {
+  yearListContainer.style.display = "flex";
+  } else {
+  yearListContainer.style.display = "none";
+  }
+  };
+
+  // 全選/全不選的小工具 (可選)
+  const btnToggleAllYears = document.createElement("button");
+  btnToggleAllYears.textContent = "全選/全取消";
+  btnToggleAllYears.style.fontSize = "12px";
+  btnToggleAllYears.style.marginLeft = "auto";
+  btnToggleAllYears.style.background = "transparent";
+  btnToggleAllYears.style.border = "none";
+  btnToggleAllYears.style.color = "var(--muted)";
+  btnToggleAllYears.style.cursor = "pointer";
+  btnToggleAllYears.onclick = () => {
+  const inputs = yearListContainer.querySelectorAll("input");
+  const allChecked = Array.from(inputs).every(i => i.checked);
+  inputs.forEach(i => {
+  i.checked = !allChecked;
+  // 觸發 change 事件以更新按鈕文字
+  i.dispatchEvent(new Event('change'));
+  });
+  };
+  yearListContainer.prepend(btnToggleAllYears); // 把全選按鈕放在最前面
+
+  yearConfigRow.appendChild(btnToggleYear);
+  card.appendChild(yearConfigRow);
+  card.appendChild(yearListContainer);
+
   card.appendChild(rowButtons);
 
   mask.appendChild(card);
