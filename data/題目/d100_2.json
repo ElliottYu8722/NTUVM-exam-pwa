@@ -788,7 +788,7 @@
             "C": "角膜潰瘍",
             "D": "結膜無色素性黑色素瘤"
         },
-        "image": null,
+        "image": "./圖片/d1002_img1.jpg",
         "images": []
     },
     {
@@ -800,11 +800,8 @@
             "C": "umbilical hernia",
             "D": "sertoli cell tumor"
         },
-        "image": "./圖片/d1002_img1.jpg",
-        "images": [
-            "./圖片/d1002_img1.jpg",
-            "./圖片/d1002_img2.jpg"
-        ]
+        "image": "./圖片/d1002_img2.jpg",
+        "images": []
     },
     {
         "id": 68,
