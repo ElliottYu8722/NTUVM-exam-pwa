@@ -944,8 +944,10 @@
             "C": "Ehmer sling",
             "D": "Velpeau sling"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1002_img3.jpg",
+        "images": [
+            "./圖片/d1002_img3.jpg"
+        ]
     },
     {
         "id": 80,
@@ -956,9 +958,7 @@
             "C": "肘部及膝部以上的骨折固定",
             "D": "協助減少術後死區（dead space）"
         },
-        "image": "./圖片/d1002_img3.jpg",
-        "images": [
-            "./圖片/d1002_img3.jpg"
-        ]
+        "image": null,
+        "images": []
     }
 ]
