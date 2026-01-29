@@ -668,8 +668,10 @@
             "C": "瓜實絛蟲",
             "D": "貓絛蟲"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1011_img1.jpg",
+        "images": [
+            "./圖片/e1011_img1.jpg"
+        ]
     },
     {
         "id": 57,
@@ -680,10 +682,8 @@
             "C": "髮癬菌",
             "D": "隱球菌"
         },
-        "image": "./圖片/e1011_img1.jpg",
-        "images": [
-            "./圖片/e1011_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 58,
