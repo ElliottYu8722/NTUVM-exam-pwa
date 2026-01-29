@@ -610,8 +610,10 @@
             "C": "Vertical mattress suture",
             "D": "Subcuticular suture"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1012_img2.jpg",
+        "images": [
+            "./圖片/d1012_img2.jpg"
+        ]
     },
     {
         "id": 52,
@@ -622,10 +624,8 @@
             "C": "適用於4-5產次之經產牛",
             "D": "適用於懷孕牛隻的卵巢摘除"
         },
-        "image": "./圖片/d1012_img2.jpg",
-        "images": [
-            "./圖片/d1012_img2.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 53,
