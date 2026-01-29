@@ -903,8 +903,11 @@
             "C": "囊蟲症",
             "D": "嗜酸性球性肌炎"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1011_img5.jpg",
+        "images": [
+            "./圖片/a1011_img5.jpg",
+            "./圖片/a1011_img6.jpg"
+        ]
     },
     {
         "id": 76,
@@ -915,11 +918,8 @@
             "C": "豬滲出性表皮炎",
             "D": "馬類天疱瘡"
         },
-        "image": "./圖片/a1011_img5.jpg",
-        "images": [
-            "./圖片/a1011_img5.jpg",
-            "./圖片/a1011_img6.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 77,
