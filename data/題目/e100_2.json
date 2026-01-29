@@ -790,7 +790,7 @@
             "C": "Nocardia spp.",
             "D": "Pasteurella spp."
         },
-        "image": null,
+        "image": "./圖片/e1002_img2.jpg",
         "images": []
     },
     {
@@ -802,11 +802,8 @@
             "C": "Aeromonas salmonicida",
             "D": "Vibrio salmonicida"
         },
-        "image": "./圖片/e1002_img2.jpg",
-        "images": [
-            "./圖片/e1002_img2.jpg",
-            "./圖片/e1002_img3.jpg"
-        ]
+        "image": "./圖片/e1002_img3.jpg",
+        "images": []
     },
     {
         "id": 68,
