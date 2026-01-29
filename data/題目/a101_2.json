@@ -248,7 +248,7 @@
             "C": "腎小管上皮細胞癌",
             "D": "腎胚瘤"
         },
-        "image": null,
+        "image": "./圖片/a1012_img1.jpg",
         "images": []
     },
     {
@@ -260,9 +260,8 @@
             "C": "黃瘤病（xanthomatosis）",
             "D": "淋巴肉瘤（lymphosarcoma）"
         },
-        "image": "./圖片/a1012_img1.jpg",
+        "image": "./圖片/a1012_img2.jpg",
         "images": [
-            "./圖片/a1012_img1.jpg",
             "./圖片/a1012_img2.jpg",
             "./圖片/a1012_img3.jpg"
         ]
@@ -906,8 +905,10 @@
             "C": "骨折",
             "D": "髖關節脫臼"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1012_img7.jpg",
+        "images": [
+            "./圖片/a1012_img7.jpg"
+        ]
     },
     {
         "id": 76,
@@ -918,10 +919,8 @@
             "C": "衛星細胞（satellite cell）",
             "D": "神經元母細胞（neuroblast）"
         },
-        "image": "./圖片/a1012_img7.jpg",
-        "images": [
-            "./圖片/a1012_img7.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 77,
