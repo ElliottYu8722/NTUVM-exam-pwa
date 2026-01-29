@@ -840,8 +840,10 @@
             "C": "上段脛骨骨折（proximal tibial fracture）",
             "D": "膝部側韌帶斷裂（rupture of stifle collateral ligament）"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1011_img3.jpg",
+        "images": [
+            "./圖片/d1011_img3.jpg"
+        ]
     },
     {
         "id": 71,
@@ -852,10 +854,8 @@
             "C": "2－0縫線比4－0縫線的口徑來得小",
             "D": "多股絲線操作性良好，但組織反應大，不可用在污染和感染的傷口中"
         },
-        "image": "./圖片/d1011_img3.jpg",
-        "images": [
-            "./圖片/d1011_img3.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 72,
