@@ -910,8 +910,10 @@
             "C": "Hymenolepis diminuta",
             "D": "Rodentolepis nana"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1001_img8.jpg",
+        "images": [
+            "./圖片/e1001_img8.jpg"
+        ]
     },
     {
         "id": 76,
@@ -922,10 +924,8 @@
             "C": "免疫健全小鼠被感染後，會持續性散播病毒",
             "D": "屬於杯狀病毒科（caliciviridae）"
         },
-        "image": "./圖片/e1001_img8.jpg",
-        "images": [
-            "./圖片/e1001_img8.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 77,
