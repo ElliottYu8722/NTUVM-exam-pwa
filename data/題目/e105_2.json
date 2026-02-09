@@ -80,8 +80,10 @@
             "C": "甚急性型豬丹毒",
             "D": "急性梭菌症"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1052_img1.jpg",
+        "images": [
+            "./圖片/e1052_img1.jpg"
+        ]
     },
     {
         "id": 8,
@@ -92,10 +94,8 @@
             "C": "可引發豬隻嘔吐及消耗性疾病（vomiting and wasting disease）",
             "D": "主要感染肥育期豬隻"
         },
-        "image": "./圖片/e1052_img1.jpg",
-        "images": [
-            "./圖片/e1052_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 9,
@@ -682,8 +682,10 @@
             "C": "犬瘟熱",
             "D": "犬傳染性肝炎"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1052_img2.jpg",
+        "images": [
+            "./圖片/e1052_img2.jpg"
+        ]
     },
     {
         "id": 58,
@@ -694,10 +696,8 @@
             "C": "7月齡至1年",
             "D": "1年以上"
         },
-        "image": "./圖片/e1052_img2.jpg",
-        "images": [
-            "./圖片/e1052_img2.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 59,
@@ -845,8 +845,11 @@
             "C": "epitheliocystis",
             "D": "francisellosis"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1052_img6.jpg",
+        "images": [
+            "./圖片/e1052_img6.jpg",
+            "./圖片/e1052_img7.jpg"
+        ]
     },
     {
         "id": 71,
@@ -857,10 +860,8 @@
             "C": "Chlamydia sp. infection",
             "D": "branchiomycosis"
         },
-        "image": "./圖片/e1052_img6.jpg",
+        "image": "./圖片/e1052_img8.jpg",
         "images": [
-            "./圖片/e1052_img6.jpg",
-            "./圖片/e1052_img7.jpg",
             "./圖片/e1052_img8.jpg",
             "./圖片/e1052_img9.jpg"
         ]
