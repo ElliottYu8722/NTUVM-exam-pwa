@@ -82,7 +82,7 @@
         },
         "image": "./圖片/e1072_img1.jpg",
         "images": [
-            "./圖片/e1072_img1.jpg"
+            "./圖片/e1062_img1.jpg"
         ]
     },
     {
@@ -96,7 +96,7 @@
         },
         "image": "./圖片/e1072_img2.jpg",
         "images": [
-            "./圖片/e1072_img2.jpg"
+            "./圖片/e1062_img2.jpg"
         ]
     },
     {
@@ -806,8 +806,8 @@
         },
         "image": "./圖片/e1072_img3.jpg",
         "images": [
-            "./圖片/e1072_img3.jpg",
-            "./圖片/e1072_img4.jpg"
+            "./圖片/e1062_img3.jpg",
+            "./圖片/e1062_img4.jpg"
         ]
     },
     {
@@ -821,8 +821,8 @@
         },
         "image": "./圖片/e1072_img5.jpg",
         "images": [
-            "./圖片/e1072_img5.jpg",
-            "./圖片/e1072_img6.jpg"
+            "./圖片/e1062_img5.jpg",
+            "./圖片/e1062_img6.jpg"
         ]
     },
     {
@@ -906,7 +906,7 @@
             "C": "Flavobacterium columnare",
             "D": "Aeromonas hydrophila"
         },
-        "image": null,
+        "image": "./圖片/e1072_img7.jpg",
         "images": []
     },
     {
@@ -918,11 +918,8 @@
             "C": "Aeromonas salmonicida",
             "D": "Vibrio salmonicida"
         },
-        "image": "./圖片/e1072_img7.jpg",
-        "images": [
-            "./圖片/e1072_img7.jpg",
-            "./圖片/e1072_img8.jpg"
-        ]
+        "image": "./圖片/e1062_img8.jpg",
+        "images": []
     },
     {
         "id": 77,
@@ -933,7 +930,7 @@
             "C": "Dermocystidium spp.",
             "D": "Achlya spp."
         },
-        "image": null,
+        "image": "./圖片/e1062_img9.jpg",
         "images": []
     },
     {
@@ -945,10 +942,8 @@
             "C": "貓之Chlamydophila felis",
             "D": "豬之Chlamydia suis"
         },
-        "image": "./圖片/e1072_img9.jpg",
-        "images": [
-            "./圖片/e1072_img9.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 79,
