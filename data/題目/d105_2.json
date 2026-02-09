@@ -224,8 +224,10 @@
             "C": "3",
             "D": "4"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1052_img1.jpg",
+        "images": [
+            "./圖片/d1052_img1.jpg"
+        ]
     },
     {
         "id": 20,
@@ -236,10 +238,8 @@
             "C": "第2及3尾骨間關節",
             "D": "第3及4尾骨間關節"
         },
-        "image": "./圖片/d1052_img1.jpg",
-        "images": [
-            "./圖片/d1052_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 21,
@@ -700,8 +700,10 @@
             "C": "hypertrophic cardiomyopathy",
             "D": "restrictive cardiomyopathy"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1052_img5.jpg",
+        "images": [
+            "./圖片/d1052_img5.jpg"
+        ]
     },
     {
         "id": 59,
@@ -712,10 +714,8 @@
             "C": "只會有一條分流",
             "D": "腹部X光攝影可發現小肝症（microhepatica）"
         },
-        "image": "./圖片/d1052_img5.jpg",
-        "images": [
-            "./圖片/d1052_img5.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 60,
