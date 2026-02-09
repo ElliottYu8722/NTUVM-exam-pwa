@@ -32,7 +32,7 @@
             "C": "嚴重腐蹄病",
             "D": "蹄葉炎"
         },
-        "image": null,
+        "image": "./圖片/d1041-3.png",
         "images": []
     },
     {
@@ -744,8 +744,10 @@
             "C": "diabetes mellitus",
             "D": "hypoparathyroidism"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/d1041_img3.jpg",
+        "images": [
+            "./圖片/d1041_img3.jpg"
+        ]
     },
     {
         "id": 63,
@@ -756,10 +758,8 @@
             "C": "mannitol及spironolactone",
             "D": "dopamine及spironolactone"
         },
-        "image": "./圖片/d1041_img3.jpg",
-        "images": [
-            "./圖片/d1041_img3.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 64,
