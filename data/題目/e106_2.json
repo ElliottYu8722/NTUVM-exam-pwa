@@ -80,7 +80,7 @@
             "C": "豬生殖與呼吸綜合症",
             "D": "巨大細胞病毒感染症"
         },
-        "image": "./圖片/e1072_img1.jpg",
+        "image": "./圖片/e1062_img1.jpg",
         "images": [
             "./圖片/e1062_img1.jpg"
         ]
@@ -94,7 +94,7 @@
             "C": "鈎端螺旋體病",
             "D": "第二型豬環狀病毒感染症"
         },
-        "image": "./圖片/e1072_img2.jpg",
+        "image": "./圖片/e1062_img2.jpg",
         "images": [
             "./圖片/e1062_img2.jpg"
         ]
@@ -804,7 +804,7 @@
             "C": "Kudoa sp. infection",
             "D": "Myxidium sp. infection"
         },
-        "image": "./圖片/e1072_img3.jpg",
+        "image": "./圖片/e1062_img3.jpg",
         "images": [
             "./圖片/e1062_img3.jpg",
             "./圖片/e1062_img4.jpg"
@@ -819,7 +819,7 @@
             "C": "Myxobolus sp. infection",
             "D": "Kudoa sp. infection"
         },
-        "image": "./圖片/e1072_img5.jpg",
+        "image": "./圖片/e1062_img5.jpg",
         "images": [
             "./圖片/e1062_img5.jpg",
             "./圖片/e1062_img6.jpg"
@@ -906,7 +906,7 @@
             "C": "Flavobacterium columnare",
             "D": "Aeromonas hydrophila"
         },
-        "image": "./圖片/e1072_img7.jpg",
+        "image": "./圖片/e1062_img7.jpg",
         "images": []
     },
     {
