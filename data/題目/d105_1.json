@@ -884,7 +884,7 @@
             "C": "biopsy punch",
             "D": "spine needle"
         },
-        "image": null,
+        "image": "./圖片/d1051_img1.jpg",
         "images": []
     },
     {
@@ -896,10 +896,8 @@
             "C": "內側副韌帶（medial collateral ligament）",
             "D": "外側副韌帶（lateral collateral ligament）"
         },
-        "image": "./圖片/d1051_img1.jpg",
-        "images": [
-            "./圖片/d1051_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 76,
