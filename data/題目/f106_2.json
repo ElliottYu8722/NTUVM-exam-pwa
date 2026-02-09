@@ -841,14 +841,14 @@
     },
     {
         "id": 71,
-        "text": "71.研究者利用皮內結核菌素試驗和巢式聚合酶連鎖反應 2種不同方法檢驗牛隻結核病，檢驗結果如下表，請問此 檢驗結果之間的觀察一致性百分比（observed proportion agreement）為： 皮內結核菌素試驗 巢式聚合酶連鎖反應 positive negative Total positive 100 40 140 negative 20 40 60 Total 120 80 200",
+        "text": "71.研究者利用皮內結核菌素試驗和巢式聚合酶連鎖反應 2種不同方法檢驗牛隻結核病，檢驗結果如下表，請問此 檢驗結果之間的觀察一致性百分比（observed proportion agreement）為： ",
         "options": {
             "A": "40%",
             "B": "50%",
             "C": "60%",
             "D": "70%"
         },
-        "image": null,
+        "image": "./圖片/f1062-71.png",
         "images": []
     },
     {
