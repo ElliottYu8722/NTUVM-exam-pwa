@@ -541,7 +541,7 @@
             "C": "牛病毒性下痢",
             "D": "牛邊蟲病"
         },
-        "image": null,
+        "image": "./圖片/e1051_img4.jpg",
         "images": []
     },
     {
@@ -553,10 +553,8 @@
             "C": "牛疱疹病毒一型感染症",
             "D": "裂谷熱"
         },
-        "image": "./圖片/e1051_img4.jpg",
-        "images": [
-            "./圖片/e1051_img4.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 47,
@@ -699,14 +697,8 @@
             "C": "reovirus",
             "D": "paramyxovirus"
         },
-        "image": "./圖片/e1051_img5.jpg",
-        "images": [
-            "./圖片/e1051_img5.jpg",
-            "./圖片/e1051_img6.jpg",
-            "./圖片/e1051_img7.jpg",
-            "./圖片/e1051_img8.jpg",
-            "./圖片/e1051_img9.jpg"
-        ]
+        "image": "./圖片/e1051_img5.png",
+        "images": []
     },
     {
         "id": 59,
@@ -806,8 +798,11 @@
             "C": "Photobacterium damsella subsp. piscicida",
             "D": "Francisella asiatica"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1051_img13.jpg",
+        "images": [
+            "./圖片/e1051_img13.jpg",
+            "./圖片/e1051_img14.jpg"
+        ]
     },
     {
         "id": 67,
@@ -818,16 +813,8 @@
             "C": "甲基藍",
             "D": "過錳酸鉀"
         },
-        "image": "./圖片/e1051_img13.jpg",
-        "images": [
-            "./圖片/e1051_img13.jpg",
-            "./圖片/e1051_img14.jpg",
-            "./圖片/e1051_img15.jpg",
-            "./圖片/e1051_img16.jpg",
-            "./圖片/e1051_img17.jpg",
-            "./圖片/e1051_img18.jpg",
-            "./圖片/e1051_img19.jpg"
-        ]
+        "image": "./圖片/e1051_img15.png",
+        "images": []
     },
     {
         "id": 68,
