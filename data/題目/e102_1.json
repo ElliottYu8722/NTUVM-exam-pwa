@@ -756,8 +756,10 @@
             "C": "鰓部",
             "D": "口腔四週"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1021_img3.jpg",
+        "images": [
+            "./圖片/e1021_img3.jpg"
+        ]
     },
     {
         "id": 64,
@@ -768,10 +770,8 @@
             "C": "Herpesvirus",
             "D": "Rhabdovirus"
         },
-        "image": "./圖片/e1021_img3.jpg",
-        "images": [
-            "./圖片/e1021_img3.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 65,
