@@ -780,7 +780,7 @@
             "C": "Trichinella sp.",
             "D": "Anisakis sp."
         },
-        "image": null,
+        "image": "./圖片/e1041_img3.jpg",
         "images": []
     },
     {
@@ -792,9 +792,8 @@
             "C": "eel iridovirus",
             "D": "eel adenovirus"
         },
-        "image": "./圖片/e1041_img3.jpg",
+        "image": "./圖片/e1041_img4.jpg",
         "images": [
-            "./圖片/e1041_img3.jpg",
             "./圖片/e1041_img4.jpg",
             "./圖片/e1041_img5.jpg"
         ]
