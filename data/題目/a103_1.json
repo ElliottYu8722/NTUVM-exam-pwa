@@ -104,8 +104,10 @@
             "C": "荳蔻肝",
             "D": "肺臟瀰漫性紅色梗塞"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1031_img1.jpg",
+        "images": [
+            "./圖片/a1031_img1.jpg"
+        ]
     },
     {
         "id": 10,
@@ -116,10 +118,8 @@
             "C": "左心衰竭",
             "D": "右心衰竭"
         },
-        "image": "./圖片/a1031_img1.jpg",
-        "images": [
-            "./圖片/a1031_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 11,
@@ -816,8 +816,11 @@
             "C": "毛囊蟲症",
             "D": "黴菌性皮膚炎"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/a1031_img3.jpg",
+        "images": [
+            "./圖片/a1031_img3.jpg",
+            "./圖片/a1031_img4.jpg"
+        ]
     },
     {
         "id": 69,
@@ -828,11 +831,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": "./圖片/a1031_img3.jpg",
-        "images": [
-            "./圖片/a1031_img3.jpg",
-            "./圖片/a1031_img4.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 70,
