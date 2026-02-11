@@ -886,8 +886,10 @@
             "C": "Myxidium",
             "D": "Glugea"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1022_img2.jpg",
+        "images": [
+            "./圖片/e1022_img2.jpg"
+        ]
     },
     {
         "id": 75,
@@ -898,10 +900,8 @@
             "C": "鱒魚感受性高",
             "D": "臺灣尚無病例發生"
         },
-        "image": "./圖片/e1022_img2.jpg",
-        "images": [
-            "./圖片/e1022_img2.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 76,
