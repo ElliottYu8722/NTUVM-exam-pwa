@@ -908,8 +908,10 @@
             "C": "腫瘤性關節病",
             "D": "關節血腫"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/c1031_img1.jpg",
+        "images": [
+            "./圖片/c1031_img1.jpg"
+        ]
     },
     {
         "id": 77,
@@ -920,10 +922,8 @@
             "C": "急性失血性貧血",
             "D": "缺鐵性貧血"
         },
-        "image": "./圖片/c1031_img1.jpg",
-        "images": [
-            "./圖片/c1031_img1.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 78,
