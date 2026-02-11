@@ -92,8 +92,10 @@
             "C": "Trichinella spiralis infestation",
             "D": "Ascaris suum infestation"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1042_img1.jpg",
+        "images": [
+            "./圖片/e1042_img1.jpg"
+        ]
     },
     {
         "id": 9,
@@ -104,9 +106,9 @@
             "C": "胃蟲",
             "D": "蛔蟲"
         },
-        "image": "./圖片/e1042_img1.jpg",
+        "image": "./圖片/e1042_img2.jpg",
         "images": [
-            "./圖片/e1042_img1.jpg"
+            "./圖片/e1042_img2.jpg"
         ]
     },
     {
@@ -118,10 +120,10 @@
             "C": "proliferative enteropathy",
             "D": "swine dysentery"
         },
-        "image": "./圖片/e1042_img2.jpg",
+        "image": "./圖片/e1042_img3.jpg",
         "images": [
-            "./圖片/e1042_img2.jpg",
-            "./圖片/e1042_img3.jpg"
+            "./圖片/e1042_img3.jpg",
+            "./圖片/e1042_img4.jpg"
         ]
     },
     {
@@ -133,9 +135,8 @@
             "C": "豬放線桿菌胸膜肺炎",
             "D": "豬黴漿菌症"
         },
-        "image": "./圖片/e1042_img4.jpg",
+        "image": "./圖片/e1042_img5.jpg",
         "images": [
-            "./圖片/e1042_img4.jpg",
             "./圖片/e1042_img5.jpg",
             "./圖片/e1042_img6.jpg"
         ]
@@ -149,8 +150,10 @@
             "C": "多以飼料添加驅蟲藥進行控制",
             "D": "需配合環境清潔及豬舍條狀地面設計才能有效控制"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1042_img7.jpg",
+        "images": [
+            "./圖片/e1042_img7.jpg"
+        ]
     },
     {
         "id": 13,
@@ -161,10 +164,8 @@
             "C": "造成保育豬水腫病",
             "D": "造成肥育豬血痢"
         },
-        "image": "./圖片/e1042_img7.jpg",
-        "images": [
-            "./圖片/e1042_img7.jpg"
-        ]
+        "image": null,
+        "images": []
     },
     {
         "id": 14,
@@ -851,8 +852,11 @@
             "C": "Photobacterium damsella subsp. piscicida",
             "D": "Francisella asiatica"
         },
-        "image": null,
-        "images": []
+        "image": "./圖片/e1042_img10.jpg",
+        "images": [
+            "./圖片/e1042_img10.jpg",
+            "./圖片/e1042_img11.jpg"
+        ]
     },
     {
         "id": 71,
@@ -863,10 +867,8 @@
             "C": "mycobacteriosis",
             "D": "photobacteriosis"
         },
-        "image": "./圖片/e1042_img10.jpg",
+        "image": "./圖片/e1042_img12.jpg",
         "images": [
-            "./圖片/e1042_img10.jpg",
-            "./圖片/e1042_img11.jpg",
             "./圖片/e1042_img12.jpg",
             "./圖片/e1042_img13.jpg"
         ]
