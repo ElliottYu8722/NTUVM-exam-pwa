@@ -887,6 +887,7 @@ const btnToggleAns = $("#btnToggleAns");
 
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
 const qExplain = $("#qExplain");   // 新增：詳解容器
+const qExplainWrap = $("#qExplainWrap");
 const qList = $("#qList");
 
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
@@ -4666,6 +4667,27 @@ function highlightList() {
   });
 }
 
+function renderExplanation(q){
+  if (!qExplain) return;
+
+  const raw = (q && q.explanation != null) ? String(q.explanation) : '';
+  const exp = raw.trim();
+  const has = exp.length > 0;
+
+  // 外框顯示/隱藏（有 wrap 就一起控）
+  if (qExplainWrap) qExplainWrap.classList.toggle('hidden', !has);
+  qExplain.classList.toggle('hidden', !has);
+
+  if (!has){
+    qExplain.textContent = '';
+    return;
+  }
+
+  // 用 textContent：避免詳解內容若含有不完整 HTML，破壞後面 DOM 導致按鈕點不到
+  qExplain.textContent = exp;
+}
+
+
 async function renderQuestionInGroupMode() {
   const item = state.visibleQuestions[state.index];
   if (!item || !item.groupEntry) {
@@ -4675,6 +4697,7 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 群組沒有題目時，也順便清空多圖區
     renderQuestionImagesFromState(null);
+    renderExplanation(null);
     return;
   }
 
@@ -4707,6 +4730,7 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 找不到題目的時候，同樣清空多圖區
     renderQuestionImagesFromState(null);
+    renderExplanation(null);
     return;
   }
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
@@ -4732,6 +4756,7 @@ async function renderQuestionInGroupMode() {
 
   // ⭐ 這裡新增：處理多張圖片（第 2 張之後）
   renderQuestionImagesFromState(q);
+  renderExplanation(q);
 
   // 選項
   qOpts.innerHTML = '';
@@ -4789,22 +4814,11 @@ async function renderQuestionInGroupMode() {
 
   highlightList();
   loadNoteForCurrent();
-  loadCommentsForCurrentQuestion();  
-  if (qExplain) {
-    const hasExp = !!q.explanation;
-    if (hasExp) {
-      qExplain.classList.remove('hidden');
-      qExplain.innerHTML = '詳解：' + String(q.explanation);
-    } else {
-      qExplain.classList.add('hidden');
-      qExplain.innerHTML = '';
-    }
-  }
+  loadCommentsForCurrentQuestion();
 }
 
 
-/* 題目顯示（完整覆蓋） */
-/* 題目顯示（完整覆蓋） */
+/題目顯示/
 async function renderQuestion() {
   // 🔥 群組模式：走專屬流程
   if (state.currentGroupId) {
@@ -4925,17 +4939,8 @@ async function renderQuestion() {
   highlightList();
   loadNoteForCurrent();
   loadCommentsForCurrentQuestion();
-  
-  if (qExplain) {
-    const hasExp = !!q.explanation;
-    if (hasExp) {
-      qExplain.classList.remove('hidden');
-      qExplain.innerHTML = '詳解<br>' + String(q.explanation);
-    } else {
-      qExplain.classList.add('hidden');
-      qExplain.innerHTML = '';
-    }
-  }
+  renderExplanation(q);
+
   // 🔥 回顧模式顯示結束按鈕
   if (state.mode === 'review') {
     // 找到下一題按鈕
@@ -4970,6 +4975,7 @@ async function renderQuestion() {
 
   // ⭐ 最後改成帶目前的題目 q，讓多圖區正確對應
   renderQuestionImagesFromState(q);
+  renderExplanation(q);
 }
 
 function addExitReviewBtn() {
