@@ -4667,126 +4667,56 @@ function highlightList() {
   });
 }
 
-function sanitizeExplainHTML(html) {
+
+function resolveExplainMediaSrc(src) {
+  const s = String(src || "").trim();
+  if (!s) return "";
+  if (/^https?:/i.test(s)) return s;
+  if (s.startsWith("")) return s;
+  if (s.startsWith("blob:")) return s;
+
+  // 交給你原本的邏輯：支援 basePath / images 目錄 / 相對路徑等
   try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(String(html), "text/html");
+    if (typeof resolveImage === "function") return resolveImage(s);
+  } catch (e) {}
 
-    const ALLOWED_TAGS = new Set([
-      "B", "STRONG", "I", "EM", "U", "S",
-      "BR", "P", "DIV", "SPAN",
-      "UL", "OL", "LI",
-      "TABLE", "THEAD", "TBODY", "TR", "TD", "TH",
-      "PRE", "CODE", "BLOCKQUOTE", "HR",
-      "H1", "H2", "H3", "H4", "H5", "H6",
-      "IMG", "A"
-    ]);
-
-    const isSafeUrl = (u) => {
-      const s = String(u || "").trim();
-      if (!s) return false;
-      if (s.startsWith("image/")) return true;
-      if (s.startsWith("https://") || s.startsWith("http://")) return true;
-      if (s.startsWith("/") || s.startsWith("./") || s.startsWith("../")) return true; // 相對路徑也放行
-      return false;
-    };
-
-    const cleanEl = (el) => {
-      const tag = el.tagName.toUpperCase();
-
-      // 移除事件屬性、style/class/id，避免 Word 亂碼樣式炸版 & XSS
-      for (const attr of Array.from(el.attributes)) {
-        const name = attr.name.toLowerCase();
-        const val = attr.value;
-
-        if (name.startsWith("on")) {
-          el.removeAttribute(attr.name);
-          continue;
-        }
-        if (name === "style" || name === "class" || name === "id") {
-          el.removeAttribute(attr.name);
-          continue;
-        }
-
-        // 只允許 a/img 的少數必要屬性，其它標籤一律不留屬性
-        if (tag === "A") {
-          if (!["href", "title", "target", "rel"].includes(name)) el.removeAttribute(attr.name);
-          if (name === "href" && !isSafeUrl(val)) el.removeAttribute("href");
-        } else if (tag === "IMG") {
-          if (!["src", "alt", "title"].includes(name)) el.removeAttribute(attr.name);
-          if (name === "src" && !isSafeUrl(val)) el.removeAttribute("src");
-        } else {
-          el.removeAttribute(attr.name);
-        }
-      }
-
-      if (tag === "A" && el.getAttribute("href")) {
-        el.setAttribute("target", "_blank");
-        el.setAttribute("rel", "noopener noreferrer");
-      }
-    };
-
-    const walk = (node) => {
-      const kids = Array.from(node.childNodes);
-      for (const ch of kids) {
-        if (ch.nodeType === Node.ELEMENT_NODE) {
-          const tag = ch.tagName.toUpperCase();
-
-          if (!ALLOWED_TAGS.has(tag)) {
-            // 不允許的標籤：拆掉標籤但保留裡面文字/子節點
-            const frag = doc.createDocumentFragment();
-            while (ch.firstChild) frag.appendChild(ch.firstChild);
-            ch.replaceWith(frag);
-            continue;
-          }
-
-          cleanEl(ch);
-          walk(ch);
-        } else {
-          // TEXT_NODE 等其它節點照走
-          walk(ch);
-        }
-      }
-    };
-
-    walk(doc.body);
-    return doc.body.innerHTML;
-  } catch (e) {
-    return "";
-  }
+  return s;
 }
 
 function renderExplanation(q) {
-  if (!qExplain) return;
+  if (!qExplain || !qExplainWrap) return;
 
-  const raw = (q && q.explanation != null) ? String(q.explanation) : "";
+  const raw = q && q.explanation != null ? String(q.explanation) : "";
   const exp = raw.trim();
   const has = exp.length > 0;
 
-  if (qExplainWrap) qExplainWrap.classList.toggle("hidden", !has);
+  qExplainWrap.classList.toggle("hidden", !has);
   qExplain.classList.toggle("hidden", !has);
 
   if (!has) {
-    qExplain.textContent = "";
+    qExplain.innerHTML = "";
     return;
   }
 
-  // 粗略判斷是否像 HTML
-  const looksLikeHtml =
-    /<\/?[a-z][\s\S]*>/i.test(exp) ||
-    /&[a-z]+;|&#\d+;/.test(exp);
+  // 最完整：把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
+  qExplain.innerHTML = exp;
 
-  if (looksLikeHtml) {
-    const safe = sanitizeExplainHTML(exp);
-    if (safe) {
-      qExplain.innerHTML = safe;
-    } else {
-      qExplain.textContent = exp;
-    }
-  } else {
-    qExplain.textContent = exp;
+  // 渲染後修正詳解內的媒體路徑（常見是相對路徑，或你資料目錄下的檔案）
+  try {
+    qExplain.querySelectorAll("img").forEach((img) => {
+      const fixed = resolveExplainMediaSrc(img.getAttribute("src"));
+      if (fixed) img.setAttribute("src", fixed);
+    });
+
+    qExplain.querySelectorAll("source").forEach((srcEl) => {
+      const fixed = resolveExplainMediaSrc(srcEl.getAttribute("src"));
+      if (fixed) srcEl.setAttribute("src", fixed);
+    });
+  } catch (e) {
+    console.warn("Explanation media post-process failed:", e);
   }
 }
+
 
 
 
