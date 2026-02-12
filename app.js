@@ -8700,15 +8700,17 @@ function openAddToGroupDialog(questionId) {
 function isPhoneWidth() {
   return window.matchMedia('(max-width: 768px)').matches;
 }
+function setupMobileDrawers(){
+  // 防止重複註冊事件（避免被 init() 呼叫多次時重複綁定）
+  if (window.__ntuvmMobileDrawersInited) return;
+  window.__ntuvmMobileDrawersInited = true;
 
-function setupMobileDrawers() {
   const btnLeft = document.getElementById('btnOpenLeft');
   const btnRight = document.getElementById('btnOpenRight');
-  if (!btnLeft && !btnRight) return;
+  if (!btnLeft || !btnRight) return;
 
-  // 共用的背景遮罩
   const backdrop = document.createElement('div');
-  backdrop.className = 'drawer-backdrop';   // 🔸加這行
+  backdrop.className = 'drawer-backdrop';
   backdrop.style.position = 'fixed';
   backdrop.style.inset = '0';
   backdrop.style.background = 'rgba(0,0,0,.45)';
@@ -8716,81 +8718,74 @@ function setupMobileDrawers() {
   backdrop.style.display = 'none';
   document.body.appendChild(backdrop);
 
-  function closeAll() {
+  function closeAll(){
     document.body.classList.remove('show-left-panel', 'show-right-panel');
     backdrop.style.display = 'none';
   }
-
-  function openLeft() {
+  function openLeft(){
     document.body.classList.add('show-left-panel');
     document.body.classList.remove('show-right-panel');
     backdrop.style.display = 'block';
   }
-
-  function openRight() {
+  function openRight(){
     document.body.classList.add('show-right-panel');
     document.body.classList.remove('show-left-panel');
     backdrop.style.display = 'block';
   }
 
-  btnLeft?.addEventListener('click', e => {
+  btnLeft.addEventListener('click', (e)=>{
     e.preventDefault();
-    if (document.body.classList.contains('show-left-panel')) {
-      closeAll();
-    } else {
-      openLeft();
-    }
+    if (document.body.classList.contains('show-left-panel')) closeAll();
+    else openLeft();
   });
 
-  btnRight?.addEventListener('click', e => {
+  btnRight.addEventListener('click', (e)=>{
     e.preventDefault();
-    if (document.body.classList.contains('show-right-panel')) {
-      closeAll();
-    } else {
-      openRight();
-    }
+    if (document.body.classList.contains('show-right-panel')) closeAll();
+    else openRight();
   });
 
   backdrop.addEventListener('click', closeAll);
-  window.addEventListener('keydown', e => {
+
+  window.addEventListener('keydown', (e)=>{
     if (e.key === 'Escape') closeAll();
   });
-// === 手機左右滑手勢：關閉側邊欄 ===
+
   let touchStartX = 0;
   let touchStartY = 0;
   let trackingSwipe = false;
   let swipeMode = null; // 'left-open' | 'right-open' | 'left-edge' | 'right-edge'
-  let touchFromExplain = false;  // 🔹新增：是否從詳解區起手
+  let touchFromExplain = false;
 
-  function isDrawerTouchMode() {
+  function isDrawerTouchMode(){
     const w = window.innerWidth;
-    const h = window.innerHeight || 1;
-    const portrait = h >= w;              // 直立
-    return (w <= 768) || (portrait && w <= 1024);        // 手機 + 直立平板
+    const h = window.innerHeight;
+    const portrait = h >= w;
+    return (w <= 768 && portrait) || (w <= 1024 && !portrait);
   }
 
-  function handleTouchStart(e) {
+  function handleTouchStart(e){
     if (!isDrawerTouchMode()) return;
-
     const t = e.touches && e.touches[0];
     if (!t) return;
-    const explainEl = document.getElementById('qExplain');
-    const target = e.target;
-    touchFromExplain = !!(explainEl && target && explainEl.contains(target));
-    if (touchFromExplain) {
-      // 從詳解區開始的觸控：完全不要進入「側欄 swipe」邏輯
-      return;
-    }
+
     const w = window.innerWidth;
     const x = t.clientX;
     const y = t.clientY;
-    const edgeZone = 24; // 距離左右 24px 內算邊緣（可微調）
+
+    const edgeZone = 24; // 邊緣喚出側欄區
+    const fromLeftEdge = x <= edgeZone;
+    const fromRightEdge = (w - x) <= edgeZone;
+
+    const explainEl = document.getElementById('qExplain');
+    const target = e.target;
+    touchFromExplain = !!(explainEl && target && explainEl.contains(target));
 
     const leftOpen = document.body.classList.contains('show-left-panel');
     const rightOpen = document.body.classList.contains('show-right-panel');
 
-    // 已經有側欄開著：只負責「關閉」的滑動
-    if (leftOpen || rightOpen) {
+    // 已開啟側欄：允許從任何地方滑動關閉（包含 qExplain）
+    if (leftOpen || rightOpen){
       swipeMode = leftOpen ? 'left-open' : 'right-open';
       touchStartX = x;
       touchStartY = y;
@@ -8798,10 +8793,16 @@ function setupMobileDrawers() {
       return;
     }
 
-    // 沒有側欄開著：只有從左右邊緣起手才啟動「打開」手勢
-    if (x <= edgeZone) {
+    // 未開啟側欄：如果在 qExplain 內，只有「從邊緣開始」才啟用側欄手勢
+    if (touchFromExplain && !fromLeftEdge && !fromRightEdge){
+      swipeMode = null;
+      trackingSwipe = false;
+      return;
+    }
+
+    if (fromLeftEdge){
       swipeMode = 'left-edge';
-    } else if (w - x <= edgeZone) {
+    } else if (fromRightEdge){
       swipeMode = 'right-edge';
     } else {
       swipeMode = null;
@@ -8814,50 +8815,46 @@ function setupMobileDrawers() {
     trackingSwipe = true;
   }
 
-  function handleTouchEnd(e) {
+  function handleTouchEnd(e){
     if (!trackingSwipe || !swipeMode) return;
     trackingSwipe = false;
-    if (!isDrawerTouchMode()) return;
-    // 🔹如果這次手勢來自詳解區，就不要處理側欄 swipe
-    if (touchFromExplain) {
-      touchFromExplain = false;
-      return;
-    }
 
-    if (!trackingSwipe || !swipeMode) return;
+    if (!isDrawerTouchMode()) return;
+
     const t = e.changedTouches && e.changedTouches[0];
     if (!t) return;
 
     const dx = t.clientX - touchStartX;
     const dy = t.clientY - touchStartY;
 
-    // 垂直位移太大或水平太短，就當作一般捲動
-    if (Math.abs(dx) < 40 || Math.abs(dx) <= Math.abs(dy) * 1.2) return;
+    // 必須主要是水平滑動、且距離夠
+    if (Math.abs(dx) < 40) return;
+    if (Math.abs(dx) < Math.abs(dy) * 1.2) return;
 
-    switch (swipeMode) {
+    switch (swipeMode){
       case 'left-open':
-        // 左欄已開 → 往左滑關閉
         if (dx < -40) closeAll();
         break;
       case 'right-open':
-        // 右欄已開 → 往右滑關閉
         if (dx > 40) closeAll();
         break;
       case 'left-edge':
-        // 從左邊緣起手 → 往右滑打開左欄
         if (dx > 40) openLeft();
         break;
       case 'right-edge':
-        // 從右邊緣起手 → 往左滑打開右欄
         if (dx < -40) openRight();
         break;
     }
+
+    touchFromExplain = false;
+    swipeMode = null;
   }
 
-  // 掛在整個文件上，確保在側欄或 backdrop 上滑都抓得到
+  // 用 document 才能抓到邊緣滑出
   document.addEventListener('touchstart', handleTouchStart, { passive: true });
   document.addEventListener('touchend', handleTouchEnd, { passive: true });
 }
+
 
 
 
@@ -8877,6 +8874,9 @@ function init() {
     btnExportNotes.classList.remove("hidden");
   }
   setupMobileDrawers();
+  try { initSwipeGestures(); }
+  catch (e) { console.error('initSwipeGestures failed', e); }
+
   try { initFlashcardSwipe(); } catch (e) {}
 
 }
@@ -8977,66 +8977,156 @@ fc-study-card.fc-overflow {
    - 只在「題目內容區」啟用
    - 水平意圖時會 preventDefault()，避免整頁跟著上下動
    ========================================= */
-(function initSwipeGestures() {
+
+function initSwipeGestures(){
+  // 防止重複註冊事件（避免被 init() 呼叫多次時重複綁定）
+  if (window.__ntuvmSwipeGesturesInited) return;
+  window.__ntuvmSwipeGesturesInited = true;
+
   let startX = 0;
   let startY = 0;
   let lock = null; // 'h' | 'v' | null
   let tracking = false;
-  let explainStartScroll = 0;  // 🔹新增：記錄觸控開始時詳解的 scrollTop
-  const MIN_SWIPE_X = 70;      // 最終要換題的水平距離
-  const START_LOCK_DIST = 12;  // 開始判斷意圖的最小位移
-  const EDGE_GUARD = 26;       // 避免跟側欄/系統邊緣手勢衝突
 
-  function panelIsOpen() {
+  // explain 相關狀態
+  let startedInExplain = false;
+  let explainEl = null;
+  let explainStartScrollTop = 0;
+
+  // 若解釋內有「可水平捲動的容器」，會放在這裡（包含 explain 本身）
+  let scrollXEl = null;
+  let usedNativeXScroll = false;
+
+  const MINSWIPEX = 70;
+  const STARTLOCKDIST = 12;
+
+  // 靠邊緣不要換題：留給側欄手勢
+  const EDGEGUARD = 26;
+
+  function panelIsOpen(){
     return document.body.classList.contains('show-left-panel')
       || document.body.classList.contains('show-right-panel');
   }
 
-  function inQuestionArea(target) {
+  function inQuestionArea(target){
     if (!target) return false;
-    // 只允許在題目內容區滑動才換題（避免滑到留言/其他區塊誤觸）
     return !!target.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
   }
 
-  function shouldIgnoreTarget(target) {
+  function shouldIgnoreTarget(target){
     if (!target) return true;
     if (!inQuestionArea(target)) return true;
-
-    // 輸入框/選單不要觸發
     if (target.closest('input, textarea, select')) return true;
-
-    // 右側題目列表、側欄遮罩區不要觸發
-    if (target.closest('#qList') || target.closest('.drawer-backdrop')) return true;
-
-    // 字卡畫面出現時不要搶手勢
+    if (target.closest('#qList')) return true;
+    if (target.closest('.drawer-backdrop')) return true;
     if (target.closest('.fc-screen') || target.closest('#fc-viewer-mask') || target.closest('.fc-viewer-mask')) return true;
+    return false;
+  }
+
+  function hasOverflowX(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    return (el.scrollWidth - el.clientWidth) > 1;
+  }
+
+  function hasOverflowY(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    return (el.scrollHeight - el.clientHeight) > 1;
+  }
+
+  function isScrollableX(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    const st = getComputedStyle(el);
+    const ox = st.overflowX;
+    if (!(ox === 'auto' || ox === 'scroll')) return false;
+    return hasOverflowX(el);
+  }
+
+  function findNearestScrollableX(fromEl, rootEl){
+    let el = fromEl;
+    while (el && el !== document.body && el !== document.documentElement){
+      if (el instanceof HTMLElement){
+        if (isScrollableX(el)) return el;
+      }
+      if (rootEl && el === rootEl) break;
+      el = el.parentElement;
+    }
+    // 最後再檢查 root 自己（例如 #qExplain 被設 overflow-x:auto）
+    if (rootEl && isScrollableX(rootEl)) return rootEl;
+    return null;
+  }
+
+  function canScrollXInDirection(el, dx){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 1) return false;
+
+    // dx < 0：手指往左滑，內容通常往右捲 => scrollLeft 會增加
+    if (dx < 0) return el.scrollLeft < (max - 1);
+
+    // dx > 0：手指往右滑，內容通常往左捲 => scrollLeft 會減少
+    if (dx > 0) return el.scrollLeft > 1;
 
     return false;
   }
 
-  document.addEventListener('touchstart', (e) => {
-    if (panelIsOpen()) { tracking = false; lock = null; return; }
-    if (!e.touches || e.touches.length !== 1) { tracking = false; lock = null; return; }
+  function explainAtVerticalBoundary(){
+    if (!explainEl) return true;
+    if (!hasOverflowY(explainEl)) return true;
+
+    const cur = explainEl.scrollTop;
+    const max = explainEl.scrollHeight - explainEl.clientHeight;
+
+    // 在頂端或底端（容許一點點誤差）
+    return cur <= 0 || cur >= (max - 1);
+  }
+
+  document.addEventListener('touchstart', (e)=>{
+    if (panelIsOpen()){
+      tracking = false;
+      lock = null;
+      return;
+    }
+
+    if (!e.touches || e.touches.length !== 1){
+      tracking = false;
+      lock = null;
+      return;
+    }
 
     const t = e.touches[0];
 
-    // 邊緣保護：左右邊緣留給側欄或系統手勢
-    if (t.clientX <= EDGE_GUARD || t.clientX >= (window.innerWidth - EDGE_GUARD)) {
-      tracking = false; lock = null; return;
+    // 邊緣留給側欄
+    if (t.clientX < EDGEGUARD || t.clientX > window.innerWidth - EDGEGUARD){
+      tracking = false;
+      lock = null;
+      return;
     }
 
-    if (shouldIgnoreTarget(e.target)) { tracking = false; lock = null; return; }
+    if (shouldIgnoreTarget(e.target)){
+      tracking = false;
+      lock = null;
+      return;
+    }
 
     startX = t.clientX;
     startY = t.clientY;
-    const explainEl = document.getElementById('qExplain');
-    if (explainEl) explainStartScroll = explainEl.scrollTop; 
     lock = null;
     tracking = true;
+
+    explainEl = document.getElementById('qExplain');
+    startedInExplain = !!(explainEl && e.target && explainEl.contains(e.target));
+    explainStartScrollTop = explainEl ? explainEl.scrollTop : 0;
+
+    usedNativeXScroll = false;
+
+    // 只有在 explain 區域內才需要找水平捲動容器
+    scrollXEl = null;
+    if (startedInExplain){
+      scrollXEl = findNearestScrollableX(e.target, explainEl);
+    }
   }, { passive: true, capture: true });
 
-  // 這個是關鍵：水平意圖時阻止瀏覽器捲動
-  document.addEventListener('touchmove', (e) => {
+  document.addEventListener('touchmove', (e)=>{
     if (!tracking) return;
     if (!e.touches || e.touches.length !== 1) return;
 
@@ -9044,55 +9134,82 @@ fc-study-card.fc-overflow {
     const dx = t.clientX - startX;
     const dy = t.clientY - startY;
 
-    // 還沒離開起點太多就先不鎖定
-    if (!lock) {
-      if (Math.abs(dx) < START_LOCK_DIST && Math.abs(dy) < START_LOCK_DIST) return;
-
-      // 意圖鎖定：水平位移明顯大於垂直才算水平滑動
+    if (!lock){
+      if (Math.abs(dx) < STARTLOCKDIST && Math.abs(dy) < STARTLOCKDIST) return;
       lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
     }
 
-    if (lock === 'h') {
-      // 只有可 cancel 時才 preventDefault，避免 iOS 某些情況報錯
-      if (e.cancelable) e.preventDefault();
+    // 垂直就交給原生捲動（尤其是 qExplain 的閱讀）
+    if (lock === 'v') return;
+
+    // lock === 'h'：先判斷是否應該讓 explain 的水平捲動優先
+    if (startedInExplain && scrollXEl && canScrollXInDirection(scrollXEl, dx)){
+      // 這次水平滑動其實是在「捲內容」，不要攔截、也不要換題
+      usedNativeXScroll = true;
+      return;
     }
+
+    // 走到這裡表示：
+    // - 不在 explain；或
+    // - explain 內沒有水平可捲；或
+    // - 已捲到最左/最右（無法再往 dx 方向捲）
+    // => 才允許我們把它當成換題手勢，並阻止 iOS 橡皮筋效果
+    if (e.cancelable) e.preventDefault();
   }, { passive: false, capture: true });
 
-  document.addEventListener('touchend', (e) => {
+  document.addEventListener('touchend', (e)=>{
     if (!tracking) return;
     tracking = false;
 
-    if (panelIsOpen()) { lock = null; return; }
-    if (lock !== 'h') { lock = null; return; }
-    const explainEl = document.getElementById('qExplain');
-    let atBoundary = true;
-    if (explainEl && explainStartScroll !== undefined) {
-      const currentScroll = explainEl.scrollTop;
-      const maxScroll = explainEl.scrollHeight - explainEl.clientHeight;
-      atBoundary = (currentScroll <= 0) || (currentScroll >= maxScroll);
-      if (!atBoundary) { lock = null; return; }
+    if (panelIsOpen()){
+      lock = null;
+      return;
     }
-    if (!e.changedTouches || e.changedTouches.length !== 1) { lock = null; return; }
-    const t = e.changedTouches[0];
 
+    if (lock !== 'h'){
+      lock = null;
+      return;
+    }
+
+    // 如果剛剛是用來做水平捲動，就絕對不換題
+    if (usedNativeXScroll){
+      lock = null;
+      return;
+    }
+
+    // 如果起點在 explain，且 explain 仍在垂直捲動中段（非頂/底），也不換題（避免閱讀時誤觸）
+    if (startedInExplain && !explainAtVerticalBoundary()){
+      lock = null;
+      return;
+    }
+
+    if (!e.changedTouches || e.changedTouches.length !== 1){
+      lock = null;
+      return;
+    }
+
+    const t = e.changedTouches[0];
     const dx = t.clientX - startX;
-    if (Math.abs(dx) < MIN_SWIPE_X) { lock = null; return; }
+
+    if (Math.abs(dx) < MINSWIPEX){
+      lock = null;
+      return;
+    }
 
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
 
-    if (dx < 0) {
-      // 左滑：下一題
+    // dx < 0：往左滑 => 下一題；dx > 0：往右滑 => 上一題
+    if (dx < 0){
       if (nextBtn && !nextBtn.disabled) nextBtn.click();
     } else {
-      // 右滑：上一題
       if (prevBtn && !prevBtn.disabled) prevBtn.click();
     }
 
     lock = null;
-    explainStartScroll = 0;  // 🔹重置，避免下次殘留
   }, { passive: true, capture: true });
-})();
+}
+
 
 /* =========================================
    字卡背卡畫面（fcOpenStudy）：左右滑動換卡（改善上下抖動/滾動）
