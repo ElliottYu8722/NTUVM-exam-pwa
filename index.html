@@ -177,8 +177,9 @@
     .qexplain-body{
       font-size: 14px;
       line-height: 1.5;
-      max-height: 28vh;          /* 關鍵：詳解再長也只在這裡捲動 */
-      overflow: auto;
+      max-height: none;
+      overflow-x: auto;
+      overflow-y: visible;
       box-sizing: border-box;
       white-space: pre-wrap;      /* 保留換行（用 textContent 也會好看） */
       word-break: break-word;
@@ -190,7 +191,7 @@
     .qexplain-body video,
     .qexplain-body svg,
     .qexplain-body canvas{
-      max-width: 100%;
+      max-width: none;
       height: auto;
     }
     .qexplain-body table{
