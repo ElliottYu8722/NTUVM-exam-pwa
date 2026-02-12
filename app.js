@@ -9015,7 +9015,6 @@ fc-study-card.fc-overflow {
    - 只在「題目內容區」啟用
    - 水平意圖時會 preventDefault()，避免整頁跟著上下動
    ========================================= */
-
 function initSwipeGestures(){
   // 防止重複註冊事件（避免被 init() 呼叫多次時重複綁定）
   if (window.__ntuvmSwipeGesturesInited) return;
@@ -9025,15 +9024,6 @@ function initSwipeGestures(){
   let startY = 0;
   let lock = null; // 'h' | 'v' | null
   let tracking = false;
-
-  // explain 相關狀態
-  let startedInExplain = false;
-  let explainEl = null;
-  let explainStartScrollTop = 0;
-
-  // 若解釋內有「可水平捲動的容器」，會放在這裡（包含 explain 本身）
-  let scrollXEl = null;
-  let usedNativeXScroll = false;
 
   const MINSWIPEX = 70;
   const STARTLOCKDIST = 12;
@@ -9048,74 +9038,22 @@ function initSwipeGestures(){
 
   function inQuestionArea(target){
     if (!target) return false;
-    return !!target.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
+    // 刻意不把 #qExplain 算進來：詳解區完全交給原生捲動（避免 overflow-x 水平捲動誤觸換題）
+    return !!target.closest('#qText, #qImg, #qOpts, #question-images, #qNum');
   }
 
   function shouldIgnoreTarget(target){
     if (!target) return true;
+
+    // 只要在詳解區，直接忽略手勢（最關鍵）
+    if (target.closest && target.closest('#qExplain')) return true;
+
     if (!inQuestionArea(target)) return true;
     if (target.closest('input, textarea, select')) return true;
     if (target.closest('#qList')) return true;
     if (target.closest('.drawer-backdrop')) return true;
     if (target.closest('.fc-screen') || target.closest('#fc-viewer-mask') || target.closest('.fc-viewer-mask')) return true;
     return false;
-  }
-
-  function hasOverflowX(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    return (el.scrollWidth - el.clientWidth) > 1;
-  }
-
-  function hasOverflowY(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    return (el.scrollHeight - el.clientHeight) > 1;
-  }
-
-  function isScrollableX(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    const st = getComputedStyle(el);
-    const ox = st.overflowX;
-    if (!(ox === 'auto' || ox === 'scroll')) return false;
-    return hasOverflowX(el);
-  }
-
-  function findNearestScrollableX(fromEl, rootEl){
-    let el = fromEl;
-    while (el && el !== document.body && el !== document.documentElement){
-      if (el instanceof HTMLElement){
-        if (isScrollableX(el)) return el;
-      }
-      if (rootEl && el === rootEl) break;
-      el = el.parentElement;
-    }
-    // 最後再檢查 root 自己（例如 #qExplain 被設 overflow-x:auto）
-    if (rootEl && isScrollableX(rootEl)) return rootEl;
-    return null;
-  }
-
-  function canScrollXInDirection(el, dx){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    const max = el.scrollWidth - el.clientWidth;
-    if (max <= 1) return false;
-
-    // dx < 0：手指往左滑，內容通常往右捲 => scrollLeft 會增加
-    if (dx < 0) return el.scrollLeft < (max - 1);
-
-    // dx > 0：手指往右滑，內容通常往左捲 => scrollLeft 會減少
-    if (dx > 0) return el.scrollLeft > 1;
-
-    return false;
-  }
-
-  function explainAtVerticalBoundary(){
-    if (!explainEl) return true;
-    if (!hasOverflowY(explainEl)) return true;
-
-    const cur = explainEl.scrollTop;
-    const max = explainEl.scrollHeight - explainEl.clientHeight;
-
-    // 在頂端或底端（容許一點點誤差）
-    return cur <= 0 || cur >= (max - 1);
   }
 
   document.addEventListener('touchstart', (e)=>{
@@ -9150,18 +9088,6 @@ function initSwipeGestures(){
     startY = t.clientY;
     lock = null;
     tracking = true;
-
-    explainEl = document.getElementById('qExplain');
-    startedInExplain = !!(explainEl && e.target && explainEl.contains(e.target));
-    explainStartScrollTop = explainEl ? explainEl.scrollTop : 0;
-
-    usedNativeXScroll = false;
-
-    // 只有在 explain 區域內才需要找水平捲動容器
-    scrollXEl = null;
-    if (startedInExplain){
-      scrollXEl = findNearestScrollableX(e.target, explainEl);
-    }
   }, { passive: true, capture: true });
 
   document.addEventListener('touchmove', (e)=>{
@@ -9177,21 +9103,10 @@ function initSwipeGestures(){
       lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
     }
 
-    // 垂直就交給原生捲動（尤其是 qExplain 的閱讀）
+    // 垂直就交給原生捲動
     if (lock === 'v') return;
 
-    // lock === 'h'：先判斷是否應該讓 explain 的水平捲動優先
-    if (startedInExplain && scrollXEl && canScrollXInDirection(scrollXEl, dx)){
-      // 這次水平滑動其實是在「捲內容」，不要攔截、也不要換題
-      usedNativeXScroll = true;
-      return;
-    }
-
-    // 走到這裡表示：
-    // - 不在 explain；或
-    // - explain 內沒有水平可捲；或
-    // - 已捲到最左/最右（無法再往 dx 方向捲）
-    // => 才允許我們把它當成換題手勢，並阻止 iOS 橡皮筋效果
+    // 水平滑動：我們要換題，所以阻止 iOS 橡皮筋/頁面滑動
     if (e.cancelable) e.preventDefault();
   }, { passive: false, capture: true });
 
@@ -9205,18 +9120,6 @@ function initSwipeGestures(){
     }
 
     if (lock !== 'h'){
-      lock = null;
-      return;
-    }
-
-    // 如果剛剛是用來做水平捲動，就絕對不換題
-    if (usedNativeXScroll){
-      lock = null;
-      return;
-    }
-
-    // 如果起點在 explain，且 explain 仍在垂直捲動中段（非頂/底），也不換題（避免閱讀時誤觸）
-    if (startedInExplain && !explainAtVerticalBoundary()){
       lock = null;
       return;
     }
