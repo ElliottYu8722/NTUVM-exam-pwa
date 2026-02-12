@@ -160,42 +160,65 @@
     .badge{padding:6px 10px;border:1px solid var(--border);border-radius:9999px;background:transparent;color:var(--fg);font-size:14px}
     .question-card{border-radius:16px;border:1px solid var(--border);padding:16px;background:var(--card)}
     .qtext{font-size:18px;line-height:1.6}
-    #qExplain{
+    /* 詳解外框 */
+    .qexplain-wrap{
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+    .qexplain-title{
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    /* 詳解內容本體 */
+    .qexplain-body{
       font-size: 14px;
       line-height: 1.5;
-      max-width: 100%;
+      max-height: 28vh;          /* 關鍵：詳解再長也只在這裡捲動 */
+      overflow: auto;
       box-sizing: border-box;
-
-      overflow-y: auto;
-      overflow-x: auto;
+      white-space: pre-wrap;      /* 保留換行（用 textContent 也會好看） */
+      word-break: break-word;
       -webkit-overflow-scrolling: touch;
     }
 
-    /* 詳解裡的圖片/影片：優先縮放，不要硬撐寬度 */
-    #qExplain img,
-    #qExplain video,
-    #qExplain svg,
-    #qExplain canvas{
+    /* 詳解裡的圖片/表格（保留你原本的精神） */
+    .qexplain-body img,
+    .qexplain-body video,
+    .qexplain-body svg,
+    .qexplain-body canvas{
       max-width: 100%;
       height: auto;
     }
-
-    /* 詳解裡常見的寬內容：表格/程式碼區塊，改成可水平捲動 */
-    #qExplain table{
+    .qexplain-body table{
       display: block;
       max-width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
-
-    #qExplain pre{
+    .qexplain-body pre{
       max-width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
+
+    /* 導航列永遠貼底，避免被長內容影響而按不到 */
+    .navrow{
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      background: var(--card);
+      padding-top: 12px;
+    }
+    .navrow .btn{
+      position: relative;
+      z-index: 11;
+    }
     .qimg{margin-top:10px;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--border)}
     .options{margin-top:10px;display:flex;flex-direction:column;gap:8px}
-    .navrow{display:flex;gap:8px;align-items:center;margin-top:14px}
     .spacer{flex:1}
     .right .q-list{height:70vh;overflow:auto;border-radius:12px;border:1px solid var(--border);background:var(--card);padding:8px}
     .q-item{padding:8px 10px;border-radius:8px;cursor:pointer}
@@ -826,8 +849,11 @@
         <div id="question-images" class="question-images"></div>
         <img id="qImg" class="qimg hidden" alt="">
         <div id="qOpts" class="options"></div>
-        <div id="qExplain" class="qtext hidden"
-             style="margin-top:12px;border-top:1px solid var(--border);padding-top:10px;"></div>
+        <!-- 詳解（獨立區塊） -->
+        <div id="qExplainWrap" class="qexplain-wrap hidden">
+          <div class="qexplain-title">詳解</div>
+          <div id="qExplain" class="qexplain-body"></div>
+        </div>
 
         <div class="navrow">
           <button id="prev" class="btn">上一題</button>
