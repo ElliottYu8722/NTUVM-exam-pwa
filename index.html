@@ -205,6 +205,16 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
+    /* ✅ 詳解內文字統一：全部繼承 14px（不影響圖片尺寸），並保留上下標語意 */
+    .qexplain-body *{
+      font-size: inherit !important; /* 壓掉詳解 HTML 裡面亂寫的 font-size */
+    }
+
+    /* 上下標維持相對縮小（不會被上面的 inherit 變成跟正文一樣大） */
+    .qexplain-body sup,
+    .qexplain-body sub{
+      font-size: 0.75em !important;
+    }
 
     /* 導航列永遠貼底，避免被長內容影響而按不到 */
     .navrow{
