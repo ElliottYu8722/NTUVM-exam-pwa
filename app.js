@@ -8982,7 +8982,7 @@ fc-study-card.fc-overflow {
   let startY = 0;
   let lock = null; // 'h' | 'v' | null
   let tracking = false;
-
+  let explainStartScroll = 0;  // 🔹新增：記錄觸控開始時詳解的 scrollTop
   const MIN_SWIPE_X = 70;      // 最終要換題的水平距離
   const START_LOCK_DIST = 12;  // 開始判斷意圖的最小位移
   const EDGE_GUARD = 26;       // 避免跟側欄/系統邊緣手勢衝突
@@ -9029,6 +9029,8 @@ fc-study-card.fc-overflow {
 
     startX = t.clientX;
     startY = t.clientY;
+    const explainEl = document.getElementById('qExplain');
+    if (explainEl) explainStartScroll = explainEl.scrollTop; 
     lock = null;
     tracking = true;
   }, { passive: true, capture: true });
@@ -9062,7 +9064,14 @@ fc-study-card.fc-overflow {
 
     if (panelIsOpen()) { lock = null; return; }
     if (lock !== 'h') { lock = null; return; }
-
+    const explainEl = document.getElementById('qExplain');
+    let atBoundary = true;
+    if (explainEl && explainStartScroll !== undefined) {
+      const currentScroll = explainEl.scrollTop;
+      const maxScroll = explainEl.scrollHeight - explainEl.clientHeight;
+      atBoundary = (currentScroll <= 0) || (currentScroll >= maxScroll);
+      if (!atBoundary) { lock = null; return; }
+    }
     if (!e.changedTouches || e.changedTouches.length !== 1) { lock = null; return; }
     const t = e.changedTouches[0];
 
@@ -9081,6 +9090,7 @@ fc-study-card.fc-overflow {
     }
 
     lock = null;
+    explainStartScroll = 0;  // 🔹重置，避免下次殘留
   }, { passive: true, capture: true });
 })();
 
