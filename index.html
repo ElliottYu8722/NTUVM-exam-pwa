@@ -160,10 +160,37 @@
     .badge{padding:6px 10px;border:1px solid var(--border);border-radius:9999px;background:transparent;color:var(--fg);font-size:14px}
     .question-card{border-radius:16px;border:1px solid var(--border);padding:16px;background:var(--card)}
     .qtext{font-size:18px;line-height:1.6}
-    #qExplain {
+    #qExplain{
       font-size: 14px;
       line-height: 1.5;
+      max-width: 100%;
+      box-sizing: border-box;
+
       overflow-y: auto;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* 詳解裡的圖片/影片：優先縮放，不要硬撐寬度 */
+    #qExplain img,
+    #qExplain video,
+    #qExplain svg,
+    #qExplain canvas{
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* 詳解裡常見的寬內容：表格/程式碼區塊，改成可水平捲動 */
+    #qExplain table{
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #qExplain pre{
+      max-width: 100%;
+      overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
     .qimg{margin-top:10px;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--border)}
