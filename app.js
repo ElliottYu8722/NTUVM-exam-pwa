@@ -4667,25 +4667,127 @@ function highlightList() {
   });
 }
 
-function renderExplanation(q){
+function sanitizeExplainHTML(html) {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(String(html), "text/html");
+
+    const ALLOWED_TAGS = new Set([
+      "B", "STRONG", "I", "EM", "U", "S",
+      "BR", "P", "DIV", "SPAN",
+      "UL", "OL", "LI",
+      "TABLE", "THEAD", "TBODY", "TR", "TD", "TH",
+      "PRE", "CODE", "BLOCKQUOTE", "HR",
+      "H1", "H2", "H3", "H4", "H5", "H6",
+      "IMG", "A"
+    ]);
+
+    const isSafeUrl = (u) => {
+      const s = String(u || "").trim();
+      if (!s) return false;
+      if (s.startsWith("image/")) return true;
+      if (s.startsWith("https://") || s.startsWith("http://")) return true;
+      if (s.startsWith("/") || s.startsWith("./") || s.startsWith("../")) return true; // 相對路徑也放行
+      return false;
+    };
+
+    const cleanEl = (el) => {
+      const tag = el.tagName.toUpperCase();
+
+      // 移除事件屬性、style/class/id，避免 Word 亂碼樣式炸版 & XSS
+      for (const attr of Array.from(el.attributes)) {
+        const name = attr.name.toLowerCase();
+        const val = attr.value;
+
+        if (name.startsWith("on")) {
+          el.removeAttribute(attr.name);
+          continue;
+        }
+        if (name === "style" || name === "class" || name === "id") {
+          el.removeAttribute(attr.name);
+          continue;
+        }
+
+        // 只允許 a/img 的少數必要屬性，其它標籤一律不留屬性
+        if (tag === "A") {
+          if (!["href", "title", "target", "rel"].includes(name)) el.removeAttribute(attr.name);
+          if (name === "href" && !isSafeUrl(val)) el.removeAttribute("href");
+        } else if (tag === "IMG") {
+          if (!["src", "alt", "title"].includes(name)) el.removeAttribute(attr.name);
+          if (name === "src" && !isSafeUrl(val)) el.removeAttribute("src");
+        } else {
+          el.removeAttribute(attr.name);
+        }
+      }
+
+      if (tag === "A" && el.getAttribute("href")) {
+        el.setAttribute("target", "_blank");
+        el.setAttribute("rel", "noopener noreferrer");
+      }
+    };
+
+    const walk = (node) => {
+      const kids = Array.from(node.childNodes);
+      for (const ch of kids) {
+        if (ch.nodeType === Node.ELEMENT_NODE) {
+          const tag = ch.tagName.toUpperCase();
+
+          if (!ALLOWED_TAGS.has(tag)) {
+            // 不允許的標籤：拆掉標籤但保留裡面文字/子節點
+            const frag = doc.createDocumentFragment();
+            while (ch.firstChild) frag.appendChild(ch.firstChild);
+            ch.replaceWith(frag);
+            continue;
+          }
+
+          cleanEl(ch);
+          walk(ch);
+        } else {
+          // TEXT_NODE 等其它節點照走
+          walk(ch);
+        }
+      }
+    };
+
+    walk(doc.body);
+    return doc.body.innerHTML;
+  } catch (e) {
+    return "";
+  }
+}
+
+function renderExplanation(q) {
   if (!qExplain) return;
 
-  const raw = (q && q.explanation != null) ? String(q.explanation) : '';
+  const raw = (q && q.explanation != null) ? String(q.explanation) : "";
   const exp = raw.trim();
   const has = exp.length > 0;
 
-  // 外框顯示/隱藏（有 wrap 就一起控）
-  if (qExplainWrap) qExplainWrap.classList.toggle('hidden', !has);
-  qExplain.classList.toggle('hidden', !has);
+  if (qExplainWrap) qExplainWrap.classList.toggle("hidden", !has);
+  qExplain.classList.toggle("hidden", !has);
 
-  if (!has){
-    qExplain.textContent = '';
+  if (!has) {
+    qExplain.textContent = "";
     return;
   }
 
-  // 用 textContent：避免詳解內容若含有不完整 HTML，破壞後面 DOM 導致按鈕點不到
-  qExplain.textContent = exp;
+  // 粗略判斷是否像 HTML
+  const looksLikeHtml =
+    /<\/?[a-z][\s\S]*>/i.test(exp) ||
+    /&[a-z]+;|&#\d+;/.test(exp);
+
+  if (looksLikeHtml) {
+    const safe = sanitizeExplainHTML(exp);
+    if (safe) {
+      qExplain.innerHTML = safe;
+    } else {
+      qExplain.textContent = exp;
+    }
+  } else {
+    qExplain.textContent = exp;
+  }
 }
+
 
 
 async function renderQuestionInGroupMode() {
