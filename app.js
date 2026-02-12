@@ -8760,7 +8760,8 @@ function setupMobileDrawers() {
   let touchStartY = 0;
   let trackingSwipe = false;
   let swipeMode = null; // 'left-open' | 'right-open' | 'left-edge' | 'right-edge'
-  
+  let touchFromExplain = false;  // 🔹新增：是否從詳解區起手
+
   function isDrawerTouchMode() {
     const w = window.innerWidth;
     const h = window.innerHeight || 1;
@@ -8773,7 +8774,13 @@ function setupMobileDrawers() {
 
     const t = e.touches && e.touches[0];
     if (!t) return;
-
+    const explainEl = document.getElementById('qExplain');
+    const target = e.target;
+    touchFromExplain = !!(explainEl && target && explainEl.contains(target));
+    if (touchFromExplain) {
+      // 從詳解區開始的觸控：完全不要進入「側欄 swipe」邏輯
+      return;
+    }
     const w = window.innerWidth;
     const x = t.clientX;
     const y = t.clientY;
@@ -8811,7 +8818,13 @@ function setupMobileDrawers() {
     if (!trackingSwipe || !swipeMode) return;
     trackingSwipe = false;
     if (!isDrawerTouchMode()) return;
+    // 🔹如果這次手勢來自詳解區，就不要處理側欄 swipe
+    if (touchFromExplain) {
+      touchFromExplain = false;
+      return;
+    }
 
+    if (!trackingSwipe || !swipeMode) return;
     const t = e.changedTouches && e.changedTouches[0];
     if (!t) return;
 
@@ -9159,5 +9172,3 @@ fc-study-card.fc-overflow {
     lock = null;
   }, { passive: true, capture: true });
 })();
-
-
