@@ -1044,7 +1044,7 @@ let isJumpingFromSearch = false;
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 全卷搜尋（優化版：併發載入所有 scope 再集中比對）
-async function searchAcrossVolumes(keyword) {
+async function searchAcrossVolumes(keyword, opts = null) {
   const kw = String(keyword || "").trim().toLowerCase();
 
   // 空字串就回到一般模式
