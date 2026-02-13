@@ -4352,8 +4352,9 @@ function ensureNoteSeeded(q){
   }
 }
 
-
 function loadNoteForCurrent() {
+  if (!editor) return;
+
   let q = null;
 
   if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
@@ -4371,8 +4372,10 @@ function loadNoteForCurrent() {
   }
 
   ensureNoteSeeded(q);
-  const k = keyForNote(q.id);  // 會用目前下拉選單的科目/年/梯次做命名空間
-  editor.innerHTML = state._notes?.[k] || "";
+  const k = keyForNote(q.id); // 會用目前下拉選單的科目/年/梯次做命名空間
+  editor.innerHTML = state._notes?.[k] || state.notes?.[k] || "";
+
+  try { neutralizeOfficeVML(editor); } catch (e) {}
 }
 
 
@@ -4683,6 +4686,43 @@ function resolveExplainMediaSrc(src) {
   return s;
 }
 
+function neutralizeOfficeVML(rootEl) {
+  try {
+    if (!rootEl) return;
+    const all = rootEl.querySelectorAll ? rootEl.querySelectorAll('*') : [];
+    let touched = 0;
+
+    all.forEach((el) => {
+      const tn = String(el.tagName || '').toLowerCase();
+
+      // Office/Word 常見的 VML/命名空間標籤：v:shape, v:group, o:p, w:pict...
+      const isOfficeNs = tn.startsWith('v:') || tn.startsWith('o:') || tn.startsWith('w:');
+
+      // 有些不是 v:xxx，但 inline style / computed z-index 被設到超大，一樣會蓋住
+      let hugeZ = false;
+      try {
+        const z = parseInt(getComputedStyle(el).zIndex, 10);
+        hugeZ = Number.isFinite(z) && z > 9999;
+      } catch {}
+
+      if (isOfficeNs || hugeZ) {
+        el.style.pointerEvents = 'none';
+        if (hugeZ) el.style.zIndex = '0';
+        touched++;
+      }
+    });
+
+    // debug 模式下，給你一個提示看是否有處理到
+    try {
+      const usp = new URLSearchParams(location.search);
+      const dbg = usp.get('debugclick') === '1' || localStorage.getItem('ntuvm_debug_click_blockers') === '1';
+      if (dbg && touched) console.warn('[neutralizeOfficeVML] touched:', touched, 'in', rootEl.id || rootEl.className || rootEl.tagName);
+    } catch {}
+  } catch (e) {
+    console.warn('neutralizeOfficeVML failed:', e);
+  }
+}
+
 function renderExplanation(q) {
   if (!qExplain || !qExplainWrap) return;
 
@@ -4698,10 +4738,10 @@ function renderExplanation(q) {
     return;
   }
 
-  // 最完整：把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
+  // 把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
   qExplain.innerHTML = exp;
 
-  // 渲染後修正詳解內的媒體路徑（常見是相對路徑，或你資料目錄下的檔案）
+  // 渲染後修正詳解內的媒體路徑
   try {
     qExplain.querySelectorAll("img").forEach((img) => {
       const fixed = resolveExplainMediaSrc(img.getAttribute("src"));
@@ -4715,6 +4755,8 @@ function renderExplanation(q) {
   } catch (e) {
     console.warn("Explanation media post-process failed:", e);
   }
+
+  try { neutralizeOfficeVML(qExplain); } catch (e) {}
 }
 
 
