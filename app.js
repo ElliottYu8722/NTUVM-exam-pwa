@@ -613,24 +613,41 @@ const STORAGE = {
   migrated:  "notes_migrated_to_v2"
 };
 
-/* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免污染 */
-(function migrateNotesOnce(){
-  if (localStorage.getItem(STORAGE.migrated) === "true") return;
-
-  try { localStorage.removeItem("notes"); } catch {}
-  try { localStorage.removeItem("notesMeta"); } catch {}
-
-  // 把可能留下的奇怪 key 格式做個掃描清掉
+function migrateNotesOnce() {
+  // 只做「舊版 key 清理」，絕對不要掃描刪除 notesv2 / notesMetav2
+  // 否則會造成：重開頁面筆記全部消失
+  let migratedVal = null;
   try {
-    Object.keys(localStorage).forEach(k=>{
-      if (/^(note|notes?)(_.*)?$/i.test(k)) {
-        try { localStorage.removeItem(k); } catch {}
-      }
-    });
-  } catch {}
+    migratedVal = localStorage.getItem(STORAGE.migrated);
+  } catch (e) {
+    return;
+  }
 
-  localStorage.setItem(STORAGE.migrated, "true");
-})();
+  if (migratedVal === "true") return;
+
+  // 1) 先把 v2 現有資料備份在記憶體（防呆：就算下面有人手滑刪到也能放回去）
+  let v2NotesRaw = null;
+  let v2MetaRaw = null;
+  try {
+    v2NotesRaw = localStorage.getItem(STORAGE.notes);
+    v2MetaRaw = localStorage.getItem(STORAGE.notesMeta);
+  } catch (e) {}
+
+  // 2) 僅刪除明確的舊 key（不要用 regex 掃整個 localStorage）
+  try { localStorage.removeItem("notes"); } catch (e) {}
+  try { localStorage.removeItem("notesMeta"); } catch (e) {}
+
+  // 3) 把 v2 放回去（如果原本就沒有也沒差）
+  try {
+    if (v2NotesRaw != null) localStorage.setItem(STORAGE.notes, v2NotesRaw);
+    if (v2MetaRaw != null) localStorage.setItem(STORAGE.notesMeta, v2MetaRaw);
+  } catch (e) {}
+
+  // 4) 標記已處理
+  try {
+    localStorage.setItem(STORAGE.migrated, "true");
+  } catch (e) {}
+}
 
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
@@ -9298,6 +9315,7 @@ function setupMobileDrawers(){
 
 /* 初始化 */
 function init() {
+  migrateNotesOnce();   // ← 新增：放在 loadNotes() 前面
   loadNotes();
   loadAnswersFromStorage();
   loadGroups();        // 新增：載入群組資料
