@@ -1231,6 +1231,30 @@ function bindTapClick(el, handler){
 /* 筆記 */
 const fontSel = $("#fontSel");
 const editor = $("#editor");
+// ===== 筆記：取得目前正在看的題目（含群組模式）=====
+function getCurrentNoteContext() {
+  // 回傳 { q, scope } ; scope = {subj, year, round}
+  try {
+    if (state.currentGroupId) {
+      const item = state.visibleQuestions?.[state.index];
+      const entry = item && item.groupEntry;
+      if (entry) {
+        const q = (state.questions || []).find(qq => String(qq.id) === String(entry.qid)) || null;
+        const scope = {
+          subj: String(entry.subj || ''),
+          year: String(entry.year || ''),
+          round: String(entry.round || '')
+        };
+        return { q, scope };
+      }
+    }
+  } catch {}
+
+  const list = (state.visibleQuestions && state.visibleQuestions.length) ? state.visibleQuestions : state.questions;
+  const q = (list && list.length) ? list[state.index] : null;
+  const sc = getScopeFromUI();
+  return { q, scope: { subj: sc.subj, year: sc.year, round: sc.round } };
+}
 
 function ensureNotesImageStyle() {
   if (document.getElementById('notes-img-style')) return;
@@ -4476,33 +4500,62 @@ function getCurrentCommentKey() {
   return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
 }
 
-function saveNotes(scope){
-  const q = state.questions[state.index];
-  if(!q) return;
+function saveNotes(scopeOverride) {
+  if (!editor) return;
 
+  const ctx = getCurrentNoteContext();
+  const q = ctx.q;
+  if (!q) return;
+
+  const scope = scopeOverride || ctx.scope;
   const k = keyForNote(q.id, scope);
 
-  state._notes = state._notes || {};
-  // 這行是關鍵：存「穩定圖片參照」版本
-  state._notes[k] = editorHtmlWithStableImgRefs(editor);
+  state.notes = state.notes || {};
+  state.notesMeta = state.notesMeta || {};
 
-  state._notesMeta = state._notesMeta || {};
-  const meta = state._notesMeta[k] || {};
+  const newHtml = editorHtmlWithStableImgRefs(editor);
+  const prevHtml = typeof state.notes[k] === "string" ? state.notes[k] : "";
+
+  // 防呆：避免「意外變空白」把原本非空的筆記覆蓋掉
+  if (!String(newHtml).trim() && String(prevHtml).trim()) {
+    return;
+  }
+
+  state.notes[k] = newHtml;
+
+  const meta = (state.notesMeta[k] && typeof state.notesMeta[k] === "object") ? state.notesMeta[k] : {};
   meta.userTouched = true;
-  state._notesMeta[k] = meta;
+  state.notesMeta[k] = meta;
 
   try {
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
   } catch (e) {
     console.error("saveNotes failed:", e);
   }
 }
 
-function loadNotes(){
-  try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
-  try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
+
+function loadNotes() {
+  let rawNotes = null;
+  let rawMeta = null;
+
+  try { rawNotes = localStorage.getItem(STORAGE.notes); } catch {}
+  try { rawMeta = localStorage.getItem(STORAGE.notesMeta); } catch {}
+
+  try {
+    state.notes = rawNotes ? (JSON.parse(rawNotes) || {}) : {};
+  } catch {
+    state.notes = {};
+  }
+
+  try {
+    state.notesMeta = rawMeta ? (JSON.parse(rawMeta) || {}) : {};
+  } catch {
+    state.notesMeta = {};
+  }
 }
+
 
 function defaultNoteHTML(q){
   // 不再自動灌入題目詳解，筆記一律只留空白給使用者
@@ -4517,84 +4570,59 @@ function hashStr(s){
   return String(h >>> 0);
 }
 
-function ensureNoteSeeded(q) {
+function ensureNoteSeeded(q, scope) {
   if (!q) return;
 
-  const k = keyForNote(q.id);
+  const k = keyForNote(q.id, scope);
 
   state.notes = state.notes || {};
   state.notesMeta = state.notesMeta || {};
 
-  const exp = (q.explanation == null) ? "" : String(q.explanation);
+  const existingHtml = state.notes[k];
+  const hasExisting = (typeof existingHtml === "string" && existingHtml.trim().length > 0);
+
+  // 已經有內容就完全不要動，避免任何情況覆蓋掉舊筆記
+  if (hasExisting) return;
+
+  // 只在記憶體補骨架：不要在這裡寫回 localStorage（避免把讀取異常時的空白寫回去）
+  state.notes[k] = defaultNoteHTML(q);
+
+  const exp = (q.explanation != null) ? String(q.explanation) : "";
   const curHash = hashStr(exp);
 
-  const existingHtml = state.notes[k];
-  const hasExisting =
-    typeof existingHtml === "string" && existingHtml.trim().length > 0;
-
-  // 先確保 meta 是物件
   let meta = state.notesMeta[k];
   if (!meta || typeof meta !== "object") meta = {};
-
-  // 1) 沒有任何舊筆記：才建立預設筆記
-  if (!hasExisting) {
-    state.notes[k] = defaultNoteHTML(q);
-    meta.seedHash = curHash;
-    if (meta.userTouched !== true) meta.userTouched = false;
-    state.notesMeta[k] = meta;
-
-    try {
-      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
-      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-    } catch (e) {
-      console.error("ensureNoteSeeded save failed", e);
-    }
-    return;
-  }
-
-  // 2) 已有舊筆記：永遠不覆寫內容，只更新 meta（避免未來被當成可覆寫）
   meta.seedHash = curHash;
-  meta.userTouched = true; // 只要有內容，就視為已被使用者擁有，禁止任何自動覆寫
+  if (meta.userTouched !== true) meta.userTouched = false;
   state.notesMeta[k] = meta;
-
-  try {
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-  } catch (e) {
-    console.error("ensureNoteSeeded meta save failed", e);
-  }
 }
 
 
 function loadNoteForCurrent() {
   if (!editor) return;
 
-  // 換題前先清舊的 blob URL，避免記憶體累積
   try { cleanupHydratedBlobUrls(editor); } catch (e) {}
 
-  let q = null;
-
-  if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
-    const entry = state.visibleQuestions[state.index].groupEntry;
-    q = state.questions.find(qq => String(qq.id) === String(entry.qid));
-  } else {
-    q = state.questions[state.index];
-  }
+  const ctx = getCurrentNoteContext();
+  const q = ctx.q;
+  const scope = ctx.scope;
 
   if (!q) {
     editor.innerHTML = "";
     return;
   }
 
-  ensureNoteSeeded(q);
-  const k = keyForNote(q.id);
+  ensureNoteSeeded(q, scope);
 
-  editor.innerHTML = state._notes?.[k] || "";
+  const k = keyForNote(q.id, scope);
+  editor.innerHTML = (state.notes && typeof state.notes[k] === "string") ? state.notes[k] : "";
 
-  // 把 idbimg<id> 轉成 objectURL 讓圖片能顯示
-  try { hydrateIdbImagesInEditor(editor); } catch (e) {}
-
-  try { neutralizeOfficeVML(editor); } catch (e) {}
+  (async () => {
+    try { await hydrateIdbImagesInEditor(editor); } catch (e) {}
+    try { neutralizeOfficeVML(editor); } catch (e) {}
+  })();
 }
+
 
 
 
