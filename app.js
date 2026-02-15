@@ -1231,6 +1231,32 @@ function bindTapClick(el, handler){
 /* 筆記 */
 const fontSel = $("#fontSel");
 const editor = $("#editor");
+
+function ensureNotesImageStyle() {
+  if (document.getElementById('notes-img-style')) return;
+
+  const style = document.createElement('style');
+  style.id = 'notes-img-style';
+  style.textContent = `
+    /* 筆記欄圖片：不要超過編輯器寬度（不強迫放大） */
+    #editor img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 只有「用按鈕插入」的圖片：排版更穩（不影響你原本筆記裡舊圖的顯示型態） */
+    #editor img.note-img {
+      display: block;
+      margin: 8px 0;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// 進頁面就先套用一次，包含已存在於筆記中的圖片也會一起生效
+ensureNotesImageStyle();
+
+
 const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
@@ -1344,8 +1370,12 @@ function cleanupHydratedBlobUrls(rootEl) {
   });
 }
 
+
 async function insertNoteImageFromFile(file) {
   if (!file) return;
+
+  // 保底：確保 CSS 已注入
+  ensureNotesImageStyle();
 
   const id = await idbPutNoteImageBlob(file, {
     from: "file",
@@ -1355,11 +1385,23 @@ async function insertNoteImageFromFile(file) {
   });
 
   const objectUrl = URL.createObjectURL(file);
-  const html = `<img src="${objectUrl}" data-nimg-id="${id}" data-object-url="${objectUrl}" alt="note image" />`;
+
+  // 重點：max-width 100%（不要超過），不是 width 100%（強制滿版）
+  const html = `<img
+    class="note-img"
+    src="${objectUrl}"
+    data-nimg-id="${id}"
+    data-object-url="${objectUrl}"
+    alt="note image"
+    loading="lazy"
+    style="max-width:100%;height:auto;"
+  />`;
 
   editor.focus();
   document.execCommand("insertHTML", false, html);
 }
+
+
 
 /* 題庫載入（完全移除舊的手動載入元件） */
 (function nukeManualLoaders(){
