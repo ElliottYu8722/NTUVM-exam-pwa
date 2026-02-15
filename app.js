@@ -608,46 +608,64 @@ const CONFIG = {
 
 /* ====== 本機儲存鍵 ====== */
 const STORAGE = {
-  notes:     "notes_v2",
+  // 以你現在瀏覽器看到的 key 為準（有底線）
+  notes: "notes_v2",
   notesMeta: "notesMeta_v2",
-  migrated:  "notes_migrated_to_v2"
+  migrated: "notes_migrated_to_v2",
+
+  // 舊版 key（保留做相容搬運）
+  legacyNotes: "notes",
+  legacyNotesMeta: "notesMeta",
+
+  // 另一種舊 v2 命名（你舊程式碼原本用的，沒底線）
+  legacyNotesV2: "notesv2",
+  legacyNotesMetaV2: "notesMetav2",
+  legacyMigratedV2: "notesmigratedtov2",
 };
 
 function migrateNotesOnce() {
-  // 只做「舊版 key 清理」，絕對不要掃描刪除 notesv2 / notesMetav2
-  // 否則會造成：重開頁面筆記全部消失
-  let migratedVal = null;
+  // 任一 migrated 旗標存在，就視為做過（避免每次重開都跑、都刪）
   try {
-    migratedVal = localStorage.getItem(STORAGE.migrated);
+    const a = localStorage.getItem(STORAGE.migrated);
+    const b = localStorage.getItem(STORAGE.legacyMigratedV2);
+    if (a === "true" || b === "true") return;
   } catch (e) {
     return;
   }
 
-  if (migratedVal === "true") return;
+  // 先備份 v2（兩種命名都備份）
+  let newNotesRaw = null;
+  let newMetaRaw = null;
+  let oldV2NotesRaw = null;
+  let oldV2MetaRaw = null;
 
-  // 1) 先把 v2 現有資料備份在記憶體（防呆：就算下面有人手滑刪到也能放回去）
-  let v2NotesRaw = null;
-  let v2MetaRaw = null;
   try {
-    v2NotesRaw = localStorage.getItem(STORAGE.notes);
-    v2MetaRaw = localStorage.getItem(STORAGE.notesMeta);
+    newNotesRaw = localStorage.getItem(STORAGE.notes); // notes_v2
+    newMetaRaw = localStorage.getItem(STORAGE.notesMeta); // notesMeta_v2
+    oldV2NotesRaw = localStorage.getItem(STORAGE.legacyNotesV2); // notesv2
+    oldV2MetaRaw = localStorage.getItem(STORAGE.legacyNotesMetaV2); // notesMetav2
   } catch (e) {}
 
-  // 2) 僅刪除明確的舊 key（不要用 regex 掃整個 localStorage）
-  try { localStorage.removeItem("notes"); } catch (e) {}
-  try { localStorage.removeItem("notesMeta"); } catch (e) {}
+  // 只清「明確舊 key」，不要掃描刪除任何包含 notes 的 key
+  try { localStorage.removeItem(STORAGE.legacyNotes); } catch (e) {}
+  try { localStorage.removeItem(STORAGE.legacyNotesMeta); } catch (e) {}
 
-  // 3) 把 v2 放回去（如果原本就沒有也沒差）
+  // 把 v2 放回去（優先使用有底線的新 key）
   try {
-    if (v2NotesRaw != null) localStorage.setItem(STORAGE.notes, v2NotesRaw);
-    if (v2MetaRaw != null) localStorage.setItem(STORAGE.notesMeta, v2MetaRaw);
+    if (newNotesRaw != null) localStorage.setItem(STORAGE.notes, newNotesRaw);
+    else if (oldV2NotesRaw != null) localStorage.setItem(STORAGE.notes, oldV2NotesRaw);
+
+    if (newMetaRaw != null) localStorage.setItem(STORAGE.notesMeta, newMetaRaw);
+    else if (oldV2MetaRaw != null) localStorage.setItem(STORAGE.notesMeta, oldV2MetaRaw);
   } catch (e) {}
 
-  // 4) 標記已處理
+  // 寫入 migrated 旗標（兩種都寫，保證不會反覆跑）
   try {
     localStorage.setItem(STORAGE.migrated, "true");
+    localStorage.setItem(STORAGE.legacyMigratedV2, "true");
   } catch (e) {}
 }
+
 
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
@@ -8168,6 +8186,13 @@ imgNote.onchange = async (e) => {
 };
 
 editor.addEventListener("input", debounce(saveNotes, 400));
+window.addEventListener("pagehide", () => {
+  try { saveNotes(); } catch (e) {}
+});
+
+window.addEventListener("beforeunload", () => {
+  try { saveNotes(); } catch (e) {}
+});
 
 function exec(cmd, val=null){ editor.focus(); document.execCommand(cmd, false, val); saveNotes(); }
 function toggleButton(btn, fn){ const was = btn.classList.contains("active"); editor.focus(); fn(); btn.classList.toggle("active", !was); saveNotes(); }
