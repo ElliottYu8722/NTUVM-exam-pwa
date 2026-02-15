@@ -887,6 +887,7 @@ const btnToggleAns = $("#btnToggleAns");
 
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
 const qExplain = $("#qExplain");   // 新增：詳解容器
+const qExplainWrap = $("#qExplainWrap");
 const qList = $("#qList");
 
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
@@ -1043,7 +1044,7 @@ let isJumpingFromSearch = false;
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 全卷搜尋（優化版：併發載入所有 scope 再集中比對）
-async function searchAcrossVolumes(keyword) {
+async function searchAcrossVolumes(keyword, opts = null) {
   const kw = String(keyword || "").trim().toLowerCase();
 
   // 空字串就回到一般模式
@@ -4351,8 +4352,9 @@ function ensureNoteSeeded(q){
   }
 }
 
-
 function loadNoteForCurrent() {
+  if (!editor) return;
+
   let q = null;
 
   if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
@@ -4370,8 +4372,10 @@ function loadNoteForCurrent() {
   }
 
   ensureNoteSeeded(q);
-  const k = keyForNote(q.id);  // 會用目前下拉選單的科目/年/梯次做命名空間
-  editor.innerHTML = state._notes?.[k] || "";
+  const k = keyForNote(q.id); // 會用目前下拉選單的科目/年/梯次做命名空間
+  editor.innerHTML = state._notes?.[k] || state.notes?.[k] || "";
+
+  try { neutralizeOfficeVML(editor); } catch (e) {}
 }
 
 
@@ -4666,6 +4670,98 @@ function highlightList() {
   });
 }
 
+
+function resolveExplainMediaSrc(src) {
+  const s = String(src || "").trim();
+  if (!s) return "";
+  if (/^https?:/i.test(s)) return s;
+  if (s.startsWith("")) return s;
+  if (s.startsWith("blob:")) return s;
+
+  // 交給你原本的邏輯：支援 basePath / images 目錄 / 相對路徑等
+  try {
+    if (typeof resolveImage === "function") return resolveImage(s);
+  } catch (e) {}
+
+  return s;
+}
+
+function neutralizeOfficeVML(rootEl) {
+  try {
+    if (!rootEl) return;
+    const all = rootEl.querySelectorAll ? rootEl.querySelectorAll('*') : [];
+    let touched = 0;
+
+    all.forEach((el) => {
+      const tn = String(el.tagName || '').toLowerCase();
+
+      // Office/Word 常見的 VML/命名空間標籤：v:shape, v:group, o:p, w:pict...
+      const isOfficeNs = tn.startsWith('v:') || tn.startsWith('o:') || tn.startsWith('w:');
+
+      // 有些不是 v:xxx，但 inline style / computed z-index 被設到超大，一樣會蓋住
+      let hugeZ = false;
+      try {
+        const z = parseInt(getComputedStyle(el).zIndex, 10);
+        hugeZ = Number.isFinite(z) && z > 9999;
+      } catch {}
+
+      if (isOfficeNs || hugeZ) {
+        el.style.pointerEvents = 'none';
+        if (hugeZ) el.style.zIndex = '0';
+        touched++;
+      }
+    });
+
+    // debug 模式下，給你一個提示看是否有處理到
+    try {
+      const usp = new URLSearchParams(location.search);
+      const dbg = usp.get('debugclick') === '1' || localStorage.getItem('ntuvm_debug_click_blockers') === '1';
+      if (dbg && touched) console.warn('[neutralizeOfficeVML] touched:', touched, 'in', rootEl.id || rootEl.className || rootEl.tagName);
+    } catch {}
+  } catch (e) {
+    console.warn('neutralizeOfficeVML failed:', e);
+  }
+}
+
+function renderExplanation(q) {
+  if (!qExplain || !qExplainWrap) return;
+
+  const raw = q && q.explanation != null ? String(q.explanation) : "";
+  const exp = raw.trim();
+  const has = exp.length > 0;
+
+  qExplainWrap.classList.toggle("hidden", !has);
+  qExplain.classList.toggle("hidden", !has);
+
+  if (!has) {
+    qExplain.innerHTML = "";
+    return;
+  }
+
+  // 把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
+  qExplain.innerHTML = exp;
+
+  // 渲染後修正詳解內的媒體路徑
+  try {
+    qExplain.querySelectorAll("img").forEach((img) => {
+      const fixed = resolveExplainMediaSrc(img.getAttribute("src"));
+      if (fixed) img.setAttribute("src", fixed);
+    });
+
+    qExplain.querySelectorAll("source").forEach((srcEl) => {
+      const fixed = resolveExplainMediaSrc(srcEl.getAttribute("src"));
+      if (fixed) srcEl.setAttribute("src", fixed);
+    });
+  } catch (e) {
+    console.warn("Explanation media post-process failed:", e);
+  }
+
+  try { neutralizeOfficeVML(qExplain); } catch (e) {}
+}
+
+
+
+
 async function renderQuestionInGroupMode() {
   const item = state.visibleQuestions[state.index];
   if (!item || !item.groupEntry) {
@@ -4675,6 +4771,7 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 群組沒有題目時，也順便清空多圖區
     renderQuestionImagesFromState(null);
+    renderExplanation(null);
     return;
   }
 
@@ -4707,6 +4804,7 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 找不到題目的時候，同樣清空多圖區
     renderQuestionImagesFromState(null);
+    renderExplanation(null);
     return;
   }
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
@@ -4732,6 +4830,7 @@ async function renderQuestionInGroupMode() {
 
   // ⭐ 這裡新增：處理多張圖片（第 2 張之後）
   renderQuestionImagesFromState(q);
+  renderExplanation(q);
 
   // 選項
   qOpts.innerHTML = '';
@@ -4789,22 +4888,11 @@ async function renderQuestionInGroupMode() {
 
   highlightList();
   loadNoteForCurrent();
-  loadCommentsForCurrentQuestion();  
-  if (qExplain) {
-    const hasExp = !!q.explanation;
-    if (hasExp) {
-      qExplain.classList.remove('hidden');
-      qExplain.innerHTML = '詳解：' + String(q.explanation);
-    } else {
-      qExplain.classList.add('hidden');
-      qExplain.innerHTML = '';
-    }
-  }
+  loadCommentsForCurrentQuestion();
 }
 
 
-/* 題目顯示（完整覆蓋） */
-/* 題目顯示（完整覆蓋） */
+/題目顯示/
 async function renderQuestion() {
   // 🔥 群組模式：走專屬流程
   if (state.currentGroupId) {
@@ -4925,17 +5013,8 @@ async function renderQuestion() {
   highlightList();
   loadNoteForCurrent();
   loadCommentsForCurrentQuestion();
-  
-  if (qExplain) {
-    const hasExp = !!q.explanation;
-    if (hasExp) {
-      qExplain.classList.remove('hidden');
-      qExplain.innerHTML = '詳解<br>' + String(q.explanation);
-    } else {
-      qExplain.classList.add('hidden');
-      qExplain.innerHTML = '';
-    }
-  }
+  renderExplanation(q);
+
   // 🔥 回顧模式顯示結束按鈕
   if (state.mode === 'review') {
     // 找到下一題按鈕
@@ -4970,6 +5049,7 @@ async function renderQuestion() {
 
   // ⭐ 最後改成帶目前的題目 q，讓多圖區正確對應
   renderQuestionImagesFromState(q);
+  renderExplanation(q);
 }
 
 function addExitReviewBtn() {
@@ -7897,6 +7977,191 @@ if (document.readyState === 'loading') {
   try { initCustomBgControls(); } catch (e) { console.error(e); }
 }
 
+// ================================
+// Debug: Click Blocker Inspector
+// Enable: add ?debugclick=1  OR  localStorage.setItem('ntuvm_debug_click_blockers','1'); location.reload();
+// Disable: localStorage.removeItem('ntuvm_debug_click_blockers'); location.reload();
+// Use manually: __hitTestAt(x,y)
+// ================================
+(function installClickBlockerDebug() {
+  try {
+    const KEY = 'ntuvm_debug_click_blockers';
+    const usp = new URLSearchParams(location.search);
+    const enabled = usp.get('debugclick') === '1' || localStorage.getItem(KEY) === '1';
+    if (!enabled) return;
+
+    if (window.__ntuvmClickBlockerDbgInstalled) return;
+    window.__ntuvmClickBlockerDbgInstalled = true;
+
+    // style for outlining the suspected top element
+    const style = document.createElement('style');
+    style.id = 'ntuvm-clickblocker-debug-style';
+    style.textContent = `
+      .ntuvm-debug-outline {
+        outline: 3px solid #ff3b30 !important;
+        outline-offset: -3px !important;
+      }
+      .ntuvm-debug-hud {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 2147483647;
+        pointer-events: none;
+        max-width: min(560px, calc(100vw - 24px));
+        font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        color: #fff;
+        background: rgba(0,0,0,.72);
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 10px;
+        padding: 8px 10px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    `;
+    document.head.appendChild(style);
+
+    const hud = document.createElement('div');
+    hud.className = 'ntuvm-debug-hud';
+    hud.textContent = '[debugclick=1] ready';
+    document.body.appendChild(hud);
+
+    let lastOutlined = null;
+    function outline(el) {
+      try {
+        if (lastOutlined && lastOutlined.classList) lastOutlined.classList.remove('ntuvm-debug-outline');
+        lastOutlined = el;
+        if (el && el.classList) el.classList.add('ntuvm-debug-outline');
+      } catch {}
+    }
+
+    function safeStr(v) {
+      try { return String(v ?? ''); } catch { return ''; }
+    }
+
+    function shortSel(el) {
+      if (!el || !(el instanceof Element)) return '(not-element)';
+      const tag = el.tagName ? el.tagName.toLowerCase() : 'el';
+      const id = el.id ? `#${el.id}` : '';
+      let cls = '';
+      try {
+        if (el.classList && el.classList.length) cls = '.' + Array.from(el.classList).slice(0, 3).join('.');
+      } catch {}
+      return `${tag}${id}${cls}`;
+    }
+
+    function elInfo(el) {
+      if (!el || !(el instanceof Element)) return null;
+      const cs = getComputedStyle(el);
+      const r = el.getBoundingClientRect();
+      return {
+        sel: shortSel(el),
+        pos: cs.position,
+        z: cs.zIndex,
+        pe: cs.pointerEvents,
+        disp: cs.display,
+        vis: cs.visibility,
+        op: cs.opacity,
+        rect: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }
+      };
+    }
+
+    function dumpAt(x, y, reason, evt) {
+      const els = document.elementsFromPoint(x, y) || [];
+      const top = els[0] || null;
+
+      const nav = document.querySelector('.navrow');
+      const navRect = nav ? nav.getBoundingClientRect() : null;
+
+      console.groupCollapsed(
+        `%c[click-blocker] ${reason} @ (${Math.round(x)},${Math.round(y)}) top=${shortSel(top)}`,
+        'color:#ff3b30;font-weight:700;'
+      );
+
+      if (evt) {
+        try {
+          console.log('event.type:', evt.type);
+          console.log('event.target:', evt.target);
+          console.log('event.composedPath (first 10):', (evt.composedPath ? evt.composedPath().slice(0, 10) : []));
+        } catch {}
+      }
+
+      if (navRect) {
+        console.log('navrow rect:', {
+          left: Math.round(navRect.left),
+          top: Math.round(navRect.top),
+          right: Math.round(navRect.right),
+          bottom: Math.round(navRect.bottom),
+          w: Math.round(navRect.width),
+          h: Math.round(navRect.height),
+        });
+      } else {
+        console.log('navrow rect: (not found)');
+      }
+
+      console.log('elementsFromPoint (top 10):');
+      els.slice(0, 10).forEach((el, i) => {
+        console.log(i, el, elInfo(el));
+      });
+
+      // Outline the top element to visually confirm the blocker
+      outline(top);
+
+      // Update HUD
+      const info = elInfo(top);
+      hud.textContent =
+        `[debugclick=1]\n` +
+        `reason: ${reason}\n` +
+        `xy: ${Math.round(x)},${Math.round(y)}\n` +
+        `top: ${info ? info.sel : '(none)'}\n` +
+        `pos/z/pe: ${info ? `${info.pos}/${info.z}/${info.pe}` : ''}\n` +
+        `disp/vis/op: ${info ? `${info.disp}/${info.vis}/${info.op}` : ''}\n` +
+        `rect: ${info ? `${info.rect.x},${info.rect.y} ${info.rect.w}x${info.rect.h}` : ''}`;
+
+      console.groupEnd();
+      return els;
+    }
+
+    function inNavArea(x, y) {
+      const nav = document.querySelector('.navrow');
+      if (!nav) return false;
+      const r = nav.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    }
+
+    // Capture phase: even if the button never receives the event, we still see who got it.
+    document.addEventListener('pointerdown', (e) => {
+      const x = e.clientX, y = e.clientY;
+      if (inNavArea(x, y) || (e.target && e.target.closest && e.target.closest('.navrow'))) {
+        dumpAt(x, y, 'pointerdown', e);
+      }
+    }, true);
+
+    document.addEventListener('click', (e) => {
+      const x = e.clientX, y = e.clientY;
+      if (inNavArea(x, y) || (e.target && e.target.closest && e.target.closest('.navrow'))) {
+        dumpAt(x, y, 'click', e);
+      }
+    }, true);
+
+    // Manual helper
+    window.__hitTestAt = function(x, y) {
+      const xx = Number(x), yy = Number(y);
+      if (!Number.isFinite(xx) || !Number.isFinite(yy)) {
+        console.warn('__hitTestAt(x,y) needs finite numbers');
+        return [];
+      }
+      return dumpAt(xx, yy, 'manual', null);
+    };
+
+    console.log(
+      '%c[click-blocker] enabled',
+      'color:#22c55e;font-weight:700;',
+      'Disable with localStorage.removeItem("ntuvm_debug_click_blockers") then reload.'
+    );
+  } catch (err) {
+    console.error('installClickBlockerDebug failed:', err);
+  }
+})();
 
 /* 皮膚 */
 /* 主題系統 */
@@ -8977,7 +9242,6 @@ fc-study-card.fc-overflow {
    - 只在「題目內容區」啟用
    - 水平意圖時會 preventDefault()，避免整頁跟著上下動
    ========================================= */
-
 function initSwipeGestures(){
   // 防止重複註冊事件（避免被 init() 呼叫多次時重複綁定）
   if (window.__ntuvmSwipeGesturesInited) return;
@@ -8987,15 +9251,6 @@ function initSwipeGestures(){
   let startY = 0;
   let lock = null; // 'h' | 'v' | null
   let tracking = false;
-
-  // explain 相關狀態
-  let startedInExplain = false;
-  let explainEl = null;
-  let explainStartScrollTop = 0;
-
-  // 若解釋內有「可水平捲動的容器」，會放在這裡（包含 explain 本身）
-  let scrollXEl = null;
-  let usedNativeXScroll = false;
 
   const MINSWIPEX = 70;
   const STARTLOCKDIST = 12;
@@ -9010,74 +9265,22 @@ function initSwipeGestures(){
 
   function inQuestionArea(target){
     if (!target) return false;
-    return !!target.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
+    // 刻意不把 #qExplain 算進來：詳解區完全交給原生捲動（避免 overflow-x 水平捲動誤觸換題）
+    return !!target.closest('#qText, #qImg, #qOpts, #question-images, #qNum');
   }
 
   function shouldIgnoreTarget(target){
     if (!target) return true;
+
+    // 只要在詳解區，直接忽略手勢（最關鍵）
+    if (target.closest && target.closest('#qExplain')) return true;
+
     if (!inQuestionArea(target)) return true;
     if (target.closest('input, textarea, select')) return true;
     if (target.closest('#qList')) return true;
     if (target.closest('.drawer-backdrop')) return true;
     if (target.closest('.fc-screen') || target.closest('#fc-viewer-mask') || target.closest('.fc-viewer-mask')) return true;
     return false;
-  }
-
-  function hasOverflowX(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    return (el.scrollWidth - el.clientWidth) > 1;
-  }
-
-  function hasOverflowY(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    return (el.scrollHeight - el.clientHeight) > 1;
-  }
-
-  function isScrollableX(el){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    const st = getComputedStyle(el);
-    const ox = st.overflowX;
-    if (!(ox === 'auto' || ox === 'scroll')) return false;
-    return hasOverflowX(el);
-  }
-
-  function findNearestScrollableX(fromEl, rootEl){
-    let el = fromEl;
-    while (el && el !== document.body && el !== document.documentElement){
-      if (el instanceof HTMLElement){
-        if (isScrollableX(el)) return el;
-      }
-      if (rootEl && el === rootEl) break;
-      el = el.parentElement;
-    }
-    // 最後再檢查 root 自己（例如 #qExplain 被設 overflow-x:auto）
-    if (rootEl && isScrollableX(rootEl)) return rootEl;
-    return null;
-  }
-
-  function canScrollXInDirection(el, dx){
-    if (!el || !(el instanceof HTMLElement)) return false;
-    const max = el.scrollWidth - el.clientWidth;
-    if (max <= 1) return false;
-
-    // dx < 0：手指往左滑，內容通常往右捲 => scrollLeft 會增加
-    if (dx < 0) return el.scrollLeft < (max - 1);
-
-    // dx > 0：手指往右滑，內容通常往左捲 => scrollLeft 會減少
-    if (dx > 0) return el.scrollLeft > 1;
-
-    return false;
-  }
-
-  function explainAtVerticalBoundary(){
-    if (!explainEl) return true;
-    if (!hasOverflowY(explainEl)) return true;
-
-    const cur = explainEl.scrollTop;
-    const max = explainEl.scrollHeight - explainEl.clientHeight;
-
-    // 在頂端或底端（容許一點點誤差）
-    return cur <= 0 || cur >= (max - 1);
   }
 
   document.addEventListener('touchstart', (e)=>{
@@ -9112,18 +9315,6 @@ function initSwipeGestures(){
     startY = t.clientY;
     lock = null;
     tracking = true;
-
-    explainEl = document.getElementById('qExplain');
-    startedInExplain = !!(explainEl && e.target && explainEl.contains(e.target));
-    explainStartScrollTop = explainEl ? explainEl.scrollTop : 0;
-
-    usedNativeXScroll = false;
-
-    // 只有在 explain 區域內才需要找水平捲動容器
-    scrollXEl = null;
-    if (startedInExplain){
-      scrollXEl = findNearestScrollableX(e.target, explainEl);
-    }
   }, { passive: true, capture: true });
 
   document.addEventListener('touchmove', (e)=>{
@@ -9139,21 +9330,10 @@ function initSwipeGestures(){
       lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
     }
 
-    // 垂直就交給原生捲動（尤其是 qExplain 的閱讀）
+    // 垂直就交給原生捲動
     if (lock === 'v') return;
 
-    // lock === 'h'：先判斷是否應該讓 explain 的水平捲動優先
-    if (startedInExplain && scrollXEl && canScrollXInDirection(scrollXEl, dx)){
-      // 這次水平滑動其實是在「捲內容」，不要攔截、也不要換題
-      usedNativeXScroll = true;
-      return;
-    }
-
-    // 走到這裡表示：
-    // - 不在 explain；或
-    // - explain 內沒有水平可捲；或
-    // - 已捲到最左/最右（無法再往 dx 方向捲）
-    // => 才允許我們把它當成換題手勢，並阻止 iOS 橡皮筋效果
+    // 水平滑動：我們要換題，所以阻止 iOS 橡皮筋/頁面滑動
     if (e.cancelable) e.preventDefault();
   }, { passive: false, capture: true });
 
@@ -9167,18 +9347,6 @@ function initSwipeGestures(){
     }
 
     if (lock !== 'h'){
-      lock = null;
-      return;
-    }
-
-    // 如果剛剛是用來做水平捲動，就絕對不換題
-    if (usedNativeXScroll){
-      lock = null;
-      return;
-    }
-
-    // 如果起點在 explain，且 explain 仍在垂直捲動中段（非頂/底），也不換題（避免閱讀時誤觸）
-    if (startedInExplain && !explainAtVerticalBoundary()){
       lock = null;
       return;
     }
