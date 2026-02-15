@@ -1231,6 +1231,262 @@ function bindTapClick(el, handler){
 /* 筆記 */
 const fontSel = $("#fontSel");
 const editor = $("#editor");
+// ===== 筆記下方：儲存空間狀態列（usage/quota/persistent + 備份）=====
+function ensureNotesStorageStatusStyle() {
+  if (document.getElementById("notes-storage-status-style")) return;
+  const s = document.createElement("style");
+  s.id = "notes-storage-status-style";
+  s.textContent = `
+    #notes-storage-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 1px solid var(--border, #333);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      color: var(--fg, #fff);
+      font-size: 12px;
+      line-height: 1.2;
+      flex-wrap: wrap;
+    }
+    #notes-storage-status .nss-left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      min-width: 220px;
+    }
+    #notes-storage-status .nss-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: var(--muted, #aaa);
+      flex: 0 0 auto;
+    }
+    #notes-storage-status .nss-text {
+      color: var(--muted, #aaa);
+      white-space: nowrap;
+    }
+    #notes-storage-status .nss-text strong {
+      color: var(--fg, #fff);
+      font-weight: 700;
+    }
+    #notes-storage-status .nss-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+    #notes-storage-status .nss-btn {
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #444);
+      background: transparent;
+      color: var(--fg, #fff);
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    #notes-storage-status .nss-btn:hover {
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+    }
+    #notes-storage-status .nss-btn.primary {
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+      background: rgba(47,116,255,0.10);
+    }
+  `;
+  document.head.appendChild(s);
+}
+
+function formatBytes(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x) || x < 0) return "未知";
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  let v = x;
+  let i = 0;
+  while (v >= 1024 && i < units.length - 1) {
+    v /= 1024;
+    i++;
+  }
+  const digits = i === 0 ? 0 : (i <= 2 ? 1 : 2);
+  return `${v.toFixed(digits)}${units[i]}`;
+}
+
+async function getNotesImageCount() {
+  try {
+    if (typeof openNotesImgDB !== "function") return null;
+    const db = await openNotesImgDB();
+    return await new Promise((resolve) => {
+      const tx = db.transaction(NOTESIMGDB.store, "readonly");
+      const store = tx.objectStore(NOTESIMGDB.store);
+      const req = store.count();
+      req.onsuccess = () => resolve(Number.isFinite(req.result) ? req.result : null);
+      req.onerror = () => resolve(null);
+    });
+  } catch {
+    return null;
+  }
+}
+
+function ensureNotesStorageStatusBar() {
+  ensureNotesStorageStatusStyle();
+  if (!editor || !editor.parentNode) return;
+
+  let bar = document.getElementById("notes-storage-status");
+  if (bar) return;
+
+  bar = document.createElement("div");
+  bar.id = "notes-storage-status";
+
+  const left = document.createElement("div");
+  left.className = "nss-left";
+
+  const dot = document.createElement("span");
+  dot.className = "nss-dot";
+  dot.id = "nss-dot";
+
+  const text = document.createElement("span");
+  text.className = "nss-text";
+  text.id = "nss-text";
+  text.textContent = "容量：讀取中…";
+
+  left.appendChild(dot);
+  left.appendChild(text);
+
+  const actions = document.createElement("div");
+  actions.className = "nss-actions";
+
+  const btnPersist = document.createElement("button");
+  btnPersist.className = "nss-btn primary";
+  btnPersist.id = "nss-btn-persist";
+  btnPersist.textContent = "申請持久化";
+  btnPersist.onclick = async () => {
+    try {
+      if (navigator.storage && navigator.storage.persist) {
+        await navigator.storage.persist();
+      } else {
+        alert("此瀏覽器不支援持久化儲存 API");
+      }
+    } catch (e) {}
+    await updateNotesStorageStatus(true);
+  };
+
+  const btnBackup = document.createElement("button");
+  btnBackup.className = "nss-btn";
+  btnBackup.id = "nss-btn-backup";
+  btnBackup.textContent = "立刻備份";
+  btnBackup.onclick = () => {
+    try {
+      if (typeof buildNotesRecordsBackupPayload !== "function" || typeof downloadJsonObject !== "function") {
+        alert("備份功能未就緒（找不到 buildNotesRecordsBackupPayload / downloadJsonObject）");
+        return;
+      }
+      const payload = buildNotesRecordsBackupPayload();
+      const ts = new Date();
+      const y = ts.getFullYear();
+      const m = String(ts.getMonth() + 1).padStart(2, "0");
+      const d = String(ts.getDate()).padStart(2, "0");
+      const hh = String(ts.getHours()).padStart(2, "0");
+      const mm = String(ts.getMinutes()).padStart(2, "0");
+      downloadJsonObject(payload, `ntuvm-notes-records-${y}${m}${d}-${hh}${mm}.json`);
+    } catch (e) {
+      alert("備份失敗：請看 console");
+      console.error(e);
+    }
+  };
+
+  actions.appendChild(btnPersist);
+  actions.appendChild(btnBackup);
+
+  bar.appendChild(left);
+  bar.appendChild(actions);
+
+  // 插在 editor 正下方
+  editor.parentNode.insertBefore(bar, editor.nextSibling);
+}
+
+async function updateNotesStorageStatus(force = false) {
+  try {
+    ensureNotesStorageStatusBar();
+    const textEl = document.getElementById("nss-text");
+    const dotEl = document.getElementById("nss-dot");
+    const btnPersist = document.getElementById("nss-btn-persist");
+    if (!textEl || !dotEl) return;
+
+    if (!navigator.storage || !navigator.storage.estimate) {
+      textEl.textContent = "容量：此瀏覽器不支援 estimate()";
+      dotEl.style.background = "var(--muted, #aaa)";
+      if (btnPersist) btnPersist.disabled = true;
+      return;
+    }
+
+    const est = await navigator.storage.estimate();
+    const usage = Number(est && est.usage);
+    const quota = Number(est && est.quota);
+
+    let pct = null;
+    if (Number.isFinite(usage) && Number.isFinite(quota) && quota > 0) pct = usage / quota;
+
+    let persisted = null;
+    if (navigator.storage && navigator.storage.persisted) {
+      try { persisted = await navigator.storage.persisted(); } catch {}
+    }
+
+    const imgCount = await getNotesImageCount();
+
+    const parts = [];
+    if (Number.isFinite(usage) && Number.isFinite(quota) && quota > 0) {
+      parts.push(`已用 <strong>${formatBytes(usage)}</strong> / ${formatBytes(quota)} (${Math.round(pct * 100)}%)`);
+    } else if (Number.isFinite(usage)) {
+      parts.push(`已用 <strong>${formatBytes(usage)}</strong>`);
+    } else {
+      parts.push("容量：未知");
+    }
+
+    if (Number.isFinite(imgCount)) parts.push(`圖片 ${imgCount}`);
+    if (persisted === true) parts.push("持久化：是");
+    else if (persisted === false) parts.push("持久化：否");
+
+    textEl.innerHTML = parts.join("｜");
+
+    // 顏色燈號：>85% 紅、>70% 黃、其它灰/藍
+    if (pct != null) {
+      if (pct >= 0.85) dotEl.style.background = "#c40000";
+      else if (pct >= 0.70) dotEl.style.background = "#ffb020";
+      else dotEl.style.background = "var(--accent, #2f74ff)";
+    } else {
+      dotEl.style.background = "var(--muted, #aaa)";
+    }
+
+    if (btnPersist) {
+      // 已持久化就關掉按鈕（避免一直按）
+      btnPersist.disabled = (persisted === true);
+      btnPersist.textContent = (persisted === true) ? "已持久化" : "申請持久化";
+    }
+
+    // 防止你不小心重複綁 interval
+    if (!window.__nssIntervalId) {
+      window.__nssIntervalId = setInterval(() => {
+        updateNotesStorageStatus(false);
+      }, 30000);
+    }
+  } catch (e) {
+    // 靜默失敗，避免干擾使用者
+  }
+}
+
+// 初始化（只要 editor 存在就能掛）
+try {
+  ensureNotesStorageStatusBar();
+  updateNotesStorageStatus(true);
+} catch {}
+
+
 // ===== 筆記：取得目前正在看的題目（含群組模式）=====
 function getCurrentNoteContext() {
   // 回傳 { q, scope } ; scope = {subj, year, round}
@@ -1423,6 +1679,8 @@ async function insertNoteImageFromFile(file) {
 
   editor.focus();
   document.execCommand("insertHTML", false, html);
+  updateNotesStorageStatus(false);
+
 }
 
 
@@ -4530,6 +4788,7 @@ function saveNotes(scopeOverride) {
   try {
     localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
     localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    updateNotesStorageStatus(false);
   } catch (e) {
     console.error("saveNotes failed:", e);
   }
