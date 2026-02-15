@@ -608,64 +608,29 @@ const CONFIG = {
 
 /* ====== 本機儲存鍵 ====== */
 const STORAGE = {
-  // 以你現在瀏覽器看到的 key 為準（有底線）
-  notes: "notes_v2",
+  notes:     "notes_v2",
   notesMeta: "notesMeta_v2",
-  migrated: "notes_migrated_to_v2",
-
-  // 舊版 key（保留做相容搬運）
-  legacyNotes: "notes",
-  legacyNotesMeta: "notesMeta",
-
-  // 另一種舊 v2 命名（你舊程式碼原本用的，沒底線）
-  legacyNotesV2: "notesv2",
-  legacyNotesMetaV2: "notesMetav2",
-  legacyMigratedV2: "notesmigratedtov2",
+  migrated:  "notes_migrated_to_v2"
 };
 
-function migrateNotesOnce() {
-  // 任一 migrated 旗標存在，就視為做過（避免每次重開都跑、都刪）
+/* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免污染 */
+(function migrateNotesOnce(){
+  if (localStorage.getItem(STORAGE.migrated) === "true") return;
+
+  try { localStorage.removeItem("notes"); } catch {}
+  try { localStorage.removeItem("notesMeta"); } catch {}
+
+  // 把可能留下的奇怪 key 格式做個掃描清掉
   try {
-    const a = localStorage.getItem(STORAGE.migrated);
-    const b = localStorage.getItem(STORAGE.legacyMigratedV2);
-    if (a === "true" || b === "true") return;
-  } catch (e) {
-    return;
-  }
+    Object.keys(localStorage).forEach(k=>{
+      if (/^(note|notes?)(_.*)?$/i.test(k)) {
+        try { localStorage.removeItem(k); } catch {}
+      }
+    });
+  } catch {}
 
-  // 先備份 v2（兩種命名都備份）
-  let newNotesRaw = null;
-  let newMetaRaw = null;
-  let oldV2NotesRaw = null;
-  let oldV2MetaRaw = null;
-
-  try {
-    newNotesRaw = localStorage.getItem(STORAGE.notes); // notes_v2
-    newMetaRaw = localStorage.getItem(STORAGE.notesMeta); // notesMeta_v2
-    oldV2NotesRaw = localStorage.getItem(STORAGE.legacyNotesV2); // notesv2
-    oldV2MetaRaw = localStorage.getItem(STORAGE.legacyNotesMetaV2); // notesMetav2
-  } catch (e) {}
-
-  // 只清「明確舊 key」，不要掃描刪除任何包含 notes 的 key
-  try { localStorage.removeItem(STORAGE.legacyNotes); } catch (e) {}
-  try { localStorage.removeItem(STORAGE.legacyNotesMeta); } catch (e) {}
-
-  // 把 v2 放回去（優先使用有底線的新 key）
-  try {
-    if (newNotesRaw != null) localStorage.setItem(STORAGE.notes, newNotesRaw);
-    else if (oldV2NotesRaw != null) localStorage.setItem(STORAGE.notes, oldV2NotesRaw);
-
-    if (newMetaRaw != null) localStorage.setItem(STORAGE.notesMeta, newMetaRaw);
-    else if (oldV2MetaRaw != null) localStorage.setItem(STORAGE.notesMeta, oldV2MetaRaw);
-  } catch (e) {}
-
-  // 寫入 migrated 旗標（兩種都寫，保證不會反覆跑）
-  try {
-    localStorage.setItem(STORAGE.migrated, "true");
-    localStorage.setItem(STORAGE.legacyMigratedV2, "true");
-  } catch (e) {}
-}
-
+  localStorage.setItem(STORAGE.migrated, "true");
+})();
 
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
@@ -922,7 +887,6 @@ const btnToggleAns = $("#btnToggleAns");
 
 const qNum = $("#qNum"), qText = $("#qText"), qImg = $("#qImg"), qOpts = $("#qOpts");
 const qExplain = $("#qExplain");   // 新增：詳解容器
-const qExplainWrap = $("#qExplainWrap");
 const qList = $("#qList");
 
 // 把搜尋結果畫到右側列表（不影響原本 renderList）
@@ -1079,7 +1043,7 @@ let isJumpingFromSearch = false;
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
 // 全卷搜尋（優化版：併發載入所有 scope 再集中比對）
-async function searchAcrossVolumes(keyword, opts = null) {
+async function searchAcrossVolumes(keyword) {
   const kw = String(keyword || "").trim().toLowerCase();
 
   // 空字串就回到一般模式
@@ -1251,223 +1215,6 @@ const editor = $("#editor");
 const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
-
-// ===== 筆記圖片：改存 IndexedDB（避免 localStorage 爆掉） =====
-const NOTES_IMG_DB = {
-  name: "ntuvm-notes-images-db",
-  version: 1,
-  store: "images"
-};
-
-let __notesImgDbPromise = null;
-
-function openNotesImgDB() {
-  if (__notesImgDbPromise) return __notesImgDbPromise;
-  __notesImgDbPromise = new Promise((resolve, reject) => {
-    try {
-      const req = indexedDB.open(NOTES_IMG_DB.name, NOTES_IMG_DB.version);
-      req.onupgradeneeded = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(NOTES_IMG_DB.store)) {
-          db.createObjectStore(NOTES_IMG_DB.store, { keyPath: "id" });
-        }
-      };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error || new Error("IndexedDB 開啟失敗"));
-    } catch (e) {
-      reject(e);
-    }
-  });
-  return __notesImgDbPromise;
-}
-
-function makeNotesImgId() {
-  return "nimg-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
-}
-
-async function idbPutNoteImageBlob(blob, meta = {}) {
-  const db = await openNotesImgDB();
-  const id = makeNotesImgId();
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_IMG_DB.store, "readwrite");
-    const store = tx.objectStore(NOTES_IMG_DB.store);
-    store.put({
-      id,
-      blob,
-      type: blob && blob.type ? blob.type : (meta.type || "application/octet-stream"),
-      createdAt: Date.now(),
-      meta
-    });
-    tx.oncomplete = () => resolve(id);
-    tx.onerror = () => reject(tx.error || new Error("IndexedDB 寫入失敗"));
-    tx.onabort = () => reject(tx.error || new Error("IndexedDB 寫入中止"));
-  });
-}
-
-async function idbGetNoteImageBlob(id) {
-  const db = await openNotesImgDB();
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_IMG_DB.store, "readonly");
-    const store = tx.objectStore(NOTES_IMG_DB.store);
-    const req = store.get(id);
-    req.onsuccess = () => resolve(req.result ? req.result.blob : null);
-    req.onerror = () => reject(req.error || new Error("IndexedDB 讀取失敗"));
-  });
-}
-
-function dataUrlToBlob(dataUrl) {
-  const s = String(dataUrl || "");
-  const idx = s.indexOf(",");
-  if (idx < 0) return null;
-  const head = s.slice(0, idx);
-  const base64 = s.slice(idx + 1);
-  const m = /([^;]+);base64/i.exec(head);
-  const mime = m && m[1] ? m[1] : "application/octet-stream";
-  const bin = atob(base64);
-  const len = bin.length;
-  const bytes = new Uint8Array(len);
-  for (let i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
-  return new Blob([bytes], { type: mime });
-}
-
-function editorHtmlWithStableImgRefs(rootEl) {
-  // 重要：畫面上會把 src 換成 blob:，但存回去必須轉回 idbimg:xxx
-  if (!rootEl) return "";
-  const clone = rootEl.cloneNode(true);
-  clone.querySelectorAll("img").forEach(img => {
-    const id = img.dataset && img.dataset.nimgId ? String(img.dataset.nimgId) : "";
-    if (id) img.setAttribute("src", "idbimg:" + id);
-  });
-  return clone.innerHTML;
-}
-
-async function hydrateIdbImagesInEditor(rootEl) {
-  if (!rootEl) return;
-
-  const imgs = Array.from(rootEl.querySelectorAll("img"));
-  for (const img of imgs) {
-    const rawSrc = String(img.getAttribute("src") || "");
-    if (!rawSrc.startsWith("idbimg:")) continue;
-
-    const id = rawSrc.slice("idbimg:".length);
-    if (!id) continue;
-
-    img.dataset.nimgId = id;
-
-    try {
-      const blob = await idbGetNoteImageBlob(id);
-      if (!blob) continue;
-      const url = URL.createObjectURL(blob);
-      img.setAttribute("src", url);
-      img.dataset.objectUrl = url;
-    } catch (e) {
-      console.warn("hydrateIdbImagesInEditor failed", e);
-    }
-  }
-}
-
-function cleanupHydratedBlobUrls(rootEl) {
-  if (!rootEl) return;
-  rootEl.querySelectorAll("img[data-object-url], img[data-objecturl], img[data-objectUrl]").forEach(img => {
-    const url = img.dataset.objectUrl;
-    if (url && String(url).startsWith("blob:")) {
-      try { URL.revokeObjectURL(url); } catch {}
-    }
-    try { delete img.dataset.objectUrl; } catch {}
-  });
-}
-
-async function migrateInlineDataUrlImagesInEditor(rootEl) {
-  // 把舊筆記裡的 image/... 轉成 IndexedDB + idbimg:xxx
-  if (!rootEl) return false;
-
-  const imgs = Array.from(rootEl.querySelectorAll("img"));
-  let changed = false;
-
-  for (const img of imgs) {
-    const src = String(img.getAttribute("src") || "");
-    if (!/^image\//i.test(src)) continue;
-
-    try {
-      const blob = dataUrlToBlob(src);
-      if (!blob) continue;
-      const id = await idbPutNoteImageBlob(blob, { from: "dataurl" });
-      img.setAttribute("src", "idbimg:" + id);
-      img.dataset.nimgId = id;
-      changed = true;
-    } catch (e) {
-      console.warn("migrateInlineDataUrlImagesInEditor failed", e);
-    }
-  }
-
-  return changed;
-}
-
-function loadImageFromFileAsBitmap(file) {
-  return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    img.onload = () => {
-      try { URL.revokeObjectURL(url); } catch {}
-      resolve(img);
-    };
-    img.onerror = (e) => {
-      try { URL.revokeObjectURL(url); } catch {}
-      reject(e);
-    };
-    img.src = url;
-  });
-}
-
-async function compressImageFileToJpegBlob(file, opts = {}) {
-  const maxSide = Number.isFinite(opts.maxSide) ? opts.maxSide : 1600;
-  const quality = Number.isFinite(opts.quality) ? opts.quality : 0.82;
-
-  const img = await loadImageFromFileAsBitmap(file);
-  const w = img.naturalWidth || img.width || 0;
-  const h = img.naturalHeight || img.height || 0;
-  if (!w || !h) return file;
-
-  const scale = Math.min(1, maxSide / Math.max(w, h));
-  const cw = Math.max(1, Math.round(w * scale));
-  const ch = Math.max(1, Math.round(h * scale));
-
-  const canvas = document.createElement("canvas");
-  canvas.width = cw;
-  canvas.height = ch;
-
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, cw, ch);
-
-  const blob = await new Promise((resolve) => {
-    canvas.toBlob(b => resolve(b), "image/jpeg", quality);
-  });
-
-  return blob || file;
-}
-
-async function insertNoteImageFromFile(file) {
-  if (!editor) return;
-
-  // 1) 壓縮成 JPEG（減少空間；透明 PNG 會變白底，若你很在意可再調整）
-  let blob = null;
-  try {
-    blob = await compressImageFileToJpegBlob(file, { maxSide: 1600, quality: 0.82 });
-  } catch {
-    blob = file;
-  }
-
-  // 2) 存入 IndexedDB，並在筆記插入 idbimg:xxx
-  const id = await idbPutNoteImageBlob(blob, { originalName: file && file.name ? file.name : "" });
-
-  editor.focus();
-  document.execCommand("insertImage", false, "idbimg:" + id);
-
-  // 3) 立刻把 idbimg:xxx 水合成 blob: URL 讓畫面看得到
-  cleanupHydratedBlobUrls(editor);
-  await hydrateIdbImagesInEditor(editor);
-}
-
 
 /* 題庫載入（完全移除舊的手動載入元件） */
 (function nukeManualLoaders(){
@@ -4521,33 +4268,6 @@ function getScopeFromUI(){
     round: getRoundCode()                 // 梯次代碼 1/2/0
   };
 }
-
-// 取得「目前這一題筆記應該使用的 scope」
-// 群組模式：用 groupEntry 的 subj/year/round（不看 UI 下拉）
-// 一般模式：用 UI scope
-function getNoteScopeForCurrent() {
-  try {
-    if (
-      state &&
-      state.currentGroupId &&
-      Array.isArray(state.visibleQuestions) &&
-      state.visibleQuestions[state.index] &&
-      state.visibleQuestions[state.index].groupEntry
-    ) {
-      const entry = state.visibleQuestions[state.index].groupEntry;
-      return {
-        subj: String(entry.subj || ""),
-        year: String(entry.year || ""),
-        round: Number(entry.round || 0),
-      };
-    }
-  } catch (e) {
-    // ignore
-  }
-  return getScopeFromUI();
-}
-
-
 // 筆記鍵名：綁定 科目＋年次＋梯次＋題號，避免跨卷/跨科碰撞
 function keyForNote(qid, scope){
   const sc = scope || getScopeFromUI();
@@ -4570,59 +4290,22 @@ function getCurrentCommentKey() {
 }
 
 
-function getCurrentQuestionForNote() {
-  // 兼容群組模式與一般模式
-  try {
-    if (state && state.currentGroupId && state.visibleQuestions && state.visibleQuestions[state.index]?.groupEntry) {
-      const entry = state.visibleQuestions[state.index].groupEntry;
-      const q = state.questions.find(qq => String(qq.id) === String(entry.qid));
-      return q || null;
-    }
-  } catch {}
-  return (state && state.questions && state.questions[state.index]) ? state.questions[state.index] : null;
-}
-function saveNotes(scope) {
-  if (!editor) return;
+function saveNotes(scope){
+  const q = state.questions[state.index];
+  if(!q) return;
 
-  const q = getCurrentQuestionForNote();
-  if (!q) return;
+  const k = keyForNote(q.id, scope);
+  state._notes = state._notes || {};
+  state._notes[k] = editor.innerHTML;
 
-  const useScope = scope || getNoteScopeForCurrent();
-  const k = keyForNote(q.id, useScope);
-
-  state.notes = state.notes && typeof state.notes === "object" ? state.notes : {};
-  state.notesMeta = state.notesMeta && typeof state.notesMeta === "object" ? state.notesMeta : {};
-
-  const html = editorHtmlWithStableImgRefs(editor);
-  state.notes[k] = html;
-
-  const curHash = hashStr(q.explanation || "");
-  const meta =
-    state.notesMeta[k] && typeof state.notesMeta[k] === "object"
-      ? state.notesMeta[k]
-      : { seedHash: curHash, userTouched: false };
-
-  // 只要存過，就視為使用者有動過
+  state._notesMeta = state._notesMeta || {};
+  const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
-  // meta.seedHash 若不存在就補上（避免之後 ensureNoteSeeded 判斷怪怪的）
-  if (!meta.seedHash) meta.seedHash = curHash;
+  state._notesMeta[k] = meta;
 
-  state.notesMeta[k] = meta;
-
-  try {
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-  } catch (e) {
-    console.error("saveNotes failed", e);
-    const msg = e && e.name === "QuotaExceededError"
-      ? "儲存空間不足（localStorage）。建議清掉舊資料或把圖片用 IndexedDB 模式存。"
-      : "儲存失敗，請開 Console 看錯誤。";
-    alert(msg);
-  }
+  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
 }
-
-
-
 function loadNotes(){
   try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
@@ -4641,71 +4324,44 @@ function hashStr(s){
   return String(h >>> 0);
 }
 
-function ensureNoteSeeded(q, scope) {
-  if (!q) return;
+function ensureNoteSeeded(q){
+  const k = keyForNote(q.id);
+  state._notes     = state._notes     || {};
+  state._notesMeta = state._notesMeta || {};
 
-  const useScope = scope || getNoteScopeForCurrent();
-  const k = keyForNote(q.id, useScope);
-
-  state.notes = state.notes && typeof state.notes === "object" ? state.notes : {};
-  state.notesMeta = state.notesMeta && typeof state.notesMeta === "object" ? state.notesMeta : {};
-
+  const meta = state._notesMeta[k] || {};
   const curHash = hashStr(q.explanation || "");
-  const meta = state.notesMeta[k] && typeof state.notesMeta[k] === "object" ? state.notesMeta[k] : null;
 
-  // 沒有筆記：種一個預設
-  if (state.notes[k] == null) {
-    state.notes[k] = defaultNoteHTML(q);
-    state.notesMeta[k] = { seedHash: curHash, userTouched: false };
-    try {
-      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
-      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-    } catch (e) {}
+  if(state._notes[k] == null){
+    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
+    state._notes[k] = defaultNoteHTML(q);
+    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
     return;
   }
 
-  // 有筆記但 meta 不存在：補 meta（避免後面 saveNotes 取 meta.userTouched 直接炸）
-  if (!meta) {
-    state.notesMeta[k] = { seedHash: curHash, userTouched: false };
-    try {
-      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-    } catch (e) {}
-    return;
-  }
-
-  // 題目解釋變了、且使用者沒動過：重種預設筆記
-  if (meta.seedHash !== curHash && meta.userTouched !== true) {
-    state.notes[k] = defaultNoteHTML(q);
+  // 同步到最新版詳解
+  if(meta.seedHash !== curHash && meta.userTouched !== true){
+    state._notes[k] = defaultNoteHTML(q);
     meta.seedHash = curHash;
-    state.notesMeta[k] = meta;
-    try {
-      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
-      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
-    } catch (e) {}
+    state._notesMeta[k] = meta;
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
   }
 }
+
+
 function loadNoteForCurrent() {
-  if (!editor) return;
-
-  // 先清掉上一題 hydrate 出來的 blob URL，避免記憶體累積
-  try {
-    cleanupHydratedBlobUrls(editor);
-  } catch (e) {}
-
   let q = null;
-  let scopeForNote = null;
 
-  if (state.currentGroupId && state.visibleQuestions?.[state.index]?.groupEntry) {
+  if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
+    // 群組模式：用 entry.qid 去目前這卷找題目
     const entry = state.visibleQuestions[state.index].groupEntry;
-    scopeForNote = {
-      subj: String(entry.subj || ""),
-      year: String(entry.year || ""),
-      round: Number(entry.round || 0),
-    };
-    q = state.questions.find((qq) => String(qq.id) === String(entry.qid));
+    q = state.questions.find(qq => String(qq.id) === String(entry.qid));
   } else {
+    // 一般模式：沿用原本邏輯
     q = state.questions[state.index];
-    scopeForNote = getScopeFromUI();
   }
 
   if (!q) {
@@ -4713,43 +4369,10 @@ function loadNoteForCurrent() {
     return;
   }
 
-  ensureNoteSeeded(q, scopeForNote);
-
-  const k = keyForNote(q.id, scopeForNote);
-  const html = state.notes && state.notes[k] != null ? state.notes[k] : defaultNoteHTML(q);
-  editor.innerHTML = html;
-
-  // 防止「快速切題」時，上一題的 async migrate/hydrate 回來污染下一題
-  const token = `note-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  editor.dataset.noteToken = token;
-
-  (async () => {
-    const stillHere = () => editor && editor.dataset.noteToken === token;
-
-    try {
-      if (!stillHere()) return;
-
-      const changed = await migrateInlineDataUrlImagesInEditor(editor);
-      if (!stillHere()) return;
-
-      if (changed) {
-        // 用 scopeForNote，避免群組模式下 UI scope 不一致
-        saveNotes(scopeForNote);
-      }
-
-      if (!stillHere()) return;
-      await hydrateIdbImagesInEditor(editor);
-      if (!stillHere()) return;
-    } catch (e) {
-      console.warn("note image migrate/hydrate failed", e);
-    }
-
-    try {
-      if (stillHere()) neutralizeOfficeVML(editor);
-    } catch (e) {}
-  })();
+  ensureNoteSeeded(q);
+  const k = keyForNote(q.id);  // 會用目前下拉選單的科目/年/梯次做命名空間
+  editor.innerHTML = state._notes?.[k] || "";
 }
-
 
 
 // 題號列表
@@ -5043,98 +4666,6 @@ function highlightList() {
   });
 }
 
-
-function resolveExplainMediaSrc(src) {
-  const s = String(src || "").trim();
-  if (!s) return "";
-  if (/^https?:/i.test(s)) return s;
-  if (s.startsWith("")) return s;
-  if (s.startsWith("blob:")) return s;
-
-  // 交給你原本的邏輯：支援 basePath / images 目錄 / 相對路徑等
-  try {
-    if (typeof resolveImage === "function") return resolveImage(s);
-  } catch (e) {}
-
-  return s;
-}
-
-function neutralizeOfficeVML(rootEl) {
-  try {
-    if (!rootEl) return;
-    const all = rootEl.querySelectorAll ? rootEl.querySelectorAll('*') : [];
-    let touched = 0;
-
-    all.forEach((el) => {
-      const tn = String(el.tagName || '').toLowerCase();
-
-      // Office/Word 常見的 VML/命名空間標籤：v:shape, v:group, o:p, w:pict...
-      const isOfficeNs = tn.startsWith('v:') || tn.startsWith('o:') || tn.startsWith('w:');
-
-      // 有些不是 v:xxx，但 inline style / computed z-index 被設到超大，一樣會蓋住
-      let hugeZ = false;
-      try {
-        const z = parseInt(getComputedStyle(el).zIndex, 10);
-        hugeZ = Number.isFinite(z) && z > 9999;
-      } catch {}
-
-      if (isOfficeNs || hugeZ) {
-        el.style.pointerEvents = 'none';
-        if (hugeZ) el.style.zIndex = '0';
-        touched++;
-      }
-    });
-
-    // debug 模式下，給你一個提示看是否有處理到
-    try {
-      const usp = new URLSearchParams(location.search);
-      const dbg = usp.get('debugclick') === '1' || localStorage.getItem('ntuvm_debug_click_blockers') === '1';
-      if (dbg && touched) console.warn('[neutralizeOfficeVML] touched:', touched, 'in', rootEl.id || rootEl.className || rootEl.tagName);
-    } catch {}
-  } catch (e) {
-    console.warn('neutralizeOfficeVML failed:', e);
-  }
-}
-
-function renderExplanation(q) {
-  if (!qExplain || !qExplainWrap) return;
-
-  const raw = q && q.explanation != null ? String(q.explanation) : "";
-  const exp = raw.trim();
-  const has = exp.length > 0;
-
-  qExplainWrap.classList.toggle("hidden", !has);
-  qExplain.classList.toggle("hidden", !has);
-
-  if (!has) {
-    qExplain.innerHTML = "";
-    return;
-  }
-
-  // 把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
-  qExplain.innerHTML = exp;
-
-  // 渲染後修正詳解內的媒體路徑
-  try {
-    qExplain.querySelectorAll("img").forEach((img) => {
-      const fixed = resolveExplainMediaSrc(img.getAttribute("src"));
-      if (fixed) img.setAttribute("src", fixed);
-    });
-
-    qExplain.querySelectorAll("source").forEach((srcEl) => {
-      const fixed = resolveExplainMediaSrc(srcEl.getAttribute("src"));
-      if (fixed) srcEl.setAttribute("src", fixed);
-    });
-  } catch (e) {
-    console.warn("Explanation media post-process failed:", e);
-  }
-
-  try { neutralizeOfficeVML(qExplain); } catch (e) {}
-}
-
-
-
-
 async function renderQuestionInGroupMode() {
   const item = state.visibleQuestions[state.index];
   if (!item || !item.groupEntry) {
@@ -5144,7 +4675,6 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 群組沒有題目時，也順便清空多圖區
     renderQuestionImagesFromState(null);
-    renderExplanation(null);
     return;
   }
 
@@ -5177,7 +4707,6 @@ async function renderQuestionInGroupMode() {
     qImg.classList.add('hidden');
     // 找不到題目的時候，同樣清空多圖區
     renderQuestionImagesFromState(null);
-    renderExplanation(null);
     return;
   }
   //    只是「不要再從 list[state.index] 取題」，改用這裡的 q。
@@ -5203,7 +4732,6 @@ async function renderQuestionInGroupMode() {
 
   // ⭐ 這裡新增：處理多張圖片（第 2 張之後）
   renderQuestionImagesFromState(q);
-  renderExplanation(q);
 
   // 選項
   qOpts.innerHTML = '';
@@ -5261,11 +4789,22 @@ async function renderQuestionInGroupMode() {
 
   highlightList();
   loadNoteForCurrent();
-  loadCommentsForCurrentQuestion();
+  loadCommentsForCurrentQuestion();  
+  if (qExplain) {
+    const hasExp = !!q.explanation;
+    if (hasExp) {
+      qExplain.classList.remove('hidden');
+      qExplain.innerHTML = '詳解：' + String(q.explanation);
+    } else {
+      qExplain.classList.add('hidden');
+      qExplain.innerHTML = '';
+    }
+  }
 }
 
 
-/題目顯示/
+/* 題目顯示（完整覆蓋） */
+/* 題目顯示（完整覆蓋） */
 async function renderQuestion() {
   // 🔥 群組模式：走專屬流程
   if (state.currentGroupId) {
@@ -5386,8 +4925,17 @@ async function renderQuestion() {
   highlightList();
   loadNoteForCurrent();
   loadCommentsForCurrentQuestion();
-  renderExplanation(q);
-
+  
+  if (qExplain) {
+    const hasExp = !!q.explanation;
+    if (hasExp) {
+      qExplain.classList.remove('hidden');
+      qExplain.innerHTML = '詳解<br>' + String(q.explanation);
+    } else {
+      qExplain.classList.add('hidden');
+      qExplain.innerHTML = '';
+    }
+  }
   // 🔥 回顧模式顯示結束按鈕
   if (state.mode === 'review') {
     // 找到下一題按鈕
@@ -5422,7 +4970,6 @@ async function renderQuestion() {
 
   // ⭐ 最後改成帶目前的題目 q，讓多圖區正確對應
   renderQuestionImagesFromState(q);
-  renderExplanation(q);
 }
 
 function addExitReviewBtn() {
@@ -5495,12 +5042,7 @@ if (searchInput) {
 
 /* 導航 */
 prevBtn.onclick = () => {
-  // ✅ 一律以目前 UI 下拉選單的 scope 為準，避免 state.scope 還沒更新就存錯 key
-  const scopeNow = getScopeFromUI();
-  state.scope = scopeNow;
-  saveNotes(scopeNow);
-
-  // 1) 搜尋模式：在搜尋結果裡往前
+  saveNotes(state.scope || getScopeFromUI());  // 1) 搜尋模式：在搜尋結果裡往前
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
     if (globalSearchIndex > 0) {
       globalSearchIndex--;
@@ -5513,34 +5055,29 @@ prevBtn.onclick = () => {
       // 更新右側 active
       if (qList) {
         Array.from(qList.children).forEach((el, i) => {
-          el.classList.toggle('active', i === globalSearchIndex);
+          el.classList.toggle("active", i === globalSearchIndex);
         });
       }
+      // 跳到那一題
       jumpToSearchHit(hit);
     }
     return;
   }
-
-  if (state.mode === 'review') {
+  if (state.mode === "review") {
     stepReview(-1);
   } else {
-    const list = (state.visibleQuestions && state.visibleQuestions.length)
+    const list = state.visibleQuestions && state.visibleQuestions.length
       ? state.visibleQuestions
       : state.questions;
-
     if (state.index > 0) state.index--;
     else state.index = 0;
   }
-
   renderQuestion();
   highlightList();
 };
 
 nextBtn.onclick = () => {
-  // ✅ 一律以目前 UI 下拉選單的 scope 為準，避免 state.scope 還沒更新就存錯 key
-  const scopeNow = getScopeFromUI();
-  state.scope = scopeNow;
-  saveNotes(scopeNow);
+  saveNotes(state.scope || getScopeFromUI());
 
   // 1) 搜尋模式：在搜尋結果裡往後
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
@@ -5552,32 +5089,28 @@ nextBtn.onclick = () => {
 
     const hit = globalSearchResults[globalSearchIndex];
     if (hit) {
-      // 更新右側 active
       if (qList) {
         Array.from(qList.children).forEach((el, i) => {
-          el.classList.toggle('active', i === globalSearchIndex);
+          el.classList.toggle("active", i === globalSearchIndex);
         });
       }
       jumpToSearchHit(hit);
     }
     return;
   }
-
-  if (state.mode === 'review') {
+  
+  if (state.mode === "review") {
     stepReview(1);
   } else {
-    const list = (state.visibleQuestions && state.visibleQuestions.length)
+    const list = state.visibleQuestions && state.visibleQuestions.length
       ? state.visibleQuestions
       : state.questions;
-
     if (state.index < list.length - 1) state.index++;
     else state.index = list.length - 1;
   }
-
   renderQuestion();
   highlightList();
 };
-
 
 function stepReview(delta){
   if(!state.reviewOrder.length) return;
@@ -8170,29 +7703,17 @@ document.addEventListener("click", e=>{
 bImg.onclick = ()=> imgNote.click();
 
 
-imgNote.onchange = async (e) => {
-  const f = e.target.files?.[0];
-  if (!f) return;
 
-  try {
-    await insertNoteImageFromFile(f);
-    saveNotes();
-  } catch (err) {
-    console.error("insert note image failed:", err);
-    alert("插入圖片失敗：可能是瀏覽器不允許 IndexedDB 或空間不足。");
-  } finally {
-    imgNote.value = "";
-  }
+imgNote.onchange = async e=>{
+  const f = e.target.files?.[0]; if(!f) return;
+  const data = await fileToDataURL(f);
+  editor.focus();
+  document.execCommand("insertImage", false, data);
+  saveNotes();
+  imgNote.value="";
 };
 
 editor.addEventListener("input", debounce(saveNotes, 400));
-window.addEventListener("pagehide", () => {
-  try { saveNotes(); } catch (e) {}
-});
-
-window.addEventListener("beforeunload", () => {
-  try { saveNotes(); } catch (e) {}
-});
 
 function exec(cmd, val=null){ editor.focus(); document.execCommand(cmd, false, val); saveNotes(); }
 function toggleButton(btn, fn){ const was = btn.classList.contains("active"); editor.focus(); fn(); btn.classList.toggle("active", !was); saveNotes(); }
@@ -8375,6 +7896,7 @@ if (document.readyState === 'loading') {
 } else {
   try { initCustomBgControls(); } catch (e) { console.error(e); }
 }
+
 
 /* 皮膚 */
 /* 主題系統 */
@@ -8562,8 +8084,6 @@ async function onScopeChange() {
   // 1. 先把目前卷別的筆記存起來，避免切卷弄丟
   const oldScope = state.scope;
   saveNotes(oldScope);
-  //立刻同步state.scope，避免使用者切卷後很快跳題時存到舊 scope
-  state.scope = getScopeFromUI();
 
   // 2. 從 localStorage 載入對應答案（如果之前有存）
   loadAnswersFromStorage();
@@ -9340,7 +8860,6 @@ function setupMobileDrawers(){
 
 /* 初始化 */
 function init() {
-  migrateNotesOnce();   // ← 新增：放在 loadNotes() 前面
   loadNotes();
   loadAnswersFromStorage();
   loadGroups();        // 新增：載入群組資料
@@ -9458,6 +8977,7 @@ fc-study-card.fc-overflow {
    - 只在「題目內容區」啟用
    - 水平意圖時會 preventDefault()，避免整頁跟著上下動
    ========================================= */
+
 function initSwipeGestures(){
   // 防止重複註冊事件（避免被 init() 呼叫多次時重複綁定）
   if (window.__ntuvmSwipeGesturesInited) return;
@@ -9467,6 +8987,15 @@ function initSwipeGestures(){
   let startY = 0;
   let lock = null; // 'h' | 'v' | null
   let tracking = false;
+
+  // explain 相關狀態
+  let startedInExplain = false;
+  let explainEl = null;
+  let explainStartScrollTop = 0;
+
+  // 若解釋內有「可水平捲動的容器」，會放在這裡（包含 explain 本身）
+  let scrollXEl = null;
+  let usedNativeXScroll = false;
 
   const MINSWIPEX = 70;
   const STARTLOCKDIST = 12;
@@ -9481,22 +9010,74 @@ function initSwipeGestures(){
 
   function inQuestionArea(target){
     if (!target) return false;
-    // 刻意不把 #qExplain 算進來：詳解區完全交給原生捲動（避免 overflow-x 水平捲動誤觸換題）
-    return !!target.closest('#qText, #qImg, #qOpts, #question-images, #qNum');
+    return !!target.closest('#qText, #qImg, #qOpts, #qExplain, #question-images, #qNum');
   }
 
   function shouldIgnoreTarget(target){
     if (!target) return true;
-
-    // 只要在詳解區，直接忽略手勢（最關鍵）
-    if (target.closest && target.closest('#qExplain')) return true;
-
     if (!inQuestionArea(target)) return true;
     if (target.closest('input, textarea, select')) return true;
     if (target.closest('#qList')) return true;
     if (target.closest('.drawer-backdrop')) return true;
     if (target.closest('.fc-screen') || target.closest('#fc-viewer-mask') || target.closest('.fc-viewer-mask')) return true;
     return false;
+  }
+
+  function hasOverflowX(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    return (el.scrollWidth - el.clientWidth) > 1;
+  }
+
+  function hasOverflowY(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    return (el.scrollHeight - el.clientHeight) > 1;
+  }
+
+  function isScrollableX(el){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    const st = getComputedStyle(el);
+    const ox = st.overflowX;
+    if (!(ox === 'auto' || ox === 'scroll')) return false;
+    return hasOverflowX(el);
+  }
+
+  function findNearestScrollableX(fromEl, rootEl){
+    let el = fromEl;
+    while (el && el !== document.body && el !== document.documentElement){
+      if (el instanceof HTMLElement){
+        if (isScrollableX(el)) return el;
+      }
+      if (rootEl && el === rootEl) break;
+      el = el.parentElement;
+    }
+    // 最後再檢查 root 自己（例如 #qExplain 被設 overflow-x:auto）
+    if (rootEl && isScrollableX(rootEl)) return rootEl;
+    return null;
+  }
+
+  function canScrollXInDirection(el, dx){
+    if (!el || !(el instanceof HTMLElement)) return false;
+    const max = el.scrollWidth - el.clientWidth;
+    if (max <= 1) return false;
+
+    // dx < 0：手指往左滑，內容通常往右捲 => scrollLeft 會增加
+    if (dx < 0) return el.scrollLeft < (max - 1);
+
+    // dx > 0：手指往右滑，內容通常往左捲 => scrollLeft 會減少
+    if (dx > 0) return el.scrollLeft > 1;
+
+    return false;
+  }
+
+  function explainAtVerticalBoundary(){
+    if (!explainEl) return true;
+    if (!hasOverflowY(explainEl)) return true;
+
+    const cur = explainEl.scrollTop;
+    const max = explainEl.scrollHeight - explainEl.clientHeight;
+
+    // 在頂端或底端（容許一點點誤差）
+    return cur <= 0 || cur >= (max - 1);
   }
 
   document.addEventListener('touchstart', (e)=>{
@@ -9531,6 +9112,18 @@ function initSwipeGestures(){
     startY = t.clientY;
     lock = null;
     tracking = true;
+
+    explainEl = document.getElementById('qExplain');
+    startedInExplain = !!(explainEl && e.target && explainEl.contains(e.target));
+    explainStartScrollTop = explainEl ? explainEl.scrollTop : 0;
+
+    usedNativeXScroll = false;
+
+    // 只有在 explain 區域內才需要找水平捲動容器
+    scrollXEl = null;
+    if (startedInExplain){
+      scrollXEl = findNearestScrollableX(e.target, explainEl);
+    }
   }, { passive: true, capture: true });
 
   document.addEventListener('touchmove', (e)=>{
@@ -9546,10 +9139,21 @@ function initSwipeGestures(){
       lock = (Math.abs(dx) > Math.abs(dy) * 1.2) ? 'h' : 'v';
     }
 
-    // 垂直就交給原生捲動
+    // 垂直就交給原生捲動（尤其是 qExplain 的閱讀）
     if (lock === 'v') return;
 
-    // 水平滑動：我們要換題，所以阻止 iOS 橡皮筋/頁面滑動
+    // lock === 'h'：先判斷是否應該讓 explain 的水平捲動優先
+    if (startedInExplain && scrollXEl && canScrollXInDirection(scrollXEl, dx)){
+      // 這次水平滑動其實是在「捲內容」，不要攔截、也不要換題
+      usedNativeXScroll = true;
+      return;
+    }
+
+    // 走到這裡表示：
+    // - 不在 explain；或
+    // - explain 內沒有水平可捲；或
+    // - 已捲到最左/最右（無法再往 dx 方向捲）
+    // => 才允許我們把它當成換題手勢，並阻止 iOS 橡皮筋效果
     if (e.cancelable) e.preventDefault();
   }, { passive: false, capture: true });
 
@@ -9563,6 +9167,18 @@ function initSwipeGestures(){
     }
 
     if (lock !== 'h'){
+      lock = null;
+      return;
+    }
+
+    // 如果剛剛是用來做水平捲動，就絕對不換題
+    if (usedNativeXScroll){
+      lock = null;
+      return;
+    }
+
+    // 如果起點在 explain，且 explain 仍在垂直捲動中段（非頂/底），也不換題（避免閱讀時誤觸）
+    if (startedInExplain && !explainAtVerticalBoundary()){
       lock = null;
       return;
     }
