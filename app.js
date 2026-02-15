@@ -5383,7 +5383,12 @@ if (searchInput) {
 
 /* 導航 */
 prevBtn.onclick = () => {
-  saveNotes(state.scope || getScopeFromUI());  // 1) 搜尋模式：在搜尋結果裡往前
+  // ✅ 一律以目前 UI 下拉選單的 scope 為準，避免 state.scope 還沒更新就存錯 key
+  const scopeNow = getScopeFromUI();
+  state.scope = scopeNow;
+  saveNotes(scopeNow);
+
+  // 1) 搜尋模式：在搜尋結果裡往前
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
     if (globalSearchIndex > 0) {
       globalSearchIndex--;
@@ -5396,29 +5401,34 @@ prevBtn.onclick = () => {
       // 更新右側 active
       if (qList) {
         Array.from(qList.children).forEach((el, i) => {
-          el.classList.toggle("active", i === globalSearchIndex);
+          el.classList.toggle('active', i === globalSearchIndex);
         });
       }
-      // 跳到那一題
       jumpToSearchHit(hit);
     }
     return;
   }
-  if (state.mode === "review") {
+
+  if (state.mode === 'review') {
     stepReview(-1);
   } else {
-    const list = state.visibleQuestions && state.visibleQuestions.length
+    const list = (state.visibleQuestions && state.visibleQuestions.length)
       ? state.visibleQuestions
       : state.questions;
+
     if (state.index > 0) state.index--;
     else state.index = 0;
   }
+
   renderQuestion();
   highlightList();
 };
 
 nextBtn.onclick = () => {
-  saveNotes(state.scope || getScopeFromUI());
+  // ✅ 一律以目前 UI 下拉選單的 scope 為準，避免 state.scope 還沒更新就存錯 key
+  const scopeNow = getScopeFromUI();
+  state.scope = scopeNow;
+  saveNotes(scopeNow);
 
   // 1) 搜尋模式：在搜尋結果裡往後
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
@@ -5430,28 +5440,32 @@ nextBtn.onclick = () => {
 
     const hit = globalSearchResults[globalSearchIndex];
     if (hit) {
+      // 更新右側 active
       if (qList) {
         Array.from(qList.children).forEach((el, i) => {
-          el.classList.toggle("active", i === globalSearchIndex);
+          el.classList.toggle('active', i === globalSearchIndex);
         });
       }
       jumpToSearchHit(hit);
     }
     return;
   }
-  
-  if (state.mode === "review") {
+
+  if (state.mode === 'review') {
     stepReview(1);
   } else {
-    const list = state.visibleQuestions && state.visibleQuestions.length
+    const list = (state.visibleQuestions && state.visibleQuestions.length)
       ? state.visibleQuestions
       : state.questions;
+
     if (state.index < list.length - 1) state.index++;
     else state.index = list.length - 1;
   }
+
   renderQuestion();
   highlightList();
 };
+
 
 function stepReview(delta){
   if(!state.reviewOrder.length) return;
@@ -8429,6 +8443,8 @@ async function onScopeChange() {
   // 1. 先把目前卷別的筆記存起來，避免切卷弄丟
   const oldScope = state.scope;
   saveNotes(oldScope);
+  //立刻同步state.scope，避免使用者切卷後很快跳題時存到舊 scope
+  state.scope = getScopeFromUI();
 
   // 2. 從 localStorage 載入對應答案（如果之前有存）
   loadAnswersFromStorage();
