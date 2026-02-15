@@ -4486,6 +4486,33 @@ function getScopeFromUI(){
     round: getRoundCode()                 // 梯次代碼 1/2/0
   };
 }
+
+// 取得「目前這一題筆記應該使用的 scope」
+// 群組模式：用 groupEntry 的 subj/year/round（不看 UI 下拉）
+// 一般模式：用 UI scope
+function getNoteScopeForCurrent() {
+  try {
+    if (
+      state &&
+      state.currentGroupId &&
+      Array.isArray(state.visibleQuestions) &&
+      state.visibleQuestions[state.index] &&
+      state.visibleQuestions[state.index].groupEntry
+    ) {
+      const entry = state.visibleQuestions[state.index].groupEntry;
+      return {
+        subj: String(entry.subj || ""),
+        year: String(entry.year || ""),
+        round: Number(entry.round || 0),
+      };
+    }
+  } catch (e) {
+    // ignore
+  }
+  return getScopeFromUI();
+}
+
+
 // 筆記鍵名：綁定 科目＋年次＋梯次＋題號，避免跨卷/跨科碰撞
 function keyForNote(qid, scope){
   const sc = scope || getScopeFromUI();
@@ -4519,33 +4546,42 @@ function getCurrentQuestionForNote() {
   } catch {}
   return (state && state.questions && state.questions[state.index]) ? state.questions[state.index] : null;
 }
-
 function saveNotes(scope) {
   if (!editor) return;
+
   const q = getCurrentQuestionForNote();
   if (!q) return;
 
-  const k = keyForNote(q.id, scope);
+  const useScope = scope || getNoteScopeForCurrent();
+  const k = keyForNote(q.id, useScope);
 
-  state.notes = state.notes || {};
-  state.notesMeta = state.notesMeta || {};
-  const meta = state.notesMeta[k] || {};
+  state.notes = state.notes && typeof state.notes === "object" ? state.notes : {};
+  state.notesMeta = state.notesMeta && typeof state.notesMeta === "object" ? state.notesMeta : {};
 
-  // 重要：存回去時，把畫面上的 blob: URL 還原成 idbimg:xxx
   const html = editorHtmlWithStableImgRefs(editor);
-
   state.notes[k] = html;
+
+  const curHash = hashStr(q.explanation || "");
+  const meta =
+    state.notesMeta[k] && typeof state.notesMeta[k] === "object"
+      ? state.notesMeta[k]
+      : { seedHash: curHash, userTouched: false };
+
+  // 只要存過，就視為使用者有動過
   meta.userTouched = true;
+  // meta.seedHash 若不存在就補上（避免之後 ensureNoteSeeded 判斷怪怪的）
+  if (!meta.seedHash) meta.seedHash = curHash;
+
   state.notesMeta[k] = meta;
 
   try {
     localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
     localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
   } catch (e) {
-    console.error("saveNotes failed:", e);
-    const msg = (e && e.name === "QuotaExceededError")
-      ? "筆記儲存空間已滿（localStorage）。圖片已改走 IndexedDB，但你可能還有舊的內嵌圖片尚未轉換。請逐頁打開含圖片的筆記一次，讓系統自動轉換後就會變正常。"
-      : "筆記儲存失敗，請先備份後再重整或清理空間。";
+    console.error("saveNotes failed", e);
+    const msg = e && e.name === "QuotaExceededError"
+      ? "儲存空間不足（localStorage）。建議清掉舊資料或把圖片用 IndexedDB 模式存。"
+      : "儲存失敗，請開 Console 看錯誤。";
     alert(msg);
   }
 }
@@ -4570,45 +4606,71 @@ function hashStr(s){
   return String(h >>> 0);
 }
 
-function ensureNoteSeeded(q){
-  const k = keyForNote(q.id);
-  state._notes     = state._notes     || {};
-  state._notesMeta = state._notesMeta || {};
+function ensureNoteSeeded(q, scope) {
+  if (!q) return;
 
-  const meta = state._notesMeta[k] || {};
+  const useScope = scope || getNoteScopeForCurrent();
+  const k = keyForNote(q.id, useScope);
+
+  state.notes = state.notes && typeof state.notes === "object" ? state.notes : {};
+  state.notesMeta = state.notesMeta && typeof state.notesMeta === "object" ? state.notesMeta : {};
+
   const curHash = hashStr(q.explanation || "");
+  const meta = state.notesMeta[k] && typeof state.notesMeta[k] === "object" ? state.notesMeta[k] : null;
 
-  if(state._notes[k] == null){
-    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
-    state._notes[k] = defaultNoteHTML(q);
-    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  // 沒有筆記：種一個預設
+  if (state.notes[k] == null) {
+    state.notes[k] = defaultNoteHTML(q);
+    state.notesMeta[k] = { seedHash: curHash, userTouched: false };
+    try {
+      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    } catch (e) {}
     return;
   }
 
-  // 同步到最新版詳解
-  if(meta.seedHash !== curHash && meta.userTouched !== true){
-    state._notes[k] = defaultNoteHTML(q);
+  // 有筆記但 meta 不存在：補 meta（避免後面 saveNotes 取 meta.userTouched 直接炸）
+  if (!meta) {
+    state.notesMeta[k] = { seedHash: curHash, userTouched: false };
+    try {
+      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    } catch (e) {}
+    return;
+  }
+
+  // 題目解釋變了、且使用者沒動過：重種預設筆記
+  if (meta.seedHash !== curHash && meta.userTouched !== true) {
+    state.notes[k] = defaultNoteHTML(q);
     meta.seedHash = curHash;
-    state._notesMeta[k] = meta;
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+    state.notesMeta[k] = meta;
+    try {
+      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    } catch (e) {}
   }
 }
-
 function loadNoteForCurrent() {
   if (!editor) return;
 
-  let q = null;
+  // 先清掉上一題 hydrate 出來的 blob URL，避免記憶體累積
+  try {
+    cleanupHydratedBlobUrls(editor);
+  } catch (e) {}
 
-  if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
-    // 群組模式：用 entry.qid 去目前這卷找題目
+  let q = null;
+  let scopeForNote = null;
+
+  if (state.currentGroupId && state.visibleQuestions?.[state.index]?.groupEntry) {
     const entry = state.visibleQuestions[state.index].groupEntry;
-    q = state.questions.find(qq => String(qq.id) === String(entry.qid));
+    scopeForNote = {
+      subj: String(entry.subj || ""),
+      year: String(entry.year || ""),
+      round: Number(entry.round || 0),
+    };
+    q = state.questions.find((qq) => String(qq.id) === String(entry.qid));
   } else {
-    // 一般模式：沿用原本邏輯
     q = state.questions[state.index];
+    scopeForNote = getScopeFromUI();
   }
 
   if (!q) {
@@ -4616,28 +4678,43 @@ function loadNoteForCurrent() {
     return;
   }
 
-  ensureNoteSeeded(q);
-  const k = keyForNote(q.id); // 會用目前下拉選單的科目/年/梯次做命名空間
-  editor.innerHTML = state._notes?.[k] || state.notes?.[k] || "";
-  // 開啟筆記時：把舊的 dataURL 圖片搬到 IndexedDB，並水合顯示
+  ensureNoteSeeded(q, scopeForNote);
+
+  const k = keyForNote(q.id, scopeForNote);
+  const html = state.notes && state.notes[k] != null ? state.notes[k] : defaultNoteHTML(q);
+  editor.innerHTML = html;
+
+  // 防止「快速切題」時，上一題的 async migrate/hydrate 回來污染下一題
+  const token = `note-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  editor.dataset.noteToken = token;
+
   (async () => {
+    const stillHere = () => editor && editor.dataset.noteToken === token;
+
     try {
-      cleanupHydratedBlobUrls(editor);
+      if (!stillHere()) return;
 
       const changed = await migrateInlineDataUrlImagesInEditor(editor);
+      if (!stillHere()) return;
+
       if (changed) {
-        // 存回去會把 src 固定成 idbimg:xxx（不會存 blob:）
-        saveNotes();
+        // 用 scopeForNote，避免群組模式下 UI scope 不一致
+        saveNotes(scopeForNote);
       }
 
+      if (!stillHere()) return;
       await hydrateIdbImagesInEditor(editor);
+      if (!stillHere()) return;
     } catch (e) {
-      console.warn("note image migrate/hydrate failed:", e);
+      console.warn("note image migrate/hydrate failed", e);
     }
-  })();
 
-  try { neutralizeOfficeVML(editor); } catch (e) {}
+    try {
+      if (stillHere()) neutralizeOfficeVML(editor);
+    } catch (e) {}
+  })();
 }
+
 
 
 // 題號列表
