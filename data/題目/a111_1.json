@@ -661,34 +661,34 @@
     },
     {
         "id": 61,
-        "text": "61.牛骨骼肌感染 Trueperella pyogenes （昔稱 Arcanobacterium pyogenes ）之病變為：",
+        "text": "61.下圖所示羊隻皮膚肉眼與組織病變，最適當的診斷為：",
         "options": {
-            "A": "肌肉膿瘍",
-            "B": "出血性肌肉炎",
-            "C": "白肌病",
-            "D": "纖維素性肌肉炎"
+            "A": "念珠菌病（candidiasis）",
+            "B": "假足菌腫（pseudomycetoma）",
+            "C": "沙蚤病（dermatophilosis）",
+            "D": "皮黴菌病（dermatophytosis）"
         },
         "image": "./圖片/a111-61.jpg"
     },
     {
         "id": 62,
-        "text": "62.有關纖維性骨營養不良症（fibrous osteodystrophy），何者正確？",
+        "text": "62.下圖為波斯貓皮下多發性結節性病灶、組織病變及壓片PAS染色，最適當的診斷為：",
         "options": {
-            "A": "因低磷高鈣的食物所引起",
-            "B": "病灶中骨組織的結構不受影響",
-            "C": "病灶中造骨細胞的數量減少",
-            "D": "與骨質過度重吸收作用有關"
+            "A": "phaeohyphomycosis",
+            "B": "blastomycosis",
+            "C": "pythiosis",
+            "D": "pseudomycetoma"
         },
         "image": "./圖片/a111-62.jpg"
     },
     {
         "id": 63,
-        "text": "63.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
+        "text": "63.動物皮膚拉起時，延展性比正常皮膚寬鬆，組織病理學下可見真皮層的膠原纖維疏鬆、細瘦、呈扭曲狀，下 列何者錯誤？",
         "options": {
-            "A": "freemartinism",
-            "B": "male pseudohermaphrodite",
-            "C": "true hermaphrodite",
-            "D": "cryptorchidism"
+            "A": "本病也稱為cutaneous asthenia或dermatosparaxis",
+            "B": "是一種collagen dysplasia疾病",
+            "C": "肇因於黏多醣儲積",
+            "D": "為一種膠原纖維生合成酵素缺陷引發之疾病"
         },
         "image": null
     },
@@ -771,7 +771,7 @@
     },
     {
         "id": 71,
-        "text": "71.牛骨骼肌感染 Trueperella pyogenes （昔稱 Arcanobacterium pyogenes ）之病變為：",
+        "text": "71.牛骨骼肌感染Trueperella pyogenes（昔稱Arcanobacterium pyogenes）之病變為：",
         "options": {
             "A": "肌肉膿瘍",
             "B": "出血性肌肉炎",
@@ -782,7 +782,7 @@
     },
     {
         "id": 72,
-        "text": "72.有關纖維性骨營養不良症（fibrous osteodystrophy），何者正確？",
+        "text": "72.有關纖維性骨營養不良症（ffiibbrroouuss oosstteeooddyyssttrroopphhyy），何者正確？",
         "options": {
             "A": "因低磷高鈣的食物所引起",
             "B": "病灶中骨組織的結構不受影響",
@@ -793,29 +793,51 @@
     },
     {
         "id": 73,
-        "text": "73.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
+        "text": "73.下下圖圖為為雄雄性性生生殖殖系系統統之之組組織織病病理理變變化化，何者診斷最正確？",
+        "options": {
+            "A": "seminoma",
+            "B": "acute epididymitis",
+            "C": "periorchitis",
+            "D": "spermatic granuloma"
+        },
+        "image": "./圖片/a111-73.jpg"
+    },
+    {
+        "id": 74,
+        "text": "74.下圖左側中隱睪生精小管的變化為：：",
+        "options": {
+            "A": "focal Sertoli cell hyperplasia",
+            "B": "focal interstitial cell hyperplasia",
+            "C": "focal spermatid hyperplasia",
+            "D": "focal spermatid metaplasia"
+        },
+        "image": "./圖片/a111-74.jpg"
+    },
+    {
+        "id": 75,
+        "text": "75.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
         "options": {
             "A": "freemartinism",
             "B": "male pseudohermaphrodite",
             "C": "true hermaphrodite",
             "D": "cryptorchidism"
         },
-        "image": "./圖片/a111-73.jpg"
+        "image": null
     },
     {
-        "id": 74,
-        "text": "74.下列何者可能與假性副甲狀腺功能亢進（pseudohyperparathyroidism）有關？",
+        "id": 76,
+        "text": "76.下列何者可能與假性副甲狀腺功能亢進（pseudohyperparathyroidism）有關？",
         "options": {
             "A": "醫源性降鈣素（calcitonin）使用過多",
             "B": "肛門囊頂漿腺腺癌（adenocarcinoma of apocrine gland of anal sac）",
             "C": "原發性副甲狀腺功能亢進",
             "D": "繼發性副甲狀腺功能低下"
         },
-        "image": "./圖片/a111-74.jpg"
+        "image": null
     },
     {
-        "id": 75,
-        "text": "75.有關嗜鉻細胞瘤（pheochromocytoma），何者錯誤？",
+        "id": 77,
+        "text": "77.有關嗜鉻細胞瘤（pheochromocytoma），何者錯誤？",
         "options": {
             "A": "為腎上腺皮質部的腫瘤",
             "B": "較常發生在犬與牛",
@@ -825,8 +847,8 @@
         "image": null
     },
     {
-        "id": 76,
-        "text": "76.有關化學受器瘤（chemoreceptor neoplasm），何者正確？",
+        "id": 78,
+        "text": "78.有關化學受器瘤（chemoreceptor neoplasm），何者正確？",
         "options": {
             "A": "主動脈體（aortic body）為唯一腫瘤細胞來源",
             "B": "常見於深胸犬種",
@@ -836,46 +858,24 @@
         "image": null
     },
     {
-        "id": 77,
-        "text": "77.有關馬 pituitary pars intermedia dysfunction，何者錯誤？",
+        "id": 79,
+        "text": "79.有關馬pituitary pars intermedia dysfunction，何者錯誤？",
         "options": {
             "A": "為馬常見的內分泌疾病",
             "B": "曾被稱為馬庫欣氏病（equine Cushing's disease）",
-            "C": "患馬之 pars intermedia melanotrophs 會表現醣皮質激素接受體",
+            "C": "患馬之pars intermedia melanotrophs會表現醣皮質激素接受體",
             "D": "患馬腎上腺無明顯異常"
         },
         "image": null
     },
     {
-        "id": 78,
-        "text": "78.下列何者與甲狀腺功能不足無關？",
+        "id": 80,
+        "text": "80.下列何者與甲狀腺功能不足無關？",
         "options": {
             "A": "有肥胖傾向及脫毛",
             "B": "黏液水腫",
             "C": "新生仔豬無毛或毛髮稀疏",
             "D": "刺激軟骨內及骨骺板的骨化作用增加"
-        },
-        "image": null
-    },
-    {
-        "id": 79,
-        "text": "79.下列何者可能與假性副甲狀腺功能亢進（pseudohyperparathyroidism）有關？",
-        "options": {
-            "A": "醫源性降鈣素（calcitonin）使用過多",
-            "B": "肛門囊頂漿腺腺癌（adenocarcinoma of apocrine gland of anal sac）",
-            "C": "原發性副甲狀腺功能亢進",
-            "D": "繼發性副甲狀腺功能低下"
-        },
-        "image": null
-    },
-    {
-        "id": 80,
-        "text": "80.胎盤的血管吻合結構（vascular anastomosis）造成胎兒間的血液交換，是下列何者的病因？",
-        "options": {
-            "A": "freemartinism",
-            "B": "male pseudohermaphrodite",
-            "C": "true hermaphrodite",
-            "D": "cryptorchidism"
         },
         "image": null
     }
