@@ -614,23 +614,41 @@ const STORAGE = {
 };
 
 /* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免污染 */
-(function migrateNotesOnce(){
-  if (localStorage.getItem(STORAGE.migrated) === "true") return;
-
-  try { localStorage.removeItem("notes"); } catch {}
-  try { localStorage.removeItem("notesMeta"); } catch {}
-
-  // 把可能留下的奇怪 key 格式做個掃描清掉
+;(function migrateNotesOnce() {
+  // 安全遷移：只「複製」舊資料到 v2，絕對不刪任何筆記
   try {
-    Object.keys(localStorage).forEach(k=>{
-      if (/^(note|notes?)(_.*)?$/i.test(k)) {
-        try { localStorage.removeItem(k); } catch {}
-      }
-    });
-  } catch {}
+    if (localStorage.getItem(STORAGE.migrated) === "true") return;
+  } catch (e) {
+    return;
+  }
 
-  localStorage.setItem(STORAGE.migrated, "true");
+  let v2NotesRaw = null, v2MetaRaw = null;
+  let legacyNotesRaw = null, legacyMetaRaw = null;
+
+  try {
+    v2NotesRaw = localStorage.getItem(STORAGE.notes);       // notesv2
+    v2MetaRaw  = localStorage.getItem(STORAGE.notesMeta);   // notesMetav2
+    legacyNotesRaw = localStorage.getItem("notes");         // 舊版 key
+    legacyMetaRaw  = localStorage.getItem("notesMeta");     // 舊版 key
+  } catch (e) {}
+
+  const hasV2Notes = !!(v2NotesRaw && v2NotesRaw.trim().length);
+  const hasV2Meta  = !!(v2MetaRaw  && v2MetaRaw.trim().length);
+
+  try {
+    if (!hasV2Notes && legacyNotesRaw && legacyNotesRaw.trim().length) {
+      localStorage.setItem(STORAGE.notes, legacyNotesRaw);
+    }
+    if (!hasV2Meta && legacyMetaRaw && legacyMetaRaw.trim().length) {
+      localStorage.setItem(STORAGE.notesMeta, legacyMetaRaw);
+    }
+  } catch (e) {}
+
+  try {
+    localStorage.setItem(STORAGE.migrated, "true");
+  } catch (e) {}
 })();
+
 
 /* 路徑工具：安全拼接（避免多重斜線） */
 function pathJoin(...parts){
@@ -1216,6 +1234,132 @@ const editor = $("#editor");
 const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
+// ===== 筆記圖片：改存 IndexedDB（避免 localStorage 爆掉） =====
+const NOTES_IMG_DB = {
+  name: "ntuvm-notes-images-db",
+  version: 1,
+  store: "images"
+};
+
+let __notesImgDbPromise = null;
+
+function openNotesImgDB() {
+  if (__notesImgDbPromise) return __notesImgDbPromise;
+  __notesImgDbPromise = new Promise((resolve, reject) => {
+    try {
+      const req = indexedDB.open(NOTES_IMG_DB.name, NOTES_IMG_DB.version);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(NOTES_IMG_DB.store)) {
+          db.createObjectStore(NOTES_IMG_DB.store, { keyPath: "id" });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("IndexedDB 開啟失敗"));
+    } catch (e) {
+      reject(e);
+    }
+  });
+  return __notesImgDbPromise;
+}
+
+function makeNotesImgId() {
+  return "nimg-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+}
+
+async function idbPutNoteImageBlob(blob, meta = {}) {
+  const db = await openNotesImgDB();
+  const id = makeNotesImgId();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(NOTES_IMG_DB.store, "readwrite");
+    const store = tx.objectStore(NOTES_IMG_DB.store);
+    store.put({
+      id,
+      blob,
+      type: blob?.type || meta.type || "application/octet-stream",
+      createdAt: Date.now(),
+      meta
+    });
+    tx.oncomplete = () => resolve(id);
+    tx.onerror = () => reject(tx.error || new Error("IndexedDB 寫入失敗"));
+    tx.onabort = () => reject(tx.error || new Error("IndexedDB 寫入中止"));
+  });
+}
+
+async function idbGetNoteImageBlob(id) {
+  const db = await openNotesImgDB();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(NOTES_IMG_DB.store, "readonly");
+    const store = tx.objectStore(NOTES_IMG_DB.store);
+    const req = store.get(id);
+    req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+    req.onerror = () => reject(req.error || new Error("IndexedDB 讀取失敗"));
+  });
+}
+
+// 存檔前把 <img data-nimg-id="..."> 轉成穩定 src：idbimg<id>
+function editorHtmlWithStableImgRefs(rootEl) {
+  if (!rootEl) return "";
+  const clone = rootEl.cloneNode(true);
+  clone.querySelectorAll("img").forEach(img => {
+    const id = img.dataset?.nimgId ? String(img.dataset.nimgId) : "";
+    if (id) img.setAttribute("src", "idbimg" + id);
+  });
+  return clone.innerHTML;
+}
+
+// 載入筆記後，把 src=idbimg<id> 的圖片 hydrate 成 objectURL 顯示
+async function hydrateIdbImagesInEditor(rootEl) {
+  if (!rootEl) return;
+  const imgs = Array.from(rootEl.querySelectorAll("img"));
+  for (const img of imgs) {
+    const rawSrc = String(img.getAttribute("src") || "");
+    if (!rawSrc.startsWith("idbimg")) continue;
+
+    const id = rawSrc.slice("idbimg".length);
+    if (!id) continue;
+
+    img.dataset.nimgId = id;
+    try {
+      const blob = await idbGetNoteImageBlob(id);
+      if (!blob) continue;
+      const url = URL.createObjectURL(blob);
+      img.setAttribute("src", url);
+      img.dataset.objectUrl = url;
+    } catch (e) {
+      console.warn("hydrateIdbImagesInEditor failed:", e);
+    }
+  }
+}
+
+// 切題/重載前清掉舊 objectURL，避免記憶體越吃越多
+function cleanupHydratedBlobUrls(rootEl) {
+  if (!rootEl) return;
+  rootEl.querySelectorAll("img[data-object-url]").forEach(img => {
+    const url = img.dataset.objectUrl;
+    if (url && String(url).startsWith("blob:")) {
+      try { URL.revokeObjectURL(url); } catch (e) {}
+    }
+    try { delete img.dataset.objectUrl; } catch (e) {}
+  });
+}
+
+async function insertNoteImageFromFile(file) {
+  if (!file) return;
+
+  const id = await idbPutNoteImageBlob(file, {
+    from: "file",
+    name: file.name,
+    size: file.size,
+    type: file.type
+  });
+
+  const objectUrl = URL.createObjectURL(file);
+  const html = `<img src="${objectUrl}" data-nimg-id="${id}" data-object-url="${objectUrl}" alt="note image" />`;
+
+  editor.focus();
+  document.execCommand("insertHTML", false, html);
+}
 
 /* 題庫載入（完全移除舊的手動載入元件） */
 (function nukeManualLoaders(){
@@ -4290,23 +4434,29 @@ function getCurrentCommentKey() {
   return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
 }
 
-
 function saveNotes(scope){
   const q = state.questions[state.index];
   if(!q) return;
 
   const k = keyForNote(q.id, scope);
+
   state._notes = state._notes || {};
-  state._notes[k] = editor.innerHTML;
+  // 這行是關鍵：存「穩定圖片參照」版本
+  state._notes[k] = editorHtmlWithStableImgRefs(editor);
 
   state._notesMeta = state._notesMeta || {};
   const meta = state._notesMeta[k] || {};
   meta.userTouched = true;
   state._notesMeta[k] = meta;
 
-  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  try {
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  } catch (e) {
+    console.error("saveNotes failed:", e);
+  }
 }
+
 function loadNotes(){
   try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
@@ -4325,44 +4475,66 @@ function hashStr(s){
   return String(h >>> 0);
 }
 
-function ensureNoteSeeded(q){
+function ensureNoteSeeded(q) {
+  if (!q) return;
+
   const k = keyForNote(q.id);
-  state._notes     = state._notes     || {};
-  state._notesMeta = state._notesMeta || {};
 
-  const meta = state._notesMeta[k] || {};
-  const curHash = hashStr(q.explanation || "");
+  state.notes = state.notes || {};
+  state.notesMeta = state.notesMeta || {};
 
-  if(state._notes[k] == null){
-    // 第一次看到這題 → 用詳解做為預設筆記內容（可編輯）
-    state._notes[k] = defaultNoteHTML(q);
-    state._notesMeta[k] = { seedHash: curHash, userTouched: false };
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  const exp = (q.explanation == null) ? "" : String(q.explanation);
+  const curHash = hashStr(exp);
+
+  const existingHtml = state.notes[k];
+  const hasExisting =
+    typeof existingHtml === "string" && existingHtml.trim().length > 0;
+
+  // 先確保 meta 是物件
+  let meta = state.notesMeta[k];
+  if (!meta || typeof meta !== "object") meta = {};
+
+  // 1) 沒有任何舊筆記：才建立預設筆記
+  if (!hasExisting) {
+    state.notes[k] = defaultNoteHTML(q);
+    meta.seedHash = curHash;
+    if (meta.userTouched !== true) meta.userTouched = false;
+    state.notesMeta[k] = meta;
+
+    try {
+      localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+      localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    } catch (e) {
+      console.error("ensureNoteSeeded save failed", e);
+    }
     return;
   }
 
-  // 同步到最新版詳解
-  if(meta.seedHash !== curHash && meta.userTouched !== true){
-    state._notes[k] = defaultNoteHTML(q);
-    meta.seedHash = curHash;
-    state._notesMeta[k] = meta;
-    localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  // 2) 已有舊筆記：永遠不覆寫內容，只更新 meta（避免未來被當成可覆寫）
+  meta.seedHash = curHash;
+  meta.userTouched = true; // 只要有內容，就視為已被使用者擁有，禁止任何自動覆寫
+  state.notesMeta[k] = meta;
+
+  try {
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+  } catch (e) {
+    console.error("ensureNoteSeeded meta save failed", e);
   }
 }
+
 
 function loadNoteForCurrent() {
   if (!editor) return;
 
+  // 換題前先清舊的 blob URL，避免記憶體累積
+  try { cleanupHydratedBlobUrls(editor); } catch (e) {}
+
   let q = null;
 
   if (state.currentGroupId && state.visibleQuestions[state.index]?.groupEntry) {
-    // 群組模式：用 entry.qid 去目前這卷找題目
     const entry = state.visibleQuestions[state.index].groupEntry;
     q = state.questions.find(qq => String(qq.id) === String(entry.qid));
   } else {
-    // 一般模式：沿用原本邏輯
     q = state.questions[state.index];
   }
 
@@ -4372,11 +4544,16 @@ function loadNoteForCurrent() {
   }
 
   ensureNoteSeeded(q);
-  const k = keyForNote(q.id); // 會用目前下拉選單的科目/年/梯次做命名空間
-  editor.innerHTML = state._notes?.[k] || state.notes?.[k] || "";
+  const k = keyForNote(q.id);
+
+  editor.innerHTML = state._notes?.[k] || "";
+
+  // 把 idbimg<id> 轉成 objectURL 讓圖片能顯示
+  try { hydrateIdbImagesInEditor(editor); } catch (e) {}
 
   try { neutralizeOfficeVML(editor); } catch (e) {}
 }
+
 
 
 // 題號列表
@@ -5191,6 +5368,17 @@ nextBtn.onclick = () => {
   renderQuestion();
   highlightList();
 };
+try {
+  if (!window.__notesPagehideBound) {
+    window.__notesPagehideBound = true;
+
+    window.addEventListener("pagehide", () => {
+      try {
+        saveNotes(state.scope || getScopeFromUI());
+      } catch (e) {}
+    });
+  }
+} catch (e) {}
 
 function stepReview(delta){
   if(!state.reviewOrder.length) return;
@@ -7784,14 +7972,21 @@ bImg.onclick = ()=> imgNote.click();
 
 
 
-imgNote.onchange = async e=>{
-  const f = e.target.files?.[0]; if(!f) return;
-  const data = await fileToDataURL(f);
-  editor.focus();
-  document.execCommand("insertImage", false, data);
-  saveNotes();
-  imgNote.value="";
+imgNote.onchange = async e => {
+  const f = e.target.files?.[0];
+  if (!f) return;
+
+  try {
+    await insertNoteImageFromFile(f);
+    saveNotes(); // 立刻存（但會存成 idbimg 參照，見下一步）
+  } catch (err) {
+    console.error("insert note image failed:", err);
+    alert("插入圖片失敗，請重試或換一張圖。");
+  } finally {
+    imgNote.value = "";
+  }
 };
+
 
 editor.addEventListener("input", debounce(saveNotes, 400));
 
