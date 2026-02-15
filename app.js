@@ -1449,8 +1449,8 @@ async function updateNotesStorageStatus(force = false) {
     }
 
     if (Number.isFinite(imgCount)) parts.push(`圖片 ${imgCount}`);
-    if (persisted === true) parts.push("持久化：是");
-    else if (persisted === false) parts.push("持久化：否");
+    if (persisted === true) parts.push("持久化（建議）：是");
+    else if (persisted === false) parts.push("持久化（建議）：否");
 
     textEl.innerHTML = parts.join("｜");
 
