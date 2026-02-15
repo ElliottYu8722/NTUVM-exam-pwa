@@ -1217,6 +1217,223 @@ const bBold = $("#bBold"), bItalic = $("#bItalic"), bUnder = $("#bUnder");
 const bSub = $("#bSub"), bSup = $("#bSup");
 const bImg = $("#bImg"), imgNote = $("#imgNote");
 
+// ===== 筆記圖片：改存 IndexedDB（避免 localStorage 爆掉） =====
+const NOTES_IMG_DB = {
+  name: "ntuvm-notes-images-db",
+  version: 1,
+  store: "images"
+};
+
+let __notesImgDbPromise = null;
+
+function openNotesImgDB() {
+  if (__notesImgDbPromise) return __notesImgDbPromise;
+  __notesImgDbPromise = new Promise((resolve, reject) => {
+    try {
+      const req = indexedDB.open(NOTES_IMG_DB.name, NOTES_IMG_DB.version);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(NOTES_IMG_DB.store)) {
+          db.createObjectStore(NOTES_IMG_DB.store, { keyPath: "id" });
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("IndexedDB 開啟失敗"));
+    } catch (e) {
+      reject(e);
+    }
+  });
+  return __notesImgDbPromise;
+}
+
+function makeNotesImgId() {
+  return "nimg-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+}
+
+async function idbPutNoteImageBlob(blob, meta = {}) {
+  const db = await openNotesImgDB();
+  const id = makeNotesImgId();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(NOTES_IMG_DB.store, "readwrite");
+    const store = tx.objectStore(NOTES_IMG_DB.store);
+    store.put({
+      id,
+      blob,
+      type: blob && blob.type ? blob.type : (meta.type || "application/octet-stream"),
+      createdAt: Date.now(),
+      meta
+    });
+    tx.oncomplete = () => resolve(id);
+    tx.onerror = () => reject(tx.error || new Error("IndexedDB 寫入失敗"));
+    tx.onabort = () => reject(tx.error || new Error("IndexedDB 寫入中止"));
+  });
+}
+
+async function idbGetNoteImageBlob(id) {
+  const db = await openNotesImgDB();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(NOTES_IMG_DB.store, "readonly");
+    const store = tx.objectStore(NOTES_IMG_DB.store);
+    const req = store.get(id);
+    req.onsuccess = () => resolve(req.result ? req.result.blob : null);
+    req.onerror = () => reject(req.error || new Error("IndexedDB 讀取失敗"));
+  });
+}
+
+function dataUrlToBlob(dataUrl) {
+  const s = String(dataUrl || "");
+  const idx = s.indexOf(",");
+  if (idx < 0) return null;
+  const head = s.slice(0, idx);
+  const base64 = s.slice(idx + 1);
+  const m = /([^;]+);base64/i.exec(head);
+  const mime = m && m[1] ? m[1] : "application/octet-stream";
+  const bin = atob(base64);
+  const len = bin.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type: mime });
+}
+
+function editorHtmlWithStableImgRefs(rootEl) {
+  // 重要：畫面上會把 src 換成 blob:，但存回去必須轉回 idbimg:xxx
+  if (!rootEl) return "";
+  const clone = rootEl.cloneNode(true);
+  clone.querySelectorAll("img").forEach(img => {
+    const id = img.dataset && img.dataset.nimgId ? String(img.dataset.nimgId) : "";
+    if (id) img.setAttribute("src", "idbimg:" + id);
+  });
+  return clone.innerHTML;
+}
+
+async function hydrateIdbImagesInEditor(rootEl) {
+  if (!rootEl) return;
+
+  const imgs = Array.from(rootEl.querySelectorAll("img"));
+  for (const img of imgs) {
+    const rawSrc = String(img.getAttribute("src") || "");
+    if (!rawSrc.startsWith("idbimg:")) continue;
+
+    const id = rawSrc.slice("idbimg:".length);
+    if (!id) continue;
+
+    img.dataset.nimgId = id;
+
+    try {
+      const blob = await idbGetNoteImageBlob(id);
+      if (!blob) continue;
+      const url = URL.createObjectURL(blob);
+      img.setAttribute("src", url);
+      img.dataset.objectUrl = url;
+    } catch (e) {
+      console.warn("hydrateIdbImagesInEditor failed", e);
+    }
+  }
+}
+
+function cleanupHydratedBlobUrls(rootEl) {
+  if (!rootEl) return;
+  rootEl.querySelectorAll("img[data-object-url], img[data-objecturl], img[data-objectUrl]").forEach(img => {
+    const url = img.dataset.objectUrl;
+    if (url && String(url).startsWith("blob:")) {
+      try { URL.revokeObjectURL(url); } catch {}
+    }
+    try { delete img.dataset.objectUrl; } catch {}
+  });
+}
+
+async function migrateInlineDataUrlImagesInEditor(rootEl) {
+  // 把舊筆記裡的 image/... 轉成 IndexedDB + idbimg:xxx
+  if (!rootEl) return false;
+
+  const imgs = Array.from(rootEl.querySelectorAll("img"));
+  let changed = false;
+
+  for (const img of imgs) {
+    const src = String(img.getAttribute("src") || "");
+    if (!/^image\//i.test(src)) continue;
+
+    try {
+      const blob = dataUrlToBlob(src);
+      if (!blob) continue;
+      const id = await idbPutNoteImageBlob(blob, { from: "dataurl" });
+      img.setAttribute("src", "idbimg:" + id);
+      img.dataset.nimgId = id;
+      changed = true;
+    } catch (e) {
+      console.warn("migrateInlineDataUrlImagesInEditor failed", e);
+    }
+  }
+
+  return changed;
+}
+
+function loadImageFromFileAsBitmap(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      try { URL.revokeObjectURL(url); } catch {}
+      resolve(img);
+    };
+    img.onerror = (e) => {
+      try { URL.revokeObjectURL(url); } catch {}
+      reject(e);
+    };
+    img.src = url;
+  });
+}
+
+async function compressImageFileToJpegBlob(file, opts = {}) {
+  const maxSide = Number.isFinite(opts.maxSide) ? opts.maxSide : 1600;
+  const quality = Number.isFinite(opts.quality) ? opts.quality : 0.82;
+
+  const img = await loadImageFromFileAsBitmap(file);
+  const w = img.naturalWidth || img.width || 0;
+  const h = img.naturalHeight || img.height || 0;
+  if (!w || !h) return file;
+
+  const scale = Math.min(1, maxSide / Math.max(w, h));
+  const cw = Math.max(1, Math.round(w * scale));
+  const ch = Math.max(1, Math.round(h * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = cw;
+  canvas.height = ch;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, cw, ch);
+
+  const blob = await new Promise((resolve) => {
+    canvas.toBlob(b => resolve(b), "image/jpeg", quality);
+  });
+
+  return blob || file;
+}
+
+async function insertNoteImageFromFile(file) {
+  if (!editor) return;
+
+  // 1) 壓縮成 JPEG（減少空間；透明 PNG 會變白底，若你很在意可再調整）
+  let blob = null;
+  try {
+    blob = await compressImageFileToJpegBlob(file, { maxSide: 1600, quality: 0.82 });
+  } catch {
+    blob = file;
+  }
+
+  // 2) 存入 IndexedDB，並在筆記插入 idbimg:xxx
+  const id = await idbPutNoteImageBlob(blob, { originalName: file && file.name ? file.name : "" });
+
+  editor.focus();
+  document.execCommand("insertImage", false, "idbimg:" + id);
+
+  // 3) 立刻把 idbimg:xxx 水合成 blob: URL 讓畫面看得到
+  cleanupHydratedBlobUrls(editor);
+  await hydrateIdbImagesInEditor(editor);
+}
+
+
 /* 題庫載入（完全移除舊的手動載入元件） */
 (function nukeManualLoaders(){
 // 0) 先放一個 CSS 保險絲（即使 JS 還沒跑，也先把它們藏起來）
@@ -4291,22 +4508,50 @@ function getCurrentCommentKey() {
 }
 
 
-function saveNotes(scope){
-  const q = state.questions[state.index];
-  if(!q) return;
+function getCurrentQuestionForNote() {
+  // 兼容群組模式與一般模式
+  try {
+    if (state && state.currentGroupId && state.visibleQuestions && state.visibleQuestions[state.index]?.groupEntry) {
+      const entry = state.visibleQuestions[state.index].groupEntry;
+      const q = state.questions.find(qq => String(qq.id) === String(entry.qid));
+      return q || null;
+    }
+  } catch {}
+  return (state && state.questions && state.questions[state.index]) ? state.questions[state.index] : null;
+}
+
+function saveNotes(scope) {
+  if (!editor) return;
+  const q = getCurrentQuestionForNote();
+  if (!q) return;
 
   const k = keyForNote(q.id, scope);
-  state._notes = state._notes || {};
-  state._notes[k] = editor.innerHTML;
 
-  state._notesMeta = state._notesMeta || {};
-  const meta = state._notesMeta[k] || {};
+  state.notes = state.notes || {};
+  state.notesMeta = state.notesMeta || {};
+  const meta = state.notesMeta[k] || {};
+
+  // 重要：存回去時，把畫面上的 blob: URL 還原成 idbimg:xxx
+  const html = editorHtmlWithStableImgRefs(editor);
+
+  state.notes[k] = html;
   meta.userTouched = true;
-  state._notesMeta[k] = meta;
+  state.notesMeta[k] = meta;
 
-  localStorage.setItem(STORAGE.notes, JSON.stringify(state._notes));
-  localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state._notesMeta));
+  try {
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+  } catch (e) {
+    console.error("saveNotes failed:", e);
+    const msg = (e && e.name === "QuotaExceededError")
+      ? "筆記儲存空間已滿（localStorage）。圖片已改走 IndexedDB，但你可能還有舊的內嵌圖片尚未轉換。請逐頁打開含圖片的筆記一次，讓系統自動轉換後就會變正常。"
+      : "筆記儲存失敗，請先備份後再重整或清理空間。";
+    alert(msg);
+  }
 }
+
+
+
 function loadNotes(){
   try{ state._notes = JSON.parse(localStorage.getItem(STORAGE.notes)||"{}"); }catch{ state._notes = {}; }
   try{ state._notesMeta = JSON.parse(localStorage.getItem(STORAGE.notesMeta)||"{}"); }catch{ state._notesMeta = {}; }
@@ -4374,6 +4619,22 @@ function loadNoteForCurrent() {
   ensureNoteSeeded(q);
   const k = keyForNote(q.id); // 會用目前下拉選單的科目/年/梯次做命名空間
   editor.innerHTML = state._notes?.[k] || state.notes?.[k] || "";
+  // 開啟筆記時：把舊的 dataURL 圖片搬到 IndexedDB，並水合顯示
+  (async () => {
+    try {
+      cleanupHydratedBlobUrls(editor);
+
+      const changed = await migrateInlineDataUrlImagesInEditor(editor);
+      if (changed) {
+        // 存回去會把 src 固定成 idbimg:xxx（不會存 blob:）
+        saveNotes();
+      }
+
+      await hydrateIdbImagesInEditor(editor);
+    } catch (e) {
+      console.warn("note image migrate/hydrate failed:", e);
+    }
+  })();
 
   try { neutralizeOfficeVML(editor); } catch (e) {}
 }
@@ -7783,14 +8044,19 @@ document.addEventListener("click", e=>{
 bImg.onclick = ()=> imgNote.click();
 
 
+imgNote.onchange = async (e) => {
+  const f = e.target.files?.[0];
+  if (!f) return;
 
-imgNote.onchange = async e=>{
-  const f = e.target.files?.[0]; if(!f) return;
-  const data = await fileToDataURL(f);
-  editor.focus();
-  document.execCommand("insertImage", false, data);
-  saveNotes();
-  imgNote.value="";
+  try {
+    await insertNoteImageFromFile(f);
+    saveNotes();
+  } catch (err) {
+    console.error("insert note image failed:", err);
+    alert("插入圖片失敗：可能是瀏覽器不允許 IndexedDB 或空間不足。");
+  } finally {
+    imgNote.value = "";
+  }
 };
 
 editor.addEventListener("input", debounce(saveNotes, 400));
