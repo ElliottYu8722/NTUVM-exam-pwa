@@ -824,6 +824,10 @@ function loadLegacyOnce() {
   try { legacyNotesObj = rawNotes ? (JSON.parse(rawNotes) || {}) : {}; } catch { legacyNotesObj = {}; }
   try { legacyMetaObj = rawMeta ? (JSON.parse(rawMeta) || {}) : {}; } catch { legacyMetaObj = {}; }
 }
+// 兼容舊版本呼叫：有些地方可能會叫 __loadLegacyOnce()
+function __loadLegacyOnce() {
+  return loadLegacyOnce();
+}
 
 function isEffectivelyEmptyNoteHtml(html) {
   const s = String(html ?? "").trim();
