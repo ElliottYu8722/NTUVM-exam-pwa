@@ -612,237 +612,6 @@ const STORAGE = {
   notesMeta: "notesMeta_v2",
   migrated:  "notes_migrated_to_v2"
 };
-// ===== 筆記內容：IndexedDB 主存（localStorage 只讀不寫，確保不爆也不覆蓋）=====
-
-const NOTES_DB = {
-  name: "ntuvm-notes-db",
-  version: 1,
-  storeNotes: "notes",
-  storeMeta: "meta",
-};
-
-let __notesDbPromise = null;
-
-function openNotesDB() {
-  if (__notesDbPromise) return __notesDbPromise;
-  __notesDbPromise = new Promise((resolve, reject) => {
-    try {
-      const req = indexedDB.open(NOTES_DB.name, NOTES_DB.version);
-      req.onupgradeneeded = () => {
-        const db = req.result;
-        if (!db.objectStoreNames.contains(NOTES_DB.storeNotes)) {
-          db.createObjectStore(NOTES_DB.storeNotes, { keyPath: "k" });
-        }
-        if (!db.objectStoreNames.contains(NOTES_DB.storeMeta)) {
-          db.createObjectStore(NOTES_DB.storeMeta, { keyPath: "k" });
-        }
-      };
-      req.onsuccess = () => resolve(req.result);
-      req.onerror = () => reject(req.error || new Error("openNotesDB failed"));
-    } catch (e) {
-      reject(e);
-    }
-  });
-  return __notesDbPromise;
-}
-
-function __idbRangeStartsWith(prefix) {
-  try { return IDBKeyRange.bound(prefix, prefix + "\uffff"); } catch { return null; }
-}
-
-async function idbGetNoteHtml(k) {
-  const db = await openNotesDB();
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeNotes, "readonly");
-    const store = tx.objectStore(NOTES_DB.storeNotes);
-    const req = store.get(String(k));
-    req.onsuccess = () => resolve(req.result ? String(req.result.html ?? "") : null);
-    req.onerror = () => reject(req.error || new Error("idbGetNoteHtml failed"));
-  });
-}
-
-async function idbPutNoteHtml(k, html) {
-  const db = await openNotesDB();
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeNotes, "readwrite");
-    const store = tx.objectStore(NOTES_DB.storeNotes);
-    store.put({ k: String(k), html: String(html ?? ""), updatedAt: Date.now() });
-    tx.oncomplete = () => resolve(true);
-    tx.onerror = () => reject(tx.error || new Error("idbPutNoteHtml failed"));
-    tx.onabort = () => reject(tx.error || new Error("idbPutNoteHtml aborted"));
-  });
-}
-
-async function idbGetNoteMeta(k) {
-  const db = await openNotesDB();
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeMeta, "readonly");
-    const store = tx.objectStore(NOTES_DB.storeMeta);
-    const req = store.get(String(k));
-    req.onsuccess = () => resolve(req.result ? (req.result.meta ?? null) : null);
-    req.onerror = () => reject(req.error || new Error("idbGetNoteMeta failed"));
-  });
-}
-
-async function idbPutNoteMeta(k, metaObj) {
-  const db = await openNotesDB();
-  const safeMeta = (metaObj && typeof metaObj === "object") ? metaObj : {};
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeMeta, "readwrite");
-    const store = tx.objectStore(NOTES_DB.storeMeta);
-    store.put({ k: String(k), meta: safeMeta, updatedAt: Date.now() });
-    tx.oncomplete = () => resolve(true);
-    tx.onerror = () => reject(tx.error || new Error("idbPutNoteMeta failed"));
-    tx.onabort = () => reject(tx.error || new Error("idbPutNoteMeta aborted"));
-  });
-}
-
-async function idbGetNotesMapByPrefix(prefix) {
-  const db = await openNotesDB();
-  const out = {};
-  const p = String(prefix ?? "");
-  const range = __idbRangeStartsWith(p);
-
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeNotes, "readonly");
-    const store = tx.objectStore(NOTES_DB.storeNotes);
-    const req = range ? store.openCursor(range) : store.openCursor();
-
-    req.onsuccess = () => {
-      const cursor = req.result;
-      if (!cursor) return resolve(out);
-      const key = String(cursor.key || "");
-      if (!range && !key.startsWith(p)) { cursor.continue(); return; }
-      out[key] = String(cursor.value?.html ?? "");
-      cursor.continue();
-    };
-    req.onerror = () => reject(req.error || new Error("idbGetNotesMapByPrefix failed"));
-  });
-}
-
-// ---- legacy localStorage（只讀）----
-
-let __legacyLoaded = false;
-let __legacyNotesObj = null;
-let __legacyMetaObj = null;
-
-function __loadLegacyOnce() {
-  if (__legacyLoaded) return;
-  __legacyLoaded = true;
-
-  let rawNotes = null, rawMeta = null;
-  try { rawNotes = localStorage.getItem(STORAGE.notes); } catch {}
-  try { rawMeta = localStorage.getItem(STORAGE.notesMeta); } catch {}
-
-  try { __legacyNotesObj = rawNotes ? (JSON.parse(rawNotes) || {}) : {}; } catch { __legacyNotesObj = {}; }
-  try { __legacyMetaObj = rawMeta ? (JSON.parse(rawMeta) || {}) : {}; } catch { __legacyMetaObj = {}; }
-}
-
-function __isEffectivelyEmptyNoteHtml(html) {
-  const s = String(html ?? "").trim();
-  if (!s) return true;
-
-  // 把「預設骨架」也當成空白（避免用骨架覆蓋真筆記）
-  try {
-    const skeleton = String(defaultNoteHTML({})).trim();
-    if (s.replace(/\s+/g, "") === skeleton.replace(/\s+/g, "")) return true;
-  } catch {}
-
-  // 常見空白型態
-  const n = s.replace(/\s+/g, "").toLowerCase();
-  if (n === '<divclass="user-note"><br></div>'.toLowerCase()) return true;
-
-  return false;
-}
-
-async function getStoredNoteHtml_NoWrite(k) {
-  // 1) IDB
-  try {
-    const v = await idbGetNoteHtml(k);
-    if (typeof v === "string" && v.trim().length) return v;
-  } catch {}
-
-  // 2) legacy localStorage（只讀）
-  __loadLegacyOnce();
-  const legacy = __legacyNotesObj && Object.prototype.hasOwnProperty.call(__legacyNotesObj, k) ? __legacyNotesObj[k] : null;
-  if (typeof legacy === "string" && legacy.trim().length) return legacy;
-
-  return "";
-}
-
-async function getStoredNoteMeta_NoWrite(k) {
-  // 1) IDB
-  try {
-    const v = await idbGetNoteMeta(k);
-    if (v && typeof v === "object") return v;
-  } catch {}
-
-  // 2) legacy localStorage（只讀）
-  __loadLegacyOnce();
-  const legacy = __legacyMetaObj && Object.prototype.hasOwnProperty.call(__legacyMetaObj, k) ? __legacyMetaObj[k] : null;
-  if (legacy && typeof legacy === "object") return legacy;
-
-  return null;
-}
-
-async function copyLegacyToIdbIfMissing(k) {
-  // 如果 IDB 已有，就不動
-  try {
-    const cur = await idbGetNoteHtml(k);
-    if (typeof cur === "string" && cur.trim().length) return;
-  } catch {}
-
-  // 沒有才從 legacy 讀，讀到才寫進 IDB（只 copy，不改 legacy）
-  __loadLegacyOnce();
-  const legacyHtml = __legacyNotesObj && Object.prototype.hasOwnProperty.call(__legacyNotesObj, k) ? __legacyNotesObj[k] : null;
-  if (typeof legacyHtml === "string" && legacyHtml.trim().length) {
-    try { await idbPutNoteHtml(k, legacyHtml); } catch {}
-  }
-
-  const legacyMeta = __legacyMetaObj && Object.prototype.hasOwnProperty.call(__legacyMetaObj, k) ? __legacyMetaObj[k] : null;
-  if (legacyMeta && typeof legacyMeta === "object") {
-    try { await idbPutNoteMeta(k, legacyMeta); } catch {}
-  }
-}
-
-async function idbDumpAllNotes() {
-  const db = await openNotesDB();
-  const out = {};
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeNotes, "readonly");
-    const store = tx.objectStore(NOTES_DB.storeNotes);
-    const req = store.openCursor();
-    req.onsuccess = () => {
-      const cursor = req.result;
-      if (!cursor) return resolve(out);
-      const key = String(cursor.key || "");
-      const val = cursor.value;
-      out[key] = val ? String(val.html ?? "") : "";
-      cursor.continue();
-    };
-    req.onerror = () => reject(req.error || new Error("idbDumpAllNotes failed"));
-  });
-}
-
-async function idbDumpAllMeta() {
-  const db = await openNotesDB();
-  const out = {};
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTES_DB.storeMeta, "readonly");
-    const store = tx.objectStore(NOTES_DB.storeMeta);
-    const req = store.openCursor();
-    req.onsuccess = () => {
-      const cursor = req.result;
-      if (!cursor) return resolve(out);
-      const key = String(cursor.key || "");
-      const val = cursor.value;
-      out[key] = val ? (val.meta ?? {}) : {};
-      cursor.continue();
-    };
-    req.onerror = () => reject(req.error || new Error("idbDumpAllMeta failed"));
-  });
-}
-
 
 /* 一次性遷移：第一次載入就把舊 notes/notesMeta 清掉，避免污染 */
 ;(function migrateNotesOnce() {
@@ -1611,13 +1380,13 @@ function ensureNotesStorageStatusBar() {
   btnBackup.className = "nss-btn";
   btnBackup.id = "nss-btn-backup";
   btnBackup.textContent = "立刻備份";
-  btnBackup.onclick = async () => {
+  btnBackup.onclick = () => {
     try {
       if (typeof buildNotesRecordsBackupPayload !== "function" || typeof downloadJsonObject !== "function") {
         alert("備份功能未就緒（找不到 buildNotesRecordsBackupPayload / downloadJsonObject）");
         return;
       }
-      const payload = await buildNotesRecordsBackupPayload();
+      const payload = buildNotesRecordsBackupPayload();
       const ts = new Date();
       const y = ts.getFullYear();
       const m = String(ts.getMonth() + 1).padStart(2, "0");
@@ -1630,7 +1399,6 @@ function ensureNotesStorageStatusBar() {
       console.error(e);
     }
   };
-
 
   actions.appendChild(btnPersist);
   actions.appendChild(btnBackup);
@@ -1823,105 +1591,6 @@ async function idbPutNoteImageBlob(blob, meta = {}) {
     tx.onabort = () => reject(tx.error || new Error("IndexedDB 寫入中止"));
   });
 }
-
-async function idbPutNoteImageBlobWithId(id, blob, meta = {}) {
-  const db = await openNotesImgDB();
-  const safeMeta = (meta && typeof meta === "object") ? meta : {};
-  return await new Promise((resolve, reject) => {
-    const tx = db.transaction(NOTESIMGDB.store, "readwrite");
-    const store = tx.objectStore(NOTESIMGDB.store);
-    store.put({
-      id: String(id),
-      blob,
-      type: blob?.type || safeMeta.type || "application/octet-stream",
-      createdAt: safeMeta.createdAt || Date.now(),
-      meta: safeMeta
-    });
-    tx.oncomplete = () => resolve(String(id));
-    tx.onerror = () => reject(tx.error || new Error("idbPutNoteImageBlobWithId failed"));
-    tx.onabort = () => reject(tx.error || new Error("idbPutNoteImageBlobWithId aborted"));
-  });
-}
-
-function blobToDataUrl(blob) {
-  return new Promise((resolve, reject) => {
-    try {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result || ""));
-      reader.onerror = () => reject(reader.error || new Error("FileReader error"));
-      reader.readAsDataURL(blob);
-    } catch (e) {
-      reject(e);
-    }
-  });
-}
-
-async function dumpAllNoteImagesForBackup() {
-  try {
-    const db = await openNotesImgDB();
-    const out = {};
-    return await new Promise((resolve, reject) => {
-      const tx = db.transaction(NOTESIMGDB.store, "readonly");
-      const store = tx.objectStore(NOTESIMGDB.store);
-      const req = store.openCursor();
-      const tasks = [];
-
-      req.onsuccess = () => {
-        const cursor = req.result;
-        if (!cursor) {
-          Promise.all(tasks).then(() => resolve(out)).catch(reject);
-          return;
-        }
-        const val = cursor.value;
-        if (val && val.blob && val.id) {
-          const id = String(val.id);
-          const rec = {
-            meta: val.meta || {},
-            type: val.type || (val.blob.type || "application/octet-stream"),
-            createdAt: val.createdAt || Date.now(),
-            dataUrl: null
-          };
-          const p = blobToDataUrl(val.blob).then((url) => {
-            rec.dataUrl = url;
-            out[id] = rec;
-          }).catch(() => {});
-          tasks.push(p);
-        }
-        cursor.continue();
-      };
-
-      req.onerror = () => reject(req.error || new Error("dumpAllNoteImagesForBackup failed"));
-    });
-  } catch (e) {
-    console.warn("dumpAllNoteImagesForBackup error:", e);
-    return {};
-  }
-}
-
-async function restoreNoteImagesFromBackup(imagesMap) {
-  if (!imagesMap || typeof imagesMap !== "object") return;
-  const ids = Object.keys(imagesMap);
-  for (const id of ids) {
-    const rec = imagesMap[id];
-    if (!rec || !rec.dataUrl) continue;
-    let blob = null;
-    try {
-      const resp = await fetch(rec.dataUrl);
-      blob = await resp.blob();
-    } catch {
-      continue;
-    }
-    const meta = (rec.meta && typeof rec.meta === "object") ? rec.meta : {};
-    meta.type = rec.type || meta.type || blob.type;
-    meta.createdAt = rec.createdAt || meta.createdAt || Date.now();
-    try {
-      await idbPutNoteImageBlobWithId(id, blob, meta);
-    } catch (e) {
-      console.warn("restoreNoteImagesFromBackup failed for", id, e);
-    }
-  }
-}
-
 
 async function idbGetNoteImageBlob(id) {
   const db = await openNotesImgDB();
@@ -5089,73 +4758,62 @@ function getCurrentCommentKey() {
   return `${scope.subj}_${scope.year}_${scope.round}_${q.id}`;
 }
 
-async function saveNotes(scopeOverride) {
+function saveNotes(scopeOverride) {
+  if (!editor) return;
+
+  const ctx = getCurrentNoteContext();
+  const q = ctx.q;
+  if (!q) return;
+
+  const scope = scopeOverride || ctx.scope;
+  const k = keyForNote(q.id, scope);
+
+  state.notes = state.notes || {};
+  state.notesMeta = state.notesMeta || {};
+
+  const newHtml = editorHtmlWithStableImgRefs(editor);
+  const prevHtml = typeof state.notes[k] === "string" ? state.notes[k] : "";
+
+  // 防呆：避免「意外變空白」把原本非空的筆記覆蓋掉
+  if (!String(newHtml).trim() && String(prevHtml).trim()) {
+    return;
+  }
+
+  state.notes[k] = newHtml;
+
+  const meta = (state.notesMeta[k] && typeof state.notesMeta[k] === "object") ? state.notesMeta[k] : {};
+  meta.userTouched = true;
+  state.notesMeta[k] = meta;
+
   try {
-    if (!editor) return;
-
-    const ctx = getCurrentNoteContext();
-    const q = ctx.q;
-    if (!q) return;
-
-    const scope = scopeOverride || ctx.scope;
-    const k = keyForNote(q.id, scope);
-
-    const newHtml = editorHtmlWithStableImgRefs(editor);
-    const prevHtml = (state.notes && typeof state.notes[k] === "string") ? state.notes[k] : "";
-
-    if (String(newHtml).trim() === String(prevHtml).trim()) return;
-
-    if (!state.notes || typeof state.notes !== "object") state.notes = {};
-    if (!state.notesMeta || typeof state.notesMeta !== "object") state.notesMeta = {};
-
-    state.notes[k] = newHtml;
-
-    const prevMeta = (state.notesMeta[k] && typeof state.notesMeta[k] === "object") ? state.notesMeta[k] : {};
-    const meta = { ...prevMeta, userTouched: true, updatedAt: Date.now() };
-    state.notesMeta[k] = meta;
-
-    if (typeof openNotesDB === "function" && typeof NOTESDB === "object") {
-      const db = await openNotesDB();
-
-      await new Promise((resolve, reject) => {
-        const tx = db.transaction([NOTESDB.storeNotes, NOTESDB.storeMeta], "readwrite");
-        const sNotes = tx.objectStore(NOTESDB.storeNotes);
-        const sMeta = tx.objectStore(NOTESDB.storeMeta);
-
-        sNotes.put({
-          k: String(k),
-          html: String(newHtml ?? ""),
-          updatedAt: Date.now()
-        });
-
-        sMeta.put({
-          k: String(k),
-          meta,
-          updatedAt: Date.now()
-        });
-
-        tx.oncomplete = () => resolve(true);
-        tx.onerror = () => reject(tx.error || new Error("saveNotes IDB tx error"));
-        tx.onabort = () => reject(tx.error || new Error("saveNotes IDB tx abort"));
-      });
-    }
-
-    if (typeof updateNotesStorageStatus === "function") updateNotesStorageStatus(false);
+    localStorage.setItem(STORAGE.notes, JSON.stringify(state.notes));
+    localStorage.setItem(STORAGE.notesMeta, JSON.stringify(state.notesMeta));
+    updateNotesStorageStatus(false);
   } catch (e) {
     console.error("saveNotes failed:", e);
   }
 }
 
+
 function loadNotes() {
-  // 只初始化 state.notes，不再讀寫 localStorage notes_v2（避免 quota 爆）
-  // 舊資料會由 loadNoteForCurrent 個別題目時讀 legacy / IndexedDB
-  if (!state.notes || typeof state.notes !== "object") state.notes = {};
-  if (!state.notesMeta || typeof state.notesMeta !== "object") state.notesMeta = {};
+  let rawNotes = null;
+  let rawMeta = null;
+
+  try { rawNotes = localStorage.getItem(STORAGE.notes); } catch {}
+  try { rawMeta = localStorage.getItem(STORAGE.notesMeta); } catch {}
+
+  try {
+    state.notes = rawNotes ? (JSON.parse(rawNotes) || {}) : {};
+  } catch {
+    state.notes = {};
+  }
+
+  try {
+    state.notesMeta = rawMeta ? (JSON.parse(rawMeta) || {}) : {};
+  } catch {
+    state.notesMeta = {};
+  }
 }
-
-
-
-
 
 
 function defaultNoteHTML(q){
@@ -5198,49 +4856,8 @@ function ensureNoteSeeded(q, scope) {
   state.notesMeta[k] = meta;
 }
 
-// ===== Notes helpers fallback (避免 getStoredNoteHtmlNoWrite is not defined) =====
-(function ensureNotesHelpers() {
-  const G = (typeof globalThis !== "undefined") ? globalThis : window;
 
-  if (typeof G.getStoredNoteHtmlNoWrite !== "function") {
-    G.getStoredNoteHtmlNoWrite = async function (k) {
-      try {
-        if (!k) return null;
-        // 優先用 localStorage 的 notesv2（你程式內的 STORAGE.notes）
-        const raw = localStorage.getItem(STORAGE && STORAGE.notes ? STORAGE.notes : "notesv2");
-        const obj = raw ? JSON.parse(raw) : null;
-        if (obj && Object.prototype.hasOwnProperty.call(obj, k)) {
-          const v = obj[k];
-          if (typeof v === "string" && v.trim().length) return v;
-        }
-      } catch (e) {}
-      return null;
-    };
-  }
-
-  if (typeof G.getStoredNoteMetaNoWrite !== "function") {
-    G.getStoredNoteMetaNoWrite = async function (k) {
-      try {
-        if (!k) return null;
-        const raw = localStorage.getItem(STORAGE && STORAGE.notesMeta ? STORAGE.notesMeta : "notesMetav2");
-        const obj = raw ? JSON.parse(raw) : null;
-        if (obj && Object.prototype.hasOwnProperty.call(obj, k)) {
-          const v = obj[k];
-          if (v && typeof v === "object") return v;
-        }
-      } catch (e) {}
-      return null;
-    };
-  }
-
-  // 有些版本會先呼叫這個做搬移；沒有 IndexedDB 那套時就讓它變 no-op
-  if (typeof G.copyLegacyToIdbIfMissing !== "function") {
-    G.copyLegacyToIdbIfMissing = async function () { return; };
-  }
-})();
-
-
-async function loadNoteForCurrent() {
+function loadNoteForCurrent() {
   if (!editor) return;
 
   try { cleanupHydratedBlobUrls(editor); } catch (e) {}
@@ -5254,65 +4871,16 @@ async function loadNoteForCurrent() {
     return;
   }
 
-  // 先確保 key & 預設骨架存在（只在完全沒資料時才種）
   ensureNoteSeeded(q, scope);
 
   const k = keyForNote(q.id, scope);
+  editor.innerHTML = (state.notes && typeof state.notes[k] === "string") ? state.notes[k] : "";
 
-  // 先用記憶體的版本瞬間回填（避免畫面閃爍）
-  const memHtml = (state.notes && typeof state.notes[k] === "string") ? state.notes[k] : "";
-  if (typeof memHtml === "string" && memHtml.length) {
-    editor.innerHTML = memHtml;
-  } else {
-    editor.innerHTML = state.notes && typeof state.notes[k] === "string" ? state.notes[k] : defaultNoteHTML(q);
-  }
-
-  // 判斷這題是否已經被使用者動過（動過就以記憶體為準，不要被 storage 覆蓋）
-  const memMeta = (state.notesMeta && typeof state.notesMeta[k] === "object" && state.notesMeta[k]) ? state.notesMeta[k] : null;
-  const memTouched = !!(memMeta && memMeta.userTouched === true);
-
-  try {
-    // 只做「缺資料時」的搬運：legacy -> idb（不覆蓋現有）
-    await copyLegacyToIdbIfMissing(k);
-
-    // 從 storage 讀（可能是 idb 或 legacy）
-    const storedHtml = await getStoredNoteHtmlNoWrite(k);
-
-    // 只有在「使用者尚未動過」或「記憶體是空的」時，才允許用 storage 覆蓋
-    // （新）用「等同空白筆記」判斷：骨架會被視為空白，才會讓儲存的筆記覆蓋回來
-    const memNow = (state.notes && typeof state.notes[k] === "string") ? state.notes[k] : "";
-    const memIsEmpty = isEffectivelyEmptyNoteHtml(memNow);
-
-
-    if (typeof storedHtml === "string" && storedHtml.trim().length) {
-      if (!memTouched || memIsEmpty) {
-        if (!state.notes || typeof state.notes !== "object") state.notes = {};
-        state.notes[k] = storedHtml;
-        if (editor.innerHTML !== storedHtml) editor.innerHTML = storedHtml;
-      }
-    }
-
-    const storedMeta = await getStoredNoteMetaNoWrite(k);
-    if (storedMeta && typeof storedMeta === "object") {
-      // meta 也只在「尚未 touched」時才覆蓋，避免把 userTouched 蓋回 false
-      const curMeta = (state.notesMeta && typeof state.notesMeta[k] === "object" && state.notesMeta[k]) ? state.notesMeta[k] : null;
-      const curTouched = !!(curMeta && curMeta.userTouched === true);
-
-      if (!curTouched) {
-        if (!state.notesMeta || typeof state.notesMeta !== "object") state.notesMeta = {};
-        state.notesMeta[k] = storedMeta;
-      }
-    }
-
+  (async () => {
     try { await hydrateIdbImagesInEditor(editor); } catch (e) {}
     try { neutralizeOfficeVML(editor); } catch (e) {}
-  } catch (e) {
-    console.warn("loadNoteForCurrent failed", e);
-    try { await hydrateIdbImagesInEditor(editor); } catch (e2) {}
-    try { neutralizeOfficeVML(editor); } catch (e3) {}
-  }
+  })();
 }
-
 
 
 
@@ -6060,78 +5628,86 @@ if (searchInput) {
 
 /* 導航 */
 prevBtn.onclick = () => {
-  saveNotes(state.scope ?? getScopeFromUI());
-
-  // 1) 全域搜尋模式
+  saveNotes(state.scope || getScopeFromUI());  // 1) 搜尋模式：在搜尋結果裡往前
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
-    if (globalSearchIndex > 0) globalSearchIndex--;
-    else globalSearchIndex = 0;
+    if (globalSearchIndex > 0) {
+      globalSearchIndex--;
+    } else {
+      globalSearchIndex = 0;
+    }
 
     const hit = globalSearchResults[globalSearchIndex];
     if (hit) {
-      if (qList) Array.from(qList.children).forEach((el, i) => el.classList.toggle("active", i === globalSearchIndex));
+      // 更新右側 active
+      if (qList) {
+        Array.from(qList.children).forEach((el, i) => {
+          el.classList.toggle("active", i === globalSearchIndex);
+        });
+      }
+      // 跳到那一題
       jumpToSearchHit(hit);
     }
     return;
   }
-
-  // 2) 檢討模式
   if (state.mode === "review") {
     stepReview(-1);
-    return;
+  } else {
+    const list = state.visibleQuestions && state.visibleQuestions.length
+      ? state.visibleQuestions
+      : state.questions;
+    if (state.index > 0) state.index--;
+    else state.index = 0;
   }
-
-  // 3) 一般瀏覽
-  const list = (state.visibleQuestions && state.visibleQuestions.length) ? state.visibleQuestions : state.questions;
-  if (state.index > 0) state.index--;
-  else state.index = 0;
-
   renderQuestion();
   highlightList();
 };
 
 nextBtn.onclick = () => {
-  saveNotes(state.scope ?? getScopeFromUI());
+  saveNotes(state.scope || getScopeFromUI());
 
-  // 1) 全域搜尋模式
+  // 1) 搜尋模式：在搜尋結果裡往後
   if (isGlobalSearchMode && globalSearchResults.length > 0) {
-    if (globalSearchIndex < globalSearchResults.length - 1) globalSearchIndex++;
-    else globalSearchIndex = globalSearchResults.length - 1;
+    if (globalSearchIndex < globalSearchResults.length - 1) {
+      globalSearchIndex++;
+    } else {
+      globalSearchIndex = globalSearchResults.length - 1;
+    }
 
     const hit = globalSearchResults[globalSearchIndex];
     if (hit) {
-      if (qList) Array.from(qList.children).forEach((el, i) => el.classList.toggle("active", i === globalSearchIndex));
+      if (qList) {
+        Array.from(qList.children).forEach((el, i) => {
+          el.classList.toggle("active", i === globalSearchIndex);
+        });
+      }
       jumpToSearchHit(hit);
     }
     return;
   }
-
-  // 2) 檢討模式
+  
   if (state.mode === "review") {
     stepReview(1);
-    return;
+  } else {
+    const list = state.visibleQuestions && state.visibleQuestions.length
+      ? state.visibleQuestions
+      : state.questions;
+    if (state.index < list.length - 1) state.index++;
+    else state.index = list.length - 1;
   }
-
-  // 3) 一般瀏覽
-  const list = (state.visibleQuestions && state.visibleQuestions.length) ? state.visibleQuestions : state.questions;
-  if (state.index < list.length - 1) state.index++;
-  else state.index = list.length - 1;
-
   renderQuestion();
   highlightList();
 };
-
 try {
-  if (!window.notesPagehideBound) {
-    window.notesPagehideBound = true;
+  if (!window.__notesPagehideBound) {
+    window.__notesPagehideBound = true;
+
     window.addEventListener("pagehide", () => {
       try {
-        saveNotes(state.scope ?? getScopeFromUI());
+        saveNotes(state.scope || getScopeFromUI());
       } catch (e) {}
     });
   }
 } catch (e) {}
-
 
 function stepReview(delta){
   if(!state.reviewOrder.length) return;
@@ -8486,53 +8062,39 @@ function reviewRecordWrong(record) {
   if (mask) mask.remove();
 }
 
-async function exportNotesForCurrentScope() {
-  try {
-    // 先把目前 editor 的內容存起來（若 saveNotes 是 sync 也能吃）
-    if (typeof saveNotes === "function") {
-      await Promise.resolve(saveNotes());
-    }
+// ===== 匯出目前這一卷的詳解（作者模式專用） =====
+function exportNotesForCurrentScope(){
+  // 先確保當前題目的筆記有存進去
+  saveNotes();
 
-    const scope = (typeof getScopeFromUI === "function")
-      ? getScopeFromUI()
-      : { subj: "unknown", year: "0", round: "0" };
+  // 保險再讀一次 notes
+  loadNotes();
 
-    // 匯出「目前科目＋年次＋梯次」這個 scope 的所有題目筆記
-    // key: note|{subj}|{year}|r{round}|q{qid}
-    const prefix = `note|${scope.subj}|${scope.year}|r${scope.round}|q`;
+  const scope = state.scope || getScopeFromUI();
 
-    let map = {};
-    if (typeof idbGetNotesMapByPrefix === "function") {
-      map = await idbGetNotesMapByPrefix(prefix);
-    } else {
-      // 保底：如果你還沒加 idbGetNotesMapByPrefix，就退回用記憶體（可能不完整）
-      map = (state && state.notes && typeof state.notes === "object") ? state.notes : {};
-    }
+  // 產生陣列：每題 { id, explanation: "<html...>" }
+  const arr = state.questions.map(q=>{
+    const k = keyForNote(q.id, scope);           // 此題在 notes 裡的 key[web:48]
+    const html = (state._notes && state._notes[k]) || "";
+    return {
+      id: q.id,
+      explanation: html
+    };
+  });
 
-    const qs = Array.isArray(state?.questions) ? state.questions : [];
+  // 也做一份「題號 → explanation」物件，方便貼回 JSON
+  const byId = {};
+  arr.forEach(row=>{
+    byId[row.id] = row.explanation;
+  });
 
-    const arr = qs.map(q => {
-      const k = (typeof keyForNote === "function")
-        ? keyForNote(q.id, scope)
-        : `note|${scope.subj}|${scope.year}|r${scope.round}|q${q.id}`;
+  console.log("=== 本卷詳解（陣列格式）===");
+  console.log(JSON.stringify(arr, null, 2));     // 給逐題對照用[web:58]
 
-      const html = Object.prototype.hasOwnProperty.call(map, k) ? (map[k] || "") : "";
-      return { id: q.id, explanation: html };
-    });
+  //console.log("=== 本卷詳解（以題號為 key 的物件）===");
+  //console.log(JSON.stringify(byId, null, 2));    // 方便直接貼進題目檔[web:58]
 
-    const byId = {};
-    arr.forEach(row => { byId[row.id] = row.explanation; });
-
-    console.log("=== 本卷詳解（陣列格式）===");
-    console.log(JSON.stringify(arr, null, 2));
-    console.log("=== 本卷詳解（以 id 為 key）===");
-    console.log(JSON.stringify(byId, null, 2));
-
-    if (typeof toast === "function") toast("已匯出到 Console（IndexedDB）");
-  } catch (e) {
-    console.error("exportNotesForCurrentScope failed:", e);
-    alert("匯出失敗：請看 console");
-  }
+  toast("已在 console 輸出詳解 JSON");
 }
 
 // 作者模式才綁定按鈕
@@ -9304,52 +8866,31 @@ function ensureNoteRecordBackupStyle() {
   document.head.appendChild(style);
 }
 
+function buildNotesRecordsBackupPayload() {
+  // 這裡只抓你需求的「筆記/紀錄」
+  // 筆記：notesv2 / notesMetav2
+  // 紀錄：random quiz records、pet feed records（如果你不想含寵物紀錄可刪）
+  const notes = safeJsonParse(localStorage.getItem(STORAGE?.notes ?? 'notesv2')) ?? {};
+  const notesMeta = safeJsonParse(localStorage.getItem(STORAGE?.notesMeta ?? 'notesMetav2')) ?? {};
 
-async function buildNotesRecordsBackupPayload() {
-  // 1) 讀出 IndexedDB 裡的最新筆記
-  const idbNotes = await idbDumpAllNotes();
-  const idbMeta = await idbDumpAllMeta();
+  const randomQuizRecords =
+    safeJsonParse(localStorage.getItem(typeof RANDOMQUIZRECORDSKEY !== 'undefined' ? RANDOMQUIZRECORDSKEY : 'ntuvm-random-quiz-records')) ?? [];
 
-  // 2) 再把 legacy localStorage 的 notes_v2 / notesMeta_v2 也併進來（只讀，不刪）
-  __loadLegacyOnce();
-  const legacyNotes = __legacyNotesObj || {};
-  const legacyMeta = __legacyMetaObj || {};
-
-  const mergedNotes = { ...legacyNotes, ...idbNotes }; // 同 key 以 IDB 為準
-  const mergedMeta  = { ...legacyMeta,  ...idbMeta  };
-
-  // 3) 額外一起備份「隨機測驗紀錄」、「餵食紀錄」（原本就有）
-  const randomQuizRecords = safeJsonParse(
-    localStorage.getItem(typeof RANDOMQUIZRECORDSKEY !== "undefined"
-      ? RANDOMQUIZRECORDSKEY
-      : "ntuvm-random-quiz-records"
-    )
-  ) ?? [];
-
-  const petFeedRecords = safeJsonParse(
-    localStorage.getItem(typeof PETFEEDRECORDSKEY !== "undefined"
-      ? PETFEEDRECORDSKEY
-      : "ntuvm-pet-feed-records"
-    )
-  ) ?? [];
-
-  // 4) 把筆記圖片也一起備份（id -> {meta, type, createdAt, dataUrl}）
-  const notesImages = await dumpAllNoteImagesForBackup();
+  const petFeedRecords =
+    safeJsonParse(localStorage.getItem(typeof PETFEEDRECORDSKEY !== 'undefined' ? PETFEEDRECORDSKEY : 'ntuvm-pet-feed-records')) ?? [];
 
   return {
-    schema: "ntuvm-notes-records-backup",
-    version: 2,
+    schema: 'ntuvm-notes-records-backup',
+    version: 1,
     exportedAt: new Date().toISOString(),
     data: {
-      notes: mergedNotes,
-      notesMeta: mergedMeta,
-      notesImages,
+      notes,
+      notesMeta,
       randomQuizRecords,
-      petFeedRecords
-    }
+      petFeedRecords,
+    },
   };
 }
-
 
 function downloadJsonObject(obj, filename) {
   const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json;charset=utf-8' });
@@ -9364,98 +8905,50 @@ function downloadJsonObject(obj, filename) {
 
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
-async function applyNotesRecordsBackupPayload(payload) {
-  if (!payload || payload.schema !== "ntuvm-notes-records-backup" || !payload.data) {
-    alert("備份檔格式不正確");
+
+function applyNotesRecordsBackupPayload(payload) {
+  if (!payload || payload.schema !== 'ntuvm-notes-records-backup' || !payload.data) {
+    alert('備份檔格式不正確');
     return false;
   }
 
   const data = payload.data || {};
-  const notesObj = (data.notes && typeof data.notes === "object") ? data.notes : {};
-  const metaObj  = (data.notesMeta && typeof data.notesMeta === "object") ? data.notesMeta : {};
-  const imagesObj = (data.notesImages && typeof data.notesImages === "object") ? data.notesImages : null;
+
+  // 寫回 localStorage（用你原本的 key）
+  localStorage.setItem(STORAGE?.notes ?? 'notesv2', JSON.stringify(data.notes ?? {}));
+  localStorage.setItem(STORAGE?.notesMeta ?? 'notesMetav2', JSON.stringify(data.notesMeta ?? {}));
+
+  if (typeof RANDOMQUIZRECORDSKEY !== 'undefined') {
+    localStorage.setItem(RANDOMQUIZRECORDSKEY, JSON.stringify(data.randomQuizRecords ?? []));
+  } else {
+    localStorage.setItem('ntuvm-random-quiz-records', JSON.stringify(data.randomQuizRecords ?? []));
+  }
+
+  if (typeof PETFEEDRECORDSKEY !== 'undefined') {
+    localStorage.setItem(PETFEEDRECORDSKEY, JSON.stringify(data.petFeedRecords ?? []));
+  } else {
+    localStorage.setItem('ntuvm-pet-feed-records', JSON.stringify(data.petFeedRecords ?? []));
+  }
+
+  // 讓目前畫面狀態跟著刷新
+  try {
+    if (typeof loadNotes === 'function') loadNotes();
+  } catch {}
 
   try {
-    // 1) 先把 notes / meta 寫回 Notes DB（不清空，只覆蓋同 key）
-    const db = await openNotesDB();
-    await new Promise((resolve, reject) => {
-      const tx = db.transaction([NOTES_DB.storeNotes, NOTES_DB.storeMeta], "readwrite");
-      const sNotes = tx.objectStore(NOTES_DB.storeNotes);
-      const sMeta  = tx.objectStore(NOTES_DB.storeMeta);
+    if (typeof loadRandomQuizRecords === 'function') loadRandomQuizRecords();
+  } catch {}
 
-      try {
-        for (const k of Object.keys(notesObj)) {
-          sNotes.put({
-            k: String(k),
-            html: String(notesObj[k] ?? ""),
-            updatedAt: Date.now()
-          });
-        }
-        for (const k of Object.keys(metaObj)) {
-          const m = (metaObj[k] && typeof metaObj[k] === "object") ? metaObj[k] : {};
-          sMeta.put({
-            k: String(k),
-            meta: m,
-            updatedAt: Date.now()
-          });
-        }
-      } catch (e) {
-        reject(e);
-        return;
-      }
+  try {
+    if (typeof renderQuestion === 'function') renderQuestion();
+  } catch {}
 
-      tx.oncomplete = () => resolve(true);
-      tx.onerror = () => reject(tx.error || new Error("applyNotesRecordsBackupPayload notes/meta failed"));
-      tx.onabort = () => reject(tx.error || new Error("applyNotesRecordsBackupPayload notes/meta aborted"));
-    });
+  try {
+    if (typeof renderPetFeedLog === 'function') renderPetFeedLog();
+  } catch {}
 
-    // 2) 再還原圖片（只覆蓋同 id，不清空整庫，避免把使用者後來多上的圖全部砍掉）
-    try {
-      await restoreNoteImagesFromBackup(imagesObj);
-    } catch (e) {
-      console.warn("restoreNoteImagesFromBackup failed:", e);
-    }
-
-    // 3) 仍然寫回其他小型紀錄（用 localStorage，體積小）
-    if (typeof RANDOMQUIZRECORDSKEY !== "undefined") {
-      localStorage.setItem(
-        RANDOMQUIZRECORDSKEY,
-        JSON.stringify(data.randomQuizRecords ?? [])
-      );
-    } else {
-      localStorage.setItem(
-        "ntuvm-random-quiz-records",
-        JSON.stringify(data.randomQuizRecords ?? [])
-      );
-    }
-
-    if (typeof PETFEEDRECORDSKEY !== "undefined") {
-      localStorage.setItem(
-        PETFEEDRECORDSKEY,
-        JSON.stringify(data.petFeedRecords ?? [])
-      );
-    } else {
-      localStorage.setItem(
-        "ntuvm-pet-feed-records",
-        JSON.stringify(data.petFeedRecords ?? [])
-      );
-    }
-
-    // 4) 刷新記憶體狀態與畫面（不會觸碰 legacy notes_v2）
-    try { if (typeof loadNotes === "function") loadNotes(); } catch {}
-    try { if (typeof loadRandomQuizRecords === "function") loadRandomQuizRecords(); } catch {}
-    try { if (typeof renderQuestion === "function") renderQuestion(); } catch {}
-    try { if (typeof renderPetFeedLog === "function") renderPetFeedLog(); } catch {}
-    try { updateNotesStorageStatus(false); } catch {}
-
-    return true;
-  } catch (e) {
-    console.error("applyNotesRecordsBackupPayload error:", e);
-    alert("還原失敗：請看 console");
-    return false;
-  }
+  return true;
 }
-
 
 function openRestoreNotesRecordsDialog() {
   const input = document.createElement('input');
@@ -9480,8 +8973,8 @@ function openRestoreNotesRecordsDialog() {
     try {
       const text = await file.text();
       const payload = JSON.parse(text);
-      const applied = await applyNotesRecordsBackupPayload(payload);
-      if (applied) alert("還原成功！");
+      const applied = applyNotesRecordsBackupPayload(payload);
+      if (applied) alert('恢復完成');
     } catch (err) {
       console.error(err);
       alert('讀取備份檔失敗（可能不是 JSON 或檔案壞掉）');
@@ -9515,20 +9008,15 @@ function ensureNotesRecordsBackupButtons() {
   btnBackup.id = 'btnNotesRecordsBackup';
   btnBackup.className = 'nr-mini-btn';
   btnBackup.textContent = '備份筆記/紀錄';
-  btnBackup.onclick = async () => {
-    try {
-      const payload = await buildNotesRecordsBackupPayload();
-      const ts = new Date();
-      const y = ts.getFullYear();
-      const m = String(ts.getMonth() + 1).padStart(2, "0");
-      const d = String(ts.getDate()).padStart(2, "0");
-      const hh = String(ts.getHours()).padStart(2, "0");
-      const mm = String(ts.getMinutes()).padStart(2, "0");
-      downloadJsonObject(payload, `ntuvm-notes-records-${y}${m}${d}-${hh}${mm}.json`);
-    } catch (e) {
-      alert("備份失敗：請看 console");
-      console.error(e);
-    }
+  btnBackup.onclick = () => {
+    const payload = buildNotesRecordsBackupPayload();
+    const ts = new Date();
+    const y = ts.getFullYear();
+    const m = String(ts.getMonth() + 1).padStart(2, '0');
+    const d = String(ts.getDate()).padStart(2, '0');
+    const hh = String(ts.getHours()).padStart(2, '0');
+    const mm = String(ts.getMinutes()).padStart(2, '0');
+    downloadJsonObject(payload, `ntuvm-notes-records-${y}${m}${d}-${hh}${mm}.json`);
   };
 
   const btnRestore = document.createElement('button');
@@ -9560,30 +9048,6 @@ function ensureNotesRecordsBackupButtons() {
 
 /* 工具：debounce */
 function debounce(fn, ms){ let t; return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), ms); }; }
-function bindNotesAutoSave() {
-  if (!editor) return;
-  if (editor.dataset.notesAutosaveBound) return;
-  editor.dataset.notesAutosaveBound = "1";
-
-  const debounced = debounce(() => {
-    try {
-      saveNotes(state.scope ?? getScopeFromUI());
-    } catch (e) {}
-  }, 300);
-
-  editor.addEventListener("input", debounced);
-  editor.addEventListener("compositionend", debounced);
-
-  editor.addEventListener(
-    "blur",
-    () => {
-      try {
-        saveNotes(state.scope ?? getScopeFromUI());
-      } catch (e) {}
-    },
-    true
-  );
-}
 
 
 /* === 禁止雙擊縮放、觸控縮放、Ctrl + 滑輪縮放（桌機/手機都盡量擋）=== */
@@ -10008,7 +9472,6 @@ function init() {
   renderList();
   state.scope = getScopeFromUI();
   onScopeChange();
-  bindNotesAutoSave();
   setTimeout(ensureNotesRecordsBackupButtons, 0);
   if (AUTHOR_MODE && btnExportNotes) {
     btnExportNotes.classList.remove("hidden");
