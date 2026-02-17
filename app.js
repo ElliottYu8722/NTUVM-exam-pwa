@@ -810,6 +810,10 @@ async function idbDumpAllMeta() {
 let legacyLoaded = false;
 let legacyNotesObj = {};
 let legacyMetaObj = {};
+// 相容舊版備份程式會用到的別名（buildNotesRecordsBackupPayload 會讀這兩個）
+// 只要有宣告，就不會再出現 "__legacyNotesObj is not defined"
+let __legacyNotesObj;
+let __legacyMetaObj;
 
 function loadLegacyOnce() {
   if (legacyLoaded) return;
@@ -825,9 +829,13 @@ function loadLegacyOnce() {
   try { legacyMetaObj = rawMeta ? (JSON.parse(rawMeta) || {}) : {}; } catch { legacyMetaObj = {}; }
 }
 // 兼容舊版本呼叫：有些地方可能會叫 __loadLegacyOnce()
+// 兼容舊版本呼叫：有些地方可能會叫 __loadLegacyOnce()
 function __loadLegacyOnce() {
-  return loadLegacyOnce();
+  loadLegacyOnce();
+  __legacyNotesObj = legacyNotesObj;
+  __legacyMetaObj = legacyMetaObj;
 }
+
 
 function isEffectivelyEmptyNoteHtml(html) {
   const s = String(html ?? "").trim();
