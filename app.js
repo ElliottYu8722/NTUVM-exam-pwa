@@ -8638,6 +8638,7 @@ async function embedIdbImagesIntoHtmlForExport(html, dataUrlCache) {
 
   return root.innerHTML;
 }
+
 async function exportNotesForCurrentScope() {
   try {
     // 0) 先把目前編輯中的內容存下來（避免漏最新）
@@ -8664,7 +8665,7 @@ async function exportNotesForCurrentScope() {
 
     const qs = Array.isArray(state?.questions) ? state.questions : [];
 
-    // 2) 一次匯出本卷所有題（通常 80 題），不分批
+    // 2) 一次匯出本卷所有題
     const dataUrlCache = Object.create(null);
 
     const arrAll = [];
@@ -8700,24 +8701,15 @@ async function exportNotesForCurrentScope() {
       // 2-2) 把 idbimg: 轉成 dataURL（圖片真的嵌進 HTML）
       let explanation = html || "";
       try {
-        explanation = await embedIdbImagesIntoHtmlForExport(explanation, dataUrlCache);
+        if (typeof embedIdbImagesIntoHtmlForExport === "function") {
+          explanation = await embedIdbImagesIntoHtmlForExport(explanation, dataUrlCache);
+        }
       } catch (e) {}
 
       arrAll.push({ id: q.id, explanation });
     }
 
     const total = arrAll.length;
-
-    const payload = {
-      meta: {
-        subj: scope.subj,
-        year: scope.year,
-        round: scope.round,
-        exportedAt: new Date().toISOString(),
-        totalQuestions: total
-      },
-      arr: arrAll
-    };
 
     const ts = new Date();
     const y = ts.getFullYear();
@@ -8726,22 +8718,24 @@ async function exportNotesForCurrentScope() {
     const hh = String(ts.getHours()).padStart(2, "0");
     const mm = String(ts.getMinutes()).padStart(2, "0");
 
+    // 檔名可以保留 scope/meta 資訊（不影響 Python）
     const filename = `ntuvm-本卷詳解-${scope.subj}-${scope.year}-r${scope.round}-${y}${m}${d}-${hh}${mm}.json`;
 
-    // 優先用大型匯出（避免 JSON.stringify 整包爆掉）
     let ok = false;
+
+    // 優先用大型陣列下載（避免 JSON.stringify 整包爆）
     try {
-      if (typeof downloadNotesExportJsonLarge === "function") {
-        ok = !!downloadNotesExportJsonLarge(payload, filename);
+      if (typeof downloadJsonArrayLarge === "function") {
+        ok = !!downloadJsonArrayLarge(arrAll, filename);
       }
     } catch (e) {
       ok = false;
     }
 
-    // 後備：仍保留你原本的 downloadJsonObject（小檔案時可用）
+    // 後備：小檔案才用這個
     if (!ok) {
       if (typeof downloadJsonObject === "function") {
-        downloadJsonObject(payload, filename);
+        downloadJsonObject(arrAll, filename);
         ok = true;
       } else {
         alert("downloadJsonObject 不存在，無法下載。");
@@ -8755,6 +8749,7 @@ async function exportNotesForCurrentScope() {
     alert("下載詳解失敗，請看主控台錯誤訊息");
   }
 }
+
 
 
 
@@ -9588,6 +9583,60 @@ function downloadJsonObject(obj, filename) {
 
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
+
+function downloadJsonArrayLarge(rows, filename) {
+  try {
+    const arr = Array.isArray(rows) ? rows : [];
+
+    const parts = [];
+    parts.push("[");
+
+    for (let i = 0; i < arr.length; i++) {
+      const row = arr[i] && typeof arr[i] === "object" ? arr[i] : {};
+
+      const safeRow = {
+        id: row.id,
+        explanation: row.explanation === undefined ? null : row.explanation
+      };
+
+      // 確保 explanation 不是奇怪型別
+      if (safeRow.explanation !== null && typeof safeRow.explanation !== "string") {
+        try {
+          safeRow.explanation = JSON.stringify(safeRow.explanation);
+        } catch (e) {
+          safeRow.explanation = String(safeRow.explanation);
+        }
+      }
+
+      if (i > 0) parts.push(",");
+      parts.push(JSON.stringify(safeRow));
+    }
+
+    parts.push("]");
+
+    const blob = new Blob(parts, { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(() => {
+      try { URL.revokeObjectURL(url); } catch (e) {}
+    }, 0);
+
+    return true;
+  } catch (e) {
+    console.error("downloadJsonArrayLarge failed", e);
+    return false;
+  }
+}
+
+
+
 async function applyNotesRecordsBackupPayload(payload) {
   if (!payload || payload.schema !== "ntuvm-notes-records-backup" || !payload.data) {
     alert("備份檔格式不正確");
