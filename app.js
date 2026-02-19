@@ -8575,6 +8575,7 @@ function reviewRecordWrong(record) {
   const mask = document.getElementById("rv-mask") || document.getElementById("records-mask");
   if (mask) mask.remove();
 }
+
 async function embedIdbImagesIntoHtmlForExport(html, dataUrlCache) {
   const srcPrefix = "idbimg:";
   const cache = dataUrlCache && typeof dataUrlCache === "object" ? dataUrlCache : {};
@@ -8619,7 +8620,7 @@ async function embedIdbImagesIntoHtmlForExport(html, dataUrlCache) {
         const blob = await idbGetNoteImageBlob(id);
         if (blob) {
           const dataUrl = await blobToDataUrl(blob);
-          if (typeof dataUrl === "string" && dataUrl.startsWith("")) {
+          if (typeof dataUrl === "string" && dataUrl.startsWith("data:")) {
             cache[id] = dataUrl;
           }
         }
@@ -8651,6 +8652,7 @@ async function exportNotesForCurrentScope() {
 
     const prefix = `note${scope.subj}${scope.year}r${scope.round}q`;
 
+    // 1) 先拉一份 IDB prefix map（快），但拿不到的要 fallback
     let map = {};
     try {
       if (typeof idbGetNotesMapByPrefix === "function") {
@@ -8662,91 +8664,91 @@ async function exportNotesForCurrentScope() {
     if (!map || typeof map !== "object") map = {};
 
     const qs = Array.isArray(state?.questions) ? state.questions : [];
-    const arrAll = qs.map((q) => {
+
+    // 2) 一次匯出本卷所有題（通常 80 題），不分批
+    const dataUrlCache = Object.create(null);
+
+    const arrAll = [];
+    for (const q of qs) {
       const k = typeof keyForNote === "function"
         ? keyForNote(q.id, scope)
         : `note${scope.subj}${scope.year}r${scope.round}q${q.id}`;
 
-      const html = Object.prototype.hasOwnProperty.call(map, k) ? map[k] : "";
-      return { id: q.id, explanation: html };
-    });
+      // 2-1) 依序 fallback：IDB prefix map -> getStoredNoteHtmlNoWrite -> state.notes
+      let html = "";
+      try {
+        if (Object.prototype.hasOwnProperty.call(map, k)) {
+          html = map[k] || "";
+        }
+      } catch (e) {}
 
-    // 1) 分批下載（避免 80 題含圖一次爆）
-    const total = arrAll.length;
-    const defaultBatch = 10;
-
-    let batchSize = defaultBatch;
-    try {
-      const input = window.prompt(
-        `本卷共 ${total} 題。\n每題含圖匯出會很大，建議分批下載。\n請輸入每批題數（建議 5～15）：`,
-        String(defaultBatch)
-      );
-      const n = Number(String(input || "").trim());
-      if (Number.isFinite(n) && n > 0) batchSize = Math.floor(n);
-    } catch (e) {}
-
-    batchSize = Math.max(1, Math.min(batchSize, 80));
-
-    const dataUrlCache = Object.create(null);
-
-    for (let start = 0; start < total; start += batchSize) {
-      const end = Math.min(total, start + batchSize);
-      const batch = arrAll.slice(start, end);
-
-      // 2) 把 idbimg: 轉成 （圖片真的嵌進 HTML）
-      for (const row of batch) {
+      if (!String(html || "").trim()) {
         try {
-          row.explanation = await embedIdbImagesIntoHtmlForExport(row.explanation, dataUrlCache);
+          if (typeof getStoredNoteHtmlNoWrite === "function") {
+            const v = await getStoredNoteHtmlNoWrite(k);
+            if (typeof v === "string") html = v;
+          }
         } catch (e) {}
       }
 
-      // 3) 產出跟你原本主控台用的一樣概念：arr + byId
-      const byId = {};
-      batch.forEach((row) => {
-        byId[row.id] = row.explanation;
-      });
-
-      const payload = {
-        meta: {
-          subj: scope.subj,
-          year: scope.year,
-          round: scope.round,
-          exportedAt: new Date().toISOString(),
-          totalQuestions: total,
-          batchFromIndex: start + 1,
-          batchToIndex: end
-        },
-        arr: batch,
-        byId
-      };
-
-      const ts = new Date();
-      const y = ts.getFullYear();
-      const m = String(ts.getMonth() + 1).padStart(2, "0");
-      const d = String(ts.getDate()).padStart(2, "0");
-      const hh = String(ts.getHours()).padStart(2, "0");
-      const mm = String(ts.getMinutes()).padStart(2, "0");
-
-      const part = String(Math.floor(start / batchSize) + 1).padStart(2, "0");
-      const filename = `ntuvm-本卷詳解-${scope.subj}-${scope.year}-r${scope.round}-part${part}-${y}${m}${d}-${hh}${mm}.json`;
-
-      if (typeof downloadJsonObject === "function") {
-        downloadJsonObject(payload, filename);
-      } else {
-        alert("downloadJsonObject 不存在，無法下載。");
-        return;
+      if (!String(html || "").trim()) {
+        try {
+          const mem = state?.notes && typeof state.notes === "object" ? state.notes[k] : "";
+          if (typeof mem === "string") html = mem;
+        } catch (e) {}
       }
 
-      // 讓 UI 喘口氣（避免連發下載造成卡頓）
-      await new Promise((r) => setTimeout(r, 200));
+      // 2-2) 把 idbimg: 轉成 dataURL（圖片真的嵌進 HTML）
+      let explanation = html || "";
+      try {
+        explanation = await embedIdbImagesIntoHtmlForExport(explanation, dataUrlCache);
+      } catch (e) {}
+
+      arrAll.push({ id: q.id, explanation });
     }
 
-    if (typeof toast === "function") toast("已分批下載本卷詳解（含圖片）");
+    const total = arrAll.length;
+
+    const byId = {};
+    arrAll.forEach((row) => {
+      byId[row.id] = row.explanation;
+    });
+
+    const payload = {
+      meta: {
+        subj: scope.subj,
+        year: scope.year,
+        round: scope.round,
+        exportedAt: new Date().toISOString(),
+        totalQuestions: total
+      },
+      arr: arrAll,
+      byId
+    };
+
+    const ts = new Date();
+    const y = ts.getFullYear();
+    const m = String(ts.getMonth() + 1).padStart(2, "0");
+    const d = String(ts.getDate()).padStart(2, "0");
+    const hh = String(ts.getHours()).padStart(2, "0");
+    const mm = String(ts.getMinutes()).padStart(2, "0");
+
+    const filename = `ntuvm-本卷詳解-${scope.subj}-${scope.year}-r${scope.round}-${y}${m}${d}-${hh}${mm}.json`;
+
+    if (typeof downloadJsonObject === "function") {
+      downloadJsonObject(payload, filename);
+    } else {
+      alert("downloadJsonObject 不存在，無法下載。");
+      return;
+    }
+
+    if (typeof toast === "function") toast(`已下載本卷詳解（共 ${total} 題，含圖片）`);
   } catch (e) {
     console.error("exportNotesForCurrentScope failed", e);
     alert("下載詳解失敗，請看主控台錯誤訊息");
   }
 }
+
 
 
 // 作者模式才綁定按鈕
