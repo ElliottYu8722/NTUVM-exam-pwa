@@ -8575,55 +8575,179 @@ function reviewRecordWrong(record) {
   const mask = document.getElementById("rv-mask") || document.getElementById("records-mask");
   if (mask) mask.remove();
 }
+async function embedIdbImagesIntoHtmlForExport(html, dataUrlCache) {
+  const srcPrefix = "idbimg:";
+  const cache = dataUrlCache && typeof dataUrlCache === "object" ? dataUrlCache : {};
+
+  const raw = typeof html === "string" ? html : "";
+  if (!raw.trim()) return raw;
+
+  let doc;
+  try {
+    doc = new DOMParser().parseFromString(`<div id="__root__">${raw}</div>`, "text/html");
+  } catch (e) {
+    return raw;
+  }
+
+  const root = doc.getElementById("__root__");
+  if (!root) return raw;
+
+  const imgs = Array.from(root.querySelectorAll("img"));
+  for (const img of imgs) {
+    let src = "";
+    try {
+      src = String(img.getAttribute("src") || "");
+    } catch (e) {
+      src = "";
+    }
+
+    let id = null;
+
+    if (src.startsWith(srcPrefix)) {
+      id = src.slice(srcPrefix.length).trim();
+    } else {
+      try {
+        const dsId = img.dataset && img.dataset.nimgId ? String(img.dataset.nimgId) : "";
+        if (dsId.trim()) id = dsId.trim();
+      } catch (e) {}
+    }
+
+    if (!id) continue;
+
+    if (!cache[id]) {
+      try {
+        const blob = await idbGetNoteImageBlob(id);
+        if (blob) {
+          const dataUrl = await blobToDataUrl(blob);
+          if (typeof dataUrl === "string" && dataUrl.startsWith("")) {
+            cache[id] = dataUrl;
+          }
+        }
+      } catch (e) {
+        // ignore single image failure
+      }
+    }
+
+    if (cache[id]) {
+      try {
+        img.setAttribute("src", cache[id]);
+      } catch (e) {}
+    }
+  }
+
+  return root.innerHTML;
+}
 
 async function exportNotesForCurrentScope() {
   try {
-    // 先把目前 editor 的內容存起來（若 saveNotes 是 sync 也能吃）
-    if (typeof saveNotes === "function") {
-      await Promise.resolve(saveNotes());
-    }
+    // 0) 先把目前編輯中的內容存下來（避免漏最新）
+    try {
+      if (typeof saveNotes === "function") await Promise.resolve(saveNotes());
+    } catch (e) {}
 
-    const scope = (typeof getScopeFromUI === "function")
+    const scope = typeof getScopeFromUI === "function"
       ? getScopeFromUI()
       : { subj: "unknown", year: "0", round: "0" };
 
-    // 匯出「目前科目＋年次＋梯次」這個 scope 的所有題目筆記
-    // key: note|{subj}|{year}|r{round}|q{qid}
-    const prefix = `note|${scope.subj}|${scope.year}|r${scope.round}|q`;
+    const prefix = `note${scope.subj}${scope.year}r${scope.round}q`;
 
     let map = {};
-    if (typeof idbGetNotesMapByPrefix === "function") {
-      map = await idbGetNotesMapByPrefix(prefix);
-    } else {
-      // 保底：如果你還沒加 idbGetNotesMapByPrefix，就退回用記憶體（可能不完整）
-      map = (state && state.notes && typeof state.notes === "object") ? state.notes : {};
+    try {
+      if (typeof idbGetNotesMapByPrefix === "function") {
+        map = await idbGetNotesMapByPrefix(prefix);
+      }
+    } catch (e) {
+      map = {};
     }
+    if (!map || typeof map !== "object") map = {};
 
     const qs = Array.isArray(state?.questions) ? state.questions : [];
-
-    const arr = qs.map(q => {
-      const k = (typeof keyForNote === "function")
+    const arrAll = qs.map((q) => {
+      const k = typeof keyForNote === "function"
         ? keyForNote(q.id, scope)
-        : `note|${scope.subj}|${scope.year}|r${scope.round}|q${q.id}`;
+        : `note${scope.subj}${scope.year}r${scope.round}q${q.id}`;
 
-      const html = Object.prototype.hasOwnProperty.call(map, k) ? (map[k] || "") : "";
+      const html = Object.prototype.hasOwnProperty.call(map, k) ? map[k] : "";
       return { id: q.id, explanation: html };
     });
 
-    const byId = {};
-    arr.forEach(row => { byId[row.id] = row.explanation; });
+    // 1) 分批下載（避免 80 題含圖一次爆）
+    const total = arrAll.length;
+    const defaultBatch = 10;
 
-    console.log("=== 本卷詳解（陣列格式）===");
-    console.log(JSON.stringify(arr, null, 2));
-    console.log("=== 本卷詳解（以 id 為 key）===");
-    console.log(JSON.stringify(byId, null, 2));
+    let batchSize = defaultBatch;
+    try {
+      const input = window.prompt(
+        `本卷共 ${total} 題。\n每題含圖匯出會很大，建議分批下載。\n請輸入每批題數（建議 5～15）：`,
+        String(defaultBatch)
+      );
+      const n = Number(String(input || "").trim());
+      if (Number.isFinite(n) && n > 0) batchSize = Math.floor(n);
+    } catch (e) {}
 
-    if (typeof toast === "function") toast("已匯出到 Console（IndexedDB）");
+    batchSize = Math.max(1, Math.min(batchSize, 80));
+
+    const dataUrlCache = Object.create(null);
+
+    for (let start = 0; start < total; start += batchSize) {
+      const end = Math.min(total, start + batchSize);
+      const batch = arrAll.slice(start, end);
+
+      // 2) 把 idbimg: 轉成 （圖片真的嵌進 HTML）
+      for (const row of batch) {
+        try {
+          row.explanation = await embedIdbImagesIntoHtmlForExport(row.explanation, dataUrlCache);
+        } catch (e) {}
+      }
+
+      // 3) 產出跟你原本主控台用的一樣概念：arr + byId
+      const byId = {};
+      batch.forEach((row) => {
+        byId[row.id] = row.explanation;
+      });
+
+      const payload = {
+        meta: {
+          subj: scope.subj,
+          year: scope.year,
+          round: scope.round,
+          exportedAt: new Date().toISOString(),
+          totalQuestions: total,
+          batchFromIndex: start + 1,
+          batchToIndex: end
+        },
+        arr: batch,
+        byId
+      };
+
+      const ts = new Date();
+      const y = ts.getFullYear();
+      const m = String(ts.getMonth() + 1).padStart(2, "0");
+      const d = String(ts.getDate()).padStart(2, "0");
+      const hh = String(ts.getHours()).padStart(2, "0");
+      const mm = String(ts.getMinutes()).padStart(2, "0");
+
+      const part = String(Math.floor(start / batchSize) + 1).padStart(2, "0");
+      const filename = `ntuvm-本卷詳解-${scope.subj}-${scope.year}-r${scope.round}-part${part}-${y}${m}${d}-${hh}${mm}.json`;
+
+      if (typeof downloadJsonObject === "function") {
+        downloadJsonObject(payload, filename);
+      } else {
+        alert("downloadJsonObject 不存在，無法下載。");
+        return;
+      }
+
+      // 讓 UI 喘口氣（避免連發下載造成卡頓）
+      await new Promise((r) => setTimeout(r, 200));
+    }
+
+    if (typeof toast === "function") toast("已分批下載本卷詳解（含圖片）");
   } catch (e) {
-    console.error("exportNotesForCurrentScope failed:", e);
-    alert("匯出失敗：請看 console");
+    console.error("exportNotesForCurrentScope failed", e);
+    alert("下載詳解失敗，請看主控台錯誤訊息");
   }
 }
+
 
 // 作者模式才綁定按鈕
 if (AUTHOR_MODE && btnExportNotes){
