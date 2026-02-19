@@ -8638,7 +8638,6 @@ async function embedIdbImagesIntoHtmlForExport(html, dataUrlCache) {
 
   return root.innerHTML;
 }
-
 async function exportNotesForCurrentScope() {
   try {
     // 0) 先把目前編輯中的內容存下來（避免漏最新）
@@ -8709,11 +8708,6 @@ async function exportNotesForCurrentScope() {
 
     const total = arrAll.length;
 
-    const byId = {};
-    arrAll.forEach((row) => {
-      byId[row.id] = row.explanation;
-    });
-
     const payload = {
       meta: {
         subj: scope.subj,
@@ -8722,8 +8716,7 @@ async function exportNotesForCurrentScope() {
         exportedAt: new Date().toISOString(),
         totalQuestions: total
       },
-      arr: arrAll,
-      byId
+      arr: arrAll
     };
 
     const ts = new Date();
@@ -8735,19 +8728,34 @@ async function exportNotesForCurrentScope() {
 
     const filename = `ntuvm-本卷詳解-${scope.subj}-${scope.year}-r${scope.round}-${y}${m}${d}-${hh}${mm}.json`;
 
-    if (typeof downloadJsonObject === "function") {
-      downloadJsonObject(payload, filename);
-    } else {
-      alert("downloadJsonObject 不存在，無法下載。");
-      return;
+    // 優先用大型匯出（避免 JSON.stringify 整包爆掉）
+    let ok = false;
+    try {
+      if (typeof downloadNotesExportJsonLarge === "function") {
+        ok = !!downloadNotesExportJsonLarge(payload, filename);
+      }
+    } catch (e) {
+      ok = false;
     }
 
-    if (typeof toast === "function") toast(`已下載本卷詳解（共 ${total} 題，含圖片）`);
+    // 後備：仍保留你原本的 downloadJsonObject（小檔案時可用）
+    if (!ok) {
+      if (typeof downloadJsonObject === "function") {
+        downloadJsonObject(payload, filename);
+        ok = true;
+      } else {
+        alert("downloadJsonObject 不存在，無法下載。");
+        return;
+      }
+    }
+
+    if (ok && typeof toast === "function") toast(`已下載本卷詳解（共 ${total} 題，含圖片）`);
   } catch (e) {
     console.error("exportNotesForCurrentScope failed", e);
     alert("下載詳解失敗，請看主控台錯誤訊息");
   }
 }
+
 
 
 
@@ -9668,6 +9676,56 @@ async function applyNotesRecordsBackupPayload(payload) {
   } catch (e) {
     console.error("applyNotesRecordsBackupPayload error:", e);
     alert("還原失敗：請看 console");
+    return false;
+  }
+}
+
+function downloadNotesExportJsonLarge(payload, filename) {
+  try {
+    const meta = payload && typeof payload === "object" && payload.meta && typeof payload.meta === "object"
+      ? payload.meta
+      : {};
+
+    const arr = payload && typeof payload === "object" && Array.isArray(payload.arr)
+      ? payload.arr
+      : [];
+
+    // 用 Blob parts 分段組 JSON，避免 JSON.stringify 整包爆掉
+    const parts = [];
+    parts.push('{"meta":');
+    parts.push(JSON.stringify(meta));
+    parts.push(',"arr":[');
+
+    for (let i = 0; i < arr.length; i++) {
+      const row = arr[i] && typeof arr[i] === "object" ? arr[i] : {};
+      const safeRow = {
+        id: row.id,
+        explanation: typeof row.explanation === "string" ? row.explanation : String(row.explanation ?? "")
+      };
+
+      if (i > 0) parts.push(",");
+      parts.push(JSON.stringify(safeRow));
+    }
+
+    parts.push("]}");
+
+    const blob = new Blob(parts, { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(() => {
+      try { URL.revokeObjectURL(url); } catch (e) {}
+    }, 0);
+
+    return true;
+  } catch (e) {
+    console.error("downloadNotesExportJsonLarge failed", e);
     return false;
   }
 }
