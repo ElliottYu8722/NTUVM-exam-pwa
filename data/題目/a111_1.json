@@ -8,7 +8,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>凝固性壞死為<strong>缺氧、缺血或毒性損傷的典型早期反應</strong>，成因是溶酶體酶降解導致<strong>protein denaturation</strong>，而非蛋白質水解消化，因此細胞輪廓和組織結構得以保留數天，顯微鏡下特徵為細胞質均質且細胞核濃縮、破裂、溶解</p>\n<!-- notionvc: 614238a2-040e-4213-b696-def3108cff5a --><div class=\"user-note\"></div>"
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>壞疽為一種常見於<strong>肢端</strong>（如四肢、尾巴或鰭）或<strong>器官獨立部分</strong>（如乳腺或肺葉）的壞死類型，分乾濕兩類。</p>\n<p>凍傷所致的壞疽通常為乾性壞疽，濕性壞疽由某些細菌感染引起或合併細菌感染 (若為產氣菌則可能變成氣性壞疽)，肉眼特徵為潮濕、暗紅色至紅色病變，顯微鏡下特徵類似液化性壞死 (因為組織被酵素液化分解)。</p>\n<!-- notionvc: 069619dc-a995-49dd-9555-f14ae8a10f83 --><div class=\"user-note\"></div>"
     },
     {
         "id": 3,
@@ -30,7 +32,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>凋亡為程序性死亡，不會誘發炎症反應</p>\n<!-- notionvc: 1466eb1c-64b2-43ae-adae-b2e0473ad4e4 --><div class=\"user-note\"></div>"
     },
     {
         "id": 4,
@@ -41,7 +44,8 @@
             "C": "內質網及粒線體腫脹、核染質結塊（chromatin clumping）",
             "D": "出現 myelin figures、核溶解（karyolysis）"
         },
-        "image": null
+        "image": null,
+        "explanation": "可逆的細胞損傷包含<span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">Hydropic degeneration</span>、vacuolar degeneration與cloudy swelling，此時微小的結構變化包含細胞膜改變（起泡、微絨毛變形和細胞間連接鬆散）粒線粒體變化（腫脹和出現富含磷脂的無定形密度）、內質網擴張（核醣體脫落和polysomes解離）、細胞核改變（染色質 clumping）<!-- notionvc: 62783db8-2613-463d-8b30-34cd49db4f05 --><div class=\"user-note\"></div>"
     },
     {
         "id": 5,
@@ -52,7 +56,8 @@
             "C": "腎衰竭",
             "D": "腎上腺皮質功能亢進"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>轉移性鈣化 (Metastatic calcification)</strong> 是指鈣鹽沉積在<strong>正常組織</strong>中，主要由<strong>高血鈣 (Hypercalcemia)</strong> 引起。而高血鈣常見成因有腎衰竭引起的Secondary renal hyperparathyroidism、vit-D中毒、副甲狀腺素過高、骨骼破壞等。</p>\n<p>選項D的鈣化形式為皮膚鈣化，屬於Dystrophic calcification而非典型的轉移性鈣化機制。</p>\n<!-- notionvc: 1279f832-a168-464e-97a8-3167a798ea3b --><div class=\"user-note\"></div>"
     },
     {
         "id": 6,
@@ -63,7 +68,8 @@
             "C": "脂肪細胞變性產生，又稱為黃脂病",
             "D": "又稱棕色萎縮（brown atrophy）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<span style=\"font-weight:600\" data-token-index=\"0\" class=\"notion-enable-hover\">Ceroid (蠟樣脂質)</span> 是一種與脂褐素 (Lipofuscin) 相似的色素，但其形成時具有病理意義。選項D<span style=\"font-weight:600\" data-token-index=\"2\" class=\"notion-enable-hover\">棕色萎縮 (Brown atrophy)</span> 是指器官（如心臟、肝臟）因老化或消耗性疾病而萎縮，並伴隨<span style=\"font-weight:600\" data-token-index=\"4\" class=\"notion-enable-hover\">Lipofuscin</span>的沉積，而非Ceroid 。<!-- notionvc: e74682c3-21c8-41ec-8655-fc3f49939c48 --><div class=\"user-note\"></div>"
     },
     {
         "id": 7,
@@ -74,7 +80,8 @@
             "C": "細胞內的黑色炭末可抵抗有機溶劑的作用",
             "D": "吸入的炭末顆粒僅蓄積於肺泡腔內"
         },
-        "image": null
+        "image": null,
+        "explanation": "吸入肺泡內的碳粒會被巨噬細胞吞噬，並被<span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">轉運至細支氣管周圍區域 (peribronchial region)</span> 或淋巴結，並非僅蓄積於肺泡腔內<!-- notionvc: 665b568a-12d1-47be-af4c-c6dad06e7926 --><div class=\"user-note\"></div>"
     },
     {
         "id": 8,
@@ -85,7 +92,8 @@
             "C": "兩性組織器官的混合",
             "D": "發育中組織的異位"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>畸胎瘤 (Teratoma)</strong> 是一種源自 <strong>全能性生殖細胞 (totipotential germ cells)</strong> 的腫瘤，其特徵是含有至少來自兩個胚層的組織，例如皮膚、毛髮、神經組織、骨骼、牙齒等</p>\n<p><strong>選項 D</strong> 通常是描述 <strong>迷離瘤 (Choristoma)</strong> 的定義（正常組織位於異位）。但畸胎瘤內確實包含該器官（如卵巢）原本不應出現的組織（如牙齒、毛髮），廣義代表了胚胎發育過程中生殖細胞分化出了異位的體細胞組織。</p>\n<!-- notionvc: 8c5d3804-c019-4f48-9c2a-273d7d54a3de --><div class=\"user-note\"></div>"
     },
     {
         "id": 9,
@@ -96,7 +104,8 @@
             "C": "洩漏性飼料進入腹腔，引發第一型過敏反應",
             "D": "獸醫師洩氣針刺穿，使大腸腸壁大量出血"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>此為<strong>Decompression shock，<strong>當瘤胃鼓脹嚴重時，腹內壓會壓迫腹腔靜脈，阻礙血液回流。若</strong>快速洩氣</strong>，腹內壓驟降，會導致原本受壓迫的腹腔血管床突然擴張，血液大量滯留在腹腔臟器，使有效循環血量急劇減少，回心血量不足，引發低血量性休克和腦部缺氧，進一步導致死亡。</p>\n<!-- notionvc: 5b3a7db7-84a0-41cf-88af-7f5ba37f5131 --><div class=\"user-note\"></div>"
     },
     {
         "id": 10,
@@ -107,7 +116,8 @@
             "C": "脾臟",
             "D": "肺臟"
         },
-        "image": null
+        "image": null,
+        "explanation": "脾臟的Red pulp sinusoids內皮是由 <span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">不連續性內皮</span>所排列，才能讓紅血球進出<!-- notionvc: 7e6827ab-b620-4bf5-abf3-702fddfb8e4f --><div class=\"user-note\"></div>"
     },
     {
         "id": 11,
@@ -118,7 +128,8 @@
             "C": "tissue plasminogen activator",
             "D": "tissue factor pathway inhibitor"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>Thromboxane A2 (TXA2)</strong> 主要由 <strong>活化的血小板 (Activated platelets)</strong> 產生，其功能是促進血管收縮和血小板聚集</p>\n<!-- notionvc: 29d402ca-e4b8-4b3b-a181-129893ad97fa --><div class=\"user-note\"></div>"
     },
     {
         "id": 12,
@@ -129,7 +140,8 @@
             "C": "球蛋白流失比白蛋白多",
             "D": "腎小管內玻璃樣小滴或圓柱物"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>C錯誤，因為在腎絲球損傷早期或選擇性蛋白尿中，<strong>白蛋白</strong> 因分子量較小且帶負電，是最主要流失的蛋白質。球蛋白分子量較大，流失量通常少於白蛋白。</p>\n<!-- notionvc: 4cd1e2c4-50b7-475b-ac1c-aa13397605a3 --><div class=\"user-note\"></div>"
     },
     {
         "id": 13,
@@ -140,7 +152,8 @@
             "C": "intrinsic fibrinolytic pathway",
             "D": "arachidonic acid metabolites"
         },
-        "image": null
+        "image": null,
+        "explanation": "<span style=\"font-weight:600\" data-token-index=\"0\" class=\"notion-enable-hover\">Complement classical pathway)</span>的活化主要是由 <span style=\"font-weight:600\" data-token-index=\"2\" class=\"notion-enable-hover\">抗原-抗體複合物 (Antigen-Antibody complexes)</span> 所啟動，這裡的抗體即為免疫球蛋白 (IgG 或 IgM)<!-- notionvc: 178bafa1-41a6-48c6-98cd-373b4a2a79e6 --><div class=\"user-note\"></div>"
     },
     {
         "id": 14,
@@ -151,7 +164,8 @@
             "C": "phase III 為 immune complex-mediated inflammation",
             "D": "phase IV 為 immune complex degeneration and lysis"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>Type III Hypersensitivity</strong>是<strong>Immune complex-mediated</strong>的反應。過程包括： Phase I: 免疫複合物形成 (Immune complex formation)； Phase II: 免疫複合物沉積 (Immune complex deposition)； Phase III: 免疫複合物引發炎症 (Immune complex-mediated inflammation)。</p>\n<p>而細胞溶解 (Cytolysis) 通常是<strong>第二型過敏反應 (Cytotoxic)</strong> 的特徵。</p>\n<!-- notionvc: 0cbe09da-cfd3-4bbc-a285-431295333171 --><div class=\"user-note\"></div>"
     },
     {
         "id": 15,
@@ -162,7 +176,8 @@
             "C": "主要由纖維芽細胞、結締組織及新生的血管組成",
             "D": "組織內血管與纖維芽細胞的生長方向一致"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>肉芽組織中的新生血管通常<strong>垂直</strong>於創傷表面生長（向上），而纖維芽細胞和膠原蛋白則傾向於與表面<strong>平行</strong>排列，兩者方向並不一致</p>\n<!-- notionvc: 0b497c38-7170-4b29-a2ad-d687ec978a46 --><div class=\"user-note\"></div>"
     },
     {
         "id": 16,
@@ -173,7 +188,8 @@
             "C": "大量滲出液蓄積",
             "D": "釋放趨化物質"
         },
-        "image": null
+        "image": null,
+        "explanation": "<span style=\"font-weight:600\" data-token-index=\"0\" class=\"notion-enable-hover\">Fibroblast proliferation </span>(B) 是 <span style=\"font-weight:600\" data-token-index=\"2\" class=\"notion-enable-hover\">慢性炎症</span> 或 <span style=\"font-weight:600\" data-token-index=\"4\" class=\"notion-enable-hover\">修復期 </span>的特徵，不屬於急性發炎初期的血管與細胞反應。<!-- notionvc: 0b44b9c0-0d5c-4cc6-aa0e-f67ea5f56550 --><div class=\"user-note\"></div>"
     },
     {
         "id": 17,
@@ -184,7 +200,8 @@
             "C": "白血球及血管內皮細胞表面",
             "D": "血漿中及白血球和血管內皮細胞表面"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>白血球的滾動、黏附和穿透需要內皮細胞與白血球表面的分子相互作用</p>\n<!-- notionvc: ca731bab-4de6-4dbc-9d71-68e237378d95 --><div class=\"user-note\"></div>"
     },
     {
         "id": 18,
@@ -195,7 +212,8 @@
             "C": "漸進期為損傷細胞增生後進行惡性轉化之不可逆癌化作用",
             "D": "於 promotor 長期刺激下，無需經由起始期，也可能導致腫瘤的發生"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>B 部分正確但有爭議</strong>：促進期 (Promotion) 通常被認為是可逆的增生，但在長期刺激下可促進腫瘤發展。</p>\n<p><strong>D 錯誤</strong>：沒有起始期 (Initiation) 的 DNA 損傷，單純的 Promoter 通常不會引發腫瘤。</p>\n<!-- notionvc: 1e492753-c055-486e-8f4d-7c9ef4bfb428 --><div class=\"user-note\"></div>"
     },
     {
         "id": 19,
@@ -206,7 +224,8 @@
             "C": "常伴隨貧血",
             "D": "可能會出現噬紅血球現象"
         },
-        "image": null
+        "image": null,
+        "explanation": "<span style=\"font-weight:600\" data-token-index=\"0\" class=\"notion-enable-hover\">組織球肉瘤 (Histiocytic sarcoma)</span> 是一種<span style=\"font-weight:600\" data-token-index=\"2\" class=\"notion-enable-hover\">惡性腫瘤</span>，故為腫瘤性增生。源自組織球/巨噬細胞，常侵犯淋巴結、脾臟等，並常伴隨噬血現象 (Hemophagocytosis) ，進而導致貧血。<!-- notionvc: 034e2ba5-5420-4d55-bdb1-82880f61af02 --><div class=\"user-note\"></div>"
     },
     {
         "id": 20,
@@ -217,7 +236,8 @@
             "C": "鱗狀上皮細胞癌",
             "D": "血色食道蟲性肉芽腫"
         },
-        "image": "./圖片/a111-20.jpg"
+        "image": "./圖片/a111-20.jpg",
+        "explanation": "<p>貓的舌頭腫瘤中最常見的是 <strong>鱗狀上皮細胞癌 (Squamous cell carcinoma, SCC)</strong></p>\n<p><strong>角質珠 (Keratin pearls)</strong>、單細胞角化 (single cell keratinization) 及細胞間橋 (desmosomes)，為 SCC 的典型病理特徵。</p>\n<!-- notionvc: d22e3bec-bfbb-42c9-a53a-1588ba27e1b5 --><div class=\"user-note\"></div>"
     },
     {
         "id": 21,
@@ -228,7 +248,8 @@
             "C": "僅②③",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>慢性失血導致的缺鐵性貧血，其特徵為血液循環中出現 \"microcytic hypochromic red cell\"，伴隨 MCV 與 MCHC 數值低下</p>\n<p><strong>Macrocytic anemia會跟缺乏B12或葉酸有關，或是因為再生性貧血，MCHC 升高通常是人為誤差，例如Intravascular hemolysis、Lipemia或Heinz bodies干擾所致</strong></p>\n<!-- notionvc: 6941151e-4192-48ab-bb26-90dcb439d827 --><div class=\"user-note\"></div>"
     },
     {
         "id": 22,
@@ -239,7 +260,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>骨髓異生性症候群（myelodysplastic syndrome）是骨髓造血細胞dysplasia，無法成熟釋放至周邊血液，導致周邊血球減少cytopenia但骨髓細胞密度通常正常或增高hypercellular。</p>\n<p>不是FIV而是FeLV，FeLV 會直接感染造血幹細胞，導致骨髓發育異常，引發白血病或 MDS。</p>\n<!-- notionvc: cbe630d3-f4d8-493d-9904-01c9d5216501 --><div class=\"user-note\"></div>"
     },
     {
         "id": 23,
@@ -250,7 +272,8 @@
             "C": "口蹄疫",
             "D": "多發性漿膜炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>豬瘟 (Hog cholera/Classical Swine Fever)</strong> 會導致病毒在血管內皮細胞增殖，誘發血栓形成，進而在脾臟邊緣產生 <strong>梗塞</strong></p>\n<!-- notionvc: 7d44fd46-d37f-4c02-adb4-2a9c26b14062 --><div class=\"user-note\"></div>"
     },
     {
         "id": 24,
@@ -261,7 +284,8 @@
             "C": "脾臟萎縮",
             "D": "脾臟腫大"
         },
-        "image": null
+        "image": null,
+        "explanation": "巴比妥類藥物會使脾臟血管擴張、血液trapped在脾臟內，呈現congestion與enlargement<!-- notionvc: c89beb58-ee35-48a8-9106-9a1717247236 --><div class=\"user-note\"></div>"
     },
     {
         "id": 25,
@@ -272,7 +296,8 @@
             "C": "心房與心室之心肌細胞厚度皆相近",
             "D": "細胞核位於心肌細胞的邊緣"
         },
-        "image": null
+        "image": null,
+        "explanation": "心肌細胞 被歸類為 <span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">永久性細胞</span>，<span style=\"font-weight:600\" data-token-index=\"3\" class=\"notion-enable-hover\">再生能力差</span>。心臟受損通常導致<span style=\"font-weight:600\" data-token-index=\"5\" class=\"notion-enable-hover\">結締組織修復（疤痕組織）</span> 而非再生<!-- notionvc: 9c7f267d-f6b3-4716-b4c1-24900e1ebe0e --><div class=\"user-note\"></div>"
     },
     {
         "id": 26,
@@ -283,7 +308,8 @@
             "C": "②③",
             "D": "①④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>黏液性瓣膜變性 (Myxomatous valvular degeneration)</strong>：在老年犬常見，主要影響二尖瓣 (Left AV valve)，病變特徵為瓣膜增厚、捲曲（endocardiosis）。</p>\n<p><strong>左心室擴張 (Left ventricular dilation)</strong>：瓣膜逆流造成的容量過載也會導致左心室擴張。</p>\n<!-- notionvc: 44d79258-b1e5-4a1f-861c-cf420b9c695c --><div class=\"user-note\"></div>"
     },
     {
         "id": 27,
@@ -294,7 +320,8 @@
             "C": "在左心室流出幹（outflow tract）位置常形成突起之纖維環",
             "D": "其主要組織成分為肥大心肌纖維"
         },
-        "image": null
+        "image": null,
+        "explanation": "主動脈下狹窄 (SAS) 在犬（尤其是大型犬如黃金獵犬、羅威納）常見，特徵是在 <span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">左心室流出路 (outflow tract)</span> 形成 <span style=\"font-weight:600\" data-token-index=\"3\" class=\"notion-enable-hover\">纖維性或纖維肌肉性的脊/環 (fibrous ring)</span>，導致阻塞。<!-- notionvc: cef04eb0-01ac-48fb-a515-6f5883d6a490 --><div class=\"user-note\"></div>"
     },
     {
         "id": 28,
@@ -305,7 +332,8 @@
             "C": "肥厚性心肌病",
             "D": "先天性心室中隔缺損"
         },
-        "image": "./圖片/a111-28.jpg"
+        "image": "./圖片/a111-28.jpg",
+        "explanation": "HCM的特徵是心室concentric hypertrophy，心室壁與中膈都會明顯增厚，導致心室槍是變小，同時HCM是貓最常見的心肌病，且 波斯貓 (Persian) 與 緬因貓 (Maine Coon) 為好發品種<!-- notionvc: 77929be1-77d0-4557-95a1-f0dfd0c07d40 --><div class=\"user-note\"></div>"
     },
     {
         "id": 29,
@@ -316,7 +344,8 @@
             "C": "綿羊鏈球菌感染常見此病變",
             "D": "豬 Glasser's disease 有此病變"
         },
-        "image": null
+        "image": null,
+        "explanation": "牛的 <span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">創傷性網胃炎 (Traumatic reticuloperitonitis, Hardware disease)</span> 主要是由尖銳異物穿刺網胃進入心包膜，將細菌帶入，通常引起 <span style=\"font-weight:600\" data-token-index=\"3\" class=\"notion-enable-hover\">化膿性</span>或<span style=\"font-weight:600\" data-token-index=\"5\" class=\"notion-enable-hover\">纖維素性化膿性</span>心包膜炎，是<span style=\"font-weight:600\" data-token-index=\"7\" class=\"notion-enable-hover\">直接穿刺感染</span>而非血行性感染。<!-- notionvc: d29ee0b3-5a4a-49d6-aa48-c59cd55d36eb --><div class=\"user-note\"></div>"
     },
     {
         "id": 30,
@@ -327,7 +356,8 @@
             "C": "單純性左右心室擴張",
             "D": "心肌炎症細胞浸潤"
         },
-        "image": null
+        "image": null,
+        "explanation": "RCM 病變特徵為：<span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">瀰漫性纖維化</span>，特別是<span style=\"font-weight:600\" data-token-index=\"3\" class=\"notion-enable-hover\">心內膜纖維化 </span>或心內膜心肌纖維化，導致心室僵硬無法舒張<!-- notionvc: 466214af-70a3-407a-b414-6ed40437d2c1 --><div class=\"user-note\"></div>"
     },
     {
         "id": 31,
@@ -338,7 +368,8 @@
             "C": "表面張力素",
             "D": "壞死的肺細胞碎片"
         },
-        "image": null
+        "image": null,
+        "explanation": "<span style=\"font-weight:600\" data-token-index=\"0\" class=\"notion-enable-hover\">鈣鹽 (Calcium salts, B)</span> ，成顆粒狀與Hayline  membrane外觀型態不同，通常涉及營養不良性鈣化，不是急性期玻璃樣膜的主要組成成分。<!-- notionvc: 9d2a40cd-55b6-44fa-bde7-ee3dac9e00bc --><div class=\"user-note\"></div>"
     },
     {
         "id": 32,
@@ -349,7 +380,8 @@
             "C": "可引發支氣管性肺炎",
             "D": "可引發喉部半癱（hemiplegia）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>由 <strong>馬鏈球菌馬亞種 (<em>Streptococcus equi</em> subsp. <em>equi</em>)</strong> 引起，此病原不屬於正常的常在菌叢。</p>\n<p>感染後常見<strong>下顎或咽背淋巴結 (Retropharyngeal LN)</strong> 腫大、化膿與發炎，若膿腫破裂或細菌擴散（Bastard strangles），可引發支氣管肺炎，或因神經受損（如喉返神經）導致喉部半癱 (Laryngeal hemiplegia)</p>\n<!-- notionvc: 6ac2ceb5-5a0c-4e55-9e27-d88420a188fe --><div class=\"user-note\"></div>"
     },
     {
         "id": 33,
@@ -360,7 +392,8 @@
             "C": "聲帶通常不受影響",
             "D": "會厭部呈現肥厚狀"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>在喉頭水腫中，<strong>聲帶 (Vocal cords)</strong> 與會厭軟骨周圍的黏膜下組織通常是水腫最嚴重的區域，會導致呼吸道阻塞</p>\n<!-- notionvc: 9f40e3a1-669d-4b1b-9a48-19d3e4464c2d --><div class=\"user-note\"></div>"
     },
     {
         "id": 34,
@@ -371,7 +404,8 @@
             "C": "肺臟表面偶可見肋骨壓痕",
             "D": "併發細菌感染時，常伴隨肺水腫病變"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>間質性肺炎的典型分佈通常是 <strong>瀰漫性 (Diffuse)</strong> 的（全肺葉受影響），而非多發局部性 (Multifocal)。多發局部性通常見於栓塞性肺炎或肉芽腫性肺炎，且因肺瀰漫性腫大無法塌陷，故可見肋骨壓痕</p>\n<!-- notionvc: fa06cfb7-e205-4f96-b02d-fcb190f80850 --><div class=\"user-note\"></div>"
     },
     {
         "id": 35,
@@ -382,7 +416,8 @@
             "C": "貓感染 Chlamydophila felis",
             "D": "馬感染 Rhodococcus equi"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><em>Mannheimia haemolytica</em> 在牛引起 <strong>纖維素性壞死性支氣管肺炎 (Fibrinous necrosuppurative bronchopneumonia)</strong>，特徵是肺臟呈現大理石樣紋路 (Marbling)。豬傳染性胸膜肺炎 (APP) 的典型病變為嚴重的纖維素性胸膜肺炎與壞死出血，與牛的 <em>M. haemolytica</em> 病變極為相似。</p>\n<!-- notionvc: 46824747-bfcc-4dff-84e0-2a281694de71 --><div class=\"user-note\"></div>"
     },
     {
         "id": 36,
@@ -393,7 +428,8 @@
             "C": "serous inflammation",
             "D": "hemorrhage"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>在慢性感染的刺激下，淋巴組織會<strong>增生 (Hyperplasia) 導致氣管或支氣管黏膜表面出現顆粒狀突起</strong></p>\n<!-- notionvc: a1627ef8-bed7-4a12-9a5b-db04806f1b1a --><div class=\"user-note\"></div>"
     },
     {
         "id": 37,
@@ -404,7 +440,8 @@
             "C": "犬腺病毒為感染病因之一",
             "D": "主要病變為肉芽腫性肺炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>主要病變為 <strong>卡他性或化膿性氣管支氣管炎 (Catarrhal or mucopurulent tracheobronchitis)</strong>，並非<strong>肉芽腫性肺炎 (Granulomatous pneumonia)</strong>。肉芽腫性肺炎通常由黴菌或結核菌引起</p>\n<!-- notionvc: 747a2d63-4207-46c7-95e1-77c77fefb39a --><div class=\"user-note\"></div>"
     },
     {
         "id": 38,
@@ -415,7 +452,8 @@
             "C": "急性豬瘟",
             "D": "約尼氏病（Johne's disease）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>腹水 (Ascites) 通常由低白蛋白血症、門脈高壓或淋巴管阻塞引起。</p>\n<p>淋巴管擴張會使淋巴液漏出及蛋白質流失，腎衰竭會導致蛋白尿與低白蛋白血症， Johne's disease 引起肉芽腫性淋巴管炎 和嚴重蛋白流失性腸病。</p>\n<!-- notionvc: 858b1cfa-f66c-4484-a170-fe1b7bb97a9a --><div class=\"user-note\"></div>"
     },
     {
         "id": 39,
@@ -426,7 +464,8 @@
             "C": "豬第二型環狀病毒",
             "D": "豬小病毒"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>豬假性狂犬病毒屬於herpesvirus，其典型病變為多種臟器的多發性壞死灶與嗜酸性核內包涵體</p>\n<!-- notionvc: b3cbe9e7-da64-4ad7-922a-921987ba5460 --><div class=\"user-note\"></div>"
     },
     {
         "id": 40,
@@ -437,7 +476,8 @@
             "C": "毛樣線蟲（Trichostrongylus spp.）",
             "D": "奧他胃蟲（Ostertagia spp.）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>馬圓蟲 (Strongylus vulgaris) 的幼蟲移行至腸道動脈，導致動脈炎與血栓，進而引起腸梗塞，為馬栓塞性疝痛的常見成因</p>\n<!-- notionvc: 103c0a67-275b-4b25-8f4f-fec236caba99 --><div class=\"user-note\"></div>"
     },
     {
         "id": 41,
@@ -448,7 +488,8 @@
             "C": "肝臟大區域性出血",
             "D": "肝門脈區纖維化"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>糖皮質醇過多會導致肝臟腫大、邊緣變圓，因為肝細胞質內的水分與醣原堆積，呈現不規則、邊界模糊的空泡</p>\n<!-- notionvc: 054e2dfa-d354-4116-a6ce-9767d4ab052f --><div class=\"user-note\"></div>"
     },
     {
         "id": 42,
@@ -459,7 +500,8 @@
             "C": "肉眼可見腸黏膜有灰白色斑點",
             "D": "病變均僅侷限於小腸"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>許多球蟲主要寄生於小腸，但並非「僅侷限」於小腸。例如牛羊的某些球蟲（如 <em>Eimeria</em> spp.）及盲腸球蟲（如雞的 <em>E. tenella</em>）會嚴重影響 <strong>盲腸與結腸（大腸）</strong>。</p>\n<!-- notionvc: 3f9cc507-0cd3-4fcb-a5e2-b8816b5c19a4 --><div class=\"user-note\"></div>"
     },
     {
         "id": 43,
@@ -470,7 +512,8 @@
             "C": "可於壞死區內細胞發現嗜酸性質內包含體",
             "D": "可引起出血性腸炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>Parvovirus 是 DNA 病毒，其包涵體是位於 <strong>細胞核內</strong>而非細胞質內。(RNA病毒才常見質內包涵體)</p>\n<!-- notionvc: 6cc38e31-45d5-42da-ba3a-31826d78f5b9 --><div class=\"user-note\"></div>"
     },
     {
         "id": 44,
@@ -481,7 +524,8 @@
             "C": "以急性黃色水樣下痢及消瘦為特徵",
             "D": "因腸道黏膜上皮的電解質及水分運送功能受到擾亂"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>ETEC 主要引起功能性的分泌異常，通常 <strong>不會</strong> 造成顯著的腸黏膜上皮細胞變性壞死（這通常是沙門氏菌或病毒性腸炎的特徵）</p>\n<!-- notionvc: 8f078e4a-55ff-447c-bbae-bf90d2d8e402 --><div class=\"user-note\"></div>"
     },
     {
         "id": 45,
@@ -492,7 +536,8 @@
             "C": "Erysipelothrix rhusiopathiae",
             "D": "Streptococcus suis"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>牛的瓣膜性心內膜炎常見病原為 ***Trueperella pyogenes，***左心的贅生物脫落形成的栓子（Emboli）會隨血流進入體循環，導致 <strong>腎臟與脾臟的敗血性梗塞（Septic infarcts）</strong>。</p>\n<!-- notionvc: f8a91b74-e1e0-4a9b-868d-05bd3ffdac02 --><div class=\"user-note\"></div>"
     },
     {
         "id": 46,
@@ -503,7 +548,8 @@
             "C": "慢性被動性鬱血",
             "D": "急性全身鬱血"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>荳蔻肝（Nutmeg liver）</strong> 是肝臟慢性被動性鬱血（Chronic passive congestion）的典型特徵，這是由於小葉中央靜脈鬱血出血（紅色）與周圍相對正常的肝細胞（黃褐色）交錯形成的。</p>\n<!-- notionvc: bed76dd0-b150-40ef-85ef-3417acaefb69 --><div class=\"user-note\"></div>"
     },
     {
         "id": 47,
@@ -514,7 +560,8 @@
             "C": "牛 Haemonchus contortus",
             "D": "馬 Strongylus spp."
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>馬圓蟲（Strongyles）的幼蟲會移行至腸繫膜動脈，而成蟲主要寄生於 <strong>大腸（盲腸與結腸）</strong>，並非胃部。</p>\n<!-- notionvc: 9700022b-3dea-4b89-a4bf-0375cdd684d6 --><div class=\"user-note\"></div>"
     },
     {
         "id": 48,
@@ -525,7 +572,8 @@
             "C": "白蛋白及免疫球蛋白不易通過此障蔽",
             "D": "其功能喪失的臨床病徵是寡尿或無尿"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>絲球體過濾功能喪失（如絲球體腎炎）最直接的臨床病徵是 <strong>蛋白尿（Proteinuria）</strong>。<strong>寡尿或無尿（Oliguria/Anuria）</strong> 通常是 <strong>腎衰竭（Renal failure）</strong> 或腎小管嚴重損傷、尿路阻塞的後果。</p>\n<!-- notionvc: d6fcb69d-9161-4a86-a4a8-6927c73cc51d --><div class=\"user-note\"></div>"
     },
     {
         "id": 49,
@@ -536,7 +584,8 @@
             "C": "①②④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>Ethylene glycol（乙二醇）中毒屬於 <strong>中毒性</strong> 腎小管壞死，而非缺氧性</p>\n<!-- notionvc: e117c70c-ebe2-4727-8fcc-222f51b81d95 --><div class=\"user-note\"></div>"
     },
     {
         "id": 50,
@@ -547,7 +596,8 @@
             "C": "①②④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>慢性間質性腎炎在代償期及初期腎衰竭，最常見的臨床症狀是 <strong>多尿（Polyuria）</strong> 和多渴（Polydipsia），因為腎臟喪失濃縮尿液的功能。寡尿或無尿通常發生在急性腎衰竭或慢性腎衰竭的極末期。</p>\n<!-- notionvc: 3d7a7214-1c1c-4b97-8dce-66a8ddc1f750 --><div class=\"user-note\"></div>"
     },
     {
         "id": 51,
@@ -558,7 +608,8 @@
             "C": "鏡下可見大量肌紅素圓柱體堆積於腎小管腔中",
             "D": "鏡下病變不易和血紅素尿腎病（hemoglobinuric nephrosis）區分"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>肌紅素尿腎病</strong> 發生於橫紋肌溶解症（Rhabdomyolysis）（A 正確），鏡下可見腎小管內有紅褐色色素圓柱（C 正確），且與血紅素尿腎病在鏡下難以區分（皆為血色素圓柱）（D 正確）。</p>\n<!-- notionvc: dbce6528-ef3b-4330-ad6e-13954795d720 --><div class=\"user-note\"></div>"
     },
     {
         "id": 52,
@@ -569,7 +620,8 @@
             "C": "陰莖後端",
             "D": "乙狀彎曲"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>公羊的陰莖前端有狹窄的Urethral process，為最容易出現結石的地方。 公牛則常阻塞於乙狀彎曲（Sigmoid flexure），狗常在陰莖骨基部</p>\n<!-- notionvc: cd1a6d3b-650d-4e36-ba3f-f3a592d11f9e --><div class=\"user-note\"></div>"
     },
     {
         "id": 53,
@@ -580,7 +632,8 @@
             "C": "草酸鹽",
             "D": "矽酸鹽"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>在放牧的草食獸（特別是牛羊）中，攝取富含二氧化矽的牧草易形成 矽酸鹽（Silicate）結石，若攝取高穀物飲食（高磷），則易形成磷酸鹽（Struvite）結石。</p>\n<p><strong>矽酸鹽（Silicate）</strong> 與碳酸鈣是草食獸特有的結石類型（肉食獸少見）。</p>\n<!-- notionvc: 3e9ead8a-1316-4907-ae6f-56bdcfbb7ff9 --><div class=\"user-note\"></div>"
     },
     {
         "id": 54,
@@ -591,7 +644,8 @@
             "C": "",
             "D": ""
         },
-        "image": "./圖片/a111-54.jpg"
+        "image": "./圖片/a111-54.jpg",
+        "explanation": "<p><strong>狂犬病（Rabies）</strong> 的特徵性病變是在神經細胞（特別是海馬迴或小腦柏金氏細胞）內形成 <strong>嗜酸性細胞質內包涵體（Eosinophilic Intracytoplasmic Inclusion Bodies）</strong>，稱為 <strong>Negri bodies</strong></p>\n<!-- notionvc: c4e28033-e53d-4f77-af7c-f5d55c8a88d4 --><div class=\"user-note\"></div>"
     },
     {
         "id": 55,
@@ -602,7 +656,8 @@
             "C": "汞中毒",
             "D": "無機砷中毒"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>前三者中毒會導致神經病變，而砷中毒主要引起<strong>腎臟</strong>與<strong>胃腸道（出血性腸炎）</strong> 的病變，通常導致急性血管崩潰與休克，而非腦部病變</p>\n<!-- notionvc: 1dd0507f-0aeb-45b3-be9c-deede8c5fbb5 --><div class=\"user-note\"></div>"
     },
     {
         "id": 56,
@@ -613,7 +668,8 @@
             "C": "懷孕母豬缺乏維生素 E，可能會導致出生仔豬小眼球症",
             "D": "懷孕母牛感染牛病毒性下痢病毒，可能產下小眼球症的仔牛"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>導致仔豬小眼球症的營養缺乏主要是母豬缺乏 <strong>維生素 A (Vitamin A deficiency)</strong>，而非維生素 E。維生素 A 對眼球發育至關重要。維生素 E 缺乏主要引起肌肉營養不良或肝壞死等。</p>\n<!-- notionvc: 70d29d4d-49ba-48bb-be99-825ae80d8242 --><div class=\"user-note\"></div>"
     },
     {
         "id": 57,
@@ -624,7 +680,8 @@
             "C": "此為白內障，起因於持續餵飼含氨基醣苷類抗生素或 hygromycin B 類驅蟲藥所致",
             "D": "此為視網膜腫瘤，起因於感染日本腦炎病毒所致"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>Hygromycin B</strong> 是一種用於豬飼料中的氨基醣苷類（Aminoglycoside）驅蟲藥。長期使用 Hygromycin B 已被證實會導致豬隻發生<strong>白內障（Cataracts）</strong> 與聽力受損。</p>\n<!-- notionvc: 1a5c64a4-dadd-448a-9ce8-e8d5b0e4d6d8 --><div class=\"user-note\"></div>"
     },
     {
         "id": 58,
@@ -635,7 +692,8 @@
             "C": "化膿性內耳炎",
             "D": "眼球弓蟲感染症"
         },
-        "image": "./圖片/a111-58.jpg"
+        "image": "./圖片/a111-58.jpg",
+        "explanation": "<p>眼球震顫為前庭或中樞神經系統受損的徵兆，豬的 <strong>鏈球菌感染（<em>Streptococcus suis</em>）</strong> 或 <strong>副豬嗜血桿菌（<em>Glaesserella parasuis</em>）</strong> 常引起化膿性腦膜炎，導致神經症狀包括共濟失調、抽搐及眼球震顫。</p>\n<!-- notionvc: 4cce2589-e243-4602-93c0-5c5694768cd6 --><div class=\"user-note\"></div>"
     },
     {
         "id": 59,
@@ -646,7 +704,8 @@
             "C": "水晶體核心部位（nucleus）",
             "D": "水晶體後端（posterior pole）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>糖尿病性白內障（Diabetic Cataract）</strong> 是由於血糖過高，超過 hexokinase 代謝能力，導致葡萄糖經由 aldose reductase 轉化為 <strong>山梨醇（Sorbitol）</strong> 堆積在水晶體內，引起滲透壓性水腫。這種病變通常最早出現在水晶體的<strong>赤道區（Equator）</strong>，形成液泡（Vacuoles），隨後向中心擴展。</p>\n<!-- notionvc: 261c0139-90e9-4362-94cd-012a75a09ccc --><div class=\"user-note\"></div>"
     },
     {
         "id": 60,
@@ -657,7 +716,8 @@
             "C": "非對稱性腦室水腫",
             "D": "神經膠質細胞可見嗜鹼性質內包含體"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>犬瘟熱（Canine Distemper）</strong> 病毒喜好侵犯上皮與神經組織。在腦部，特徵性病變是 <strong>脫髓鞘（Demyelination）</strong> 與白質的軟化（Malacia），稱為脫髓鞘性腦白質炎（Demyelinating leukoencephalitis），會有細胞核內與細胞質內包涵體。</p>\n<!-- notionvc: 0f9ca646-23c1-48ad-9d69-2809815ae41a --><div class=\"user-note\"></div>"
     },
     {
         "id": 61,
@@ -668,7 +728,8 @@
             "C": "沙蚤病（dermatophilosis）",
             "D": "皮黴菌病（dermatophytosis）"
         },
-        "image": "./圖片/a111-61.jpg"
+        "image": "./圖片/a111-61.jpg",
+        "explanation": "<p>Dermatophilosis由細菌 <em><strong>Dermatophilus congolensis</strong></em> 引起，好發於羊（稱為 Lumpy wool disease）、馬、牛。病變特徵為表皮出現多層次的痂皮（laminated crusts），痂皮下有滲出液、細菌聚集（railroad track 樣排列）及中性球浸潤。</p>\n<p>途中羊毛結塊、皮膚有厚痂皮，組織切片可見典型的高且厚的痂皮（crusts），符合 Dermatophilosis 的特徵。</p>\n<!-- notionvc: 276ad012-83f9-402c-9430-361d3c71e5a8 --><div class=\"user-note\"></div>"
     },
     {
         "id": 62,
@@ -679,7 +740,8 @@
             "C": "pythiosis",
             "D": "pseudomycetoma"
         },
-        "image": "./圖片/a111-62.jpg"
+        "image": "./圖片/a111-62.jpg",
+        "explanation": "<p><strong>波斯貓 (Persian cats)</strong> 易患一種罕見的皮黴菌感染形式，稱為 <strong>貓皮黴菌性假足菌腫 (Feline dermatophytic pseudomycetoma)，此為</strong> <em>Microsporum canis</em> 的異常組織反應，形成類似足菌腫（mycetoma）的結構，但由皮黴菌引起，故稱假足菌腫。</p>\n<p>皮下深層出現結節（nodules），由肉芽腫性炎症（pyogranulomatous）組成，組織內含有大量的黴菌菌絲（hyphae），在 PAS 染色下呈現陽性。</p>\n<!-- notionvc: 44fc9ccd-0f6a-4864-b8ad-f0cd454f01b6 --><div class=\"user-note\"></div>"
     },
     {
         "id": 63,
@@ -690,7 +752,8 @@
             "C": "肇因於黏多醣儲積",
             "D": "為一種膠原纖維生合成酵素缺陷引發之疾病"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>黏多醣儲積 (Mucopolysaccharide accumulation)</strong> 會導致 <strong>黏液水腫 (Myxedema)</strong>（如甲狀腺功能低下），其特徵是皮膚增厚、浮腫，而非膠原蛋白異常導致的皮膚過度延展與脆弱。</p>\n<!-- notionvc: 8a345a5a-afc9-4cd0-bdb3-db4e9a44e5ca --><div class=\"user-note\"></div>"
     },
     {
         "id": 64,
@@ -701,7 +764,8 @@
             "C": "周邊神經纖維之變性及流失",
             "D": "患犬因對痛覺失去敏感性，又因飼養於硬地環境，導致過度磨損而造成足底缺損"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>此病為遺傳性疾病</strong>（如在 Pointer, Spaniel 等品種），<strong>並非</strong> 由飼料中維生素 C 缺乏引起。維生素 C 缺乏引起的是壞血病（Scurvy），特徵是出血和骨骼異常。</p>\n<!-- notionvc: d77f2037-d0b6-4974-9067-8737c8a2bdb4 --><div class=\"user-note\"></div>"
     },
     {
         "id": 65,
@@ -712,7 +776,8 @@
             "C": "常見於頭部及腿部",
             "D": "病變特徵包含上皮及纖維芽細胞增生"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>Sarcoid 好發於 <strong>3 至 6 歲</strong> 的年輕成馬，<strong>並非</strong> 1 歲以內的幼駒。1 歲以內的馬較常見的是病毒性乳突瘤（Viral Papillomatosis/Warts），通常會自然消退</p>\n<!-- notionvc: cbe82bb0-8b3c-482d-8e5f-c21f95bccf84 --><div class=\"user-note\"></div>"
     },
     {
         "id": 66,
@@ -723,7 +788,8 @@
             "C": "毛囊蟲症",
             "D": "天疱瘡"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>棘皮層細胞溶解 (Acantholysis)</strong> 是指表皮細胞間的連接（desmosomes）破壞，導致細胞分離、形成圓形漂浮的棘皮細胞，為<strong>天皰瘡 (Pemphigus complex)</strong> 的主要組織病理特徵</p>\n<!-- notionvc: 89a43590-4125-4819-bc54-de3aa39a3dc1 --><div class=\"user-note\"></div>"
     },
     {
         "id": 67,
@@ -734,7 +800,8 @@
             "C": "甲狀腺素",
             "D": "腦下垂體素"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>副甲狀腺素 (PTH)</strong> 的受體位於 <strong>造骨細胞 (Osteoblasts)</strong> 上，當 PTH 與造骨細胞結合後，會刺激其表現 RANKL，進而活化 <strong>蝕骨細胞 (Osteoclasts)</strong> 進行骨質再吸收，提升血鈣。</p>\n<!-- notionvc: d9032bc7-94c4-401b-8b3c-ff5fed8965fa --><div class=\"user-note\"></div>"
     },
     {
         "id": 68,
@@ -745,7 +812,8 @@
             "C": "頸部與翅膀肌肉強直與收縮交替出現",
             "D": "肉毒桿菌傷害肌膜導致肌漿質內離子濃度過高"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>肉毒桿菌中毒 (Botulism)</strong> 由 <em>Clostridium botulinum</em> 毒素引起，毒素會阻斷神經肌肉接點的<strong>乙醯膽鹼 (Acetylcholine)</strong> 釋放，進一步導致 <strong>鬆弛性麻痺 (Flaccid paralysis)</strong>。在鳥類中常見頸部無力下垂（Limber neck）及翅膀下垂。</p>\n<!-- notionvc: 6894a128-543f-4cbb-a7ba-eeec881eda1d --><div class=\"user-note\"></div>"
     },
     {
         "id": 69,
@@ -756,7 +824,8 @@
             "C": "若向椎體的側面突出，會壓迫到脊神經",
             "D": "若向椎體的腹面或側面突出，將隨時間發展逐漸引發關節硬固（ankylosis）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>答案有點怪，感覺A比較不對 (好發年齡通常也不是一歲前)</p>\n<!-- notionvc: 0a021242-97d1-4e10-bdc7-d560490aa8c1 --><div class=\"user-note\"></div>"
     },
     {
         "id": 70,
@@ -767,7 +836,8 @@
             "C": "潰瘍",
             "D": "骨質象牙化（eburnation）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>當軟骨開始退化（Degeneration），早期變化稱為 <strong>Fibrillation (毛刷狀/纖維化)</strong>，外觀會變得 <strong>失去光澤 (dull)</strong>、<strong>粗糙 (rough/velvety)</strong> 且顏色變黃， <strong>Eburnation (骨質象牙化)</strong> 是晚期變化，軟骨完全磨損消失，露出下方光滑硬化的骨頭。</p>\n<!-- notionvc: 67a44a72-33f3-41a6-9b0a-aeffacc3b5c4 --><div class=\"user-note\"></div>"
     },
     {
         "id": 71,
@@ -778,7 +848,8 @@
             "C": "白肌病",
             "D": "纖維素性肌肉炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><em><strong>Trueperella pyogenes</strong></em> 是牛最常見的 **化膿性細菌 (Pyogenic bacteria)，**它在任何組織（包括肌肉）感染時，典型的病變是形成 <strong>膿瘍 (Abscess)</strong>。</p>\n<p>氣腫疽 (Blackleg) 引起出血性壞死性肌肉炎；白肌病是變性；纖維素性多見於漿膜炎。</p>\n<!-- notionvc: 525c416d-25e1-40b6-89b1-c934cc6e90f1 --><div class=\"user-note\"></div>"
     },
     {
         "id": 72,
@@ -789,7 +860,8 @@
             "C": "病灶中造骨細胞的數量減少",
             "D": "與骨質過度重吸收作用有關"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>纖維性骨營養不良症 (Fibrous osteodystrophy)</strong> 是由 <strong>副甲狀腺功能亢進 (Hyperparathyroidism)</strong> 引起的，高濃度的 PTH 刺激 <strong>骨質過度重吸收 (Excessive bone resorption)</strong>，並由纖維結締組織填補骨流失的空間</p>\n<!-- notionvc: 9f3162c2-8c6b-4958-860a-199fc892b397 -->\n<!-- notionvc: 8e96933b-239c-4923-9a68-f593a92d5747 --><div class=\"user-note\"></div>"
     },
     {
         "id": 73,
@@ -800,7 +872,8 @@
             "C": "periorchitis",
             "D": "spermatic granuloma"
         },
-        "image": "./圖片/a111-73.jpg"
+        "image": "./圖片/a111-73.jpg",
+        "explanation": "<p>\n<!-- notionvc: 6b931c81-4a00-4449-8d78-9d69dfd3ba2d --></p><p>睪丸或附睪組織中有大量的炎症反應，且中心可見 <strong>精子 (Sperm)</strong> 被炎症細胞（巨噬細胞、多核巨細胞）包圍，這是<strong>精子肉芽腫 (Spermatic granuloma)</strong> 的典型特徵，通常因精細管破裂，精子溢出引發異物肉芽腫反應（因為精子具有抗原性）</p>\n<!-- notionvc: 59840f55-edc8-4abd-8158-a802d3c574af --><div class=\"user-note\"></div>"
     },
     {
         "id": 74,
@@ -811,7 +884,8 @@
             "C": "focal spermatid hyperplasia",
             "D": "focal spermatid metaplasia"
         },
-        "image": "./圖片/a111-74.jpg"
+        "image": "./圖片/a111-74.jpg",
+        "explanation": "<p><strong>隱睪 (Cryptorchidism)</strong> 的特徵是生精小管發生 <strong>萎縮 (Atrophy)</strong>，精子生成停止（Spermatogenic arrest）。</p>\n<p>在顯微鏡下，小管內僅剩下 <strong>Sertoli cells</strong>，且常呈現 <strong>Sertoli cell hyperplasia</strong>（Sertoli 細胞增生），管腔內缺乏各級精細胞（spermatids/spermatozoa）。</p>\n<!-- notionvc: 59840f55-edc8-4abd-8158-a802d3c574af --><div class=\"user-note\"></div>"
     },
     {
         "id": 75,
@@ -822,7 +896,8 @@
             "C": "true hermaphrodite",
             "D": "cryptorchidism"
         },
-        "image": null
+        "image": null,
+        "explanation": "當懷有異性雙胞胎的母牛，胎盤血管發生吻合（Anastomosis），雄性胎兒的血液（含激素如 Anti-Müllerian hormone 及細胞）進入雌性胎兒，導致雌性胎兒生殖道發育受抑制並雄性化，為 <span style=\"font-weight:600\" data-token-index=\"1\" class=\"notion-enable-hover\">Freemartinism (雌性假陰陽)的成因</span><!-- notionvc: 020cdd8d-df18-4a7a-bdf7-7922b59d08f2 --><div class=\"user-note\"></div>"
     },
     {
         "id": 76,
@@ -833,7 +908,8 @@
             "C": "原發性副甲狀腺功能亢進",
             "D": "繼發性副甲狀腺功能低下"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>假性副甲狀腺功能亢進 (Pseudohyperparathyroidism)</strong>，又稱 <strong>惡性腫瘤伴隨之高血鈣症 (Humoral Hypercalcemia of Malignancy, HHM)</strong>。</p>\n<p>腫瘤會分泌 <strong>PTH 相關蛋白 (PTH-rP)</strong>，模擬 PTH 的作用導致高血鈣。在犬貓最常見的是 <strong>肛門囊頂漿腺腺癌 (Adenocarcinoma of apocrine gland of anal sac)</strong> 和淋巴瘤</p>\n<!-- notionvc: 25968c7c-e519-40b7-8623-fbcac3766ed1 --><div class=\"user-note\"></div>"
     },
     {
         "id": 77,
@@ -844,7 +920,8 @@
             "C": "具功能性的腫瘤會產生正腎上腺素",
             "D": "臨床可見高血壓"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>嗜鉻細胞瘤 (Pheochromocytoma)</strong> 是源自 <strong>腎上腺髓質 (Adrenal Medulla)</strong> 的嗜鉻細胞 (Chromaffin cells) 的腫瘤，<strong>並非皮質部</strong>（皮質部腫瘤為腺瘤或腺癌）</p>\n<!-- notionvc: e5d53635-8928-490f-93f1-af312a6572fe --><div class=\"user-note\"></div>"
     },
     {
         "id": 78,
@@ -855,7 +932,8 @@
             "C": "主動脈體瘤發生位置通常在心基部",
             "D": "主動脈體瘤通常不具功能性，對身體無危害"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p>A錯誤 : <strong>化學受器瘤 (Chemodectoma)</strong> 源自化學受器組織，主要是 <strong>主動脈體 (Aortic body)</strong> 和 <strong>頸動脈體 (Carotid body)</strong></p>\n<p><strong>B 錯誤</strong>：此病好發於 <strong>短吻犬種 (Brachycephalic breeds)</strong>（如 Boxer, Boston Terrier），因長期缺氧刺激化學受器增生，而非深胸犬種。</p>\n<p><strong>D 錯誤</strong>：雖然多為良性，但其位置會壓迫心臟和大血管，造成心衰竭，並非對身體無危害。</p>\n<!-- notionvc: 69bad74a-f4b9-4a3f-8df4-cabac12b80dd --><div class=\"user-note\"></div>"
     },
     {
         "id": 79,
@@ -866,7 +944,8 @@
             "C": "患馬之pars intermedia melanotrophs會表現醣皮質激素接受體",
             "D": "患馬腎上腺無明顯異常"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>PPID</strong>（舊稱馬庫欣氏症）是老年馬常見的內分泌病，是由於下視丘釋放的 <strong>多巴胺 (Dopamine)</strong> 減少，導致腦垂腺中葉 (Pars intermedia) 的 Melanotrophs 失去抑制而增生/肥大。</p>\n<p><strong>C 錯誤</strong>：正常的 Pars intermedia 細胞（Melanotrophs）<strong>缺乏</strong>醣皮質激素受體 (Glucocorticoid receptors)，因此無法像 Pars distalis 那樣受 Cortisol 的負回饋抑制。因此患馬體內 Cortisol 雖高，卻無法抑制 PI 腫瘤分泌 ACTH/CLIP 的原因。</p>\n<!-- notionvc: a42d3acb-be6c-4d15-9aa5-c4729aee6b56 --><div class=\"user-note\"></div>"
     },
     {
         "id": 80,
@@ -877,7 +956,7 @@
             "C": "新生仔豬無毛或毛髮稀疏",
             "D": "刺激軟骨內及骨骺板的骨化作用增加"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p><strong>甲狀腺功能不足 (Hypothyroidism)</strong> 會導致代謝率下降，會出現肥胖、兩側對稱性脫毛、<strong>黏液水腫 (Myxedema)</strong>（皮膚增厚浮腫）等症狀。同時甲狀腺素對骨骼成熟至關重要。缺乏時會導致 <strong>軟骨內骨化延遲 (Delayed endochondral ossification)</strong> 或骨骺發育不全 (Epiphyseal dysgenesis)，造成侏儒症。</p>\n<!-- notionvc: 1d4d3764-1f90-4eac-83c2-0a11c0d31224 --><div class=\"user-note\"></div>"
     }
-    
 ]
