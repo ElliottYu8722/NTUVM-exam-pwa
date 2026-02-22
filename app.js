@@ -5751,43 +5751,217 @@ function neutralizeOfficeVML(rootEl) {
   }
 }
 
-function renderExplanation(q) {
-  if (!qExplain || !qExplainWrap) return;
+// ===== 詳解欄：自動對比（避免白底白字 / 黑底黑字）=====
+function ensureExplainAutoContrastStyleOnce() {
+  if (document.getElementById('explain-auto-contrast-style')) return;
+  const style = document.createElement('style');
+  style.id = 'explain-auto-contrast-style';
+  style.textContent = `
+    .explain-auto-contrast{
+      /* 只做最小介入：用 inline style 控制 color；這邊給個小小的過渡更順 */
+      transition: color .12s ease;
+    }
+  `;
+  document.head.appendChild(style);
+}
 
-  const raw = q && q.explanation != null ? String(q.explanation) : "";
-  const exp = raw.trim();
-  const has = exp.length > 0;
-
-  qExplainWrap.classList.toggle("hidden", !has);
-  qExplain.classList.toggle("hidden", !has);
-
-  if (!has) {
-    qExplain.innerHTML = "";
-    return;
-  }
-
-  // 把 explanation 當成 HTML 原樣渲染（圖片、顏色、表格都會回來）
-  qExplain.innerHTML = exp;
-
-  // 渲染後修正詳解內的媒體路徑
+function parseCssColorToRgba(str) {
   try {
-    qExplain.querySelectorAll("img").forEach((img) => {
-      const fixed = resolveExplainMediaSrc(img.getAttribute("src"));
-      if (fixed) img.setAttribute("src", fixed);
-    });
+    const s = String(str || '').trim().toLowerCase();
+    if (!s) return null;
 
-    qExplain.querySelectorAll("source").forEach((srcEl) => {
-      const fixed = resolveExplainMediaSrc(srcEl.getAttribute("src"));
-      if (fixed) srcEl.setAttribute("src", fixed);
-    });
-  } catch (e) {
-    console.warn("Explanation media post-process failed:", e);
+    // computedStyle 通常會回 rgb/rgba
+    const m = s.match(/^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+)\s*)?\)$/);
+    if (m) {
+      return {
+        r: Math.max(0, Math.min(255, Number(m[1]))),
+        g: Math.max(0, Math.min(255, Number(m[2]))),
+        b: Math.max(0, Math.min(255, Number(m[3]))),
+        a: (m[4] == null) ? 1 : Math.max(0, Math.min(1, Number(m[4])))
+      };
+    }
+
+    // 保底：交給瀏覽器解析（支援 #fff / 顏色名）
+    const tmp = document.createElement('span');
+    tmp.style.color = s;
+    document.body.appendChild(tmp);
+    const cs = getComputedStyle(tmp).color;
+    tmp.remove();
+    return parseCssColorToRgba(cs);
+  } catch {
+    return null;
   }
+}
 
-  try { neutralizeOfficeVML(qExplain); } catch (e) {}
+function isTransparentRgba(rgba) {
+  return !rgba || !(rgba.a > 0.01);
+}
+
+function srgbToLinear(c) {
+  const v = c / 255;
+  return (v <= 0.04045) ? (v / 12.92) : Math.pow((v + 0.055) / 1.055, 2.4);
+}
+
+function relativeLuminance(rgba) {
+  const r = srgbToLinear(rgba.r);
+  const g = srgbToLinear(rgba.g);
+  const b = srgbToLinear(rgba.b);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrastRatio(c1, c2) {
+  const L1 = relativeLuminance(c1);
+  const L2 = relativeLuminance(c2);
+  const lighter = Math.max(L1, L2);
+  const darker = Math.min(L1, L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+// 找「有效背景色」：一路往上找第一個非透明 background-color
+function getEffectiveBackgroundRgba(el, fallbackEl) {
+  try {
+    let cur = el;
+    while (cur && cur.nodeType === 1) {
+      const bg = parseCssColorToRgba(getComputedStyle(cur).backgroundColor);
+      if (!isTransparentRgba(bg)) return bg;
+      cur = cur.parentElement;
+    }
+  } catch {}
+
+  // fallback：優先用包覆容器
+  try {
+    if (fallbackEl) {
+      const bg2 = parseCssColorToRgba(getComputedStyle(fallbackEl).backgroundColor);
+      if (!isTransparentRgba(bg2)) return bg2;
+    }
+  } catch {}
+
+  // 最後：body
+  try {
+    const b = parseCssColorToRgba(getComputedStyle(document.body).backgroundColor);
+    if (!isTransparentRgba(b)) return b;
+  } catch {}
+
+  // 真的抓不到就當白底
+  return { r: 255, g: 255, b: 255, a: 1 };
 }
 
 
+function pickBestTextColorForBg(bgRgba) {
+  const black = { r: 17, g: 17, b: 17, a: 1 };
+  const white = { r: 249, g: 250, b: 251, a: 1 };
+  const r1 = contrastRatio(black, bgRgba);
+  const r2 = contrastRatio(white, bgRgba);
+  return (r1 >= r2) ? '#111111' : '#f9fafb';
+}
+
+function clearExplainAutoContrast(rootEl) {
+  if (!rootEl) return;
+  try { rootEl.classList.remove('explain-auto-contrast'); } catch {}
+  try { rootEl.style.removeProperty('color'); } catch {}
+  try {
+    rootEl.querySelectorAll('[data-explain-autofg="1"]').forEach(el => {
+      el.style.removeProperty('color');
+      el.removeAttribute('data-explain-autofg');
+    });
+  } catch {}
+}
+
+
+function autoFixExplanationContrast(rootEl, wrapEl, opts) {
+  if (!rootEl) return;
+
+  ensureExplainAutoContrastStyleOnce();
+
+  const threshold = Number.isFinite(opts?.threshold) ? opts.threshold : 3.5; // 你要更嚴格可改成 4.5
+  const bg = getEffectiveBackgroundRgba(rootEl, wrapEl);
+
+  // 先看 root 自己的對比度，夠就不動（也順便清掉上次的修正）
+  clearExplainAutoContrast(rootEl);
+
+  let rootColor = null;
+  try { rootColor = parseCssColorToRgba(getComputedStyle(rootEl).color); } catch {}
+  if (!rootColor) return;
+
+  const rootRatio = contrastRatio(rootColor, bg);
+  const needFixRoot = !(rootRatio >= threshold);
+
+  if (!needFixRoot) return;
+  const newColor = pickBestTextColorForBg(bg);
+  rootEl.classList.add('explain-auto-contrast');
+  rootEl.style.color = newColor;
+
+  // 再補強：修正「子元素被 inline style 指定成同色」的狀況
+  const SKIP_TAGS = new Set([
+    'IMG','VIDEO','AUDIO','SOURCE','CANVAS','SVG','PATH',
+    'BUTTON','INPUT','SELECT','TEXTAREA','OPTION'
+  ]);
+
+  const all = rootEl.querySelectorAll('*');
+  for (const el of all) {
+    if (!el || !el.tagName) continue;
+    if (SKIP_TAGS.has(el.tagName)) continue;
+
+    // 沒文字就跳過（避免亂動純容器）
+    const txt = (el.textContent || '').replace(/\s+/g, '');
+    if (!txt) continue;
+
+    let fg = null;
+    try { fg = parseCssColorToRgba(getComputedStyle(el).color); } catch {}
+    if (!fg || isTransparentRgba(fg)) continue;
+    const elBg = getEffectiveBackgroundRgba(el, rootEl);
+    const r = contrastRatio(fg, elBg);
+    if (r < threshold) {
+      const best = pickBestTextColorForBg(elBg);
+      el.style.color = best;
+      el.setAttribute('data-explain-autofg', '1');
+    }
+
+  }
+}
+
+function renderExplanation(q) {
+  if (!qExplain || !qExplainWrap) return;
+
+  const raw = (q && q.explanation != null) ? String(q.explanation) : '';
+  const exp = raw.trim();
+  const has = exp.length > 0;
+
+  qExplainWrap.classList.toggle('hidden', !has);
+  qExplain.classList.toggle('hidden', !has);
+
+  if (!has) {
+    qExplain.innerHTML = '';
+    try { clearExplainAutoContrast(qExplain); } catch (e) {}
+    return;
+  }
+
+  // explanation HTML
+  qExplain.innerHTML = exp;
+
+  // media src post-process
+  try {
+    qExplain.querySelectorAll('img').forEach(img => {
+      const fixed = resolveExplainMediaSrc(img.getAttribute('src'));
+      if (fixed) img.setAttribute('src', fixed);
+    });
+    qExplain.querySelectorAll('source').forEach(srcEl => {
+      const fixed = resolveExplainMediaSrc(srcEl.getAttribute('src'));
+      if (fixed) srcEl.setAttribute('src', fixed);
+    });
+  } catch (e) {
+    console.warn('Explanation media post-process failed', e);
+  }
+
+  try { neutralizeOfficeVML(qExplain); } catch (e) {}
+
+  // ✅ 自動修正「文字色 = 背景色（或太接近）」的問題
+  try {
+    autoFixExplanationContrast(qExplain, qExplainWrap, { threshold: 3.5 });
+  } catch (e) {
+    console.warn('autoFixExplanationContrast failed', e);
+  }
+}
 
 
 async function renderQuestionInGroupMode() {
