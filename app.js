@@ -5758,36 +5758,103 @@ function ensureExplainAutoContrastStyleOnce() {
   style.id = 'explain-auto-contrast-style';
   style.textContent = `
     .explain-auto-contrast{
-      /* 只做最小介入：用 inline style 控制 color；這邊給個小小的過渡更順 */
       transition: color .12s ease;
     }
   `;
   document.head.appendChild(style);
 }
 
-function parseCssColorToRgba(str) {
-  try {
-    const s = String(str || '').trim().toLowerCase();
-    if (!s) return null;
+function clamp(n, min, max) {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return min;
+  return Math.max(min, Math.min(max, x));
+}
 
-    // computedStyle 通常會回 rgb/rgba
-    const m = s.match(/^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+)\s*)?\)$/);
-    if (m) {
-      return {
-        r: Math.max(0, Math.min(255, Number(m[1]))),
-        g: Math.max(0, Math.min(255, Number(m[2]))),
-        b: Math.max(0, Math.min(255, Number(m[3]))),
-        a: (m[4] == null) ? 1 : Math.max(0, Math.min(1, Number(m[4])))
-      };
+function parseCssNumberOrPercent(s, scaleIfPercent /* e.g. 255 or 1 */) {
+  const t = String(s || '').trim();
+  if (!t) return NaN;
+  if (t.endsWith('%')) {
+    const p = parseFloat(t.slice(0, -1));
+    if (!Number.isFinite(p)) return NaN;
+    return (p / 100) * scaleIfPercent;
+  }
+  const v = parseFloat(t);
+  return v;
+}
+
+// 支援：rgb(1 2 3 / .5) / rgb(1,2,3) / #fff/#ffff/#ffffff/#ffffffff / transparent / 色名
+function parseCssColorToRgba(str, _depth = 0) {
+  try {
+    const s0 = String(str || '').trim();
+    const s = s0.toLowerCase();
+    if (!s) return null;
+    if (s === 'transparent') return { r: 0, g: 0, b: 0, a: 0 };
+
+    // hex
+    if (s[0] === '#') {
+      const hex = s.slice(1);
+      if (hex.length === 3 || hex.length === 4) {
+        const r = parseInt(hex[0] + hex[0], 16);
+        const g = parseInt(hex[1] + hex[1], 16);
+        const b = parseInt(hex[2] + hex[2], 16);
+        const a = (hex.length === 4) ? parseInt(hex[3] + hex[3], 16) / 255 : 1;
+        return { r, g, b, a: clamp(a, 0, 1) };
+      }
+      if (hex.length === 6 || hex.length === 8) {
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        const a = (hex.length === 8) ? parseInt(hex.slice(6, 8), 16) / 255 : 1;
+        return { r, g, b, a: clamp(a, 0, 1) };
+      }
+      return null;
     }
 
-    // 保底：交給瀏覽器解析（支援 #fff / 顏色名）
+    // rgb/rgba (comma OR space, with optional / alpha)
+    const m = s.match(/^rgba?\(\s*(.+)\s*\)$/);
+    if (m) {
+      let inside = m[1].trim();
+
+      let alphaPart = null;
+      if (inside.includes('/')) {
+        const parts = inside.split('/');
+        inside = (parts[0] || '').trim();
+        alphaPart = (parts[1] || '').trim();
+      }
+
+      // normalize separators
+      const nums = inside.replace(/,/g, ' ').trim().split(/\s+/).filter(Boolean);
+      if (nums.length >= 3) {
+        const r0 = parseCssNumberOrPercent(nums[0], 255);
+        const g0 = parseCssNumberOrPercent(nums[1], 255);
+        const b0 = parseCssNumberOrPercent(nums[2], 255);
+
+        let a0 = 1;
+        if (alphaPart != null && alphaPart !== '') {
+          a0 = parseCssNumberOrPercent(alphaPart, 1);
+        } else if (nums.length >= 4) {
+          a0 = parseCssNumberOrPercent(nums[3], 1);
+        }
+
+        return {
+          r: clamp(r0, 0, 255),
+          g: clamp(g0, 0, 255),
+          b: clamp(b0, 0, 255),
+          a: clamp(a0, 0, 1)
+        };
+      }
+    }
+
+    // fallback：交給瀏覽器解析（支援 顏色名 等）
+    if (_depth >= 2) return null;
     const tmp = document.createElement('span');
-    tmp.style.color = s;
-    document.body.appendChild(tmp);
+    tmp.style.color = s0;
+    const host = document.body || document.documentElement;
+    if (!host) return null;
+    host.appendChild(tmp);
     const cs = getComputedStyle(tmp).color;
     tmp.remove();
-    return parseCssColorToRgba(cs);
+    return parseCssColorToRgba(cs, _depth + 1);
   } catch {
     return null;
   }
@@ -5797,19 +5864,41 @@ function isTransparentRgba(rgba) {
   return !rgba || !(rgba.a > 0.01);
 }
 
+function compositeRgbaOver(fg, bg) {
+  // fg over bg
+  const F = fg || { r: 0, g: 0, b: 0, a: 0 };
+  const B = bg || { r: 255, g: 255, b: 255, a: 1 };
+  const fa = clamp(F.a, 0, 1);
+  const ba = clamp(B.a, 0, 1);
+  const outA = fa + ba * (1 - fa);
+  if (!(outA > 0)) return { r: 0, g: 0, b: 0, a: 0 };
+
+  const r = (F.r * fa + B.r * ba * (1 - fa)) / outA;
+  const g = (F.g * fa + B.g * ba * (1 - fa)) / outA;
+  const b = (F.b * fa + B.b * ba * (1 - fa)) / outA;
+  return { r: clamp(r, 0, 255), g: clamp(g, 0, 255), b: clamp(b, 0, 255), a: clamp(outA, 0, 1) };
+}
+
+function toOpaqueOver(c, bg) {
+  if (!c) return null;
+  if (c.a >= 0.999) return { r: c.r, g: c.g, b: c.b, a: 1 };
+  return compositeRgbaOver(c, bg || { r: 255, g: 255, b: 255, a: 1 });
+}
+
 function srgbToLinear(c) {
   const v = c / 255;
   return (v <= 0.04045) ? (v / 12.92) : Math.pow((v + 0.055) / 1.055, 2.4);
 }
 
-function relativeLuminance(rgba) {
-  const r = srgbToLinear(rgba.r);
-  const g = srgbToLinear(rgba.g);
-  const b = srgbToLinear(rgba.b);
+function relativeLuminance(rgbOpaque) {
+  const c = rgbOpaque;
+  const r = srgbToLinear(c.r);
+  const g = srgbToLinear(c.g);
+  const b = srgbToLinear(c.b);
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-function contrastRatio(c1, c2) {
+function contrastRatioOpaque(c1, c2) {
   const L1 = relativeLuminance(c1);
   const L2 = relativeLuminance(c2);
   const lighter = Math.max(L1, L2);
@@ -5817,41 +5906,53 @@ function contrastRatio(c1, c2) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-// 找「有效背景色」：一路往上找第一個非透明 background-color
-function getEffectiveBackgroundRgba(el, fallbackEl) {
-  try {
-    let cur = el;
-    while (cur && cur.nodeType === 1) {
-      const bg = parseCssColorToRgba(getComputedStyle(cur).backgroundColor);
-      if (!isTransparentRgba(bg)) return bg;
-      cur = cur.parentElement;
-    }
-  } catch {}
-
-  // fallback：優先用包覆容器
-  try {
-    if (fallbackEl) {
-      const bg2 = parseCssColorToRgba(getComputedStyle(fallbackEl).backgroundColor);
-      if (!isTransparentRgba(bg2)) return bg2;
-    }
-  } catch {}
-
-  // 最後：body
-  try {
-    const b = parseCssColorToRgba(getComputedStyle(document.body).backgroundColor);
-    if (!isTransparentRgba(b)) return b;
-  } catch {}
-
-  // 真的抓不到就當白底
-  return { r: 255, g: 255, b: 255, a: 1 };
+function contrastRatioOnBg(fg, bg) {
+  const bg2 = toOpaqueOver(bg, { r: 255, g: 255, b: 255, a: 1 }) || { r: 255, g: 255, b: 255, a: 1 };
+  const fg2 = toOpaqueOver(fg, bg2);
+  if (!fg2) return 1;
+  return contrastRatioOpaque(fg2, bg2);
 }
 
+// 找「有效背景色」：一路往上把背景色合成（支援半透明背景）
+function getEffectiveBackgroundRgba(el, fallbackEl) {
+  const chain = [];
+
+  const collect = (startEl) => {
+    let cur = startEl;
+    while (cur && cur.nodeType === 1) {
+      let bg = null;
+      try { bg = parseCssColorToRgba(getComputedStyle(cur).backgroundColor); } catch {}
+      if (bg && bg.a > 0.01) chain.push(bg);
+      cur = cur.parentElement;
+    }
+  };
+
+  try { if (el) collect(el); } catch {}
+  if (!chain.length) {
+    try { if (fallbackEl) collect(fallbackEl); } catch {}
+  }
+
+  // base：body 或 html
+  let base = null;
+  try { base = parseCssColorToRgba(getComputedStyle(document.body).backgroundColor); } catch {}
+  if (isTransparentRgba(base)) {
+    try { base = parseCssColorToRgba(getComputedStyle(document.documentElement).backgroundColor); } catch {}
+  }
+  if (isTransparentRgba(base)) base = { r: 255, g: 255, b: 255, a: 1 };
+  base = toOpaqueOver(base, { r: 255, g: 255, b: 255, a: 1 }) || { r: 255, g: 255, b: 255, a: 1 };
+
+  // chain 是「由近到遠」收集，所以要從遠到近合成
+  for (let i = chain.length - 1; i >= 0; i--) {
+    base = compositeRgbaOver(chain[i], base);
+  }
+  return toOpaqueOver(base, { r: 255, g: 255, b: 255, a: 1 }) || { r: 255, g: 255, b: 255, a: 1 };
+}
 
 function pickBestTextColorForBg(bgRgba) {
   const black = { r: 17, g: 17, b: 17, a: 1 };
   const white = { r: 249, g: 250, b: 251, a: 1 };
-  const r1 = contrastRatio(black, bgRgba);
-  const r2 = contrastRatio(white, bgRgba);
+  const r1 = contrastRatioOpaque(black, bgRgba);
+  const r2 = contrastRatioOpaque(white, bgRgba);
   return (r1 >= r2) ? '#111111' : '#f9fafb';
 }
 
@@ -5859,39 +5960,41 @@ function clearExplainAutoContrast(rootEl) {
   if (!rootEl) return;
   try { rootEl.classList.remove('explain-auto-contrast'); } catch {}
   try { rootEl.style.removeProperty('color'); } catch {}
+  try { rootEl.style.removeProperty('-webkit-text-fill-color'); } catch {}
   try {
     rootEl.querySelectorAll('[data-explain-autofg="1"]').forEach(el => {
       el.style.removeProperty('color');
+      el.style.removeProperty('-webkit-text-fill-color');
       el.removeAttribute('data-explain-autofg');
     });
   } catch {}
 }
-
 
 function autoFixExplanationContrast(rootEl, wrapEl, opts) {
   if (!rootEl) return;
 
   ensureExplainAutoContrastStyleOnce();
 
-  const threshold = Number.isFinite(opts?.threshold) ? opts.threshold : 3.5; // 你要更嚴格可改成 4.5
+  const threshold = Number.isFinite(opts?.threshold) ? opts.threshold : 3.5; // 想更嚴格可改 4.5
   const bg = getEffectiveBackgroundRgba(rootEl, wrapEl);
 
-  // 先看 root 自己的對比度，夠就不動（也順便清掉上次的修正）
+  // 先清掉上次的修正
   clearExplainAutoContrast(rootEl);
 
   let rootColor = null;
   try { rootColor = parseCssColorToRgba(getComputedStyle(rootEl).color); } catch {}
   if (!rootColor) return;
 
-  const rootRatio = contrastRatio(rootColor, bg);
+  const rootRatio = contrastRatioOnBg(rootColor, bg);
   const needFixRoot = !(rootRatio >= threshold);
-
   if (!needFixRoot) return;
+
   const newColor = pickBestTextColorForBg(bg);
   rootEl.classList.add('explain-auto-contrast');
   rootEl.style.color = newColor;
+  rootEl.style.webkitTextFillColor = newColor;
 
-  // 再補強：修正「子元素被 inline style 指定成同色」的狀況
+  // 再補強：修正「子元素被指定成同色/很淡」的狀況
   const SKIP_TAGS = new Set([
     'IMG','VIDEO','AUDIO','SOURCE','CANVAS','SVG','PATH',
     'BUTTON','INPUT','SELECT','TEXTAREA','OPTION'
@@ -5902,23 +6005,24 @@ function autoFixExplanationContrast(rootEl, wrapEl, opts) {
     if (!el || !el.tagName) continue;
     if (SKIP_TAGS.has(el.tagName)) continue;
 
-    // 沒文字就跳過（避免亂動純容器）
     const txt = (el.textContent || '').replace(/\s+/g, '');
     if (!txt) continue;
 
     let fg = null;
     try { fg = parseCssColorToRgba(getComputedStyle(el).color); } catch {}
     if (!fg || isTransparentRgba(fg)) continue;
+
     const elBg = getEffectiveBackgroundRgba(el, rootEl);
-    const r = contrastRatio(fg, elBg);
+    const r = contrastRatioOnBg(fg, elBg);
     if (r < threshold) {
       const best = pickBestTextColorForBg(elBg);
       el.style.color = best;
+      el.style.webkitTextFillColor = best;
       el.setAttribute('data-explain-autofg', '1');
     }
-
   }
 }
+
 
 function renderExplanation(q) {
   if (!qExplain || !qExplainWrap) return;
