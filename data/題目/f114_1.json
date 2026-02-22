@@ -1,882 +1,962 @@
 [
-  {
-    "id": 1,
-    "text": "1. 下列有關獸醫流行病學與獸醫臨床醫學之敘述，何者錯誤？",
-    "options": {
-      "A": "獸醫臨床醫學的結論通常無法幫助防疫政策的擬定，而獸醫流行病學則可以",
-      "B": "獸醫臨床醫學考慮的是個體的疾病型態，而獸醫流行病學考慮的是群體",
-      "C": "獸醫流行病學通常著重在患病動物，而較不重視健康動物",
-      "D": "獸醫臨床醫學通常著重在治療患病動物，而獸醫流行病學則找出問題並評估介入方案"
-    },
-    "image": null
-  },
-  {
-    "id": 2,
-    "text": "2. 有關獸醫臨床試驗（clinical trial）分期之評估目的，下列敘述何者錯誤？",
-    "options": {
-      "A": "第一期主要是評估藥物的藥理及毒性",
-      "B": "第二期主要是評估藥物效果及安全性",
-      "C": "第三期為大規模實驗動物分組效力試驗",
-      "D": "第四期為上市後之監測"
-    },
-    "image": null
-  },
-  {
-    "id": 3,
-    "text": "3. 下列何者最接近流行性疾病（epidemic）之定義？",
-    "options": {
-      "A": "在某地區反覆低程度發生的疾病",
-      "B": "在特定時間地點發生病例數量超過預期的疾病",
-      "C": "在多地區短時間內發生高病例數量的疾病",
-      "D": "偶然且局部性發生的疾病"
-    },
-    "image": null
-  },
-  {
-    "id": 4,
-    "text": "4. 流行病學曲線的橫軸代表下列何種意義？",
-    "options": {
-      "A": "疾病率",
-      "B": "盛行率",
-      "C": "傳播速度",
-      "D": "時間"
-    },
-    "image": null
-  },
-  {
-    "id": 5,
-    "text": "5. 小鼠 50％致死劑量（50% mouse lethal dose, MLD50），是用於描述病原的何種因子？",
-    "options": {
-      "A": "感染力",
-      "B": "毒力",
-      "C": "侵犯力",
-      "D": "病原性"
-    },
-    "image": null
-  },
-  {
-    "id": 6,
-    "text": "6. 下列何者為疾病決定因子中的病原因素？",
-    "options": {
-      "A": "宿主對此病原的免疫力",
-      "B": "宿主遺傳性缺陷",
-      "C": "宿主飼養密度",
-      "D": "宿主特異性"
-    },
-    "image": null
-  },
-  {
-    "id": 7,
-    "text": "7. 當一疾病在族群的基本複製數（basic reproductive number, R0）為2.3時，下列敘述何者正確 ①一個感染個體可在平均2.3天感染另一具感受性的個體 ②一個感染個體平均可再感染 2.3個具感受性的個體 ③族群中疫情可能會持續且擴大 ④族群中疫情可能會減少並漸受控制",
-    "options": {
-      "A": "①③",
-      "B": "①④",
-      "C": "②③",
-      "D": "②④"
-    },
-    "image": null
-  },
-  {
-    "id": 8,
-    "text": "8. 下列有關盛行率（prevalence）的敘述，何者正確？",
-    "options": {
-      "A": "屬於發生率的一種指標",
-      "B": "可由流行病學曲線得知",
-      "C": "點盛行率和期間盛行率通常相同",
-      "D": "考慮觀察期間內所有病例"
-    },
-    "image": null
-  },
-  {
-    "id": 9,
-    "text": "9. 關於危險因子與疾病發生之相關（association）與因果關係（causation）敘述，下列何者正確？",
-    "options": {
-      "A": "有相關就代表有因果關係",
-      "B": "統計上有顯著相關則代表有因果關係",
-      "C": "因果關係表示兩者有真正的機制存在",
-      "D": "危險因子即為病因"
-    },
-    "image": null
-  },
-  {
-    "id": 10,
-    "text": "10. 下列何種情況下會以費雪精確檢定（Fisher's exact test）取代卡方檢定（Chi-square test）？",
-    "options": {
-      "A": "觀察值的總數少於 20，或任何一個預期值小於5",
-      "B": "觀察值的總數少於 10，或任何一個預期值大於5",
-      "C": "觀察值的總數大於 20，或任何一個預期值小於10",
-      "D": "觀察值的總數大於 10，或任何一個預期值小於10"
-    },
-    "image": null
-  },
-  {
-    "id": 11,
-    "text": "11. 下列何者不屬於因果關係的條件？",
-    "options": {
-      "A": "正確的時序性",
-      "B": "生物學上的合理性",
-      "C": "相關強度的大小",
-      "D": "研究樣本數的大小"
-    },
-    "image": null
-  },
-  {
-    "id": 12,
-    "text": "12. 一項調查豬瘟與豬場裝設通風設備之病例對照研究中，500場病例場中有 400場裝設通風設備，500場陰性場中有 100場裝設通風設備。則有裝設通風設備與豬場發生豬瘟的勝算比（odds ratio）為何？",
-    "options": {
-      "A": "1",
-      "B": "4",
-      "C": "16",
-      "D": "無法從上列資料計算而得"
-    },
-    "image": null
-  },
-  {
-    "id": 13,
-    "text": "13. 在探討暴露與疾病之關係，其粗勝算比（crude odds ratio）為1.2，經過性別分層後之勝算比分別均為5.7，則性別在此研究是否為干擾因子，且其分析時應如何進行調整？",
-    "options": {
-      "A": "不是干擾因子，但必須用 Mantel-Haenszel procedure 調整",
-      "B": "是干擾因子，且必須用Mantel-Haenszel procedure 調整",
-      "C": "不是干擾因子，也不必調整",
-      "D": "是干擾因子，且必須用Wilcoxon rank sum test調整"
-    },
-    "image": null
-  },
-  {
-    "id": 14,
-    "text": "14. 為顯示某一特定動物疾病是否存在，假設族群個體數為 10,000，預期盛行率為 30％，信心水準設為 99％，查表得樣本數為13。下列有關抽樣與統計之敘述，何者錯誤？",
-    "options": {
-      "A": "若所有樣本檢查結果皆為陰性，則有 99％的信心認為該疾病之盛行率低於 30％",
-      "B": "在這 13個樣本中必含有一個檢出結果為陽性",
-      "C": "若診斷試驗之敏感性不足，則樣本數需要增加",
-      "D": "同樣的信心水準下，預期盛行率若越高，需要的樣本數就越少"
-    },
-    "image": null
-  },
-  {
-    "id": 15,
-    "text": "15. 下列何者不適用於世代研究中控制干擾因子偏差（confounding bias）？",
-    "options": {
-      "A": "限制研究對象",
-      "B": "匹配（matching）",
-      "C": "分層分析",
-      "D": "去除資料的離散值（outlier）"
-    },
-    "image": null
-  },
-  {
-    "id": 16,
-    "text": "16. 研究者想瞭解全國獸醫師心理健康情形，在某伴侶動物繼續教育研討會中，經與會者同意後填寫評估問卷，直至所需樣本數額滿為止，此為何種抽樣方法？",
-    "options": {
-      "A": "方便性抽樣",
-      "B": "簡單逢機抽樣",
-      "C": "系統性逢機抽樣",
-      "D": "集簇抽樣"
-    },
-    "image": null
-  },
-  {
-    "id": 17,
-    "text": "17. 欲抽樣瞭解一牧場之荷仕登牛和娟姍牛的牛乳產量，依品種比例計算各品種所需的樣本數後利用亂數表進行抽樣，此為何種抽樣方法？",
-    "options": {
-      "A": "系統性逢機抽樣",
-      "B": "簡單逢機抽樣",
-      "C": "分層逢機抽樣",
-      "D": "集簇抽樣"
-    },
-    "image": null
-  },
-  {
-    "id": 18,
-    "text": "18. 在一有 300 頭牛隻的牧場，預期有結核病的牛隻比率為 2％，於信心水準 95％時，依下表結果在牧場中至少檢出 1 頭結核病陽性牛隻需採集多少樣本數？",
-    "options": {
-      "A": "97",
-      "B": "117",
-      "C": "189",
-      "D": "287"
-    },
-    "image": "./圖片/f1141-000.ppm"
-  },
-  {
-    "id": 19,
-    "text": "19. 由客觀來源及多重來源獲取研究個案資料，可避免何種偏差？",
-    "options": {
-      "A": "干擾因子偏差",
-      "B": "志願者偏差",
-      "C": "記憶偏差",
-      "D": "就診率偏差"
-    },
-    "image": null
-  },
-  {
-    "id": 20,
-    "text": "20. 下表為兩種不同診斷試劑的檢驗結果，有關一致性及其統計分析之敘述何者錯誤？",
-    "options": {
-      "A": "診斷結果一致性（observed agreement）為 (55+138)/212",
-      "B": "機率性一致性（agreement by chance）為 [(59×70)/212+(153×142)/212]/212",
-      "C": "Kappa 值越大代表兩診斷試劑結果一致性越高",
-      "D": "一致性的統計檢定可依卡方檢定（Chi-square test）方式進行"
-    },
-    "image": "./圖片/f1141-001.ppm"
-  },
-  {
-    "id": 21,
-    "text": "21. 檢測某疾病時，若將敏感性 80％、特異性80％的檢測方法改為使用敏感性 80％、特異性90％的檢測方法時，下列敘述何者正確？",
-    "options": {
-      "A": "偽陽性增加",
-      "B": "偽陰性降低",
-      "C": "陽性反應預測值增加",
-      "D": "陰性反應預測值降低"
-    },
-    "image": null
-  },
-  {
-    "id": 22,
-    "text": "22. 一健康犬隻經採血檢測15項血清生化值，每項檢測值的正常參考值範圍包括正常犬隻族群中 95％個體的數值，其結果中至少有一項不在正常參考值範圍內的機率為何？",
-    "options": {
-      "A": "5％",
-      "B": "(95％)15",
-      "C": "1-(95％)15",
-      "D": "1-(5％)15"
-    },
-    "image": null
-  },
-  {
-    "id": 23,
-    "text": "23. 在疾病控制計畫初期和後期，應分別利用具何種特性的試驗方法進行疾病檢測最適當？",
-    "options": {
-      "A": "初期：高敏感性；後期：高特異性",
-      "B": "初期：低敏感性；後期：高特異性",
-      "C": "初期：高特異性；後期：低敏感性",
-      "D": "初期：低特異性；後期：高敏感性"
-    },
-    "image": null
-  },
-  {
-    "id": 24,
-    "text": "24. 某單位欲從國外進口 5隻犬隻，並希望供應者提供犬隻未受犬心絲蟲感染的證明，此時對所提供的檢測報告最不希望有下列何種情形？",
-    "options": {
-      "A": "高的陽性預測值",
-      "B": "高的陰性預測值",
-      "C": "偽陽性",
-      "D": "偽陰性"
-    },
-    "image": null
-  },
-  {
-    "id": 25,
-    "text": "25. 承上題，若國內單位欲再對此批犬隻進行犬心絲蟲感染的檢測，此時應優先選擇具下列何種檢測特性的檢測方法？",
-    "options": {
-      "A": "高敏感性",
-      "B": "高特異性",
-      "C": "高的陽性預測值",
-      "D": "高的陰性預測值"
-    },
-    "image": null
-  },
-  {
-    "id": 26,
-    "text": "26. 根據世界動物衛生組織《陸生動物衛生法典》，下列有關撲滅政策（stamping-out policy）的敘述，何者錯誤？",
-    "options": {
-      "A": "撲滅政策並非適用於所有經濟動物傳染病的控制",
-      "B": "撲滅進行時，應將受影響區域中所有易感性物種撲殺",
-      "C": "撲滅計畫通常包含對受感染動物的撲殺、受感染場所的清潔消毒等措施",
-      "D": "撲滅計畫的實施需考量經濟成本、動物福利等因素"
-    },
-    "image": null
-  },
-  {
-    "id": 27,
-    "text": "27. 動物感染病原體之後，到開始排毒、具有傳染力之前，稱為什麼時期？",
-    "options": {
-      "A": "繫留期（holding period）",
-      "B": "檢疫期（quarantine period）",
-      "C": "潛伏期（incubation period）",
-      "D": "潛藏期（latent period）"
-    },
-    "image": null
-  },
-  {
-    "id": 28,
-    "text": "28. 在流行病學的病因模式中，下列那一種圖表適合用來表示疾病危險因子間為單獨作用或具有交互作用？",
-    "options": {
-      "A": "圓餅圖（pie chart）",
-      "B": "列聯表（contingency table）",
-      "C": "范氏圖（Venn diagram）",
-      "D": "盒鬚圖（box plot）"
-    },
-    "image": null
-  },
-  {
-    "id": 29,
-    "text": "29. 於動物檢體發現人畜共通傳染病的疑似案例，由下列何者進行檢診確認？",
-    "options": {
-      "A": "農業部獸醫研究所",
-      "B": "農業部動植物防疫檢疫署",
-      "C": "財團法人農業科技研究院動物科技研究所",
-      "D": "衛生福利部疾病管制署"
-    },
-    "image": null
-  },
-  {
-    "id": 30,
-    "text": "30. 動物屠體、內臟及其分切物自屠宰場運出交付食品業者生產供人食用之產物，依法由下列何者進行衛生查核？",
-    "options": {
-      "A": "農業主管機關",
-      "B": "衛生主管機關",
-      "C": "環保主管機關",
-      "D": "農業主管機關會同衛生主管機關"
-    },
-    "image": null
-  },
-  {
-    "id": 31,
-    "text": "31. 廢止或撤銷許可證之動物用藥品有影響動物或人體健康之虞時，下列何者得命動物用藥品製造業者或販賣業者限期回收或銷毀該藥品？",
-    "options": {
-      "A": "中央衛生主管機關",
-      "B": "中央農業主管機關",
-      "C": "當地衛生主管機關",
-      "D": "當地動物防疫主管機關"
-    },
-    "image": null
-  },
-  {
-    "id": 32,
-    "text": "32. 獸醫師（佐）執行業務時，發現重大人畜共通之動物傳染病應向誰通報？",
-    "options": {
-      "A": "中央衛生主管機關",
-      "B": "中央動物防疫主管機關",
-      "C": "當地衛生主管機關",
-      "D": "當地動物防疫主管機關"
-    },
-    "image": null
-  },
-  {
-    "id": 33,
-    "text": "33. 動物用藥品的使用應遵守下列何項規範，以避免藥物殘留的發生？",
-    "options": {
-      "A": "動物用藥品檢驗登記審查準則",
-      "B": "動物用藥品查驗辦法",
-      "C": "動物用藥品優良製造準則",
-      "D": "動物用藥品使用準則"
-    },
-    "image": null
-  },
-  {
-    "id": 34,
-    "text": "34. 於超市牛肉中檢出出血性大腸桿菌後，應依據下列何項法令進行後續下架處置？",
-    "options": {
-      "A": "食品中污染物質及毒素衛生標準",
-      "B": "動物用藥品管理法",
-      "C": "屠宰衛生檢查規則",
-      "D": "食品安全衛生管理法"
-    },
-    "image": null
-  },
-  {
-    "id": 35,
-    "text": "35. 為執行畜牧法查緝違法屠宰行為，各直轄市及縣（市）政府應組成「違法屠宰聯合查緝小組」，其召集人建議由何人擔任？",
-    "options": {
-      "A": "由直轄市、縣（市）政府秘書長（主任秘書）以上層級者擔任",
-      "B": "由直轄市、縣（市）政府首長指派適當人員擔任",
-      "C": "由直轄市、縣（市）政府畜牧法執行單位承辦科（課）長擔任",
-      "D": "由直轄市、縣（市）政府議會首長擔任"
-    },
-    "image": null
-  },
-  {
-    "id": 36,
-    "text": "36. 化製場及化製原料運輸車消毒與查核的中央主管機關為何？",
-    "options": {
-      "A": "農業部",
-      "B": "衛生福利部",
-      "C": "環境部",
-      "D": "經濟部"
-    },
-    "image": null
-  },
-  {
-    "id": 37,
-    "text": "37. 依據屠宰衛生檢查規則，家畜屠宰後檢查時，屠體呈顯著腥臭或特殊異味者應如何判定？",
-    "options": {
-      "A": "合格",
-      "B": "稽留",
-      "C": "不合格",
-      "D": "隔離檢查"
-    },
-    "image": null
-  },
-  {
-    "id": 38,
-    "text": "38. 依據屠宰場設置標準，家禽屠宰場利用吊掛軌道時，其屠體應離開地面至少多少公分以上？",
-    "options": {
-      "A": "90",
-      "B": "60",
-      "C": "40",
-      "D": "30"
-    },
-    "image": null
-  },
-  {
-    "id": 39,
-    "text": "39. 依據屠宰衛生檢查合格標誌及標明方法，下圖屠宰衛生檢查合格標誌屬於何種樣式？",
-    "options": {
-      "A": "甲式標誌",
-      "B": "乙式標誌",
-      "C": "丙式標誌",
-      "D": "丁式標誌"
-    },
-    "image": "./圖片/f1141-002.jpg"
-  },
-  {
-    "id": 40,
-    "text": "40. 依據屠宰作業準則，屠宰過程，每處理一頭（隻）疑病畜禽之刀具及鋸子等工具應立即清洗，並用攝氏幾度以上之熱水消毒？",
-    "options": {
-      "A": "83",
-      "B": "72",
-      "C": "65",
-      "D": "56"
-    },
-    "image": null
-  },
-  {
-    "id": 41,
-    "text": "41. 依據屠宰作業準則，設施檢查維護紀錄與病媒及其他昆蟲之防治紀錄應保存至少多久時間？",
-    "options": {
-      "A": "1 個月",
-      "B": "6 個月",
-      "C": "1 年",
-      "D": "3 年"
-    },
-    "image": null
-  },
-  {
-    "id": 42,
-    "text": "42. 依屠宰場設置標準，預冷設施應使屠體中心溫度於屠後 18小時內降至攝氏多少度，以達到出場的標準？",
-    "options": {
-      "A": "15～20",
-      "B": "6～10",
-      "C": "0～5",
-      "D": "-20 以下"
-    },
-    "image": null
-  },
-  {
-    "id": 43,
-    "text": "43. 依據屠宰場設置標準，屠前檢查時隔離繫留欄距離地板上 90公分處之照明光度至少為多少米燭光？",
-    "options": {
-      "A": "100",
-      "B": "200",
-      "C": "300",
-      "D": "500"
-    },
-    "image": null
-  },
-  {
-    "id": 44,
-    "text": "44. 根據優良農產品水產品項目驗證基準規定及動物用藥殘留標準，有關四環黴素類在魚的肌肉殘留容許量，下列何者正確？",
-    "options": {
-      "A": "oxytetracycline 0.2 ppm",
-      "B": "tetracycline 0.2 ppm",
-      "C": "chlortetracycline 0.2 ppm",
-      "D": "不得檢出"
-    },
-    "image": null
-  },
-  {
-    "id": 45,
-    "text": "45. 依據優良農產品水產品項目驗證基準，有關生食用魚介類水產品需抽驗的微生物檢驗項目，下列何者正確？",
-    "options": {
-      "A": "腸炎弧菌（Vibrio parahaemolyticus）",
-      "B": "金黃色葡萄球菌（Staphylococcus aureus）",
-      "C": "單核球增多性李斯特菌（Listeria monocytogenes）",
-      "D": "創傷弧菌（Vibrio vulnificus）"
-    },
-    "image": null
-  },
-  {
-    "id": 46,
-    "text": "46. 依據優良農產品水產品項目驗證基準，冷凍水產品的中心溫度必須達到攝氏多少度以下？",
-    "options": {
-      "A": "-18",
-      "B": "-7",
-      "C": "-25",
-      "D": "-50"
-    },
-    "image": null
-  },
-  {
-    "id": 47,
-    "text": "47. 依據食品中微生物衛生標準，鮮乳產品中測得微生物菌量或其毒素的含量，下列何者符合規定？",
-    "options": {
-      "A": "單核球增多性李斯特菌（Listeria monocytogenes）菌量為1 CFU/mL",
-      "B": "沙門氏桿菌（Salmonella）菌量為1 CFU/mL",
-      "C": "腸桿菌科（Enterobacteriaceae）菌量為1 CFU/mL",
-      "D": "金黃色葡萄球菌腸毒素（Staphylococcus aureus enterotoxin）含量為 1 ng/mL"
-    },
-    "image": null
-  },
-  {
-    "id": 48,
-    "text": "48. 依據食品中污染物質及毒素衛生標準，牛乳中下列那一種真菌毒素能容許限量（0.5 μg/kg）檢出？",
-    "options": {
-      "A": "黃麴毒素M1",
-      "B": "赭麴毒素A",
-      "C": "伏馬毒素B1+B2",
-      "D": "棒麴毒素"
-    },
-    "image": null
-  },
-  {
-    "id": 49,
-    "text": "49. 依據中華民國國家標準CNS 3055生乳標準，加工製程前生乳貯乳槽（桶）中生牛乳生菌數須在多少單位（CFU/mL）以下？",
-    "options": {
-      "A": "1×103",
-      "B": "1×104",
-      "C": "1×105",
-      "D": "1×106"
-    },
-    "image": null
-  },
-  {
-    "id": 50,
-    "text": "50. 依據優良農產品乳品項目驗證基準，下列敘述何者正確？",
-    "options": {
-      "A": "進行酒精試驗是評估生乳中微生物含量的方法",
-      "B": "進行美藍還原試驗是測定生乳中蛋白質的安定性",
-      "C": "生乳當被製成鮮乳後，戴奧辛不得檢出",
-      "D": "生乳當被製成鮮乳後，酸度應在 0.18％以下"
-    },
-    "image": null
-  },
-  {
-    "id": 51,
-    "text": "51. 依據優良農產品蛋品項目驗證基準，皮蛋微生物檢驗項目不包括下列何者？",
-    "options": {
-      "A": "黴菌及酵母菌",
-      "B": "生菌數",
-      "C": "沙門氏桿菌",
-      "D": "金黃色葡萄球菌"
-    },
-    "image": null
-  },
-  {
-    "id": 52,
-    "text": "52. 依據優良農產品蛋品項目驗證基準，下列液蛋產品的微生物檢驗何者必須為陰性？",
-    "options": {
-      "A": "大腸桿菌群",
-      "B": "沙門氏桿菌",
-      "C": "生菌數",
-      "D": "黴菌與酵母菌"
-    },
-    "image": null
-  },
-  {
-    "id": 53,
-    "text": "53. 根據食品中戴奧辛及多氯聯苯處理規範，雞蛋中戴奧辛與戴奧辛類多氯聯苯含量總和的限值為下列何者？",
-    "options": {
-      "A": "1.0 pg/g fat",
-      "B": "2.5 pg/g fat",
-      "C": "5.0 pg/g fat",
-      "D": "7.5 pg/g fat"
-    },
-    "image": null
-  },
-  {
-    "id": 54,
-    "text": "54. 依據優良農產品蛋品項目驗證基準，蛋個體重量若為 50 公克，其分級代號應為下列何者？",
-    "options": {
-      "A": "S",
-      "B": "M",
-      "C": "L",
-      "D": "LL"
-    },
-    "image": null
-  },
-  {
-    "id": 55,
-    "text": "55. 依動物用藥品管理法之定義，下列何者屬於動物用藥品？①供預防動物疾病之抗生素原料藥 ②牧場病媒防治用之殺蟲劑 ③經中央主管機關公告專供診斷動物疾病之診斷劑 ④用於畜舍禽舍內環境表面之消毒劑",
-    "options": {
-      "A": "①③④",
-      "B": "①②③",
-      "C": "①②④",
-      "D": "②③④"
-    },
-    "image": null
-  },
-  {
-    "id": 56,
-    "text": "56. 下列有關動物用藥品停藥期的觀念，何者最適當？",
-    "options": {
-      "A": "建立停藥期時所採用的標的殘留物應以代謝產物為主",
-      "B": "藥物停藥期之訂定需考慮殘留容許量",
-      "C": "二種以上動物用藥品合併投予動物時，其停藥期為兩藥個別停藥期之平均",
-      "D": "停藥期是指最後一次給藥後可食組織皆完全測不到藥物所需的時間"
-    },
-    "image": null
-  },
-  {
-    "id": 57,
-    "text": "57. 有關動物用藥殘留容許量的敘述，下列何者最適當？",
-    "options": {
-      "A": "由農業部依動物試驗數據計算並交衛生福利部公告",
-      "B": "其訂定與該藥物在組織的殘留時間長短有關",
-      "C": "雖然其訂定的主要考量是藥物毒性，但各國殘留容許量標準不一定一致",
-      "D": "為考量肝腎為藥物代謝主要器官，應設更低的容許量以維安全"
-    },
-    "image": null
-  },
-  {
-    "id": 58,
-    "text": "58. 下列何者不屬於直接傳播型人畜共通傳染病（orthozoonosis）？",
-    "options": {
-      "A": "馬爾堡病（Marburg disease）",
-      "B": "M 痘（Mpox）",
-      "C": "黃熱病（yellow fever）",
-      "D": "羊接觸傳染性化膿性口炎（contagious pustular dermatitis）"
-    },
-    "image": null
-  },
-  {
-    "id": 59,
-    "text": "59. 下列何種人畜共通病原主要以小型齧齒類動物為保毒儲主？①壁蝨媒介性腦炎（tick-borne encephalitis,TBE） ②亨德拉病毒（Hendra virus） ③M痘病毒（Mpox virus） ④伊波拉病毒（Ebola virus） ⑤馬爾堡病毒（Marburg virus）",
-    "options": {
-      "A": "①②",
-      "B": "①③",
-      "C": "②③",
-      "D": "④⑤"
-    },
-    "image": null
-  },
-  {
-    "id": 60,
-    "text": "60. 下列有關立百病毒（Nipah virus）感染症之敘述，何者正確？",
-    "options": {
-      "A": "首發於澳大利亞，爾後傳至馬來西亞",
-      "B": "除了感染豬，也可感染人、狗、貓以及馬",
-      "C": "感染豬隻呈現症狀為急性腦炎，為高傳染率、高致死性的疾病",
-      "D": "齧齒類動物為主要傳播媒介"
-    },
-    "image": null
-  },
-  {
-    "id": 61,
-    "text": "61. 下列有關牛痘（cowpox）之敘述，何者錯誤？",
-    "options": {
-      "A": "病毒之基因體為DNA，歸類為 Orthopoxvirus 屬",
-      "B": "病毒感染潛伏期長達數星期",
-      "C": "除了感染牛，此病毒有可能藉由貓傳播而感染人",
-      "D": "主要發生在英國以及歐洲"
-    },
-    "image": null
-  },
-  {
-    "id": 62,
-    "text": "62. 下列關於西尼羅熱之敘述，何者錯誤？",
-    "options": {
-      "A": "1999 年傳入美國",
-      "B": "壁蝨是主要的傳染媒介",
-      "C": "感染美國烏鴉及馬，造成高致死率",
-      "D": "大部分人的病例並無明顯症狀"
-    },
-    "image": null
-  },
-  {
-    "id": 63,
-    "text": "63. 下列有關伊波拉病毒感染症的敘述，何者錯誤？",
-    "options": {
-      "A": "可透過接觸病毒污染之血液、分泌物、排泄物或唾液感染",
-      "B": "主要藉由空氣傳染",
-      "C": "人感染時，初期呈現類嚴重感冒症狀，胸腹部疼痛及吐血",
-      "D": "目前認為蝙蝠為此病原之自然界主要保毒儲主"
-    },
-    "image": null
-  },
-  {
-    "id": 64,
-    "text": "64. 下列何者為傳播俄羅斯及中歐春夏腦炎（Russian and central European spring-summer encephalitis）的主要病媒？",
-    "options": {
-      "A": "蚤",
-      "B": "蝨",
-      "C": "蜱",
-      "D": "蚊"
-    },
-    "image": null
-  },
-  {
-    "id": 65,
-    "text": "65. 由罹患結核病之乳牛場工作人員分離出多重抗藥性（multi-drug resistance, MDR）牛型結核分枝桿菌，此病應屬於衛生福利部公告之第幾類傳染病？",
-    "options": {
-      "A": "第一類",
-      "B": "第二類",
-      "C": "第三類",
-      "D": "第四類"
-    },
-    "image": null
-  },
-  {
-    "id": 66,
-    "text": "66. 主要藉由食入污染乳製品而感染之人畜共通疾病，下列何者正確？",
-    "options": {
-      "A": "Vibrio vulnificus infection",
-      "B": "ehrlichiosis",
-      "C": "listeriosis",
-      "D": "tularemia"
-    },
-    "image": null
-  },
-  {
-    "id": 67,
-    "text": "67. 下列何者為主要好發於羊之分娩生產季節的人畜共通疾病？",
-    "options": {
-      "A": "Q fever",
-      "B": "plague",
-      "C": "leptospirosis",
-      "D": "epidemic typhus fever"
-    },
-    "image": null
-  },
-  {
-    "id": 68,
-    "text": "68. 人畜共通土拉倫斯病之病原具有下列何種特性？",
-    "options": {
-      "A": "具高度運動性",
-      "B": "能產生芽孢污染環境",
-      "C": "兔子主要被Francisella novicida亞種感染",
-      "D": "可經由節肢動物叮咬而傳播"
-    },
-    "image": null
-  },
-  {
-    "id": 69,
-    "text": "69. 傳染萊姆病的病媒壁蝨屬於下列何者？",
-    "options": {
-      "A": "單宿主性壁蝨",
-      "B": "二宿主性壁蝨",
-      "C": "三宿主性壁蝨",
-      "D": "多宿主性壁蝨"
-    },
-    "image": null
-  },
-  {
-    "id": 70,
-    "text": "70. 下列有關血吸蟲症（schistosomiasis）之敘述，何者正確？",
-    "options": {
-      "A": "人類可藉由食入海洋甲殼類而感染",
-      "B": "移除釘螺可為控制日本血吸蟲之傳播",
-      "C": "血吸蟲生活史需要第二中間宿主",
-      "D": "無法藉由尿液檢測出埃及血吸蟲蟲卵"
-    },
-    "image": null
-  },
-  {
-    "id": 71,
-    "text": "71. 有關人畜共通病原芽囊原蟲屬（Blastocystis spp.）原蟲之敘述，下列何者正確？",
-    "options": {
-      "A": "主要寄生於紅血球中",
-      "B": "人類有疫苗可預防此疾病感染",
-      "C": "健康者身上不會被檢出",
-      "D": "從嚙齒類糞便可檢出"
-    },
-    "image": null
-  },
-  {
-    "id": 72,
-    "text": "72. 下列有關有鈎絛蟲（Taenia solium） 的敘述，何者錯誤？",
-    "options": {
-      "A": "牛是主要中間宿主",
-      "B": "豬是主要中間宿主",
-      "C": "人感染後成蟲會鉤附在小腸上",
-      "D": "人感染後主要的症狀為腹痛、腹瀉、食慾不振"
-    },
-    "image": null
-  },
-  {
-    "id": 73,
-    "text": "73. 下列何種人畜共通病原不是藉由水源及污染食物傳播？",
-    "options": {
-      "A": "梨形鞭毛蟲",
-      "B": "痢疾阿米巴原蟲",
-      "C": "隱孢子蟲",
-      "D": "錐蟲"
-    },
-    "image": null
-  },
-  {
-    "id": 74,
-    "text": "74. 依飲用水水質標準，飲用水自由有效餘氯（free residual chlorine）最低限值為每公升多少毫克？",
-    "options": {
-      "A": "0.1",
-      "B": "0.2",
-      "C": "1.0",
-      "D": "2.0"
-    },
-    "image": null
-  },
-  {
-    "id": 75,
-    "text": "75. 世界衛生組織所屬的國際癌症研究所（IARC）將引發惡性間皮細胞瘤（malignant mesothelioma）的石綿列為那一群（group）致癌物？",
-    "options": {
-      "A": "1",
-      "B": "2A",
-      "C": "2B",
-      "D": "3"
-    },
-    "image": null
-  },
-  {
-    "id": 76,
-    "text": "76. 下列有關化製場運作之敘述，何者錯誤？",
-    "options": {
-      "A": "化製原料運輸車清洗消毒區應設置高壓清洗消毒設備",
-      "B": "化製原料區及成品區應提供共用之消毒設備",
-      "C": "化製時應使用足以消滅動物傳染病病原體之方法",
-      "D": "化製原料儲存室應於化製原料運出後立即消毒"
-    },
-    "image": null
-  },
-  {
-    "id": 77,
-    "text": "77. 下列何種動物之糞便含有較高之纖維素與木質素，因此會增加其糞尿廢水處理的困難度？",
-    "options": {
-      "A": "豬",
-      "B": "牛",
-      "C": "雞",
-      "D": "鴨"
-    },
-    "image": null
-  },
-  {
-    "id": 78,
-    "text": "78. 位於自來水水質水量保護區的豬場，飼養豬隻頭數達多少頭以上，其排放之廢水必須符合水污染防治法的放流水標準？",
-    "options": {
-      "A": "10",
-      "B": "20",
-      "C": "100",
-      "D": "200"
-    },
-    "image": null
-  },
-  {
-    "id": 79,
-    "text": "79. 根據水污染防治法所訂定的放流水標準，養雞畜牧業排放廢水中所含之生化需氧量（biochemical oxygen demand, BOD）之限值為多少 mg/L？",
-    "options": {
-      "A": "80",
-      "B": "200",
-      "C": "300",
-      "D": "500"
-    },
-    "image": null
-  },
-  {
-    "id": 80,
-    "text": "80. 生物醫療廢棄物熱處理，是屬於下述何種程序？",
-    "options": {
-      "A": "貯存",
-      "B": "清除",
-      "C": "中間處理",
-      "D": "最終處置"
-    },
-    "image": null
-  }
+    {
+        "id": 1,
+        "text": "1. 下列有關獸醫流行病學與獸醫臨床醫學之敘述，何者錯誤？",
+        "options": {
+            "A": "獸醫臨床醫學的結論通常無法幫助防疫政策的擬定，而獸醫流行病學則可以",
+            "B": "獸醫臨床醫學考慮的是個體的疾病型態，而獸醫流行病學考慮的是群體",
+            "C": "獸醫流行病學通常著重在患病動物，而較不重視健康動物",
+            "D": "獸醫臨床醫學通常著重在治療患病動物，而獸醫流行病學則找出問題並評估介入方案"
+        },
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"MsoListParagraph\" style=\"margin-left:24.0pt;mso-add-space:auto;\ntext-indent:-24.0pt;mso-list:l4 level1 lfo1\"><span lang=\"EN-US\"><span style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;\">&nbsp;</span></span><!--[endif]--><span lang=\"EN-US\">C.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">同樣重視健康動物</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p><table class=\"MsoTableGrid\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\" style=\"border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;\n mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt\">\n <tbody><tr>\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border:solid windowtext 2.25pt;\n  border-top:solid black 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span lang=\"EN-US\">&nbsp;</span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:solid black 2.25pt;\n  border-left:none;border-bottom:solid windowtext 2.25pt;border-right:solid black 2.25pt;\n  mso-border-left-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">臨床醫學</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border:solid black 2.25pt;\n  border-left:none;mso-border-left-alt:solid black 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">病理學</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border:solid black 2.25pt;\n  border-left:none;mso-border-left-alt:solid black 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">流行病學</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n </tr>\n <tr>\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border-top:none;border-left:\n  solid windowtext 2.25pt;border-bottom:solid windowtext 2.25pt;border-right:\n  solid black 2.25pt;mso-border-top-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">有關項目</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext 2.25pt;mso-border-left-alt:solid black 2.25pt;\n  mso-border-top-alt:windowtext 2.25pt;mso-border-left-alt:black 2.25pt;\n  mso-border-bottom-alt:windowtext .5pt;mso-border-right-alt:windowtext .5pt;\n  mso-border-style-alt:solid;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">有病的個體</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid black 2.25pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-top-alt:solid black 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">死亡的個體；或死亡或疾病個體的一部分</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid black 2.25pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-top-alt:solid black 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">群體</span><span lang=\"EN-US\">(</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">好的、並的、死的</span><span lang=\"EN-US\">)<o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n </tr>\n <tr>\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border-top:none;border-left:\n  solid windowtext 2.25pt;border-bottom:solid windowtext 2.25pt;border-right:\n  solid black 2.25pt;mso-border-top-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">發生場所</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">醫院或臨床診所</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">實驗室</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">田間</span><span lang=\"EN-US\">(</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">牧場、飼養場等等</span><span lang=\"EN-US\">)</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">及電腦機構</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n </tr>\n <tr>\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border-top:none;border-left:\n  solid windowtext 2.25pt;border-bottom:solid windowtext 2.25pt;border-right:\n  solid black 2.25pt;mso-border-top-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">主要目標</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">個體的處理</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">未來多數個體的處理</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">疾病控制或預防疾病未來發生</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n </tr>\n <tr>\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border-top:none;border-left:\n  solid windowtext 2.25pt;border-bottom:solid windowtext 2.25pt;border-right:\n  solid black 2.25pt;mso-border-top-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">診斷步驟</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-left-alt:solid black 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">基於臨床病徵決定病名；靠五官感覺</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">根據宿主反應或相關的病原決定病名</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">經由原因去關聯</span><span lang=\"EN-US\">or</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">分析可能性、測定疾病的發生模式和頻率與其可能的決定因子</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n </tr>\n <tr style=\"mso-yfti-irow:5;mso-yfti-lastrow:yes;height:128.65pt\">\n  <td width=\"174\" valign=\"top\" style=\"width:130.2pt;border:solid windowtext 2.25pt;\n  border-top:none;mso-border-top-alt:solid windowtext 2.25pt;padding:0cm 5.4pt 0cm 5.4pt;\n  height:128.65pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">所問的問題</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext 2.25pt;\n  mso-border-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext 2.25pt;\n  padding:0cm 5.4pt 0cm 5.4pt;height:128.65pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">那是什麼？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">我怎麼處裡它？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.25pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:128.65pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">那是什麼？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">它的機轉為何？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">甚麼東西引起？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n  <td width=\"174\" valign=\"top\" style=\"width:130.3pt;border-top:none;border-left:\n  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;\n  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;\n  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:128.65pt\">\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">那是什麼？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">那些個體有？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">那些地方正在發生？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">甚麼時候發生？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">甚麼東西引起？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">為甚麼會發生？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  <p class=\"MsoNormal\" style=\"margin-bottom:0cm;line-height:normal\"><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\n  minor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\n  mso-hansi-theme-font:minor-latin\">如何控制或預防？</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n  </td>\n </tr>\n</tbody></table><p class=\"MsoNormal\"><span lang=\"EN-US\">(from </span><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">獸醫學要覽</span><span lang=\"EN-US\"> 1.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;\nmso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">獸醫公共衛生學</span><span lang=\"EN-US\"> CH1 p.2)</span></p></div><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 2,
+        "text": "2. 有關獸醫臨床試驗（clinical trial）分期之評估目的，下列敘述何者錯誤？",
+        "options": {
+            "A": "第一期主要是評估藥物的藥理及毒性",
+            "B": "第二期主要是評估藥物效果及安全性",
+            "C": "第三期為大規模實驗動物分組效力試驗",
+            "D": "第四期為上市後之監測"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoListParagraph\" style=\"margin-left:24.0pt;mso-add-space:auto;\ntext-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span lang=\"EN-US\">C.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">為新舊療法的比較</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">第一期：測出最大可能劑量</span><span lang=\"EN-US\">/</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;\nmso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">安全劑量</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">第二期：測試藥物效果與安全性</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><b><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">第三期：比較新療法與針對該疾病的現有療法效果是否更佳</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></b></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">第四期：上市後追蹤</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 3,
+        "text": "3. 下列何者最接近流行性疾病（epidemic）之定義？",
+        "options": {
+            "A": "在某地區反覆低程度發生的疾病",
+            "B": "在特定時間地點發生病例數量超過預期的疾病",
+            "C": "在多地區短時間內發生高病例數量的疾病",
+            "D": "偶然且局部性發生的疾病"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoListParagraph\" style=\"margin-left:24.0pt;mso-add-space:auto;\ntext-indent:-24.0pt;mso-list:l0 level1 lfo1\"><!--[if !supportLists]--><span lang=\"EN-US\">1.<span style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 7pt; line-height: normal; font-family: &quot;Times New Roman&quot;;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n</span></span><!--[endif]--><span lang=\"EN-US\">B.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">符合定義</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"margin-left:24.0pt\"><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">流行性疾病</span><span lang=\"EN-US\">(Epidemic disease)</span><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">定義：在一段時間內於一個地區的族群中，疾病發生的頻率明顯地超過其預定的頻率，便稱為流行性疾病，流行性包含空間與時間兩者的限制。</span><span lang=\"EN-US\"><o:p></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span lang=\"EN-US\">A.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">地方性疾病</span><span lang=\"EN-US\">(Endemic\ndisease)<o:p></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span lang=\"EN-US\">C.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">泛發性疾病</span><span lang=\"EN-US\">(Pandemic\ndisease)<o:p></o:p></span></p>\n\n<p class=\"MsoNormal\" style=\"text-indent:24.0pt\"><span lang=\"EN-US\">D.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">散發性疾病</span><span lang=\"EN-US\">(Sporadic\ndisease)<o:p></o:p></span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 4,
+        "text": "4. 流行病學曲線的橫軸代表下列何種意義？",
+        "options": {
+            "A": "疾病率",
+            "B": "盛行率",
+            "C": "傳播速度",
+            "D": "時間"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoListParagraph\" style=\"margin-left:24.0pt;mso-add-space:auto;\ntext-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span lang=\"EN-US\">D.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">時間</span></p><p class=\"MsoListParagraph\" style=\"margin-left:24.0pt;mso-add-space:auto;\ntext-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span style=\"font-family: 新細明體, serif;\">流行病學曲線：時間內疾病事件發生頻率的說明，能表現族群中特殊疾病事件的動態。橫軸為時間，縱軸為新病例數。</span></p>"
+    },
+    {
+        "id": 5,
+        "text": "5. 小鼠 50％致死劑量（50% mouse lethal dose, MLD50），是用於描述病原的何種因子？",
+        "options": {
+            "A": "感染力",
+            "B": "毒力",
+            "C": "侵犯力",
+            "D": "病原性"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoListParagraphCxSpFirst\" style=\"margin-left:24.0pt;mso-add-space:\nauto;text-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span lang=\"EN-US\">B.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">毒力</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n\n<p class=\"MsoListParagraphCxSpMiddle\" style=\"margin-left:24.0pt;mso-add-space:\nauto\"><span lang=\"EN-US\">A.</span><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">常以</span><span lang=\"EN-US\">50%</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;\nmso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">感染劑量</span><span lang=\"EN-US\">(50% infective dose</span><span style=\"font-family:&quot;新細明體&quot;,serif;\nmso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:\nminor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">；</span><!--[if gte msEquation 12]><m:oMath><m:sSub><m:sSubPr><span\n   style='font-family:\"Cambria Math\",serif;mso-ascii-font-family:\"Cambria Math\";\n   mso-hansi-font-family:\"Cambria Math\";font-style:italic;mso-bidi-font-style:\n   normal'><m:ctrlPr></m:ctrlPr></span></m:sSubPr><m:e><i style='mso-bidi-font-style:\n   normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>ID</m:r></span></i></m:e><m:sub><i\n   style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>50</m:r></span></i></m:sub></m:sSub></m:oMath><![endif]--><!--[if !msEquation]--><span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;position:relative;top:4.5pt;mso-text-raise:-4.5pt;\nmso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\"><!--[if gte vml 1]><v:shapetype\n id=\"_x0000_t75\" coordsize=\"21600,21600\" o:spt=\"75\" o:preferrelative=\"t\"\n path=\"m@4@5l@4@11@9@11@9@5xe\" filled=\"f\" stroked=\"f\">\n <v:stroke joinstyle=\"miter\"/>\n <v:formulas>\n  <v:f eqn=\"if lineDrawn pixelLineWidth 0\"/>\n  <v:f eqn=\"sum @0 1 0\"/>\n  <v:f eqn=\"sum 0 0 @1\"/>\n  <v:f eqn=\"prod @2 1 2\"/>\n  <v:f eqn=\"prod @3 21600 pixelWidth\"/>\n  <v:f eqn=\"prod @3 21600 pixelHeight\"/>\n  <v:f eqn=\"sum @0 0 1\"/>\n  <v:f eqn=\"prod @6 1 2\"/>\n  <v:f eqn=\"prod @7 21600 pixelWidth\"/>\n  <v:f eqn=\"sum @8 21600 0\"/>\n  <v:f eqn=\"prod @7 21600 pixelHeight\"/>\n  <v:f eqn=\"sum @10 21600 0\"/>\n </v:formulas>\n <v:path o:extrusionok=\"f\" gradientshapeok=\"t\" o:connecttype=\"rect\"/>\n <o:lock v:ext=\"edit\" aspectratio=\"t\"/>\n</v:shapetype><v:shape id=\"_x0000_i1025\" type=\"#_x0000_t75\" style='width:22.5pt;\n height:16.5pt'>\n <v:imagedata src=\"file:///C:/Users/rty27/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png\"\n  o:title=\"\" chromakey=\"white\"/>\n</v:shape><![endif]--><!--[if !vml]--><img width=\"30\" height=\"22\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAhCAMAAAB6BtLTAAAAAXNSR0IArs4c6QAAAHhQTFRFAAAAAAAAAAA6AABmADo6ADpmADqQAGaQAGa2OgAAOjoAOmZmOmaQOma2OpDbZgAAZgA6ZjoAZjo6ZpDbZrbbZrb/kDoAkDpmkGY6kLbbkNv/tmYAttv/tv//25A627Zm29u22////7Zm/7aQ/9uQ/9u2//+2///bDLXZmgAAAAF0Uk5TAEDm2GYAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAZdEVYdFNvZnR3YXJlAE1pY3Jvc29mdCBPZmZpY2V/7TVxAAABJ0lEQVQ4T+1S2VLDMAy0Qi+3BZdCTduA04TE/v8/xDrshoIzPDHDDHqJxtpIu1op9R+/vYEOYhziVEoAZtvXKQoNwDPVG7h7U6HR1dMEvINFS2VJel2dy3AHKy46eKBvnR6++6cWUEQhfZwRGRUiWBmckyl0r6VTrzP/cu8usRwlZXSmnURGtTLkK/cRbREZbJKtwsuNXG9kbE54396gsVQLR4DtJ0uUyiJ53X6XLAp22Q6GyY3Yskmyvyu6w1GOaEaSbEnyJvl+RddIp9foc6NFkjfY4nKEOZ+gN2ugPFhGx8l0pfjX8EjnWm1OaW0BH/EoLVL2Ro6pdBKk4SC9f4ImtiPexcYOJ2NvXgctphyuOqlBKC/awU7Tft9H0ewgbuCevfyT8QHVRRYXlx7KYwAAAABJRU5ErkJggg==\" v:shapes=\"_x0000_i1025\"><!--[endif]--></span><!--[endif]--><span lang=\"EN-US\">)</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">描述</span><span lang=\"EN-US\"><o:p style=\"pointer-events: none;\"></o:p></span></p>\n\n<p class=\"MsoListParagraphCxSpLast\" style=\"margin-left:24.0pt;mso-add-space:auto\"><span lang=\"EN-US\">C.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;\nmso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin\">病原體在感染宿主後，由感染部位可以散播而感染心部位的能力</span></p><p class=\"MsoListParagraphCxSpLast\" style=\"margin-left:24.0pt;mso-add-space:auto\"><span lang=\"EN-US\" style=\"font-size: 12pt; line-height: 115%; font-family: Calibri, sans-serif;\">D.</span><span style=\"font-size: 12pt; line-height: 115%; font-family: 新細明體, serif;\">又稱致病力，是宿主特異性的描述</span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 6,
+        "text": "6. 下列何者為疾病決定因子中的病原因素？",
+        "options": {
+            "A": "宿主對此病原的免疫力",
+            "B": "宿主遺傳性缺陷",
+            "C": "宿主飼養密度",
+            "D": "宿主特異性"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoListParagraphCxSpFirst\" style=\"margin-left:24.0pt;mso-add-space:\nauto;text-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span lang=\"EN-US\">D.</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin\">宿主特異性</span></p><p class=\"MsoListParagraphCxSpFirst\" style=\"margin-left:24.0pt;mso-add-space:\nauto;text-indent:-24.0pt;mso-list:l0 level1 lfo1\"><span style=\"font-family: 新細明體, serif;\">其餘還有感染力、病原性、毒力、侵犯力、宿主範圍、血清型、抗原性</span></p>\n\n<span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;mso-fareast-language:\nZH-TW;mso-bidi-language:AR-SA\">A.B. C.</span><span style=\"font-size:12.0pt;\nline-height:115%;font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;\nmso-ascii-theme-font:minor-latin;mso-fareast-theme-font:minor-fareast;\nmso-hansi-font-family:Calibri;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:\n&quot;Times New Roman&quot;;mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-US;\nmso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\">宿主因素</span><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 7,
+        "text": "7. 當一疾病在族群的基本複製數（basic reproductive number, R0）為2.3時，下列敘述何者正確 ①一個感染個體可在平均2.3天感染另一具感受性的個體 ②一個感染個體平均可再感染 2.3個具感受性的個體 ③族群中疫情可能會持續且擴大 ④族群中疫情可能會減少並漸受控制",
+        "options": {
+            "A": "①③",
+            "B": "①④",
+            "C": "②③",
+            "D": "②④"
+        },
+        "image": null,
+        "explanation": "<p class=\"MsoNormal\" style=\"margin-left:24.0pt\"><!--[if gte msEquation 12]><m:oMath><m:sSub><m:sSubPr><span\n   style='font-family:\"Cambria Math\",serif;mso-ascii-font-family:\"Cambria Math\";\n   mso-hansi-font-family:\"Cambria Math\";font-style:italic;mso-bidi-font-style:\n   normal'><m:ctrlPr></m:ctrlPr></span></m:sSubPr><m:e><i style='mso-bidi-font-style:\n   normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>R</m:r></span></i></m:e><m:sub><i\n   style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>0</m:r></span></i></m:sub></m:sSub></m:oMath><![endif]--><!--[if !msEquation]--><span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;position:relative;top:4.5pt;mso-text-raise:-4.5pt;\nmso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\"><!--[if gte vml 1]><v:shapetype\n id=\"_x0000_t75\" coordsize=\"21600,21600\" o:spt=\"75\" o:preferrelative=\"t\"\n path=\"m@4@5l@4@11@9@11@9@5xe\" filled=\"f\" stroked=\"f\">\n <v:stroke joinstyle=\"miter\"/>\n <v:formulas>\n  <v:f eqn=\"if lineDrawn pixelLineWidth 0\"/>\n  <v:f eqn=\"sum @0 1 0\"/>\n  <v:f eqn=\"sum 0 0 @1\"/>\n  <v:f eqn=\"prod @2 1 2\"/>\n  <v:f eqn=\"prod @3 21600 pixelWidth\"/>\n  <v:f eqn=\"prod @3 21600 pixelHeight\"/>\n  <v:f eqn=\"sum @0 0 1\"/>\n  <v:f eqn=\"prod @6 1 2\"/>\n  <v:f eqn=\"prod @7 21600 pixelWidth\"/>\n  <v:f eqn=\"sum @8 21600 0\"/>\n  <v:f eqn=\"prod @7 21600 pixelHeight\"/>\n  <v:f eqn=\"sum @10 21600 0\"/>\n </v:formulas>\n <v:path o:extrusionok=\"f\" gradientshapeok=\"t\" o:connecttype=\"rect\"/>\n <o:lock v:ext=\"edit\" aspectratio=\"t\"/>\n</v:shapetype><v:shape id=\"_x0000_i1025\" type=\"#_x0000_t75\" style='width:13pt;\n height:16.5pt'>\n <v:imagedata src=\"file:///C:/Users/rty27/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png\"\n  o:title=\"\" chromakey=\"white\"/>\n</v:shape><![endif]--><!--[if !vml]--><img width=\"17\" height=\"22\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAhCAMAAADwKUuSAAAAAXNSR0IArs4c6QAAAGlQTFRFAAAAAAAAAAA6AABmADo6ADpmADqQAGaQAGa2OgAAOjpmOmaQOma2OpDbZgAAZjoAZpDbZrbbZrb/kDoAkGY6kLbbkLb/kNv/tmYAtv//25A627Zm27aQ2////7Zm/9uQ/9u2//+2///bb5wDZwAAAAF0Uk5TAEDm2GYAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAZdEVYdFNvZnR3YXJlAE1pY3Jvc29mdCBPZmZpY2V/7TVxAAAAyklEQVQ4T91RyRbCIAwkVau41AUX7AKU//9ISUJ9pXD0ZA5AM8lkMhXif8MAx/6R79jB6i1EL+GWYQbqISTjlcAt7PDbSmxOQzNTAfKqeiEUm+dtsdo1XDEPg6N8LzcZIjRtVV1RZRpeBRV0ZDE2qPm7lL8DHCIBJ8cowqvt4BqyADWfwjkxGpTZMvuU01QhNLJbSe9OwgVvQx57xRA6R38Ea6yE9TNAPJhMXW6CXUUombVoI3Eks2BAPThVGBUq3RngmNtZYPlh6gMhHQxsRn0C5AAAAABJRU5ErkJggg==\" v:shapes=\"_x0000_i1025\"><!--[endif]--></span><!--[endif]--><span style=\"font-family:\n&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:minor-latin;\nmso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;mso-hansi-theme-font:\nminor-latin\">值：指平均一個感染個體，在其整個具感染性期間所引起之二次性的感染病例數，用來量化任何病原體的傳播能力。</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:Calibri;mso-ascii-theme-font:\nminor-latin;mso-fareast-theme-font:minor-fareast;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:\nminor-latin\">若</span><!--[if gte msEquation 12]><m:oMath><m:sSub><m:sSubPr><span\n   style='font-family:\"Cambria Math\",serif;mso-ascii-font-family:\"Cambria Math\";\n   mso-hansi-font-family:\"Cambria Math\";font-style:italic;mso-bidi-font-style:\n   normal'><m:ctrlPr></m:ctrlPr></span></m:sSubPr><m:e><i style='mso-bidi-font-style:\n   normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>R</m:r></span></i></m:e><m:sub><i\n   style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>0</m:r></span></i></m:sub></m:sSub></m:oMath><![endif]--><!--[if !msEquation]--><span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;position:relative;top:4.5pt;mso-text-raise:-4.5pt;\nmso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\"><!--[if gte vml 1]><v:shape\n id=\"_x0000_i1025\" type=\"#_x0000_t75\" style='width:13pt;height:16.5pt'>\n <v:imagedata src=\"file:///C:/Users/rty27/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png\"\n  o:title=\"\" chromakey=\"white\"/>\n</v:shape><![endif]--><!--[if !vml]--><img width=\"17\" height=\"22\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAhCAMAAADwKUuSAAAAAXNSR0IArs4c6QAAAGlQTFRFAAAAAAAAAAA6AABmADo6ADpmADqQAGaQAGa2OgAAOjpmOmaQOma2OpDbZgAAZjoAZpDbZrbbZrb/kDoAkGY6kLbbkLb/kNv/tmYAtv//25A627Zm27aQ2////7Zm/9uQ/9u2//+2///bb5wDZwAAAAF0Uk5TAEDm2GYAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAZdEVYdFNvZnR3YXJlAE1pY3Jvc29mdCBPZmZpY2V/7TVxAAAAyklEQVQ4T91RyRbCIAwkVau41AUX7AKU//9ISUJ9pXD0ZA5AM8lkMhXif8MAx/6R79jB6i1EL+GWYQbqISTjlcAt7PDbSmxOQzNTAfKqeiEUm+dtsdo1XDEPg6N8LzcZIjRtVV1RZRpeBRV0ZDE2qPm7lL8DHCIBJ8cowqvt4BqyADWfwjkxGpTZMvuU01QhNLJbSe9OwgVvQx57xRA6R38Ea6yE9TNAPJhMXW6CXUUombVoI3Eks2BAPThVGBUq3RngmNtZYPlh6gMhHQxsRn0C5AAAAABJRU5ErkJggg==\" v:shapes=\"_x0000_i1025\"><!--[endif]--></span><!--[endif]--><span lang=\"EN-US\">&gt;1</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:\nminor-latin\">，表示此族群會受到此感染侵襲，疫情擴大；若</span><!--[if gte msEquation 12]><m:oMath><m:sSub><m:sSubPr><span\n   style='font-family:\"Cambria Math\",serif;mso-ascii-font-family:\"Cambria Math\";\n   mso-hansi-font-family:\"Cambria Math\";font-style:italic;mso-bidi-font-style:\n   normal'><m:ctrlPr></m:ctrlPr></span></m:sSubPr><m:e><i style='mso-bidi-font-style:\n   normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>R</m:r></span></i></m:e><m:sub><i\n   style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>0</m:r></span></i></m:sub></m:sSub></m:oMath><![endif]--><!--[if !msEquation]--><span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;position:relative;top:4.5pt;mso-text-raise:-4.5pt;\nmso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\"><!--[if gte vml 1]><v:shape\n id=\"_x0000_i1025\" type=\"#_x0000_t75\" style='width:13pt;height:16.5pt'>\n <v:imagedata src=\"file:///C:/Users/rty27/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png\"\n  o:title=\"\" chromakey=\"white\"/>\n</v:shape><![endif]--><!--[if !vml]--><img width=\"17\" height=\"22\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAhCAMAAADwKUuSAAAAAXNSR0IArs4c6QAAAGlQTFRFAAAAAAAAAAA6AABmADo6ADpmADqQAGaQAGa2OgAAOjpmOmaQOma2OpDbZgAAZjoAZpDbZrbbZrb/kDoAkGY6kLbbkLb/kNv/tmYAtv//25A627Zm27aQ2////7Zm/9uQ/9u2//+2///bb5wDZwAAAAF0Uk5TAEDm2GYAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAZdEVYdFNvZnR3YXJlAE1pY3Jvc29mdCBPZmZpY2V/7TVxAAAAyklEQVQ4T91RyRbCIAwkVau41AUX7AKU//9ISUJ9pXD0ZA5AM8lkMhXif8MAx/6R79jB6i1EL+GWYQbqISTjlcAt7PDbSmxOQzNTAfKqeiEUm+dtsdo1XDEPg6N8LzcZIjRtVV1RZRpeBRV0ZDE2qPm7lL8DHCIBJ8cowqvt4BqyADWfwjkxGpTZMvuU01QhNLJbSe9OwgVvQx57xRA6R38Ea6yE9TNAPJhMXW6CXUUombVoI3Eks2BAPThVGBUq3RngmNtZYPlh6gMhHQxsRn0C5AAAAABJRU5ErkJggg==\" v:shapes=\"_x0000_i1025\"><!--[endif]--></span><!--[endif]--><span lang=\"EN-US\">&lt;1</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:\nminor-latin\">，則疫情會減少。</span><!--[if gte msEquation 12]><m:oMath><m:sSub><m:sSubPr><span\n   style='font-family:\"Cambria Math\",serif;mso-ascii-font-family:\"Cambria Math\";\n   mso-hansi-font-family:\"Cambria Math\";font-style:italic;mso-bidi-font-style:\n   normal'><m:ctrlPr></m:ctrlPr></span></m:sSubPr><m:e><i style='mso-bidi-font-style:\n   normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>R</m:r></span></i></m:e><m:sub><i\n   style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:\"Cambria Math\",serif'><m:r>0</m:r></span></i></m:sub></m:sSub></m:oMath><![endif]--><!--[if !msEquation]--><span lang=\"EN-US\" style=\"font-size:12.0pt;line-height:115%;font-family:&quot;Calibri&quot;,sans-serif;\nmso-ascii-theme-font:minor-latin;mso-fareast-font-family:新細明體;mso-fareast-theme-font:\nminor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;\nmso-bidi-theme-font:minor-bidi;position:relative;top:4.5pt;mso-text-raise:-4.5pt;\nmso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA\"><!--[if gte vml 1]><v:shape\n id=\"_x0000_i1025\" type=\"#_x0000_t75\" style='width:13pt;height:16.5pt'>\n <v:imagedata src=\"file:///C:/Users/rty27/AppData/Local/Temp/msohtmlclip1/01/clip_image001.png\"\n  o:title=\"\" chromakey=\"white\"/>\n</v:shape><![endif]--><!--[if !vml]--><img width=\"17\" height=\"22\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAhCAMAAADwKUuSAAAAAXNSR0IArs4c6QAAAGlQTFRFAAAAAAAAAAA6AABmADo6ADpmADqQAGaQAGa2OgAAOjpmOmaQOma2OpDbZgAAZjoAZpDbZrbbZrb/kDoAkGY6kLbbkLb/kNv/tmYAtv//25A627Zm27aQ2////7Zm/9uQ/9u2//+2///bb5wDZwAAAAF0Uk5TAEDm2GYAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAAZdEVYdFNvZnR3YXJlAE1pY3Jvc29mdCBPZmZpY2V/7TVxAAAAyklEQVQ4T91RyRbCIAwkVau41AUX7AKU//9ISUJ9pXD0ZA5AM8lkMhXif8MAx/6R79jB6i1EL+GWYQbqISTjlcAt7PDbSmxOQzNTAfKqeiEUm+dtsdo1XDEPg6N8LzcZIjRtVV1RZRpeBRV0ZDE2qPm7lL8DHCIBJ8cowqvt4BqyADWfwjkxGpTZMvuU01QhNLJbSe9OwgVvQx57xRA6R38Ea6yE9TNAPJhMXW6CXUUombVoI3Eks2BAPThVGBUq3RngmNtZYPlh6gMhHQxsRn0C5AAAAABJRU5ErkJggg==\" v:shapes=\"_x0000_i1025\"><!--[endif]--></span><!--[endif]--><span lang=\"EN-US\">=1</span><span style=\"font-family:&quot;新細明體&quot;,serif;mso-ascii-font-family:\nCalibri;mso-ascii-theme-font:minor-latin;mso-hansi-font-family:Calibri;\nmso-hansi-theme-font:minor-latin;mso-bidi-font-family:Calibri;mso-bidi-theme-font:\nminor-latin\">，則疫情會以一定比率發生。</span><span lang=\"EN-US\"><o:p></o:p></span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 8,
+        "text": "8. 下列有關盛行率（prevalence）的敘述，何者正確？",
+        "options": {
+            "A": "屬於發生率的一種指標",
+            "B": "可由流行病學曲線得知",
+            "C": "點盛行率和期間盛行率通常相同",
+            "D": "考慮觀察期間內所有病例"
+        },
+        "image": null,
+        "explanation": "<div class=\"user-note\"></div>"
+    },
+    {
+        "id": 9,
+        "text": "9. 關於危險因子與疾病發生之相關（association）與因果關係（causation）敘述，下列何者正確？",
+        "options": {
+            "A": "有相關就代表有因果關係",
+            "B": "統計上有顯著相關則代表有因果關係",
+            "C": "因果關係表示兩者有真正的機制存在",
+            "D": "危險因子即為病因"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 10,
+        "text": "10. 下列何種情況下會以費雪精確檢定（Fisher's exact test）取代卡方檢定（Chi-square test）？",
+        "options": {
+            "A": "觀察值的總數少於 20，或任何一個預期值小於5",
+            "B": "觀察值的總數少於 10，或任何一個預期值大於5",
+            "C": "觀察值的總數大於 20，或任何一個預期值小於10",
+            "D": "觀察值的總數大於 10，或任何一個預期值小於10"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 11,
+        "text": "11. 下列何者不屬於因果關係的條件？",
+        "options": {
+            "A": "正確的時序性",
+            "B": "生物學上的合理性",
+            "C": "相關強度的大小",
+            "D": "研究樣本數的大小"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 12,
+        "text": "12. 一項調查豬瘟與豬場裝設通風設備之病例對照研究中，500場病例場中有 400場裝設通風設備，500場陰性場中有 100場裝設通風設備。則有裝設通風設備與豬場發生豬瘟的勝算比（odds ratio）為何？",
+        "options": {
+            "A": "1",
+            "B": "4",
+            "C": "16",
+            "D": "無法從上列資料計算而得"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 13,
+        "text": "13. 在探討暴露與疾病之關係，其粗勝算比（crude odds ratio）為1.2，經過性別分層後之勝算比分別均為5.7，則性別在此研究是否為干擾因子，且其分析時應如何進行調整？",
+        "options": {
+            "A": "不是干擾因子，但必須用 Mantel-Haenszel procedure 調整",
+            "B": "是干擾因子，且必須用Mantel-Haenszel procedure 調整",
+            "C": "不是干擾因子，也不必調整",
+            "D": "是干擾因子，且必須用Wilcoxon rank sum test調整"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 14,
+        "text": "14. 為顯示某一特定動物疾病是否存在，假設族群個體數為 10,000，預期盛行率為 30％，信心水準設為 99％，查表得樣本數為13。下列有關抽樣與統計之敘述，何者錯誤？",
+        "options": {
+            "A": "若所有樣本檢查結果皆為陰性，則有 99％的信心認為該疾病之盛行率低於 30％",
+            "B": "在這 13個樣本中必含有一個檢出結果為陽性",
+            "C": "若診斷試驗之敏感性不足，則樣本數需要增加",
+            "D": "同樣的信心水準下，預期盛行率若越高，需要的樣本數就越少"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 15,
+        "text": "15. 下列何者不適用於世代研究中控制干擾因子偏差（confounding bias）？",
+        "options": {
+            "A": "限制研究對象",
+            "B": "匹配（matching）",
+            "C": "分層分析",
+            "D": "去除資料的離散值（outlier）"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 16,
+        "text": "16. 研究者想瞭解全國獸醫師心理健康情形，在某伴侶動物繼續教育研討會中，經與會者同意後填寫評估問卷，直至所需樣本數額滿為止，此為何種抽樣方法？",
+        "options": {
+            "A": "方便性抽樣",
+            "B": "簡單逢機抽樣",
+            "C": "系統性逢機抽樣",
+            "D": "集簇抽樣"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 17,
+        "text": "17. 欲抽樣瞭解一牧場之荷仕登牛和娟姍牛的牛乳產量，依品種比例計算各品種所需的樣本數後利用亂數表進行抽樣，此為何種抽樣方法？",
+        "options": {
+            "A": "系統性逢機抽樣",
+            "B": "簡單逢機抽樣",
+            "C": "分層逢機抽樣",
+            "D": "集簇抽樣"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 18,
+        "text": "18. 在一有 300 頭牛隻的牧場，預期有結核病的牛隻比率為 2％，於信心水準 95％時，依下表結果在牧場中至少檢出 1 頭結核病陽性牛隻需採集多少樣本數？",
+        "options": {
+            "A": "97",
+            "B": "117",
+            "C": "189",
+            "D": "287"
+        },
+        "image": "./圖片/f1141-000.ppm",
+        "explanation": ""
+    },
+    {
+        "id": 19,
+        "text": "19. 由客觀來源及多重來源獲取研究個案資料，可避免何種偏差？",
+        "options": {
+            "A": "干擾因子偏差",
+            "B": "志願者偏差",
+            "C": "記憶偏差",
+            "D": "就診率偏差"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 20,
+        "text": "20. 下表為兩種不同診斷試劑的檢驗結果，有關一致性及其統計分析之敘述何者錯誤？",
+        "options": {
+            "A": "診斷結果一致性（observed agreement）為 (55+138)/212",
+            "B": "機率性一致性（agreement by chance）為 [(59×70)/212+(153×142)/212]/212",
+            "C": "Kappa 值越大代表兩診斷試劑結果一致性越高",
+            "D": "一致性的統計檢定可依卡方檢定（Chi-square test）方式進行"
+        },
+        "image": "./圖片/f1141-001.ppm",
+        "explanation": ""
+    },
+    {
+        "id": 21,
+        "text": "21. 檢測某疾病時，若將敏感性 80％、特異性80％的檢測方法改為使用敏感性 80％、特異性90％的檢測方法時，下列敘述何者正確？",
+        "options": {
+            "A": "偽陽性增加",
+            "B": "偽陰性降低",
+            "C": "陽性反應預測值增加",
+            "D": "陰性反應預測值降低"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 22,
+        "text": "22. 一健康犬隻經採血檢測15項血清生化值，每項檢測值的正常參考值範圍包括正常犬隻族群中 95％個體的數值，其結果中至少有一項不在正常參考值範圍內的機率為何？",
+        "options": {
+            "A": "5％",
+            "B": "(95％)15",
+            "C": "1-(95％)15",
+            "D": "1-(5％)15"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 23,
+        "text": "23. 在疾病控制計畫初期和後期，應分別利用具何種特性的試驗方法進行疾病檢測最適當？",
+        "options": {
+            "A": "初期：高敏感性；後期：高特異性",
+            "B": "初期：低敏感性；後期：高特異性",
+            "C": "初期：高特異性；後期：低敏感性",
+            "D": "初期：低特異性；後期：高敏感性"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 24,
+        "text": "24. 某單位欲從國外進口 5隻犬隻，並希望供應者提供犬隻未受犬心絲蟲感染的證明，此時對所提供的檢測報告最不希望有下列何種情形？",
+        "options": {
+            "A": "高的陽性預測值",
+            "B": "高的陰性預測值",
+            "C": "偽陽性",
+            "D": "偽陰性"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 25,
+        "text": "25. 承上題，若國內單位欲再對此批犬隻進行犬心絲蟲感染的檢測，此時應優先選擇具下列何種檢測特性的檢測方法？",
+        "options": {
+            "A": "高敏感性",
+            "B": "高特異性",
+            "C": "高的陽性預測值",
+            "D": "高的陰性預測值"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 26,
+        "text": "26. 根據世界動物衛生組織《陸生動物衛生法典》，下列有關撲滅政策（stamping-out policy）的敘述，何者錯誤？",
+        "options": {
+            "A": "撲滅政策並非適用於所有經濟動物傳染病的控制",
+            "B": "撲滅進行時，應將受影響區域中所有易感性物種撲殺",
+            "C": "撲滅計畫通常包含對受感染動物的撲殺、受感染場所的清潔消毒等措施",
+            "D": "撲滅計畫的實施需考量經濟成本、動物福利等因素"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 27,
+        "text": "27. 動物感染病原體之後，到開始排毒、具有傳染力之前，稱為什麼時期？",
+        "options": {
+            "A": "繫留期（holding period）",
+            "B": "檢疫期（quarantine period）",
+            "C": "潛伏期（incubation period）",
+            "D": "潛藏期（latent period）"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 28,
+        "text": "28. 在流行病學的病因模式中，下列那一種圖表適合用來表示疾病危險因子間為單獨作用或具有交互作用？",
+        "options": {
+            "A": "圓餅圖（pie chart）",
+            "B": "列聯表（contingency table）",
+            "C": "范氏圖（Venn diagram）",
+            "D": "盒鬚圖（box plot）"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 29,
+        "text": "29. 於動物檢體發現人畜共通傳染病的疑似案例，由下列何者進行檢診確認？",
+        "options": {
+            "A": "農業部獸醫研究所",
+            "B": "農業部動植物防疫檢疫署",
+            "C": "財團法人農業科技研究院動物科技研究所",
+            "D": "衛生福利部疾病管制署"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 30,
+        "text": "30. 動物屠體、內臟及其分切物自屠宰場運出交付食品業者生產供人食用之產物，依法由下列何者進行衛生查核？",
+        "options": {
+            "A": "農業主管機關",
+            "B": "衛生主管機關",
+            "C": "環保主管機關",
+            "D": "農業主管機關會同衛生主管機關"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 31,
+        "text": "31. 廢止或撤銷許可證之動物用藥品有影響動物或人體健康之虞時，下列何者得命動物用藥品製造業者或販賣業者限期回收或銷毀該藥品？",
+        "options": {
+            "A": "中央衛生主管機關",
+            "B": "中央農業主管機關",
+            "C": "當地衛生主管機關",
+            "D": "當地動物防疫主管機關"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 32,
+        "text": "32. 獸醫師（佐）執行業務時，發現重大人畜共通之動物傳染病應向誰通報？",
+        "options": {
+            "A": "中央衛生主管機關",
+            "B": "中央動物防疫主管機關",
+            "C": "當地衛生主管機關",
+            "D": "當地動物防疫主管機關"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 33,
+        "text": "33. 動物用藥品的使用應遵守下列何項規範，以避免藥物殘留的發生？",
+        "options": {
+            "A": "動物用藥品檢驗登記審查準則",
+            "B": "動物用藥品查驗辦法",
+            "C": "動物用藥品優良製造準則",
+            "D": "動物用藥品使用準則"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 34,
+        "text": "34. 於超市牛肉中檢出出血性大腸桿菌後，應依據下列何項法令進行後續下架處置？",
+        "options": {
+            "A": "食品中污染物質及毒素衛生標準",
+            "B": "動物用藥品管理法",
+            "C": "屠宰衛生檢查規則",
+            "D": "食品安全衛生管理法"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 35,
+        "text": "35. 為執行畜牧法查緝違法屠宰行為，各直轄市及縣（市）政府應組成「違法屠宰聯合查緝小組」，其召集人建議由何人擔任？",
+        "options": {
+            "A": "由直轄市、縣（市）政府秘書長（主任秘書）以上層級者擔任",
+            "B": "由直轄市、縣（市）政府首長指派適當人員擔任",
+            "C": "由直轄市、縣（市）政府畜牧法執行單位承辦科（課）長擔任",
+            "D": "由直轄市、縣（市）政府議會首長擔任"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 36,
+        "text": "36. 化製場及化製原料運輸車消毒與查核的中央主管機關為何？",
+        "options": {
+            "A": "農業部",
+            "B": "衛生福利部",
+            "C": "環境部",
+            "D": "經濟部"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 37,
+        "text": "37. 依據屠宰衛生檢查規則，家畜屠宰後檢查時，屠體呈顯著腥臭或特殊異味者應如何判定？",
+        "options": {
+            "A": "合格",
+            "B": "稽留",
+            "C": "不合格",
+            "D": "隔離檢查"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 38,
+        "text": "38. 依據屠宰場設置標準，家禽屠宰場利用吊掛軌道時，其屠體應離開地面至少多少公分以上？",
+        "options": {
+            "A": "90",
+            "B": "60",
+            "C": "40",
+            "D": "30"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 39,
+        "text": "39. 依據屠宰衛生檢查合格標誌及標明方法，下圖屠宰衛生檢查合格標誌屬於何種樣式？",
+        "options": {
+            "A": "甲式標誌",
+            "B": "乙式標誌",
+            "C": "丙式標誌",
+            "D": "丁式標誌"
+        },
+        "image": "./圖片/f1141-002.jpg",
+        "explanation": ""
+    },
+    {
+        "id": 40,
+        "text": "40. 依據屠宰作業準則，屠宰過程，每處理一頭（隻）疑病畜禽之刀具及鋸子等工具應立即清洗，並用攝氏幾度以上之熱水消毒？",
+        "options": {
+            "A": "83",
+            "B": "72",
+            "C": "65",
+            "D": "56"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 41,
+        "text": "41. 依據屠宰作業準則，設施檢查維護紀錄與病媒及其他昆蟲之防治紀錄應保存至少多久時間？",
+        "options": {
+            "A": "1 個月",
+            "B": "6 個月",
+            "C": "1 年",
+            "D": "3 年"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 42,
+        "text": "42. 依屠宰場設置標準，預冷設施應使屠體中心溫度於屠後 18小時內降至攝氏多少度，以達到出場的標準？",
+        "options": {
+            "A": "15～20",
+            "B": "6～10",
+            "C": "0～5",
+            "D": "-20 以下"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 43,
+        "text": "43. 依據屠宰場設置標準，屠前檢查時隔離繫留欄距離地板上 90公分處之照明光度至少為多少米燭光？",
+        "options": {
+            "A": "100",
+            "B": "200",
+            "C": "300",
+            "D": "500"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 44,
+        "text": "44. 根據優良農產品水產品項目驗證基準規定及動物用藥殘留標準，有關四環黴素類在魚的肌肉殘留容許量，下列何者正確？",
+        "options": {
+            "A": "oxytetracycline 0.2 ppm",
+            "B": "tetracycline 0.2 ppm",
+            "C": "chlortetracycline 0.2 ppm",
+            "D": "不得檢出"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 45,
+        "text": "45. 依據優良農產品水產品項目驗證基準，有關生食用魚介類水產品需抽驗的微生物檢驗項目，下列何者正確？",
+        "options": {
+            "A": "腸炎弧菌（Vibrio parahaemolyticus）",
+            "B": "金黃色葡萄球菌（Staphylococcus aureus）",
+            "C": "單核球增多性李斯特菌（Listeria monocytogenes）",
+            "D": "創傷弧菌（Vibrio vulnificus）"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 46,
+        "text": "46. 依據優良農產品水產品項目驗證基準，冷凍水產品的中心溫度必須達到攝氏多少度以下？",
+        "options": {
+            "A": "-18",
+            "B": "-7",
+            "C": "-25",
+            "D": "-50"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 47,
+        "text": "47. 依據食品中微生物衛生標準，鮮乳產品中測得微生物菌量或其毒素的含量，下列何者符合規定？",
+        "options": {
+            "A": "單核球增多性李斯特菌（Listeria monocytogenes）菌量為1 CFU/mL",
+            "B": "沙門氏桿菌（Salmonella）菌量為1 CFU/mL",
+            "C": "腸桿菌科（Enterobacteriaceae）菌量為1 CFU/mL",
+            "D": "金黃色葡萄球菌腸毒素（Staphylococcus aureus enterotoxin）含量為 1 ng/mL"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 48,
+        "text": "48. 依據食品中污染物質及毒素衛生標準，牛乳中下列那一種真菌毒素能容許限量（0.5 μg/kg）檢出？",
+        "options": {
+            "A": "黃麴毒素M1",
+            "B": "赭麴毒素A",
+            "C": "伏馬毒素B1+B2",
+            "D": "棒麴毒素"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 49,
+        "text": "49. 依據中華民國國家標準CNS 3055生乳標準，加工製程前生乳貯乳槽（桶）中生牛乳生菌數須在多少單位（CFU/mL）以下？",
+        "options": {
+            "A": "1×103",
+            "B": "1×104",
+            "C": "1×105",
+            "D": "1×106"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 50,
+        "text": "50. 依據優良農產品乳品項目驗證基準，下列敘述何者正確？",
+        "options": {
+            "A": "進行酒精試驗是評估生乳中微生物含量的方法",
+            "B": "進行美藍還原試驗是測定生乳中蛋白質的安定性",
+            "C": "生乳當被製成鮮乳後，戴奧辛不得檢出",
+            "D": "生乳當被製成鮮乳後，酸度應在 0.18％以下"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 51,
+        "text": "51. 依據優良農產品蛋品項目驗證基準，皮蛋微生物檢驗項目不包括下列何者？",
+        "options": {
+            "A": "黴菌及酵母菌",
+            "B": "生菌數",
+            "C": "沙門氏桿菌",
+            "D": "金黃色葡萄球菌"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 52,
+        "text": "52. 依據優良農產品蛋品項目驗證基準，下列液蛋產品的微生物檢驗何者必須為陰性？",
+        "options": {
+            "A": "大腸桿菌群",
+            "B": "沙門氏桿菌",
+            "C": "生菌數",
+            "D": "黴菌與酵母菌"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 53,
+        "text": "53. 根據食品中戴奧辛及多氯聯苯處理規範，雞蛋中戴奧辛與戴奧辛類多氯聯苯含量總和的限值為下列何者？",
+        "options": {
+            "A": "1.0 pg/g fat",
+            "B": "2.5 pg/g fat",
+            "C": "5.0 pg/g fat",
+            "D": "7.5 pg/g fat"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 54,
+        "text": "54. 依據優良農產品蛋品項目驗證基準，蛋個體重量若為 50 公克，其分級代號應為下列何者？",
+        "options": {
+            "A": "S",
+            "B": "M",
+            "C": "L",
+            "D": "LL"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 55,
+        "text": "55. 依動物用藥品管理法之定義，下列何者屬於動物用藥品？①供預防動物疾病之抗生素原料藥 ②牧場病媒防治用之殺蟲劑 ③經中央主管機關公告專供診斷動物疾病之診斷劑 ④用於畜舍禽舍內環境表面之消毒劑",
+        "options": {
+            "A": "①③④",
+            "B": "①②③",
+            "C": "①②④",
+            "D": "②③④"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 56,
+        "text": "56. 下列有關動物用藥品停藥期的觀念，何者最適當？",
+        "options": {
+            "A": "建立停藥期時所採用的標的殘留物應以代謝產物為主",
+            "B": "藥物停藥期之訂定需考慮殘留容許量",
+            "C": "二種以上動物用藥品合併投予動物時，其停藥期為兩藥個別停藥期之平均",
+            "D": "停藥期是指最後一次給藥後可食組織皆完全測不到藥物所需的時間"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 57,
+        "text": "57. 有關動物用藥殘留容許量的敘述，下列何者最適當？",
+        "options": {
+            "A": "由農業部依動物試驗數據計算並交衛生福利部公告",
+            "B": "其訂定與該藥物在組織的殘留時間長短有關",
+            "C": "雖然其訂定的主要考量是藥物毒性，但各國殘留容許量標準不一定一致",
+            "D": "為考量肝腎為藥物代謝主要器官，應設更低的容許量以維安全"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 58,
+        "text": "58. 下列何者不屬於直接傳播型人畜共通傳染病（orthozoonosis）？",
+        "options": {
+            "A": "馬爾堡病（Marburg disease）",
+            "B": "M 痘（Mpox）",
+            "C": "黃熱病（yellow fever）",
+            "D": "羊接觸傳染性化膿性口炎（contagious pustular dermatitis）"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 59,
+        "text": "59. 下列何種人畜共通病原主要以小型齧齒類動物為保毒儲主？①壁蝨媒介性腦炎（tick-borne encephalitis,TBE） ②亨德拉病毒（Hendra virus） ③M痘病毒（Mpox virus） ④伊波拉病毒（Ebola virus） ⑤馬爾堡病毒（Marburg virus）",
+        "options": {
+            "A": "①②",
+            "B": "①③",
+            "C": "②③",
+            "D": "④⑤"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 60,
+        "text": "60. 下列有關立百病毒（Nipah virus）感染症之敘述，何者正確？",
+        "options": {
+            "A": "首發於澳大利亞，爾後傳至馬來西亞",
+            "B": "除了感染豬，也可感染人、狗、貓以及馬",
+            "C": "感染豬隻呈現症狀為急性腦炎，為高傳染率、高致死性的疾病",
+            "D": "齧齒類動物為主要傳播媒介"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 61,
+        "text": "61. 下列有關牛痘（cowpox）之敘述，何者錯誤？",
+        "options": {
+            "A": "病毒之基因體為DNA，歸類為 Orthopoxvirus 屬",
+            "B": "病毒感染潛伏期長達數星期",
+            "C": "除了感染牛，此病毒有可能藉由貓傳播而感染人",
+            "D": "主要發生在英國以及歐洲"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 62,
+        "text": "62. 下列關於西尼羅熱之敘述，何者錯誤？",
+        "options": {
+            "A": "1999 年傳入美國",
+            "B": "壁蝨是主要的傳染媒介",
+            "C": "感染美國烏鴉及馬，造成高致死率",
+            "D": "大部分人的病例並無明顯症狀"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 63,
+        "text": "63. 下列有關伊波拉病毒感染症的敘述，何者錯誤？",
+        "options": {
+            "A": "可透過接觸病毒污染之血液、分泌物、排泄物或唾液感染",
+            "B": "主要藉由空氣傳染",
+            "C": "人感染時，初期呈現類嚴重感冒症狀，胸腹部疼痛及吐血",
+            "D": "目前認為蝙蝠為此病原之自然界主要保毒儲主"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 64,
+        "text": "64. 下列何者為傳播俄羅斯及中歐春夏腦炎（Russian and central European spring-summer encephalitis）的主要病媒？",
+        "options": {
+            "A": "蚤",
+            "B": "蝨",
+            "C": "蜱",
+            "D": "蚊"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 65,
+        "text": "65. 由罹患結核病之乳牛場工作人員分離出多重抗藥性（multi-drug resistance, MDR）牛型結核分枝桿菌，此病應屬於衛生福利部公告之第幾類傳染病？",
+        "options": {
+            "A": "第一類",
+            "B": "第二類",
+            "C": "第三類",
+            "D": "第四類"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 66,
+        "text": "66. 主要藉由食入污染乳製品而感染之人畜共通疾病，下列何者正確？",
+        "options": {
+            "A": "Vibrio vulnificus infection",
+            "B": "ehrlichiosis",
+            "C": "listeriosis",
+            "D": "tularemia"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 67,
+        "text": "67. 下列何者為主要好發於羊之分娩生產季節的人畜共通疾病？",
+        "options": {
+            "A": "Q fever",
+            "B": "plague",
+            "C": "leptospirosis",
+            "D": "epidemic typhus fever"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 68,
+        "text": "68. 人畜共通土拉倫斯病之病原具有下列何種特性？",
+        "options": {
+            "A": "具高度運動性",
+            "B": "能產生芽孢污染環境",
+            "C": "兔子主要被Francisella novicida亞種感染",
+            "D": "可經由節肢動物叮咬而傳播"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 69,
+        "text": "69. 傳染萊姆病的病媒壁蝨屬於下列何者？",
+        "options": {
+            "A": "單宿主性壁蝨",
+            "B": "二宿主性壁蝨",
+            "C": "三宿主性壁蝨",
+            "D": "多宿主性壁蝨"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 70,
+        "text": "70. 下列有關血吸蟲症（schistosomiasis）之敘述，何者正確？",
+        "options": {
+            "A": "人類可藉由食入海洋甲殼類而感染",
+            "B": "移除釘螺可為控制日本血吸蟲之傳播",
+            "C": "血吸蟲生活史需要第二中間宿主",
+            "D": "無法藉由尿液檢測出埃及血吸蟲蟲卵"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 71,
+        "text": "71. 有關人畜共通病原芽囊原蟲屬（Blastocystis spp.）原蟲之敘述，下列何者正確？",
+        "options": {
+            "A": "主要寄生於紅血球中",
+            "B": "人類有疫苗可預防此疾病感染",
+            "C": "健康者身上不會被檢出",
+            "D": "從嚙齒類糞便可檢出"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 72,
+        "text": "72. 下列有關有鈎絛蟲（Taenia solium） 的敘述，何者錯誤？",
+        "options": {
+            "A": "牛是主要中間宿主",
+            "B": "豬是主要中間宿主",
+            "C": "人感染後成蟲會鉤附在小腸上",
+            "D": "人感染後主要的症狀為腹痛、腹瀉、食慾不振"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 73,
+        "text": "73. 下列何種人畜共通病原不是藉由水源及污染食物傳播？",
+        "options": {
+            "A": "梨形鞭毛蟲",
+            "B": "痢疾阿米巴原蟲",
+            "C": "隱孢子蟲",
+            "D": "錐蟲"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 74,
+        "text": "74. 依飲用水水質標準，飲用水自由有效餘氯（free residual chlorine）最低限值為每公升多少毫克？",
+        "options": {
+            "A": "0.1",
+            "B": "0.2",
+            "C": "1.0",
+            "D": "2.0"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 75,
+        "text": "75. 世界衛生組織所屬的國際癌症研究所（IARC）將引發惡性間皮細胞瘤（malignant mesothelioma）的石綿列為那一群（group）致癌物？",
+        "options": {
+            "A": "1",
+            "B": "2A",
+            "C": "2B",
+            "D": "3"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 76,
+        "text": "76. 下列有關化製場運作之敘述，何者錯誤？",
+        "options": {
+            "A": "化製原料運輸車清洗消毒區應設置高壓清洗消毒設備",
+            "B": "化製原料區及成品區應提供共用之消毒設備",
+            "C": "化製時應使用足以消滅動物傳染病病原體之方法",
+            "D": "化製原料儲存室應於化製原料運出後立即消毒"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 77,
+        "text": "77. 下列何種動物之糞便含有較高之纖維素與木質素，因此會增加其糞尿廢水處理的困難度？",
+        "options": {
+            "A": "豬",
+            "B": "牛",
+            "C": "雞",
+            "D": "鴨"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 78,
+        "text": "78. 位於自來水水質水量保護區的豬場，飼養豬隻頭數達多少頭以上，其排放之廢水必須符合水污染防治法的放流水標準？",
+        "options": {
+            "A": "10",
+            "B": "20",
+            "C": "100",
+            "D": "200"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 79,
+        "text": "79. 根據水污染防治法所訂定的放流水標準，養雞畜牧業排放廢水中所含之生化需氧量（biochemical oxygen demand, BOD）之限值為多少 mg/L？",
+        "options": {
+            "A": "80",
+            "B": "200",
+            "C": "300",
+            "D": "500"
+        },
+        "image": null,
+        "explanation": ""
+    },
+    {
+        "id": 80,
+        "text": "80. 生物醫療廢棄物熱處理，是屬於下述何種程序？",
+        "options": {
+            "A": "貯存",
+            "B": "清除",
+            "C": "中間處理",
+            "D": "最終處置"
+        },
+        "image": null,
+        "explanation": ""
+    }
 ]
