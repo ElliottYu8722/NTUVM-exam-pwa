@@ -1,882 +1,962 @@
 [
-  {
-    "id": 1,
-    "text": "1. 有關胰島素（insulin）之訊息傳遞特徵，下列何者正確？",
-    "options": {
-      "A": "其受體存在於細胞質",
-      "B": "與受體結合後啟動磷酸化",
-      "C": "其受體特徵為離子通道（ion channel）",
-      "D": "不需要消耗 ATP"
-    },
-    "image": null
-  },
-  {
-    "id": 2,
-    "text": "2. Metoclopramide與atropine 併用，對於胃排空的影響屬於何種作用？",
-    "options": {
-      "A": "受體拮抗（receptor antagonism）",
-      "B": "生理性拮抗（physiologic antagonism）",
-      "C": "相加作用（additive effect）",
-      "D": "相乘作用（synergistic effect）"
-    },
-    "image": null
-  },
-  {
-    "id": 3,
-    "text": "3. 有關種別差異，下列敘述何者錯誤？",
-    "options": {
-      "A": "相對非草食動物，草食動物口服藥物之吸收較慢",
-      "B": "貓對 opioids的敏感性較犬低",
-      "C": "ivermectin 容易堆積在烏龜腦中",
-      "D": "狗對於 sulfonamides的N4-acetylation較差"
-    },
-    "image": null
-  },
-  {
-    "id": 4,
-    "text": "4. 下列有關改變尿液酸鹼值的敘述，何者正確？",
-    "options": {
-      "A": "鹼化尿液會增加sulfonamides 的腎毒性",
-      "B": "酸化尿液可增加methenamine 的治療效果",
-      "C": "只要改變尿液的酸鹼值，即可明顯改變藥品的再吸收",
-      "D": "doxycycline 可酸化尿液，故會增加 furosemide的腎毒性"
-    },
-    "image": null
-  },
-  {
-    "id": 5,
-    "text": "5. 下列有關腸肝循環（enterohepatic recycling）的敘述，何者正確？",
-    "options": {
-      "A": "愈容易離子化的藥品愈容易發生",
-      "B": "能夠被再吸收的藥品必定是氧化物",
-      "C": "腸肝循環不會增加有毒物質的毒性",
-      "D": "可利用腸肝循環的現象治療膽囊感染"
-    },
-    "image": null
-  },
-  {
-    "id": 6,
-    "text": "6. 以靜脈注射給予4 mg某藥物，此藥物分布體積為 4 L，經過 4小時後，此藥物之血漿濃度為 500 μg/L。則此藥物之半衰期為多少小時？",
-    "options": {
-      "A": "1",
-      "B": "2",
-      "C": "4",
-      "D": "8"
-    },
-    "image": null
-  },
-  {
-    "id": 7,
-    "text": "7. 與健康動物相比，腎衰竭動物在藥物動力學上之敘述，下列何者錯誤？",
-    "options": {
-      "A": "影響血漿蛋白結合",
-      "B": "到達穩態濃度時間縮短",
-      "C": "清除率下降",
-      "D": "給藥時間應延長"
-    },
-    "image": null
-  },
-  {
-    "id": 8,
-    "text": "8. Gabapentin 止痛效果與下列何離子的改變，進而抑制麩胺酸的釋放有關？",
-    "options": {
-      "A": "鈣離子降低",
-      "B": "鈉離子增加",
-      "C": "鉀離子降低",
-      "D": "氯離子增加"
-    },
-    "image": null
-  },
-  {
-    "id": 9,
-    "text": "9. 下列何者是 morphine過量或急性中毒時的解毒劑？",
-    "options": {
-      "A": "methadone",
-      "B": "tramadol",
-      "C": "codeine",
-      "D": "naloxone"
-    },
-    "image": null
-  },
-  {
-    "id": 10,
-    "text": "10. Benzodiazepine類藥通常無法產生下列何種治療作用？",
-    "options": {
-      "A": "抑制癲癇",
-      "B": "誘導與幫助動物睡眠",
-      "C": "促進排尿",
-      "D": "鬆弛骨骼肌的強直"
-    },
-    "image": null
-  },
-  {
-    "id": 11,
-    "text": "11. 有關 doxapram之敘述，下列何者錯誤？",
-    "options": {
-      "A": "高劑量可能會引起癲癇發作",
-      "B": "臨床上用於使吸入過量麻醉劑的動物甦醒",
-      "C": "刺激呼吸作用可能經由開啟鉀離子通道而活化主動脈和頸動脈的化學受體而刺激呼吸中樞",
-      "D": "對嚴重呼吸抑制的新生動物甦醒無太大效果"
-    },
-    "image": null
-  },
-  {
-    "id": 12,
-    "text": "12. Alprazolam 與下列何者併用，因會增加藥物代謝而導致毒性減少？",
-    "options": {
-      "A": "itraconazole",
-      "B": "cimetidine",
-      "C": "ketoconazole",
-      "D": "rifampicin"
-    },
-    "image": null
-  },
-  {
-    "id": 13,
-    "text": "13. 下列關於三環類抗憂鬱劑（tricyclic antidepressants）的使用，何者錯誤？",
-    "options": {
-      "A": "能提高癲癇發作門檻，有緩解具有癲癇體質動物的癲癇發作效果",
-      "B": "使用本類藥物需避免突然停藥，以免發生戒斷症狀",
-      "C": "此藥物之改善症狀通常需要 3週以上時間",
-      "D": "此類藥物常具有鎮定的作用"
-    },
-    "image": null
-  },
-  {
-    "id": 14,
-    "text": "14. 下列關於抗憂鬱劑的敘述，何者錯誤？",
-    "options": {
-      "A": "doxepin同時具有抗焦慮與止癢效果",
-      "B": "使用本類藥物須避免突然停藥",
-      "C": "amitriptyline具有抗焦慮與緩解不適當排尿行為的作用",
-      "D": "clomipramine 的抗焦慮效果佳，不適合與其他影響行為藥物併用"
-    },
-    "image": null
-  },
-  {
-    "id": 15,
-    "text": "15. 下列何者為犬臨床上使用 sevoflurane最主要的不良反應？",
-    "options": {
-      "A": "肝毒性",
-      "B": "腎毒性",
-      "C": "心搏輸出量增加，動脈壓呈現劑量相關性的增加",
-      "D": "惡性體溫過高"
-    },
-    "image": null
-  },
-  {
-    "id": 16,
-    "text": "16. 下列何者以靜脈注射動物容易導致血壓上升？",
-    "options": {
-      "A": "etomidate",
-      "B": "phenobarbital",
-      "C": "thiopental",
-      "D": "ketamine"
-    },
-    "image": null
-  },
-  {
-    "id": 17,
-    "text": "17. 臨床上使用於麻醉犬貓之 Telazol®為tiletamine 與下列何種藥物之複方製劑？",
-    "options": {
-      "A": "diazepam",
-      "B": "midazolam",
-      "C": "clonazepam",
-      "D": "zolazepam"
-    },
-    "image": null
-  },
-  {
-    "id": 18,
-    "text": "18. 下列那一種藥物是屬於中樞性肌肉鬆弛劑？",
-    "options": {
-      "A": "dantrolene",
-      "B": "succinylcholine",
-      "C": "vecuronium",
-      "D": "methocarbamol"
-    },
-    "image": null
-  },
-  {
-    "id": 19,
-    "text": "19. 下列何者不是 xylazine的作用？",
-    "options": {
-      "A": "骨骼肌鬆弛",
-      "B": "血糖上升",
-      "C": "利尿",
-      "D": "止吐"
-    },
-    "image": null
-  },
-  {
-    "id": 20,
-    "text": "20. 由於 phenoxybenzamine之作用機制，致使其對受體產生下列何種作用？",
-    "options": {
-      "A": "可逆性阻斷",
-      "B": "不可逆性阻斷",
-      "C": "短暫性阻斷",
-      "D": "永久性阻斷"
-    },
-    "image": null
-  },
-  {
-    "id": 21,
-    "text": "21. 下列何者可經口投予，最適合應用於犬尿失禁之治療？",
-    "options": {
-      "A": "norepinephrine",
-      "B": "dopamine",
-      "C": "phenylephrine",
-      "D": "phenylpropanolamine"
-    },
-    "image": null
-  },
-  {
-    "id": 22,
-    "text": "22. 當犬隻受到虎頭蜂攻擊後，出現過敏性休克症狀，下列何者為緊急適用藥物？",
-    "options": {
-      "A": "norepinephrine",
-      "B": "phenylephrine",
-      "C": "isoproterenol",
-      "D": "epinephrine"
-    },
-    "image": null
-  },
-  {
-    "id": 23,
-    "text": "23. 交感神經系統作用藥物中，下列何者為 phenylephrine 作用之受體？",
-    "options": {
-      "A": "α1",
-      "B": "α2",
-      "C": "β1",
-      "D": "β2"
-    },
-    "image": null
-  },
-  {
-    "id": 24,
-    "text": "24. 下列何者的主要用途是增加經濟動物的飼料利用率與增重率？",
-    "options": {
-      "A": "isoxsuprine",
-      "B": "zilpaterol",
-      "C": "albuterol",
-      "D": "terbutaline"
-    },
-    "image": null
-  },
-  {
-    "id": 25,
-    "text": "25. 下列藥物何者不屬於α1-受體拮抗劑？",
-    "options": {
-      "A": "prazosin",
-      "B": "clonidine",
-      "C": "terazosin",
-      "D": "doxazosin"
-    },
-    "image": null
-  },
-  {
-    "id": 26,
-    "text": "26. Atropine於犬隻出現中樞神經系統興奮與狂躁症狀時，最佳解毒劑為何？",
-    "options": {
-      "A": "vecuronium",
-      "B": "neostigmine",
-      "C": "physostigmine",
-      "D": "pralidoxime"
-    },
-    "image": null
-  },
-  {
-    "id": 27,
-    "text": "27. 下列何者最適合用於減輕鬱血性心衰竭所造成之後負荷（afterload）阻力？",
-    "options": {
-      "A": "norepinephrine",
-      "B": "aspirin",
-      "C": "morphine",
-      "D": "hydralazine"
-    },
-    "image": null
-  },
-  {
-    "id": 28,
-    "text": "28. 第四類抗心律不整藥物不可以和下列何者併用？",
-    "options": {
-      "A": "propranolol",
-      "B": "lidocaine",
-      "C": "quinidine",
-      "D": "bretylium"
-    },
-    "image": null
-  },
-  {
-    "id": 29,
-    "text": "29. 下列何者能適度地減緩傳導，增加動作電位的時程，且能延長 QRS波和QT間隔時間？",
-    "options": {
-      "A": "atropine",
-      "B": "procainamide",
-      "C": "epinephrine",
-      "D": "verapamil"
-    },
-    "image": null
-  },
-  {
-    "id": 30,
-    "text": "30. 下列藥物與其作用之配對，何者錯誤？",
-    "options": {
-      "A": "procainamide：阻斷鈉離子通道",
-      "B": "mexiletine：阻斷鈣離子通道",
-      "C": "atenolol：阻斷β-腎上腺素性受體",
-      "D": "amiodarone：阻斷鉀離子通道"
-    },
-    "image": null
-  },
-  {
-    "id": 31,
-    "text": "31. 下列何種抗血栓藥物為口服劑型？",
-    "options": {
-      "A": "streptokinase",
-      "B": "enoxaparin",
-      "C": "heparin",
-      "D": "dicumarol"
-    },
-    "image": null
-  },
-  {
-    "id": 32,
-    "text": "32. 下列何者非 furosemide主要引起之不良反應？",
-    "options": {
-      "A": "低血鉀症",
-      "B": "代謝性鹼中毒",
-      "C": "高血鈣症",
-      "D": "高尿酸血症"
-    },
-    "image": null
-  },
-  {
-    "id": 33,
-    "text": "33. 當一隻患有高鈣血症的動物併發全身性水腫時，下列何種利尿劑應避免使用？",
-    "options": {
-      "A": "furosemide",
-      "B": "mannitol",
-      "C": "chlorothiazide",
-      "D": "spironolactone"
-    },
-    "image": null
-  },
-  {
-    "id": 34,
-    "text": "34. 當動物因車禍致頭部重擊，引發腦水腫之治療藥物為何？",
-    "options": {
-      "A": "methazolamide, furosemide",
-      "B": "mannitol, furosemide",
-      "C": "ammonium chloride, furosemide",
-      "D": "triamterene, furosemide"
-    },
-    "image": null
-  },
-  {
-    "id": 35,
-    "text": "35. 當動物出現代謝性酸中毒時，最常使用的間接鹼化劑為何？",
-    "options": {
-      "A": "sodium bicarbonate",
-      "B": "sodium lactate",
-      "C": "Ringer's solution",
-      "D": "ammonium chloride"
-    },
-    "image": null
-  },
-  {
-    "id": 36,
-    "text": "36. 下列消化性潰瘍治療藥物，何者為質子幫浦抑制劑？",
-    "options": {
-      "A": "lansoprazole",
-      "B": "cimetidine",
-      "C": "misoprostol",
-      "D": "sucralfate"
-    },
-    "image": null
-  },
-  {
-    "id": 37,
-    "text": "37. 下列何者為中樞作用的催吐劑？",
-    "options": {
-      "A": "sodium chloride",
-      "B": "xylazine",
-      "C": "loperamide",
-      "D": "propantheline"
-    },
-    "image": null
-  },
-  {
-    "id": 38,
-    "text": "38. 下列何種止吐劑最可能會產生錐體外作用（extrapyramidal effects）的副作用？",
-    "options": {
-      "A": "metoclopramide",
-      "B": "promethazine",
-      "C": "scopolamine",
-      "D": "maropitant"
-    },
-    "image": null
-  },
-  {
-    "id": 39,
-    "text": "39. Sulfasalazine是由磺胺劑 sulfapyridine 與下列何者鍵結合成的炎症腸道疾病治療藥物？",
-    "options": {
-      "A": "prednisolone",
-      "B": "azathioprine",
-      "C": "budesonide",
-      "D": "5-aminosalicylic acid"
-    },
-    "image": null
-  },
-  {
-    "id": 40,
-    "text": "40. 下列瀉劑（laxative）何者屬於 irritant laxatives 類？",
-    "options": {
-      "A": "lactulose",
-      "B": "methylcellulose",
-      "C": "senna",
-      "D": "docusate"
-    },
-    "image": null
-  },
-  {
-    "id": 41,
-    "text": "41. 下列何種支氣管擴張劑，無法作為緊急氣喘之治療用藥？",
-    "options": {
-      "A": "salmeterol",
-      "B": "pirbuterol",
-      "C": "terbutaline",
-      "D": "bitolterol"
-    },
-    "image": null
-  },
-  {
-    "id": 42,
-    "text": "42. 犬隻外科手術時，欲先逆轉 morphine 之呼吸抑制但保留其止痛作用，再刺激呼吸使麻醉劑過量之犬隻甦醒，則先後分別投予那兩項藥物最為適當？",
-    "options": {
-      "A": "nalbuphine；naloxone",
-      "B": "buprenorphine；doxapram",
-      "C": "butorphanol；doxapram",
-      "D": "butorphanol；naloxone"
-    },
-    "image": null
-  },
-  {
-    "id": 43,
-    "text": "43. 下列何者可做為控制氣喘之藥物？",
-    "options": {
-      "A": "propranolol",
-      "B": "zafirlukast",
-      "C": "aspirin",
-      "D": "poractant alfa"
-    },
-    "image": null
-  },
-  {
-    "id": 44,
-    "text": "44. 下列何者不是抑制 COX-2大於抑制COX-1作用的非固醇類消炎藥？",
-    "options": {
-      "A": "tepoxalin",
-      "B": "robenacoxib",
-      "C": "etodolac",
-      "D": "deracoxib"
-    },
-    "image": null
-  },
-  {
-    "id": 45,
-    "text": "45. H1-組織胺受體主要媒介下列何種反應？",
-    "options": {
-      "A": "小動脈及靜脈之血管收縮",
-      "B": "支氣管及腸道之平滑肌收縮",
-      "C": "降低微血管通透性",
-      "D": "體溫上升"
-    },
-    "image": null
-  },
-  {
-    "id": 46,
-    "text": "46. 下列那一藥物之藥理作用與 5-HT4受體之相關性最低？",
-    "options": {
-      "A": "cisapride",
-      "B": "metoclopramide",
-      "C": "ondansetron",
-      "D": "prucalopride"
-    },
-    "image": null
-  },
-  {
-    "id": 47,
-    "text": "47. 下列何者對貓的安全性極差而應避免投予貓？",
-    "options": {
-      "A": "paracetamol",
-      "B": "phenytoin",
-      "C": "pimobenden",
-      "D": "prednisolone"
-    },
-    "image": null
-  },
-  {
-    "id": 48,
-    "text": "48. 下列非固醇類消炎藥物（NSAIDs）中，何者核准用於處理馬骨關節炎，且其作用可維持 24～72小時？",
-    "options": {
-      "A": "aspirin",
-      "B": "ibuprofen",
-      "C": "ketoprofen",
-      "D": "phenylbutazone"
-    },
-    "image": null
-  },
-  {
-    "id": 49,
-    "text": "49. 下列藥物以鎮痛目的投予犬時，何者消炎效果最低？",
-    "options": {
-      "A": "flunixin",
-      "B": "meloxicam",
-      "C": "firocoxib",
-      "D": "acetaminophen"
-    },
-    "image": null
-  },
-  {
-    "id": 50,
-    "text": "50. 下列有關血管收縮素轉換酵素（angiotensin-converting enzyme）抑制劑的敘述，何者正確？",
-    "options": {
-      "A": "促進 angiotensin Ⅱ的生成",
-      "B": "促使 angiotensin Ⅰ之堆積",
-      "C": "抑制 bradykinin之堆積",
-      "D": "可用來升高血壓"
-    },
-    "image": null
-  },
-  {
-    "id": 51,
-    "text": "51. Altrenogest 的藥理性質與下列何者最相近？",
-    "options": {
-      "A": "estrogen",
-      "B": "gonadotropin",
-      "C": "hydrocortisone",
-      "D": "progesterone"
-    },
-    "image": null
-  },
-  {
-    "id": 52,
-    "text": "52. 牛飼料中添加 melengestrol acetate 的主要目的為何？",
-    "options": {
-      "A": "控制腸道脹氣",
-      "B": "預防腸道細菌感染",
-      "C": "調節牛隻繁殖週期",
-      "D": "作為生長促進劑"
-    },
-    "image": null
-  },
-  {
-    "id": 53,
-    "text": "53. 下列有關desoxycorticosterone和 fludrocortisone 之敘述，何者正確？",
-    "options": {
-      "A": "二者皆具有顯著的 glucocorticoid 活性，而幾乎無 mineralocorticoid活性",
-      "B": "二者皆具有顯著的 mineralocorticoid 活性，而幾乎無 glucocorticoid活性",
-      "C": "desoxycorticosterone同時具有顯著的glucocorticoid及mineralocorticoid 活性",
-      "D": "fludrocortisone 同時具有顯著的glucocorticoid 及 mineralocorticoid活性"
-    },
-    "image": null
-  },
-  {
-    "id": 54,
-    "text": "54. 下列有關trilostane用於治療 hyperadrenocorticism 的敘述，何者正確？",
-    "options": {
-      "A": "對 pituitary dependent hyperadrenocorticism（PDH）有效，但對 adrenal dependent hyperadrenocorticism（ADH）無效",
-      "B": "對 pituitary dependent hyperadrenocorticism（PDH）無效，但對 adrenal dependent hyperadrenocorticism（ADH）有效",
-      "C": "對 pituitary dependent hyperadrenocorticism（PDH）和adrenal dependent hyperadrenocorticism（ADH）皆有效",
-      "D": "對 pituitary dependent hyperadrenocorticism（PDH）和adrenal dependent hyperadrenocorticism（ADH）皆無效"
-    },
-    "image": null
-  },
-  {
-    "id": 55,
-    "text": "55. 下列何者可用於治療貓甲狀腺功能亢進？",
-    "options": {
-      "A": "glimepiride",
-      "B": "ipodate",
-      "C": "fludrocortisone",
-      "D": "thyroxine"
-    },
-    "image": null
-  },
-  {
-    "id": 56,
-    "text": "56. 有關人類絨毛膜性腺激素（human chorionic gonadotropin）之敘述，下列何者錯誤？",
-    "options": {
-      "A": "主要具 FSH活性",
-      "B": "主要具 LH活性",
-      "C": "由懷孕婦女胎盤分泌",
-      "D": "為一種 glycoprotein"
-    },
-    "image": null
-  },
-  {
-    "id": 57,
-    "text": "57. 下列有關amoxicillin的敘述，何者錯誤？",
-    "options": {
-      "A": "胃腸吸收比 ampicillin差",
-      "B": "有效對抗革蘭氏陰性好氧菌",
-      "C": "具耐酸性但不能對抗青黴素酶",
-      "D": "為廣效性抗菌劑"
-    },
-    "image": null
-  },
-  {
-    "id": 58,
-    "text": "58. 下列有關bacitracin的敘述中，何者錯誤？",
-    "options": {
-      "A": "作用機制為抑制細菌細胞壁的合成",
-      "B": "對螺旋體具殺菌作用",
-      "C": "臨床上常用於注射使用",
-      "D": "與 neomycin併用可添加於飼料中作為生長促進劑"
-    },
-    "image": null
-  },
-  {
-    "id": 59,
-    "text": "59. 下列何者屬於注射型的第一代 cephalosporin？",
-    "options": {
-      "A": "cefaclor",
-      "B": "cefadroxil",
-      "C": "cefixime",
-      "D": "cephapirin"
-    },
-    "image": null
-  },
-  {
-    "id": 60,
-    "text": "60. 下列何者最適合用於犬貓及鳥，治療皮膚、呼吸道及泌尿道之感染，在牛則用於呼吸道感染症？",
-    "options": {
-      "A": "carbenicillin",
-      "B": "methicillin",
-      "C": "oxacillin",
-      "D": "enrofloxacin"
-    },
-    "image": null
-  },
-  {
-    "id": 61,
-    "text": "61. 下列何者適用於具有β-lactamase引起之葡萄球菌感染症，但對抗鏈球菌效果比天然青黴素差？",
-    "options": {
-      "A": "aztreonem",
-      "B": "penicillin",
-      "C": "methicillin",
-      "D": "neomycin"
-    },
-    "image": null
-  },
-  {
-    "id": 62,
-    "text": "62. 下列何者可以抵抗 penicillinase的破壞？",
-    "options": {
-      "A": "carbenicillin",
-      "B": "ampicillin",
-      "C": "penicillin G",
-      "D": "oxacillin"
-    },
-    "image": null
-  },
-  {
-    "id": 63,
-    "text": "63. 下列何者與胺基醣苷類（aminoglycosides）抗生素造成的不良反應較無關？",
-    "options": {
-      "A": "耳毒性",
-      "B": "腎毒性",
-      "C": "肌肉麻痺",
-      "D": "永久齒著色"
-    },
-    "image": null
-  },
-  {
-    "id": 64,
-    "text": "64. 下列何者易引起再生不良性貧血，不可使用於產食動物？",
-    "options": {
-      "A": "chloramphenicol",
-      "B": "thiamphenicol",
-      "C": "florfenicol",
-      "D": "florfenicol amine"
-    },
-    "image": null
-  },
-  {
-    "id": 65,
-    "text": "65. 動物投予lincomycin容易引起下列何種微生物過度生長，而造成動物嚴重的腸炎、結腸炎，導致下痢、死亡？",
-    "options": {
-      "A": "Salmonella spp.",
-      "B": "Staphylococcus aureus",
-      "C": "Toxoplasma gondii",
-      "D": "Clostridium difficile"
-    },
-    "image": null
-  },
-  {
-    "id": 66,
-    "text": "66. 下列何者與 amoxicillin併用後，可用於治療 penicillinase-producing細菌的感染？",
-    "options": {
-      "A": "carbenicillin",
-      "B": "chlorambucil",
-      "C": "clavulanate",
-      "D": "cyclosporine A"
-    },
-    "image": null
-  },
-  {
-    "id": 67,
-    "text": "67. Polymyxin B、bacitracin 與 neomycin 三者併用的主要目的為何？",
-    "options": {
-      "A": "增加口服的生體可用率",
-      "B": "降低對腸道常在菌叢的影響",
-      "C": "增廣抗菌譜",
-      "D": "降低腎毒性"
-    },
-    "image": null
-  },
-  {
-    "id": 68,
-    "text": "68. 下列胺基醣苷類（aminoglycosides）中，何者因毒性強，而最好僅使用於局部或口服投藥？",
-    "options": {
-      "A": "amikacin",
-      "B": "apramycin",
-      "C": "gentamicin",
-      "D": "neomycin"
-    },
-    "image": null
-  },
-  {
-    "id": 69,
-    "text": "69. 下列何者會因併用而使療效變差？",
-    "options": {
-      "A": "amphotericin B＋flucytosine",
-      "B": "ciprofloxacin＋azlocillin",
-      "C": "penicillin＋tetracycline",
-      "D": "sulfamethoxazole＋trimethoprim"
-    },
-    "image": null
-  },
-  {
-    "id": 70,
-    "text": "70. 下列何種抗病毒藥不屬於核苷酸類似物？",
-    "options": {
-      "A": "cidofovir",
-      "B": "AZT",
-      "C": "idoxuridine",
-      "D": "L-lysine"
-    },
-    "image": null
-  },
-  {
-    "id": 71,
-    "text": "71. 下列何種抗真菌藥物腸胃道不吸收，故多以靜脈注射方式投藥？",
-    "options": {
-      "A": "terbinafine",
-      "B": "amphotericin B",
-      "C": "itraconazole",
-      "D": "griseofulvin"
-    },
-    "image": null
-  },
-  {
-    "id": 72,
-    "text": "72. 下列何者成分之藥效與抑制 ergosterol 合成無關？",
-    "options": {
-      "A": "miconazole",
-      "B": "clotrimazole",
-      "C": "metronidazole",
-      "D": "ketoconazole"
-    },
-    "image": null
-  },
-  {
-    "id": 73,
-    "text": "73. 常用於治療犬傳染性花柳性腫瘤（canine transmissible venereal tumor, CTVT）的化療藥物是下列何者？",
-    "options": {
-      "A": "5-fluorouracil",
-      "B": "6-mercaptopurine",
-      "C": "paclitaxel",
-      "D": "vincristine"
-    },
-    "image": null
-  },
-  {
-    "id": 74,
-    "text": "74. 癌症患犬接受 ifosfamide 治療，於靜脈注射藥物前後應給與大量生理鹽水的主要目的為何？",
-    "options": {
-      "A": "維持足夠的循環血量以避免休克",
-      "B": "補充水分以加速藥物代謝",
-      "C": "補充水分以防止動物脫水",
-      "D": "促進排尿以降低腎臟毒性"
-    },
-    "image": null
-  },
-  {
-    "id": 75,
-    "text": "75. 下列何者因會引起致死性的神經毒性，而不可使用於貓？",
-    "options": {
-      "A": "doxorubicin",
-      "B": "5-fluorouracil",
-      "C": "gemcitabine",
-      "D": "methotrexate"
-    },
-    "image": null
-  },
-  {
-    "id": 76,
-    "text": "76. 下列關於鉑類抗腫瘤藥物（platinating agents）的藥理機制，何者正確？",
-    "options": {
-      "A": "結構類似嘌呤（purines），讓 DNA 鹼基進行配對時發生錯誤",
-      "B": "與細胞的DNA交互連結，導致 DNA雙股無法分離並複製",
-      "C": "抑制微管形成，導致細胞無法進行有絲分裂",
-      "D": "抑制第二型拓樸異構酶（topoisomerase Ⅱ），導致 DNA 雙股無法分離並複製"
-    },
-    "image": null
-  },
-  {
-    "id": 77,
-    "text": "77. Fenbendazole 對下列何者無效？",
-    "options": {
-      "A": "豬肺蟲（Metastrongylus sp.）",
-      "B": "馬蛔蟲（Parascaris sp.）",
-      "C": "牛肺蟲（Dictyocaulus sp.）",
-      "D": "牛絲狀蟲（Setaria sp.）"
-    },
-    "image": null
-  },
-  {
-    "id": 78,
-    "text": "78. 治療犬焦蟲Babesia spp.，可以使用 imidocarb治療，其作用機制為：",
-    "options": {
-      "A": "抑制犬體內焦蟲配子體的結合，以中斷其生活史",
-      "B": "抑制焦蟲粒線體的功能，中斷滋養體的生物功能",
-      "C": "與焦蟲 DNA結合，干擾寄生蟲核酸複製",
-      "D": "溶解焦蟲蟲體，造成其死亡"
-    },
-    "image": null
-  },
-  {
-    "id": 79,
-    "text": "79. 下列藥物何者無法控制或治療梨形鞭毛蟲症（giardiasis）？",
-    "options": {
-      "A": "albendazole",
-      "B": "metronidazole",
-      "C": "terbinafine",
-      "D": "nitazoxanide"
-    },
-    "image": null
-  },
-  {
-    "id": 80,
-    "text": "80. Fipronil與下列何者併用可殺滅發育階段的跳蚤？",
-    "options": {
-      "A": "imiquimod",
-      "B": "tacrolimus",
-      "C": "ecoxia",
-      "D": "methoprene"
-    },
-    "image": null
-  }
+    {
+        "id": 1,
+        "text": "1. 有關胰島素（insulin）之訊息傳遞特徵，下列何者正確？",
+        "options": {
+            "A": "其受體存在於細胞質",
+            "B": "與受體結合後啟動磷酸化",
+            "C": "其受體特徵為離子通道（ion channel）",
+            "D": "不需要消耗 ATP"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">胰島素為水溶性蛋白質賀爾蒙，胰島素受體在細胞膜上，屬於receptor tyrosine kinase結合後會自</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">體磷酸化，並活化下游訊息傳遞。磷酸化的過程會消耗ATP，後續訊息傳遞也都需要消耗ATP</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 2,
+        "text": "2. Metoclopramide與atropine 併用，對於胃排空的影響屬於何種作用？",
+        "options": {
+            "A": "受體拮抗（receptor antagonism）",
+            "B": "生理性拮抗（physiologic antagonism）",
+            "C": "相加作用（additive effect）",
+            "D": "相乘作用（synergistic effect）"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Metoclopramide為D2 受體拮抗劑，會促進胃排空。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Atropine為抗膽鹼藥物，會抑制腸胃蠕動，延緩排空。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">作用在不同受體但有相反的生理效果，因此為生理性拮抗。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 3,
+        "text": "3. 有關種別差異，下列敘述何者錯誤？",
+        "options": {
+            "A": "相對非草食動物，草食動物口服藥物之吸收較慢",
+            "B": "貓對 opioids的敏感性較犬低",
+            "C": "ivermectin 容易堆積在烏龜腦中",
+            "D": "狗對於 sulfonamides的N4-acetylation較差"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：正確。草食動物因腸胃構造較複雜，胃排空慢，口服藥物吸收通常較慢。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：錯誤。貓對鴉片類藥物較犬敏感。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：正確。爬蟲類因為BBB的特性不同，ivermectin 較容易進入並且堆積產生毒性。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D：正確。狗對 sulfonamides 的 N4-acetylation 能力較差，較易發生相關不良反應。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 4,
+        "text": "4. 下列有關改變尿液酸鹼值的敘述，何者正確？",
+        "options": {
+            "A": "鹼化尿液會增加sulfonamides 的腎毒性",
+            "B": "酸化尿液可增加methenamine 的治療效果",
+            "C": "只要改變尿液的酸鹼值，即可明顯改變藥品的再吸收",
+            "D": "doxycycline 可酸化尿液，故會增加 furosemide的腎毒性"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：錯誤。sulfonamides為弱酸性藥物，鹼化尿液會增加溶解度，有助於降低結晶尿和腎毒性。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：正確。methenamine為為formaldehyde的前驅物，要在酸性尿液中才會水解發揮抗菌效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：錯誤。改變尿液酸鹼值只會影響弱酸或弱鹼藥物的吸收。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D：錯誤。doxycycline的主要作用為廣效性抑菌劑，沒有酸化尿液的作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 5,
+        "text": "5. 下列有關腸肝循環（enterohepatic recycling）的敘述，何者正確？",
+        "options": {
+            "A": "愈容易離子化的藥品愈容易發生",
+            "B": "能夠被再吸收的藥品必定是氧化物",
+            "C": "腸肝循環不會增加有毒物質的毒性",
+            "D": "可利用腸肝循環的現象治療膽囊感染"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：容易進到肝腸循環的藥物通常是「脂溶性、未解離」。<span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: Helvetica;\"></span>較常見為經過水解再吸收。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：肝腸循環會增加藥物在體內停留的時間，可能增加毒性。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：肝腸循環是指藥物經過肝臟代謝後由膽汁排入腸道，再重新吸收進D：入體循環。某些藥物可以</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">藉此在膽汁中維持較高濃度，治療膽囊感染。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 6,
+        "text": "6. 以靜脈注射給予4 mg某藥物，此藥物分布體積為 4 L，經過 4小時後，此藥物之血漿濃度為 500 μg/L。則此藥物之半衰期為多少小時？",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "4",
+            "D": "8"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">IV給藥時C0=劑量÷Vd，單室模型血中濃度隨時間呈指數衰減，半衰期公式：t1/2 = 0.693÷k</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C0＝4mg÷4L＝ 1mg/L=1000毫克/L</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Ct=C0×e^(-4k)</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">將數字帶入500=1000 ×e^(-4k)</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">整理後取自然對<b>數</b></p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">ln(0.5) = -4k <span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &quot;Apple Color Emoji&quot;;\">➡ </span>-0.693 = -4k</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">k= 0.173/h</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">半衰期＝0.693÷k＝0.693÷0.173=4.00578</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 7,
+        "text": "7. 與健康動物相比，腎衰竭動物在藥物動力學上之敘述，下列何者錯誤？",
+        "options": {
+            "A": "影響血漿蛋白結合",
+            "B": "到達穩態濃度時間縮短",
+            "C": "清除率下降",
+            "D": "給藥時間應延長"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">腎衰竭會使清除率下降，半衰期延長，因此達到穩態的時間也會延長，因此需要調整劑量或給藥間</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">距。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">藥物的代謝物累積，可能跟藥物競爭血漿蛋白上的結合位置，導致血漿中游離藥物濃度增加。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 8,
+        "text": "8. Gabapentin 止痛效果與下列何離子的改變，進而抑制麩胺酸的釋放有關？",
+        "options": {
+            "A": "鈣離子降低",
+            "B": "鈉離子增加",
+            "C": "鉀離子降低",
+            "D": "氯離子增加"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Gabapentin止痛效果機轉：抑制鈣離子通道（VGCC的α2δ 次單元），減少神經傳導物釋放，降低</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">中樞神經興奮，達到鎮痛效果。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 9,
+        "text": "9. 下列何者是 morphine過量或急性中毒時的解毒劑？",
+        "options": {
+            "A": "methadone",
+            "B": "tramadol",
+            "C": "codeine",
+            "D": "naloxone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Morphine 為 μ-opioid 受體興奮劑，過量或中毒可能出現呼吸抑制。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Naloxone為opioid拮抗劑，可以逆轉呼吸抑制和中樞抑制。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 10,
+        "text": "10. Benzodiazepine類藥通常無法產生下列何種治療作用？",
+        "options": {
+            "A": "抑制癲癇",
+            "B": "誘導與幫助動物睡眠",
+            "C": "促進排尿",
+            "D": "鬆弛骨骼肌的強直"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">BZD主要作用在GABA-A受體，增強GABA的抑制效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">BZD對膀胱或腎臟沒有直接作用，對排尿沒有促進效果，甚至在高劑量可能讓膀胱肌肉收縮力下</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">降，造成尿液停留。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 11,
+        "text": "11. 有關 doxapram之敘述，下列何者錯誤？",
+        "options": {
+            "A": "高劑量可能會引起癲癇發作",
+            "B": "臨床上用於使吸入過量麻醉劑的動物甦醒",
+            "C": "刺激呼吸作用可能經由開啟鉀離子通道而活化主動脈和頸動脈的化學受體而刺激呼吸中樞",
+            "D": "對嚴重呼吸抑制的新生動物甦醒無太大效果"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Doxapram 作用機轉為刺激主動脈和頸動脈的化學受體（與鉀離子通道無關），活化呼吸中樞，高</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">劑量可能使中樞過度興奮，使癲癇發作。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">臨床上可以幫助麻醉果量的動物甦醒，但在新生動物的呼吸抑制效果有限。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 12,
+        "text": "12. Alprazolam 與下列何者併用，因會增加藥物代謝而導致毒性減少？",
+        "options": {
+            "A": "itraconazole",
+            "B": "cimetidine",
+            "C": "ketoconazole",
+            "D": "rifampicin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Alprazolam是BZD類藥物，經肝臟CYP3A4酵素代謝</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Rifampicin為CYP3A4誘導劑，會加快Alprazolam的代謝，使血液中濃度降低，毒性也會降低。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 13,
+        "text": "13. 下列關於三環類抗憂鬱劑（tricyclic antidepressants）的使用，何者錯誤？",
+        "options": {
+            "A": "能提高癲癇發作門檻，有緩解具有癲癇體質動物的癲癇發作效果",
+            "B": "使用本類藥物需避免突然停藥，以免發生戒斷症狀",
+            "C": "此藥物之改善症狀通常需要 3週以上時間",
+            "D": "此類藥物常具有鎮定的作用"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">三環類藥物（TCA）的機轉為抑制norepinephrine 跟 serotonin的再吸收（戒斷症狀、抗憂鬱效</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">果），且有抗膽鹼和抗組織胺（鎮定）的作用。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">TCA會降低癲險發作門檻，不可作為抗癲癇藥物。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 14,
+        "text": "14. 下列關於抗憂鬱劑的敘述，何者錯誤？",
+        "options": {
+            "A": "doxepin同時具有抗焦慮與止癢效果",
+            "B": "使用本類藥物須避免突然停藥",
+            "C": "amitriptyline具有抗焦慮與緩解不適當排尿行為的作用",
+            "D": "clomipramine 的抗焦慮效果佳，不適合與其他影響行為藥物併用"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：正確。Doxepin為三環類抗憂鬱劑（TCA），還有抗組織胺作用，可以用於止癢。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：正確。抗憂鬱劑需逐漸減量停藥以避免戒斷症狀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：正確。Amitriptyline有抗膽鹼和鎮定效果，可以改善排尿問題</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D：錯誤。Clomipramine為抗焦慮藥物，可以在監控下與其他藥物並用。（講得太絕了）</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 15,
+        "text": "15. 下列何者為犬臨床上使用 sevoflurane最主要的不良反應？",
+        "options": {
+            "A": "肝毒性",
+            "B": "腎毒性",
+            "C": "心搏輸出量增加，動脈壓呈現劑量相關性的增加",
+            "D": "惡性體溫過高"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">sevoflurane是常用的吸入性麻醉，容易出現血壓下降、呼吸抑制、心搏輸出量下降和惡性高熱的副</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">作用，惡性高熱特徵為高溫、肌肉僵直、代謝性酸中毒、高血鉀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">肝毒性是halotthane常見的副作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 16,
+        "text": "16. 下列何者以靜脈注射動物容易導致血壓上升？",
+        "options": {
+            "A": "etomidate",
+            "B": "phenobarbital",
+            "C": "thiopental",
+            "D": "ketamine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：Etomidate對心血管影響小，血壓多維持穩定或略降。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：Phenobarbital為中樞抑制，可能造成血壓下降。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：Thiopental為巴比妥類，會造成血管擴張與心肌抑制 → 血壓下降。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D：Ketamine有交感神經刺激作用，可促進心跳上升、輸出量增加、周邊血管收縮，最後的結果為</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">血壓上升。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 17,
+        "text": "17. 臨床上使用於麻醉犬貓之 Telazol®為tiletamine 與下列何種藥物之複方製劑？",
+        "options": {
+            "A": "diazepam",
+            "B": "midazolam",
+            "C": "clonazepam",
+            "D": "zolazepam"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Tiletamine （Ketamine類）提供麻醉與止痛效果，Zolazepam （BZD類）提供鎮靜與肌肉鬆弛，</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">並減少 tiletamine 可能引起的肌肉僵直與興奮反應。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 18,
+        "text": "18. 下列那一種藥物是屬於中樞性肌肉鬆弛劑？",
+        "options": {
+            "A": "dantrolene",
+            "B": "succinylcholine",
+            "C": "vecuronium",
+            "D": "methocarbamol"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A：Dantrolene為周邊性肌肉鬆弛劑，作用於骨骼肌，抑制肌漿網釋放鈣離子。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B：Succinylcholine為去極化型神經肌肉阻斷劑，作用於神經肌肉接合處。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C：Vecuronium為非去極化型神經肌肉阻斷劑，亦作用於周邊神經肌肉接合處。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Ｄ：Methocarbamol 為中樞性肌肉鬆弛劑，作用於中樞神經系統，抑制多突觸反射，降低骨骼肌痙</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">攣。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 19,
+        "text": "19. 下列何者不是 xylazine的作用？",
+        "options": {
+            "A": "骨骼肌鬆弛",
+            "B": "血糖上升",
+            "C": "利尿",
+            "D": "止吐"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Xylazine 為 α₂-adrenergic receptor agonist，常用於鎮靜與鎮痛，其作用包括骨骼肌鬆弛、血糖</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">上升、利尿，且常常在犬隻誘發嘔吐。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 20,
+        "text": "20. 由於 phenoxybenzamine之作用機制，致使其對受體產生下列何種作用？",
+        "options": {
+            "A": "可逆性阻斷",
+            "B": "不可逆性阻斷",
+            "C": "短暫性阻斷",
+            "D": "永久性阻斷"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">phenoxybenzamine為 α-adrenergic receptor antagonist，與 α 受體形成共價鍵結（不可逆）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">因為會再生成受體所以不是永久。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 21,
+        "text": "21. 下列何者可經口投予，最適合應用於犬尿失禁之治療？",
+        "options": {
+            "A": "norepinephrine",
+            "B": "dopamine",
+            "C": "phenylephrine",
+            "D": "phenylpropanolamine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">犬隻尿失禁（特別是雌犬絕育後尿道括約肌無力）常因尿道括約肌張力不足導致。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A. norepinephrine：需靜脈注射，不適合長期口服。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B. dopamine：靜脈給予，用於心血管支持作用。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C. phenylephrine：同為α₁ agonist，但臨床少用</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D. phenylpropanolamine<b> （PPA）</b> 為 α₁-adrenergic agonist，可以增加尿道括約肌收縮、提高尿</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">道阻力以達到改善尿失禁作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 22,
+        "text": "22. 當犬隻受到虎頭蜂攻擊後，出現過敏性休克症狀，下列何者為緊急適用藥物？",
+        "options": {
+            "A": "norepinephrine",
+            "B": "phenylephrine",
+            "C": "isoproterenol",
+            "D": "epinephrine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A. Norepinephrine：主要 α 作用，對支氣管擴張效果不足。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B. Phenylephrine：僅 α₁ 作用，無 β₂ 支氣管擴張效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C. Isoproterenol：僅 β 作用，無足夠升壓效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D.Epinephrine：<b>α₁ 作用</b> → 血管收縮 → 提升血壓、減少黏膜水腫。<b>β₁ 作用</b> → 增加心跳與心輸出</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">量。<b>β₂ 作用</b> → 支氣管擴張、抑制過敏反應介質釋放。可以同時處理高血壓、支氣管收縮、喉頭水</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">腫。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 23,
+        "text": "23. 交感神經系統作用藥物中，下列何者為 phenylephrine 作用之受體？",
+        "options": {
+            "A": "α1",
+            "B": "α2",
+            "C": "β1",
+            "D": "β2"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Phenylephrine 為 選擇性 α₁-adrenergic agonist，其作用包括血管平滑肌收縮 → 升高血壓、鼻腔</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">黏膜血管收縮 → 減少鼻充血、增加尿道括約肌張力。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 24,
+        "text": "24. 下列何者的主要用途是增加經濟動物的飼料利用率與增重率？",
+        "options": {
+            "A": "isoxsuprine",
+            "B": "zilpaterol",
+            "C": "albuterol",
+            "D": "terbutaline"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Zilpaterol 為 β₂-adrenergic agonist，促進蛋白質合成、抑制脂肪沉積，可以改善飼料換肉率、增</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">加肌肉生長。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Isoxsuprine ：血管擴張，改善末梢循環。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Albuterol ＆Terbutaline：主要用於支氣管擴張，治療呼吸道疾病。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 25,
+        "text": "25. 下列藥物何者不屬於α1-受體拮抗劑？",
+        "options": {
+            "A": "prazosin",
+            "B": "clonidine",
+            "C": "terazosin",
+            "D": "doxazosin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Prazosin、Terazosin、Doxazosin均為 α₁-adrenergic receptor antagonist。可以降低血壓、提升</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">尿道括約肌張力。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Clonidine為α₂-adrenergic receptor agonist，中樞抑制交感神經，可以降血壓。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 26,
+        "text": "26. Atropine於犬隻出現中樞神經系統興奮與狂躁症狀時，最佳解毒劑為何？",
+        "options": {
+            "A": "vecuronium",
+            "B": "neostigmine",
+            "C": "physostigmine",
+            "D": "pralidoxime"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">Atropine為抗膽鹼藥，使用Physostigmine可以穿過BBB，增加腦內乙醯膽鹼濃度，競爭性逆轉</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">antropine的作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 27,
+        "text": "27. 下列何者最適合用於減輕鬱血性心衰竭所造成之後負荷（afterload）阻力？",
+        "options": {
+            "A": "norepinephrine",
+            "B": "aspirin",
+            "C": "morphine",
+            "D": "hydralazine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">A. Norepinephrine → α₁ 收縮血管，<b>增加後負荷</b>，不適合 CHF 減負荷</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">B. Aspirin → 抗血小板藥物，與心衰後負荷無直接關係</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">C. Morphine → 可降低前負荷（venous pooling），對 afterload 幫助有限</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">D.<b> </b>Hydralazine 為 直接作用於動脈平滑肌的血管擴張劑，可有效降低外周阻力（afterload），進而</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">減輕左心室射血負荷，適用於 鬱血性心衰竭（CHF） 伴高外周阻力的情況。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 28,
+        "text": "28. 第四類抗心律不整藥物不可以和下列何者併用？",
+        "options": {
+            "A": "propranolol",
+            "B": "lidocaine",
+            "C": "quinidine",
+            "D": "bretylium"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">第四類抗心律不整藥物為鈣離子通道阻斷劑，會降低心肌收縮力道，和Proptanolol（β-blocker）</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;; color: rgb(0, 0, 0);\">並用會導致心搏過緩或是心源性休克。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 29,
+        "text": "29. 下列何者能適度地減緩傳導，增加動作電位的時程，且能延長 QRS波和QT間隔時間？",
+        "options": {
+            "A": "atropine",
+            "B": "procainamide",
+            "C": "epinephrine",
+            "D": "verapamil"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Procainamide為Class 1a的抗心律不整藥物，阻斷鈉離子通道會讓傳導速度下降（延長QRS波）；</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">延長動作電位時程（延長QT間隔）。適用於室上性及室性心律不整。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 30,
+        "text": "30. 下列藥物與其作用之配對，何者錯誤？",
+        "options": {
+            "A": "procainamide：阻斷鈉離子通道",
+            "B": "mexiletine：阻斷鈣離子通道",
+            "C": "atenolol：阻斷β-腎上腺素性受體",
+            "D": "amiodarone：阻斷鉀離子通道"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Mexiletine為鈉離子通道阻斷劑（Class 1b）。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 31,
+        "text": "31. 下列何種抗血栓藥物為口服劑型？",
+        "options": {
+            "A": "streptokinase",
+            "B": "enoxaparin",
+            "C": "heparin",
+            "D": "dicumarol"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Streptokinase → 注射用溶栓藥</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. Enoxaparin → 低分子量肝素，皮下注射</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. Heparin → 注射用肝素，不可口服吸收</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Dicumarol → 口服抗凝劑，抑制凝血因子</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 32,
+        "text": "32. 下列何者非 furosemide主要引起之不良反應？",
+        "options": {
+            "A": "低血鉀症",
+            "B": "代謝性鹼中毒",
+            "C": "高血鈣症",
+            "D": "高尿酸血症"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Furosemide為loop diuretic ，抑制鈉鉀氯離子共同運輸，常見不良反應為低血鉀、代謝性鹼中毒、</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">高尿酸血症。會促進鈣的排泄，長期可能導致低血鈣。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 33,
+        "text": "33. 當一隻患有高鈣血症的動物併發全身性水腫時，下列何種利尿劑應避免使用？",
+        "options": {
+            "A": "furosemide",
+            "B": "mannitol",
+            "C": "chlorothiazide",
+            "D": "spironolactone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Chlorothiazide 屬 thiazide 類利尿劑，主要作用於腎臟 遠曲小管，會增加鈉排泄，減少鈣排泄（可</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">能升高血鈣）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Furosemide → loop diuretic 降血鈣，可用</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Mannitol → 滲透性利尿劑，促進水和鈣排泄，可用</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Spironolactone → 保鉀利尿劑，對鈣較無影響，可用</p><p class=\"p2\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC Semibold&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><b>高鈣血症 → 避免 thiazide 類利尿劑（如 chlorothiazide），可選用 loop 或滲透性利尿劑。</b></span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 34,
+        "text": "34. 當動物因車禍致頭部重擊，引發腦水腫之治療藥物為何？",
+        "options": {
+            "A": "methazolamide, furosemide",
+            "B": "mannitol, furosemide",
+            "C": "ammonium chloride, furosemide",
+            "D": "triamterene, furosemide"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><b>Mannitol</b> ：滲透性利尿劑，增加血漿滲透壓，抽取腦組織內水分進入血液。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><b>Furosemide</b> ：loop diuretic，協助排除水分，與 mannitol 併用可加強利尿效果。</p><p class=\"p2\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC Semibold&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><b>腦水腫急救 → Mannitol + Furosemide</b></span></p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 35,
+        "text": "35. 當動物出現代謝性酸中毒時，最常使用的間接鹼化劑為何？",
+        "options": {
+            "A": "sodium bicarbonate",
+            "B": "sodium lactate",
+            "C": "Ringer's solution",
+            "D": "ammonium chloride"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Sodium lactate會在肝臟代謝為 bicarbonate，慢慢提升血液 pH值，適用於代謝性酸中毒。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Sodium bicarbonate → 直接鹼化劑，雖可立即中和酸，但大量快速輸注可能造成體液超鈉或碱中</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">毒</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ringer’s solution → 主要補液，對酸中毒效果有限</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ammonium chloride → 促進酸性尿液，用於代謝性鹼中毒，不適用於酸中毒</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 36,
+        "text": "36. 下列消化性潰瘍治療藥物，何者為質子幫浦抑制劑？",
+        "options": {
+            "A": "lansoprazole",
+            "B": "cimetidine",
+            "C": "misoprostol",
+            "D": "sucralfate"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cimetidine → H2 受體拮抗劑，抑制胃酸分泌，但機制不同於 PPI</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Misoprostol → PGE1 類似物，保護胃黏膜</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Sucralfate → 黏膜保護劑，形成保護膜覆蓋潰瘍</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 37,
+        "text": "37. 下列何者為中樞作用的催吐劑？",
+        "options": {
+            "A": "sodium chloride",
+            "B": "xylazine",
+            "C": "loperamide",
+            "D": "propantheline"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Xylazine 為 α₂-adrenergic agonist，在犬貓中可刺激 中樞化學感受器觸發區，達到催吐效果。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 38,
+        "text": "38. 下列何種止吐劑最可能會產生錐體外作用（extrapyramidal effects）的副作用？",
+        "options": {
+            "A": "metoclopramide",
+            "B": "promethazine",
+            "C": "scopolamine",
+            "D": "maropitant"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Metoclopramide為多巴胺 D2 受體拮抗劑，作用在中樞的化學感受器觸發區（CTZ）抑制嘔吐，同</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">時作用於腸胃道促進胃腸蠕動。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">錐體外副作用，是因為 D2 受體不只存在於催吐中樞，也存在於黑質-紋狀體系統（負責控制骨骼肌</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">的協調與運動）。可能引起震顫、肌肉僵硬或動作不協調等錐體外徵象。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 39,
+        "text": "39. Sulfasalazine是由磺胺劑 sulfapyridine 與下列何者鍵結合成的炎症腸道疾病治療藥物？",
+        "options": {
+            "A": "prednisolone",
+            "B": "azathioprine",
+            "C": "budesonide",
+            "D": "5-aminosalicylic acid"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Sulfasalazine由 sulfapyridine 與 5-aminosalicylic acid 結合而成，用於治療腸道炎症。進入腸道</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">後分解，釋放 5-ASA 來減少腸道炎症。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 40,
+        "text": "40. 下列瀉劑（laxative）何者屬於 irritant laxatives 類？",
+        "options": {
+            "A": "lactulose",
+            "B": "methylcellulose",
+            "C": "senna",
+            "D": "docusate"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Senna 屬於刺激性瀉劑（irritant laxative），作用於腸道黏膜，刺激腸蠕動以促進排便。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">lactulose 為滲透性瀉劑，methylcellulose 為膨脹性瀉劑，docusate 為軟便劑。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 41,
+        "text": "41. 下列何種支氣管擴張劑，無法作為緊急氣喘之治療用藥？",
+        "options": {
+            "A": "salmeterol",
+            "B": "pirbuterol",
+            "C": "terbutaline",
+            "D": "bitolterol"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Salmeterol 是長效型 β2 受體致效劑，起效慢，主要用於氣喘的長期控制與預防，不適合用於急性</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">發作時的緊急處理。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Pirbuterol、terbutaline 和 bitolterol 都屬於短效型 β2 致效劑，起效較快，可以用於急性氣喘發作</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">時緩解支氣管痙攣。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 42,
+        "text": "42. 犬隻外科手術時，欲先逆轉 morphine 之呼吸抑制但保留其止痛作用，再刺激呼吸使麻醉劑過量之犬隻甦醒，則先後分別投予那兩項藥物最為適當？",
+        "options": {
+            "A": "nalbuphine；naloxone",
+            "B": "buprenorphine；doxapram",
+            "C": "butorphanol；doxapram",
+            "D": "butorphanol；naloxone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Morphine為μ 受體致效劑，會呼吸抑制。直接給 naloxone會把止痛效果也完全拮抗掉。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Butorphanol 是 μ 受體拮抗、κ 受體致效的混合作用型藥物，可以部分逆轉 morphine 的呼吸抑</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">制，並保留一定止痛效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">之後再給 doxapram 刺激延腦呼吸中樞幫助甦醒。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">所以選butorphanol 再接 doxapram。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 43,
+        "text": "43. 下列何者可做為控制氣喘之藥物？",
+        "options": {
+            "A": "propranolol",
+            "B": "zafirlukast",
+            "C": "aspirin",
+            "D": "poractant alfa"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Zafirlukast是leukotriene receptor antagonist，阻斷leukotriene的受體來控制氣喘。<span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: Helvetica;\"></span>Propranolol 為非選擇性 β- blocker，可能誘發支氣管收縮。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Aspirin 可能加重氣喘。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Poractant alfa為肺表面張力素，用於新生兒呼吸窘迫症，不用於氣喘。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 44,
+        "text": "44. 下列何者不是抑制 COX-2大於抑制COX-1作用的非固醇類消炎藥？",
+        "options": {
+            "A": "tepoxalin",
+            "B": "robenacoxib",
+            "C": "etodolac",
+            "D": "deracoxib"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Tepoxalin同時抑制COXe跟lipoxygenase，並沒有COX-2 &gt; COX-1的效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Robenacoxib、etodolac 、deracoxib 屬於COX-2 選擇性的非固醇類消炎藥，因此較不容易造成</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">與 COX-1 抑制相關的腸胃副作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 45,
+        "text": "45. H1-組織胺受體主要媒介下列何種反應？",
+        "options": {
+            "A": "小動脈及靜脈之血管收縮",
+            "B": "支氣管及腸道之平滑肌收縮",
+            "C": "降低微血管通透性",
+            "D": "體溫上升"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">H1受體活化後會引起支氣管收縮和腸道平滑肌收縮、增加血管通透性和血管擴張，和體溫上升無關。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 46,
+        "text": "46. 下列那一藥物之藥理作用與 5-HT4受體之相關性最低？",
+        "options": {
+            "A": "cisapride",
+            "B": "metoclopramide",
+            "C": "ondansetron",
+            "D": "prucalopride"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ondanserton是是5-HT3拮抗劑，主要用在止吐。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cisapride 跟Prucalopride是5HT-4致效劑，可以促進腸胃蠕動。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Metoclopramide為D2受體拮抗劑，也有部分5HT-4致效作用，主要用於止吐和促進腸胃蠕動。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 47,
+        "text": "47. 下列何者對貓的安全性極差而應避免投予貓？",
+        "options": {
+            "A": "paracetamol",
+            "B": "phenytoin",
+            "C": "pimobenden",
+            "D": "prednisolone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Paracetamol的代謝需經由肝臟進行glucuronide conjugation，貓缺乏此酵素，無法有效代謝，會</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">造成肝毒性和高鐵血紅素血症，應避免使用。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Phenytoin在貓的代謝也很差，也是因為肝臟酵素不足或是活性較差，所以導致半衰期很長、容易累</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">積，造成肝損傷或是運動失調、嗜睡的副作用；因此在臨床上也不建議用在貓。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 48,
+        "text": "48. 下列非固醇類消炎藥物（NSAIDs）中，何者核准用於處理馬骨關節炎，且其作用可維持 24～72小時？",
+        "options": {
+            "A": "aspirin",
+            "B": "ibuprofen",
+            "C": "ketoprofen",
+            "D": "phenylbutazone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Phenylbutazone 是 NSAID 中經常用於馬的骨關節炎治療的藥物，其作用可持續 24～72 小時，主</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">要抑制 COX 酵素，減少前列腺素合成，達到消炎止痛效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Aspirin主要用在輕度止痛、抗血小版。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ibuprofen在貓毒性高且腸胃副作用大，臨床上少用。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">ketoprofen可用於狗、馬的短期止痛消炎，例如術後或是急性疼痛，但較短效，不適合長期控制使</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 49,
+        "text": "49. 下列藥物以鎮痛目的投予犬時，何者消炎效果最低？",
+        "options": {
+            "A": "flunixin",
+            "B": "meloxicam",
+            "C": "firocoxib",
+            "D": "acetaminophen"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Acetaminophen 主要在犬可以有中樞鎮痛和退燒效果，對消炎較無效果。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Flunixin、meloxicam、firocoxib 都是NSAID，有鎮痛和明顯的抗發炎效果。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 50,
+        "text": "50. 下列有關血管收縮素轉換酵素（angiotensin-converting enzyme）抑制劑的敘述，何者正確？",
+        "options": {
+            "A": "促進 angiotensin Ⅱ的生成",
+            "B": "促使 angiotensin Ⅰ之堆積",
+            "C": "抑制 bradykinin之堆積",
+            "D": "可用來升高血壓"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">血管收縮素轉換酵素（ACE）抑制劑會抑制 angiotensin I 轉換成 angiotensin II，因此 angiotensin</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">I 會在體內堆積，而 angiotensin II 減少，血壓下降。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">ACE 抑制劑也會抑制 bradykinin 的分解，使 bradykinin 堆積，增加血管擴張作用，因此可用於 降</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">血壓與心衰治療，而非升高血壓。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 51,
+        "text": "51. Altrenogest 的藥理性質與下列何者最相近？",
+        "options": {
+            "A": "estrogen",
+            "B": "gonadotropin",
+            "C": "hydrocortisone",
+            "D": "progesterone"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Altrenogest是合成的progestin，藥理作用類似progesterone，抑制黃體素下降，常用在調整發情週期。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 52,
+        "text": "52. 牛飼料中添加 melengestrol acetate 的主要目的為何？",
+        "options": {
+            "A": "控制腸道脹氣",
+            "B": "預防腸道細菌感染",
+            "C": "調節牛隻繁殖週期",
+            "D": "作為生長促進劑"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Melengestrol acetate 是合成progestin，在飼料中添加可以調節繁殖週期，並且可以作為生長促進</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">劑，提高飼料換肉率。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 53,
+        "text": "53. 下列有關desoxycorticosterone和 fludrocortisone 之敘述，何者正確？",
+        "options": {
+            "A": "二者皆具有顯著的 glucocorticoid 活性，而幾乎無 mineralocorticoid活性",
+            "B": "二者皆具有顯著的 mineralocorticoid 活性，而幾乎無 glucocorticoid活性",
+            "C": "desoxycorticosterone同時具有顯著的glucocorticoid及mineralocorticoid 活性",
+            "D": "fludrocortisone 同時具有顯著的glucocorticoid 及 mineralocorticoid活性"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Desoxycorticosterone 主要為mineralocorticoid 活性，對 glucocorticoid 作用很弱，因此沒有顯</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">著的抗炎或糖代謝調節作用。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Fludrocortisone 同時有顯著的 glucocorticoid 與 mineralocorticoid 活性，臨床上適用於</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Addison’s disease等腎上腺皮質功能不全的疾病。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 54,
+        "text": "54. 下列有關trilostane用於治療 hyperadrenocorticism 的敘述，何者正確？",
+        "options": {
+            "A": "對 pituitary dependent hyperadrenocorticism（PDH）有效，但對 adrenal dependent hyperadrenocorticism（ADH）無效",
+            "B": "對 pituitary dependent hyperadrenocorticism（PDH）無效，但對 adrenal dependent hyperadrenocorticism（ADH）有效",
+            "C": "對 pituitary dependent hyperadrenocorticism（PDH）和adrenal dependent hyperadrenocorticism（ADH）皆有效",
+            "D": "對 pituitary dependent hyperadrenocorticism（PDH）和adrenal dependent hyperadrenocorticism（ADH）皆無效"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Trilostane為3β-HSD inhibitor，可以抑制腎上腺皮質合成皮質醇。因為是直接作用在腎上腺皮質的</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">酵素，所以對pituitary dependent 或是adrenal dependent的的hyperadrenocorticisim都有用，有</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">控制效果。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 55,
+        "text": "55. 下列何者可用於治療貓甲狀腺功能亢進？",
+        "options": {
+            "A": "glimepiride",
+            "B": "ipodate",
+            "C": "fludrocortisone",
+            "D": "thyroxine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Glimepiride是降血糖藥，常用在糖尿病。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ipodate可以抑制T4轉化成有活性的T3，常用於治療貓貓甲狀腺亢進。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Fludrocortisone為鹽皮質激素，常用在Addison’s disease。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Thyroxine可以補充甲狀腺素，用在甲狀腺低下。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 56,
+        "text": "56. 有關人類絨毛膜性腺激素（human chorionic gonadotropin）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "主要具 FSH活性",
+            "B": "主要具 LH活性",
+            "C": "由懷孕婦女胎盤分泌",
+            "D": "為一種 glycoprotein"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">hCG主要是LH活性，非FSH活性。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 57,
+        "text": "57. 下列有關amoxicillin的敘述，何者錯誤？",
+        "options": {
+            "A": "胃腸吸收比 ampicillin差",
+            "B": "有效對抗革蘭氏陰性好氧菌",
+            "C": "具耐酸性但不能對抗青黴素酶",
+            "D": "為廣效性抗菌劑"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Amoxicillin比較耐酸，不會受胃酸破壞，所以口服吸收較好。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Amoxicillin 對部分陰性好氧菌有效，但對 β-lactamase（青黴素酶）敏感，需要搭配抑制劑使用才</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">能對抗耐酶菌株，且屬廣效性抗菌劑。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 58,
+        "text": "58. 下列有關bacitracin的敘述中，何者錯誤？",
+        "options": {
+            "A": "作用機制為抑制細菌細胞壁的合成",
+            "B": "對螺旋體具殺菌作用",
+            "C": "臨床上常用於注射使用",
+            "D": "與 neomycin併用可添加於飼料中作為生長促進劑"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Bacitracin注射靜脈或是肌肉可能造成腎毒性，多口服或是外用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 59,
+        "text": "59. 下列何者屬於注射型的第一代 cephalosporin？",
+        "options": {
+            "A": "cefaclor",
+            "B": "cefadroxil",
+            "C": "cefixime",
+            "D": "cephapirin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cefaclor口服第一代</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cefadroxil口服第一代</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cefixime口服第三代</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cephapirin注射第一代，常用在陽性菌的乳房炎或是術後感染。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 60,
+        "text": "60. 下列何者最適合用於犬貓及鳥，治療皮膚、呼吸道及泌尿道之感染，在牛則用於呼吸道感染症？",
+        "options": {
+            "A": "carbenicillin",
+            "B": "methicillin",
+            "C": "oxacillin",
+            "D": "enrofloxacin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Carbenicillin：β-lactam類，較窄效，常用於尿路感染、陰性菌、Psudomonas，但作用範圍不如</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Enro廣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Methicillin：β-lactam類，較窄效，口服吸收差，常用於皮膚感染，對陰性菌無效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Oxacillin：β-lactam類，較窄效，口服吸收差，常用於皮膚感染，對陰性菌無效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Enrofloxacin：fluoroquinolone antibiotics，抑制細菌複製分裂抑制細菌複製分裂，較廣效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">犬貓鳥的皮膚、呼吸到、泌尿道牛的呼吸道感染常常是多種菌株混合，選廣效的才夠殺。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 61,
+        "text": "61. 下列何者適用於具有β-lactamase引起之葡萄球菌感染症，但對抗鏈球菌效果比天然青黴素差？",
+        "options": {
+            "A": "aztreonem",
+            "B": "penicillin",
+            "C": "methicillin",
+            "D": "neomycin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">葡萄球菌和鏈球菌是陽性菌</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">aztreonem：monobactam，對陰性菌有效，陽性菌無效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">penicillin：對鏈球菌和大部分陽性菌有效，但容易被β-lactamase破壞，對葡萄球菌效果差。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">methicillin：對鏈球菌感染不如盤尼西林有效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">neomycin：對陰性菌效果好但口服吸收差，多用於注射或是局部給藥。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 62,
+        "text": "62. 下列何者可以抵抗 penicillinase的破壞？",
+        "options": {
+            "A": "carbenicillin",
+            "B": "ampicillin",
+            "C": "penicillin G",
+            "D": "oxacillin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Penicillinase就是β-lactamase。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Carbenicillin：對陰性菌有效但不耐β-lactamase。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ampicilline：廣效青黴素，對陰性菌有效但不耐β-lactamase。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Penicillin G：天然青黴素，對陽性菌有效但不耐β-lactamase。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Oxacillin：半合成青黴素，耐β-lactamase。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 63,
+        "text": "63. 下列何者與胺基醣苷類（aminoglycosides）抗生素造成的不良反應較無關？",
+        "options": {
+            "A": "耳毒性",
+            "B": "腎毒性",
+            "C": "肌肉麻痺",
+            "D": "永久齒著色"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">aminoglycosides常見副作用為耳毒性、腎毒性、肌肉麻痺。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">永久齒著色是四環素類抗生素的典型副作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 64,
+        "text": "64. 下列何者易引起再生不良性貧血，不可使用於產食動物？",
+        "options": {
+            "A": "chloramphenicol",
+            "B": "thiamphenicol",
+            "C": "florfenicol",
+            "D": "florfenicol amine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">chloramphenicol有骨髓抑制的作用，會造成再生不良性貧血。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 65,
+        "text": "65. 動物投予lincomycin容易引起下列何種微生物過度生長，而造成動物嚴重的腸炎、結腸炎，導致下痢、死亡？",
+        "options": {
+            "A": "Salmonella spp.",
+            "B": "Staphylococcus aureus",
+            "C": "Toxoplasma gondii",
+            "D": "Clostridium difficile"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Lincomycin會抑制陰性菌，在腸道中使用會破壞菌從平衡，造成C.diﬃcile過度生長，產生毒素引起</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">嚴重腸炎、結腸炎、腹瀉、甚至死亡。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 66,
+        "text": "66. 下列何者與 amoxicillin併用後，可用於治療 penicillinase-producing細菌的感染？",
+        "options": {
+            "A": "carbenicillin",
+            "B": "chlorambucil",
+            "C": "clavulanate",
+            "D": "cyclosporine A"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Carbenicillin：β-lactation抗菌藥。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Chlorambucil：化療藥。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Clavulanate：β-lactamase抑制劑，可以防止青黴素類藥物被水解。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Cyclosporine A：免疫抑制劑。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 67,
+        "text": "67. Polymyxin B、bacitracin 與 neomycin 三者併用的主要目的為何？",
+        "options": {
+            "A": "增加口服的生體可用率",
+            "B": "降低對腸道常在菌叢的影響",
+            "C": "增廣抗菌譜",
+            "D": "降低腎毒性"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Polymyxin B：對陰性菌有效</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Bacitracin：對陽性菌有效</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Neomycin ：對部分陰性菌和部分陽性菌有效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">三者放在一起可以擴大抗菌範圍。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 68,
+        "text": "68. 下列胺基醣苷類（aminoglycosides）中，何者因毒性強，而最好僅使用於局部或口服投藥？",
+        "options": {
+            "A": "amikacin",
+            "B": "apramycin",
+            "C": "gentamicin",
+            "D": "neomycin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">neomycin為aminoglycosides中毒性較強的，注射給藥會讓藥物直接進到血液，提高毒性風險；但</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">口服吸收較差，所以口服或是局部給藥比較安全。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 69,
+        "text": "69. 下列何者會因併用而使療效變差？",
+        "options": {
+            "A": "amphotericin B＋flucytosine",
+            "B": "ciprofloxacin＋azlocillin",
+            "C": "penicillin＋tetracycline",
+            "D": "sulfamethoxazole＋trimethoprim"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. amphotericin B＋flucytosine：破壞細胞膜＋抑制DNA/RNA合成＝協同作用</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. ciprofloxacin＋azlocillin：抑制DNA複製＋抑制細胞壁＝互補抗菌範圍</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. penicillin＋tetracycline：tetracycline 會抑制細菌分裂，而penicillin抑制細胞壁合成，只在細菌</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">分裂時有效，所以兩者放在一起會讓P失去作用目標，效果變差。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. sulfamethoxazole＋trimethoprim：都是阻斷葉酸合成＝協同作用</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 70,
+        "text": "70. 下列何種抗病毒藥不屬於核苷酸類似物？",
+        "options": {
+            "A": "cidofovir",
+            "B": "AZT",
+            "C": "idoxuridine",
+            "D": "L-lysine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">cidofovir：nucleotide analog，終止DNA鏈延伸，抑制病毒DNA聚合酶</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">AZT （Zidovudine）：nucleoside analog抑制逆轉譯酶，用於HIV、FIV</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">idoxuridine：nucleoside analog，模仿Thymidine摻入病毒DNA，干擾正常複製，抑制病毒DNA複</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">製</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">L-lysine：天然氨基酸，透過競爭arginine的位子降低病毒蛋白合成效率，間接抑制病毒複製，而不</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">直接作用在DNA或RNA合成。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 71,
+        "text": "71. 下列何種抗真菌藥物腸胃道不吸收，故多以靜脈注射方式投藥？",
+        "options": {
+            "A": "terbinafine",
+            "B": "amphotericin B",
+            "C": "itraconazole",
+            "D": "griseofulvin"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Terbinafine：小分子，脂溶性中中，可經腸道吸收，主要抑制麥角固醇合成，常用在皮膚險峻幹</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Amphotericin B：大分子，在水中幾乎不溶解，口服吸收差，要用靜脈注射，跟真菌細胞膜上的麥</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">角固醇結合破壞細胞膜，造成細胞死亡。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Itraconazole：單純口服效果也不好，但臨床上常製作成膠囊或液體製劑幫助吸收。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Griseofulvin：脂溶性，可經腸道吸收並累積在角質層，常用在皮膚、毛髮、指甲的真菌。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 72,
+        "text": "72. 下列何者成分之藥效與抑制 ergosterol 合成無關？",
+        "options": {
+            "A": "miconazole",
+            "B": "clotrimazole",
+            "C": "metronidazole",
+            "D": "ketoconazole"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Metronidazole 是透過進入細菌和原蟲的DNA，還原後產生自由基，破壞DNA使細胞死亡。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">其他三個都是透過抑制ergosterol(麥角固醇)合成，破壞真菌細胞膜，達到抗真菌的效果。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 73,
+        "text": "73. 常用於治療犬傳染性花柳性腫瘤（canine transmissible venereal tumor, CTVT）的化療藥物是下列何者？",
+        "options": {
+            "A": "5-fluorouracil",
+            "B": "6-mercaptopurine",
+            "C": "paclitaxel",
+            "D": "vincristine"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">5-fluorouracil → 抑制 DNA/RNA 合成，主要用於表皮或消化道腫瘤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">6-mercaptopurine → 嘌呤類代謝拮抗劑，主要用於白血病或淋巴瘤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Paclitaxel → 促進微管穩定，主要用於乳腺癌、卵巢癌等實體腫瘤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Vincristine →干擾微管聚合使細胞停止有絲分裂，為常用在犬傳染性花柳病的化療藥物。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 74,
+        "text": "74. 癌症患犬接受 ifosfamide 治療，於靜脈注射藥物前後應給與大量生理鹽水的主要目的為何？",
+        "options": {
+            "A": "維持足夠的循環血量以避免休克",
+            "B": "補充水分以加速藥物代謝",
+            "C": "補充水分以防止動物脫水",
+            "D": "促進排尿以降低腎臟毒性"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ifosamide會產生代謝物acrolein，有腎毒性會損傷腎小管。給予大量生理食鹽水的目的是為了利</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">尿，加快腎臟代謝和排泄的速度、減少腎小管接觸代謝物的時間，也就是為了保護腎臟、降低毒性。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 75,
+        "text": "75. 下列何者因會引起致死性的神經毒性，而不可使用於貓？",
+        "options": {
+            "A": "doxorubicin",
+            "B": "5-fluorouracil",
+            "C": "gemcitabine",
+            "D": "methotrexate"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Doxorubicin：心毒性、骨髓抑制。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">5-fluorouracil：在貓貓體內代謝差，高度神經毒性。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Gemcitabine：骨髓抑制。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Methotrexate：骨髓抑制、腸胃毒性。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 76,
+        "text": "76. 下列關於鉑類抗腫瘤藥物（platinating agents）的藥理機制，何者正確？",
+        "options": {
+            "A": "結構類似嘌呤（purines），讓 DNA 鹼基進行配對時發生錯誤",
+            "B": "與細胞的DNA交互連結，導致 DNA雙股無法分離並複製",
+            "C": "抑制微管形成，導致細胞無法進行有絲分裂",
+            "D": "抑制第二型拓樸異構酶（topoisomerase Ⅱ），導致 DNA 雙股無法分離並複製"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A ：類似 purine 的是 抗代謝藥物（如 5-FU、6-mercaptopurine）</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C ：抑制微管的是 vinca alkaloids 或 taxanes（如 vincristine、paclitaxel）</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D ：抑制 topoisomerase II 的是 etoposide、doxorubicin 等</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 77,
+        "text": "77. Fenbendazole 對下列何者無效？",
+        "options": {
+            "A": "豬肺蟲（Metastrongylus sp.）",
+            "B": "馬蛔蟲（Parascaris sp.）",
+            "C": "牛肺蟲（Dictyocaulus sp.）",
+            "D": "牛絲狀蟲（Setaria sp.）"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Fenbendazole是透過抑制寄生蟲的微管形成，干擾葡萄糖吸收，使寄生蟲死亡。對腸道或是呼吸道</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">線蟲有效，但對體腔內絲狀蟲無效，因為他們在體腔或血管深層，藥物難以達到有效濃度。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 78,
+        "text": "78. 治療犬焦蟲Babesia spp.，可以使用 imidocarb治療，其作用機制為：",
+        "options": {
+            "A": "抑制犬體內焦蟲配子體的結合，以中斷其生活史",
+            "B": "抑制焦蟲粒線體的功能，中斷滋養體的生物功能",
+            "C": "與焦蟲 DNA結合，干擾寄生蟲核酸複製",
+            "D": "溶解焦蟲蟲體，造成其死亡"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A → 配子體結合屬於抗瘧疾藥物（如 atovaquone）機制</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B → 抑制粒線體多見於原生動物藥物（如 clindamycin 對 Babesia 部分作用）</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D → 溶解蟲體不是 imidocarb 的作用方式</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 79,
+        "text": "79. 下列藥物何者無法控制或治療梨形鞭毛蟲症（giardiasis）？",
+        "options": {
+            "A": "albendazole",
+            "B": "metronidazole",
+            "C": "terbinafine",
+            "D": "nitazoxanide"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Albendazole → 苯咪唑類（benzimidazole），抑制寄生蟲微管形成，對 Giardia 有效。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Metronidazole → 破壞厭氧原蟲 DNA，是治療 giardiasis 的常用藥。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Nitazoxanide → 抑制原蟲能量代謝，可治療 Giardia。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Terbinafine → 抗真菌藥，抑制麥角固醇（ergosterol）合成，只對真菌有效，對原生動物 Giardia</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">無作用。</p><div class=\"user-note\"></div>"
+    },
+    {
+        "id": 80,
+        "text": "80. Fipronil與下列何者併用可殺滅發育階段的跳蚤？",
+        "options": {
+            "A": "imiquimod",
+            "B": "tacrolimus",
+            "C": "ecoxia",
+            "D": "methoprene"
+        },
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Imiquimod 是免疫調節藥，刺激身體產生干擾素，常用於治療皮膚腫瘤或病毒性病灶。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Tacrolimus 是免疫抑制劑，抑制 T 細胞活性，常用於治療異位性皮膚炎或器官移植後防止排斥。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Ecoxia（etoricoxib）是選擇性 COX-2 抑制劑，屬於止痛消炎藥，用於關節炎或疼痛控制。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Fipronil 主要殺成蟲跳蚤，Methoprene 是昆蟲生長調節劑，可以阻止跳蚤卵和幼蟲發育；兩者並用</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">可以同時殺成蟲跟幼蟲。</p><div class=\"user-note\"></div>"
+    }
 ]
