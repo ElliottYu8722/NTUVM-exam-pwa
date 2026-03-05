@@ -1541,7 +1541,7 @@ const AUTHOR_MODE = (()=>{
 const COMMENT_ADMIN_MODE = (()=>{
   try {
     const usp = new URLSearchParams(location.search);
-    return usp.get("dev") === "NTUVMAUTHORISGOD!!!!!!@#$!@#$!@#$!@#$";   // 只有 ?dev=9 才算留言管理模式
+    return usp.get("dev") === "666666NTUVMAUTHORISGOD666666";   // 只有 ?dev=9 才算留言管理模式
   } catch {}
   return false;
 })();
