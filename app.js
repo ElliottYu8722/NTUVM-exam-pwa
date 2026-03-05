@@ -1541,7 +1541,7 @@ const AUTHOR_MODE = (()=>{
 const COMMENT_ADMIN_MODE = (()=>{
   try {
     const usp = new URLSearchParams(location.search);
-    return usp.get("dev") === "9";   // 只有 ?dev=9 才算留言管理模式
+    return usp.get("dev") === "9#@gjuiovsn183750175387194019748!333%%%%%0900863789*&^*&^32471709klfj48";   // 只有 ?dev=9 才算留言管理模式
   } catch {}
   return false;
 })();
