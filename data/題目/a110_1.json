@@ -8,7 +8,8 @@
             "C": "僅③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">① 屍僵是因為肌⾁內ATP耗竭，肌動蛋⽩（actin）與肌凝蛋⽩（myosin）無法分離，形成持續性</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">收縮。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">② 屍僵通常在死後1–6⼩時開始（依物種與環境不同），12–24⼩時多為「完全屍僵」或開始消</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">退。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">③ ⾼溫與劇烈運動會使ATP提前耗竭 → 屍僵提早發⽣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">④ 惡病質動物肌⾁低、ATP儲備少，屍僵可能較弱或延遲且不明顯。</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@
             "C": "純福馬林固定液及H&E染色",
             "D": "10%福馬林固定液及oil red-O染色"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">醣原 (glycogen)為⽔溶性，且易被福⾺林沖掉</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 酒精可保存醣原，且PAS (Periodic acid–Schiﬀ) 可將醣原染成洋紅⾊</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 3,
@@ -30,7 +32,8 @@
             "C": "腸繫膜、網膜及後腹腔",
             "D": "胰臟附近"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⽜常⾒ bovine fat necrosis，好發部位：腸繫膜、網膜、後腹腔，與肥胖、⾼能飲食有關。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 4,
@@ -41,7 +44,8 @@
             "C": "吞噬（phagocytosis）",
             "D": "反噬（exocytosis）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 異噬 (heterophagy) ：吞噬外來物質。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. ⾃噬 (autophagy) ：細胞消化⾃⾝受損胞器。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 吞噬 (phagocytosis) ：通常指巨噬細胞吞噬。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 反噬 (exocytosis) ：為分泌作⽤。</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 5,
@@ -52,7 +56,8 @@
             "C": "為外源性色素",
             "D": "為脂溶性色素"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Jersey⽜脂肪偏黃正常 ：Jersey⽜脂肪偏黃是因β-carotene轉換成維⽣素A效率低，導致脂溶</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">性⾊素沉積，屬正常⽣理現象。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. Carotenosis只是脂肪黃染，不會造成壞死。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 外源性⾊素 ：來⾃飲食</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 脂溶性⾊素</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 6,
@@ -63,7 +68,8 @@
             "C": "含血鐵素心肌細胞",
             "D": "含類蠟質心肌細胞"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⼼衰竭細胞是含⾎鐵素 (hemosiderin) 的肺泡巨噬細胞</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">慢性左⼼衰竭 → 肺鬱⾎ → 紅⾎球外滲 → 巨噬細胞吞噬 → 形成 hemosiderin。</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 7,
@@ -74,7 +80,8 @@
             "C": "精胺酸（arginine）",
             "D": "胱胺酸（cystine）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Lysine（離胺酸）：與膠原蛋⽩交聯相關，非⿊⾊素前驅物。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. Tyrosine（酪胺酸）：⿊⾊素（melanin）由tyrosine經由tyrosinase作⽤轉為DOPA</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">（dihydroxyphenylalanine），再經氧化聚合形成eumelanin或pheomelanin。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. Arginine（精胺酸）：與尿素循環及⼀氧化氮⽣成相關。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Cystine（胱胺酸）：參與⾓蛋⽩與⼆硫鍵形成，與pheomelanin比例有關，但不是主要前驅物。</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 8,
@@ -85,7 +92,8 @@
             "C": "發育中組織或器官異位",
             "D": "胚胎某部分發育受阻"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 中線處裂溝封閉不全 ：部分ASD屬於中線融合不全（septal closure defect）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 胎兒構造的永存 ：如卵圓孔未閉（persistent foramen ovale）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 發育中組織或器官異位：⼼房中隔缺損屬於發育異常（developmental anomaly），但不是「異</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">位」。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 胚胎某部分發育受阻 ：屬於發育停滯或分化異常。</p></div><div class=\"user-note\"></div>"
     },
     {
         "id": 9,
@@ -96,7 +104,8 @@
             "C": "肺出血",
             "D": "肺梗塞"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">肺⽔腫（pulmonary edema）特徵：</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>肺臟沉、濕潤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>表⾯光亮</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>不易塌陷</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>⼩葉間隔⽔腫 → 透明樣</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>切⾯可流出泡沫液體</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>氣管內常⾒⽩⾊泡沫</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 肺氣腫 ：肺氣腫為過度充氣，肺會膨脹、質地乾、非濕潤泡沫狀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 肺出⾎ ：以⾎液滲出為主，不會有⼤泡沫。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 肺梗塞 ：局部三⾓形壞死，不是全⾯性病變。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 10,
@@ -107,7 +116,8 @@
             "C": "腎出血性梗塞－弓形動脈",
             "D": "腎血腫－直動脈與入球動脈"
         },
-        "image": "./圖片/a110-10.jpg"
+        "image": "./圖片/a110-10.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">本病灶位於腎⽪質與髓質交界處，呈暗紅且楔形分布。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 11,
@@ -118,7 +128,8 @@
             "C": "hypoadrenocorticism",
             "D": "hypothyroidism"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Hypercoagulability（⾼凝狀態）常⾒於：</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>蛋⽩流失 → antithrombin III下降</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>內分泌疾病<span class=\"s2\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: Helvetica;\"></span><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>腫瘤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: Times;\">• </span>發炎</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. glomerulopathies：腎絲球病變 → 蛋⽩尿 → antithrombin III流失 → 易⾎栓。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. antithrombin III deficiency ：AT-III是抗凝因⼦，缺乏會促進⾎栓。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. hypoadrenocorticism：Addison's disease多為低⾎壓、脫⽔、電解質失衡。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. hypothyroidism ：Hypothyroidism 因造成⾼⾎脂與凝⾎因⼦（如 fibrinogen）增加，使⾎液偏</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">向⾼凝狀態，因此可能提⾼⾎栓風險。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 12,
@@ -129,7 +140,8 @@
             "C": "肺臟血管通透性增加",
             "D": "肺臟血管內血小板浸潤聚集"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">IgE過敏機制：</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">IgE結合mast cell → 釋放histamine → ⾎管通透性↑ → 嗜酸性球聚集。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. eosinophil透過α2β8 integrin⼤釋放serotonin</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">嗜酸性球主要釋放：major basic protein、eosinophil peroxidase，serotonin主要來⾃⾎⼩板。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 13,
@@ -140,7 +152,8 @@
             "C": "intercellular adhesion molecule I與NFκB",
             "D": "L-selectin與E-selectin"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 為單核球表⾯的調理素受體（opsonin receptors），可辨識被 IgG 或 C3b 包覆的病原並增強吞</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">噬作⽤。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. JAM 主要參與⽩⾎球穿越內⽪細胞間隙，⽽ MAC 為補體形成的溶解複合體，並非單核球吞噬受</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">體。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. ICAM-1 多表現在內⽪細胞協助黏附，NFκB 是細胞內轉錄因⼦，兩者都不是直接的吞噬功能分</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⼦。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Selectins 主要負責⽩⾎球在⾎管內⽪上的滾動（rolling），與吞噬功能無直接關聯。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 14,
@@ -151,7 +164,8 @@
             "C": "generalized type II hypersensitivity",
             "D": "generalized type III hypersensitivity"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">「serum sickness（⾎清病）」</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">機制：抗原抗體形成免疫複合體→沉積於⾎管→補體活化→全⾝性⾎管炎</p><div class=\"user-note\"></div>"
     },
     {
         "id": 15,
@@ -162,7 +176,8 @@
             "C": "prostaglandin D2",
             "D": "complement C3a及C5a"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Mast cell可產⽣：Histamine、Leukotriene C4、Prostaglandin D2、Platelet activating factor</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C3a、C5a為補體產物，不是mast cell製造。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 16,
@@ -173,7 +188,8 @@
             "C": "Glaesserella parasuis（昔稱Haemophilus parasuis）、Mycoplasma hyorhinis",
             "D": "Pasteurella multocida、Actinobacillus suis"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">豬多發性漿膜炎（polyserositis）常⾒病原：Glaesserella parasuis、Mycoplasma hyorhinis，造</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">成：⼼包炎、胸膜炎、腹膜炎</p><div class=\"user-note\"></div>"
     },
     {
         "id": 17,
@@ -184,7 +200,8 @@
             "C": "lymphocyte",
             "D": "plasma cell"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Macrophage分泌：VEGF、FGF、PDGF</p><div class=\"user-note\"></div>"
     },
     {
         "id": 18,
@@ -195,7 +212,8 @@
             "C": "在犬adenocarcinoma of apocrine gland of anal sac及淋巴瘤，會因此而導致高血鈣症",
             "D": "腫瘤侵犯骨頭造成骨溶解所導致的高血鈣，亦屬此症候群"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">PTHrP（parathyroid hormone-related protein）為腫瘤分泌之異位激素（Ectopic hormone）→</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">導致⾼⾎鈣，常⾒於⽝ anal sac apocrine gland adenocarcinoma、⽝淋巴瘤</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 貓也可能發⽣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 造成⾼⾎鈣，不是低⾎鈣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D.Paraneoplastic syndrome（腫瘤相關症候群）是指腫瘤分泌激素或細胞因⼦，引起全⾝性症狀，</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⽽非腫瘤直接侵襲或轉移造成的病變。腫瘤直接侵犯骨頭造成骨溶解所引起的⾼⾎鈣，是局部組織</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">破壞結果，非腫瘤分泌PTHrP所致，因此不屬於paraneoplastic syndrome。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 19,
@@ -206,7 +224,8 @@
             "C": "squamous cell carcinoma",
             "D": "basal cell carcinoma"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Papilloma：乳頭瘤是良性⾓化上⽪腫瘤，多⾒於⽜。<span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: Helvetica;\"></span>B. sarcoid：⾺⽪膚最常⾒的纖維瘤樣腫瘤，與BPV-1/2 DNA感染相關，可能侵犯⽪膚及局部結締</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">組織。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. squamous cell carcinoma：鱗狀細胞癌為惡性上⽪腫瘤，通常與慢性光線暴露或慢性刺激有</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">關，與BPV-1/2無直接關聯。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. basal cell carcinoma：基底細胞癌罕⾒，BPV無直接致癌作⽤。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 20,
@@ -217,7 +236,8 @@
             "C": "嗜中性球",
             "D": "巨噬細胞"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. CD8+ T 細胞：可直接殺死腫瘤細胞。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. NK 細胞：對MHC-I低表達腫瘤細胞有殺傷作⽤。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 嗜中性球：主要抗菌，非專⾨抗腫瘤監控細胞，雖可釋放ROS，但抗腫瘤作⽤有限。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 巨噬細胞：吞噬腫瘤細胞並分泌TNF、IL-12，參與腫瘤免疫監控。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 21,
@@ -228,7 +248,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">① 正確，是由鈣化、鐵沉積與纖維組織構成。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">② 錯誤，只是外觀描述，不是核⼼定義。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">③ 正確，多⾒於脾⾨及脾邊緣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">④ 正確，反映慢性出⾎或⾎管破裂後纖維化。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 22,
@@ -239,7 +260,8 @@
             "C": "①③④",
             "D": "②③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">① 錯誤，通常發⽣於年長⽝</p><div class=\"user-note\"></div>"
     },
     {
         "id": 23,
@@ -250,7 +272,8 @@
             "C": "豬",
             "D": "鵝"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 正確，肝臟銅累積能⼒有限，容易發⽣急性溶⾎性危象。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 24,
@@ -261,7 +284,8 @@
             "C": "splenomegaly",
             "D": "multisystemic hemorrhage"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B.錯誤，炭疽不會造成進⾏性多灶栓塞性肺炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C.脾臟腫⼤沉重。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D.可因⾎管損傷造成多系統出⾎。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 25,
@@ -272,7 +296,8 @@
             "C": "①②",
             "D": "③④"
         },
-        "image": "./圖片/a110-25.jpg"
+        "image": "./圖片/a110-25.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⽜隻前胸⽪膚觸摸有波動感，代表可能有⽪下⽔腫。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">1. ⾼海拔缺氧導致肺⾼壓與右⼼衰竭，造成⽜前胸（brisket）⽪下⽔腫。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">2. 右⼼衰竭使靜脈壓上升，液體滲出⾄前胸等依賴部位形成波動性⽔腫。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">3. 先天⾎管環異常壓迫食道，引起吞嚥困難⽽非⽪下⽔腫。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">4. 胸骨凹陷的結構畸形，不會產⽣液體積聚或波動感。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">5. 乳腺慢性發炎導致乳房病變，但不會造成前胸⽪下⽔腫。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 26,
@@ -283,7 +308,8 @@
             "C": "骨髓呈粉紅色",
             "D": "牛蹄白線變寬"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⼼內膜鈣化：正確。Johne’s disease（Mycobacterium avium subsp. paratuberculosis感染）</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">除了造成慢性腸炎外，長期慢性病可伴隨⼼臟瓣膜鈣化，尤其⼼內膜。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 腎⽪髓交界區壞死：錯誤。這常⾒於急性腎損傷或中毒，與Johne’s disease無直接關聯。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 骨髓呈粉紅⾊：錯誤。骨髓粉紅⾊常與貧⾎、骨髓增⽣或出⾎相關，不是Johne’s disease特徵。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. ⽜蹄⽩線變寬：錯誤。⽩線變寬屬蹄部病變，多與營養或環境因素相關，與Johne’s disease無關。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 27,
@@ -294,7 +320,8 @@
             "C": "大部分動物可藉由代償，而恢復心臟正常功能",
             "D": "壞死乳突肌以大量彈力纖維修補並與瓣膜固著，以維持正常功能"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⼤多數⼼肌損傷嚴之動物可能死於急性⼼衰竭：正確。急性⼼肌壞死會導致收縮⼒下降、⼼臟</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">舒張功能受損，嚴者可能立即⼼衰⽽死亡。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. ⼼肌壞死不會引起⼼律不整，但會導致⼼臟舒張障礙：錯誤。⼼肌壞死常會破壞傳導系統，引起</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⼼律不整。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. ⼤部分動物可藉由代償，⽽恢復⼼臟正常功能：錯誤。⼼肌壞死後，纖維化取代壞死區，⼼肌不</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">可再⽣，功能無法完全恢復。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 壞死乳突肌以⼤彈⼒纖維修補並與瓣膜固著，以維持正常功能：錯誤。乳突肌壞死後通常以纖</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">維組織替代，彈⼒纖維不會⼤修復，瓣膜功能可能受影響。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 28,
@@ -305,7 +332,8 @@
             "C": "大血管常出現纖維化環及鈣化",
             "D": "為肝衰竭之合併症"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 常因長期尿毒症所致：正確。⽝潰瘍性⼼內膜炎（ulcerative endocarditis）常是慢性腎衰或尿毒</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">症併發症，尿毒素可造成⼼內膜損傷。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 常⾒於左⼼室：錯誤。⽝⼼內膜炎多影響⼼瓣膜⾯（尤其⼆尖瓣或三尖瓣），⽽不是左⼼室⼼肌</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">本⾝。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. ⼤⾎管常出現纖維化環及鈣化：錯誤。⼤⾎管鈣化多⾒於慢性⾼鈣⾎症或老年動物，與⽝潰瘍性</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⼼內膜炎無直接關聯。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 為肝衰竭之合併症：錯誤。⼼內膜炎與肝衰竭無直接因果關係，主要與尿毒症或菌⾎症相關。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 29,
@@ -316,7 +344,8 @@
             "C": "腹水呈淡黃色，易凝固成果凍狀",
             "D": "本病僅發生在雞，鴨有耐受性"
         },
-        "image": "./圖片/a110-29.jpg"
+        "image": "./圖片/a110-29.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">根據描述與圖片推論為腹⽔症（Ascites syndrome），⼜稱肺⾼壓症候群。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⾼海拔或低溫增加氧氣需求與肺⾼壓風險，易誘發腹⽔症。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 快速⽣長造成氧氣需求過⾼，導致肺⾼壓與右⼼衰竭形成腹⽔。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 腹⽔為蛋⽩質含⾼的滲出液，放置後常呈膠凍狀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 腹⽔症並非只發⽣於雞，其他禽類也可能發⽣，只是⾁雞最常⾒。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 30,
@@ -327,7 +356,8 @@
             "C": "①②④",
             "D": "①②③"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">① Trypanosoma cruzi：正確，可直接感染⼼肌細胞並引起⼼肌炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">② Pneumonyssus simicola：錯誤，此為肺蟎，主要影響呼吸道，不會造成⼼肌炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">③ Canine parvovirus：正確，可感染幼⽝⼼肌細胞造成⼼肌炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">④ Foot and mouth disease virus：正確，可感染⼼肌細胞，引起⼼肌炎。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 31,
@@ -338,7 +368,8 @@
             "C": "蠅蛆病（myiasis）－Dermatophilus congolensis",
             "D": "牛紅鼻子病（rednose）－bovine herpesvirus 1"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 蠅蛆病(Myiasis)-Dermatophilus congolensis：錯誤。蠅蛆病是蠅幼蟲造成，不是</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Dermatophilus感染。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 32,
@@ -349,7 +380,8 @@
             "C": "feline viral rhinotracheitis－felid herpesvirus 1",
             "D": "canine kennel cough－canine parainfluenza virus-2"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. swine inclusion body rhinitis – suid herpesvirus-1：錯誤。豬包涵體性⿐炎（inclusion body</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">rhinitis）是由suid herpesvirus-2造成，不是1型。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. progressive atrophic rhinitis – Bordetella bronchiseptica and Pasteurella multocida：正</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">確。慢性萎縮性⿐炎由B. bronchiseptica初感染，再加P. multocida（toxigenic）共同作⽤。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. feline viral rhinotracheitis – felid herpesvirus 1：正確。貓上呼吸道疱疹病毒感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. canine kennel cough – canine parainfluenza virus-2：正確。⽝舍咳嗽是多因⼦混合感染，</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">CPIV-2是主要病毒之⼀。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 33,
@@ -360,7 +392,8 @@
             "C": "豬地方性肺炎",
             "D": "綿羊maedi-visna"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 豬地⽅性肺炎：會造成局灶性肺炎，有時伴⽀氣管性病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 綿⽺ maedi-visna：正確。Maedi-visna 病主要造成間質性肺炎，不屬⽀氣管性肺炎。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 34,
@@ -371,7 +404,8 @@
             "C": "纖維素性肺炎",
             "D": "肺水腫"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⾁芽腫性⽀氣管炎：正確。Oslerus osleri 在氣管或⽀氣管壁形成⾁芽腫性結節，造成呼吸道阻塞。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 偽膜性氣管炎：錯誤，常⾒於細菌感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 纖維素性肺炎：錯誤，多由細菌感染造成。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 肺⽔腫：錯誤，非主要病變。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 35,
@@ -382,7 +416,8 @@
             "C": "小支氣管上皮細胞壞死",
             "D": "第二型肺泡上皮細胞增殖"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 纖維素性胸膜炎：正確。單純⽝瘟熱病毒感染主要造成呼吸道上⽪壞死和淋巴器官抑制，纖維素</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">性胸膜炎通常為繼發細菌感染造成，因此較少⾒。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 36,
@@ -393,7 +428,8 @@
             "C": "液化壞死",
             "D": "乾性壞疽"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 乾酪樣壞死：錯誤，多⾒於結核菌感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 凝固壞死：正確。Actinobacillus pleuropneumoniae 感染造成肺組織凝固性壞死，常伴出⾎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 液化壞死：錯誤，多⾒於膿腫或化膿性感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 乾性壞疽：錯誤，多⾒於缺⾎性壞死或梭菌感染。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 37,
@@ -404,7 +440,8 @@
             "C": "支氣管上皮細胞化生",
             "D": "增殖性與間質性肺炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⼤區域鈣化呈⼤理⽯狀：錯誤。這是慢性鈣化性病變，與假性⿐疽不同。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 細菌性栓⼦與多發性膿瘍病灶：正確。⾺假性⿐疽（⾺ Burkholderia pseudomallei 感染）會形</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">成多發性膿瘍，⾎⾏播散可⾒栓⼦。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. ⽀氣管上⽪細胞化⽣：錯誤。非主要病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 增殖性與間質性肺炎：錯誤。主要是膿腫性病變。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 38,
@@ -415,7 +452,8 @@
             "C": "因切片下色素會溶解、消失，僅能用肉眼診斷",
             "D": "慢性腸炎及胰臟炎也可能導致本病"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 為維⽣素E缺乏所致：正確。慢性維⽣素E缺乏造成脂肪過氧化，沉積在腸黏膜內。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 因切片下⾊素會溶解、消失，僅能⽤⾁眼診斷：錯誤。⾊素可⽤特定染⾊保留，例如Sudan紅或</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">油紅O，並非只能⾁眼觀察。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 慢性腸炎及胰臟炎也可能導致本病：正確。慢性疾病會增加脂肪過氧化沉積。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 39,
@@ -426,7 +464,8 @@
             "C": "子宮內感染會導致胎兒先天性小腦發育不全",
             "D": "可在腺窩上皮細胞觀察到細胞核內包含體"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. ⼦宮內感染會導致胎兒先天性⼩腦發育不全：正確，⽝⼩病毒不會造成⼩腦發育不全（此為貓泛</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⽩⾎球病毒、BVD或其他病毒感染特徵）。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 40,
@@ -437,7 +476,8 @@
             "C": "enterotoxic E. coli",
             "D": "Clostridium perfringens type C"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Brachyspira hyodysenteriae：錯誤。造成豬痢疾，常⾒出⾎性腸炎，但細菌呈螺旋狀，病變以</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⼤腸為主。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. Lawsonia intracellularis：正確。造成增殖性腸炎，腸黏膜增厚、腺窩上⽪增⽣，Warthin-</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">Starry染⾊可⾒細胞內逗點樣菌。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. enterotoxic E. coli：錯誤。主要引起分泌性腹瀉，腸黏膜不明顯增厚。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Clostridium perfringens type C：錯誤。造成壞死性腸炎，呈出⾎性壞死，⽽非單純腺窩增⽣。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 41,
@@ -448,7 +488,8 @@
             "C": "毛樣線蟲（Trichostrongylus spp.）",
             "D": "鉤蟲（Ancylostoma caninum）"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Ostertagia circumcincta：主要造成胃腺增⽣與腹瀉，不會造成嚴失⾎性貧⾎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. Haemonchus contortus：寄⽣於皺胃吸⾎，造成嚴貧⾎與低蛋⽩⾎症；紅⽩相間外觀為其特</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">徵（⾎液充滿腸道與⽩⾊⽣殖器交織）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. Trichostrongylus spp.：多造成腹瀉與消瘦，不典型造成度貧⾎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Ancylostoma caninum：為⽝鉤蟲，非⽺隻常⾒寄⽣蟲。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 42,
@@ -459,7 +500,8 @@
             "C": "常見於犬貓",
             "D": "鏡下可見水腫、大量淋巴球浸潤及皂化"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 脂肪酶釋放可引起脂肪壞死。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 全⾝發炎反應與⾎管通透性增加可導致休克。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 常⾒於⽝貓。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 急性胰臟炎主要為中性球浸潤，不是淋巴球為主。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 43,
@@ -470,7 +512,8 @@
             "C": "大區域壞死",
             "D": "門脈三角區周圍"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. P450在⼩葉中⼼區（zone 3）最活躍，因此毒性代謝物多造成中⼼性壞死。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 多⾒於敗⾎症。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C.非典型分布。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. zone 1較不易先受損。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 44,
@@ -481,7 +524,8 @@
             "C": "主要病變在大腸",
             "D": "主要引發血管炎"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. ⽝⼩病毒（CPV-2）造成出⾎性壞死性腸炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 主要在⼩腸腺窩上⽪。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 主要是腺窩細胞壞死。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 45,
@@ -492,7 +536,8 @@
             "C": "僅②③",
             "D": "①②③"
         },
-        "image": null
+        "image": null,
+        "explanation": "<div class=\"user-note\"></div>"
     },
     {
         "id": 46,
@@ -503,7 +548,8 @@
             "C": "小葉中心區",
             "D": "被膜下肝細胞"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 氧氣最充⾜，不先受損。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\"><b>C. </b>最缺氧，因此最早壞死。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 被膜下肝細胞：無此分區概念。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 47,
@@ -514,7 +560,8 @@
             "C": "①②④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC Semibold&quot;;\"><span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; line-height: normal; font-family: &quot;PingFang TC&quot;;\">1 ⽊舌病是由 <b>Actinobacillus lignieresii</b> 引起。</span></p><div class=\"user-note\"></div>"
     },
     {
         "id": 48,
@@ -525,7 +572,8 @@
             "C": "細菌可由微血管移至間質，最後經由腎小管隨尿液排出",
             "D": "腎小管上皮細胞的傷害，係因炎症反應或細菌毒性所致"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 急性期會有leptospiremia，細菌經⾎流散播。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 慢性期主要是間質性淋巴球與漿細胞浸潤（tubulointerstitial nephritis），不是⾁芽腫性炎症。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 細菌定殖於腎⼩管並隨尿排菌。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 49,
@@ -536,7 +584,8 @@
             "C": "大量草酸鈣結晶沉積於腎小管腔可造成上皮細胞機械性傷害",
             "D": "病變中的草酸鈣結晶為剛果紅染色陽性，並在偏光鏡下呈現滑輪狀"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 毒性來⾃代謝物。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 剛果紅陽性是類澱粉沉積（amyloid）特徵，草酸鈣在偏光鏡下呈雙折射亮晶體，非滑輪狀。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 50,
@@ -547,7 +596,8 @@
             "C": "①②④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 主要為腎⼩管結晶沉積與阻塞</p><div class=\"user-note\"></div>"
     },
     {
         "id": 51,
@@ -558,7 +608,8 @@
             "C": "①②④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">1. 多數物種（尤其⽝貓）雄性較易因尿道狹窄⽽阻塞。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 52,
@@ -569,7 +620,8 @@
             "C": "②③④",
             "D": "①③④"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">1 增加鈣與草酸排泄</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">2 ⾼鎂較與struvite有關</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">3 增加鈣排泄</p><div class=\"user-note\"></div>"
     },
     {
         "id": 53,
@@ -580,7 +632,8 @@
             "C": "絲球體基底膜增厚",
             "D": "絲球體輸出微動脈內皮細胞增生"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. mesangioproliferative型。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C.為膜性腎炎特徵（免疫複合物沉積於基底膜）。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 54,
@@ -591,7 +644,8 @@
             "C": "茨城病（Ibaraki disease）；患牛有大腦缺損症",
             "D": "牛疱疹病毒腦炎（bovine herpesvirus encephalitis）；患牛有大腦局部壞死"
         },
-        "image": "./圖片/a110-54.jpg"
+        "image": "./圖片/a110-54.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">胎內感染造成的先天性畸形。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 由 Orbivirus 引起，可造成⽔腦與⼩腦缺損，但較常⾒為⽔腦與⼩腦發育不全組合。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 胎內感染造成關節彎曲症（arthrogryposis）與⽔腦症（hydranencephaly/hydrocephalus），</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">並常伴脊柱彎曲。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 主要造成吞嚥困難與喉頭⿇痺，不以⼤腦缺損為特徵。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 為後天感染造成局部壞死性腦炎，不屬於先天性畸形疾病。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 55,
@@ -602,7 +656,8 @@
             "C": "②③",
             "D": "②④"
         },
-        "image": "./圖片/a110-55.jpg"
+        "image": "./圖片/a110-55.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">神經元腫脹核偏移 → Central chromatolysis</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">軸突斷裂髓鞘碎 → Wallerian degeneration</p><div class=\"user-note\"></div>"
     },
     {
         "id": 56,
@@ -613,7 +668,8 @@
             "C": "②④⑥⑧",
             "D": "①③⑤⑦"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">① ⽝瘟熱可感染狐狸、狼、雪貂，甚⾄海豹等海洋哺乳類。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">② Pug dog encephalitis 為壞死性腦炎，屬免疫相關疾病，非⽝瘟熱病毒感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">③ 神經型⽝瘟熱常⾒癲癇、共濟失調、肌陣攣等症狀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">④ Beagle pain syndrome 為免疫介導疾病，非病毒感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⑤ 腦積⽔不是典型病理特徵。<span class=\"s1\" style=\"font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: Helvetica;\"></span>⑥ Old dog encephalitis 為⽝瘟熱病毒持續感染造成的慢性腦炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⑦ ⽝瘟熱主要為脫髓鞘與非化膿性腦炎，不是栓塞性病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">⑧ 典型病理特徵為嗜酸性核內與胞質內病毒包含體。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 57,
@@ -624,7 +680,8 @@
             "C": "磺胺藥",
             "D": "泰妙素（tiamulin）與孟寧素（monensin）併用"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 會造成中樞神經毒性，導致軸突變性與脫髓鞘。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 主要抑制膽鹼酯酶，造成膽鹼能症狀，不以軸突退⾏為主。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 較常⾒腎毒性或⾓膜沉積。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 主要造成⼼肌與骨骼肌毒性（離⼦載體毒性）。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 58,
@@ -635,7 +692,8 @@
             "C": "麥粒腫",
             "D": "慢性鼻淚管化膿性肉芽腫"
         },
-        "image": "./圖片/a110-58.jpg"
+        "image": "./圖片/a110-58.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">第三眼瞼腺體向外突出，外觀為紅⾊圓形腫塊</p><div class=\"user-note\"></div>"
     },
     {
         "id": 59,
@@ -646,7 +704,8 @@
             "C": "小神經膠質細胞",
             "D": "室管膜細胞"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 主要功能為⽀持與修復，形成膠質瘢痕（glial scar），不是gitter cell來源。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 負責形成中樞神經髓鞘。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 格⼦細胞是活化後的⼩神經膠質細胞，吞噬壞死神經組織與脂質後呈泡沫狀外觀（foamy</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">macrophage）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 主要襯於腦室內壁，與gitter cell無關。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 60,
@@ -657,226 +716,247 @@
             "C": "牛herpesvirus type 1",
             "D": "豬Actinobacillus pleuropneumoniae"
         },
-        "image": null
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 可造成綿⽺感染性⾓結膜炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 造成家禽慢性呼吸道病，常伴結膜炎與眼瞼腫脹。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 即IBR（infectious bovine rhinotracheitis），可造成結膜炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 主要造成豬胸膜肺炎，與結膜炎無關。</p><div class=\"user-note\"></div>"
     },
     {
         "id": 61,
         "text": "61.下圖為一貫豬場肥育期豬皮膚與舌頭肉眼及組織病變，最可能的原因為：",
         "options": {
-          "A": "銅缺乏",
-          "B": "鐵缺乏",
-          "C": "維生素E缺乏",
-          "D": "鋅缺乏"
+            "A": "銅缺乏",
+            "B": "鐵缺乏",
+            "C": "維生素E缺乏",
+            "D": "鋅缺乏"
         },
-        "image": "./圖片/a110-61.jpg"
-      },
-      {
+        "image": "./圖片/a110-61.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 主要造成貧⾎與⽑⾊異常，較少出現⽪膚⾓化病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 主要表現為⼩紅⾎球性貧⾎，不會造成⽪膚與舌頭⾓化病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 常⾒為肌⾁營養性變性（⽩肌病），⽽非⽪膚⾓化病。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 造成豬隻⽪膚與黏膜過度⾓化、舌部與⽪膚出現典型病變（正確）。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 62,
         "text": "62.何種腫瘤鏡下可見細胞間橋（intercellular bridges）？",
         "options": {
-          "A": "malignant melanoma",
-          "B": "transmissible venereal tumor",
-          "C": "squamous cell carcinoma",
-          "D": "osteosarcoma"
+            "A": "malignant melanoma",
+            "B": "transmissible venereal tumor",
+            "C": "squamous cell carcinoma",
+            "D": "osteosarcoma"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 惡性⿊⾊素瘤源⾃⿊⾊素細胞（神經嵴來源），不是上⽪細胞。鏡下可⾒⿊⾊素顆粒、核異型</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">性，但不會出現細胞間橋。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. ⽝傳染性性病腫瘤屬圓形細胞腫瘤，細胞圓形、胞質空泡多，沒有上⽪性分化，也沒有細胞間</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">橋。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 鱗狀細胞癌源⾃鱗狀上⽪，具有desmosome連結，因此鏡下可⾒細胞間橋與⾓化珠，是典型診</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">斷特徵。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 骨⾁瘤為間質性腫瘤，產⽣腫瘤性類骨質（osteoid），沒有上⽪特徵，也不會出現細胞間橋。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 63,
         "text": "63.禽痘包含體為：",
         "options": {
-          "A": "嗜酸性核內包含體",
-          "B": "嗜酸性質內包含體",
-          "C": "嗜鹼性核內包含體",
-          "D": "嗜鹼性質內包含體"
+            "A": "嗜酸性核內包含體",
+            "B": "嗜酸性質內包含體",
+            "C": "嗜鹼性核內包含體",
+            "D": "嗜鹼性質內包含體"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">禽痘為Fowlpox，形成嗜酸性細胞質內包含體（Bollinger bodies）。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 64,
         "text": "64.有關Langerhans' cell，何者正確？",
         "options": {
-          "A": "位於表皮的基底層下的淺層真皮層中",
-          "B": "是一神經內分泌來源的細胞",
-          "C": "具感覺及調控表皮其他細胞及附屬結構的功能",
-          "D": "具抗原呈現功能"
+            "A": "位於表皮的基底層下的淺層真皮層中",
+            "B": "是一神經內分泌來源的細胞",
+            "C": "具感覺及調控表皮其他細胞及附屬結構的功能",
+            "D": "具抗原呈現功能"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. Langerhans 細胞位於表⽪棘層，不是在真⽪層。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 來源為骨髓單核球系統，非神經內分泌細胞。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. Merkel cell功能。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. Langerhans 細胞屬於樹突細胞，負責抗原呈現與免疫監視。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 65,
         "text": "65.豬滲出性表皮炎之組織病變為：",
         "options": {
-          "A": "表皮層棘狀細胞間及細胞內水腫呈現氣球樣變性",
-          "B": "化膿性表皮真皮炎",
-          "C": "表皮層細胞增生及大量嗜酸性球浸潤",
-          "D": "表皮層棘狀細胞壞死，並見細胞核內嗜酸性包含體"
+            "A": "表皮層棘狀細胞間及細胞內水腫呈現氣球樣變性",
+            "B": "化膿性表皮真皮炎",
+            "C": "表皮層細胞增生及大量嗜酸性球浸潤",
+            "D": "表皮層棘狀細胞壞死，並見細胞核內嗜酸性包含體"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 常⾒於病毒感染（如痘病毒），不是本病特徵。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 由Staphylococcus hyicus引起，造成化膿性發炎與滲出。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 較常⾒於過敏或寄⽣蟲感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 為疱疹病毒等病毒感染特徵。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 66,
         "text": "66.天疱瘡類皮膚病病變特徵為：",
         "options": {
-          "A": "棘皮層增厚（acanthosis）及角化不全（parakeratosis）",
-          "B": "棘皮層溶解（acantholysis）及水疱生成",
-          "C": "角化過度（hyperkeratosis）及毛囊擴張",
-          "D": "脂層炎（panniculitis）及瘻管形成"
+            "A": "棘皮層增厚（acanthosis）及角化不全（parakeratosis）",
+            "B": "棘皮層溶解（acantholysis）及水疱生成",
+            "C": "角化過度（hyperkeratosis）及毛囊擴張",
+            "D": "脂層炎（panniculitis）及瘻管形成"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 常⾒於慢性刺激或脂漏症，不是天疱瘡主要病變。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 天疱瘡（如Pemphigus vulgaris）因⾃體抗體破壞desmosome，導致棘層溶解與表⽪內⽔疱。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 較常⾒於⾓化異常疾病。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 為脂肪層發炎（如深層感染）表現，與天疱瘡不同。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 67,
         "text": "67.牛的何種肌炎，其厭氣菌芽孢可不經由外傷進入肌肉？",
         "options": {
-          "A": "氣性壞疽",
-          "B": "惡性水腫病",
-          "C": "放線桿菌病",
-          "D": "黑腿病"
+            "A": "氣性壞疽",
+            "B": "惡性水腫病",
+            "C": "放線桿菌病",
+            "D": "黑腿病"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 多因外傷污染，厭氣菌（如 Clostridium）由傷⼝進入組織後繁殖產氣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 通常為外傷後感染所致，也屬創傷性感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 為慢性化膿性或⾁芽腫性炎症，非厭氣芽孢菌經⾎⾏潛伏型感染。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. ⿊腿病（blackleg）由Clostridium chauvoei引起，芽孢經腸道吸收後經⾎⾏散佈⾄肌⾁潛伏，</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">不需外傷即可發病。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 68,
         "text": "68.動物不均稱性侏儒病（disproportionate dwarfism），形成原因為：",
         "options": {
-          "A": "軟骨內骨形成正常，但膜內式骨形成異常",
-          "B": "軟骨內骨形成異常，但膜內式骨形成正常",
-          "C": "軟骨內骨形成及膜內式骨形成皆異常",
-          "D": "軟骨內骨形成及膜內式骨形成皆正常"
+            "A": "軟骨內骨形成正常，但膜內式骨形成異常",
+            "B": "軟骨內骨形成異常，但膜內式骨形成正常",
+            "C": "軟骨內骨形成及膜內式骨形成皆異常",
+            "D": "軟骨內骨形成及膜內式骨形成皆正常"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 若膜內骨形成異常，會影響顱骨與扁平骨為主，不符合典型不均稱侏儒。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 不均稱侏儒常因軟骨內骨形成（endochondral ossification）異常，造成四肢短⼩，但顱骨正</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">常。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 通常會造成更嚴全⾝骨骼異常。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D.不會造成侏儒。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 69,
         "text": "69.有關可動關節之關節軟骨，何者正確？",
         "options": {
-          "A": "在幼年動物，表面有光澤、平滑、濕潤、且呈白色或藍白色",
-          "B": "在幼年動物，較為堅實而少彈性",
-          "C": "老化之後，表面因磨損失去光澤、略為粗糙、較為乾燥、且呈粉紅色",
-          "D": "老化之後，因關節兩端的磨擦，其關節軟骨增厚，為一種適應性肥大"
+            "A": "在幼年動物，表面有光澤、平滑、濕潤、且呈白色或藍白色",
+            "B": "在幼年動物，較為堅實而少彈性",
+            "C": "老化之後，表面因磨損失去光澤、略為粗糙、較為乾燥、且呈粉紅色",
+            "D": "老化之後，因關節兩端的磨擦，其關節軟骨增厚，為一種適應性肥大"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 健康透明軟骨的典型外觀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 幼年軟骨彈性佳。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 正常老化不會呈粉紅⾊。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 通常變薄與退化。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 70,
         "text": "70.下列何種情形在關節常伴隨翳（pannus）的形成？",
         "options": {
-          "A": "急性化膿性滑膜炎（synovitis）",
-          "B": "慢性化膿性滑膜炎（synovitis）",
-          "C": "急性纖維素性滑膜炎（synovitis）",
-          "D": "慢性纖維素性滑膜炎（synovitis）"
+            "A": "急性化膿性滑膜炎（synovitis）",
+            "B": "慢性化膿性滑膜炎（synovitis）",
+            "C": "急性纖維素性滑膜炎（synovitis）",
+            "D": "慢性纖維素性滑膜炎（synovitis）"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 以⼤中性球為主，未形成⾁芽組織。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 以膿性為主，不是典型 pannus。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 急性期尚未形成⾁芽組織。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 慢性刺激下滑膜增⽣形成⾎管豐富的⾁芽組織覆蓋軟骨，即 pannus。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 71,
         "text": "71.關節軟骨的蛋白聚醣（proteoglycan）與水分流失後，軟骨變得較乾燥，且表面呈毛刷狀，此病變稱為：",
         "options": {
-          "A": "chondromalacia",
-          "B": "fibrillation",
-          "C": "pannus",
-          "D": "eburnation"
+            "A": "chondromalacia",
+            "B": "fibrillation",
+            "C": "pannus",
+            "D": "eburnation"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. chondromalacia指軟骨軟化。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. fibrillation表⾯呈細絲狀裂隙與⽑刷狀變化。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. pannus為滑膜⾁芽組織覆蓋軟骨。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. eburnation為軟骨完全磨損後骨⾯象牙樣硬化。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 72,
         "text": "72.下列何種疾病較容易造成肌肉萎縮？",
         "options": {
-          "A": "臘腸菌症",
-          "B": "豬緊迫症候群",
-          "C": "狂犬病",
-          "D": "神經纖維軸突變性"
+            "A": "臘腸菌症",
+            "B": "豬緊迫症候群",
+            "C": "狂犬病",
+            "D": "神經纖維軸突變性"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 急性弛緩性⿇痺，通常未及造成明顯萎縮。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 為代謝與肌⾁壞死問題，不是神經性萎縮。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 急性神經症狀，發病迅速。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 慢性去神經化導致神經源性肌⾁萎縮。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 73,
         "text": "73.有關羊隻俗稱的「藍乳袋病（blue bag）」乳房炎，何者正確？",
         "options": {
-          "A": "主由巴氏桿菌感染引起",
-          "B": "多為散發性發生",
-          "C": "主要呈現肉芽腫病變",
-          "D": "為一種慢性乳房炎"
+            "A": "主由巴氏桿菌感染引起",
+            "B": "多為散發性發生",
+            "C": "主要呈現肉芽腫病變",
+            "D": "為一種慢性乳房炎"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 常⾒病原為Mannheimia haemolytica等，不是單純巴⽒桿菌。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 通常為個別病例發⽣。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 壞死性或出⾎性乳房炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 為急性、嚴、壞死性乳房炎。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 74,
         "text": "74.下圖為早期睪丸變性病變，生精小管中箭頭所指的多核細胞係為何種細胞形成？",
         "options": {
-          "A": "macrophages",
-          "B": "Sertoli cells",
-          "C": "interstitial cells",
-          "D": "spermatids"
+            "A": "macrophages",
+            "B": "Sertoli cells",
+            "C": "interstitial cells",
+            "D": "spermatids"
         },
-        "image": "./圖片/a110-74.jpg"
-      },
-      {
+        "image": "./圖片/a110-74.jpg",
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">早期睪丸變性常⾒於Testicular degeneration，⽣精⼩管內可⾒多核巨細胞，主要由退化的精細胞</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">（spermatids）融合形成。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 巨噬細胞多出現在間質或炎症區域，不會在⽣精⼩管內形成多核細胞。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. ⽀持細胞，不會形成多核巨細胞型態。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C.間質細胞（Leydig cells）位於⼩管外，與⼩管內多核細胞無關。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. 退化或受損的精細胞可融合形成⽣精⼩管內多核巨細胞（正確）。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 75,
         "text": "75.葡萄球菌感染造成之精索化膿性肉芽腫病變，俗稱為：",
         "options": {
-          "A": "blastomycosis",
-          "B": "actinomycosis",
-          "C": "botryomycosis",
-          "D": "cryptococcosis"
+            "A": "blastomycosis",
+            "B": "actinomycosis",
+            "C": "botryomycosis",
+            "D": "cryptococcosis"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 由真菌Blastomyces引起的系統性真菌病。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 放線菌感染造成的慢性⾁芽腫性炎。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 由Cryptococcus真菌引起，多⾒於呼吸道或中樞神經。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 76,
         "text": "76.有關胎兒碘缺乏引起之增生性甲狀腺腫，何者正確？",
         "options": {
-          "A": "甲狀腺外觀腫大、變黑",
-          "B": "甲狀腺濾泡呈囊狀樣擴大",
-          "C": "甲狀腺濾泡上皮細胞向腔內形成乳突樣凸起",
-          "D": "甲狀腺濾泡膠體較濃染"
+            "A": "甲狀腺外觀腫大、變黑",
+            "B": "甲狀腺濾泡呈囊狀樣擴大",
+            "C": "甲狀腺濾泡上皮細胞向腔內形成乳突樣凸起",
+            "D": "甲狀腺濾泡膠體較濃染"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">甲狀腺濾泡上⽪細胞因刺激TSH增⽣，向腔內形成乳突樣凸起（hyperplasia）。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">A. 甲狀腺外觀腫⼤，但不變⿊。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 濾泡擴⼤多呈乳突狀⽽非囊狀。</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">C. 膠體通常較稀薄⽽非濃染。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 77,
         "text": "77.有關貓甲狀腺功能亢進，何者錯誤？",
         "options": {
-          "A": "造成老貓多食但體重下降",
-          "B": "為貓最常見的內分泌疾病之一",
-          "C": "罹患此病的貓有時可伴有肥大性心肌病",
-          "D": "血液中抗促甲狀腺激素接受體之自體抗體通常會變多"
+            "A": "造成老貓多食但體重下降",
+            "B": "為貓最常見的內分泌疾病之一",
+            "C": "罹患此病的貓有時可伴有肥大性心肌病",
+            "D": "血液中抗促甲狀腺激素接受體之自體抗體通常會變多"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<div class=\"user-note\"></div>"
+    },
+    {
         "id": 78,
         "text": "78.有關馬代謝症候群，何者錯誤？",
         "options": {
-          "A": "在不常運動、吃高能量飼料及高血糖的馬匹容易發生",
-          "B": "小馬及迷你馬吃高能量飼料有較高的罹病風險",
-          "C": "患馬常出現肥胖",
-          "D": "常發生第二型糖尿病"
+            "A": "在不常運動、吃高能量飼料及高血糖的馬匹容易發生",
+            "B": "小馬及迷你馬吃高能量飼料有較高的罹病風險",
+            "C": "患馬常出現肥胖",
+            "D": "常發生第二型糖尿病"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">D. ⾺雖會有胰島素阻抗，但不會像⼈⼀樣發⽣典型的第⼆型糖尿病（⾎糖持續⾼且胰島β細胞衰</p><p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">竭）</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 79,
         "text": "79.有關犬腎上腺功能低下，何者錯誤？",
         "options": {
-          "A": "又稱Addison's disease",
-          "B": "與自體免疫攻擊腎上腺髓質有關",
-          "C": "因腎上腺束狀帶和網狀帶細胞數量不足所導致",
-          "D": "僅少數患犬會呈現正常的血鈉與血鉀值"
+            "A": "又稱Addison's disease",
+            "B": "與自體免疫攻擊腎上腺髓質有關",
+            "C": "因腎上腺束狀帶和網狀帶細胞數量不足所導致",
+            "D": "僅少數患犬會呈現正常的血鈉與血鉀值"
         },
-        "image": null
-      },
-      {
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">B. 主要與⾃體免疫攻擊腎上腺⽪質有關，⽽非髓質。</p><div class=\"user-note\"></div>"
+    },
+    {
         "id": 80,
         "text": "80.有關分泌polypeptide荷爾蒙內分泌細胞，何者正確？①可形成分泌顆粒 ②可於細胞內儲存 ③不需刺激訊號即可持續穩定製造及釋放 ④有完整的顆粒內質網及細胞核周圍有明顯之高基氏體",
         "options": {
-          "A": "①②③",
-          "B": "②③④",
-          "C": "①②④",
-          "D": "①③④"
+            "A": "①②③",
+            "B": "②③④",
+            "C": "①②④",
+            "D": "①③④"
         },
-        "image": null
-      }
+        "image": null,
+        "explanation": "<p class=\"p1\" style=\"margin: 0px; font-variant-numeric: normal; font-variant-east-asian: normal; font-variant-alternates: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-variant-position: normal; font-variant-emoji: normal; font-stretch: normal; font-size: 11px; line-height: normal; font-family: &quot;PingFang TC&quot;;\">3. 不會持續不受刺激釋放，需要刺激訊號</p><div class=\"user-note\"></div>"
+    }
 ]
