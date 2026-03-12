@@ -1008,7 +1008,7 @@ function resolveImage(src){
   // 否則視為單純檔名：補成 data/圖片/檔名
   return pathJoin(CONFIG.basePath, CONFIG.dirs.images, s);
 }
-// 根據目前題目資料，把所有圖片渲染到 #question-images 容器
+
 // 根據目前題目資料，把「第二張以後的圖片」渲染到 #question-images
 // 🔁 讓一般測驗模式也能顯示多張圖片
 function renderQuestionImagesFromState(qFromParam) {
@@ -1065,7 +1065,207 @@ const roundSel = $("#roundSel");
 const subjectSel = $("#subjectSel");
 const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
 const questionImagesContainer = document.getElementById("question-images");
-const searchCache = {}; // key: `${subj}|${year}|${roundLabel}` -> 該卷題目陣列
+const searchCache = {}; // 記憶體快取
+const searchCachePending = {}; // 避免同一卷重複同時載入
+
+const SEARCH_CACHE_VERSION = "2026-03-13-v1";
+const SEARCH_DB = {
+  name: "ntuvm-question-cache-db",
+  version: 1,
+  store: "scopes"
+};
+
+let __searchDbPromise = null;
+let __searchWarmStarted = false;
+
+function openSearchDB() {
+  if (__searchDbPromise) return __searchDbPromise;
+
+  __searchDbPromise = new Promise((resolve, reject) => {
+    try {
+      if (!("indexedDB" in window)) {
+        reject(new Error("此瀏覽器不支援 IndexedDB"));
+        return;
+      }
+
+      const req = indexedDB.open(SEARCH_DB.name, SEARCH_DB.version);
+
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(SEARCH_DB.store)) {
+          db.createObjectStore(SEARCH_DB.store, { keyPath: "k" });
+        }
+      };
+
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error || new Error("openSearchDB failed"));
+    } catch (e) {
+      reject(e);
+    }
+  });
+
+  return __searchDbPromise;
+}
+
+function makeScopeCacheKey(subj, year, roundLabel) {
+  return `${String(subj || "").trim()}|${String(year || "").trim()}|${String(roundLabel || "").trim()}`;
+}
+
+function buildQuestionSearchBlob(q) {
+  const parts = [];
+  if (q && q.text) parts.push(String(q.text));
+  if (q && q.options && typeof q.options === "object") {
+    for (const val of Object.values(q.options)) {
+      parts.push(String(val || ""));
+    }
+  }
+  return parts.join("\n").toLowerCase();
+}
+
+function normalizeQuestionsForSearch(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map((q, idx) => {
+    const normalized = {
+      ...q,
+      id: q && q.id != null ? q.id : idx + 1
+    };
+    normalized.__searchBlob = buildQuestionSearchBlob(normalized);
+    return normalized;
+  });
+}
+
+async function idbGetScopeQuestions(k) {
+  const db = await openSearchDB();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(SEARCH_DB.store, "readonly");
+    const store = tx.objectStore(SEARCH_DB.store);
+    const req = store.get(String(k));
+
+    req.onsuccess = () => {
+      const rec = req.result;
+      if (!rec) {
+        resolve(null);
+        return;
+      }
+      if (rec.v !== SEARCH_CACHE_VERSION) {
+        resolve(null);
+        return;
+      }
+      resolve(Array.isArray(rec.questions) ? rec.questions : []);
+    };
+
+    req.onerror = () => reject(req.error || new Error("idbGetScopeQuestions failed"));
+  });
+}
+
+async function idbPutScopeQuestions(k, questions) {
+  const db = await openSearchDB();
+  return await new Promise((resolve, reject) => {
+    const tx = db.transaction(SEARCH_DB.store, "readwrite");
+    const store = tx.objectStore(SEARCH_DB.store);
+
+    store.put({
+      k: String(k),
+      v: SEARCH_CACHE_VERSION,
+      questions: Array.isArray(questions) ? questions : [],
+      updatedAt: Date.now()
+    });
+
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error || new Error("idbPutScopeQuestions failed"));
+    tx.onabort = () => reject(tx.error || new Error("idbPutScopeQuestions aborted"));
+  });
+}
+
+function canUseSearchScope(subj, year, roundLabel) {
+  if (!subj || !year || !roundLabel) return false;
+  const yearNum = Number(year);
+  if (roundLabel === "第二次" && Number.isFinite(yearNum) && yearNum >= 110) {
+    return false;
+  }
+  return true;
+}
+
+function buildAllSearchScopes() {
+  if (!subjectSel || !yearSel || !roundSel) return [];
+
+  const subjects = Array.from(subjectSel.options || [])
+    .map(o => String(o.value || "").trim())
+    .filter(Boolean);
+
+  const years = Array.from(yearSel.options || [])
+    .map(o => String(o.value || "").trim())
+    .filter(Boolean);
+
+  const rounds = Array.from(roundSel.options || [])
+    .map(o => String(o.textContent || o.value || "").trim())
+    .filter(Boolean);
+
+  const scopes = [];
+  for (const subj of subjects) {
+    for (const year of years) {
+      for (const roundLabel of rounds) {
+        if (!canUseSearchScope(subj, year, roundLabel)) continue;
+        scopes.push({ subj, year, roundLabel });
+      }
+    }
+  }
+
+  return scopes;
+}
+
+function waitMs(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function runWhenBrowserIdle(task) {
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(() => {
+      Promise.resolve().then(task).catch(err => {
+        console.warn("[search] idle task failed:", err);
+      });
+    }, { timeout: 1500 });
+  } else {
+    setTimeout(() => {
+      Promise.resolve().then(task).catch(err => {
+        console.warn("[search] timeout task failed:", err);
+      });
+    }, 300);
+  }
+}
+
+async function warmSearchCacheInBackground() {
+  if (__searchWarmStarted) return;
+  __searchWarmStarted = true;
+
+  const scopes = buildAllSearchScopes();
+  for (const s of scopes) {
+    try {
+      await loadQuestionsForScope(s.subj, s.year, s.roundLabel);
+    } catch (e) {
+      console.warn("[search] background warmup failed:", s, e);
+    }
+    await waitMs(20);
+  }
+}
+
+function startBackgroundSearchWarmup(retry = 0) {
+  if (!subjectSel || !yearSel || !roundSel) return;
+
+  const ready =
+    subjectSel.options && subjectSel.options.length &&
+    yearSel.options && yearSel.options.length &&
+    roundSel.options && roundSel.options.length;
+
+  if (!ready) {
+    if (retry < 30) {
+      setTimeout(() => startBackgroundSearchWarmup(retry + 1), 500);
+    }
+    return;
+  }
+
+  runWhenBrowserIdle(() => warmSearchCacheInBackground());
+}
 
 // ★ 新增：110 年（含）之後沒有第二次 → 自動鎖定「第一次」，並隱藏「第二次」
 function updateRoundOptionsByYear() {
@@ -1118,54 +1318,82 @@ let globalSearchIndex = -1;         // 目前在搜尋結果中的第幾筆（0-
 
 // 依「科目 / 年份 / 梯次」載入題目（給搜尋用），會做快取
 // 依「科目 / 年份 /梯次」載入題目（給搜尋用），會做快取
-async function loadQuestionsForScope(subj, year, roundLabel) {
+async function loadQuestionsForScope(subj, year, roundLabel, opts = {}) {
   if (!subj || !year || !roundLabel) return [];
 
-  // 🔒 110 年（含）之後沒有第二次，直接略過，避免 404
   const yearNum = Number(year);
   if (roundLabel === "第二次" && Number.isFinite(yearNum) && yearNum >= 110) {
     return [];
   }
 
-  const cacheKey = `${subj}|${year}|${roundLabel}`;
-  if (searchCache[cacheKey]) {
+  const cacheKey = makeScopeCacheKey(subj, year, roundLabel);
+  const forceRefresh = !!opts.forceRefresh;
+
+  if (!forceRefresh && searchCache[cacheKey]) {
     return searchCache[cacheKey];
   }
 
-  const p = subjectPrefix(subj);
-  const r = (roundLabel === "第一次") ? "1" : "2";
-  const qName = `${p}${year}_${r}.json`;
-  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName);
+  if (searchCachePending[cacheKey]) {
+    return searchCachePending[cacheKey];
+  }
+
+  searchCachePending[cacheKey] = (async () => {
+    if (!forceRefresh) {
+      try {
+        const cached = await idbGetScopeQuestions(cacheKey);
+        if (Array.isArray(cached)) {
+          searchCache[cacheKey] = cached;
+          return cached;
+        }
+      } catch (e) {
+        console.warn("[search] 讀取 IndexedDB 快取失敗：", cacheKey, e);
+      }
+    }
+
+    const p = subjectPrefix(subj);
+    const r = (roundLabel === "第一次") ? "1" : "2";
+    const qName = `${p}${year}_${r}.json`;
+    const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, qName);
+
+    try {
+      const res = await fetch(qURL, { cache: "force-cache" });
+      if (!res.ok) {
+        console.warn("[search] 無法載入題目檔：", qName, res.status);
+        searchCache[cacheKey] = [];
+        return [];
+      }
+
+      const arr = await res.json();
+      if (!Array.isArray(arr)) {
+        console.warn("[search] 題目檔格式不是陣列：", qName);
+        searchCache[cacheKey] = [];
+        return [];
+      }
+
+      const normalized = normalizeQuestionsForSearch(arr);
+      searchCache[cacheKey] = normalized;
+
+      try {
+        await idbPutScopeQuestions(cacheKey, normalized);
+      } catch (e) {
+        console.warn("[search] 寫入 IndexedDB 快取失敗：", cacheKey, e);
+      }
+
+      return normalized;
+    } catch (e) {
+      console.error("[search] 載入題目檔錯誤：", qName, e);
+      searchCache[cacheKey] = [];
+      return [];
+    }
+  })();
 
   try {
-    const res = await fetch(qURL, { cache: "force-cache" });
-    if (!res.ok) {
-      console.warn("[search] 無法載入題目檔：", qName, res.status);
-      searchCache[cacheKey] = [];
-      return [];
-    }
-
-    const arr = await res.json();
-    if (!Array.isArray(arr)) {
-      console.warn("[search] 題目檔格式不是陣列：", qName);
-      searchCache[cacheKey] = [];
-      return [];
-    }
-
-    // 確保每題都有 id
-    const withId = arr.map((q, idx) => ({
-      ...q,
-      id: q.id != null ? q.id : idx + 1
-    }));
-
-    searchCache[cacheKey] = withId;
-    return withId;
-  } catch (e) {
-    console.error("[search] 載入題目檔錯誤：", qName, e);
-    searchCache[cacheKey] = [];
-    return [];
+    return await searchCachePending[cacheKey];
+  } finally {
+    delete searchCachePending[cacheKey];
   }
 }
+
 
 
 // ===== 我的動物 DOM =====
@@ -1455,20 +1683,12 @@ async function searchAcrossVolumes(keyword, opts = null) {
     if (!qs || !qs.length) return;
 
     qs.forEach((q) => {
-      const matchedText =
-        q.text && String(q.text).toLowerCase().includes(kw);
+      const haystack = String(
+        q.__searchBlob ||
+        buildQuestionSearchBlob(q)
+      );
 
-      let matchedOption = false;
-      if (!matchedText && q.options && typeof q.options === "object") {
-        for (const val of Object.values(q.options)) {
-          if (String(val || "").toLowerCase().includes(kw)) {
-            matchedOption = true;
-            break;
-          }
-        }
-      }
-
-      if (matchedText || matchedOption) {
+      if (haystack.includes(kw)) {
         hits.push({
           subj: scope.subj,
           year: scope.year,
@@ -1476,6 +1696,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
           qid: q.id != null ? q.id : null
         });
       }
+
     });
   });
 
@@ -1513,6 +1734,7 @@ if (searchInput) {
     }, 700);
   });
 }
+startBackgroundSearchWarmup();
 
 const prevBtn = $("#prev"), nextBtn = $("#next");
 const btnExam = $("#btnExam"), btnSubmit = $("#btnSubmit"), btnClose = $("#btnClose");
