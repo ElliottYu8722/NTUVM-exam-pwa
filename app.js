@@ -1411,20 +1411,18 @@ async function searchAcrossVolumes(keyword, opts = null) {
   const subjects = Array.from(subjectSel.options || [])
     .map(o => String(o.value || "").trim())
     .filter(Boolean);
-  let years = [];
-  
-  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
-  years = opts.years;
-  } else {
-  years = Array.from(yearSel.options)
-  .map(o => String(o.value || "").trim())
-  .filter(Boolean);
-  }
 
+  let years = [];
+  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
+    years = opts.years;
+  } else {
+    years = Array.from(yearSel.options || [])
+      .map(o => String(o.value || "").trim())
+      .filter(Boolean);
+  }
 
   const rounds = Array.from(roundSel.options || [])
     .map(o => {
-      // 原本程式對 round 用的是 text 或 value 的文字
       const txt = (o.textContent || o.value || "").trim();
       return txt;
     })
@@ -1439,9 +1437,8 @@ async function searchAcrossVolumes(keyword, opts = null) {
       }
     }
   }
-  if (!scopes.length) return;
 
-  const hits = [];
+  if (!scopes.length) return;
 
   // 一次併發載入所有 scope 的題目
   const results = await Promise.all(
@@ -1451,30 +1448,27 @@ async function searchAcrossVolumes(keyword, opts = null) {
     })
   );
 
-  // 在記憶體裡掃文字，比對關鍵字
+  const hits = [];
+
+  // 只搜尋：題幹 + 選項，不搜尋詳解 explanation
   results.forEach(({ scope, qs }) => {
     if (!qs || !qs.length) return;
 
     qs.forEach((q) => {
-      const texts = [];
+      const matchedText =
+        q.text && String(q.text).toLowerCase().includes(kw);
 
-      if (q.text) texts.push(q.text);
-
-      if (q.options) {
-        for (const k in q.options) {
-          if (Object.prototype.hasOwnProperty.call(q.options, k)) {
-            texts.push(q.options[k]);
+      let matchedOption = false;
+      if (!matchedText && q.options && typeof q.options === "object") {
+        for (const val of Object.values(q.options)) {
+          if (String(val || "").toLowerCase().includes(kw)) {
+            matchedOption = true;
+            break;
           }
         }
       }
 
-      if (q.explanation) texts.push(q.explanation);
-
-      const matched = texts.some(t =>
-        String(t || "").toLowerCase().includes(kw)
-      );
-
-      if (matched) {
+      if (matchedText || matchedOption) {
         hits.push({
           subj: scope.subj,
           year: scope.year,
@@ -1491,7 +1485,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
   globalSearchIndex = hits.length ? 0 : -1;
   renderGlobalSearchList(hits);
 
-  // 自動跳到第一筆結果（維持原本行為）
+  // 自動跳到第一筆結果
   if (hits.length && typeof jumpToSearchHit === "function") {
     try {
       await jumpToSearchHit(hits[0]);
@@ -1500,6 +1494,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
     }
   }
 }
+
 
 
 
