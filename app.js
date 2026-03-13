@@ -3595,7 +3595,7 @@ function openRandomQuizOverlay(qs, options) {
   const mask = document.createElement('div');
   mask.id = 'random-quiz-mask';
   mask.className = 'pet-quiz-mask';
-
+  mask.style.zIndex = "100190";
   mask.innerHTML = `
     <div class="pet-quiz-card">
       <div class="pet-quiz-head">
@@ -4060,7 +4060,7 @@ function openRandomQuizRecordsOverlay() {
   mask.id = 'random-quiz-records-mask';
   mask.style.position = 'fixed';
   mask.style.inset = '0';
-  mask.style.zIndex = '100011';
+  mask.style.zIndex = '100191';
   mask.style.background = 'rgba(0,0,0,0.5)';
   mask.style.display = 'flex';
   mask.style.alignItems = 'center';
@@ -4257,7 +4257,7 @@ function showRandomQuizLoading(message) {
   mask.id = 'random-quiz-loading-mask';
   mask.style.position = 'fixed';
   mask.style.inset = '0';
-  mask.style.zIndex = '100020';
+  mask.style.zIndex = '100195';
   mask.style.background = 'rgba(0,0,0,0.6)';
   mask.style.display = 'flex';
   mask.style.alignItems = 'center';
@@ -4307,7 +4307,7 @@ function openRandomQuizCrossSubjectOverlay(questionCount, preselectedYears) {
   mask.id = 'random-quiz-cross-mask';
   mask.style.position = 'fixed';
   mask.style.inset = '0';
-  mask.style.zIndex = '100015';
+  mask.style.zIndex = '100192';
   mask.style.background = 'rgba(0, 0, 0, 0.6)';
   mask.style.display = 'flex';
   mask.style.alignItems = 'center';
@@ -4480,7 +4480,7 @@ function openRandomQuizPrepOverlay() {
   mask.id = 'random-quiz-prep-mask';
   mask.style.position = 'fixed';
   mask.style.inset = '0';
-  mask.style.zIndex = '100010';
+  mask.style.zIndex = '100193';
   mask.style.background = 'rgba(0,0,0,0.5)';
   mask.style.display = 'flex';
   mask.style.alignItems = 'center';
