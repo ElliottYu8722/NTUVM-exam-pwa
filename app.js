@@ -16,7 +16,9 @@ const state = {
   timerId: null,
   dark: true
 };
-// ===== 寵物狀態 =====
+state.progressViewQuestionMap = {};
+state.progressViewMode = false;
+
 
 // ===== 寵物狀態 =====
 
@@ -577,6 +579,8 @@ function showAllQuestions() {
   if (backdrop) backdrop.style.display = 'none';
   isGlobalSearchMode = false;   // 回到一般模式
   state.currentGroupId = null;
+  state.progressViewMode = false;
+  state.progressViewQuestionMap = {};
   state.index = 0; // 回到原卷第一題
   state.visibleQuestions = state.questions;
   if (searchInput) {
@@ -6286,17 +6290,110 @@ function renderExplanation(q) {
   }
 }
 
+function renderProgressViewQuestionDirect(item) {
+  if (!item) {
+    qNum.textContent = "";
+    qText.textContent = "";
+    qOpts.innerHTML = "";
+    qImg.classList.add("hidden");
+    qImg.removeAttribute("src");
+    renderQuestionImagesFromState(null);
+    renderExplanation(null);
+    return;
+  }
+
+  const qid = item.id != null ? item.id : (item.groupEntry?.qid ?? "");
+  qNum.textContent = String(qid);
+
+  let html = escapeHTML(String(item.text || ""));
+  const correctAns = Array.isArray(item.answerSet) ? item.answerSet.join(",") : "";
+  if (showAns?.checked && correctAns) {
+    html = `${escapeHTML(correctAns)}<br>${html}`;
+  }
+  qText.innerHTML = html;
+
+  if (item.image) {
+    const raw = resolveImage(item.image);
+    const bust = raw.includes("?") ? `&v=${Date.now()}` : `?v=${Date.now()}`;
+    qImg.src = raw + bust;
+    qImg.classList.remove("hidden");
+  } else {
+    qImg.classList.add("hidden");
+    qImg.removeAttribute("src");
+  }
+
+  qOpts.innerHTML = "";
+  const letters = ["A", "B", "C", "D"];
+  letters.forEach(L => {
+    const text = item.options && item.options[L] ? item.options[L] : "";
+    if (!text) return;
+
+    const line = document.createElement("div");
+    line.style.display = "flex";
+    line.style.alignItems = "center";
+    line.style.gap = "10px";
+
+    const span = document.createElement("span");
+    span.innerText = `${L}. ${text}`;
+
+    line.appendChild(span);
+    qOpts.appendChild(line);
+  });
+
+  try {
+    if (subjectSel && item.scope?.subj) subjectSel.value = String(item.scope.subj);
+    if (yearSel && item.scope?.year) yearSel.value = String(item.scope.year);
+    if (typeof updateRoundOptionsByYear === "function") updateRoundOptionsByYear();
+    if (roundSel && item.scope?.roundLabel) roundSel.value = String(item.scope.roundLabel);
+  } catch (e) {
+    console.warn("renderProgressViewQuestionDirect set scope failed:", e);
+  }
+
+  bSubj.textContent = item.scope?.subj ? getSubjectTextByValue(item.scope.subj) : "";
+  bYear.textContent = item.scope?.year ? String(item.scope.year) : "";
+  bRound.textContent = item.scope?.roundLabel ? String(item.scope.roundLabel) : "";
+
+  document.getElementById("reviewTag")?.classList.add("hidden");
+  document.getElementById("btnExitReview")?.remove();
+
+  renderQuestionImagesFromState(item);
+  renderExplanation(item);
+  highlightList();
+
+  try {
+    if (typeof loadNoteForCurrent === "function") loadNoteForCurrent();
+  } catch (e) {
+    console.warn("loadNoteForCurrent failed in progress direct view:", e);
+  }
+
+  try {
+    if (typeof loadCommentsForCurrentQuestion === "function") loadCommentsForCurrentQuestion();
+  } catch (e) {
+    console.warn("loadCommentsForCurrentQuestion failed in progress direct view:", e);
+  }
+}
 
 async function renderQuestionInGroupMode() {
   const item = state.visibleQuestions[state.index];
   if (!item || !item.groupEntry) {
-    qNum.textContent = '';
-    qText.textContent = '這個群組目前沒有題目';
-    qOpts.innerHTML = '';
-    qImg.classList.add('hidden');
-    // 群組沒有題目時，也順便清空多圖區
+    qNum.textContent = "";
+    qText.textContent = "";
+    qOpts.innerHTML = "";
+    qImg.classList.add("hidden");
     renderQuestionImagesFromState(null);
     renderExplanation(null);
+    return;
+  }
+
+  const progressCached =
+    item.progressViewKey &&
+    state.progressViewQuestionMap &&
+    state.progressViewQuestionMap[item.progressViewKey]
+      ? state.progressViewQuestionMap[item.progressViewKey]
+      : null;
+
+  if (progressCached) {
+    renderProgressViewQuestionDirect(progressCached);
     return;
   }
 
@@ -11360,16 +11457,32 @@ async function viewProgressSubjectQuestions(meta, starFilter = null) {
     document.body.classList.remove('show-left-panel', 'show-right-panel');
     const backdrop = document.querySelector('.drawer-backdrop');
     if (backdrop) backdrop.style.display = 'none';
-
-    state.mode = 'browse';
+    state.mode = "browse";
     state.reviewOrder = [];
     state.reviewPos = 0;
-    state.currentGroupId = 'progress-view';
+    state.currentGroupId = "progress-view";
+    state.progressViewMode = true;
+    state.progressViewQuestionMap = {};
     state.index = 0;
-    state.visibleQuestions = filtered.map((item, idx) => ({
-      id: idx + 1,
-      groupEntry: item.groupEntry
-    }));
+
+    state.visibleQuestions = filtered.map((item, idx) => {
+      const key = makeProgressQuestionKey(
+        {
+          subj: item.groupEntry?.subj,
+          year: item.groupEntry?.year,
+          round: item.groupEntry?.round
+        },
+        item.groupEntry?.qid ?? item.id
+      );
+
+      state.progressViewQuestionMap[key] = item;
+
+      return {
+        id: idx + 1,
+        groupEntry: item.groupEntry,
+        progressViewKey: key
+      };
+    });
 
     document.getElementById('reviewTag')?.classList.add('hidden');
     document.getElementById('btnExitReview')?.remove();
