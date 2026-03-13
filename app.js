@@ -11392,12 +11392,11 @@ function filterProgressSubjectQuestionSet(items, starFilter = null) {
 
 async function startProgressSubjectQuiz(meta, starFilter = null) {
   closeProgressSubjectActionSheet();
-
-  const starLabel = starFilter == null ? '全部題目' : `${getProgressStarText(starFilter)} 題目`;
+  const starLabel = starFilter === null ? "全部題目" : getProgressStarText(starFilter);
 
   try {
-    if (typeof showRandomQuizLoading === 'function') {
-      showRandomQuizLoading('正在準備題目…');
+    if (typeof showRandomQuizLoading === "function") {
+      showRandomQuizLoading("正在準備測驗…");
     }
 
     const allItems = await buildProgressSubjectQuestionSet(meta.year, meta.subj);
@@ -11406,11 +11405,9 @@ async function startProgressSubjectQuiz(meta, starFilter = null) {
     );
 
     if (!filtered.length) {
-      alert(`${meta.label} 沒有可測驗的 ${starLabel}。`);
+      alert(`${meta.label} ${starLabel} 沒有題目可測驗`);
       return;
     }
-
-    closeProgressScreen();
 
     const qs = filtered.map(item => ({
       id: item.id,
@@ -11425,14 +11422,15 @@ async function startProgressSubjectQuiz(meta, starFilter = null) {
 
     openRandomQuizOverlay(qs);
   } catch (e) {
-    console.error('startProgressSubjectQuiz failed:', e);
-    alert('開啟科目測驗失敗，請看 console。');
+    console.error("startProgressSubjectQuiz failed:", e);
+    alert("開始測驗失敗");
   } finally {
-    if (typeof hideRandomQuizLoading === 'function') {
+    if (typeof hideRandomQuizLoading === "function") {
       hideRandomQuizLoading();
     }
   }
 }
+
 
 async function viewProgressSubjectQuestions(meta, starFilter = null) {
   closeProgressSubjectActionSheet();
@@ -11883,45 +11881,142 @@ async function openProgressScreen() {
     <div class="pg-top">
       <div class="pg-title">我的進度</div>
       <div class="pg-top-actions">
-        <select id="pgYearPicker" class="pg-select"></select>
         <button id="pgAddYear" class="pg-btn" type="button">加入年份</button>
         <button id="pgClose" class="pg-btn" type="button">關閉</button>
       </div>
     </div>
     <div class="pg-body">
       <div id="pgYearChips" class="pg-year-chips"></div>
-      <div id="pgList" class="pg-list">
-        <div class="pg-empty">進度載入中…</div>
-      </div>
+      <div id="pgList" class="pg-list"><div class="pg-empty">載入中…</div></div>
     </div>
   `;
 
+
   document.body.appendChild(screen);
 
-  const btnClose = screen.querySelector('#pgClose');
-  const btnAddYear = screen.querySelector('#pgAddYear');
-  const yearPicker = screen.querySelector('#pgYearPicker');
-  const chipWrap = screen.querySelector('#pgYearChips');
-  const listWrap = screen.querySelector('#pgList');
+  const btnClose = screen.querySelector("#pgClose");
+  const btnAddYear = screen.querySelector("#pgAddYear");
+  const chipWrap = screen.querySelector("#pgYearChips");
+  const listWrap = screen.querySelector("#pgList");
+
 
   const close = () => {
     try { screen.remove(); } catch {}
   };
 
   btnClose.onclick = close;
+  function openProgressAddYearDialog() {
+    const old = document.getElementById("pg-add-year-mask");
+    if (old) {
+      try { old.remove(); } catch {}
+    }
 
-  function refreshYearPicker() {
-    const allYears = getProgressAvailableYears()
+    const currentYears = ensureProgressSelectedYears().map(v => String(v).trim);
+    const choices = getProgressAvailableYears()
+      .map(v => String(v).trim())
+      .filter(Boolean)
+      .filter(y => !currentYears.includes(y))
       .sort((a, b) => Number(b) - Number(a));
 
-    yearPicker.innerHTML = allYears
-      .map(y => `<option value="${escapeHTML(String(y))}">${escapeHTML(String(y))} 年</option>`)
-      .join('');
-
-    if (!yearPicker.value && allYears.length) {
-      yearPicker.value = allYears[0];
+    if (!choices.length) {
+      alert("目前沒有可加入的新年份");
+      return;
     }
+
+    const mask = document.createElement("div");
+    mask.id = "pg-add-year-mask";
+    mask.style.position = "fixed";
+    mask.style.inset = "0";
+    mask.style.zIndex = "100181";
+    mask.style.background = "rgba(0,0,0,0.55)";
+    mask.style.display = "flex";
+    mask.style.alignItems = "center";
+    mask.style.justifyContent = "center";
+    mask.style.padding = "16px";
+
+    const card = document.createElement("div");
+    card.style.width = "min(360px, 100%)";
+    card.style.background = "var(--card, #1b1b1b)";
+    card.style.color = "var(--fg, #fff)";
+    card.style.border = "1px solid var(--border, #333)";
+    card.style.borderRadius = "16px";
+    card.style.padding = "16px";
+    card.style.display = "flex";
+    card.style.flexDirection = "column";
+    card.style.gap = "12px";
+
+    const title = document.createElement("div");
+    title.textContent = "加入年份";
+    title.style.fontSize = "16px";
+    title.style.fontWeight = "800";
+
+    const hint = document.createElement("div");
+    hint.textContent = "先選擇年份，再按加入";
+    hint.style.fontSize = "13px";
+    hint.style.color = "var(--muted, #aaa)";
+
+    const select = document.createElement("select");
+    select.className = "pg-select";
+    select.style.width = "100%";
+    select.innerHTML = choices
+      .map(y => `<option value="${escapeHTML(String(y))}">${escapeHTML(String(y))}</option>`)
+      .join("");
+
+    const actions = document.createElement("div");
+    actions.style.display = "flex";
+    actions.style.justifyContent = "flex-end";
+    actions.style.gap = "8px";
+
+    const btnCancel = document.createElement("button");
+    btnCancel.type = "button";
+    btnCancel.className = "pg-btn";
+    btnCancel.textContent = "取消";
+
+    const btnOk = document.createElement("button");
+    btnOk.type = "button";
+    btnOk.className = "pg-btn";
+    btnOk.textContent = "加入";
+    btnOk.style.borderColor = "var(--accent, #2f74ff)";
+    btnOk.style.color = "var(--accent, #2f74ff)";
+
+    btnCancel.onclick = () => {
+      try { mask.remove(); } catch {}
+    };
+
+    btnOk.onclick = async () => {
+      const picked = String(select.value || "").trim();
+      if (!picked) return;
+
+      addProgressYear(picked);
+
+      try { mask.remove(); } catch {}
+
+      renderYearChips();
+      await renderProgressList();
+    };
+
+    actions.appendChild(btnCancel);
+    actions.appendChild(btnOk);
+
+    card.appendChild(title);
+    card.appendChild(hint);
+    card.appendChild(select);
+    card.appendChild(actions);
+
+    mask.appendChild(card);
+    document.body.appendChild(mask);
+
+    mask.addEventListener("click", e => {
+      if (e.target === mask) {
+        try { mask.remove(); } catch {}
+      }
+    });
   }
+
+  function refreshYearPicker() {
+    return getProgressAvailableYears().sort((a, b) => Number(b) - Number(a));
+  }
+
 
   function renderYearChips() {
     const years = [...ensureProgressSelectedYears()].sort((a, b) => Number(b) - Number(a));
@@ -12062,14 +12157,10 @@ async function openProgressScreen() {
     });
   }
 
-  btnAddYear.onclick = async () => {
-    const picked = String(yearPicker.value || '').trim();
-    if (!picked) return;
-    addProgressYear(picked);
-    refreshYearPicker();
-    renderYearChips();
-    await renderProgressList();
+  btnAddYear.onclick = () => {
+    openProgressAddYearDialog();
   };
+
 
   refreshYearPicker();
   renderYearChips();
