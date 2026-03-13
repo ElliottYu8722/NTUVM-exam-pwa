@@ -11159,6 +11159,333 @@ async function buildProgressSnapshot(years) {
 
   return rows;
 }
+const progressAnswersCache = {};
+
+function closeProgressSubjectActionSheet() {
+  const old = document.getElementById('pg-sheet-mask');
+  if (old) {
+    try { old.remove(); } catch {}
+  }
+}
+
+function closeProgressScreen() {
+  closeProgressSubjectActionSheet();
+  const old = document.getElementById('pg-screen');
+  if (old) {
+    try { old.remove(); } catch {}
+  }
+}
+
+function getProgressStarText(stars) {
+  const n = Number(stars);
+  if (n === 0) return '☆☆☆';
+  if (n === 1) return '★☆☆';
+  if (n === 2) return '★★☆';
+  return '★★★';
+}
+
+function shuffleProgressItems(items) {
+  const arr = Array.isArray(items) ? items.slice() : [];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+async function loadProgressAnswersForScope(subj, year, roundLabel, opts = {}) {
+  const round = normalizeProgressRoundLabel(roundLabel);
+  const cacheKey = `${String(subj)}|${String(year)}|${String(round)}`;
+  const forceRefresh = !!opts.forceRefresh;
+
+  if (!forceRefresh && progressAnswersCache[cacheKey]) {
+    return progressAnswersCache[cacheKey];
+  }
+
+  try {
+    const p = subjectPrefix(subj);
+    const r = round === '第一次' ? '1' : '2';
+    const aName = `${p}w${year}_${r}.json`;
+    const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers, aName) + `?v=${Date.now()}`;
+    const res = await fetch(aURL, { cache: 'no-store' });
+
+    if (!res.ok) {
+      progressAnswersCache[cacheKey] = {};
+      return {};
+    }
+
+    const obj = await res.json();
+    const safe = obj && typeof obj === 'object' ? obj : {};
+    progressAnswersCache[cacheKey] = safe;
+    return safe;
+  } catch (e) {
+    console.error('loadProgressAnswersForScope failed:', e);
+    progressAnswersCache[cacheKey] = {};
+    return {};
+  }
+}
+
+async function buildProgressSubjectQuestionSet(year, subj) {
+  const scopes = (typeof buildAllSearchScopes === 'function' ? buildAllSearchScopes() : [])
+    .filter(s => String(s.year) === String(year) && String(s.subj) === String(subj));
+
+  if (!scopes.length) return [];
+
+  const loaded = await Promise.all(
+    scopes.map(async (scope) => {
+      const [questions, answers] = await Promise.all([
+        loadQuestionsForScope(scope.subj, scope.year, scope.roundLabel),
+        loadProgressAnswersForScope(scope.subj, scope.year, scope.roundLabel)
+      ]);
+
+      return {
+        scope,
+        questions: Array.isArray(questions) ? questions : [],
+        answers: answers && typeof answers === 'object' ? answers : {}
+      };
+    })
+  );
+
+  const out = [];
+
+  loaded.forEach(({ scope, questions, answers }) => {
+    questions.forEach((q, idx) => {
+      const qid = q && q.id != null ? q.id : idx + 1;
+      const stars = getQuestionStars(
+        { subj: scope.subj, year: scope.year, round: scope.roundLabel },
+        qid
+      );
+
+      out.push({
+        id: qid,
+        text: String(q?.text || ''),
+        options: q?.options && typeof q.options === 'object' ? q.options : {},
+        image: q?.image || '',
+        images: Array.isArray(q?.images)
+          ? q.images.slice()
+          : (q?.image ? [q.image] : []),
+        explanation: q?.explanation,
+        answerSet: splitAnswerLetters(answers[String(qid)]),
+        scope: {
+          subj: scope.subj,
+          year: scope.year,
+          roundLabel: scope.roundLabel
+        },
+        stars,
+        groupEntry: {
+          subj: scope.subj,
+          year: scope.year,
+          round: scope.roundLabel,
+          qid: String(qid)
+        }
+      });
+    });
+  });
+
+  return out;
+}
+
+function filterProgressSubjectQuestionSet(items, starFilter = null) {
+  const arr = Array.isArray(items) ? items : [];
+  if (starFilter == null) return arr.slice();
+
+  const target = Number(starFilter);
+  return arr.filter(item => Number(item?.stars) === target);
+}
+
+async function startProgressSubjectQuiz(meta, starFilter = null) {
+  closeProgressSubjectActionSheet();
+
+  const starLabel = starFilter == null ? '全部題目' : `${getProgressStarText(starFilter)} 題目`;
+
+  try {
+    if (typeof showRandomQuizLoading === 'function') {
+      showRandomQuizLoading('正在準備題目…');
+    }
+
+    const allItems = await buildProgressSubjectQuestionSet(meta.year, meta.subj);
+    const filtered = shuffleProgressItems(
+      filterProgressSubjectQuestionSet(allItems, starFilter)
+    );
+
+    if (!filtered.length) {
+      alert(`${meta.label} 沒有可測驗的 ${starLabel}。`);
+      return;
+    }
+
+    closeProgressScreen();
+
+    const qs = filtered.map(item => ({
+      id: item.id,
+      text: item.text,
+      options: item.options,
+      image: item.image,
+      images: item.images,
+      explanation: item.explanation,
+      answerSet: item.answerSet,
+      scope: item.scope
+    }));
+
+    openRandomQuizOverlay(qs);
+  } catch (e) {
+    console.error('startProgressSubjectQuiz failed:', e);
+    alert('開啟科目測驗失敗，請看 console。');
+  } finally {
+    if (typeof hideRandomQuizLoading === 'function') {
+      hideRandomQuizLoading();
+    }
+  }
+}
+
+async function viewProgressSubjectQuestions(meta, starFilter = null) {
+  closeProgressSubjectActionSheet();
+
+  const starLabel = starFilter == null ? '全部題目' : `${getProgressStarText(starFilter)} 題目`;
+
+  try {
+    if (typeof showRandomQuizLoading === 'function') {
+      showRandomQuizLoading('正在載入題目…');
+    }
+
+    const allItems = await buildProgressSubjectQuestionSet(meta.year, meta.subj);
+    const filtered = filterProgressSubjectQuestionSet(allItems, starFilter);
+
+    if (!filtered.length) {
+      alert(`${meta.label} 沒有可檢視的 ${starLabel}。`);
+      return;
+    }
+
+    closeProgressScreen();
+
+    document.body.classList.remove('show-left-panel', 'show-right-panel');
+    const backdrop = document.querySelector('.drawer-backdrop');
+    if (backdrop) backdrop.style.display = 'none';
+
+    state.mode = 'browse';
+    state.reviewOrder = [];
+    state.reviewPos = 0;
+    state.currentGroupId = 'progress-view';
+    state.index = 0;
+    state.visibleQuestions = filtered.map((item, idx) => ({
+      id: idx + 1,
+      groupEntry: item.groupEntry
+    }));
+
+    document.getElementById('reviewTag')?.classList.add('hidden');
+    document.getElementById('btnExitReview')?.remove();
+
+    if (searchInput) searchInput.value = '';
+
+    renderList(state.visibleQuestions, { renumber: true });
+    renderQuestion();
+    highlightList();
+  } catch (e) {
+    console.error('viewProgressSubjectQuestions failed:', e);
+    alert('開啟科目檢視失敗，請看 console。');
+  } finally {
+    if (typeof hideRandomQuizLoading === 'function') {
+      hideRandomQuizLoading();
+    }
+  }
+}
+
+function openProgressSubjectActionSheet(meta) {
+  closeProgressSubjectActionSheet();
+
+  const total = Number(meta?.totalQuestions) || 0;
+  const zero = Number(meta?.zero) || 0;
+  const one = Number(meta?.one) || 0;
+  const two = Number(meta?.two) || 0;
+  const three = Number(meta?.three) || 0;
+
+  const mask = document.createElement('div');
+  mask.id = 'pg-sheet-mask';
+  mask.className = 'pg-sheet-mask';
+
+  mask.innerHTML = `
+    <div class="pg-sheet-card">
+      <div class="pg-sheet-title">${escapeHTML(String(meta?.label || meta?.subj || '科目'))}</div>
+      <div class="pg-sheet-sub">${escapeHTML(String(meta?.year || ''))} 年｜選擇要開始測驗還是單純檢視</div>
+
+      <div class="pg-sheet-section">測驗</div>
+      <div class="pg-sheet-grid">
+        <button class="pg-sheet-btn" type="button" data-kind="quiz" data-stars="all" ${total ? '' : 'disabled'}>
+          全部題目測驗（${total}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="quiz" data-stars="0" ${zero ? '' : 'disabled'}>
+          ☆☆☆ 測驗（${zero}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="quiz" data-stars="1" ${one ? '' : 'disabled'}>
+          ★☆☆ 測驗（${one}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="quiz" data-stars="2" ${two ? '' : 'disabled'}>
+          ★★☆ 測驗（${two}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="quiz" data-stars="3" ${three ? '' : 'disabled'}>
+          ★★★ 測驗（${three}）
+        </button>
+      </div>
+
+      <div class="pg-sheet-section">檢視</div>
+      <div class="pg-sheet-grid">
+        <button class="pg-sheet-btn" type="button" data-kind="view" data-stars="all" ${total ? '' : 'disabled'}>
+          檢視全部題目（${total}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="view" data-stars="0" ${zero ? '' : 'disabled'}>
+          檢視 ☆☆☆（${zero}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="view" data-stars="1" ${one ? '' : 'disabled'}>
+          檢視 ★☆☆（${one}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="view" data-stars="2" ${two ? '' : 'disabled'}>
+          檢視 ★★☆（${two}）
+        </button>
+        <button class="pg-sheet-btn" type="button" data-kind="view" data-stars="3" ${three ? '' : 'disabled'}>
+          檢視 ★★★（${three}）
+        </button>
+      </div>
+
+      <div class="pg-sheet-actions">
+        <button class="pg-sheet-cancel" type="button" id="pgSheetCancel">取消</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(mask);
+
+  const safeMeta = {
+    year: String(meta?.year || ''),
+    subj: String(meta?.subj || ''),
+    label: String(meta?.label || meta?.subj || '')
+  };
+
+  mask.querySelector('#pgSheetCancel')?.addEventListener('click', closeProgressSubjectActionSheet);
+
+  mask.querySelectorAll('.pg-sheet-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (btn.disabled) return;
+
+      const kind = String(btn.dataset.kind || '').trim();
+      const starsRaw = String(btn.dataset.stars || 'all').trim();
+      const starFilter = starsRaw === 'all' ? null : Number(starsRaw);
+
+      if (kind === 'quiz') {
+        await startProgressSubjectQuiz(safeMeta, starFilter);
+        return;
+      }
+
+      if (kind === 'view') {
+        await viewProgressSubjectQuestions(safeMeta, starFilter);
+      }
+    });
+  });
+
+  mask.addEventListener('click', (e) => {
+    if (e.target === mask) {
+      closeProgressSubjectActionSheet();
+    }
+  });
+}
 
 function ensureProgressStyle() {
   if (document.getElementById('progress-style-v1')) return;
@@ -11293,7 +11620,94 @@ function ensureProgressStyle() {
       background:rgba(255,255,255,0.04);
       font-size:12px;
     }
+    .pg-subject-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pg-open-actions{
+      padding:7px 12px;
+      border-radius:9999px;
+      border:1px solid var(--border, #333);
+      background:transparent;
+      color:var(--fg, #fff);
+      cursor:pointer;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .pg-open-actions:hover{
+      border-color:var(--accent, #2f74ff);
+      color:var(--accent, #2f74ff);
+    }
+    .pg-sheet-mask{
+      position:fixed;
+      inset:0;
+      z-index:100181;
+      background:rgba(0,0,0,.55);
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      padding:16px;
+    }
+    .pg-sheet-card{
+      width:min(560px, 100%);
+      background:var(--card, #1b1b1b);
+      border:1px solid var(--border, #333);
+      border-radius:20px;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      box-shadow:0 16px 40px rgba(0,0,0,.35);
+    }
+    .pg-sheet-title{
+      font-size:17px;
+      font-weight:800;
+    }
+    .pg-sheet-sub{
+      font-size:13px;
+      color:var(--muted, #aaa);
+    }
+    .pg-sheet-section{
+      font-size:12px;
+      color:var(--muted, #aaa);
+      margin-top:4px;
+    }
+    .pg-sheet-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+    .pg-sheet-btn,
+    .pg-sheet-cancel{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--border, #333);
+      background:transparent;
+      color:var(--fg, #fff);
+      cursor:pointer;
+      font-size:14px;
+      text-align:left;
+    }
+    .pg-sheet-btn:hover,
+    .pg-sheet-cancel:hover{
+      border-color:var(--accent, #2f74ff);
+      color:var(--accent, #2f74ff);
+    }
+    .pg-sheet-btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+    .pg-sheet-actions{
+      display:flex;
+      justify-content:flex-end;
+      margin-top:4px;
+    }
+
     @media (max-width: 768px){
+      .pg-sheet-grid{ grid-template-columns:1fr; }
       .pg-top{ padding:12px; }
       .pg-body{ padding:12px; }
       .pg-year-head, .pg-subject-top{ align-items:flex-start; flex-direction:column; }
@@ -11473,19 +11887,49 @@ async function openProgressScreen() {
                     共 ${subj.totalQuestions} 題｜累積 ${subj.totalStars} / ${subj.maxStars} 星
                   </div>
                 </div>
-                <div class="pg-subject-percent">${formatProgressPercent(subj.percent)}</div>
+                <div class="pg-subject-actions">
+                  <div class="pg-subject-percent">${formatProgressPercent(subj.percent)}</div>
+                  <button
+                    class="pg-open-actions"
+                    type="button"
+                    data-year="${escapeHTML(String(yearRow.year))}"
+                    data-subj="${escapeHTML(String(subj.subj || ''))}"
+                    data-label="${escapeHTML(String(subj.label || subj.subj || '未命名科目'))}"
+                    data-total="${subj.totalQuestions}"
+                    data-zero="${subj.zero}"
+                    data-one="${subj.one}"
+                    data-two="${subj.two}"
+                    data-three="${subj.three}"
+                  >開始</button>
+                </div>
               </div>
+
+
               <div class="pg-bar"><i style="width:${sWidth}%"></i></div>
               <div class="pg-star-stats">
-                <div class="pg-star-pill">0★ ${subj.zero}</div>
-                <div class="pg-star-pill">1★ ${subj.one}</div>
-                <div class="pg-star-pill">2★ ${subj.two}</div>
-                <div class="pg-star-pill">3★ ${subj.three}</div>
+                <div class="pg-star-pill">☆☆☆ ${subj.zero}</div>
+                <div class="pg-star-pill">★☆☆ ${subj.one}</div>
+                <div class="pg-star-pill">★★☆ ${subj.two}</div>
+                <div class="pg-star-pill">★★★ ${subj.three}</div>
               </div>
             </div>
           `;
         }).join('');
       }
+      subjectsWrap.querySelectorAll('.pg-open-actions').forEach(btn => {
+        btn.onclick = () => {
+          openProgressSubjectActionSheet({
+            year: btn.dataset.year || '',
+            subj: btn.dataset.subj || '',
+            label: btn.dataset.label || btn.dataset.subj || '',
+            totalQuestions: Number(btn.dataset.total) || 0,
+            zero: Number(btn.dataset.zero) || 0,
+            one: Number(btn.dataset.one) || 0,
+            two: Number(btn.dataset.two) || 0,
+            three: Number(btn.dataset.three) || 0
+          });
+        };
+      });
 
       const toggleBtn = card.querySelector('.pg-year-toggle');
       const removeBtn = card.querySelector('.pg-remove');
