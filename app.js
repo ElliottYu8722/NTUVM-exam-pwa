@@ -3854,6 +3854,15 @@ function openRandomQuizOverlay(qs, options) {
       saveRandomQuizRecords();
       applyRandomQuizProgressResult(qs, user);
 
+      try {
+        if (typeof window.__refreshProgressList === "function") {
+          Promise.resolve(window.__refreshProgressList()).catch(err => {
+            console.error("refresh progress list after random quiz submit failed:", err);
+          });
+        }
+      } catch (e) {
+        console.error("trigger __refreshProgressList failed:", e);
+      }
     } catch (e) {
       console.error('寫入隨機測驗紀錄失敗：', e);
     }
@@ -8087,7 +8096,15 @@ function fcOpenHome() {
 
   document.body.appendChild(screen);
 
-  const close = () => { try { screen.remove(); } catch {} };
+  const close = () => {
+    try {
+      if (window.__refreshProgressList) window.__refreshProgressList = null;
+    } catch (e) {
+      console.warn("clear __refreshProgressList failed:", e);
+    }
+    try { screen.remove(); } catch {}
+  };
+
   document.getElementById('fc-home-close').onclick = close;
 
   // 新增資料夾：直接建立，不進編輯器
@@ -11898,6 +11915,7 @@ async function openProgressScreen() {
   const btnAddYear = screen.querySelector("#pgAddYear");
   const chipWrap = screen.querySelector("#pgYearChips");
   const listWrap = screen.querySelector("#pgList");
+  window.__refreshProgressList = null;
 
 
   const close = () => {
@@ -12032,10 +12050,17 @@ async function openProgressScreen() {
         <button type="button" class="pg-chip-remove" data-year="${escapeHTML(String(year))}">×</button>
       </div>
     `).join('');
-
-    chipWrap.querySelectorAll('.pg-chip-remove').forEach(btn => {
+    chipWrap.querySelectorAll(".pg-chip-remove").forEach(btn => {
       btn.onclick = async () => {
-        removeProgressYear(btn.dataset.year || '');
+        const year = String(btn.dataset.year || "").trim();
+        if (!year) return;
+
+        const ok = window.confirm(
+          `移除 ${year} 年後，將會遺失這個年份在「我的進度」中的所有星星資料。\n\n是否確定要移除？`
+        );
+        if (!ok) return;
+
+        removeProgressYear(year);
         refreshYearPicker();
         renderYearChips();
         await renderProgressList();
@@ -12146,16 +12171,32 @@ async function openProgressScreen() {
         subjectsWrap.classList.toggle('open');
       };
 
-      removeBtn.onclick = async () => {
-        removeProgressYear(removeBtn.dataset.year || '');
-        refreshYearPicker();
-        renderYearChips();
-        await renderProgressList();
-      };
+    removeBtn.onclick = async () => {
+      const year = String(removeBtn.dataset.year || "").trim();
+      if (!year) return;
+
+      const ok = window.confirm(
+        `移除 ${year} 年後，將會遺失這個年份在「我的進度」中的所有星星資料。\n\n是否確定要移除？`
+      );
+      if (!ok) return;
+
+      removeProgressYear(year);
+      refreshYearPicker();
+      renderYearChips();
+      await renderProgressList();
+    };
+
 
       listWrap.appendChild(card);
     });
   }
+  window.__refreshProgressList = async () => {
+    try {
+      await renderProgressList();
+    } catch (e) {
+      console.error("__refreshProgressList failed:", e);
+    }
+  };
 
   btnAddYear.onclick = () => {
     openProgressAddYearDialog();
