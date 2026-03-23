@@ -1579,42 +1579,54 @@ function renderGlobalSearchList(results) {
 }
 
 
+let jumpSearchLocked = false;
 
 // 點搜尋結果：自動切卷並跳到那一題
 async function jumpToSearchHit(hit) {
+  if (jumpSearchLocked) return;
   if (!hit) return;
 
-  let needChangeScope = false;
+  jumpSearchLocked = true;
 
-  if (subjectSel && subjectSel.value !== hit.subj) {
-    subjectSel.value = hit.subj;
-    needChangeScope = true;
-  }
-  if (yearSel && yearSel.value !== hit.year) {
-    yearSel.value = hit.year;
-    needChangeScope = true;
-  }
-  if (roundSel && roundSel.value !== hit.roundLabel) {
-    roundSel.value = hit.roundLabel;
-    needChangeScope = true;
-  }
+  try {
+    let needChangeScope = false;
 
-  // 差別在這裡：告訴 onScopeChange「現在是搜尋跳題」，暫時不要改右邊
-  if (needChangeScope && typeof onScopeChange === "function") {
-    isJumpingFromSearch = true;
-    await onScopeChange();
+    if (subjectSel && subjectSel.value !== hit.subj) {
+      subjectSel.value = hit.subj;
+      needChangeScope = true;
+    }
+    if (yearSel && yearSel.value !== hit.year) {
+      yearSel.value = hit.year;
+      needChangeScope = true;
+    }
+    if (roundSel && roundSel.value !== hit.roundLabel) {
+      roundSel.value = hit.roundLabel;
+      needChangeScope = true;
+    }
+
+    // 告訴 onScopeChange：現在是搜尋跳題，先不要動右邊列表
+    if (needChangeScope && typeof onScopeChange === "function") {
+      isJumpingFromSearch = true;
+      await onScopeChange();
+    }
+
+    // 在目前卷裡找到那一題
+    const targetId = Number(hit.qid);
+    const idx = state.questions.findIndex(q => Number(q.id) === targetId);
+
+    if (idx >= 0) {
+      state.index = idx;
+      renderQuestion();
+      // 不呼叫 highlightList()，讓右邊保持搜尋結果
+    }
+  } catch (e) {
+    console.error("jumpToSearchHit error", e);
+  } finally {
     isJumpingFromSearch = false;
-  }
-
-  // 在目前卷裡找到那一題
-  const targetId = Number(hit.qid);
-  const idx = state.questions.findIndex(q => Number(q.id) === targetId);
-  if (idx >= 0) {
-    state.index = idx;
-    renderQuestion();
-    // 不呼叫 highlightList()，讓右邊保持搜尋結果
+    jumpSearchLocked = false;
   }
 }
+
 
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
 let isJumpingFromSearch = false;
