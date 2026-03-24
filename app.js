@@ -1082,6 +1082,25 @@ const SEARCH_DB = {
 let __searchDbPromise = null;
 let __searchWarmStarted = false;
 
+const APP_BOOT_CACHE_BUSTER = String(Date.now());
+let __didBootFreshScopeCheck = false;
+
+function getScopeFetchPolicyOncePerVisit() {
+  if (!__didBootFreshScopeCheck) {
+    __didBootFreshScopeCheck = true;
+    return {
+      bust: `?v=${APP_BOOT_CACHE_BUSTER}`,
+      cache: "reload"
+    };
+  }
+
+  return {
+    bust: "",
+    cache: "default"
+  };
+}
+
+
 function openSearchDB() {
   if (__searchDbPromise) return __searchDbPromise;
 
@@ -9992,12 +10011,23 @@ async function onScopeChange() {
   // 3. 準備題目／答案檔案路徑
   const p = subjectPrefix(subjectSel.value);
   const r = (roundSel.value === "第一次") ? "1" : "2";
+
   const qName = `${p}${yearSel.value}_${r}.json`;
-  const aName = `${p}w${yearSel.value}_${r}.json`;
+  const aName = `w${p}${yearSel.value}_${r}.json`;
 
-  const qURL = pathJoin(CONFIG.basePath, CONFIG.dirs.questions, `${qName}?v=${Date.now()}`);
-  const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers, `${aName}?v=${Date.now()}`);
+  const scopeFetchPolicy = getScopeFetchPolicyOncePerVisit();
 
+  const qURL = pathJoin(
+    CONFIG.basePath,
+    CONFIG.dirs.questions,
+    `${qName}${scopeFetchPolicy.bust}`
+  );
+
+  const aURL = pathJoin(
+    CONFIG.basePath,
+    CONFIG.dirs.answers,
+    `${aName}${scopeFetchPolicy.bust}`
+  );
   console.groupCollapsed("onScopeChange");
   console.log("subjectSel.value =", subjectSel.value);
   console.log("subjectPrefix   =", p);
@@ -10012,7 +10042,7 @@ async function onScopeChange() {
 
   // 3-1. 載入題目檔
   try {
-    const qRes = await fetch(qURL, { cache: "no-store" });
+    const qRes = await fetch(qURL, { cache: scopeFetchPolicy.cache });
     console.log("[fetch Q]", qRes);
 
     if (qRes.ok) {
@@ -10052,7 +10082,7 @@ async function onScopeChange() {
 
   // 3-2. 載入答案檔
   try {
-    const aRes = await fetch(aURL, { cache: "no-store" });
+    const aRes = await fetch(aURL, { cache: scopeFetchPolicy.cache });
     console.log("[fetch A]", aRes);
 
     if (aRes.ok) {
