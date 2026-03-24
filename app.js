@@ -1657,7 +1657,7 @@ function renderGlobalSearchList(results) {
 
 let jumpSearchLocked = false;
 
-// 點搜尋結果：自動切卷並跳到那一題
+// 點搜尋結果：自動切卷並跳到那一題// 點搜尋結果：自動切卷並跳到那一題（快取版）
 async function jumpToSearchHit(hit) {
   if (jumpSearchLocked) return;
   if (!hit) return;
@@ -1665,41 +1665,55 @@ async function jumpToSearchHit(hit) {
   jumpSearchLocked = true;
 
   try {
-    let needChangeScope = false;
+    const currentSubj = String(subjectSel?.value || "");
+    const currentYear = String(yearSel?.value || "");
+    const currentRoundLabel = getCurrentRoundLabelFromUI();
 
-    if (subjectSel && subjectSel.value !== hit.subj) {
-      subjectSel.value = hit.subj;
-      needChangeScope = true;
+    const sameScope =
+      currentSubj === String(hit.subj) &&
+      currentYear === String(hit.year) &&
+      currentRoundLabel === String(hit.roundLabel);
+
+    let qs = [];
+    let ans = {};
+
+    if (sameScope && Array.isArray(state.questions) && state.questions.length) {
+      qs = state.questions;
+    } else {
+      qs = await getCachedQuestionsForScope(hit.subj, hit.year, hit.roundLabel);
     }
 
-    if (yearSel && yearSel.value !== hit.year) {
-      yearSel.value = hit.year;
-      needChangeScope = true;
+    if (sameScope && state.answers && typeof state.answers === "object" && Object.keys(state.answers).length) {
+      ans = state.answers;
+    } else {
+      ans = await getCachedAnswersForScope(hit.subj, hit.year, hit.roundLabel);
     }
 
-    if (roundSel && roundSel.value !== hit.roundLabel) {
-      roundSel.value = hit.roundLabel;
-      needChangeScope = true;
-    }
-
-    if (needChangeScope) {
+    if (!sameScope) {
       isJumpingFromSearch = true;
 
-      const qs = await loadQuestionsForScope(hit.subj, hit.year, hit.roundLabel);
-      const ans = await loadAnswersForScope(hit.subj, hit.year, hit.roundLabel);
+      if (subjectSel) subjectSel.value = hit.subj;
+      if (yearSel) yearSel.value = hit.year;
+      if (roundSel) roundSel.value = hit.roundLabel;
 
       state.questions = Array.isArray(qs) ? qs : [];
       state.visibleQuestions = state.questions;
       state.answers = ans && typeof ans === "object" ? ans : {};
-      state.scope = getScopeFromUI();
+      state.scope = {
+        subj: hit.subj,
+        year: hit.year,
+        round: hit.roundLabel,
+        roundLabel: hit.roundLabel
+      };
     }
 
     const targetId = Number(hit.qid);
-    const idx = state.questions.findIndex(q => Number(q.id) === targetId);
+    const idx = qs.findIndex(q => Number(q.id) === targetId);
 
     if (idx >= 0) {
       state.index = idx;
       await renderQuestion();
+      highlightList();
     } else {
       console.warn("[search] 找不到目標題號：", hit);
     }
@@ -1712,14 +1726,94 @@ async function jumpToSearchHit(hit) {
 }
 
 
+
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
 let isJumpingFromSearch = false;
-// 主要搜尋邏輯：搜尋目前「科目」所有年度＋梯次
-// 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
-// 🔍 跨科目＋跨年份＋跨梯次 全域搜尋
-// 全卷搜尋（優化版：併發載入所有 scope 再集中比對）
+
+// ===== 搜尋 / 卷別快取 =====
+const scopeQuestionsCache = new Map();
+const scopeQuestionsPromiseCache = new Map();
+const scopeAnswersCache = new Map();
+const scopeAnswersPromiseCache = new Map();
+let globalSearchSeq = 0;
+
+function makeScopeKey(subj, year, roundLabel) {
+  return [subj, year, roundLabel].map(v => String(v ?? "")).join("||");
+}
+
+function getCurrentRoundLabelFromUI() {
+  if (!roundSel) return "";
+  const opt = roundSel.selectedOptions && roundSel.selectedOptions[0];
+  return String((opt?.textContent || roundSel.value || "")).trim();
+}
+
+async function getCachedQuestionsForScope(subj, year, roundLabel) {
+  const key = makeScopeKey(subj, year, roundLabel);
+
+  if (scopeQuestionsCache.has(key)) {
+    return scopeQuestionsCache.get(key);
+  }
+
+  if (scopeQuestionsPromiseCache.has(key)) {
+    return scopeQuestionsPromiseCache.get(key);
+  }
+
+  const p = Promise.resolve(loadQuestionsForScope(subj, year, roundLabel))
+    .then((qs) => {
+      const arr = Array.isArray(qs) ? qs : [];
+
+      for (const q of arr) {
+        if (!q.__searchBlob) {
+          q.__searchBlob = String(buildQuestionSearchBlob(q) || "").toLowerCase();
+        } else {
+          q.__searchBlob = String(q.__searchBlob).toLowerCase();
+        }
+      }
+
+      scopeQuestionsCache.set(key, arr);
+      scopeQuestionsPromiseCache.delete(key);
+      return arr;
+    })
+    .catch((err) => {
+      scopeQuestionsPromiseCache.delete(key);
+      throw err;
+    });
+
+  scopeQuestionsPromiseCache.set(key, p);
+  return p;
+}
+
+async function getCachedAnswersForScope(subj, year, roundLabel) {
+  const key = makeScopeKey(subj, year, roundLabel);
+
+  if (scopeAnswersCache.has(key)) {
+    return scopeAnswersCache.get(key);
+  }
+
+  if (scopeAnswersPromiseCache.has(key)) {
+    return scopeAnswersPromiseCache.get(key);
+  }
+
+  const p = Promise.resolve(loadAnswersForScope(subj, year, roundLabel))
+    .then((ans) => {
+      const obj = ans && typeof ans === "object" ? ans : {};
+      scopeAnswersCache.set(key, obj);
+      scopeAnswersPromiseCache.delete(key);
+      return obj;
+    })
+    .catch((err) => {
+      scopeAnswersPromiseCache.delete(key);
+      throw err;
+    });
+
+  scopeAnswersPromiseCache.set(key, p);
+  return p;
+}
+
+// 全卷搜尋（快取版：同一 scope 只載一次，後續都吃記憶體）
 async function searchAcrossVolumes(keyword, opts = null) {
   const kw = String(keyword || "").trim().toLowerCase();
+  const seq = ++globalSearchSeq;
 
   // 空字串就回到一般模式
   if (!kw) {
@@ -1742,7 +1836,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
 
   let years = [];
   if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
-    years = opts.years;
+    years = opts.years.map(v => String(v || "").trim()).filter(Boolean);
   } else {
     years = Array.from(yearSel.options || [])
       .map(o => String(o.value || "").trim())
@@ -1750,10 +1844,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
   }
 
   const rounds = Array.from(roundSel.options || [])
-    .map(o => {
-      const txt = (o.textContent || o.value || "").trim();
-      return txt;
-    })
+    .map(o => String((o.textContent || o.value || "")).trim())
     .filter(Boolean);
 
   // 列出所有 scope 組合
@@ -1768,25 +1859,25 @@ async function searchAcrossVolumes(keyword, opts = null) {
 
   if (!scopes.length) return;
 
-  // 一次併發載入所有 scope 的題目
   const results = await Promise.all(
-    scopes.map(async (s) => {
-      const qs = await loadQuestionsForScope(s.subj, s.year, s.roundLabel);
-      return { scope: s, qs };
+    scopes.map(async (scope) => {
+      const qs = await getCachedQuestionsForScope(scope.subj, scope.year, scope.roundLabel);
+      return { scope, qs };
     })
   );
 
+  // 若這次搜尋已經過期，就不要覆蓋新搜尋
+  if (seq !== globalSearchSeq) return;
+
   const hits = [];
 
-  // 只搜尋：題幹 + 選項，不搜尋詳解 explanation
-  results.forEach(({ scope, qs }) => {
-    if (!qs || !qs.length) return;
+  for (const { scope, qs } of results) {
+    if (!qs || !qs.length) continue;
 
-    qs.forEach((q) => {
+    for (const q of qs) {
       const haystack = String(
-        q.__searchBlob ||
-        buildQuestionSearchBlob(q)
-      );
+        q.__searchBlob || (q.__searchBlob = String(buildQuestionSearchBlob(q) || "").toLowerCase())
+      ).toLowerCase();
 
       if (haystack.includes(kw)) {
         hits.push({
@@ -1796,17 +1887,17 @@ async function searchAcrossVolumes(keyword, opts = null) {
           qid: q.id != null ? q.id : null
         });
       }
+    }
+  }
 
-    });
-  });
+  if (seq !== globalSearchSeq) return;
 
-  // 更新全域搜尋狀態與列表
   isGlobalSearchMode = true;
   globalSearchResults = hits;
   globalSearchIndex = hits.length ? 0 : -1;
+
   renderGlobalSearchList(hits);
 
-  // 自動跳到第一筆結果
   if (hits.length && typeof jumpToSearchHit === "function") {
     try {
       await jumpToSearchHit(hits[0]);
@@ -1815,6 +1906,7 @@ async function searchAcrossVolumes(keyword, opts = null) {
     }
   }
 }
+
 
 
 
