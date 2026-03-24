@@ -10013,7 +10013,7 @@ async function onScopeChange() {
   const r = (roundSel.value === "第一次") ? "1" : "2";
 
   const qName = `${p}${yearSel.value}_${r}.json`;
-  const aName = `w${p}${yearSel.value}_${r}.json`;
+  const aName = `${p}w${yearSel.value}_${r}.json`;
 
   const scopeFetchPolicy = getScopeFetchPolicyOncePerVisit();
 
