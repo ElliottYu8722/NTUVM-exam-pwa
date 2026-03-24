@@ -1071,6 +1071,8 @@ const searchInput = $("#questionSearch"); // 新增：題目搜尋輸入框
 const questionImagesContainer = document.getElementById("question-images");
 const searchCache = {}; // 記憶體快取
 const searchCachePending = {}; // 避免同一卷重複同時載入
+const answersCache = {};
+const answersCachePending = {};
 
 const SEARCH_CACHE_VERSION = "2026-03-13-v1";
 const SEARCH_DB = {
@@ -1417,6 +1419,62 @@ async function loadQuestionsForScope(subj, year, roundLabel, opts = {}) {
   }
 }
 
+async function loadAnswersForScope(subj, year, roundLabel, opts = {}) {
+  if (!subj || !year || !roundLabel) return {};
+
+  const yearNum = Number(year);
+  if (roundLabel === "第二次" && Number.isFinite(yearNum) && yearNum >= 110) {
+    return {};
+  }
+
+  const cacheKey = makeScopeCacheKey(subj, year, roundLabel);
+  const forceRefresh = !!opts.forceRefresh;
+
+  if (!forceRefresh && answersCache[cacheKey]) {
+    return answersCache[cacheKey];
+  }
+
+  if (answersCachePending[cacheKey]) {
+    return answersCachePending[cacheKey];
+  }
+
+  answersCachePending[cacheKey] = (async () => {
+    const p = subjectPrefix(subj);
+    const r = (roundLabel === "第一次") ? "1" : "2";
+    const aName = `${p}w${year}_${r}.json`;
+    const aURL = pathJoin(CONFIG.basePath, CONFIG.dirs.answers, aName);
+
+    try {
+      const res = await fetch(aURL, {
+        cache: forceRefresh ? "reload" : "force-cache"
+      });
+
+      if (!res.ok) {
+        console.warn("[search] 無法載入答案檔：", aName, res.status);
+        answersCache[cacheKey] = {};
+        return {};
+      }
+
+      const obj = await res.json();
+      if (!obj || typeof obj !== "object") {
+        console.warn("[search] 答案檔格式不是物件：", aName);
+        answersCache[cacheKey] = {};
+        return {};
+      }
+
+      answersCache[cacheKey] = obj;
+      return obj;
+    } catch (e) {
+      console.error("[search] 載入答案檔錯誤：", aName, e);
+      answersCache[cacheKey] = {};
+      return {};
+    } finally {
+      delete answersCachePending[cacheKey];
+    }
+  })();
+
+  return await answersCachePending[cacheKey];
+}
 
 
 // ===== 我的動物 DOM =====
@@ -1613,18 +1671,27 @@ async function jumpToSearchHit(hit) {
       subjectSel.value = hit.subj;
       needChangeScope = true;
     }
+
     if (yearSel && yearSel.value !== hit.year) {
       yearSel.value = hit.year;
       needChangeScope = true;
     }
+
     if (roundSel && roundSel.value !== hit.roundLabel) {
       roundSel.value = hit.roundLabel;
       needChangeScope = true;
     }
 
-    if (needChangeScope && typeof onScopeChange === "function") {
+    if (needChangeScope) {
       isJumpingFromSearch = true;
-      await onScopeChange();
+
+      const qs = await loadQuestionsForScope(hit.subj, hit.year, hit.roundLabel);
+      const ans = await loadAnswersForScope(hit.subj, hit.year, hit.roundLabel);
+
+      state.questions = Array.isArray(qs) ? qs : [];
+      state.visibleQuestions = state.questions;
+      state.answers = ans && typeof ans === "object" ? ans : {};
+      state.scope = getScopeFromUI();
     }
 
     const targetId = Number(hit.qid);
@@ -1633,7 +1700,8 @@ async function jumpToSearchHit(hit) {
     if (idx >= 0) {
       state.index = idx;
       await renderQuestion();
-      // 不呼叫 highlightList()，讓右邊保持搜尋結果
+    } else {
+      console.warn("[search] 找不到目標題號：", hit);
     }
   } catch (e) {
     console.error("jumpToSearchHit error", e);
@@ -1642,7 +1710,6 @@ async function jumpToSearchHit(hit) {
     jumpSearchLocked = false;
   }
 }
-
 
 
 // 是否正在從「搜尋結果」跳題，用來抑制 onScopeChange 裡的 renderList()
