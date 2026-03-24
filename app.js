@@ -12653,3 +12653,56 @@ function initSwipeGestures(){
 
   log('✅ Debug hooks 安裝完成，開啟 DevTools Console 然後搜尋題目觀察輸出');
 })();
+
+// ============================================================
+// 🔍 onScopeChange 細部拆解 debug
+// ============================================================
+(function installScopeBreakdownDebug() {
+  const TAG = '[ScopeBreakdown]';
+  const log = (...args) => console.log(TAG, ...args);
+
+  if (typeof fetch !== 'function') return;
+
+  const _origFetch = window.fetch;
+  window.fetch = async function(...args) {
+    const url = String(args[0] || '');
+    const isQuestionFile = url.includes('/題目/') || url.includes('%E9%A1%8C%E7%9B%AE');
+    const isAnswerFile = url.includes('/答案/') || url.includes('%E7%AD%94%E6%A1%88');
+
+    if (!isQuestionFile && !isAnswerFile) {
+      return _origFetch.apply(this, args);
+    }
+
+    const t0 = performance.now();
+    const res = await _origFetch.apply(this, args);
+    const dt = (performance.now() - t0).toFixed(1);
+
+    log(`${isQuestionFile ? '題目檔' : '答案檔'} fetch`, url, `${dt}ms`, `status=${res.status}`);
+    return res;
+  };
+
+  if (typeof renderList === 'function') {
+    const _origRenderList = renderList;
+    window.renderList = function(...args) {
+      const count = Array.isArray(args[0]) ? args[0].length : -1;
+      const t0 = performance.now();
+      const result = _origRenderList.apply(this, args);
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`renderList 題數=${count} 耗時=${dt}ms`);
+      return result;
+    };
+  }
+
+  if (typeof renderQuestion === 'function') {
+    const _origRenderQuestion = renderQuestion;
+    window.renderQuestion = async function(...args) {
+      const t0 = performance.now();
+      const result = await _origRenderQuestion.apply(this, args);
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`renderQuestion 細拆耗時=${dt}ms`);
+      return result;
+    };
+  }
+
+  log('✅ Scope breakdown debug 已安裝');
+})();
