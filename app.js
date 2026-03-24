@@ -12566,3 +12566,90 @@ function initSwipeGestures(){
     lock = null;
   }, { passive: true, capture: true });
 })();
+
+// ============================================================
+// 🔍 SEARCH JUMP TIMING DEBUG — 貼在 app.js 最底部
+// ============================================================
+(function installSearchDebug() {
+  const TAG = '[SearchDebug]';
+  const log = (...args) => console.log(TAG, ...args);
+
+  // ── 1. 包住 renderExplanation ──────────────────────────────
+  if (typeof renderExplanation === 'function') {
+    const _origRenderExplanation = renderExplanation;
+    window._dbg_renderExplanation = function(q) {
+      const expLen = q?.explanation ? String(q.explanation).length : 0;
+      const t0 = performance.now();
+      const result = _origRenderExplanation(q);
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`renderExplanation | 詳解字數=${expLen} | 耗時=${dt}ms`);
+      if (dt > 100) console.warn(TAG, `⚠️ renderExplanation 超慢！詳解字數=${expLen}，耗時=${dt}ms`);
+      return result;
+    };
+    // 讓 renderQuestion 裡的呼叫也被攔截
+    try { window.renderExplanation = window._dbg_renderExplanation; } catch(e) {}
+  }
+
+  // ── 2. 包住 autoFixExplanationContrast ─────────────────────
+  if (typeof autoFixExplanationContrast === 'function') {
+    const _origContrast = autoFixExplanationContrast;
+    window._dbg_autoFixExplanationContrast = function(rootEl, wrapEl, opts) {
+      const nodeCount = rootEl ? rootEl.querySelectorAll('*').length : 0;
+      const t0 = performance.now();
+      const result = _origContrast(rootEl, wrapEl, opts);
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`autoFixExplanationContrast | DOM節點數=${nodeCount} | 耗時=${dt}ms`);
+      if (dt > 80) console.warn(TAG, `⚠️ contrast fix 超慢！節點數=${nodeCount}，耗時=${dt}ms`);
+      return result;
+    };
+    try { window.autoFixExplanationContrast = window._dbg_autoFixExplanationContrast; } catch(e) {}
+  }
+
+  // ── 3. 包住 jumpToSearchHit（整體計時）──────────────────────
+  if (typeof jumpToSearchHit === 'function') {
+    const _origJump = jumpToSearchHit;
+    window.jumpToSearchHit = async function(hit) {
+      const label = `${hit?.subj} ${hit?.year} ${hit?.roundLabel} #${hit?.qid}`;
+      const t0 = performance.now();
+      log(`jumpToSearchHit 開始 → ${label}`);
+
+      const result = await _origJump(hit);
+
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`jumpToSearchHit 完成 → ${label} | 總耗時=${dt}ms`);
+      if (dt > 300) console.warn(TAG, `⚠️ jumpToSearchHit 整體超慢！耗時=${dt}ms，題目=${label}`);
+      return result;
+    };
+  }
+
+  // ── 4. 包住 renderQuestion（整體計時）───────────────────────
+  if (typeof renderQuestion === 'function') {
+    const _origRQ = renderQuestion;
+    window.renderQuestion = async function() {
+      const t0 = performance.now();
+      const result = await _origRQ(...arguments);
+      const dt = (performance.now() - t0).toFixed(1);
+      const q = (state?.visibleQuestions || state?.questions)?.[state?.index];
+      const expLen = q?.explanation ? String(q.explanation).length : 0;
+      log(`renderQuestion | 題目#${q?.id} | 詳解字數=${expLen} | 耗時=${dt}ms`);
+      if (dt > 200) console.warn(TAG, `⚠️ renderQuestion 超慢！詳解字數=${expLen}，耗時=${dt}ms`);
+      return result;
+    };
+  }
+
+  // ── 5. 包住 onScopeChange（fetch 計時）──────────────────────
+  if (typeof onScopeChange === 'function') {
+    const _origScope = onScopeChange;
+    window.onScopeChange = async function() {
+      const t0 = performance.now();
+      log(`onScopeChange 開始 fetch...`);
+      const result = await _origScope(...arguments);
+      const dt = (performance.now() - t0).toFixed(1);
+      log(`onScopeChange 完成 | 耗時=${dt}ms`);
+      if (dt > 500) console.warn(TAG, `⚠️ onScopeChange fetch 超慢！耗時=${dt}ms`);
+      return result;
+    };
+  }
+
+  log('✅ Debug hooks 安裝完成，開啟 DevTools Console 然後搜尋題目觀察輸出');
+})();
