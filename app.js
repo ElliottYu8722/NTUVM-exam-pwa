@@ -3405,360 +3405,266 @@ function getAllYearValuesForCurrentSubject() {
 // 跨科別／跨年度／跨梯次隨機抽題
 // maxCount：要抽幾題
 // opts.subjects：可選，只從這些科目（subjectSel 的 value）裡抽；不傳就是全部科目
-async function buildCrossVolumeQuizQuestions(maxCount, opts) {
-  const result = [];
-  if (!subjectSel || !yearSel || !roundSel) return result;
 
-  // 如果有傳入 opts.subjects，就先整理成 Set 方便比對
-  const selectedSet = (opts && Array.isArray(opts.subjects) && opts.subjects.length)
-    ? new Set(
-        opts.subjects
-          .map(v => String(v || "").trim())
-          .filter(Boolean)
-      )
-    : null;
-
-  // 1. 把所有科目 / 年度 / 梯次的「選項值」抓出來
-  const allSubjects = Array.from(subjectSel.options || [])
-    .map(o => String(o.value).trim())
-    .filter(Boolean);
-
-  // 若有指定科目，就只保留那些科別；沒有就全部用
-  const subjects = allSubjects.filter(s => !selectedSet || selectedSet.has(s));
-
-  let years = [];
-  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
-      years = opts.years;
-  } else {
-      years = Array.from(yearSel.options)
-          .map(o => String(o.value || "").trim())
-          .filter(Boolean);
+function shuffleArrayInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
-  
-  const rounds = Array.from(roundSel.options || [])
-    .map(o => {
-      const text = (o.textContent || "").trim();
-      const val = (o.value || "").trim();
-      return text || val; // 例如「第一次」「第二次」
+  return arr;
+}
+
+function getCurrentRoundEntries() {
+  if (!roundSel) return [];
+
+  return Array.from(roundSel.options)
+    .map((o) => {
+      const roundValue = String(o.value ?? "").trim();
+      const roundLabel = String(o.textContent ?? o.label ?? roundValue).trim();
+
+      if (!roundValue && !roundLabel) return null;
+
+      return {
+        roundValue: roundValue || roundLabel,
+        roundLabel: roundLabel || roundValue,
+      };
     })
     .filter(Boolean);
+}
 
-  // 2. 組合出所有要嘗試的 scope（但會跳過 110+ 年的「第二次」）
-  const scopes = [];
-  for (const subj of subjects) {
-    for (const year of years) {
-      const yearNum = Number(year);
-      for (const raw of rounds) {
-        const roundLabel = String(raw).trim();
-        const isSecond =
-          roundLabel === "第二次" ||
-          roundLabel === "第二" ||
-          roundLabel === "2";
+function buildRandomQuizCandidateFromQuestion(q, scope) {
+  const qid = String(q?.id ?? "").trim();
+  if (!qid) return null;
 
-        // 🔒 110 年（含）以後沒有第二次 → 直接略過這種組合
-        if (Number.isFinite(yearNum) && yearNum >= 110 && isSecond) {
-          continue;
-        }
+  const caRaw = String((state.answers || {})[qid] ?? "").toUpperCase();
+  const answerSet = Array.from(
+    new Set(
+      caRaw
+        .split(",")
+        .map((x) => x.trim())
+        .filter(Boolean)
+    )
+  );
 
-        scopes.push({ subj, year, roundLabel });
-      }
-    }
-  }
+  if (!answerSet.length) return null;
 
-  if (!scopes.length) return result;
+  const images = Array.isArray(q.images)
+    ? q.images
+    : (q.image ? [q.image] : []);
 
-  // 3. 打亂 scopes 順序，讓抽題比較隨機
-  for (let i = scopes.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
-  }
-
-  // 4. 記下現在原本選到的卷別，抽題完要切回來
-  const originalScope = {
-    subj: subjectSel.value,
-    year: yearSel.value,
-    round: roundSel.value,
+  return {
+    id: q.id,
+    text: q.text,
+    options: q.options || {},
+    image: q.image,
+    images,
+    answerSet,
+    scope,
   };
+}
 
-  // 5. 走遍所有 scope，把「有答案的題目」全部塞進大池 allCandidates
-  //    但：每卷只收最多 perScopeLimit 題，且當大池夠大時就提前停止
-  const allCandidates = [];
-  const perScopeLimit = Math.max(5, Math.ceil(maxCount / 2)); // 每卷上限
-  const targetPoolSize = maxCount * 3; // 大池目標大小：最多抓到 3 倍再停
-  let done = false;
-
-  for (const s of scopes) {
-    if (done) break;
-
-    // 切到該科目 / 年度 / 梯次
-    subjectSel.value = s.subj;
-    yearSel.value = s.year;
-    roundSel.value = s.roundLabel;
-
-    try {
-      if (typeof onScopeChange === "function") {
-        await onScopeChange(); // 這裡會去載入題目 + 答案檔
-      }
-    } catch (e) {
-      console.error("onScopeChange error in cross-subject quiz:", e);
-      continue;
-    }
-
-    // 這一卷裡所有「有答案的題目」
-    const pool = (state.questions || []).filter(q => {
-      const key = String(q.id);
-      return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
-    });
-
-    if (!pool.length) continue;
-
-    // 先洗牌這一卷的題目，避免永遠只抓前面幾題
-    const local = pool.slice();
-    for (let i = local.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [local[i], local[j]] = [local[j], local[i]];
-    }
-
-    const take = Math.min(perScopeLimit, local.length);
-    for (let i = 0; i < take; i++) {
-      const q = local[i];
-      const qid = String(q.id);
-      const caRaw = String(state.answers[qid] || "").toUpperCase();
-      const answerSet = Array.from(
-        new Set(
-          caRaw
-            .split(",")
-            .map(x => x.trim())
-            .filter(Boolean)
-        )
-      );
-      if (!answerSet.length) continue;
-
-      // 把多張圖一起帶進來
-      const images = Array.isArray(q.images)
-        ? q.images
-        : (q.image ? [q.image] : []);
-
-      allCandidates.push({
-        id: q.id,
-        text: q.text,
-        options: q.options,
-        image: q.image,
-        images,
-        answerSet,
-        scope: {
-          subj: s.subj,
-          year: s.year,
-          roundLabel: s.roundLabel,
-        },
-      });
-
-      if (allCandidates.length >= targetPoolSize) {
-        done = true;
-        break;
-      }
-    }
-  }
-
-  // 6. 抽題完成後，把畫面切回原本那一卷
+async function restoreRandomQuizOriginalScope(originalScope) {
   try {
+    if (!subjectSel || !yearSel || !roundSel) return;
+
     subjectSel.value = originalScope.subj;
     yearSel.value = originalScope.year;
-    roundSel.value = originalScope.round;
+
     if (typeof onScopeChange === "function") {
       await onScopeChange();
     }
-  } catch (e) {
-    console.error("restore scope error after cross-subject quiz:", e);
-  }
 
-  // 7. 沒有可用題目就直接回傳空陣列
-  if (!allCandidates.length) {
-    return result;
-  }
+    const hasOriginalRound = Array.from(roundSel.options).some((o) => {
+      const v = String(o.value ?? "").trim();
+      return v === originalScope.roundValue;
+    });
 
-  // 8. 把所有候選題目洗牌，再抽 maxCount 題
-  for (let i = allCandidates.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [allCandidates[i], allCandidates[j]] = [allCandidates[j], allCandidates[i]];
-  }
+    if (hasOriginalRound) {
+      roundSel.value = originalScope.roundValue;
 
-  const pickCount = Math.min(maxCount, allCandidates.length);
-  for (let i = 0; i < pickCount; i++) {
-    result.push(allCandidates[i]);
-  }
-
-  return result;
-}
-
-// 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
-async function buildSingleSubjectQuizQuestions(maxCount, opts) {
-  const result = [];
-  if (!subjectSel || !yearSel || !roundSel) return result;
-
-  // 目前選到的科目（本科目）
-  const currentSubj = String(subjectSel.value || "").trim();
-  if (!currentSubj) return result;
-
-  // 1. 只用「目前科目」，年度 / 梯次則跟著選單全部跑
-  const subjects = [currentSubj];
-  let years = [];
-  if (opts && Array.isArray(opts.years) && opts.years.length > 0) {
-  years = opts.years;
-  } else {
-  years = Array.from(yearSel.options)
-  .map(o => String(o.value || "").trim())
-  .filter(Boolean);
-  }
-
-  const rounds = Array.from(roundSel.options || [])
-    .map(o => {
-      const text = (o.textContent || "").trim();
-      const val = (o.value || "").trim();
-      return text || val; // 例如「第一次」「第二次」
-    })
-    .filter(Boolean);
-
-  // 2. 組合出所有要嘗試的 scope（但會跳過 110+ 年的「第二次」）
-  const scopes = [];
-  for (const subj of subjects) {
-    for (const year of years) {
-      const yearNum = Number(year);
-      for (const raw of rounds) {
-        const roundLabel = String(raw).trim();
-        const isSecond =
-          roundLabel === "第二次" ||
-          roundLabel === "第二" ||
-          roundLabel === "2";
-
-        if (Number.isFinite(yearNum) && yearNum >= 110 && isSecond) {
-          continue;
-        }
-
-        scopes.push({ subj, year, roundLabel });
-      }
-    }
-  }
-
-  if (!scopes.length) return result;
-
-  // 3. 打亂 scopes 順序
-  for (let i = scopes.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [scopes[i], scopes[j]] = [scopes[j], scopes[i]];
-  }
-
-  // 4. 記下現在原本選到的卷別，抽題完要切回來
-  const originalScope = {
-    subj: subjectSel.value,
-    year: yearSel.value,
-    round: roundSel.value,
-  };
-
-  // 5. 走遍所有「本科目」的 scope，把題目統一丟進大池 allCandidates
-  const allCandidates = [];
-  const perScopeLimit = Math.max(5, Math.ceil(maxCount / 2));
-  const targetPoolSize = maxCount * 3;
-  let done = false;
-
-  for (const s of scopes) {
-    if (done) break;
-
-    subjectSel.value = s.subj;
-    yearSel.value = s.year;
-    roundSel.value = s.roundLabel;
-
-    try {
       if (typeof onScopeChange === "function") {
         await onScopeChange();
       }
-    } catch (e) {
-      console.error("onScopeChange error in single-subject quiz:", e);
-      continue;
-    }
-
-    const pool = (state.questions || []).filter(q => {
-      const key = String(q.id);
-      return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
-    });
-
-    if (!pool.length) continue;
-
-    const local = pool.slice();
-    for (let i = local.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [local[i], local[j]] = [local[j], local[i]];
-    }
-
-    const take = Math.min(perScopeLimit, local.length);
-    for (let i = 0; i < take; i++) {
-      const q = local[i];
-      const qid = String(q.id);
-      const caRaw = String(state.answers[qid] || "").toUpperCase();
-      const answerSet = Array.from(
-        new Set(
-          caRaw
-            .split(",")
-            .map(x => x.trim())
-            .filter(Boolean)
-        )
-      );
-      if (!answerSet.length) continue;
-      // ★ 新增：把多張圖一起帶進來
-      const images = Array.isArray(q.images)
-        ? q.images
-        : (q.image ? [q.image] : []);
-      allCandidates.push({
-        id: q.id,
-        text: q.text,
-        options: q.options,
-        image: q.image,
-        images,           // ★ 新增：多圖陣列
-        answerSet,
-        scope: {
-          subj: s.subj,
-          year: s.year,
-          roundLabel: s.roundLabel,
-        },
-      });
-
-      if (allCandidates.length >= targetPoolSize) {
-        done = true;
-        break;
-      }
-    }
-  }
-
-  // 6. 抽題完成後，把畫面切回原本那一卷
-  try {
-    subjectSel.value = originalScope.subj;
-    yearSel.value = originalScope.year;
-    roundSel.value = originalScope.round;
-    if (typeof onScopeChange === "function") {
-      await onScopeChange();
     }
   } catch (e) {
-    console.error("restore scope error after single-subject quiz:", e);
+    console.error("restore scope error after random quiz:", e);
   }
-
-  // 7. 沒有可用題目就直接回傳空陣列
-  if (!allCandidates.length) {
-    return result;
-  }
-
-  // 8. 把所有候選題目洗牌，再抽 maxCount 題
-  for (let i = allCandidates.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [allCandidates[i], allCandidates[j]] = [allCandidates[j], allCandidates[i]];
-  }
-
-  const pickCount = Math.min(maxCount, allCandidates.length);
-  for (let i = 0; i < pickCount; i++) {
-    result.push(allCandidates[i]);
-  }
-
-  return result;
 }
+
+async function buildCrossVolumeQuizQuestions(maxCount, opts = {}) {
+  const result = [];
+  if (!subjectSel || !yearSel || !roundSel) return result;
+
+  const selectedSet =
+    Array.isArray(opts.subjects) && opts.subjects.length
+      ? new Set(opts.subjects.map((v) => String(v).trim()).filter(Boolean))
+      : null;
+
+  const subjects = Array.from(subjectSel.options)
+    .map((o) => String(o.value ?? "").trim())
+    .filter((v) => v && (!selectedSet || selectedSet.has(v)));
+
+  const years =
+    Array.isArray(opts.years) && opts.years.length
+      ? Array.from(new Set(opts.years.map((v) => String(v).trim()).filter(Boolean)))
+      : Array.from(yearSel.options)
+          .map((o) => String(o.value ?? "").trim())
+          .filter(Boolean);
+
+  const originalScope = {
+    subj: String(subjectSel.value ?? "").trim(),
+    year: String(yearSel.value ?? "").trim(),
+    roundValue: String(roundSel.value ?? "").trim(),
+  };
+
+  const allCandidates = [];
+  const seenKeys = new Set();
+
+  try {
+    for (const subj of subjects) {
+      subjectSel.value = subj;
+
+      for (const year of years) {
+        yearSel.value = year;
+
+        try {
+          if (typeof onScopeChange === "function") {
+            await onScopeChange();
+          }
+        } catch (e) {
+          console.error("onScopeChange error in cross-subject quiz(year):", e);
+          continue;
+        }
+
+        const roundEntries = getCurrentRoundEntries();
+
+        for (const { roundValue, roundLabel } of roundEntries) {
+          roundSel.value = roundValue;
+
+          try {
+            if (typeof onScopeChange === "function") {
+              await onScopeChange();
+            }
+          } catch (e) {
+            console.error("onScopeChange error in cross-subject quiz(round):", e);
+            continue;
+          }
+
+          const pool = (state.questions || []).filter((q) => {
+            const key = String(q.id);
+            return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
+          });
+
+          for (const q of pool) {
+            const uniqueKey = `${subj}__${year}__${roundValue}__${q.id}`;
+            if (seenKeys.has(uniqueKey)) continue;
+
+            const candidate = buildRandomQuizCandidateFromQuestion(q, {
+              subj,
+              year,
+              roundLabel,
+            });
+
+            if (!candidate) continue;
+
+            seenKeys.add(uniqueKey);
+            allCandidates.push(candidate);
+          }
+        }
+      }
+    }
+  } finally {
+    await restoreRandomQuizOriginalScope(originalScope);
+  }
+
+  shuffleArrayInPlace(allCandidates);
+  return allCandidates.slice(0, Math.min(maxCount, allCandidates.length));
+}
+
+
+// 🔹 單一科目（本科目）跨卷抽題：只用目前選到的科目，從所有卷組成大題庫再亂數抽題
+async function buildSingleSubjectQuizQuestions(maxCount, opts = {}) {
+  const result = [];
+  if (!subjectSel || !yearSel || !roundSel) return result;
+
+  const currentSubj = String(subjectSel.value ?? "").trim();
+  if (!currentSubj) return result;
+
+  const years =
+    Array.isArray(opts.years) && opts.years.length
+      ? Array.from(new Set(opts.years.map((v) => String(v).trim()).filter(Boolean)))
+      : Array.from(yearSel.options)
+          .map((o) => String(o.value ?? "").trim())
+          .filter(Boolean);
+
+  const originalScope = {
+    subj: String(subjectSel.value ?? "").trim(),
+    year: String(yearSel.value ?? "").trim(),
+    roundValue: String(roundSel.value ?? "").trim(),
+  };
+
+  const allCandidates = [];
+  const seenKeys = new Set();
+
+  try {
+    subjectSel.value = currentSubj;
+
+    for (const year of years) {
+      yearSel.value = year;
+
+      try {
+        if (typeof onScopeChange === "function") {
+          await onScopeChange();
+        }
+      } catch (e) {
+        console.error("onScopeChange error in single-subject quiz(year):", e);
+        continue;
+      }
+
+      const roundEntries = getCurrentRoundEntries();
+
+      for (const { roundValue, roundLabel } of roundEntries) {
+        roundSel.value = roundValue;
+
+        try {
+          if (typeof onScopeChange === "function") {
+            await onScopeChange();
+          }
+        } catch (e) {
+          console.error("onScopeChange error in single-subject quiz(round):", e);
+          continue;
+        }
+
+        const pool = (state.questions || []).filter((q) => {
+          const key = String(q.id);
+          return Object.prototype.hasOwnProperty.call(state.answers || {}, key);
+        });
+
+        for (const q of pool) {
+          const uniqueKey = `${currentSubj}__${year}__${roundValue}__${q.id}`;
+          if (seenKeys.has(uniqueKey)) continue;
+
+          const candidate = buildRandomQuizCandidateFromQuestion(q, {
+            subj: currentSubj,
+            year,
+            roundLabel,
+          });
+
+          if (!candidate) continue;
+
+          seenKeys.add(uniqueKey);
+          allCandidates.push(candidate);
+        }
+      }
+    }
+  } finally {
+    await restoreRandomQuizOriginalScope(originalScope);
+  }
+
+  shuffleArrayInPlace(allCandidates);
+  return allCandidates.slice(0, Math.min(maxCount, allCandidates.length));
+}
+
 
 
 // 隨機測驗直接沿用寵物小考的樣式
@@ -3907,62 +3813,58 @@ function openRandomQuizOverlay(qs, options) {
         });
       }
     }
-
-    elOpts.innerHTML = '';
-    const letters = ['A', 'B', 'C', 'D'];
-    const current = (user[index] || '').toUpperCase();
+    elOpts.innerHTML = "";
+    const letters = ["A", "B", "C", "D"];
+    const current = String(user[index] || "").trim().toUpperCase();
     const ansSet = getAnswerSet(q);
 
-    letters.forEach(L => {
-      const text = q.options && q.options[L] ? q.options[L] : '';
-      if (!text) return;
+    letters.forEach((L) => {
+      const rawText = q?.options?.[L];
+      const text = String(rawText ?? "").trim();
 
-      const row = document.createElement('div');
-      row.className = 'pet-quiz-opt-row';
+      const row = document.createElement("div");
+      row.className = "pet-quiz-opt-row";
 
-      const rb = document.createElement('input');
-      rb.type = 'radio';
-      rb.name = 'rq-opt';
+      const rb = document.createElement("input");
+      rb.type = "radio";
+      rb.name = "rq-opt";
       rb.value = L;
-      rb.checked = (current === L);
-      rb.disabled = reviewMode; // 檢討模式中不能改選
+      rb.checked = current === L;
+      rb.disabled = reviewMode;
       rb.onchange = () => {
         if (reviewMode) return;
         user[index] = L;
       };
 
-      const span = document.createElement('span');
-      span.className = 'pet-quiz-opt-text';
-      span.textContent = `${L}. ${text}`;
+      const span = document.createElement("span");
+      span.className = "pet-quiz-opt-text";
+      span.textContent = text ? `${L}. ${text}` : `${L}.`;
+
       row.appendChild(rb);
       row.appendChild(span);
 
-      // 🔸 檢討模式：標示你選 & 正解
       if (reviewMode) {
-        const note = document.createElement('span');
-        note.className = 'pet-quiz-opt-note';
+        const note = document.createElement("span");
+        note.className = "pet-quiz-opt-note";
 
-        const isUser = (current === L);
-        const isCorrect = ansSet.has(L) || ansSet.has('ALL');
+        const isUser = current === L;
+        const isCorrect = ansSet.has(L) || ansSet.has("ALL");
+        const labelParts = [];
 
-        let labelParts = [];
-        if (isUser)   labelParts.push('你選');
-        if (isCorrect) labelParts.push('正解');
+        if (isUser) labelParts.push("你的答案");
+        if (isCorrect) labelParts.push("正確答案");
 
         if (labelParts.length) {
-          note.textContent = labelParts.join(' / ');
+          note.textContent = labelParts.join(" / ");
 
           if (isUser && isCorrect) {
-            // ✅ 你有選，而且選對：你選 / 正解 → 藍字
-            note.style.color = '#2f74ff';
-            span.style.fontWeight = '600';
+            note.style.color = "#2f74ff";
+            span.style.fontWeight = "600";
           } else if (!isUser && isCorrect) {
-            // ✅ 正解但你沒選到：只顯示「正解」→ 紅字
-            note.style.color = '#c40000';
-            span.style.fontWeight = '600';
+            note.style.color = "#c40000";
+            span.style.fontWeight = "600";
           } else if (isUser) {
-            // ❌ 你選了但不是正解：只顯示「你選」→ 藍字
-            note.style.color = '#2f74ff';
+            note.style.color = "#2f74ff";
           }
 
           row.appendChild(note);
