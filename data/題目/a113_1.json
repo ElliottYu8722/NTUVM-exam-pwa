@@ -37,10 +37,10 @@
         "id": 4,
         "text": "4.下列那一種是結核病的特徵性病變?",
         "options": {
-            "A": "pseudomelanosis",
-            "B": "silicosis",
-            "C": "anthracosis",
-            "D": "siderosis"
+            "A": "凝固壞死",
+            "B": "乾酪樣壞死",
+            "C": "液化壞死",
+            "D": "乾性壞疽"
         },
         "image": null
     },
