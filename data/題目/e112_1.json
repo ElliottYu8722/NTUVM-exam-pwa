@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列那一種病原會造成豬隻所謂的Glässer's disease？",
+        "options": {
+            "A": "Pasteurella multocida",
+            "B": "Haemophilus parasuis",
+            "C": "Salmonella Typhimurium",
+            "D": "Erysipelothrix rhusiopathiae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Haemophilus parasuis</b></p><p>格拉瑟病（Glässer's disease）是由<b>副豬嗜血桿菌（Haemophilus parasuis，現已重新分類更名為副豬格拉瑟菌 Glaesserella parasuis）</b>所引起，為革蘭氏陰性、需要 NAD（V 因子）生長的短小桿菌，好發於離乳後保育豬，造成纖維素性多發性漿膜炎、多發性關節炎及腦膜炎。</p><p>(A) 錯：Pasteurella multocida（多殺性巴氏桿菌）主要引起豬進行性萎縮性鼻炎（產毒株）及地方性肺炎繼發性纖維素性胸膜肺炎。</p><p>(C) 錯：Salmonella Typhimurium（鼠傷寒沙門氏菌）主要引起保育豬與生長豬壞死性小腸結腸炎與頑固性下痢。</p><p>(D) 錯：Erysipelothrix rhusiopathiae（豬丹毒桿菌）引起豬丹毒，表現急性敗血症、皮膚菱形紅斑（鑽石斑）、慢性心內膜炎與增殖性關節炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 2,
+        "text": "2.下列有關豬假性狂犬病之敘述，何者錯誤？",
+        "options": {
+            "A": "又稱Aujeszky's disease",
+            "B": "豬為保毒動物",
+            "C": "病原為疱疹病毒",
+            "D": "成豬感染常呈現呼吸症狀且死亡率高"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 成豬感染常呈現呼吸症狀且死亡率高</b></p><p>豬隻感染假性狂犬病病毒（PRV）的臨床嚴重程度具有極明顯的年齡差異：2 週齡以下哺乳仔豬感染會發生急性腦脊髓炎且死亡率極高（可達 80～100%）；然而<b>成年豬隻感染後多呈現不顯性感染或僅出現輕微上呼吸道症狀與發燒，死亡率極低（通常低於 1～2%）</b>，懷孕母豬則主要表現流產或死產，故 (D) 敘述錯誤。</p><p>(A) 對：本病最早由匈牙利學者 Aladár Aujeszky 描述，故又稱為奧耶斯基氏病（Aujeszky's disease）。</p><p>(B) 對：豬是假性狂犬病病毒唯一的自然宿主與保毒動物，耐過豬隻會在三叉神經節與扁桃腺形成終生潛伏感染。</p><p>(C) 對：致病原為豬疱疹病毒第一型（Suid alphaherpesvirus 1），屬於疱疹病毒科。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 3,
+        "text": "3.有關豬環狀病毒之敘述，下列何者錯誤？",
+        "options": {
+            "A": "為引發豬離乳後多系統消耗症候群（postweaning multisystemic wasting syndrome）之致病原",
+            "B": "為一種無封套之RNA病毒",
+            "C": "第一型豬環狀病毒（PCV1）沒有病原性",
+            "D": "可在小鼠體內增殖"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 為一種無封套之RNA病毒</b></p><p>豬環狀病毒（porcine circovirus, PCV）屬於環狀病毒科（Circoviridae），其病毒顆粒直徑僅約 17 nm、不具脂質封套，基因體為小型的<b>單股環狀 DNA（single-stranded circular DNA, ssDNA）</b>，而非 RNA 病毒，故 (B) 敘述錯誤。</p><p>(A) 對：第二型豬環狀病毒（PCV2）是引發豬離乳後多系統消耗症候群（PMWS）及其他 PCVAD 疾病的最核心致病原。</p><p>(C) 對：第一型豬環狀病毒（PCV1）最早於豬腎細胞株 PK-15 中發現，對豬隻無病原性。</p><p>(D) 對：實驗研究證實 PCV2 可在 BALB/c 等小鼠體內增殖並引起淋巴組織病變，常作為實驗動物研究模型。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 4,
+        "text": "4.在豬場發現外觀如下圖之豬隻，下列有關此疾病之敘述何者正確？",
+        "options": {
+            "A": "主要藉由配種傳播",
+            "B": "致病原為人畜共通傳染病原",
+            "C": "致病原為革蘭氏陰性桿菌",
+            "D": "致病原為一螺旋體"
+        },
+        "image": "./圖片/e112-4.jpg",
+        "explanation": "<p><b>答案：(B) 致病原為人畜共通傳染病原</b></p><p>依題意與答案推斷，豬隻體表皮膚出現特徵性界線分明、略微隆起之方形或菱形紫紅色斑塊（俗稱<b>鑽石斑 diamond skin lesions</b>），為亞急性型<b>豬丹毒（swine erysipelas）</b>的典型肉眼病變；其致病原為豬丹毒桿菌（Erysipelothrix rhusiopathiae），可經由皮膚傷口感染屠宰場工人與獸醫師引起人類類丹毒（erysipeloid），屬於重要人畜共通傳染病原。</p><p>(A) 錯：本菌主要存在於帶菌豬扁桃腺與土壤水體中，經由經口攝入或皮膚傷口侵入感染，並非主要藉由配種傳播。</p><p>(C) 錯：Erysipelothrix rhusiopathiae 在細菌學分類上為<b>革蘭氏陽性</b>細小桿菌，並非革蘭氏陰性桿菌。</p><p>(D) 錯：本菌為不具鞭毛、不產生芽胞的革蘭氏陽性短桿菌，並非螺旋體。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 5,
+        "text": "5.下列何種黴漿菌可引起豬隻貧血與生長遲緩？",
+        "options": {
+            "A": "Mycoplasma suis",
+            "B": "Mycoplasma hyopneumoniae",
+            "C": "Mycoplasma hyosynoviae",
+            "D": "Mycoplasma hyorhinis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Mycoplasma suis</b></p><p><b>豬黴漿菌（Mycoplasma suis，舊稱豬附紅血球體 Eperythrozoon suis）</b>是一種缺乏細胞壁的嗜血性黴漿菌，專一性附著於豬隻紅血球表面造成紅血球膜變形與破裂，引發血管內外溶血性貧血、黃疸、發燒、母豬繁殖障礙及保育豬生長遲緩。</p><p>(B) 錯：Mycoplasma hyopneumoniae（豬肺炎黴漿菌）定殖於氣管與支氣管纖毛上皮表面，引起豬地方性肺炎（SEP），不會引起貧血。</p><p>(C) 錯：Mycoplasma hyosynoviae 主要引起 3 月齡以上肥育豬急性非化膿性滑膜炎與關節炎。</p><p>(D) 錯：Mycoplasma hyorhinis 主要引起 3～10 週齡保育豬多發性漿膜炎與關節炎，不會造成紅血球破壞與貧血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 6,
+        "text": "6.下列何種病原性大腸桿菌可造成剛離乳保育豬之水腫病？",
+        "options": {
+            "A": "enteroaggregative Escherichia coli",
+            "B": "enterotoxigenic Escherichia coli",
+            "C": "enteropathogenic Escherichia coli",
+            "D": "Shiga toxin-producing Escherichia coli"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) Shiga toxin-producing Escherichia coli</b></p><p>剛離乳保育豬的水腫病（edema disease）是由<b>產志賀氏樣毒素大腸桿菌（Shiga toxin-producing Escherichia coli, STEC，或稱 verotoxigenic E. coli, VTEC）</b>感染所致。這類菌株（常具 F18 菌毛）定殖於小腸並分泌 <b>Stx2e 毒素（verotoxin）</b>，經血液循環破壞全身小動脈與微血管內皮細胞，導致眼瞼、額部皮下、胃大彎黏膜下層及結腸繫膜嚴重水腫與神經症狀。</p><p>(A) 錯：enteroaggregative E. coli（腸聚集性大腸桿菌, EAEC）主要在人類引起持續性黏液性腹瀉，非豬水腫病病原。</p><p>(B) 錯：enterotoxigenic E. coli（產腸毒素型大腸桿菌, ETEC，如 F4/K88 菌株）分泌 LT 與 ST 腸毒素，引起哺乳仔豬與剛離乳仔豬分泌性水樣下痢（黃痢／白痢），不引起水腫病。</p><p>(C) 錯：enteropathogenic E. coli（腸致病性大腸桿菌, EPEC）造成腸上皮微絨毛刷狀緣破壞與黏附抹平病變（A/E lesions），引起離乳後下痢而非水腫病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 7,
+        "text": "7.有關豬隻傳染性胃腸炎之敘述，下列何者錯誤？",
+        "options": {
+            "A": "由betacoronavirus感染所致",
+            "B": "哺乳期仔豬死亡率高",
+            "C": "可見小腸絨毛萎縮",
+            "D": "豬隻是唯一可自然感染本病的動物"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 由betacoronavirus感染所致</b></p><p>豬傳染性胃腸炎（transmissible gastroenteritis, TGE）的病原為豬傳染性胃腸炎病毒（TGEV），在分類上屬於冠狀病毒科（Coronaviridae）的 <b>Alphacoronavirus 屬</b>（與豬流行性下痢病毒 PEDV 同屬），並非 Betacoronavirus，故 (A) 敘述錯誤。</p><p>(B) 對：2 週齡以下哺乳仔豬因腸道隱窩上皮細胞更新再生緩慢，感染後常因嚴重脫水與代謝性酸中毒而出現高達 80～100% 的死亡率。</p><p>(C) 對：病毒專一性破壞空腸與迴腸絨毛成熟吸收上皮細胞，剖檢可見腸壁變薄半透明，組織病理呈現顯著的小腸絨毛萎縮（villous atrophy）。</p><p>(D) 對：豬隻是唯一可自然感染 TGEV 並發病的動物（犬、貓雖可實驗感染或短暫排毒但不自然發病）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 8,
+        "text": "8.下列何種病原會造成中大豬下痢、血痢或腸黏膜增厚？",
+        "options": {
+            "A": "Leptospira spp.",
+            "B": "Ascaris suum",
+            "C": "Toxoplasma gondii",
+            "D": "Lawsonia intracellularis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) Lawsonia intracellularis</b></p><p><b>胞內勞森菌（Lawsonia intracellularis）</b>是一種專性細胞內寄生革蘭氏陰性彎曲桿菌，主要寄生於迴腸與結腸腺窩未成熟上皮細胞質內並刺激細胞過度有絲分裂增生，引起豬增生性腸病（porcine proliferative enteropathy, PPE），好發於生長肥育期中大豬與後備種豬，表現慢性下痢、腸黏膜嚴重增厚（水管腸）或急性增生性出血性腸病（血痢與猝死）。</p><p>(A) 錯：Leptospira spp.（鉤端螺旋體）主要引起懷孕母豬流產死產及偶發溶血性黃疸與間質性腎炎，不引起下痢與腸黏膜增厚。</p><p>(B) 錯：Ascaris suum（豬蛔蟲）引起肝臟乳斑病變及小腸管腔阻塞、生長遲緩，不引起血痢或腸黏膜增生肥厚。</p><p>(C) 錯：Toxoplasma gondii（弓蟲）在豬隻主要引起懷孕母豬流產死產及全身性壞死病灶（間質性肺炎、淋巴結壞死），非中大豬下痢主因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 9,
+        "text": "9.臨床上會造成豬隻呈現耳翼及四肢末端發紺等敗血症狀，最主要是由下列何種沙門氏菌血清型所致？",
+        "options": {
+            "A": "Salmonella Choleraesuis",
+            "B": "Salmonella Heidelberg",
+            "C": "Salmonella Derby",
+            "D": "Salmonella Dublin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Salmonella Choleraesuis</b></p><p><b>豬霍亂沙門氏菌（Salmonella enterica serovar Choleraesuis）</b>為高度適應豬隻宿主的侵襲性沙門氏菌血清型，好發於保育後期至肥育期豬隻，最典型的臨床特徵即為引發<b>急性敗血症</b>，使豬隻高燒、精神沉鬱、呼吸困難，並於<b>耳翼、鼻端、腹下及四肢末端出現特徵性的紫紅色發紺（cyanosis）</b>，剖檢常見脾腫大、肝臟副傷寒結節及彌漫性間質性肺炎。</p><p>(B) 錯：Salmonella Heidelberg 主要為家禽與人類食媒性腸炎相關血清型，非豬隻敗血發紺之主要血清型。</p><p>(C) 錯：Salmonella Derby 雖常自健康豬腸道與屠體分離，但毒力弱，極少在豬隻引起嚴重敗血症。</p><p>(D) 錯：Salmonella Dublin 為高度適應<b>牛隻</b>的血清型，主要引起牛隻敗血症與流產。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 10,
+        "text": "10.豬出血性壞死性腸炎之病原為何？",
+        "options": {
+            "A": "enterotoxigenic Escherichia coli",
+            "B": "Clostridium perfringens type C",
+            "C": "Isospora suis",
+            "D": "Salmonella Choleraesuis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Clostridium perfringens type C</b></p><p>豬出血性壞死性腸炎（hemorrhagic necrotic enteritis，又稱仔豬梭菌性腸炎）的致病原為<b>產氣莢膜梭菌 C 型（Clostridium perfringens type C）</b>。該菌在 1 週齡內哺乳仔豬小腸內大量增殖並分泌強烈的 <b>β 毒素（beta toxin）</b>，引起空腸與迴腸黏膜深層出血性壞死，患豬排出暗紅色血便並於 1～2 天內迅速死亡。</p><p>(A) 錯：enterotoxigenic Escherichia coli（ETEC）引起分泌性非出血性黃白色水樣下痢，腸黏膜無出血性壞死。</p><p>(C) 錯：Isospora suis（豬球蟲）主要引起 7～14 日齡哺乳仔豬非出血性黃白色糊狀至水樣下痢。</p><p>(D) 錯：Salmonella Choleraesuis 主要引起保育後期至肥育豬急性敗血症與間質性肺炎，非哺乳仔豬急性出血性壞死性腸炎主因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 11,
+        "text": "11.造成豬隻藍眼病之病原為下列何者？",
+        "options": {
+            "A": "rubulavirus",
+            "B": "rotavirus",
+            "C": "parvovirus",
+            "D": "pestivirus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) rubulavirus</b></p><p>豬藍眼病（blue eye disease）主要發生於墨西哥，其致病原為豬腮腺炎病毒（porcine rubulavirus / La Piedad Michoacán virus），在病毒分類上屬於副黏液病毒科（Paramyxoviridae）的<b>腮腺炎病毒屬（Rubulavirus，現分類為 Porcine orthorubulavirus）</b>，感染哺乳仔豬引起腦脊髓炎與高死亡率，育成豬與成豬則出現一側或雙側角膜水腫混濁呈藍白色（「藍眼」）及公豬睪丸附睪炎。</p><p>(B) 錯：rotavirus（輪狀病毒）屬於呼腸孤病毒科，引起幼畜急性水樣下痢。</p><p>(C) 錯：parvovirus（豬小病毒）屬於小病毒科，主要引起懷孕母豬繁殖障礙（SMEDI 症候群）。</p><p>(D) 錯：pestivirus（瘟疫病毒屬）屬於黃病毒科，包含豬瘟病毒（CSFV）與牛病毒性下痢病毒（BVDV）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 12,
+        "text": "12.下列那一種豬隻疾病不是人畜共通傳染病？",
+        "options": {
+            "A": "布氏桿菌症",
+            "B": "豬丹毒",
+            "C": "沙門氏菌症",
+            "D": "豬赤痢"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 豬赤痢</b></p><p><b>豬赤痢（swine dysentery）</b>是由豬痢疾短螺旋體（Brachyspira hyodysenteriae）感染生長肥育豬大腸所引起的黏液出血性下痢疾病，其宿主特異性高，<b>僅感染豬隻（偶可於老鼠腸道短暫帶菌），並不會感染人類</b>，因此不是人畜共通傳染病。</p><p>(A) 錯：豬布氏桿菌症（Brucella suis）可經由接觸流產胎盤、血液或食用未熟豬肉傳染給人類，引起波浪熱，屬於重要人畜共通傳染病。</p><p>(B) 錯：豬丹毒（Erysipelothrix rhusiopathiae）可經由皮膚傷口感染人類引起類丹毒（erysipeloid），屬於人畜共通傳染病。</p><p>(C) 錯：沙門氏菌症（Salmonella Typhimurium 等）為全球最重要的食媒性人畜共通傳染病之一。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 13,
+        "text": "13.下列何種黴菌毒素具有類似動情激素的作用，可造成母豬生殖道水腫？",
+        "options": {
+            "A": "fumonisins",
+            "B": "zearalenone",
+            "C": "T-2 toxin",
+            "D": "ochratoxin A"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) zearalenone</b></p><p><b>玉米赤黴烯酮（zearalenone, ZEA / F-2 toxin）</b>是由禾穀鐮刀菌（Fusarium graminearum）等黴菌在玉米與穀物中產生的黴菌毒素，其化學結構能與哺乳動物細胞內的<b>動情激素受體（estrogen receptors）結合並產生類似雌激素的生物活性（hyperestrogenism）</b>，造成未成熟小母豬外陰部紅腫充血、陰道與子宮水腫增生、假發情，嚴重時甚至引發陰道脫與直腸脫。</p><p>(A) 錯：fumonisins（伏馬鐮孢毒素）抑制神經醯胺合成酶，在豬隻主要引起急性致命性<b>肺水腫（porcine pulmonary edema）</b>與肝毒性（在馬則引起腦白質軟化症）。</p><p>(C) 錯：T-2 toxin（單端孢黴烯族毒素）強烈抑制蛋白質合成與細胞分裂，主要造成口腔與胃腸道黏膜壞死潰瘍、拒食嘔吐及骨髓造血抑制。</p><p>(D) 錯：ochratoxin A（赭麴毒素 A）主要具有強烈的<b>腎毒性</b>，引起豬隻近端腎小管退行性變性與間質性腎炎（黴菌毒素性腎病）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 14,
+        "text": "14.有關豬隻罹患離乳後多系統消耗症候群（postweaning multisystemic wasting syndrome）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "常見於6月齡以上之成豬",
+            "B": "疾病初期可見淋巴結腫大",
+            "C": "肺臟可見間質性肺炎病變",
+            "D": "可於組織球內發現嗜鹼性質內包涵體"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 常見於6月齡以上之成豬</b></p><p>豬離乳後多系統消耗症候群（postweaning multisystemic wasting syndrome, PMWS）是由第二型豬環狀病毒（PCV2）引起，如病名所示主要好發於<b>離乳後的保育豬與生長前期豬隻（約 5～16 週齡）</b>，表現漸進性消瘦、被毛粗剛、呼吸困難與蒼白黃疸；<b>6 月齡以上之成豬極少發生 PMWS</b>（多為不顯性帶毒或繁殖障礙），故 (A) 敘述錯誤。</p><p>(B) 對：疾病早中期剖檢可見全身淺表與內臟淋巴結（尤其是腹股溝淺淋巴結與腸繫膜淋巴結）顯著腫大（後期則淋巴細胞耗竭萎縮）。</p><p>(C) 對：肺臟呈現彌漫性非塌陷性、橡皮樣堅實的間質性肺炎病變。</p><p>(D) 對：組織病理切片下於淋巴結、脾臟與培氏斑的巨噬細胞／組織球細胞質內可見成串如葡萄狀的嗜鹼性質內包涵體，具高度診斷特異性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 15,
+        "text": "15.下列那一組織不是假性狂犬病病毒潛伏之主要感染部位？",
+        "options": {
+            "A": "三叉神經節",
+            "B": "下視丘",
+            "C": "薦神經節",
+            "D": "扁桃腺"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 下視丘</b></p><p>假性狂犬病病毒（PRV）屬於 α-疱疹病毒亞科（Alphaherpesvirinae），具有嗜神經性，急性期耐過後病毒會沿感覺神經軸突逆行性運送並建立終生潛伏感染；其最主要的潛伏感染組織為<b>三叉神經節（trigeminal ganglion）、薦神經節（sacral ganglion）、嗅球以及扁桃腺（tonsils）</b>，而<b>下視丘（hypothalamus）並非其主要潛伏感染部位</b>。</p><p>(A) 對：三叉神經節是 PRV 經口鼻感染後最經典且最主要的感覺神經節潛伏場所。</p><p>(C) 對：薦神經節是 PRV 經生殖道配種途徑感染後建立潛伏的主要神經節。</p><p>(D) 對：扁桃腺為除神經節以外病毒建立潛伏與受緊迫後活化排毒的重要淋巴組織。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 16,
+        "text": "16.豬小病毒（PPV1）感染較可能在豬隻那個階段造成影響？",
+        "options": {
+            "A": "懷孕期",
+            "B": "哺乳期",
+            "C": "保育期",
+            "D": "肉豬期"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 懷孕期</b></p><p>豬小病毒第一型（porcine parvovirus 1, PPV1）僅感染高度分裂增殖的細胞，在出生後的仔豬、保育豬與肉豬體內雖可複製但完全不引起臨床症狀；唯獨在<b>懷孕期母豬（特別是妊娠前 70 天內、胎兒免疫系統尚未發育成熟時）</b>病毒經胎盤感染胎兒，破壞胎兒快速分裂的組織器官，導致胚胎早期死亡吸收（母豬返情）、不同大小之木乃伊胎（mummification）、死產與產仔數減少（SMEDI 症候群）。</p><p>(B) 錯：哺乳期仔豬通常受母源移行抗體保護，即使感染亦無臨床症狀。</p><p>(C) 錯：保育期豬隻感染 PPV1 呈現不顯性感染（僅在與 PCV2 混合感染時可能加劇 PMWS 病變）。</p><p>(D) 錯：肉豬期感染 PPV1 不引起任何臨床疾病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 17,
+        "text": "17.大腸桿菌除線毛外，下列何種因子是造成豬水腫病的主要原因？",
+        "options": {
+            "A": "莢膜",
+            "B": "毒素",
+            "C": "脂多醣",
+            "D": "鞭毛"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 毒素</b></p><p>造成豬水腫病（edema disease）的大腸桿菌除了依靠 F18（舊稱 F107）線毛黏附於小腸上皮細胞定殖外，其引發全身血管內皮損傷、皮下與胃壁水腫及腦幹血管病變神經症狀的決定性致病因子為其分泌的<b>志賀氏樣毒素第二型變異株（Shiga toxin 2e, Stx2e，又稱 verotoxin 或 edema disease principle）</b>。</p><p>(A) 錯：莢膜（capsule，K 抗原）主要協助細菌抵抗吞噬作用，並非引起血管通透性增加與水腫的直接致病因子。</p><p>(C) 錯：脂多醣（LPS / 內毒素）存在於所有革蘭氏陰性菌細胞壁，主要引起發燒與內毒素休克，並非水腫病的特異性致水腫因子。</p><p>(D) 錯：鞭毛（flagella，H 抗原）負責細菌運動性，非水腫病致病主因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 18,
+        "text": "18.有關豬痘感染豬隻後之症狀及病變，下列敘述何者正確？",
+        "options": {
+            "A": "以多發性皮膚病變呈現",
+            "B": "常集中於臉部皮膚",
+            "C": "會有高燒不退之症狀",
+            "D": "可在皮膚病變區發現嗜鹼性質內包涵體"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 以多發性皮膚病變呈現</b></p><p>豬痘（swinepox）由痘病毒科的豬痘病毒（Swinepox virus）引起，常經由豬蝨（Haematopinus suis）叮咬或皮膚擦傷傳播；病毒感染表皮棘狀層細胞造成典型的<b>多發性皮膚痘疹病變（依次經歷紅斑、丘疹、水疱、膿疱至厚褐色結痂）</b>，常見於腹部、鼠蹊部、四肢內側及軀幹。</p><p>(B) 錯：豬痘病變主要分布於被毛稀疏的腹部、鼠蹊部、腋下與軀幹兩側，並非集中於臉部皮膚。</p><p>(C) 錯：本病為良性自限性皮膚疾病，患豬通常無高燒不退或全身性嚴重症狀（僅在新生仔豬廣泛感染時偶有死亡）。</p><p>(D) 錯：痘病毒感染的表皮細胞核呈現空泡化，而細胞質內則出現特徵性的<b>嗜酸性（eosinophilic）質內包涵體</b>，並非嗜鹼性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 19,
+        "text": "19.下列那一種病原廣布於土壤、水、腐敗的有機質、甚至魚類體表黏液，是一種人畜共通傳染病原。此病原感染豬隻後，若造成慢性感染，常見增殖性、非化膿性關節炎？",
+        "options": {
+            "A": "Salmonella Typhimurium",
+            "B": "Brucella suis",
+            "C": "Yersinia pestis",
+            "D": "Erysipelothrix rhusiopathiae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) Erysipelothrix rhusiopathiae</b></p><p><b>豬丹毒桿菌（Erysipelothrix rhusiopathiae）</b>在自然界中廣泛存在於土壤、污水、腐敗有機質以及魚類與甲殼類體表黏液中（人類處理魚鮮或豬肉時經傷口感染即引發類丹毒人畜共通病）；豬隻慢性感染時，細菌定殖於關節滑膜與心臟瓣膜，造成特徵性的<b>慢性增殖性、非化膿性多發性關節炎（滑膜絨毛增生、關節軟骨侵蝕與關節強直）</b>及增殖性心內膜炎。</p><p>(A) 錯：Salmonella Typhimurium 主要引起豬隻壞死性小腸結腸炎與下痢，非魚類黏液常在菌且不以慢性增殖性關節炎為主徵。</p><p>(B) 錯：Brucella suis 為細胞內寄生菌，無法在環境土壤水體腐敗有機質中長期自由增殖，主要引起流產與化膿性／肉芽腫性脊椎炎與關節炎。</p><p>(C) 錯：Yersinia pestis（鼠疫桿菌）由跳蚤傳播，引起嚙齒類與人類腺鼠疫／肺鼠疫，與豬隻慢性增殖性關節炎無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 20,
+        "text": "20.下列何者不是豬鞭蟲感染豬隻常見的病變？",
+        "options": {
+            "A": "纖維素性壞死性結腸炎",
+            "B": "絨毛萎縮",
+            "C": "結腸黏膜出血",
+            "D": "結腸黏膜潰瘍"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 絨毛萎縮</b></p><p>豬鞭蟲（Trichuris suis）成蟲專門寄生於豬隻的<b>盲腸與結腸</b>，其細長鞭狀前端鑽入大腸黏膜固有層攝食血液與組織液，引起盲腸與結腸黏膜出血、潰瘍及嚴重的纖維素性壞死性結腸炎（常與豬赤痢或沙門氏菌相似）；由於<b>大腸黏膜在組織解剖學上並不具有絨毛（villi）構造</b>（絨毛僅存在於小腸），因此豬鞭蟲感染<b>不會引起絨毛萎縮</b>。</p><p>(A) 對：重度豬鞭蟲感染會引起盲腸與結腸黏膜深層壞死與纖維素性偽膜覆蓋（纖維素性壞死性結腸炎）。</p><p>(C) 對：成蟲前端刺入黏膜層破壞微血管，造成結腸黏膜廣泛性出血與血樣黏液下痢。</p><p>(D) 對：蟲體鑽入處形成多發性局部黏膜壞死與潰瘍病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 21,
+        "text": "21.有關鳥型結核菌之敘述，下列何者錯誤？",
+        "options": {
+            "A": "所有鳥類皆對此菌具有感受性",
+            "B": "豬、牛及兔有感染的病例發生",
+            "C": "珠雞與火雞感受性較雞高",
+            "D": "本菌為抗酸性染色陽性"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 珠雞與火雞感受性較雞高</b></p><p>鳥型結核菌（Mycobacterium avium）引起禽類慢性漸進性消耗性肉芽腫疾病，在家禽物種感受性比較上，<b>雞（chickens）與雉雞（pheasants）的感受性最高</b>，火雞次之，而<b>珠雞（guinea fowl）與水禽（鴨、鵝）則具有較高的抵抗力、發病較少</b>，故 (C) 敘述錯誤。</p><p>(A) 對：所有鳥類物種（包含家禽、野鳥與籠養觀賞鳥）皆對鳥型結核菌具有感受性。</p><p>(B) 對：豬隻（引起腸繫膜與下顎淋巴結乾酪樣肉芽腫病變）、牛（可造成結核菌素皮內試驗偽陽性交叉反應）及兔均有自然感染病例報告。</p><p>(D) 對：分枝桿菌細胞壁富含分枝菌酸（mycolic acids），經齊爾－尼爾森（Ziehl-Neelsen）抗酸性染色呈現鮮紅色陽性桿菌。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 22,
+        "text": "22.下列有關家禽傳染性支氣管炎病毒分類歸屬，何者正確？",
+        "options": {
+            "A": "Alphacoronavirus",
+            "B": "Gammacoronavirus",
+            "C": "Betacoronavirus",
+            "D": "Deltacoronavirus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Gammacoronavirus</b></p><p>家禽傳染性支氣管炎病毒（infectious bronchitis virus, IBV）在國際病毒分類委員會（ICTV）分類中屬於網巢病毒目（Nidovirales）冠狀病毒科（Coronaviridae）的 <b>Gammacoronavirus 屬</b>（與火雞冠狀病毒同屬）。</p><p>(A) 錯：Alphacoronavirus 屬主要感染哺乳動物，如豬傳染性胃腸炎病毒（TGEV）、豬流行性下痢病毒（PEDV）與貓冠狀病毒（FCoV）。</p><p>(C) 錯：Betacoronavirus 屬主要感染哺乳動物，如牛冠狀病毒（BCoV）、豬血球凝集腦脊髓炎病毒（PHEV）及人類 SARS-CoV-2。</p><p>(D) 錯：Deltacoronavirus 屬包含豬戴爾他冠狀病毒（PDCoV）與部分野鳥冠狀病毒，非家禽傳染性支氣管炎病毒所屬。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 23,
+        "text": "23.目前在臺灣流行的新城病病毒主要為那一基因型？",
+        "options": {
+            "A": "I",
+            "B": "III",
+            "C": "V",
+            "D": "VII"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) VII</b></p><p>依據分子流行病學與融合蛋白基因（F gene）序列系統發生樹分析，自 1990 年代中期至今在臺灣及東亞各國養禽場造成地方性流行的新城病病毒（Newcastle disease virus, NDV）強毒株，主要屬於<b>第 VII 基因型（genotype VII）</b>。</p><p>(A) 錯：第 I 基因型多為水禽源弱毒株（如澳洲 V4 疫苗株）。</p><p>(B) 錯：第 III 基因型主要流行於 1930～1960 年代（如日本 Sato 株），現已非臺灣主要流行株。</p><p>(C) 錯：第 V 基因型主要流行於中南美洲與歐洲部分地區，非臺灣主要流行基因型。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 24,
+        "text": "24.下列何者為引起家禽傷寒的病原？",
+        "options": {
+            "A": "Salmonella Typhimurium",
+            "B": "Salmonella Heidelberg",
+            "C": "Salmonella Gallinarum",
+            "D": "Salmonella Kentucky"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Salmonella Gallinarum</b></p><p><b>雞沙門氏菌（Salmonella enterica serovar Gallinarum）</b>為無鞭毛運動性、對雞與火雞具高度宿主特異性的病原菌，主要感染育成期與成年產蛋雞，引起急性或亞急性敗血症、肝脾腫大呈特徵性<b>古銅色（bronze discoloration）</b>及多發性壞死結節，即為<b>家禽傷寒（fowl typhoid）</b>。</p><p>(A) 錯：Salmonella Typhimurium（鼠傷寒沙門氏菌）具運動性且無宿主特異性，引起的是<b>家禽副傷寒（fowl paratyphoid）</b>。</p><p>(B) 錯：Salmonella Heidelberg 屬於副傷寒沙門氏菌血清型之一，非家禽傷寒病原。</p><p>(D) 錯：Salmonella Kentucky 亦為副傷寒沙門氏菌群血清型，非家禽傷寒病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 25,
+        "text": "25.下列家禽梭狀桿菌（Clostridium spp.）病病名與病原之組合，何者錯誤？",
+        "options": {
+            "A": "潰瘍性腸炎：C. colinum",
+            "B": "壞死性腸炎：C. perfringens",
+            "C": "肉毒桿菌症：C. tetani",
+            "D": "壞疽性皮膚炎：C. septicum"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 肉毒桿菌症：C. tetani</b></p><p>家禽肉毒桿菌症（avian botulism，俗稱軟頸病 limberneck）是由<b>肉毒桿菌（Clostridium botulinum）</b>在腐敗動物屍體或厭氧環境中產生神經毒素（主要為 C 型毒素）被禽類攝食後引起弛緩性麻痺；而 <b>Clostridium tetani</b> 是引起痙攣性麻痺的破傷風桿菌，故 (C) 組合錯誤。</p><p>(A) 對：家禽潰瘍性腸炎（ulcerative enteritis，又稱鵪鶉病 quail disease）的病原為鵪鶉梭狀芽胞桿菌（Clostridium colinum）。</p><p>(B) 對：家禽壞死性腸炎（necrotic enteritis）主要由產氣莢膜梭菌 A 型或 G 型（Clostridium perfringens，產生 α 與 NetB 毒素）引起。</p><p>(D) 對：家禽壞疽性皮膚炎（gangrenous dermatitis）主要由敗毒梭狀芽胞桿菌（Clostridium septicum）與 C. perfringens type A 引起。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 26,
+        "text": "26.下列何者為家禽霍亂之病原？",
+        "options": {
+            "A": "Pasteurella multocida",
+            "B": "Riemerella anatipestifer",
+            "C": "Salmonella Cholerasuis",
+            "D": "Vibrio cholerae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Pasteurella multocida</b></p><p><b>多殺性巴氏桿菌（Pasteurella multocida，最常見莢膜血清型 A:1、A:3、A:4）</b>是引起<b>家禽霍亂（fowl cholera）</b>的致病原，為革蘭氏陰性、兩極濃染（bipolar staining）的短小桿菌，可感染雞、火雞及水禽，引起急性出血性敗血症或慢性肉垂腫脹與關節炎。</p><p>(B) 錯：Riemerella anatipestifer 引起水禽的雷氏桿菌病（鴨傳染性漿膜炎）。</p><p>(C) 錯：Salmonella Cholerasuis 為豬隻副傷寒／敗血症病原，不引起家禽霍亂。</p><p>(D) 錯：Vibrio cholerae（霍亂弧菌）引起人類霍亂，並非家禽霍亂之病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 27,
+        "text": "27.下列何者為引起雛火雞腸炎症候群（poult enteritis syndrome）和雛火雞腸炎致死症候群 （poult enteritis and mortality syndrome）的主要病原？",
+        "options": {
+            "A": "小病毒",
+            "B": "冠狀病毒",
+            "C": "輪狀病毒",
+            "D": "星狀病毒"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A)(B)(C)(D) 四個選項皆給分（本題送分）</b></p><p>本題考選部公布標準答案為四個選項皆給分。雛火雞腸炎症候群（poult enteritis syndrome, PES）與雛火雞腸炎致死症候群（poult enteritis and mortality syndrome, PEMS）屬於多因子複合病毒性腸道疾病，(A) 小病毒（turkey parvovirus）、(B) 冠狀病毒（turkey coronavirus）、(C) 輪狀病毒（rotavirus）及 (D) 星狀病毒（turkey astrovirus）均為文獻證實可單獨或協同引發 PES/PEMS 的主要病毒性病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 28,
+        "text": "28.造成家禽慢性呼吸器疾病的主要病原為何？",
+        "options": {
+            "A": "Mycoplasma gallisepticum",
+            "B": "Mycoplasma gallinarum",
+            "C": "Mycoplasma synoviae",
+            "D": "Mycoplasma iowae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Mycoplasma gallisepticum</b></p><p><b>雞敗血黴漿菌（Mycoplasma gallisepticum, MG）</b>是造成雞隻<b>慢性呼吸器疾病（chronic respiratory disease, CRD）</b>及火雞傳染性竇炎（infectious sinusitis）的最主要病原，破壞呼吸道纖毛上皮引發氣管羅音、鼻分泌物與氣囊炎，並常與大腸桿菌複合感染造成嚴重損失。</p><p>(B) 錯：Mycoplasma gallinarum 為家禽上呼吸道常見的非致病性共生黴漿菌。</p><p>(C) 錯：Mycoplasma synoviae（雞滑膜黴漿菌）主要引起家禽傳染性滑膜炎（infectious synovitis）及輕度上呼吸道感染，非 CRD 的首要病原。</p><p>(D) 錯：Mycoplasma iowae 主要引起火雞胚胎死亡、孵化率下降及雛火雞腿部骨骼異常，不引起雞慢性呼吸器病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 29,
+        "text": "29.家禽壞疽性皮膚炎最主要是由何種病原感染所致？",
+        "options": {
+            "A": "Clostridium septicum",
+            "B": "Clostridium novyi",
+            "C": "Clostridium difficile",
+            "D": "Clostridium chauvoei"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Clostridium septicum</b></p><p>家禽壞疽性皮膚炎（gangrenous dermatitis）主要發生於 4～8 週齡快速生長的肉雞或免疫抑制（如 IBDV 或 CIAV 感染後）雞群，最主要的厭氧菌致病原為<b>敗毒梭狀芽胞桿菌（Clostridium septicum）</b>（常單獨感染或與 C. perfringens type A 及 Staphylococcus aureus 混合感染），造成翼下、胸部與大腿皮下出血性水腫、捻髮音及皮膚壞疽脫落。</p><p>(B) 錯：Clostridium novyi 主要引起反芻動物傳染性壞死性肝炎（黑疫 black disease）與惡性水腫，非家禽壞疽性皮膚炎主要病原。</p><p>(C) 錯：Clostridium difficile 主要引起人類與哺乳動物偽膜性結腸炎，非家禽壞疽性皮膚炎病原。</p><p>(D) 錯：Clostridium chauvoei（氣腫疽梭菌）主要引起牛羊的氣腫疽（blackleg），不引起家禽壞疽性皮膚炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 30,
+        "text": "30.Chlamydia psittaci可用下列何者增殖？",
+        "options": {
+            "A": "固體血液培養基",
+            "B": "液體培養基（如brain and heart infusion broth等）",
+            "C": "HeLa、Vero細胞株",
+            "D": "MacConkey's agar"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) HeLa、Vero細胞株</b></p><p>鸚鵡熱披衣菌（Chlamydia psittaci）屬於<b>專性細胞內寄生菌（obligate intracellular bacteria）</b>，自身缺乏合成高能 ATP 與 GTP 的代謝系統（被稱為能量寄生物），無法在任何無細胞的人工固體或液體培養基上增殖，必須接種於活的真核細胞株（如 <b>HeLa、Vero、L929 或 McCoy 細胞株</b>）或雞胚胎卵黃囊中才能進行增殖培養。</p><p>(A) 錯：固體血液培養基為無細胞培養基，無法支持專性細胞內寄生的披衣菌生長。</p><p>(B) 錯：brain and heart infusion broth 為無細胞營養肉湯，C. psittaci 無法於其中增殖。</p><p>(D) 錯：MacConkey's agar 為選擇性分離革蘭氏陰性腸內菌的無細胞培養基，不適用於披衣菌培養。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 31,
+        "text": "31.下列何種病變為馬立克病毒所引起？",
+        "options": {
+            "A": "B-cell lymphoma",
+            "B": "T-cell lymphoma",
+            "C": "myelocytomatosis",
+            "D": "lymphoid leukosis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) T-cell lymphoma</b></p><p>馬立克病病毒（Marek's disease virus, MDV，屬於 α-疱疹病毒）感染雞隻後，先在 B 細胞進行早期溶細胞感染，隨後潛伏並惡性轉形活化的 <b>CD4⁺ T 淋巴細胞</b>，導致全身周圍神經、性腺、肝、脾、腎、心臟與皮膚形成多發性 <b>T 細胞性淋巴瘤（T-cell lymphoma）</b>病變。</p><p>(A) 錯：B-cell lymphoma（B 細胞性淋巴瘤）是由家禽白血病病毒（ALV）或網狀內皮細胞增殖病病毒（REV）所引起，並非馬立克病。</p><p>(C) 錯：myelocytomatosis（骨髓細胞瘤病）主要由 J 亞群家禽白血病病毒（ALV-J）所引起。</p><p>(D) 錯：lymphoid leukosis（淋巴白血病）是由家禽白血病病毒（ALV）引起的華氏囊源性 B 細胞腫瘤。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 32,
+        "text": "32.下列何種疾病主要會造成嗉囊黏膜上皮過度增生而形成偽膜的病變？",
+        "options": {
+            "A": "沙門氏菌症",
+            "B": "葡萄球菌症",
+            "C": "黴漿菌病",
+            "D": "念珠菌症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 念珠菌症</b></p><p><b>念珠菌症（candidiasis / moniliasis，俗稱酸嗉囊 sour crop）</b>是由白色念珠菌（Candida albicans）感染上消化道黏膜所引起（常繼發於長期投予廣效抗生素或維生素 A 缺乏），特徵性肉眼與組織病變為<b>嗉囊與食道黏膜鱗狀上皮過度角化增生，表面覆蓋一層易刮除的灰白色凝乳狀或毛巾絨毛狀偽膜（pseudomembrane）</b>。</p><p>(A) 錯：沙門氏菌症主要引起肝脾壞死結節與盲腸乾酪樣栓塞，不引起嗉囊黏膜偽膜性增生。</p><p>(B) 錯：葡萄球菌症主要引起關節炎、滑膜炎與趾瘤症，不侵犯嗉囊上皮形成偽膜。</p><p>(C) 錯：黴漿菌病主要引起上呼吸道卡他性炎、氣囊炎與關節滑膜炎，與嗉囊偽膜無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 33,
+        "text": "33.下列有關家禽腦脊髓炎之腦組織病變的敘述，何者錯誤？",
+        "options": {
+            "A": "小神經膠細胞增生或聚集",
+            "B": "小腦的柏金奇細胞（Purkinje cells）大量浸潤並融合為巨細胞",
+            "C": "運動神經元中心虎斑小體溶解壞死",
+            "D": "非化膿性腦炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 小腦的柏金奇細胞（Purkinje cells）大量浸潤並融合為巨細胞</b></p><p>家禽腦脊髓炎（avian encephalomyelitis, AE，由 Tremovirus 屬小核糖核酸病毒引起）的中樞神經典型組織病變為非化膿性腦脊髓炎，在小腦可見柏金奇細胞（Purkinje cells）發生退行性變性、壞死消失並由神經膠細胞（Bergmann glia）增生填補，<b>絕不會出現柏金奇細胞大量浸潤並融合為多核巨細胞的現象</b>（柏金奇細胞為高度分化的大型神經元，不具增生浸潤或融合能力），故 (B) 敘述錯誤。</p><p>(A) 對：腦幹與小腦分子層可見局部小神經膠細胞增生聚集形成膠質結節（glial nodules）。</p><p>(C) 對：延腦與脊髓腹角大型運動神經元呈現典型的「中心性虎斑小體溶解壞死（central chromatolysis）」，胞體腫大圓鈍、細胞核被推向邊緣。</p><p>(D) 對：中樞神經實質血管周圍可見明顯的淋巴球性圍管現象（perivascular cuffing），屬於典型的非化膿性腦炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 34,
+        "text": "34.有關家禽肉毒桿菌毒素中毒之敘述，下列何者錯誤？",
+        "options": {
+            "A": "該毒素為外毒素的一種",
+            "B": "最主要導致家禽肉毒中毒的毒素為B、E和F",
+            "C": "雞、火雞、鴨與鴕鳥都可見發病",
+            "D": "主要產生毒素的細菌為Clostridium botulinum"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 最主要導致家禽肉毒中毒的毒素為B、E和F</b></p><p>肉毒桿菌（Clostridium botulinum）依神經毒素抗原性分為 A 至 G 七型，其中<b>最主要導致家禽及野生水鳥肉毒桿菌中毒的毒素型別為 C 型毒素（botulinum toxin type C）</b>（偶見 A 型或 E 型，而 B、E、F 型主要與人類肉毒中毒相關），故 (B) 敘述錯誤。</p><p>(A) 對：肉毒桿菌神經毒素為細菌在厭氧生長過程中釋出的蛋白性外毒素（exotoxin），能阻斷神經肌肉接合處乙醯膽鹼釋放。</p><p>(C) 對：雞、火雞、鴨、野鳥與鴕鳥對 C 型肉毒毒素均具感受性，攝食含毒素的腐敗屍體或蛆蟲後發病。</p><p>(D) 對：產生此神經毒素的病原菌為革蘭氏陽性、厭氧、產芽胞的肉毒桿菌（Clostridium botulinum）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 35,
+        "text": "35.下列那一種家禽疾病或病變不會由大腸桿菌感染而引起？",
+        "options": {
+            "A": "arizonosis",
+            "B": "panophthalmitis",
+            "C": "coliform omphalitis",
+            "D": "coligranuloma"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) arizonosis</b></p><p><b>亞利桑那菌症（arizonosis）</b>是由沙門氏菌屬的 <b>Salmonella enterica subsp. arizonae</b> 感染幼齡火雞與雛雞所引起，造成急性敗血症、腦膜腦炎與特徵性眼球混濁失明，並非由大腸桿菌（Escherichia coli）引起。</p><p>(B) 錯：全眼球炎（panophthalmitis）可由大腸桿菌敗血症經血行侵入眼房引起化膿性眼球炎。</p><p>(C) 錯：大腸桿菌性臍炎（coliform omphalitis / 卵黃囊炎 mushy chick disease）為初生雛雞最常見的大腸桿菌感染症。</p><p>(D) 錯：大腸桿菌肉芽腫（coligranuloma / Hjärre's disease）是由黏液型大腸桿菌感染成年雞隻，在腸壁、腸繫膜與肝臟形成類似結核病的乾酪樣肉芽腫結節。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 36,
+        "text": "36.鴨病毒性肝炎主要發生在下列何種階段的鴨隻，是一種高死亡率的疾病？",
+        "options": {
+            "A": "雛鴨",
+            "B": "中鴨",
+            "C": "成鴨",
+            "D": "產蛋鴨"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 雛鴨</b></p><p>鴨病毒性肝炎（duck viral hepatitis, DVH，主要由小核糖核酸病毒科 Avihepatovirus 屬的鴨肝炎病毒第一型引起）具有極嚴格的年齡易感性，<b>主要發生在 3 週齡以下（尤其是 1～2 週齡）的雛鴨</b>，病程極為急劇，患鴨倒地側臥、雙腳痙攣划動、頭頸向背側反張（opisthotonos）並於數小時內死亡，死亡率可高達 90% 以上。</p><p>(B) 錯：4～6 週齡以上的中鴨對本病毒已有天然年齡抵抗力，極少發病死亡。</p><p>(C) 錯：成鴨感染後完全不發病，僅呈不顯性感染並產生中和抗體。</p><p>(D) 錯：產蛋鴨感染不出現臨床症狀，且可經由卵黃將移行抗體傳遞給雛鴨提供早期保護。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 37,
+        "text": "37.診斷下列何種疾病可使用免疫螢光染色，檢測雞毛囊上皮細胞中的抗原？",
+        "options": {
+            "A": "馬立克病",
+            "B": "傳染性華氏囊病",
+            "C": "家禽里奧病毒感染症",
+            "D": "傳染性支氣管炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 馬立克病</b></p><p><b>馬立克病（Marek's disease, MD）</b>在雞隻體內的淋巴細胞中多呈非生產性潛伏或轉形感染，唯獨在<b>羽毛囊上皮細胞（feather follicle epithelium, FFE）</b>內病毒能進行完整的生產性複製並表現大量病毒特異性抗原（隨後隨皮屑脫落傳播），因此拔取病雞羽毛並針對毛囊上皮細胞進行直接免疫螢光染色（FA）或瓊脂凝膠免疫擴散試驗（AGID）檢測病毒抗原，為診斷馬立克病的經典方法。</p><p>(B) 錯：傳染性華氏囊病（IBD）病毒主要增殖於華氏囊 B 淋巴細胞中，毛囊上皮細胞無特異性抗原蓄積。</p><p>(C) 錯：家禽里奧病毒主要增殖於腸道與關節滑膜腱鞘組織，不在毛囊上皮細胞檢測抗原。</p><p>(D) 錯：傳染性支氣管炎（IB）病毒主要複製於氣管黏膜纖毛上皮、腎小管與輸卵管上皮細胞，與毛囊上皮無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 38,
+        "text": "38.下列何者是現行商品化雞傳染性貧血活毒疫苗給與種雞的最佳免疫時機？",
+        "options": {
+            "A": "1日齡～2週齡",
+            "B": "3週齡～4週齡",
+            "C": "5週齡～7週齡",
+            "D": "8週齡～開產前4週"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 8週齡～開產前4週</b></p><p>現行商品化雞傳染性貧血（CIA）減毒活毒疫苗免疫種雞的標準時程為 <b>8 週齡至開產前 3～4 週</b>：必須等到 8 週齡以上雞隻具備完整年齡抵抗力時施打，以免疫苗病毒反而在幼雛引起貧血與免疫抑制；同時必須在開產前至少 4 週完成接種，以確保種雞在進入產蛋期前已完全清除疫苗病毒並產生高力價中和抗體，防止疫苗毒株介蛋垂直傳播給子代胚胎。</p><p>(A) 錯：1 日齡～2 週齡雛雞免疫系統尚未成熟，接種活毒疫苗會直接誘發傳染性貧血發病。</p><p>(B) 錯：3～4 週齡時疫苗株仍具潛在免疫抑制風險，且距離開產尚早。</p><p>(C) 錯：5～7 週齡尚未達建議之 8 週齡安全免疫起始日齡。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 39,
+        "text": "39.馬立克病活毒減毒疫苗株SB-1是屬於何種血清型？",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "3",
+            "D": "4"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 2</b></p><p>馬立克病病毒（MDV）依抗原性與致病力分為三個血清型：血清型 1（Serotype 1）為致病性雞源株及其減毒株（如 CVI988 / Rispens）；<b>血清型 2（Serotype 2）為天然無致病性雞源株，代表性疫苗株即為 SB-1 株</b>（常與血清型 3 的 HVT 混合製成雙價疫苗以增強對超強毒株 vvMDV 的保護力）；血清型 3（Serotype 3）為火雞疱疹病毒（HVT FC126 株）。</p><p>(A) 錯：血清型 1 代表疫苗株為 CVI988（Rispens）。</p><p>(C) 錯：血清型 3 代表疫苗株為火雞疱疹病毒 HVT（FC126）。</p><p>(D) 錯：馬立克病病毒目前僅分為 1、2、3 三個血清型，並無血清型 4。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 40,
+        "text": "40.牛出血性敗血症（hemorrhagic septicaemia）是由Pasteurella multocida何種血清型所引起？",
+        "options": {
+            "A": "9:A及9:B",
+            "B": "6:B及6:E",
+            "C": "6:A及11:B",
+            "D": "7:A及9:B"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 6:B及6:E</b></p><p>牛出血性敗血症（hemorrhagic septicaemia, HS）為水牛與黃牛的急性高致死性敗血性傳染病，由特定莢膜與體抗原血清型的多殺性巴氏桿菌（Pasteurella multocida）引起：在 Carter:Heddleston 分型系統中為 B:2（主要分布於亞洲）與 E:2（主要分布於非洲），若換算為傳統 <b>Namioka 血清分型系統則對應為 6:B 及 6:E</b>。</p><p>(A) 錯：9:A 及 9:B 並非牛出血性敗血症的致病血清型。</p><p>(C) 錯：6:A 及 11:B 並非牛出血性敗血症的特異血清型（A 型多與牛肺炎複合症相關）。</p><p>(D) 錯：7:A 及 9:B 並非牛出血性敗血症的致病血清型。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 41,
+        "text": "41.下列何種細菌會產生溶血素而造成牛隻臨床上出現溶血性貧血症狀？",
+        "options": {
+            "A": "牛副結核菌",
+            "B": "鉤端螺旋體",
+            "C": "凝固酶陰性葡萄球菌",
+            "D": "空腸彎曲桿菌"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 鉤端螺旋體</b></p><p><b>鉤端螺旋體（Leptospira spp.，特別是血清型 Pomona 與 Grippotyphosa）</b>在菌血症期會分泌細菌性溶血素（鞘磷脂酶／磷脂酶），直接溶解牛隻（尤其是仔牛）的紅血球細胞膜，引起急性<b>血管內溶血性貧血、黃疸、高燒及特徵性的暗紅色血紅素尿（redwater）</b>。</p><p>(A) 錯：牛副結核菌（Mycobacterium avium subsp. paratuberculosis）引起慢性肉芽腫性腸炎與蛋白流失性腸病，不分泌溶血素。</p><p>(C) 錯：凝固酶陰性葡萄球菌（CNS）主要引起牛隻輕度次臨床乳房炎，不引起全身性溶血性貧血。</p><p>(D) 錯：空腸彎曲桿菌（Campylobacter jejuni）主要引起腸炎與食媒性腹瀉，不引起溶血性貧血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 42,
+        "text": "42.下列何者為牛、羊蘇拉病（Surra）之病原？",
+        "options": {
+            "A": "Trypanosoma brucei gambiense",
+            "B": "Trichomonas fetus",
+            "C": "Trypanosoma evansi",
+            "D": "Trypanosoma congolense"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Trypanosoma evansi</b></p><p>蘇拉病（Surra）是由鞭毛蟲原蟲<b>伊氏錐蟲（Trypanosoma evansi）</b>所引起，主要藉由虻蟲（Tabanus spp.）與廄刺蠅（Stomoxys calcitrans）等吸血雙翅目昆蟲進行機械性傳播，可感染馬、牛、水牛、駱駝及犬隻，造成間歇性發燒、進行性貧血、消瘦、皮下水腫及神經症狀。</p><p>(A) 錯：Trypanosoma brucei gambiense 為經采采蠅（tsetse fly）傳播引起人類非洲昏睡病（sleeping sickness）的病原。</p><p>(B) 錯：Trichomonas fetus（現稱 Tritrichomonas foetus）為經交配傳播引起牛隻早期胚胎死亡、流產與不孕的生殖道毛滴蟲。</p><p>(D) 錯：Trypanosoma congolense 為經采采蠅生物性傳播引起非洲家畜那加那病（Nagana）的病原，非蘇拉病病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 43,
+        "text": "43.下列何者為馬鼻疽之病原？",
+        "options": {
+            "A": "病毒",
+            "B": "黴菌",
+            "C": "細菌",
+            "D": "原蟲"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 細菌</b></p><p>馬鼻疽（glanders）是由<b>鼻疽伯克霍德菌（Burkholderia mallei，舊稱 Pseudomonas mallei）</b>所引起，在微生物分類上屬於<b>革蘭氏陰性、無鞭毛、無芽胞的桿狀細菌</b>，主要感染馬、騾、驢等單蹄獸，引起鼻腔黏膜潰瘍與星芒狀瘢痕、皮下淋巴管串珠狀結節（皮疽 farcy）及肺臟結節病變，同時為極危險的人畜共通傳染病。</p><p>(A) 錯：馬鼻疽並非病毒性疾病。</p><p>(B) 錯：馬鼻疽並非黴菌感染（需與由 Histoplasma capsulatum var. farciminosum 引起的馬流行性淋巴管炎／假性皮疽鑑別）。</p><p>(D) 錯：馬鼻疽並非原蟲性疾病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 44,
+        "text": "44.安尼線蟲（Anisakis spp.）不會感染下列何種動物？",
+        "options": {
+            "A": "魚類",
+            "B": "鳥類",
+            "C": "哺乳動物",
+            "D": "甲殼類動物"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 鳥類</b></p><p>安尼線蟲（Anisakis spp.，又稱海獸胃線蟲）的生活史完整依賴海洋生態鏈：成蟲寄生於鯨、海豚、海豹等<b>海洋哺乳動物</b>的胃部；蟲卵隨糞便排入海中孵化後被磷蝦等<b>甲殼類動物</b>（第一中間宿主）攝食；海魚與頭足類（如魷魚）捕食甲殼類後成為第二中間／保幼宿主（第三期幼蟲包囊於魚類體腔與肌肉中，人類生食海魚亦會遭受幼蟲移行感染）；本蟲<b>不會感染鳥類</b>。</p><p>(A) 錯：多種海水魚類（如鯖魚、鮭魚、白帶魚、鱈魚）為安尼線蟲第三期幼蟲的重要保幼宿主。</p><p>(C) 錯：鯨豚海豹等海洋哺乳動物為終末宿主，而人類與陸生哺乳動物食入生魚亦可被幼蟲侵犯胃腸壁。</p><p>(D) 錯：磷蝦等小型海洋甲殼類動物為安尼線蟲的第一中間宿主。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 45,
+        "text": "45.下列何者為日本腦炎病毒的最終宿主之一？",
+        "options": {
+            "A": "犬",
+            "B": "貓",
+            "C": "蛇",
+            "D": "馬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 馬</b></p><p>日本腦炎病毒（Japanese encephalitis virus, JEV）以水鳥（如鷺鷥）為自然保毒宿主、以豬隻為最重要的增幅宿主（amplifying host，感染後產生高力價且持久的病毒血症供蚊蟲吸食傳播）；而<b>馬匹（與人類）感染 JEV 後，血液中產生的病毒血症力價極低且持續時間極短，不足以再感染吸血蚊蟲，因此在流行病學上屬於終末宿主（dead-end host / final host）</b>，但馬匹發病時會出現致命性腦脊髓炎。</p><p>(A) 錯：犬隻感染 JEV 多呈不顯性感染，非本病典型終末發病宿主。</p><p>(B) 錯：貓隻對 JEV 感受性低，不具流行病學重要性。</p><p>(C) 錯：蛇等爬蟲類曾被探討是否參與病毒越冬，並非哺乳類終末宿主。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 46,
+        "text": "46.有關牛病毒性下痢之持續性感染的敘述，下列何者正確？",
+        "options": {
+            "A": "不引起細胞病變的病毒株，可導致動物持續性感染",
+            "B": "180日齡胚胎可經由母牛感染，出生後成為持續性感染動物",
+            "C": "成牛可因吸入病毒顆粒而感染，成為持續性感染動物",
+            "D": "血清中通常不出現抗體"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 不引起細胞病變的病毒株，可導致動物持續性感染</b></p><p>牛病毒性下痢病毒（BVDV）依體外細胞培養是否產生細胞病變分為細胞病變型（cp）與<b>非細胞病變型（ncp）</b>兩大生物型。唯獨<b>非細胞病變型（ncp-BVDV）</b>在妊娠約第 40～125 天（胎兒免疫系統尚未發育成熟前）經胎盤感染胎兒時，不會殺死胎兒細胞且會使胎兒免疫系統將病毒誤認為自身抗原而產生特異性免疫耐受性（immunotolerance），出生後成為終生帶毒、持續大量排毒的<b>持續性感染動物（persistently infected, PI cattle）</b>。</p><p>(B) 錯：妊娠 180 日齡的牛胎兒免疫系統已發育成熟，感染 BVDV 後會產生中和抗體將病毒清除，不會成為持續性感染動物。</p><p>(C) 錯：出生後的牛隻（包含成牛）因免疫系統成熟，感染 BVDV 僅引起急性一過性感染（約 1～2 週內產生抗體清除病毒），絕不會變成持續性感染動物。</p><p>(D) 錯：雖然真正針對同源病毒株的 PI 牛因免疫耐受性血清中通常無該株中和抗體（若感染異源病毒株則可出現抗體），但相較於全無條件限制的敘述，(A) 精準闡明了唯有 ncp 生物型才能建立 PI 的核心病毒學法則。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 47,
+        "text": "47.有關馬焦蟲病之敘述，下列何者錯誤？",
+        "options": {
+            "A": "是一種藉壁蝨傳播的疾病",
+            "B": "病原可寄生於紅血球之中",
+            "C": "可經由子宮感染",
+            "D": "已有疫苗可以預防"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 已有疫苗可以預防</b></p><p>馬焦蟲病（equine piroplasmosis，由巴貝斯蟲 Babesia caballi 或馬泰勒蟲 Theileria equi 引起）為重要馬匹國際檢疫傳染病，<b>目前全球尚無任何商業化安全有效的疫苗可用於預防本病</b>，防疫全賴壁蝨撲滅、避免共用針頭及進出口血清學檢疫隔離，故 (D) 敘述錯誤。</p><p>(A) 對：本病在自然界主要藉由革蜱屬（Dermacentor）、扇頭蜱屬（Rhipicephalus）及璃眼蜱屬（Hyalomma）等壁蝨媒介傳播。</p><p>(B) 對：Babesia caballi（大型雙梨形蟲體）與 Theileria equi（小型四聯體馬爾他十字形蟲體）皆寄生於馬匹紅血球內並引起溶血性貧血與黃疸。</p><p>(C) 對：Theileria equi 已被證實可經由胎盤垂直感染胎兒，導致流產或新生駒先天性焦蟲病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 48,
+        "text": "48.下列牛病毒性疾病中，何者比較不會造成懷孕母牛的流產？",
+        "options": {
+            "A": "藍舌病",
+            "B": "傳染性牛鼻氣管炎",
+            "C": "牛病毒性下痢",
+            "D": "副流行性感冒第III型"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 副流行性感冒第III型</b></p><p><b>牛副流行性感冒病毒第 III 型（bovine parainfluenza virus 3, BPIV-3）</b>屬於副黏液病毒科 Respirovirus 屬，主要定殖於牛隻上下呼吸道黏膜上皮引起輕度呼吸道感染，並削弱呼吸道防禦力誘發細菌性運輸熱肺炎（shipping fever），<b>臨床上極少引起懷孕母牛流產</b>。</p><p>(A) 錯：藍舌病病毒（bluetongue virus, BTV，由庫蠓傳播）感染懷孕母牛可穿過胎盤引起胚胎死亡、流產及胎兒水腦症／畸形。</p><p>(B) 錯：傳染性牛鼻氣管炎病毒（IBRV / BoHV-1）是造成牛隻懷孕中後期流產最常見的病毒性病原之一。</p><p>(C) 錯：牛病毒性下痢病毒（BVDV）可引起懷孕母牛早期胚胎死亡、流產、死產、木乃伊胎、先天性小腦發育不全或持續性感染（PI）仔牛。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 49,
+        "text": "49.下列何者為牛感染Mannheimia haemolytica所引起之最主要的肺炎病變？",
+        "options": {
+            "A": "肉芽腫性肺炎",
+            "B": "間質性肺炎",
+            "C": "肉芽腫性出血性肺炎",
+            "D": "纖維素性化膿性肺炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 纖維素性化膿性肺炎</b></p><p><b>溶血性曼海姆菌（Mannheimia haemolytica，舊稱 Pasteurella haemolytica，特別是血清型 A1）</b>是牛隻運輸熱肺炎（bovine respiratory disease complex / shipping fever）最主要的細菌性病原。細菌分泌的白血球毒素（leukotoxin）裂解肺泡巨噬細胞與嗜中性球釋出大量水解酶，在肺臟前腹葉造成特徵性的急性<b>纖維素性化膿性／壞死性支氣管性肺炎（fibrinosuppurative / fibrinous pleuropneumonia）</b>，常伴隨肺小葉間質水腫與胸膜表面厚層黃白色纖維素性滲出物。</p><p>(A) 錯：肉芽腫性肺炎主要見於牛結核病（Mycobacterium bovis）或肺黴菌感染。</p><p>(B) 錯：間質性肺炎主要見於病毒感染（如 BRSV、BPIV-3）、肺蟲移行或急性牛肺水腫與肺氣腫（ABPE）。</p><p>(C) 錯：Mannheimia haemolytica 引起的肺炎以急性纖維素性化膿性滲出與凝固壞死為主，並非肉芽腫性病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 50,
+        "text": "50.下列那一種疾病以引起消化道黏膜糜爛為主徵？",
+        "options": {
+            "A": "牛流行熱",
+            "B": "牛病毒性下痢",
+            "C": "水疱性口炎",
+            "D": "牛冠狀病毒感染症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 牛病毒性下痢</b></p><p><b>牛病毒性下痢（bovine viral diarrhea, BVD，特別是持续性感染牛隻再感染同源細胞病變型病毒株所引發之黏膜病 mucosal disease）</b>最典型的肉眼病變即為<b>整個消化道黏膜（包括齒齦、硬顎、舌面、食道呈特徵性線狀排列、瘤胃柱、皺胃以及小腸培氏斑 Peyer's patches）出現多發性界線清晰的糜爛（erosions）與深層壞死性潰瘍</b>，伴隨嚴重水樣血痢。</p><p>(A) 錯：牛流行熱（bovine ephemeral fever）以高燒、漿膜腔纖維素性滲出、間質性肺氣腫與肌肉僵硬癱瘓為主，無消化道黏膜糜爛。</p><p>(C) 錯：水疱性口炎（vesicular stomatitis）主要在口腔黏膜、鼻鏡、蹄冠與乳頭形成水疱及破裂後表淺潰瘍，不會引起全消化道與腸道培氏斑壞死糜爛。</p><p>(D) 錯：牛冠狀病毒感染症主要破壞小腸與結腸絨毛吸收上皮引起絨毛萎縮與下痢，不以消化道黏膜廣泛糜爛為主徵。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 51,
+        "text": "51.利用Rose-Bengal plate test可偵測下列那一種病原的感染？",
+        "options": {
+            "A": "Salmonella",
+            "B": "Brucella",
+            "C": "Mycobacterium",
+            "D": "Corynebacterium"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Brucella</b></p><p><b>虎紅平板凝集試驗（Rose-Bengal plate test, RBPT）</b>是世界動物衛生組織（WOAH）推薦用於快速篩檢家畜（牛、羊、豬）<b>布氏桿菌（Brucella spp.）</b>感染的經典血清學試驗，利用酸性緩衝液（pH 3.65）將虎紅染色的平滑型布氏桿菌抗原與待測血清混合，酸性環境可抑制非特異性 IgM 交叉凝集並特異性偵測抗布氏桿菌 IgG1 抗體。</p><p>(A) 錯：Salmonella 血清學診斷常採用試管凝集試驗或 ELISA，不採用虎紅平板凝集試驗。</p><p>(C) 錯：Mycobacterium（如牛結核菌）主要依賴細胞介導性免疫反應，採用皮內結核菌素試驗（ITT/CITT）或 γ-干擾素釋放試驗診斷。</p><p>(D) 錯：Corynebacterium pseudotuberculosis（乾酪性淋巴結炎）主要採用細菌培養或協同溶血抑制試驗（SHI）診斷。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 52,
+        "text": "52.犬的血液抹片如圖，箭頭所指最可能是下列何種病原？",
+        "options": {
+            "A": "Hepatozoon canis",
+            "B": "Cytauxzoon felis",
+            "C": "Babesia canis",
+            "D": "Babesia gibsoni"
+        },
+        "image": "./圖片/e112-52.jpg",
+        "explanation": "<p><b>答案：(A) Hepatozoon canis</b></p><p>依題意與答案推斷，犬隻血液抹片中箭頭所指位於<b>嗜中性球（或單核球）細胞質內的大型長橢圓形、膠囊狀包膜構造（大小約 11 × 5 μm，常將嗜中性球細胞核推擠至一側並使其呈現馬蹄形或分葉變形）</b>，為<b>犬肝簇蟲（Hepatozoon canis）</b>的配子體（gamont / gametocyte），犬隻主要經由吞食帶有成熟卵囊的棕色犬壁蝨（Rhipicephalus sanguineus）而感染。</p><p>(B) 錯：Cytauxzoon felis 感染貓科動物而非犬隻，其紅血球內蟲體為極小的印戒狀（signet-ring）焦蟲體。</p><p>(C) 錯：Babesia canis（犬巴貝斯蟲）寄生於<b>紅血球</b>內部，呈成對的大型梨形蟲體（長約 4～5 μm），不寄生於白血球內。</p><p>(D) 錯：Babesia gibsoni（吉布森氏巴貝斯蟲）寄生於<b>紅血球</b>內部，呈小型單個圓形、卵圓形或印戒狀蟲體（直徑約 1～2.5 μm），不寄生於白血球內。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 53,
+        "text": "53.一歲齡可卡犬（cocker spaniel）有外耳炎，以棉花棒採樣經Diff-Quick染色可見大量卵圓形微生物（如下圖），其最可能為何種病原菌感染？",
+        "options": {
+            "A": "Microsporum gypseum",
+            "B": "Malassezia pachydermatis",
+            "C": "Aspergillus deflectus",
+            "D": "Trichophyton mentagrophytes"
+        },
+        "image": "./圖片/e112-53.jpg",
+        "explanation": "<p><b>答案：(B) Malassezia pachydermatis</b></p><p>依題意與答案推斷，可卡犬（耳道下垂且皮脂腺發達，好發外耳炎）耳道拭子經 Diff-Quick 染色後，顯微鏡下可見大量呈現<b>單極寬基底出芽（broad-based unipolar budding）、外形酷似「花生殼（peanut-shaped）」或「雪人（snowman-shaped）」的深藍紫色卵圓形酵母菌</b>，此為<b>厚皮馬拉色菌（Malassezia pachydermatis）</b>過度增殖引起酵母菌性外耳炎的典型細胞學特徵。</p><p>(A) 錯：Microsporum gypseum 為絲狀皮癬菌，鏡檢可見分枝隔膜菌絲與船形大分生孢子，並非卵圓形出芽酵母菌。</p><p>(C) 錯：Aspergillus deflectus 為絲狀黴菌（麴菌），鏡檢呈現具 45 度角分枝的隔膜菌絲，並非卵圓形酵母菌。</p><p>(D) 錯：Trichophyton mentagrophytes 為絲狀皮癬菌，不以外耳道大量卵圓形出芽酵母菌形態出現。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 54,
+        "text": "54.下列有關犬tetanus之敘述，何者錯誤？",
+        "options": {
+            "A": "由Clostridium tetani產生的毒素所引起",
+            "B": "常因傷口感染所引起",
+            "C": "對此毒素最敏感的動物為雞",
+            "D": "臨床症狀出現通常在創傷後5～10天，也有一些報告為3～18天"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 對此毒素最敏感的動物為雞</b></p><p>不同動物物種對破傷風梭菌（Clostridium tetani）產生的破傷風痙攣毒素（tetanospasmin）敏感度差異極大：其中<b>最敏感的動物為馬與人類</b>，犬與貓具有中度天然抵抗力（較常發生局部性破傷風），而<b>雞與其他鳥類對破傷風毒素具有極高的天然抵抗力，是最不敏感的動物</b>，故 (C) 敘述錯誤。</p><p>(A) 對：破傷風是由厭氧菌 Clostridium tetani 產生的神經外毒素（tetanospasmin）逆行運送至脊髓與腦幹抑制性中間神經元，阻斷甘胺酸（glycine）與 GABA 釋放，導致全身骨骼肌強直性痙攣。</p><p>(B) 對：本菌芽胞普遍存在於土壤與動物糞便中，常因深部穿刺傷、咬傷、手術或斷尾等缺氧壞死傷口污染而發芽增殖產毒。</p><p>(D) 對：犬隻感染後的潛伏期通常在創傷後 5～10 天（文獻報告變異範圍為 3～18 天）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 55,
+        "text": "55.常引起犬慢性嘔吐、下痢、胃炎甚至胃潰瘍的病原為下列何者？",
+        "options": {
+            "A": "Helicobacter felis",
+            "B": "Helicobacter pylori",
+            "C": "Salmonella Typhimurium",
+            "D": "Salmonella enterica"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Helicobacter felis</b></p><p>犬隻胃部螺旋桿菌（non-Helicobacter pylori Helicobacters, NHPH）中，<b>貓螺桿菌（Helicobacter felis，以及 H. bizzozeronii、H. heilmannii）</b>是自然定殖於犬隻胃底腺與胃竇黏膜層最常見的螺旋狀細菌，在部分敏感個體中可引起淋巴濾泡性胃炎、慢性嘔吐、下痢及胃黏膜糜爛潰瘍。</p><p>(B) 錯：Helicobacter pylori（幽門螺旋桿菌）為專一性感染人類胃部引起消化性潰瘍與胃癌的主要病原，極少自然感染犬隻。</p><p>(C) 錯：Salmonella Typhimurium 主要引起急性小腸結腸炎與發燒下痢，非引起犬慢性胃炎與胃潰瘍的常見病原。</p><p>(D) 錯：Salmonella enterica 為沙門氏菌種名，主要侵犯腸道而非以慢性胃炎與胃潰瘍為主徵。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 56,
+        "text": "56.下列何種寄生蟲的卵囊最不可能在犬隻糞便中發現？",
+        "options": {
+            "A": "Isospora canis",
+            "B": "Eimeria canadensis",
+            "C": "Neospora caninum",
+            "D": "Sarcocystis canis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Eimeria canadensis</b></p><p>艾美球蟲屬（Eimeria spp.，其芽胞化卵囊含有 4 個孢子囊，每個孢子囊內含 2 個子孢子）具有極嚴格的宿主特異性，主要感染草食動物、禽類與囓齒類；其中 <b>Eimeria canadensis 是專一性寄生於牛隻腸道的球蟲</b>，完全不會感染犬隻，因此最不可能在犬隻糞便中發現。</p><p>(A) 錯：Isospora canis（Cystoisospora canis，芽胞化卵囊含 2 個孢子囊、每個含 4 個子孢子）為犬隻最常見的大型腸道球蟲，常在幼犬糞便中檢出。</p><p>(C) 錯：Neospora caninum（犬新孢子蟲）以犬科動物為終末宿主，受感染犬隻會隨糞便排出未芽胞化卵囊。</p><p>(D) 錯：Sarcocystis canis（肉孢子蟲）以犬為終末宿主，犬隻攝食含組織囊體的生肉後會隨糞便排出已芽胞化卵囊或游離孢子囊。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 57,
+        "text": "57.犬隻ringworm的主要病因為下列何者？",
+        "options": {
+            "A": "球黴菌",
+            "B": "皮黴菌",
+            "C": "麴菌",
+            "D": "隱球菌"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 皮黴菌</b></p><p>犬隻錢癬（ringworm，醫學正式名稱為 dermatophytosis）是由具有角蛋白分解酶（keratinase）、專一性侵犯皮膚角質層、毛髮與爪甲的<b>皮黴菌（dermatophytes，犬隻最常見病原為 Microsporum canis、Microsporum gypseum 及 Trichophyton mentagrophytes）</b>感染所引起。</p><p>(A) 錯：球黴菌（Coccidioides immitis / posadasii，引起溪谷熱 Valley fever）為雙相性深部系統性真菌，經吸入分生孢子引起肺部肉芽腫與播散性骨髓炎，非錢癬病因。</p><p>(C) 錯：麴菌（Aspergillus spp.）在犬隻主要引起鼻腔鼻竇炎（A. fumigatus）或免疫不全犬之系統性感染（A. terreus / A. deflectus），非錢癬病因。</p><p>(D) 錯：隱球菌（Cryptococcus neoformans / gattii）為具厚多醣莢膜之酵母菌樣真菌，主要引起鼻腔肉芽腫、中樞神經腦膜炎與眼部病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 58,
+        "text": "58.有關隱球菌之敘述，下列何者錯誤？",
+        "options": {
+            "A": "呈酵母菌樣，出芽生殖",
+            "B": "可藉吸入感染",
+            "C": "會感染人，最常造成腸胃炎",
+            "D": "可感染多種動物"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 會感染人，最常造成腸胃炎</b></p><p>新型隱球菌（Cryptococcus neoformans）與格特隱球菌（C. gattii）主要存在於受鴿糞污染的土壤與桉樹腐木中，人類與動物經由呼吸道吸入乾燥擔孢子後，病原先在肺部增殖並常經血行突破血腦障壁，<b>在人類最常造成致命性的隱球菌性腦膜腦炎（meningoencephalitis）與肺炎</b>（免疫不全患者尤為嚴重），並不會以腸胃炎為最常見表現，故 (C) 敘述錯誤。</p><p>(A) 對：隱球菌在宿主組織與培養基中皆呈球形至卵圓形酵母菌樣（yeast-like）形態，外圍包覆寬厚的多醣莢膜，以窄基底單極出芽生殖。</p><p>(B) 對：吸入環境中的擔孢子或脫水酵母菌細胞為人類與動物最主要的自然感染途徑。</p><p>(D) 對：可感染貓（最常引起鼻腔與額部腫脹）、犬、馬、無尾熊及人類等多種哺乳動物。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 59,
+        "text": "59.貓得狂犬病，通常在神經症狀出現前幾天排毒？",
+        "options": {
+            "A": "1～5",
+            "B": "6～10",
+            "C": "11～15",
+            "D": "16～20"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 1～5</b></p><p>狂犬病病毒沿周圍神經逆行進入腦部增殖後，會再沿顏面神經與舌咽神經離心性擴散至唾液腺並分泌於唾液中；臨床與實驗證實，貓隻（與犬隻）通常在出現明顯臨床神經症狀前的 <b>1～5 天</b>（極少數個案可達 7 天，國際檢疫標準保守設定為 10 天）即開始自唾液排毒並具備傳染力。</p><p>(B) 錯：6～10 天已超過一般狂犬病前驅期排毒天數（10 天為世界衛生組織與我國法定咬傷動物隔離觀察的總天數上限）。</p><p>(C) 錯：11～15 天過長，病毒尚未到達腦部與唾液腺。</p><p>(D) 錯：16～20 天過長，此時動物尚處於無排毒傳染力的潛伏期中。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 60,
+        "text": "60.六月齡英國古代牧羊犬得皮膚病，背部皮膚呈斑塊狀紅斑如下圖，懷疑有毛囊蟲症（demodicosis），臨床門診應優先安排何項檢查？",
+        "options": {
+            "A": "punch biopsy",
+            "B": "wedge biopsy",
+            "C": "tape-strip method",
+            "D": "skin scraping"
+        },
+        "image": "./圖片/e112-60.jpg",
+        "explanation": "<p><b>答案：(D) skin scraping</b></p><p>依題意與答案推斷，犬毛囊蟲（Demodex canis）為雪茄狀蟎蟲，專一性寄生於毛囊深部與皮脂腺內；臨床門診懷疑犬隻罹患毛囊蟲症（demodicosis）時，首選且最具診斷效力的標準檢查為擠壓病灶邊緣皮膚將蟲體自毛囊深處擠出至表皮後，執行<b>深層皮膚搔刮檢查（deep skin scraping，刮至微血管輕微滲血為度）</b>並鏡檢蟲體。</p><p>(A) 錯：punch biopsy（皮膚圓鑽生檢）屬於侵入性組織病理採樣，僅在沙皮犬等皮膚極度增厚或足底肉墊難以搔刮時作為二線診斷。</p><p>(B) 錯：wedge biopsy（楔形切片生檢）用於切除較大皮膚腫塊或深層潰瘍邊緣組織，非毛囊蟲門診首選檢查。</p><p>(C) 錯：tape-strip method（透明膠帶黏貼法）主要用於採集表皮角質層表面的馬拉色菌、細菌或表面蟎蟲（如姬螯蟎 Cheyletiella），無法採集到毛囊深處的毛囊蟲。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 61,
+        "text": "61.下列有關貓hemotropic mycoplasmosis之敘述，何者錯誤？",
+        "options": {
+            "A": "臨床症狀通常與感染Mycoplasma haemofelis較為相關",
+            "B": "臨床病理檢查結果主要為白血球減少",
+            "C": "有時會潛伏感染，平常沒有臨床症狀，遇緊迫時才發病",
+            "D": "常用tetracycline類抗生素治療"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 臨床病理檢查結果主要為白血球減少</b></p><p>貓嗜血性黴漿菌症（feline hemotropic mycoplasmosis，舊稱貓傳染性貧血 FIA）病原附著於紅血球表面誘發免疫媒介性血管外溶血，臨床病理學最核心的異常為<b>中至重度再生性貧血（大球性低色性貧血、網織球增多、有核紅血球出現）及自體凝集反應</b>；而白血球計數通常維持正常或因再生性骨髓刺激呈現反應性增多，並非以白血球減少為主徵，故 (B) 敘述錯誤。</p><p>(A) 對：在感染貓隻的三種嗜血性黴漿菌中，以 Mycoplasma haemofelis 致病力最強，最常引起嚴重急性溶血性貧血；Candidatus M. haemominutum 與 Candidatus M. turicensis 則多呈不顯性或僅在免疫抑制時發病。</p><p>(C) 對：急性期耐過後貓隻常轉為無臨床症狀的慢性潛伏帶原者，當遭遇手術、分娩、緊迫或併發 FeLV/FIV 免疫抑制時會再次復發貧血。</p><p>(D) 對：臨床治療首選四環素類抗生素（如 doxycycline，可搭配短期免疫抑制劑量類固醇控制嚴重免疫性溶血）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 62,
+        "text": "62.有關犬瘟熱病毒在犬以外動物感染之敘述，下列何者錯誤？",
+        "options": {
+            "A": "老虎感染後可出現神經症狀",
+            "B": "家貓如果密切與犬接觸，可能檢出抗體",
+            "C": "家貓感染會發生肺炎及腦炎",
+            "D": "坦尚尼亞獅子曾經爆發此病，症狀是腦炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 家貓感染會發生肺炎及腦炎</b></p><p>犬瘟熱病毒（canine distemper virus, CDV）雖可感染多種食肉目動物，但<b>家貓（domestic cats）對 CDV 具有高度臨床抵抗力，即使與病犬密切接觸而出現一過性不顯性感染並產生中和抗體，也不會引起臨床肺炎及腦炎發病</b>（相對地，獅、虎、豹等大型貓科動物感染 CDV 則可發生嚴重致命性肺炎與腦炎），故 (C) 敘述錯誤。</p><p>(A) 對：老虎、獅子等大型貓科動物感染 CDV 後可出現呼吸道症狀、下痢以及抽搐、共濟失調等嚴重神經症狀。</p><p>(B) 對：研究證實與犬隻密切生活接觸的家貓血清中可檢出低力價抗 CDV 中和抗體。</p><p>(D) 對：1994 年坦尚尼亞塞倫蓋提國家公園獅子族群曾爆發大規模犬瘟熱疫情（病毒源自周邊家犬），造成約三分之一獅子因肺炎與腦炎死亡。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 63,
+        "text": "63.臺灣臨床上所施打貓的三合一疫苗，通常不包含下列何種病原？",
+        "options": {
+            "A": "feline Chlamydia",
+            "B": "feline calicivirus",
+            "C": "feline herpesvirus-1",
+            "D": "feline parvovirus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) feline Chlamydia</b></p><p>依據世界小動物獸醫師協會（WSAVA）疫苗指引及臺灣臨床常規，貓的三合一核心疫苗（FVRCP）包含三種必打核心病毒抗原：<b>貓疱疹病毒第一型（feline herpesvirus-1, FHV-1）、貓卡里西病毒（feline calicivirus, FCV）及貓小病毒（feline parvovirus, FPV）</b>；而貓披衣菌（feline Chlamydia / Chlamydia felis）屬於非核心疫苗，僅包含在貓四合一或五合一疫苗中。</p><p>(B) 錯：feline calicivirus（貓卡里西病毒，引起上呼吸道感染與口腔潰瘍）為貓三合一疫苗標準成分。</p><p>(C) 錯：feline herpesvirus-1（貓疱疹病毒第一型，引起貓病毒性鼻氣管炎）為貓三合一疫苗標準成分。</p><p>(D) 錯：feline parvovirus（貓小病毒，引起貓泛白血球減少症／貓瘟）為貓三合一疫苗標準成分。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 64,
+        "text": "64.下列何者為下圖魚類鰓部濕壓片中可見之寄生蟲？",
+        "options": {
+            "A": "臺灣異形吸蟲",
+            "B": "指環蟲",
+            "C": "白點蟲",
+            "D": "車輪蟲"
+        },
+        "image": "./圖片/e112-64.jpg",
+        "explanation": "<p><b>答案：(D) 車輪蟲</b></p><p>依題意與答案推斷，魚類鰓部濕壓片顯微鏡下可見圓盤狀或側視呈鐘罩狀的活動性纖毛蟲，蟲體中央具有由一圈精密齒狀小體（denticles）嵌合而成的明顯<b>齒環（denticular ring）</b>，邊緣環繞長纖毛，為常見外寄生纖毛蟲——<b>車輪蟲（Trichodina spp.）</b>的典型形態特徵。</p><p>(A) 錯：臺灣異形吸蟲（Centrocestus formosanus）在鰓部呈現靜止的橢圓形厚壁包囊（囊蚴），內部具深色 X 形排泄囊，無齒環構造。</p><p>(B) 錯：指環蟲（Dactylogyrus spp.）為長條形單殖吸蟲，頭端具四個眼點、尾端具一對大錨鉤與邊緣小鉤，非圓盤齒環狀纖毛蟲。</p><p>(C) 錯：白點蟲（Ichthyophthirius multifiliis）體型巨大（可達 0.5～1 mm），全身被覆均勻短纖毛且胞質內具有特徵性的<b>馬蹄形（U 形）大核</b>，無齒環。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 65,
+        "text": "65.七星鱸體表出現粟粒狀結節，其最可能由下列何者所感染？",
+        "options": {
+            "A": "lymphocystis virus",
+            "B": "megalocytivirus",
+            "C": "Mycobacteria sp.",
+            "D": "Nocardia sp."
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) lymphocystis virus</b></p><p>七星鱸（Lateolabrax japonicus）等海水及半淡鹹水養殖魚類體表與鰭條出現白色至粉紅色<b>粟粒狀或桑椹狀結節（pearl-like / raspberry-like nodules）</b>，為<b>淋巴囊腫病毒（lymphocystis disease virus, LCDV，屬於虹彩病毒科 Iridoviridae 的 Lymphocystivirus 屬）</b>感染所致。病毒刺激皮膚真皮層纖維母細胞異常巨細胞化肥大（直徑可膨大百倍達 1 mm，周圍具厚透明玻尿酸樣莢膜），通常呈慢性良性自限性病程，但嚴重影響觀賞與食用商品價值。</p><p>(B) 錯：megalocytivirus（巨細胞虹彩病毒，如紅鯛虹彩病毒 RSIV）主要引起魚類高死亡率急性敗血症、嚴重貧血與脾腎腫大壞死，不在體表形成粟粒狀結節。</p><p>(C) 錯：Mycobacteria sp.（分枝桿菌）主要引起慢性消瘦與<b>內臟器官（肝、脾、腎）</b>白色肉芽腫結節，非體表粟粒狀結節。</p><p>(D) 錯：Nocardia sp.（諾卡氏菌）主要引起鰓部與內臟器官多發性白色乾酪樣肉芽腫結節，非體表淋巴囊腫樣結節。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 66,
+        "text": "66.有關魚類鏈球菌症之敘述，下列何者錯誤？",
+        "options": {
+            "A": "病原屬於革蘭氏陽性菌",
+            "B": "主要病變為眼球突出及全身出血",
+            "C": "生化鑑定不產生catalase",
+            "D": "主要發生季節在冬春，水溫低於攝氏20度"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 主要發生季節在冬春，水溫低於攝氏20度</b></p><p>魚類鏈球菌症（streptococcosis，常見病原如 Streptococcus iniae、S. agalactiae 與 Lactococcus garvieae）在臺灣及亞熱帶地區主要好發於<b>夏季與初秋高水溫季節（水溫高於 25～28°C，溶氧較低且緊迫大時）</b>，而非冬春水溫低於 20°C 的低溫期，故 (D) 敘述錯誤。</p><p>(A) 對：鏈球菌屬（Streptococcus spp.）與乳球菌屬（Lactococcus spp.）均為革蘭氏陽性、呈成對或鏈狀排列的球菌。</p><p>(B) 對：急性感染魚隻常見典型「突眼症（exophthalmia）」、角膜混濁、鰓蓋內側與鰭基部點狀出血及內臟廣泛出血。</p><p>(C) 對：鏈球菌在生化鑑定上過氧化氫酶試驗（catalase test）呈陰性（不產生 catalase，藉此與葡萄球菌區分）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 67,
+        "text": "67.下列何種病原在臺灣引起白蝦死亡，並造成體色變成淡紅色的Taura syndrome？",
+        "options": {
+            "A": "iridovirus",
+            "B": "birnavirus",
+            "C": "cripavirus",
+            "D": "rhabdovirus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) cripavirus</b></p><p>引起白蝦（Litopenaeus vannamei）大量死亡並於急性期造成體色與尾扇變成淡紅色的<b>陶拉症候群（Taura syndrome, TS）</b>，其病原陶拉症候群病毒（TSV）為無封套單股正向 RNA 病毒，早年因基因體結構與蟋蟀麻痺病毒相似而暫歸類於<b>蟋蟀麻痺病毒樣病毒屬（cripavirus）</b>（現國際病毒分類歸入 Dicistroviridae 科 Aparavirus 屬）。</p><p>(A) 錯：iridovirus（虹彩病毒）包含引起蝦類血細胞虹彩病毒病（SHIV / DIV1）的十足目虹彩病毒。</p><p>(B) 錯：birnavirus（雙股核糖核酸病毒）主要引起鮭鱒魚類傳染性胰臟壞死症（IPN）。</p><p>(D) 錯：rhabdovirus（彈狀病毒）包含引起蝦類黃頭病毒相關或魚類病毒性出血性敗血症（VHS）的病毒，非 TSV 所屬。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 68,
+        "text": "68.下列何者不是魚類常見分枝桿菌病原？",
+        "options": {
+            "A": "Mycobacterium fortuitum",
+            "B": "Mycobacterium marinum",
+            "C": "Mycobacterium avium",
+            "D": "Mycobacterium chelonae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Mycobacterium avium</b></p><p><b>鳥型結核菌（Mycobacterium avium）</b>是引起鳥禽類結核病（avian tuberculosis）的主要病原，並不屬於魚類常見分枝桿菌病原；養殖與觀賞魚類慢性分枝桿菌症（魚結核病 piscinemycobacteriosis）最常見的三大水生非結核分枝桿菌病原為 <b>M. marinum、M. fortuitum 與 M. chelonae</b>。</p><p>(A) 錯：Mycobacterium fortuitum 為淡水與海水觀賞魚常見的快速生長型分枝桿菌病原。</p><p>(B) 錯：Mycobacterium marinum 為海水與淡水魚類最常見且具人畜共通傳染性（引起人類「魚缸肉芽腫 fish tank granuloma」）的分枝桿菌病原。</p><p>(D) 錯：Mycobacterium chelonae 亦為鮭鱒魚類與觀賞魚常見的分枝桿菌病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 69,
+        "text": "69.蝦類急性肝胰腺壞死症（acute hepatopancreatic necrosis disease）及早夭症侯群（early mortality syndrome），下列何者為最主要病原？",
+        "options": {
+            "A": "Lactococcus lactis",
+            "B": "Lactococcus garvieae",
+            "C": "Vibrio parahemolyticus",
+            "D": "Vibrio viscosus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Vibrio parahemolyticus</b></p><p>蝦類急性肝胰腺壞死症（acute hepatopancreatic necrosis disease, AHPND，早期稱為早夭症候群 early mortality syndrome, EMS）主要發生於蝦苗放養後 30～35 天內，造成肝胰腺蒼白萎縮及高達 70～100% 死亡率；其最主要致病原為<b>攜帶特定毒性質體（pVA1，編碼二元毒素 PirAᵛᵖ 與 PirBᵛᵖ）的副溶血弧菌（Vibrio parahaemolyticus）</b>。</p><p>(A) 錯：Lactococcus lactis 為益生菌乳酸菌，非蝦類致病菌。</p><p>(B) 錯：Lactococcus garvieae 為引起海水魚類（如鰤魚、烏魚）與淡水長腳大蝦鏈球菌症的革蘭氏陽性球菌，非 AHPND 病原。</p><p>(D) 錯：Vibrio viscosus（現稱 Moritella viscosa）為引起寒冷海域大西洋鮭冬季潰瘍病（winter ulcer disease）的病原。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 70,
+        "text": "70.下列何種寄生蟲體型最小？",
+        "options": {
+            "A": "Tetrahymena spp.",
+            "B": "Chilodonella spp.",
+            "C": "Ichthyophthirius multifiliis",
+            "D": "Ichthyobodo necator"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) Ichthyobodo necator</b></p><p>比較四種常見魚類外寄生原蟲的體型大小：<b>魚波豆蟲（Ichthyobodo necator，舊稱口絲蟲 Costia necatrix）為小型鞭毛蟲，體長僅約 5～15 μm</b>，在高倍鏡（400×）下始能清楚觀察其梨形蟲體與兩根鞭毛，是四者中體型最小者。</p><p>(A) 錯：Tetrahymena spp.（四膜蟲）為梨形纖毛蟲，體長約 30～60 μm，明顯大於魚波豆蟲。</p><p>(B) 錯：Chilodonella spp.（斜管蟲）為心形或卵圓形背腹扁平纖毛蟲，體長約 40～70 μm。</p><p>(C) 錯：Ichthyophthirius multifiliis（白點蟲）為體型最大的魚類外寄生纖毛蟲，成蟲（trophont）直徑可達 500～1,000 μm（0.5～1 mm），肉眼即可見魚體表小白點。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 71,
+        "text": "71.有關感染魚類的桿狀病毒（rhabdovirus），下列敘述何者正確？",
+        "options": {
+            "A": "viral hemorrhagic septicemia virus屬於Novirhabdovirus，可造成多種淡海水魚嚴重出血及死亡",
+            "B": "anguillid rhabdovirus造成鰻魚全身腫瘤而死亡",
+            "C": "傳染性造血組織壞死病毒（infectious hematopoietic necrosis virus）造成小於6月齡的鯉魚嚴重出血及死亡",
+            "D": "spring viremia of carp病毒造成鯉魚嚴重爛鰓而大量死亡"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) viral hemorrhagic septicemia virus屬於Novirhabdovirus，可造成多種淡海水魚嚴重出血及死亡</b></p><p>魚類病毒性出血性敗血症病毒（viral hemorrhagic septicemia virus, VHSV）在分類上屬於彈狀病毒科（Rhabdoviridae）的<b>新彈狀病毒屬（Novirhabdovirus，具有獨特的非病毒粒子蛋白基因 NV）</b>，其宿主範圍極廣，可感染虹鱒、比目魚、鯡魚、鱈魚等多種淡水與海水魚類，引起眼球突出、體表鰭基與內臟器官嚴重出血及高死亡率。</p><p>(B) 錯：anguillid rhabdovirus（鰻魚彈狀病毒）主要造成鰻魚出血性病變與鰓部充血，不會引起全身腫瘤。</p><p>(C) 錯：傳染性造血組織壞死病毒（IHNV）主要造成小於 6 月齡的<b>鮭鱒魚類（salmonids，如虹鱒、大西洋鮭）</b>稚魚嚴重出血與造血組織壞死，並非鯉魚。</p><p>(D) 錯：鯉魚春季病毒血症病毒（SVCV，屬於 Vesiculovirus 屬）主要引起鯉魚春季水溫回升時發生腹水（水腫）、眼球突出及體表與鰾出血，並非以嚴重爛鰓為主徵。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 72,
+        "text": "72.下列何者為鮭魚感染Renibacterium salmoninarum後之主要病徵？",
+        "options": {
+            "A": "全身出血、肝及胃出血",
+            "B": "內臟出現白色結節、肌肉破洞",
+            "C": "肝腎潰瘍",
+            "D": "體表潰瘍及鰓部肉芽腫"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 內臟出現白色結節、肌肉破洞</b></p><p>鮭鱒魚類感染<b>鮭魚腎桿菌（Renibacterium salmoninarum，小型革蘭氏陽性雙桿菌）</b>會引起慢性進行性<b>細菌性腎臟病（bacterial kidney disease, BKD）</b>，剖檢最典型的肉眼病徵為<b>腎臟（及脾臟、肝臟）腫大並出現多發性灰白色肉芽腫結節，嚴重病例病原侵犯體側肌肉形成壞死性膿瘍與肌肉破洞（cavitation）</b>。</p><p>(A) 錯：全身出血、肝及胃出血主要見於病毒性出血性敗血症（VHS）或傳染性造血組織壞死症（IHN）。</p><p>(C) 錯：肝腎潰瘍並非 BKD 的典型描述（BKD 以增殖性灰白色肉芽腫結節為特徵）。</p><p>(D) 錯：體表潰瘍及鰓部肉芽腫主要見於諾卡氏菌症（Nocardia seriolae）或柱狀病（Flavobacterium columnare）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 73,
+        "text": "73.養殖日本鰻，罹病魚體表凹凸，死亡率偏高，最可能是下列何病原感染所致？",
+        "options": {
+            "A": "Heterosporis（Pleistophora）anguillarum",
+            "B": "Vibrio anguillarum",
+            "C": "Nocardia sp.",
+            "D": "Edwardsiella tarda"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Heterosporis（Pleistophora）anguillarum</b></p><p>養殖日本鰻（Anguilla japonica）體表出現不規則凹凸變形（俗稱<b>凹凸病 beko disease</b>）且死亡率偏高，是由微孢子蟲門的<b>鰻魚微孢子蟲（Heterosporis anguillarum，舊稱 Pleistophora anguillarum）</b>感染所致。蟲體寄生於鰻魚軀幹橫紋肌纖維內形成大量孢子囊（sporophorous vesicles），導致局部肌纖維溶解液化與壞死萎縮，使體表外觀呈現明顯凹凸不平。</p><p>(B) 錯：Vibrio anguillarum（鰻弧菌）引起鰻魚急性出血性敗血症（紅鰭病 red pest），造成鰭基部與腹部發紅出血，不會使體表肌肉凹凸。</p><p>(C) 錯：Nocardia sp.（諾卡氏菌）主要引起鰓部與內臟白色肉芽腫結節，不會造成肌肉液化凹凸。</p><p>(D) 錯：Edwardsiella tarda（愛德華氏菌）引起鰻魚肝臟與腎臟化膿性壞死膿瘍（肝腎病），不造成體表凹凸病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 74,
+        "text": "74.下列何者為Bacillus cereus感染鯉魚及條紋鱸魚之主要病變？",
+        "options": {
+            "A": "肝臟壞死",
+            "B": "鰓部壞死",
+            "C": "肌肉潰瘍",
+            "D": "全身出血"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 鰓部壞死</b></p><p><b>仙人掌桿菌（Bacillus cereus）</b>為革蘭氏陽性產芽胞桿菌，當養殖環境水質惡化或有機質過高時可機會性感染鯉魚及條紋鱸魚（striped bass），在鰓絲組織大量增殖並分泌壞死毒素，引起嚴重的<b>急性鰓部壞死（branchial necrosis）</b>與呼吸衰竭死亡。</p><p>(A) 錯：肝臟壞死非 Bacillus cereus 感染鯉魚與條紋鱸魚之主要病變。</p><p>(C) 錯：肌肉潰瘍主要見於產氣單胞菌（Aeromonas salmonicida 癤瘡病）或弧菌感染。</p><p>(D) 錯：全身出血主要見於病毒性出血性敗血症或親水性產氣單胞菌敗血症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 75,
+        "text": "75.下列有關六鞭毛蟲之敘述，何者正確？",
+        "options": {
+            "A": "寄生在海水魚的內臟，吸取養分為生",
+            "B": "生殖方式為胞子生殖，很快產生大量蟲體，造成急性死亡",
+            "C": "本蟲的致害往往和飼養管理不當有關，尤其是營養不良",
+            "D": "治療可採用四環黴素類抗生素，但最重要的是早期發現早期治療"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 本蟲的致害往往和飼養管理不當有關，尤其是營養不良</b></p><p>六鞭毛蟲（Hexamita spp. / Spironucleus spp.）常少量共生於健康淡水觀賞魚（如七彩神仙魚、神仙魚）與鮭鱒魚的腸道中；<b>本蟲的爆發致害往往與飼養管理不當、水質惡化、擁擠緊迫及維生素／礦物質營養不良高度相關</b>，免疫抑制時蟲體大量增殖並經血行移行至頭部軟骨與皮膚引起「頭洞病（hole-in-the-head disease）」。</p><p>(A) 錯：六鞭毛蟲主要寄生於<b>淡水魚</b>（如慈鯛科觀賞魚與鮭鱒魚）的腸道與膽囊，並非海水魚內臟。</p><p>(B) 錯：六鞭毛蟲為梨形鞭毛蟲，無性生殖方式為<b>縱二分裂法（longitudinal binary fission）</b>，並非胞子生殖。</p><p>(D) 錯：六鞭毛蟲屬於原蟲（protozoa）而非細菌，四環黴素類抗生素無效，治療首選藥物為硝基咪唑類抗原蟲藥 <b>metronidazole</b>。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 76,
+        "text": "76. Rabbit hemorrhagic disease的病原屬於那個病毒科？",
+        "options": {
+            "A": "Reoviridae",
+            "B": "Herpesviridae",
+            "C": "Caliciviridae",
+            "D": "Poxviridae"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Caliciviridae</b></p><p>兔病毒性出血症（rabbit hemorrhagic disease, RHD）是由兔出血症病毒（RHDV，包含傳統 GI.1 型與新變異株 RHDV2 / GI.2 型）所引起，在病毒分類上屬於<b>杯狀病毒科（Caliciviridae）的兔病毒屬（Lagovirus）</b>，為無封套單股正向 RNA 病毒，造成 2 月齡以上家兔與野兔急性肝臟壞死、瀰漫性血管內凝血（DIC）及鼻孔出血猝死。</p><p>(A) 錯：Reoviridae（呼腸孤病毒科）包含輪狀病毒與藍舌病病毒，非 RHDV 所屬。</p><p>(B) 錯：Herpesviridae（疱疹病毒科）包含兔疱疹病毒，不引起兔病毒性出血症。</p><p>(D) 錯：Poxviridae（痘病毒科）包含引起兔黏液瘤病（myxomatosis）的黏液瘤病毒，非 RHDV 所屬。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 77,
+        "text": "77.在小鼠外寄生蟲檢查中發現此蟲（如下圖），最可能是下列何者？",
+        "options": {
+            "A": "Myobia musculi",
+            "B": "Myocoptes musculinus",
+            "C": "Radfordia affinis",
+            "D": "Polyplax serrata"
+        },
+        "image": "./圖片/e112-77.jpg",
+        "explanation": "<p><b>答案：(B) Myocoptes musculinus</b></p><p>依題意與答案推斷，小鼠外寄生蟲鏡檢可見體型呈長橢圓形的表面毛蟎（fur mite），其第一與第二對步足末端具吸盤，而<b>第三與第四對步足明顯發達粗壯並特化為向內彎曲以抱握毛髮的鉗狀構造（clasping legs）</b>，且雄蟲腹面後端具一對吸盤，此為實驗小鼠最常見的<b>鼠肌蟎（Myocoptes musculinus）</b>之典型形態特徵。</p><p>(A) 錯：Myobia musculi（鼠毛蟎）體型較細長，其<b>第一對步足</b>高度特化為粗短的抱握鉤以抓握毛幹，第二對步足末端具單爪。</p><p>(C) 錯：Radfordia affinis（鼠輻蟎）形態與 Myobia musculi 極為相似（第一對步足特化為抱握鉤），僅第二對步足末端具有兩枚大小不等的爪（unequal claws）可資區分。</p><p>(D) 錯：Polyplax serrata（鋸齒多板蝨）屬於昆蟲綱無翅亞綱的吸血蝨（sucking louse），身體明顯分為頭、胸、腹三部分且僅有三對步足，並非具四對步足的蟎蟲。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 78,
+        "text": "78.下列何種fur mite常感染實驗用大鼠？",
+        "options": {
+            "A": "Radfordia ensifera",
+            "B": "Psorergates simplex",
+            "C": "Polyplax spinulosa",
+            "D": "Polyplax serrata"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Radfordia ensifera</b></p><p><b>Radfordia ensifera（大鼠輻蟎）</b>屬於肉蟎科（Myobiidae），是專一性寄生於<b>實驗用大鼠（Rattus norvegicus）</b>被毛上的常見外寄生性毛蟎（fur mite），重度感染時可引起頸部與肩背部搔癢及潰瘍性皮膚炎。</p><p>(B) 錯：Psorergates simplex 為寄生於<b>小鼠</b>皮脂腺與毛囊內形成白色皮下小結節的皮膚蟎蟲，並非大鼠毛蟎。</p><p>(C) 錯：Polyplax spinulosa（棘多板蝨）雖寄生於大鼠，但分類上屬於<b>吸血蝨（sucking louse）</b>，並非毛蟎（fur mite）。</p><p>(D) 錯：Polyplax serrata 為寄生於<b>小鼠</b>的吸血蝨（sucking louse），既非蟎蟲亦非大鼠寄生蟲。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 79,
+        "text": "79.下列何種是可感染大鼠的蟯蟲？①Syphacia muris ②Trichosomoides crassicauda ③Aspiculuris tetraptera ④Giardia muris",
+        "options": {
+            "A": "①②",
+            "B": "③④",
+            "C": "①③",
+            "D": "②④"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) ①③</b></p><p>逐一判斷各寄生蟲是否為可感染大鼠的蟯蟲（pinworms，尖尾科 Oxyuridae）：① Syphacia muris（大鼠蟯蟲）：為實驗大鼠最常見的專一性盲腸與結腸蟯蟲，蟲卵呈香蕉形（一側扁平），正確；② Trichosomoides crassicauda（大鼠膀胱線蟲）：為毛細線蟲科線蟲，成蟲寄生於大鼠<b>膀胱壁黏膜</b>內，並非腸道蟯蟲，錯誤；③ Aspiculuris tetraptera（四翼無刺蟯蟲）：主要寄生於小鼠近端結腸，但亦可自然感染實驗大鼠，蟲卵呈對稱橢圓形，正確；④ Giardia muris（鼠梨形鞭毛蟲）：為寄生於小腸的鞭毛蟲原蟲，並非線蟲綱蟯蟲，錯誤。</p><p>(A) 錯：包含錯誤敘述②（膀胱線蟲），且漏選正確敘述③。</p><p>(B) 錯：包含錯誤敘述④（梨形鞭毛蟲原蟲），且漏選正確敘述①。</p><p>(D) 錯：②與④皆非蟯蟲。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 80,
+        "text": "80.下列有關rat coronavirus之敘述，何者正確？①可感染多種器官，如肺臟、唾液腺及淚腺 ②可感染小鼠與大鼠 ③在實驗大鼠的傳染性高，但死亡率很低 ④可由懷孕母鼠感染胚胎",
+        "options": {
+            "A": "①②",
+            "B": "③④",
+            "C": "①③",
+            "D": "②④"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) ①③</b></p><p>逐一判斷大鼠冠狀病毒（rat coronavirus, RCV，包含代表株唾液腺淚腺炎病毒 sialodacryoadenitis virus, SDAV）的敘述：① 可感染多種器官，如肺臟（引起間質性肺炎）、唾液腺（下顎下腺與腮腺壞死）及淚腺（哈氏腺 Harderian gland 壞死與血淚），正確；② 可感染小鼠與大鼠：錯誤，大鼠冠狀病毒具有高度宿主特異性，自然狀態下僅感染大鼠（Rattus norvegicus），不會自然感染小鼠（小鼠另有小鼠肝炎病毒 MHV）；③ 在實驗大鼠的傳染性高，但死亡率很低：正確，病毒經呼吸道氣溶膠傳播極快，群體發病率可近 100%，但多數為急性自限性病程，死亡率極低；④ 可由懷孕母鼠感染胚胎：錯誤，本病毒主要經呼吸道水平傳播，並不會經胎盤垂直感染胚胎。</p><p>(A) 錯：包含錯誤敘述②，且漏選正確敘述③。</p><p>(B) 錯：包含錯誤敘述④，且漏選正確敘述①。</p><p>(D) 錯：②與④皆為錯誤敘述。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    }
+]

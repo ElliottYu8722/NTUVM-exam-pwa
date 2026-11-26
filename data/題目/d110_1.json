@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.下圖馬匹之皮膚病灶，最可能罹患何種疾病？",
+        "options": {
+            "A": "dermatophytosis",
+            "B": "pemphigus foliaceus",
+            "C": "photosensitization",
+            "D": "equine Cushing's disease"
+        },
+        "image": "./圖片/d110-1.jpg",
+        "explanation": "<p><b>答案：(A) dermatophytosis</b></p><p>此題為圖片題，依題意與答案推斷：馬匹皮膚病灶的外觀符合皮癬菌病（dermatophytosis，癬），常見圓形脫毛、結痂與鱗屑，病原為 Trichophyton equinum 等，可由接觸傳染。（無法確認圖片細節）</p><p>(B) 錯：落葉型天疱瘡（pemphigus foliaceus）為自體免疫性疾病，可見廣泛結痂與膿皰，臨床上較少見。</p><p>(C) 錯：光過敏（photosensitization）常見於無色素或白毛區，並與肝病或植物毒素有關。</p><p>(D) 錯：馬庫興氏病（PPID）典型為長而捲曲的被毛（hypertrichosis）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 2,
+        "text": "2.當牛隻維生素E或硒缺乏時，下列何種機制使肌肉產生白肌病？",
+        "options": {
+            "A": "因過氧化物傷害肌細胞",
+            "B": "肌細胞代謝率降低",
+            "C": "肌細胞抗氧化能力增強",
+            "D": "肌細胞過氧化氫清除能力增強"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 因過氧化物傷害肌細胞</b></p><p>維生素 E 與硒（glutathione peroxidase 的輔因子）缺乏時，細胞膜脂質被過氧化物與自由基氧化破壞，使肌細胞受傷、變性與壞死（營養性肌肉變性，即白肌病）。</p><p>(B) 錯：不是代謝率降低。</p><p>(C) 錯：缺乏時抗氧化能力是下降。</p><p>(D) 錯：缺乏時過氧化氫清除能力下降。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 3,
+        "text": "3.有關牛隻草酸鹽中毒之敘述，下列何者錯誤？",
+        "options": {
+            "A": "易造成酸血症",
+            "B": "草酸鹽結晶蓄積於腦部會引起動物麻痺",
+            "C": "草酸鹽結晶在腎臟沉積會引起尿石症",
+            "D": "草酸鹽攝入過多會引起消化道黏膜炎症反應"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 易造成酸血症</b></p><p>此題依答案，A 敘述（易造成酸血症）被視為錯誤。草酸鹽中毒主要因草酸與鈣結合而造成低血鈣，並使草酸鈣結晶沉積於腎小管，導致腎病變，並伴隨消化道黏膜發炎。（註：此題答案建議再確認：B（草酸鹽結晶蓄積腦部引起麻痺）與 C（腎臟沉積引起尿石症）的敘述也與一般描述不符，題目可能有多個錯誤選項。）</p><p>(B) （依答案視為正確，但敘述需再確認）</p><p>(C) （依答案視為正確，但草酸鈣主要沉積於腎小管造成腎病變）</p><p>(D) 對：草酸鹽過量可刺激消化道黏膜造成炎症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 4,
+        "text": "4.牛隻甜三葉草中毒所引起之症狀如同下列何種中毒？",
+        "options": {
+            "A": "草酸鹽中毒",
+            "B": "硝酸鹽中毒",
+            "C": "殺鼠劑warfarin中毒",
+            "D": "氫氰酸中毒"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 殺鼠劑warfarin中毒</b></p><p>甜三葉草（sweet clover）中的香豆素（coumarin）在黴菌作用下轉成 dicoumarol，為維生素 K 拮抗劑，造成類似 warfarin 中毒的出血症。</p><p>(A) 錯：草酸鹽中毒造成低血鈣與腎病變。</p><p>(B) 錯：硝酸鹽中毒造成變性血紅素血症。</p><p>(D) 錯：氫氰酸中毒造成細胞窒息。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 5,
+        "text": "5.下列何者較不易造成牛隻氫氰酸中毒？",
+        "options": {
+            "A": "高粱",
+            "B": "蘇丹草",
+            "C": "亞麻科植物",
+            "D": "洋蔥"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 洋蔥</b></p><p>洋蔥含有 N-propyl disulfide，會造成氧化性溶血（Heinz body 貧血），不含氰苷，不易造成氫氰酸中毒。</p><p>(A) 錯：高粱含 dhurrin（氰苷）。</p><p>(B) 錯：蘇丹草含氰苷。</p><p>(C) 錯：亞麻科植物含氰苷（linamarin）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 6,
+        "text": "6.下列何者不屬於肺氣腫的分類？",
+        "options": {
+            "A": "急性肺泡氣腫",
+            "B": "慢性肺泡氣腫",
+            "C": "間質性氣腫",
+            "D": "肝樣性氣腫"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 肝樣性氣腫</b></p><p>肺氣腫可分為急性、慢性肺泡氣腫與間質性氣腫。肝樣變（hepatization）是大葉性肺炎的肺實質化病變，並非氣腫的分類。</p><p>(A) 對：急性肺泡氣腫。</p><p>(B) 對：慢性肺泡氣腫。</p><p>(C) 對：間質性氣腫（牛常見）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 7,
+        "text": "7.牛心臟何處瓣膜較常發生細菌性心內膜炎？",
+        "options": {
+            "A": "二尖瓣",
+            "B": "三尖瓣",
+            "C": "大動脈瓣",
+            "D": "肺動脈瓣"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 三尖瓣</b></p><p>牛的細菌性心內膜炎以右房室瓣（三尖瓣）最常受侵，常由肝膿瘍、乳房炎或創傷性網胃炎的菌血症引起。</p><p>(A) 錯：二尖瓣為馬、豬或犬較常見。</p><p>(C) 錯：大動脈瓣在犬較常見。</p><p>(D) 錯：肺動脈瓣較少。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 8,
+        "text": "8.肥胖牛症候群（fat cow syndrome）血液檢查中，下列何者最不易出現？",
+        "options": {
+            "A": "血酮上升",
+            "B": "血中游離脂肪酸上升",
+            "C": "血鈣降低",
+            "D": "血鎂降低"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 血鎂降低</b></p><p>肥胖牛症候群特徵為脂肪肝、酮症及游離脂肪酸上升，常伴低血鈣與乾乳期營養管理不當；依答案，血鎂降低最不易出現。</p><p>(A) 對：脂肪動員使血酮上升。</p><p>(B) 對：血中游離脂肪酸上升。</p><p>(C) 對：低血鈣常見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 9,
+        "text": "9.乳牛分娩後出現拱背、下顎皮下水腫、頸靜脈怒張，瘤胃體積因持續性的擴張，其腹囊占據了牛隻整個下腹腔，瘤胃內充滿氣泡性液體，其最有可能為下列那一種疾病？",
+        "options": {
+            "A": "瘤胃臌脹",
+            "B": "創傷性蜂巢胃炎繼發迷走神經性消化不良",
+            "C": "重瓣胃食滯",
+            "D": "第四胃異位"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 創傷性蜂巢胃炎繼發迷走神經性消化不良</b></p><p>此牛分娩後拱背、下顎水腫、頸靜脈怒張，瘤胃持續擴張並充滿泡沫性液體，腹囊占據下腹，為創傷性網胃炎繼發迷走神經性消化不良（vagal indigestion）的典型表現。</p><p>(A) 錯：單純瘤胃臌脹不會形成持續性擴張的『腹囊』。</p><p>(C) 錯：重瓣胃食滯無瘤胃持續性擴張。</p><p>(D) 錯：第四胃異位無瘤胃持續性擴張與下顎水腫。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 10,
+        "text": "10.下列何者不是預防乳牛分娩前後易發生之酮症的處置？",
+        "options": {
+            "A": "泌乳後期與乾乳期應該避免牛隻過胖",
+            "B": "分娩前母牛體態最好維持BCS（body condition score）在3.5~5.0之間",
+            "C": "分娩前應該減少精料餵飼量至每頭牛每日1~2公斤",
+            "D": "分娩後應該立即逐漸提高每日精料餵飼量"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B/C/D) 分娩前母牛體態最好維持BCS（body condition score）在3.5~5.0之間／分娩前應該減少精料餵飼量至每頭牛每日1~2公斤／分娩後應該立即逐漸提高每日精料餵飼量 （本題多個答案皆接受）</b></p><p>此題原答案為 B/C/D，三者皆不是預防處置。BCS 的適當範圍為約 3.0～3.5，不是 3.5～5.0；分娩前也不應把精料減少至每日 1～2 公斤，而應維持適度；分娩後應逐漸提高精料，但「立即」提高有瘤胃酸中毒風險。</p><p>(A) 對：泌乳後期與乾乳期避免過胖，為預防酮症與脂肪肝的處置。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 11,
+        "text": "11.牛下列何項疾病最易繼發橫隔膜破裂？",
+        "options": {
+            "A": "迷走神經性胃炎",
+            "B": "創傷性蜂巢胃炎",
+            "C": "瘤胃遲緩",
+            "D": "重瓣胃食滯"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 創傷性蜂巢胃炎</b></p><p>創傷性網胃炎（蜂巢胃炎）因金屬異物穿透網胃壁，可刺穿橫隔膜，造成橫隔膜破裂與創傷性心包炎。</p><p>(A) 錯：迷走神經性胃炎為功能性問題。</p><p>(C) 錯：瘤胃遲緩與橫隔膜破裂無關。</p><p>(D) 錯：重瓣胃食滯與橫隔膜破裂無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 12,
+        "text": "12.下列何項是引起牛隻特異體質過敏性皮膚炎（atopic dermatitis）最常見的過敏原？",
+        "options": {
+            "A": "消毒劑",
+            "B": "花粉",
+            "C": "清潔劑",
+            "D": "有機化學劑"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 花粉</b></p><p>牛特異體質過敏性皮膚炎最常見的過敏原為花粉（吸入性過敏原）。</p><p>(A) 錯：消毒劑常為接觸性刺激。</p><p>(C) 錯：清潔劑常為接觸性刺激。</p><p>(D) 錯：有機化學劑非最常見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 13,
+        "text": "13.牛隻呈後肢屈曲之犬坐姿勢，站立時兩後肢不能內轉，無局部肌肉病變，應懷疑下列何神經麻痺所致？",
+        "options": {
+            "A": "尺骨神經",
+            "B": "跗骨神經",
+            "C": "股神經",
+            "D": "閉鎖神經"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 閉鎖神經</b></p><p>閉鎖神經（obturator nerve）支配內收肌，麻痺後後肢無法內收，呈犬坐姿勢，站立時兩後肢不能內轉，常見於難產後。</p><p>(A) 錯：尺骨神經為前肢。</p><p>(B) 錯：非正式神經名稱。</p><p>(C) 錯：股神經麻痺造成無法伸膝與負重。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 14,
+        "text": "14.有關乳牛瘤胃臌脹之敘述，下列何者錯誤？",
+        "options": {
+            "A": "原發性瘤胃臌脹多發生於放牧在豆科草地的牛隻",
+            "B": "原發性瘤胃臌脹是由於噯氣的物理性障礙所致",
+            "C": "泡沫性瘤胃臌脹多發生於以大量穀物飼料飼養的肥育牛",
+            "D": "泡沫性臌脹也稱為原發性瘤胃臌脹"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 原發性瘤胃臌脹是由於噯氣的物理性障礙所致</b></p><p>原發性瘤胃臌脹（泡沫性臌脹）是由泡沫阻礙噯氣所致，而『噯氣的物理性障礙』（如食道阻塞）屬於續發性（游離氣體）臌脹，因此 B 錯誤。</p><p>(A) 對：豆科牧草易造成泡沫性臌脹。</p><p>(C) 對：高穀物飼養的肥育牛易發生泡沫性臌脹。</p><p>(D) 對：泡沫性臌脹屬原發性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 15,
+        "text": "15.牛於頸部近胸處出現心房性頸靜脈搏動，最常見於下列何種情況？",
+        "options": {
+            "A": "正常現象",
+            "B": "三尖瓣閉鎖不全",
+            "C": "創傷性心囊炎",
+            "D": "慢性心臟肥大"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 正常現象</b></p><p>牛頸部近胸處可見生理性心房性頸靜脈搏動，為正常現象。</p><p>(B) 錯：三尖瓣閉鎖不全為收縮期的頸靜脈搏動，需伴隨雜音。</p><p>(C) 錯：創傷性心包炎為頸靜脈怒張。</p><p>(D) 錯：與慢性心臟肥大無必然關係。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 16,
+        "text": "16.有關牛乳房炎之預防策略，下列何者正確？",
+        "options": {
+            "A": "前藥浴對預防乳房炎的效果不佳",
+            "B": "後藥浴若以碘基藥物為主，其濃度為 0.01~0.05%最佳",
+            "C": "急性乳房炎應立即以乾乳期軟膏治療，尤其是金黃色葡萄球菌（Staphylococcus aureus）之感染",
+            "D": "慢性黴漿菌性乳房炎之治療常無效，應以淘汰為主"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 慢性黴漿菌性乳房炎之治療常無效，應以淘汰為主</b></p><p>慢性黴漿菌性乳房炎對抗生素治療反應差，常需淘汰，以防傳播。</p><p>(A) 錯：前藥浴可降低環境性乳房炎。</p><p>(B) 錯：後藥浴碘劑的有效濃度約為 0.5～1%。</p><p>(C) 錯：乾乳期軟膏用於乾乳時，不可用於泌乳中的急性乳房炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 17,
+        "text": "17.成牛站姿下的左腹脇開腹術（left-paralumbar fossa celiotomy）最易觸及下列何種器官？",
+        "options": {
+            "A": "脾臟",
+            "B": "十二指腸",
+            "C": "重瓣胃",
+            "D": "肝臟"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 脾臟</b></p><p>成牛站姿左腹脇切開，最易觸及的器官為脾臟（位於左側，附著瘤胃左前側）。</p><p>(B) 錯：十二指腸在右側。</p><p>(C) 錯：重瓣胃在右側。</p><p>(D) 錯：肝臟位於右側。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 18,
+        "text": "18.乳牛的右腹切開手術可作為那一型迷走神經性消化不良（vagal indigestion）的探測術？",
+        "options": {
+            "A": "第一型",
+            "B": "第二型",
+            "C": "第三型",
+            "D": "第四型"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 第三型</b></p><p>依答案，右腹切開探查可用於診斷第三型迷走神經性消化不良（幽門或皺胃流出阻塞）。</p><p>(A) 錯：第一型（噯氣障礙）通常不需右腹探查。</p><p>(B) 錯：第二型（網胃至瘤胃的流出障礙）。</p><p>(D) 錯：第四型為其他型態。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 19,
+        "text": "19.治療牛第四胃左側異位之右脇腹壁大網膜固定術，用接上針頭之滅菌管進行第四胃放氣時，下列敘述何者錯誤？",
+        "options": {
+            "A": "針頭可用10到14-G尺寸",
+            "B": "插入部位應選在第四胃的下方，以利放氣",
+            "C": "插入部位須繞過瘤胃",
+            "D": "自插入部位拔除針頭前，應先將套管折疊以避免管內液體流出進入腹腔"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 插入部位應選在第四胃的下方，以利放氣</b></p><p>皺胃放氣時，針頭應插入於最高點（敲診可聽到鐵音的皺胃上方）而非下方，故 B 錯誤。</p><p>(A) 對：10～14 號針頭。</p><p>(C) 對：需繞過瘤胃。</p><p>(D) 對：拔針前折疊套管避免液體流入腹腔。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 20,
+        "text": "20.進行乳牛卵巢摘除手術後，所發現的卵巢腫瘤型態最常屬於下列那一種？",
+        "options": {
+            "A": "lymphoma",
+            "B": "adenoma",
+            "C": "adenosarcinoma",
+            "D": "granulosa cell/stromal tumor"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) granulosa cell/stromal tumor</b></p><p>乳牛卵巢腫瘤最常見者為顆粒細胞瘤（granulosa cell/stromal tumor）。</p><p>(A) 錯：lymphoma 較少見。</p><p>(B) 錯：adenoma 較少見。</p><p>(C) 錯：adenocarcinoma 較少見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 21,
+        "text": "21.關於牛乳頭撕裂傷之手術縫合後傷口癒合的敘述，下列何者錯誤？",
+        "options": {
+            "A": "長軸形的傷口比水平傷口容易癒合",
+            "B": "乳頭末端的傷口比乳頭基部的傷口容易癒合",
+            "C": "有乳房水腫的乳頭傷口較不容易癒合",
+            "D": "傷口涉及乳腺腔（gland sinus）部位者較難癒合"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 乳頭末端的傷口比乳頭基部的傷口容易癒合</b></p><p>乳頭撕裂傷縫合後，乳頭末端（近乳頭孔、涉及乳池）的傷口較難癒合，且乳汁排出持續刺激；相反，乳頭基部或含較多組織者較容易，故 B 錯誤。</p><p>(A) 對：長軸（縱向）傷口因張力方向一致而易癒合。</p><p>(C) 對：乳房水腫使癒合困難。</p><p>(D) 對：涉及乳腺腔者因乳汁滲漏而較難癒合。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 22,
+        "text": "22.下列那一種方法最適合應用於牛隻腹壁切開後之皮膚傷口的縫合？",
+        "options": {
+            "A": "cross mattress suture",
+            "B": "Ford interlocking suture",
+            "C": "simple interrupted suture",
+            "D": "Connell suture"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A/B) cross mattress suture／Ford interlocking suture （本題多個答案皆接受）</b></p><p>此題原答案為 A/B，cross mattress suture 與 Ford interlocking suture 都是牛腹壁切開後皮膚縫合常用的張力縫合方式，皆接受。</p><p>(C) 錯：simple interrupted 對牛腹壁皮膚張力大，較不適合。</p><p>(D) 錯：Connell suture 為腸道內翻縫合。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 23,
+        "text": "23.進行牛隻腎臟手術時，有關腎臟解剖位置之敘述，下列何者錯誤？",
+        "options": {
+            "A": "右側腎臟的位置靠近肝臟",
+            "B": "進行直腸觸診時可以輕易觸及到右側腎臟",
+            "C": "從右腹脇部進入腹腔可以觸診到左腎及右腎",
+            "D": "從左腹脇部進入腹腔不易觸診到右腎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 進行直腸觸診時可以輕易觸及到右側腎臟</b></p><p>牛左腎因遊走（pendulous）而位於腹腔偏右下，直腸觸診可輕易觸及左腎，但右腎位置固定、靠近肝臟，直腸觸診不易觸及，故 B 錯誤。</p><p>(A) 對：右腎靠近肝臟。</p><p>(C) 對：由右腹脇切開可觸及兩腎。</p><p>(D) 對：由左腹脇不易觸及右腎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 24,
+        "text": "24.對於已發生破傷風（tetanus）之羊隻，下列何項處理最不適當？",
+        "options": {
+            "A": "提供良好的肌肉鬆弛劑",
+            "B": "提供輸液以維持生命",
+            "C": "隔離已發病的動物",
+            "D": "用抗毒素血清中和在體內未結合的毒素"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 隔離已發病的動物</b></p><p>破傷風為毒素中毒，並非動物間直接傳染，因此『隔離已發病的動物』並非必要處置，但仍須提供安靜暗室環境；依答案此項最不適當。</p><p>(A) 對：肌肉鬆弛劑（如 acepromazine、diazepam、methocarbamol）可緩解僵直。</p><p>(B) 對：輸液維持生命。</p><p>(D) 對：抗毒素中和尚未結合的毒素。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 25,
+        "text": "25.診斷豬隻食鹽中毒症，腦中鹽分濃度（濕重，wet weight）超過多少 ppm 即可確診？",
+        "options": {
+            "A": "1,200",
+            "B": "1,400",
+            "C": "1,600",
+            "D": "1,800"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 1,800</b></p><p>豬食鹽中毒診斷時，腦組織鹽分濕重超過約 1,800 ppm 即可確診。</p><p>(A) 錯：1,200 ppm 偏低。</p><p>(B) 錯：1,400 ppm 偏低。</p><p>(C) 錯：1,600 ppm 偏低。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 26,
+        "text": "26.一健康豬隻急性黏膜蒼白而死亡。牧場主人陳述該豬曾在快速大量進食與飲水後又有劇烈運動，則該豬隻最有可能罹患下列何項疾病？",
+        "options": {
+            "A": "胃潰瘍",
+            "B": "胃捻轉",
+            "C": "食鹽中毒",
+            "D": "產氣芽孢梭菌性腸炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 胃捻轉</b></p><p>健康豬在快速大量進食與飲水後劇烈運動，易造成胃捻轉（gastric torsion/volvulus），急性休克而死亡，黏膜蒼白。</p><p>(A) 錯：胃潰瘍多伴有黑便與貧血，不與運動相關。</p><p>(C) 錯：食鹽中毒有神經症狀。</p><p>(D) 錯：產氣芽孢梭菌性腸炎為仔豬疾病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 27,
+        "text": "27.仔豬去勢手術的最佳時機在幾週齡內？",
+        "options": {
+            "A": "3",
+            "B": "6",
+            "C": "8",
+            "D": "12"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 3</b></p><p>依答案，仔豬去勢最佳時機在 3 週齡內，此時創傷小、恢復快，也減少應激。</p><p>(B) 錯：6 週偏晚。</p><p>(C) 錯：8 週偏晚。</p><p>(D) 錯：12 週偏晚。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 28,
+        "text": "28.有關犬隱睪症（cryptorchidism）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "隱睪常在的位置是位於腹腔或鼠蹊",
+            "B": "患畜隱睪的精子生成作用（spermatogenesis）不受影響",
+            "C": "患畜隱睪的睪固酮（testosterone）分泌不會受影響",
+            "D": "患畜可能會呈現雌性化"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 患畜隱睪的精子生成作用（spermatogenesis）不受影響</b></p><p>隱睪因腹腔或鼠蹊溫度較高，精子生成作用受損，故 B『不受影響』錯誤。</p><p>(A) 對：常位於腹腔或鼠蹊。</p><p>(C) 對：Leydig 細胞受溫度影響較小，睪固酮分泌大致不受影響。</p><p>(D) 對：若為 Sertoli 細胞瘤，可使雌激素增加，造成雌性化。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 29,
+        "text": "29.下列何種母畜屬於季節性且多個動情週期？",
+        "options": {
+            "A": "牛",
+            "B": "豬",
+            "C": "犬",
+            "D": "羊"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 羊</b></p><p>綿羊為季節性多次發情動物（短日照繁殖）。</p><p>(A) 錯：牛為全年多次發情。</p><p>(B) 錯：豬為全年多次發情。</p><p>(C) 錯：犬為單次發情（monoestrous），每年 1～2 次。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 30,
+        "text": "30.有關賽托利細胞瘤（Sertoli cell tumor）的敘述，下列何者錯誤？",
+        "options": {
+            "A": "好發於患有隱睪症的公犬",
+            "B": "患畜易有雌性化特徵",
+            "C": "若為單側性腫瘤，則對側睪丸通常萎縮",
+            "D": "患畜易有睪固酮（testosterone）分泌過多的問題"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 患畜易有睪固酮（testosterone）分泌過多的問題</b></p><p>Sertoli cell tumor 分泌雌激素，造成雌性化、對側睪丸萎縮，而非睪固酮分泌過多，故 D 錯誤。</p><p>(A) 對：好發於隱睪的公犬。</p><p>(B) 對：易有雌性化特徵。</p><p>(C) 對：單側腫瘤時，對側睪丸常萎縮。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 31,
+        "text": "31.有關馬、牛、豬、羊四種母畜之平均懷孕天數，下列由多至少的排序何者正確？",
+        "options": {
+            "A": "馬牛豬羊",
+            "B": "馬牛羊豬",
+            "C": "牛馬羊豬",
+            "D": "牛馬豬羊"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 馬牛羊豬</b></p><p>懷孕天數由多至少：馬約 340 天、牛約 283 天、羊約 150 天、豬約 114 天，故為馬牛羊豬。</p><p>(A) 錯：豬與羊順序顛倒。</p><p>(C) 錯：牛與馬順序顛倒。</p><p>(D) 錯：牛與馬、豬與羊順序皆顛倒。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 32,
+        "text": "32.鏡檢一頭剛性成熟的年輕公牛精液，最常出現圖中那個數字所標示的不正常形態精子？",
+        "options": {
+            "A": "19",
+            "B": "20",
+            "C": "22",
+            "D": "24"
+        },
+        "image": "./圖片/d110-32.jpg",
+        "explanation": "<p><b>答案：(C) 22</b></p><p>此題為圖片題，依題意與答案推斷：剛性成熟的年輕公牛精液最常見的不正常形態為標號 22 所示之類型（常見為近端細胞質小滴等）。無法確認圖片細節。</p><p>(A) 錯：標號 19 非最常見。</p><p>(B) 錯：標號 20 非最常見。</p><p>(D) 錯：標號 24 非最常見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 33,
+        "text": "33.下列何種藥物或內泌素組合，最不適合用於母牛或母羊發情同期化？",
+        "options": {
+            "A": "progesterone + PGF2α",
+            "B": "GnRH + PGF2α",
+            "C": "progesterone + equine chorionic gonadotropin（FSH-like）",
+            "D": "GnRH + estrogen"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) GnRH + estrogen</b></p><p>GnRH 搭配 estrogen 並非標準的同期化組合；同期化常以黃體素（progesterone）、PGF2α、GnRH 與 eCG 組合。</p><p>(A) 對：progesterone + PGF2α 為常用組合。</p><p>(B) 對：GnRH + PGF2α 為 Ovsynch 的基本組合。</p><p>(C) 對：progesterone + eCG 常用於羊與牛。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 34,
+        "text": "34.下列那一個疾病是由於副中腎管（müllerian ducts）融合失敗所引起的？",
+        "options": {
+            "A": "雙子宮頸（double cervix）",
+            "B": "白色女牛病（white heifer disease）",
+            "C": "單一子宮角（uterus unicornis）",
+            "D": "輸卵管發育不全"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 雙子宮頸（double cervix）</b></p><p>雙子宮頸（double cervix）為副中腎管（Müllerian duct）融合失敗所造成。</p><p>(B) 錯：white heifer disease 為副中腎管發育不全。</p><p>(C) 錯：單一子宮角為單側副中腎管發育不全。</p><p>(D) 錯：輸卵管發育不全為發育缺損。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 35,
+        "text": "35.有關母犬分娩陣痛之敘述，下列何者錯誤？",
+        "options": {
+            "A": "第一期分娩陣痛時，可促使子宮頸打開及胎兒姿勢的調整",
+            "B": "第一期分娩陣痛時，母犬直腸溫度會下降及築巢行為",
+            "C": "第二期分娩陣痛時，腹部會收縮及胎兒排出",
+            "D": "第二期分娩陣痛時，可將胎兒及胎盤完全排出"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 第二期分娩陣痛時，可將胎兒及胎盤完全排出</b></p><p>母犬分娩第二期為胎兒排出，胎盤是在第三期排出，故 D 錯誤。</p><p>(A) 對：第一期促使子宮頸打開及胎兒調整姿勢。</p><p>(B) 對：第一期直腸溫度下降與築巢行為。</p><p>(C) 對：第二期腹部收縮及胎兒排出。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 36,
+        "text": "36.下列何者是乳牛成熟濾泡（mature follicle）排卵後所出現的結構？",
+        "options": {
+            "A": "空泡化黃體（vacuolated corpora lutea）",
+            "B": "黃體化濾泡（luteinized follicles）",
+            "C": "濾泡囊腫（follicular cysts）",
+            "D": "黃體化囊腫（luteinized cysts）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 空泡化黃體（vacuolated corpora lutea）</b></p><p>依答案，乳牛成熟濾泡排卵後所形成的結構為空泡化黃體（vacuolated corpora lutea）。（註：此題答案建議再確認：一般認為排卵後形成出血體（corpus hemorrhagicum）再成黃體，此題選項用詞較不一般。）</p><p>(B) 錯：黃體化濾泡是未排卵而黃體化。</p><p>(C) 錯：濾泡囊腫為未排卵的濾泡持續發育。</p><p>(D) 錯：黃體化囊腫為囊腫黃體化。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 37,
+        "text": "37.有關妊馬血清性腺激素（equine chorionic gonadotrophin, eCG）的敘述，何者最不適當？",
+        "options": {
+            "A": "於懷孕60~65天達最高峰",
+            "B": "於懷孕50天時開始產生",
+            "C": "於懷孕150天時消失",
+            "D": "可刺激附屬黃體的形成（formation of accessory corpus luteum）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 於懷孕50天時開始產生</b></p><p>eCG 約於懷孕 40 天開始產生，約 55～65 天達高峰，約 120～150 天消失，故『50 天開始』的敘述最不適當。</p><p>(A) 對：懷孕 60～65 天達高峰。</p><p>(C) 對：約 150 天時消失。</p><p>(D) 對：可刺激附屬黃體形成。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 38,
+        "text": "38.尿道球腺（bulbourethral gland）在下列那種動物最不發達？",
+        "options": {
+            "A": "綿羊",
+            "B": "豬",
+            "C": "牛",
+            "D": "犬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 犬</b></p><p>犬缺乏尿道球腺。</p><p>(A) 錯：綿羊有發達的尿道球腺。</p><p>(B) 錯：豬的尿道球腺非常發達。</p><p>(C) 錯：牛有尿道球腺。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 39,
+        "text": "39.通常乳牛連續配種多少次以上仍無法受胎時定義為低受胎牛？",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "3",
+            "D": "4"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 3</b></p><p>乳牛連續配種 3 次以上仍無法受胎，定義為低受胎牛（repeat breeder）。</p><p>(A) 錯：1 次尚未達定義。</p><p>(B) 錯：2 次尚未達定義。</p><p>(D) 錯：4 次不是通用定義。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 40,
+        "text": "40.貓罹患不癒合性角膜潰瘍（indolent ulcers）時，不建議進行下列何處置？",
+        "options": {
+            "A": "移除疏鬆上皮",
+            "B": "格子狀（grid）或穿刺型（punctate）角膜切開術",
+            "C": "隱形眼鏡",
+            "D": "局部抗生素"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 格子狀（grid）或穿刺型（punctate）角膜切開術</b></p><p>貓的 indolent ulcer（頑固性潰瘍）可移除疏鬆上皮、使用隱形眼鏡與局部抗生素；格子狀或穿刺型角膜切開術在貓有發生角膜黑色壞死（sequestrum）的風險，不建議使用。</p><p>(A) 對：移除疏鬆上皮為標準處置。</p><p>(C) 對：治療性隱形眼鏡可保護角膜。</p><p>(D) 對：預防繼發感染。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 41,
+        "text": "41.治療犬貓慢性心衰竭使用的藥物enalapril屬於那一類藥物？",
+        "options": {
+            "A": "利尿劑（diuretics）",
+            "B": "血管張力素轉化酶抑制劑（ACE inhibitors）",
+            "C": "抗心律不整藥物",
+            "D": "陽性強心劑（positive inotropes）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 血管張力素轉化酶抑制劑（ACE inhibitors）</b></p><p>Enalapril 為血管張力素轉化酶抑制劑（ACE inhibitor），用於犬貓慢性心衰竭。</p><p>(A) 錯：furosemide 等為利尿劑。</p><p>(C) 錯：抗心律不整藥為 lidocaine、sotalol 等。</p><p>(D) 錯：陽性強心劑為 pimobendan、digoxin。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 42,
+        "text": "42.依據生理病理學的反應，下列何種犬隻心臟病會造成左心鬱血性心衰竭？",
+        "options": {
+            "A": "肺動脈狹窄（pulmonary stenosis）",
+            "B": "心絲蟲症（heartworm disease）",
+            "C": "永存性動脈導管（patent ductus arteriosus）",
+            "D": "心包囊填充（cardiac tamponade）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 永存性動脈導管（patent ductus arteriosus）</b></p><p>永存性動脈導管（左向右分流）使左心容積負荷增加，造成左心鬱血性心衰竭。</p><p>(A) 錯：肺動脈狹窄造成右心壓力負荷。</p><p>(B) 錯：心絲蟲症造成右心衰竭。</p><p>(D) 錯：心包填塞造成右心鬱血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 43,
+        "text": "43.心臟超音波脈衝式都卜勒（PW Doppler）掃描的最大缺點為何？",
+        "options": {
+            "A": "無法確定血流方向",
+            "B": "可檢查選定之血管的血流流速與方向",
+            "C": "高速血流之流速測定受奈奎斯特限制（Nyquist limit）",
+            "D": "解析度不良"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 高速血流之流速測定受奈奎斯特限制（Nyquist limit）</b></p><p>脈衝式都卜勒的最大限制是高速血流超過 Nyquist 限制時會產生混疊（aliasing），無法準確測定高速血流。</p><p>(A) 錯：PW 可決定血流方向。</p><p>(B) 錯：此為優點。</p><p>(D) 錯：PW 空間定位好。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 44,
+        "text": "44.犬貓血液中何種離子不平衡會造成心電圖中P波消失？",
+        "options": {
+            "A": "低血鉀",
+            "B": "高血鉀",
+            "C": "低血鈣",
+            "D": "高血鈣"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 高血鉀</b></p><p>高血鉀使心房肌肉對刺激不反應，造成 P 波變小、消失（atrial standstill）。</p><p>(A) 錯：低血鉀造成 T 波扁平、U 波、ST 下降。</p><p>(C) 錯：低血鈣延長 QT。</p><p>(D) 錯：高血鈣縮短 QT。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 45,
+        "text": "45.傳統的聽診器有兩面，其中平坦的膜面（diaphragm）最適合用來聽下列何者？",
+        "options": {
+            "A": "高頻心音",
+            "B": "低頻心音",
+            "C": "第3心音",
+            "D": "奔馬音（gallop sounds）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 高頻心音</b></p><p>聽診器膜面（diaphragm）適合聽高頻聲音（S1、S2、高頻雜音）；鐘面（bell）適合聽低頻聲音如 S3、S4。</p><p>(B) 錯：低頻應使用鐘面。</p><p>(C) 錯：S3 為低頻音，用鐘面。</p><p>(D) 錯：奔馬音為低頻音，用鐘面。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 46,
+        "text": "46.下列何種犬隻疾病最有可能出現白血球低下症？",
+        "options": {
+            "A": "細菌性腎盂腎炎",
+            "B": "免疫性多發性關節炎",
+            "C": "疥蟎（sarcoptic mange）",
+            "D": "多發性骨髓瘤（multiple myeloma）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 多發性骨髓瘤（multiple myeloma）</b></p><p>依答案，多發性骨髓瘤最可能出現白血球低下症（骨髓浸潤造成白血球減少），其餘疾病常伴白血球增多。</p><p>(A) 錯：細菌性腎盂腎炎常為白血球增多。</p><p>(B) 錯：免疫性多發性關節炎常為白血球增多。</p><p>(C) 錯：疥蟎常伴嗜酸性球增多。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 47,
+        "text": "47.下列何種犬隻口腔腫瘤通常會在疾病早期轉移到肺臟及其他器官？",
+        "options": {
+            "A": "口腔非扁桃腺鱗狀上皮細胞瘤",
+            "B": "口腔惡性黑色素瘤",
+            "C": "口腔纖維肉瘤",
+            "D": "口腔齒齦瘤"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 口腔惡性黑色素瘤</b></p><p>口腔惡性黑色素瘤（oral malignant melanoma）為犬口腔最常見的惡性腫瘤，侵襲性高，早期即轉移至局部淋巴結與肺。</p><p>(A) 錯：非扁桃腺鱗狀上皮細胞癌轉移較慢。</p><p>(C) 錯：纖維肉瘤局部侵襲強，但轉移較晚。</p><p>(D) 錯：齒齦瘤（epulis）為良性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 48,
+        "text": "48.下列何種犬隻血相變化最能支持免疫性溶血性貧血的診斷？",
+        "options": {
+            "A": "棘狀紅血球增多症",
+            "B": "強烈再生性貧血",
+            "C": "霍威爾－喬利（Howell-Jolly）小粒",
+            "D": "球形紅血球增多症（spherocytosis）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 球形紅血球增多症（spherocytosis）</b></p><p>球形紅血球增多症（spherocytosis）是免疫媒介性溶血的特徵（巨噬細胞攝取部分紅血球膜），最支持 IMHA 的診斷。</p><p>(A) 錯：棘狀紅血球見於血管肉瘤、肝病。</p><p>(B) 錯：強烈再生性貧血可見於多種溶血或出血。</p><p>(C) 錯：Howell-Jolly 小體為核殘留物。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 49,
+        "text": "49.唯一能確診犬貓消化道食物不良反應的檢驗方式為何？",
+        "options": {
+            "A": "生檢採樣及組織病理學檢查",
+            "B": "食物消去試驗及抗原再刺激法",
+            "C": "血清免疫球蛋白E效價測試及細菌培養",
+            "D": "皮內抗原測試及試驗治療"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 食物消去試驗及抗原再刺激法</b></p><p>消化道食物不良反應唯一能確診的方式為食物消去試驗（elimination diet trial）與抗原再刺激（rechallenge）。</p><p>(A) 錯：生檢不能確診。</p><p>(C) 錯：IgE 與細菌培養不準確。</p><p>(D) 錯：皮內測試對消化道無診斷價值。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 50,
+        "text": "50.一隻3歲迷你貴賓雌犬已有4個月的間斷性嘔吐。此嘔吐只發生於進食後1~3小時左右，以噴射式呈現且嘔吐物常包括有未消化食物。犬隻之食慾、精神及其他活力皆正常，理學檢查一切正常。其最可能的診斷為何？",
+        "options": {
+            "A": "腸胃逆流",
+            "B": "胃異物",
+            "C": "胃幽門狹窄",
+            "D": "慢性腎衰竭"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 胃幽門狹窄</b></p><p>進食後 1～3 小時噴射式嘔吐含未消化食物，且其他正常，為胃排空障礙，符合幽門狹窄（pyloric stenosis）。</p><p>(A) 錯：胃食道逆流為反芻或進食後嘔吐，非噴射式。</p><p>(B) 錯：胃異物常伴食慾不振。</p><p>(D) 錯：慢性腎衰竭有多渴多尿與精神變差。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 51,
+        "text": "51.犬貓患有肺動脈高血壓時，在理學檢查中聽診時的特徵性心音為何？",
+        "options": {
+            "A": "第一心音分裂音（split S1）",
+            "B": "肺動脈區收縮性心雜音（pulmonary systolic murmur）",
+            "C": "第二心音分裂音（split S2）",
+            "D": "肺動脈區舒張性心雜音（pulmonary diastolic murmur）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 第二心音分裂音（split S2）</b></p><p>肺動脈高血壓時，肺動脈瓣關閉較早且響亮，使第二心音分裂（split S2）。</p><p>(A) 錯：S1 分裂與肺高血壓無關。</p><p>(B) 錯：肺動脈區收縮雜音見於肺動脈狹窄。</p><p>(D) 錯：肺動脈區舒張雜音見於肺動脈瓣閉鎖不全。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 52,
+        "text": "52.犬隻有嚴重的喉頭癱（laryngeal paralysis）時，最有可能聽到下列何者？",
+        "options": {
+            "A": "呼氣時喘鳴（stridor/stertor）",
+            "B": "吸氣時喘鳴（stridor/stertor）",
+            "C": "呼氣時哮鳴（wheeze）",
+            "D": "吸氣時哮鳴（wheeze）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 吸氣時喘鳴（stridor/stertor）</b></p><p>喉頭癱（laryngeal paralysis）造成上呼吸道阻塞，吸氣時喘鳴（inspiratory stridor）最明顯。</p><p>(A) 錯：呼氣時喘鳴不典型。</p><p>(C) 錯：哮鳴為下呼吸道氣道狹窄。</p><p>(D) 錯：哮鳴為下呼吸道。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 53,
+        "text": "53.下列何項最不可能造成呼吸性鹼血症？",
+        "options": {
+            "A": "低二氧化碳血症（hypocapenia）",
+            "B": "過度換氣（hyperventilation）",
+            "C": "換氣不足（hypoventilation）",
+            "D": "呼吸過快（tachypnea）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 換氣不足（hypoventilation）</b></p><p>換氣不足（hypoventilation）使 CO2 滯留，造成呼吸性酸中毒，不會造成呼吸性鹼血症。</p><p>(A) 對：低二氧化碳血症即呼吸性鹼血症的本質。</p><p>(B) 對：過度換氣排出 CO2。</p><p>(D) 對：呼吸過快可造成換氣過度。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 54,
+        "text": "54.4~5月齡混種公貓，食慾精神下降，後肢跛行，觸診骨盆及背部疼痛。根據其X光影像，下列何種疾病最有可能？",
+        "options": {
+            "A": "營養性繼發性高副甲狀腺功能症（nutritional secondary hyperparathyroidism）",
+            "B": "營養性繼發性高甲狀腺功能症（nutritional secondary hyperthyroidism）",
+            "C": "先天性低甲狀腺功能症（congenital hypothyroidism）",
+            "D": "黏多醣症（mucopolysaccharidosis）"
+        },
+        "image": "./圖片/d110-54.jpg",
+        "explanation": "<p><b>答案：(A) 營養性繼發性高副甲狀腺功能症（nutritional secondary hyperparathyroidism）</b></p><p>4～5 月齡小貓、後肢跛行、骨盆與背部疼痛，X 光常見骨質減少與病理性骨折，符合營養性繼發性副甲狀腺功能亢進（鈣磷比失衡，如純肉食飲食）。依答案推斷，無法確認圖片細節。</p><p>(B) 錯：無『營養性繼發性甲狀腺亢進』此診斷。</p><p>(C) 錯：先天性甲狀腺功能低下造成侏儒與骨骺發育遲緩。</p><p>(D) 錯：黏多醣症為溶體儲積病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 55,
+        "text": "55.3歲未去勢公柴犬，出現腹痛、嘔吐、精神沉鬱，腹腔右側照及腹背照X光影像如下圖，可見腹腔內臟器漿膜面可見度降低，下列何者最不可能？",
+        "options": {
+            "A": "腹腔內腫瘤（peritoneal neoplasia）",
+            "B": "腹膜炎（peritonitis）",
+            "C": "腹腔內含有褐色脂肪（brown fat）",
+            "D": "腹腔內有積液（peritoneal effusion）"
+        },
+        "image": "./圖片/d110-55.jpg",
+        "explanation": "<p><b>答案：(C) 腹腔內含有褐色脂肪（brown fat）</b></p><p>此題為圖片題，依題意與答案推斷：腹腔漿膜面可見度降低（失去漿膜細節）可由腹腔積液、腹膜炎、腫瘤等造成；腹腔內褐色脂肪並非貓犬成年動物常見的原因，故最不可能。</p><p>(A) 對：腫瘤可造成積液。</p><p>(B) 對：腹膜炎使漿膜細節降低。</p><p>(D) 對：積液為最常見原因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 56,
+        "text": "56.引起貓病毒性鼻氣管炎（Feline viral rhinotracheitis）之病原為：",
+        "options": {
+            "A": "貓杯狀病毒",
+            "B": "貓疱疹病毒",
+            "C": "貓冠狀病毒",
+            "D": "貓白血病病毒"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 貓疱疹病毒</b></p><p>貓病毒性鼻氣管炎的病原為貓疱疹病毒 1 型（FHV-1）。</p><p>(A) 錯：貓杯狀病毒造成口腔潰瘍與上呼吸道症狀。</p><p>(C) 錯：貓冠狀病毒造成 FIP。</p><p>(D) 錯：FeLV 造成免疫抑制與腫瘤。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 57,
+        "text": "57.下列何者為犬乳糜胸（chylothorax）最常見的病因？",
+        "options": {
+            "A": "肺水腫",
+            "B": "心囊炎",
+            "C": "胸管破裂",
+            "D": "肝硬化"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 胸管破裂</b></p><p>依答案，犬乳糜胸最常見病因為胸管破裂（創傷或特發性）。</p><p>(A) 錯：肺水腫不造成乳糜胸。</p><p>(B) 錯：心包炎也可相關，但非最常見。</p><p>(D) 錯：肝硬化造成腹水。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 58,
+        "text": "58.下列何種呼吸音僅出現於下呼吸道疾病的聽診？",
+        "options": {
+            "A": "喘息（wheeze）",
+            "B": "鼾聲（stertor）",
+            "C": "喘鳴（stridor）",
+            "D": "濕囉音（crackles）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 濕囉音（crackles）</b></p><p>濕囉音（crackles）出現於下呼吸道（肺泡與細支氣管）的疾病，如肺水腫與肺炎。</p><p>(A) 錯：wheeze 也可發生於上呼吸道（本題以濕囉音為答案）。</p><p>(B) 錯：鼾聲（stertor）見於鼻咽部上呼吸道。</p><p>(C) 錯：喘鳴（stridor）見於喉與氣管上呼吸道。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 59,
+        "text": "59.下列何項為低張的輸液？",
+        "options": {
+            "A": "0.9%生理鹽水",
+            "B": "乳酸林格氏液",
+            "C": "5%右旋糖溶液",
+            "D": "林格氏液"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 5%右旋糖溶液</b></p><p>5% 右旋糖溶液在輸注後葡萄糖被代謝，剩下游離水，屬低張液。</p><p>(A) 錯：0.9% 生理鹽水為等張。</p><p>(B) 錯：乳酸林格氏液為近等張。</p><p>(D) 錯：林格氏液為近等張。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 60,
+        "text": "60.下列何藥物對貓不屬於dose-dependent hepatotoxins？",
+        "options": {
+            "A": "acetaminophen",
+            "B": "phenobarbital",
+            "C": "tetracycline",
+            "D": "stanozolol"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) phenobarbital</b></p><p>Phenobarbital 對貓的肝毒性為特異性（非劑量依賴性）；其他三者為劑量依賴性或可預測的肝毒物。</p><p>(A) 對：acetaminophen 劑量依賴性造成貓的氧化性傷害與肝毒性。</p><p>(C) 對：tetracycline 高劑量肝毒性。</p><p>(D) 對：stanozolol 為同化類固醇，劑量依賴性造成膽汁鬱積。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 61,
+        "text": "61.下列何者不適用於治療犬隻急性下痢？",
+        "options": {
+            "A": "為維持體力及補充水分，不應限制正常食物給與",
+            "B": "嚴重下痢時，可輸液補充水分",
+            "C": "止瀉藥物的投予，應以短期舒緩症狀為原則",
+            "D": "不應例行投予抗生素"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 為維持體力及補充水分，不應限制正常食物給與</b></p><p>犬急性下痢通常需短暫禁食（12～24 小時）或給予易消化飲食，『完全不限制正常食物』並不是適當的處置，故為答案。</p><p>(B) 對：嚴重下痢需輸液。</p><p>(C) 對：止瀉藥短期使用。</p><p>(D) 對：不應例行使用抗生素。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 62,
+        "text": "62.下列何者在貓最不易出現雙側性脫毛？",
+        "options": {
+            "A": "低腎上腺皮質功能症",
+            "B": "高腎上腺皮質功能症",
+            "C": "低甲狀腺功能症",
+            "D": "醫源性庫興氏症候群（Cushing's syndrome）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 低腎上腺皮質功能症</b></p><p>貓腎上腺皮質功能低下（Addison）罕見，不造成雙側性脫毛；甲狀腺功能低下、庫興氏等則有脫毛。</p><p>(B) 錯：高腎上腺皮質功能症可造成雙側脫毛與皮膚脆弱。</p><p>(C) 錯：甲狀腺功能低下可造成脫毛。</p><p>(D) 錯：醫源性庫興氏症可造成脫毛。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 63,
+        "text": "63.下列何者最易使黏膜呈藍紫色？",
+        "options": {
+            "A": "永存性右主動脈弓",
+            "B": "由右向左之永存性動脈導管",
+            "C": "主動脈瓣狹窄",
+            "D": "二尖瓣發育不全"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 由右向左之永存性動脈導管</b></p><p>由右向左的永存性動脈導管（逆向 PDA）造成去氧血送到身體，黏膜發紺（藍紫色），後肢尤為明顯。</p><p>(A) 錯：永存性右主動脈弓造成食道壓迫。</p><p>(C) 錯：主動脈瓣狹窄為心輸出下降。</p><p>(D) 錯：二尖瓣發育不全造成左心衰竭。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 64,
+        "text": "64.下列何種疾病最容易併發feline fragile skin syndrome？",
+        "options": {
+            "A": "hyperadrenocorticism",
+            "B": "diabetes mellitus",
+            "C": "hypothyroidism",
+            "D": "hyperthyroidism"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) hyperadrenocorticism</b></p><p>貓脆弱皮膚症候群（feline fragile skin syndrome）最常併發腎上腺皮質功能亢進（內源或醫源性）。</p><p>(B) 錯：糖尿病可繼發，但非最典型。</p><p>(C) 錯：甲狀腺功能低下罕見。</p><p>(D) 錯：甲狀腺功能亢進較少與之相關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 65,
+        "text": "65.某犬血液檢查時發現有高血鈣症，下列何項不是其主要病因？",
+        "options": {
+            "A": "primary hyperparathyroidism",
+            "B": "malignant lymphosarcoma",
+            "C": "renal failure",
+            "D": "diabetes mellitus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) diabetes mellitus</b></p><p>糖尿病不會造成高血鈣；常見原因為原發性副甲狀腺功能亢進、惡性腫瘤、腎衰竭（部分）與腎上腺皮質功能低下。</p><p>(A) 對：primary hyperparathyroidism。</p><p>(B) 對：淋巴瘤。</p><p>(C) 對：腎衰竭。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 66,
+        "text": "66.下列何者為犬貓手術前後產生的併發症，與肝臟疾患較無直接關係？",
+        "options": {
+            "A": "全身性高血壓",
+            "B": "傷口不易癒合",
+            "C": "凝血功能異常",
+            "D": "低血糖"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 全身性高血壓</b></p><p>全身性高血壓與肝臟疾患較無直接關係。</p><p>(B) 對：肝病時蛋白質合成減少，影響傷口癒合。</p><p>(C) 對：肝病時凝血因子合成減少。</p><p>(D) 對：肝病時糖質新生降低，造成低血糖。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 67,
+        "text": "67.一隻6月齡20公斤的拉布拉多公犬，就診時發現右前肢跛行，肘關節有腫脹的情形，最不可能為下列何種疾病？",
+        "options": {
+            "A": "fragmented coronoid process（FCP）",
+            "B": "Legg-Perthes disease",
+            "C": "osteochondritis dissecans（OCD）",
+            "D": "ununited anconeal process（UAP）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Legg-Perthes disease</b></p><p>Legg-Perthes disease 為髖關節（股骨頭）無菌性壞死，與肘關節無關，故最不可能。</p><p>(A) 對：FCP 為肘關節發育不良。</p><p>(C) 對：OCD 可發生於肘關節。</p><p>(D) 對：UAP 亦為肘關節發育不良。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 68,
+        "text": "68.欲以開胸方式結紮犬的永存性動脈導管（PDA）時，導管的解剖位置通常位於：",
+        "options": {
+            "A": "肺靜脈和主動脈之間",
+            "B": "迷走神經下方",
+            "C": "肺動脈和後大靜脈之間",
+            "D": "右返喉神經和迷走神經之間"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 迷走神經下方</b></p><p>依答案，PDA 位於迷走神經下方（腹側）的位置，經左側第 4 肋間開胸結紮時，導管位於主動脈與肺動脈之間、迷走神經腹側。</p><p>(A) 錯：不在肺靜脈與主動脈之間。</p><p>(C) 錯：不在肺動脈與後大靜脈之間。</p><p>(D) 錯：右返喉神經不在左側。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者不是造成貓巨結腸症的常見原因？",
+        "options": {
+            "A": "會陰疝氣",
+            "B": "骨盆創傷造成的狹窄",
+            "C": "自律神經失調",
+            "D": "不適當的飲食"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 會陰疝氣</b></p><p>會陰疝氣並不是貓巨結腸症的常見原因（常見於未去勢老犬）。</p><p>(B) 對：骨盆創傷癒合不良造成骨盆腔狹窄。</p><p>(C) 對：自律神經失調造成結腸運動失調。</p><p>(D) 對：不適當飲食與脫水造成糞便乾硬。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 70,
+        "text": "70.關於犬隻第一型椎間盤突出的敘述，下列何者錯誤？",
+        "options": {
+            "A": "因為有肋間韌帶的保護，前胸椎是最不容易發生此病的地方",
+            "B": "症狀的嚴重性和預後與脊髓被壓迫的程度相關",
+            "C": "若動物症狀主要為疼痛，仍可負重行走，可先採非手術性的藥物治療法",
+            "D": "軟骨發育不良的犬種如臘腸犬、米格魯犬為好發犬種"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A/B) 因為有肋間韌帶的保護，前胸椎是最不容易發生此病的地方／症狀的嚴重性和預後與脊髓被壓迫的程度相關 （本題多個答案皆接受）</b></p><p>此題原答案為 A/B，兩者皆被視為錯誤。第一型椎間盤突出（Hansen type I）雖然前胸椎因 intercapital ligament 保護而較少見，題目所述『肋間韌帶』用詞不精確；且病情嚴重度與脊髓壓迫的『速度與程度』有關，題目敘述不精確。</p><p>(C) 對：僅疼痛、仍可負重行走時可先保守治療。</p><p>(D) 對：軟骨發育不良犬種（如臘腸犬、米格魯）為好發。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 71,
+        "text": "71.1歲雌性未結紮貴賓犬，右後肢跛行，理學檢查右髖關節區域疼痛。根據其X光髖關節腹背照影像，下列何者最有可能？",
+        "options": {
+            "A": "髖關節發育不全（hip dysplasia）",
+            "B": "股骨頭無菌性壞死（aseptic necrosis of the femoral head, Legg-Calve-Perthes Disease）",
+            "C": "骨軟骨病（osteochondrosis）",
+            "D": "骨髓炎（osteomyelitis）"
+        },
+        "image": "./圖片/d110-71.jpg",
+        "explanation": "<p><b>答案：(B) 股骨頭無菌性壞死（aseptic necrosis of the femoral head, Legg-Calve-Perthes Disease）</b></p><p>此題為圖片題，依題意與答案推斷：1 歲小型犬（貴賓）右後肢跛行、髖關節疼痛，X 光符合 Legg-Calvé-Perthes disease（股骨頭無菌性壞死），好發於小型犬 4～12 月齡。無法確認圖片細節。</p><p>(A) 錯：髖關節發育不全多見於大型犬，影像為髖臼淺、股骨頭半脫位。</p><p>(C) 錯：骨軟骨病並非此題答案。</p><p>(D) 錯：骨髓炎應見骨溶解與骨膜反應。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 72,
+        "text": "72.犬隻手術後如出現肺再擴張性水腫（re-expansion pulmonary edema, RPE）的併發症，下列何種術後早期處置方式會使病情更惡化？",
+        "options": {
+            "A": "給予利尿劑",
+            "B": "給予皮質類固醇",
+            "C": "使用肺泡復張術，以正壓充壓方式將肺臟維持40 cmH2O壓力，持續30秒",
+            "D": "有限的輸液體積管理，如使用膠體溶液"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 使用肺泡復張術，以正壓充壓方式將肺臟維持40 cmH2O壓力，持續30秒</b></p><p>肺再擴張性水腫的處置為支持性療法：利尿、限制輸液、皮質類固醇、氧療等；高壓肺泡復張（40 cmH2O 持續 30 秒）會加重肺損傷，使病情惡化。</p><p>(A) 對：利尿劑可減輕水腫。</p><p>(B) 對：類固醇可降低發炎。</p><p>(D) 對：限制輸液體積與膠體液可減少水腫。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 73,
+        "text": "73.下列那一種藥物對於犬隻α2接受器具最高的專一性？",
+        "options": {
+            "A": "xylazine",
+            "B": "romifidine",
+            "C": "detomidine",
+            "D": "medetomidine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) medetomidine</b></p><p>在選項中，medetomidine 對 α2 受體的選擇性最高（α2:α1 約 1620:1），遠高於 xylazine（約 160:1）。</p><p>(A) 錯：xylazine 選擇性較低。</p><p>(B) 錯：romifidine 選擇性中等。</p><p>(C) 錯：detomidine 選擇性低於 medetomidine。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 74,
+        "text": "74.公貓最適用下列何種部位之尿道造口術？",
+        "options": {
+            "A": "會陰部尿道造口術（perineal urethrostomy）",
+            "B": "恥骨前尿道造口術（prepubic urethrostomy）",
+            "C": "恥骨下尿道造口術（subpubic urethrostomy）",
+            "D": "陰囊前尿道造口術（prescrotal urethrostomy）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 會陰部尿道造口術（perineal urethrostomy）</b></p><p>公貓尿道阻塞反覆發生時，最適用會陰部尿道造口術（perineal urethrostomy），在骨盆尿道較寬處開口。</p><p>(B) 錯：恥骨前造口術用於會陰部造口失敗時。</p><p>(C) 錯：恥骨下造口術在貓不常用。</p><p>(D) 錯：陰囊前造口術在公貓管徑太窄，易狹窄。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 75,
+        "text": "75.有關犬隻腫瘤與外科手術的相關性，下列敘述何者錯誤？",
+        "options": {
+            "A": "就目前的獸醫領域而言，外科手術是最常用來治療腫瘤的方法",
+            "B": "緩解法外科手術（palliative surgery）的目的是改善患畜的生活品質（疼痛的舒緩或功能的改善），而且一定可以有效延長患畜存活的時間",
+            "C": "犬外生殖器的transmissible venereal cell tumor（TVT），當單獨以vincristine給予時的治癒效果可達90%以上",
+            "D": "外科手術前若已有更多的活組織生檢診斷結果，常可幫助正確的手術方法的進行"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 緩解法外科手術（palliative surgery）的目的是改善患畜的生活品質（疼痛的舒緩或功能的改善），而且一定可以有效延長患畜存活的時間</b></p><p>緩解性手術的目的是改善生活品質，但並不一定延長存活時間，故 B『一定可以有效延長』錯誤。</p><p>(A) 對：外科手術是最常用的腫瘤治療方法。</p><p>(C) 對：TVT 單獨使用 vincristine 的治癒率可達 90% 以上。</p><p>(D) 對：術前活組織檢查有助於規劃手術。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 76,
+        "text": "76.預防性抗生素應在犬隻手術前多久給予最適當？",
+        "options": {
+            "A": "開始切創時才給予",
+            "B": "開始切創的30~60分鐘前",
+            "C": "開始切創的70~90分鐘前",
+            "D": "開始切創的90~120分鐘前"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 開始切創的30~60分鐘前</b></p><p>預防性抗生素應於切創前 30～60 分鐘靜脈給予，使手術期間組織濃度足夠。</p><p>(A) 錯：切創時才給予組織濃度不足。</p><p>(C) 錯：70～90 分鐘太早，濃度已下降。</p><p>(D) 錯：90～120 分鐘太早。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 77,
+        "text": "77.馬皮膚最常發生的腫瘤為：",
+        "options": {
+            "A": "mast cell tumor",
+            "B": "cutaneous lymphoma",
+            "C": "vitiligo",
+            "D": "sarcoid"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) sarcoid</b></p><p>Sarcoid 為馬皮膚最常見的腫瘤，與牛乳頭狀瘤病毒（BPV-1、2）有關。</p><p>(A) 錯：mast cell tumor 較少見。</p><p>(B) 錯：cutaneous lymphoma 較少見。</p><p>(C) 錯：vitiligo 為色素脫失，不是腫瘤。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 78,
+        "text": "78.承上題，下列何種處置最不適合？",
+        "options": {
+            "A": "投予dexamethasone",
+            "B": "Bacille Calmette-Guérin（BCG）vaccination",
+            "C": "cryotherapy",
+            "D": "投予cisplatin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 投予dexamethasone</b></p><p>Sarcoid 的治療常用 BCG 免疫療法、冷凍療法與局部化學治療（cisplatin 腫瘤內注射）。全身性使用 dexamethasone 為免疫抑制，並非適當處置。</p><p>(B) 對：BCG 瘤內注射可用於 sarcoid。</p><p>(C) 對：冷凍療法常用。</p><p>(D) 對：cisplatin 瘤內注射有效。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 79,
+        "text": "79.一匹馬呈現急性、非常嚴重且持續性疝痛，腹部明顯擴張（abdominal distention），其最可能罹患下列何項疾病？",
+        "options": {
+            "A": "胃阻塞",
+            "B": "小腸阻塞",
+            "C": "大腸捻轉",
+            "D": "近端小腸炎"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 大腸捻轉</b></p><p>馬呈現急性、非常嚴重、持續性疝痛，腹部明顯擴張，最可能為大腸捻轉（large colon volvulus），因大量氣體積聚造成腹部明顯脹大。</p><p>(A) 錯：胃阻塞腹部不明顯擴張。</p><p>(B) 錯：小腸阻塞腹部不明顯擴張。</p><p>(D) 錯：近端小腸炎伴胃液逆流，疼痛多在減壓後緩解。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 80,
+        "text": "80.承上題，下列治療方式何者最正確？",
+        "options": {
+            "A": "立即進行腹腔手術",
+            "B": "內科療法，給與止痛藥及輸液並住院觀察",
+            "C": "在右腹脇部（flank）進行放氣術",
+            "D": "翻轉馬匹，方向為自右側躺翻轉至左側躺"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 立即進行腹腔手術</b></p><p>大腸捻轉為外科急症，需立即進行腹腔手術將腸道復位。</p><p>(B) 錯：內科療法無法矯正。</p><p>(C) 錯：放氣術僅能暫時緩解。</p><p>(D) 錯：翻轉馬匹用於部分特定情況（如大腸移位），不適用於大腸捻轉。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    }
+]

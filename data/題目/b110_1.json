@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.一個pKa為3.4的酸性藥品，在胃部（pH 1.4）和血漿中（pH 7.4）非離子態（unionized form）的比例於平衡時約為多少？",
+        "options": {
+            "A": "10000：1",
+            "B": "1000：1",
+            "C": "100：1",
+            "D": "1：1"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 1：1</b></p><p>根據生物膜被動擴散（passive diffusion）的 pH 分配假說（pH-partition hypothesis），只有不帶電荷的非離子態藥物（unionized form, [HA]）能夠自由穿透胃黏膜脂質雙層。當胃部（pH 1.4）與血漿（pH 7.4）兩側達到擴散平衡時，兩側「非離子態藥物（[HA]）的實際濃度」會趨於相等，因此非離子態在胃部與血漿中的濃度比例為 1：1（而因血漿 pH 7.4 遠高於 pKa 3.4，血漿中絕大部分藥物解離為 [A-]，使血漿總藥物濃度高達胃部的約 10,000 倍，造成胃酸環境下弱酸性藥物易被吸收進入血漿）。</p><p>(A) 錯：10000：1 是該藥物在胃部（約 99% 非離子態）與血漿（約 0.01% 非離子態）各自「非離子態所佔分率（fraction unionized）」的比值，而非平衡時兩側非離子態濃度的比例。</p><p>(B) 錯：1000：1 數值計算錯誤（pH 7.4 與 pKa 3.4 相差 4 個單位，10^4 為 10,000）。</p><p>(C) 錯：100：1 為胃部（pH 1.4）中非離子態 [HA] 與離子態 [A-] 的比值（10^(3.4-1.4) = 10^2 = 100：1），並非胃部與血漿的比例。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 2,
+        "text": "2.下列有關消化道投藥的敘述，何者正確？",
+        "options": {
+            "A": "動物完全無法使用舌下投藥",
+            "B": "誘導關閉牛隻的食道溝，會使藥品停留在食道上部",
+            "C": "首渡效應常使口服利用率增加",
+            "D": "直腸投藥可減少首渡效應的影響"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 直腸投藥可減少首渡效應的影響</b></p><p>直腸投藥（rectal administration）時，藥物經由直腸中靜脈與直腸下靜脈（middle and inferior rectal veins）吸收後，直接匯入內髂靜脈與後腔靜脈進入全身體循環，繞過肝門靜脈與肝臟首渡代謝（first-pass metabolism），僅少部分經直腸上靜脈進入門脈系統，因此可顯著減少首渡效應的影響（約可避開 50% 以上首渡代謝）。</p><p>(A) 錯：動物可以使用舌下或口腔黏膜（oral transmucosal）投藥，例如貓使用 buprenorphine 經舌下或頰黏膜給藥可獲得極佳的生體可用率。</p><p>(B) 錯：誘導關閉牛隻的食道溝（esophageal groove / reticular groove，如投予硫酸銅、重碳酸鈉或哺乳反射）會使藥液直接繞過瘤胃與蜂巢胃，迅速進入重瓣胃與皺胃，不會停留在食道上部。</p><p>(C) 錯：首渡效應（first-pass effect）是指口服藥物經胃腸吸收後先經門靜脈進入肝臟被大量代謝分解，通常會使口服生體可用率顯著「降低」（僅少數需經肝臟活化的前驅藥 prodrug 例外）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 3,
+        "text": "3.偏鹼性藥品在乳汁中的濃度會較其在血中為高的原因為何？",
+        "options": {
+            "A": "因脂溶性較高而使得吸收速率較快",
+            "B": "因多會被主動運輸（active transport）運送進入",
+            "C": "因可和乳汁中的兩價離子結合",
+            "D": "因會產生離子捕捉（ion-trapping）的現象"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 因會產生離子捕捉（ion-trapping）的現象</b></p><p>乳汁的酸鹼度（pH 約 6.5～6.8）較血漿（pH 約 7.4）偏酸。偏鹼性（弱鹼性）藥物在血漿中多呈不帶電的非離子態，可自由擴散通過乳腺上皮細胞進入乳汁；進入偏酸的乳汁後，弱鹼性藥物會結合氫離子解離為帶正電的離子態（BH+），無法再逆向穿透乳腺上皮脂質膜回到血漿，導致藥物在乳汁中大量滯留濃縮，此現象稱為離子捕捉（ion-trapping）。</p><p>(A) 錯：脂溶性高雖有助於藥物通過乳腺上皮細胞膜，但單純脂溶性高只會使乳汁與血漿迅速達到相等濃度，無法解釋乳汁濃度高於血漿濃度的濃縮現象。</p><p>(B) 錯：多數偏鹼性藥物進入乳汁是經由被動擴散（passive diffusion）配合 pH 差異，而非依賴主動運輸（active transport）。</p><p>(C) 錯：與乳汁中鈣、鎂等二價陽離子螯合主要是四環素類（tetracyclines）或氟喹諾酮類（fluoroquinolones）的特性，並非偏鹼性藥物普遍濃縮於乳汁的原因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 4,
+        "text": "4.下列有關血漿蛋白結合（plasma protein binding）的敘述，何者正確？",
+        "options": {
+            "A": "所有sulfonamides的血漿蛋白結合率皆相似",
+            "B": "解離常數（dissociation constant）愈小者結合力愈弱",
+            "C": "Phenylbutazone與warfarin可相互競爭血漿蛋白結合",
+            "D": "Digitoxin主要和球蛋白結合"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Phenylbutazone與warfarin可相互競爭血漿蛋白結合</b></p><p>Phenylbutazone（非類固醇抗發炎藥）與 warfarin（香豆素類抗凝血劑）皆為弱酸性藥物，且皆高度與血漿白蛋白（albumin）上的同一結合位點（Site I）結合（結合率均超過 95%）。兩者併用時，phenylbutazone 會將 warfarin 從白蛋白結合位點置換出來，導致血漿中具藥理活性的游離態（unbound）warfarin 濃度驟增，大幅增加嚴重出血中毒的風險。</p><p>(A) 錯：不同磺胺劑（sulfonamides）的血漿蛋白結合率差異極大（例如 sulfaguanidine 結合率低於 20%，而 sulfadimethoxine 結合率可高達 90% 以上），且與其半衰期長短密切相關。</p><p>(B) 錯：解離常數（dissociation constant, Kd）代表藥物-蛋白複合物解離的傾向，Kd 愈小表示愈不易解離，即親和力與結合力愈「強」。</p><p>(D) 錯：Digitoxin（毛地黃毒苷）高度與血漿白蛋白（albumin）結合（結合率約 90% 以上），而非球蛋白。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 5,
+        "text": "5.下列有關抑制「酶」與其作用的敘述，何者錯誤？",
+        "options": {
+            "A": "抑制cyclooxygenase可抑制前列腺素的合成",
+            "B": "抑制phosphodiesterase可增加心臟收縮力",
+            "C": "抑制β-lactamase可增加抗黴菌劑的藥效",
+            "D": "抑制DNA gyrase可具有殺菌藥效"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 抑制β-lactamase可增加抗黴菌劑的藥效</b></p><p>β-內醯胺酶（β-lactamase）是由抗藥性細菌產生的水解酵素，專一性破壞青黴素類（penicillins）與頭孢菌素類（cephalosporins）等 β-內醯胺類「抗菌劑（抗細菌抗生素）」的 β-內醯胺環使其失活；因此使用 β-內醯胺酶抑制劑（如 clavulanic acid、sulbactam、tazobactam）可保護 β-內醯胺類抗生素並增加其抗「細菌」藥效，與「抗黴菌劑（antifungals）」完全無關。</p><p>(A) 對：環氧合酶（cyclooxygenase, COX）負責將花生四烯酸轉化為前列腺素（prostaglandins），NSAIDs 抑制 COX 可阻斷前列腺素合成，達到鎮痛、解熱與抗發炎效果。</p><p>(B) 對：抑制心肌細胞第 III 型磷酸二酯酶（phosphodiesterase-3, PDE-3，如 pimobendan、amrinone）可減少 cAMP 分解，促進鈣離子內流並增強心肌收縮力（正性肌力作用）。</p><p>(D) 對：氟喹諾酮類（fluoroquinolones，如 enrofloxacin）抑制細菌 DNA 旋轉酶（DNA gyrase / topoisomerase II），阻斷細菌 DNA 複製與轉錄，具有濃度依賴性殺菌作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 6,
+        "text": "6.下列何藥品對CYP-450的作用和其他三個藥品不同？",
+        "options": {
+            "A": "chloramphenicol",
+            "B": "ketoconazole",
+            "C": "primidone",
+            "D": "cimetidine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) primidone</b></p><p>Primidone 為抗癲癇藥物（在體內代謝產生活性代謝物 phenobarbital 與 phenylethylmalonamide），其對肝臟微粒體細胞色素 P450（CYP-450）酵素的作用為「酵素誘導（enzyme induction）」，會增加肝臟 CYP-450 酵素合成，加速自身及併用藥物（如類固醇、chloramphenicol、doxycycline）的代謝清除；而其餘三個藥品皆為 CYP-450 酵素抑制劑。</p><p>(A) 錯：chloramphenicol 為強效 CYP-450 酵素抑制劑，會抑制肝臟微粒體酵素並延長巴比妥類（如 pentobarbital）麻醉藥的作用時間。</p><p>(B) 錯：ketoconazole 為強效 CYP-450（特別是 CYP3A4）酵素抑制劑，常刻意與 cyclosporine 併用藉以減少 cyclosporine 的肝臟代謝與用藥劑量。</p><p>(D) 錯：cimetidine（H2 受體拮抗劑）可與 CYP-450 的血紅素鐵結合而抑制多種肝臟藥物代謝酵素。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 7,
+        "text": "7.下列何者是造成犬隻經口投予lidocaine生體可用率（bioavailability）不佳的主因？",
+        "options": {
+            "A": "因具有四級銨的結構而降低吸收",
+            "B": "因會和食物中的二價離子螯合",
+            "C": "因肝臟代謝速率快",
+            "D": "因無法經由腎臟再吸收"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 因肝臟代謝速率快</b></p><p>Lidocaine（醯胺類局部麻醉藥與第 Ib 類抗心律不整藥）經口投予後雖可自胃腸道良好吸收，但藥物經門靜脈進入肝臟時會遭受極劇烈的肝臟首渡代謝（hepatic first-pass metabolism），迅速經肝臟微粒體酵素去乙基化轉化為代謝物（MEGX 與 GX），導致口服生體可用率（bioavailability）極低（約僅 15%～35%）且易引起代謝物神經毒性，故臨床上抗心律不整需採靜脈注射給藥。</p><p>(A) 錯：lidocaine 為三級胺（tertiary amine）結構，並非帶永久正電荷的四級銨結構，能良好穿透胃腸道細胞膜吸收。</p><p>(B) 錯：與食物中二價陽離子（如 Ca2+、Mg2+）螯合影響吸收是四環素類（tetracyclines）與氟喹諾酮類（fluoroquinolones）的特徵，非 lidocaine。</p><p>(D) 錯：腎臟再吸收主要影響藥物自尿液排泄的速率，與口服進入體循環前的生體可用率無直接關聯。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 8,
+        "text": "8.下列何種併用較不會產生藥品不良反應（adverse drug reaction）？",
+        "options": {
+            "A": "phenylbutazone與coumarins",
+            "B": "furosemide與digitalis",
+            "C": "clavulanic acid與amoxicillin",
+            "D": "streptomycin與amphotericin B"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) clavulanic acid與amoxicillin</b></p><p>Clavulanic acid（克拉維酸，β-內醯胺酶抑制劑）與 amoxicillin（廣效性胺基青黴素）的併用是獸醫臨床最經典的協同抗菌組合（如 Clavamox）。Clavulanic acid 可不可逆地結合並抑制細菌產生的 β-內醯胺酶，保護 amoxicillin 不被水解破壞，兩者毒性低且無負面藥物交互作用。</p><p>(A) 錯：phenylbutazone 會競爭性置換血漿白蛋白上的 coumarins（warfarin），使游離態抗凝血劑暴增而引發致命性出血不良反應。</p><p>(B) 錯：furosemide（亨利氏環利尿劑）大量排鉀引起低血鉀症（hypokalemia），低血鉀會增強 digitalis（毛地黃強心配醣體）與心肌 Na+/K+-ATPase 的結合，極易誘發致命性心律不整中毒。</p><p>(D) 錯：streptomycin（胺基醣苷類抗生素）與 amphotericin B（多烯類抗黴菌藥）均具有高度腎小管毒性，併用會產生嚴重的加成性腎毒性（nephrotoxicity）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 9,
+        "text": "9.下列何者可以由Henderson-Hasselbalch方程式運算得到？",
+        "options": {
+            "A": "藥物於不同pH值水溶液中的解離比率",
+            "B": "藥物於不同pH值水溶液中的水解速率",
+            "C": "藥物於不同pH值水溶液中的代謝速率",
+            "D": "藥物於不同pH值水溶液中的溶解度"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 藥物於不同pH值水溶液中的解離比率</b></p><p>Henderson-Hasselbalch 方程式描述弱酸（pH = pKa + log([A-]/[HA])）或弱鹼（pH = pKa + log([B]/[BH+])）的解離常數（pKa）、環境酸鹼值（pH）與離子態／非離子態濃度比值之間的定量關係，因此可用於精確計算藥物在不同 pH 值水溶液中的解離比率（degree of ionization）及預測其跨膜吸收與離子捕捉分布。</p><p>(B) 錯：藥物在溶液中的化學水解速率屬於化學動力學（reaction kinetics，如一級或零級反應速率常數），無法由 Henderson-Hasselbalch 方程式求得。</p><p>(C) 錯：藥物在體內的代謝速率由肝臟酵素動力學（Michaelis-Menten 方程式，Km 與 Vmax）決定。</p><p>(D) 錯：Henderson-Hasselbalch 方程式計算的是解離態與未解離態的比率，無法直接算出藥物的絕對飽和溶解度。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 10,
+        "text": "10.下列何者是犬隻使用thiopental麻醉作用時間短暫的主要原因？",
+        "options": {
+            "A": "藥物很快被腎臟排除",
+            "B": "藥物於不同組織間的重分布",
+            "C": "藥物很快被肝臟代謝",
+            "D": "藥物與血漿蛋白結合比率極高"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 藥物於不同組織間的重分布</b></p><p>Thiopental（硫噴妥鈉）為超短效巴比妥類靜脈麻醉劑，具有極高的脂溶性。靜脈注射後迅速通過血腦屏障進入血流灌注極豐富的腦部，立即產生麻醉作用；但隨後數分鐘內，thiopental 即迅速順著濃度梯度從腦部重分布（redistribution）至血流次豐富且體積龐大的骨骼肌，再緩慢轉移至脂肪組織，使腦中藥物濃度迅速降至麻醉閾值以下而甦醒，因此其單次給藥麻醉時間短暫的主因是組織間重分布（而非快速代謝或排泄，若連續重複追加給藥則脂肪飽和後會導致嚴重甦醒延遲）。</p><p>(A) 錯：thiopental 脂溶性極高，在腎小管會被幾乎完全再吸收，極少以原形經腎臟快速排除。</p><p>(C) 錯：thiopental 在犬肝臟的代謝速率其實相當緩慢（半衰期長達數小時），並非其幾分鐘內即甦醒的原因。</p><p>(D) 錯：血漿蛋白結合率高（約 75%～85%）會限制藥物清除速率，並非造成超短效麻醉的主因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 11,
+        "text": "11.Epinephrine升高血壓的作用與propranolol降低血壓的作用屬於下列何種拮抗？",
+        "options": {
+            "A": "受體拮抗（receptor antagonism）",
+            "B": "生理拮抗（physiologic antagonism）",
+            "C": "化學拮抗（chemical antagonism）",
+            "D": "酵素拮抗（enzymatic antagonism）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 受體拮抗（receptor antagonism）</b></p><p>Epinephrine（腎上腺素）為腎上腺素性受體（α 與 β 受體）致效劑，而 propranolol 為非選擇性 β-腎上腺素性受體拮抗劑（β-blocker），兩者直接競爭結合細胞膜上的 β-腎上腺素性受體（propranolol 阻斷心臟 β1 受體降低心輸出量與血壓，拮抗 epinephrine 經由 β1 受體產生的正性肌力與正性變時升壓效應），屬於受體層級的競爭性受體拮抗（receptor antagonism）。</p><p>(B) 錯：生理拮抗（physiologic antagonism）是指兩種藥物各自作用於「完全不同的受體或生理系統」而產生相反的生理效應（例如 epinephrine 活化血管 α1 受體升壓與 histamine 活化血管 H1 受體降壓，或 insulin 降血糖與 glucagon 升血糖）。</p><p>(C) 錯：化學拮抗（chemical antagonism）是指拮抗劑不經由受體，而是直接與致效劑發生化學結合使其失活（例如 protamine sulfate 帶正電中和帶負電的 heparin，或螯合劑 EDTA 結合鉛離子）。</p><p>(D) 錯：酵素拮抗是指藥物抑制特定酵素活性（如有機磷抑制乙醯膽鹼酯酶），不適用於受體配體之間的競爭作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 12,
+        "text": "12.藥物在豬的生物轉化（biotransformation），下列何者較容易被飽和？",
+        "options": {
+            "A": "acetylation",
+            "B": "amino acid conjugation",
+            "C": "sulfate conjugation",
+            "D": "glucuronidation"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) sulfate conjugation</b></p><p>動物第二相生物轉化（Phase II biotransformation / conjugation）具有明顯的種別差異：豬隻體內的硫酸鹽結合反應（sulfate conjugation / sulfation）由於體內無機硫酸根（PAPS）庫存有限且特定 sulfotransferase 活性較低，在給予較高劑量的酚類（phenols）或其他需經硫酸化代謝的藥物時，極易發生代謝飽和（saturation），此時藥物會轉向依賴葡萄糖醛酸化途徑排除。</p><p>(A) 錯：乙醯化反應（acetylation）是犬隻與狐狸完全缺乏的代謝途徑（缺乏 N-acetyltransferase），豬隻則具備正常的乙醯化能力。</p><p>(B) 錯：胺基酸結合反應（amino acid conjugation，如 glycine 結合）在多數哺乳動物均可進行，並非豬隻特異性易飽和的途徑。</p><p>(D) 錯：葡萄糖醛酸化反應（glucuronidation）是貓科動物極度缺乏的代謝途徑（缺乏 UGT1A6 等酵素，故貓對 acetaminophen 與酚類極度敏感），而豬隻的葡萄糖醛酸化能力則相當發達。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 13,
+        "text": "13.下列何者是藥物動力學計算的參數？",
+        "options": {
+            "A": "藥物與受體之親和力",
+            "B": "藥物之最大生理效應",
+            "C": "藥物之相對效價",
+            "D": "藥物吸收速率及程度"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 藥物吸收速率及程度</b></p><p>藥物動力學（pharmacokinetics, PK，研究「機體對藥物的作用」，包含吸收 Absorption、分布 Distribution、代謝 Metabolism、排泄 Excretion）所計算的核心參數包括吸收速率常數（ka）、達峰時間（Tmax）、最高血中濃度（Cmax）、生體可用率（F，即吸收程度）、分布體積（Vd）、清除率（Cl）與排除半衰期（t1/2）。</p><p>(A) 錯：藥物與受體之親和力（affinity，解離常數 Kd）屬於藥效學（pharmacodynamics, PD，研究「藥物對機體的作用」）的參數。</p><p>(B) 錯：藥物之最大生理效應（maximal efficacy, Emax）是衡量藥物效能的藥效學（PD）參數。</p><p>(C) 錯：藥物之相對效價（potency，半數有效濃度 EC50 或半數有效劑量 ED50）亦屬於藥效學（PD）的參數。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 14,
+        "text": "14.臨床上，diprenorphine適合做為下列那一藥物之拮抗劑？",
+        "options": {
+            "A": "diazepam",
+            "B": "etorphine",
+            "C": "ketamine",
+            "D": "xylazine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) etorphine</b></p><p>Etorphine（M99）是一種超強效類鴉片受體致效劑（效力約為嗎啡的 1,000 至 10,000 倍），廣泛用於大型野生動物（如犀牛、大象、鹿科動物）的遠距離吹箭麻醉保定。由於其極強的呼吸抑制與中樞抑制作用，保定完成後必須立即靜脈或肌肉注射其專一性類鴉片受體拮抗劑 diprenorphine（M50-50，商業製劑常稱為 Revivon，與含有 etorphine 的 Immobilon 成對使用）以迅速逆轉麻醉。</p><p>(A) 錯：diazepam（苯二氮平類鎮靜抗痙攣藥）的專一性受體拮抗劑為 flumazenil。</p><p>(C) 錯：ketamine（解離性麻醉劑，NMDA 受體拮抗劑）目前並無專一性的受體逆轉拮抗劑。</p><p>(D) 錯：xylazine（α2-腎上腺素性受體致效劑）的專一性拮抗劑為 yohimbine、tolazoline 或 atipamezole。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 15,
+        "text": "15.下列有關競爭性神經肌肉阻斷藥物之敘述，何者錯誤？",
+        "options": {
+            "A": "Tubocurarine在狗和貓不會引起histamine釋放",
+            "B": "Pancuronium引起心跳速率的輕微增加",
+            "C": "Atracurium可誘發histamine釋放",
+            "D": "Vecuronium具有競爭乙醯膽鹼受器的作用"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Tubocurarine在狗和貓不會引起histamine釋放</b></p><p>Tubocurarine（d-tubocurarine）是原型非去極化（競爭性）神經肌肉阻斷劑，在犬、貓與人類極易直接去顆粒活化肥大細胞，釋放大量組織胺（histamine），進而引起支氣管痙攣、支氣管分泌增加以及嚴重周邊血管擴張與低血壓（犬隻對其組織胺釋放作用尤為敏感），因此稱「不會引起 histamine 釋放」為錯誤敘述。</p><p>(B) 對：pancuronium 具有微弱的類阿托品（vagolytic，阻斷心臟 M2 蕈毒鹼受體）作用，因此會引起心跳速率輕微增加與血壓微升。</p><p>(C) 對：atracurium（特別在快速大劑量靜脈推注時）亦可誘發肥大細胞釋放 histamine，引起暫時性低血壓與皮膚潮紅。</p><p>(D) 對：vecuronium 為中效型非去極化神經肌肉阻斷劑，藉由競爭性結合骨骼肌運動終板的尼古丁型乙醯膽鹼受體（Nm）阻斷神經傳導，且極少引起組織胺釋放或心血管副作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 16,
+        "text": "16.下列何者可作為競爭性神經肌肉阻斷劑中毒的解毒劑？",
+        "options": {
+            "A": "MAO inhibitors",
+            "B": "acetylcholinesterase inhibitors",
+            "C": "COMT inhibitors",
+            "D": "COX inhibitors"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) acetylcholinesterase inhibitors</b></p><p>競爭性（非去極化）神經肌肉阻斷劑（如 pancuronium、vecuronium、atracurium）是與乙醯膽鹼（ACh）競爭結合骨骼肌運動終板上的尼古丁型受體（Nm）。投予乙醯膽鹼酯酶抑制劑（acetylcholinesterase inhibitors，如 neostigmine、edrophonium 或 pyridostigmine，常併用 atropine 以防蕈毒鹼副作用）可抑制突觸間隙乙醯膽鹼酯酶對 ACh 的水解，使突觸間隙 ACh 濃度大幅累積，進而將競爭性阻斷劑從受體上置換下來，恢復正常肌肉收縮。</p><p>(A) 錯：單胺氧化酶抑制劑（MAO inhibitors，如 selegiline）抑制多巴胺、正腎上腺素與血清素的分解，不影響運動終板的乙醯膽鹼濃度。</p><p>(C) 錯：兒茶酚-O-甲基轉移酶抑制劑（COMT inhibitors，如 entacapone）抑制兒茶酚胺類神經傳導物質的代謝，與神經肌肉接合處無關。</p><p>(D) 錯：環氧合酶抑制劑（COX inhibitors，即 NSAIDs）抑制前列腺素合成，對神經肌肉阻斷劑無拮抗作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 17,
+        "text": "17.下列何者最適合使用於患有肝、腎疾病動物之麻醉？",
+        "options": {
+            "A": "halothane",
+            "B": "isoflurane",
+            "C": "methoxyflurane",
+            "D": "pentobarbital"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) isoflurane</b></p><p>Isoflurane（異氟烷，以及 sevoflurane）為現代獸醫臨床常用的吸入性麻醉劑，其在動物體內的肝臟生物轉化率極低（僅約 0.2% 經肝臟細胞色素 P450 代謝，遠低於 halothane 的 20% 與 methoxyflurane 的 50%），超過 99% 以原型氣體經由肺臟呼出體外，幾乎不依賴肝臟代謝或腎臟排泄，且不產生具腎毒性的無機氟化物，亦能較佳維持肝臟與腎臟血流灌注，最適合用於肝、腎功能障礙動物的麻醉。</p><p>(A) 錯：halothane（氟烷）約有 15%～20% 經肝臟代謝，可能產生肝毒性代謝物（三氟乙醯氯）引發氟烷性肝炎，並顯著降低心輸出量與肝腎血流。</p><p>(C) 錯：methoxyflurane（甲氧氟烷）高達 50% 以上經肝臟代謝，會釋出大量無機氟離子（F-）與草酸，引起嚴重高輸出性腎衰竭（fluoride nephrotoxicity），現已淘汰。</p><p>(D) 錯：pentobarbital（戊巴比妥）主要依賴肝臟微粒體酵素代謝並經腎臟排除，肝腎疾病動物使用會導致嚴重代謝延遲、麻醉過深與甦醒極度緩慢。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 18,
+        "text": "18.下列何者是蕈毒鹼性致效劑，且投予後可直接與蕈毒鹼性受體結合產生作用？",
+        "options": {
+            "A": "neostigmine",
+            "B": "echothiophate",
+            "C": "hyoscyamine",
+            "D": "bethanechol"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) bethanechol</b></p><p>Bethanechol（烏拉膽鹼）為合成的膽鹼酯類擬副交感神經藥，屬於「直接作用型（direct-acting）」蕈毒鹼性致效劑，投予後可直接與平滑肌上的蕈毒鹼性受體（主要為 M3 受體）結合並活化之，且因結構具有 β-甲基而完全不被乙醯膽鹼酯酶水解，臨床主要用於治療膀胱無力性尿瀦留（促進逼尿肌收縮）與促進胃腸蠕動。</p><p>(A) 錯：neostigmine 為可逆性乙醯膽鹼酯酶抑制劑，屬於「間接作用型（indirect-acting）」擬膽鹼藥，藉由抑制 ACh 分解間接增加內源性 ACh，並非直接結合蕈毒鹼受體。</p><p>(B) 錯：echothiophate 為長效不可逆性有機磷類乙醯膽鹼酯酶抑制劑（用於治療青光眼），亦屬間接作用型擬膽鹼藥。</p><p>(C) 錯：hyoscyamine（莨菪鹼，阿托品的左旋異構物）是蕈毒鹼性受體「拮抗劑」（抗膽鹼藥），作用與致效劑相反。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 19,
+        "text": "19.下列何者主要活化β2-腎上腺素性受體，藉此舒張支氣管？",
+        "options": {
+            "A": "dobutamine",
+            "B": "hyoscyamine",
+            "C": "salmeterol",
+            "D": "atipamezole"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) salmeterol</b></p><p>Salmeterol（以及短效型的 albuterol、terbutaline、clenbuterol）為選擇性 β2-腎上腺素性受體致效劑（β2-adrenergic agonist），結合支氣管平滑肌上的 β2 受體後活化 Gs 蛋白與腺苷酸環化酶，使細胞內 cAMP 濃度升高，促使支氣管平滑肌鬆弛擴張並抑制肥大細胞釋放發炎介質，用於治療氣喘與慢性阻塞性呼吸道疾病。</p><p>(A) 錯：dobutamine 為選擇性 β1-腎上腺素性受體致效劑，主要作用於心臟增強心肌收縮力（正性肌力作用），用於治療急性心衰竭與低血壓。</p><p>(B) 錯：hyoscyamine 為蕈毒鹼性受體拮抗劑（抗膽鹼藥），雖可阻斷副交感神經引起輕度氣管擴張，但非活化 β2 受體。</p><p>(D) 錯：atipamezole 為高選擇性 α2-腎上腺素性受體拮抗劑，臨床用作 medetomidine 與 dexmedetomidine 的專一性鎮靜逆轉劑。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 20,
+        "text": "20.下列何者為選擇性β1-腎上腺素性受體拮抗劑？",
+        "options": {
+            "A": "albuterol",
+            "B": "metaraminol",
+            "C": "atenolol",
+            "D": "atipamezole"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) atenolol</b></p><p>Atenolol（阿替洛爾，以及 esmolol、metoprolol）屬於第二代心臟選擇性 β1-腎上腺素性受體拮抗劑（selective β1-blocker），主要阻斷心肌細胞與竇房結、房室結的 β1 受體，減慢心率、減弱心肌收縮力並降低心輸出量與血壓，臨床用於治療貓肥大性心肌病（HCM）、犬貓室上性心搏過速與全身性高血壓，且較不易阻斷支氣管 β2 受體而誘發氣喘。</p><p>(A) 錯：albuterol（salbutamol）為短效選擇性 β2-腎上腺素性受體「致效劑」，用於支氣管擴張。</p><p>(B) 錯：metaraminol 為 α1-腎上腺素性受體「致效劑」（兼具間接促進正腎上腺素釋放），用於升壓治療低血壓。</p><p>(D) 錯：atipamezole 為選擇性 α2-腎上腺素性受體「拮抗劑」，用於逆轉 α2 致效劑的鎮靜作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 21,
+        "text": "21.下列何者是選擇性的α1-腎上腺素性受體致效劑？",
+        "options": {
+            "A": "bretylium",
+            "B": "phenoxybenzamine",
+            "C": "phenylephrine",
+            "D": "prazosin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) phenylephrine</b></p><p>Phenylephrine 為直接作用型選擇性 α1-腎上腺素性受體致效劑（selective α1-adrenergic agonist），活化血管平滑肌 α1 受體（經由 Gq-IP3/DAG 路徑增加細胞內鈣離子）引起小動脈收縮與周圍血管阻力上升，臨床用於治療麻醉期間低血壓、作為鼻黏膜解充血劑（收縮鼻黏膜血管）以及眼科散瞳劑（收縮虹膜輻射肌）。</p><p>(A) 錯：bretylium 為交感神經節後神經元阻斷劑（抑制正腎上腺素釋放），並具第 III 類抗心律不整作用。</p><p>(B) 錯：phenoxybenzamine 為非選擇性、不可逆共價結合的 α-腎上腺素性受體「拮抗劑」（α1 與 α2 均阻斷），用於治療嗜鉻細胞瘤與尿道括約肌痙攣。</p><p>(D) 錯：prazosin 為選擇性 α1-腎上腺素性受體「拮抗劑」，用於擴張血管與鬆弛尿道平滑肌。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 22,
+        "text": "22.下列何者為臨床經口投予prazosin之主要目的？",
+        "options": {
+            "A": "興奮中樞神經系統",
+            "B": "鎮靜及鬆弛肌肉",
+            "C": "增加心輸出量",
+            "D": "促進脂肪分解速率"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 增加心輸出量</b></p><p>Prazosin（哌唑嗪）為選擇性突觸後 α1-腎上腺素性受體拮抗劑（selective α1-blocker），口服吸收後能阻斷血管平滑肌的 α1 受體，同時擴張小動脈（降低全身血管阻力與心臟後負荷 afterload）與靜脈（降低靜脈回流壓力與前負荷 preload），顯著減輕左心室射血阻力並改善心肌灌流，從而有效「增加心輸出量（cardiac output）」，臨床用於治療鬱血性心衰竭、全身性高血壓及犬貓機能性尿道阻塞（鬆弛內尿道括約肌）。</p><p>(A) 錯：prazosin 不會興奮中樞神經系統，反而可能引起輕微嗜睡或姿勢性低血壓。</p><p>(B) 錯：鎮靜及骨骼肌鬆弛是 α2-腎上腺素性受體「致效劑」（如 xylazine、dexmedetomidine）或中樞肌肉鬆弛劑的作用，非 α1 拮抗劑。</p><p>(D) 錯：促進脂肪分解（lipolysis）主要是由活化脂肪細胞 β3（及 β1/β2）腎上腺素性受體所媒介。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 23,
+        "text": "23.長期使用利尿劑後，常發生低血壓性反射作用而引起心律不整，可併用何種藥物改善？",
+        "options": {
+            "A": "α1 blocker",
+            "B": "α2 blocker",
+            "C": "β1 blocker",
+            "D": "β2 blocker"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) β1 blocker</b></p><p>長期或大劑量使用利尿劑導致血容積下降與血壓偏低時，頸動脈竇與主動脈弓的壓力感受器反射（baroreceptor reflex）會代償性興奮交感神經系統，釋放大量正腎上腺素與腎上腺素作用於心臟的 β1 受體，引起反射性心搏過速（reflex tachycardia）並增加心肌耗氧量而誘發心律不整；併用選擇性 β1 blocker（如 atenolol）可阻斷心臟 β1 受體，有效抑制交感神經過度刺激引起的心律不整。</p><p>(A) 錯：α1 blocker（如 prazosin）會進一步擴張血管加重低血壓，使壓力感受器反射更加劇烈。</p><p>(B) 錯：α2 blocker（如 yohimbine）會阻斷突觸前抑制性 α2 自體受體，反而促進正腎上腺素釋放並加劇心搏過速。</p><p>(D) 錯：心臟調控心率與傳導的主要受體為 β1 受體，而非主要分布於支氣管與血管平滑肌的 β2 受體。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 24,
+        "text": "24.Enoxaparin對下列何種凝血因子的抑制作用最強？",
+        "options": {
+            "A": "II",
+            "B": "XI",
+            "C": "X",
+            "D": "IX"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) X</b></p><p>Enoxaparin（依諾肝素，以及 dalteparin）屬於低分子量肝素（low-molecular-weight heparin, LMWH），是由傳統未分級肝素解聚而成的短鏈多醣（分子量約 4,000～5,000 Da）。由於鏈長不足以同時橋接抗凝血酶 III（antithrombin III, AT-III）與凝血酶（factor IIa），enoxaparin 與 AT-III 結合後主要產生高選擇性抑制活化的第 X 凝血因子（factor Xa）的作用（抗 Xa 與抗 IIa 活性比約為 3：1 至 4：1），臨床用於預防與治療貓主動脈血栓栓塞（FATE）及犬血栓高風險疾病。</p><p>(A) 錯：傳統未分級肝素（unfractionated heparin）對 factor IIa（凝血酶）與 factor Xa 具同等強度的抑制作用（1：1），而 enoxaparin 對 factor II 的抑制力遠弱於對 factor X。</p><p>(B) 錯：factor XI 並非 low-molecular-weight heparin 的主要抑制標的。</p><p>(D) 錯：factor IX 亦非 enoxaparin 抑制作用最強的主要凝血因子。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 25,
+        "text": "25.下列何者最適合使用於加強鬱血性心衰竭心肌之收縮力量？",
+        "options": {
+            "A": "hydralazine",
+            "B": "amrinone",
+            "C": "nitroglycerin",
+            "D": "doxapram"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) amrinone</b></p><p>Amrinone（現多稱為 inamrinone，與同類藥物 milrinone、pimobendan）屬於雙吡啶類第 III 型磷酸二酯酶抑制劑（phosphodiesterase-3 inhibitor, PDE-3 inhibitor）。其抑制心肌細胞內 cAMP 的分解，使細胞內 cAMP 濃度升高並活化蛋白激酶 A，增加收縮期鈣離子內流（強心作用 positive inotropy），同時使血管平滑肌舒張（降低前後負荷），屬於「強心擴血管劑（inodilator）」，適合用於加強鬱血性心衰竭的心肌收縮力量。</p><p>(A) 錯：hydralazine 為直接作用型小動脈擴張劑，僅能降低心臟後負荷（afterload），不具直接增強心肌收縮力的正性肌力作用。</p><p>(C) 錯：nitroglycerin（硝酸甘油）為一氧化氮（NO）供體，主要擴張靜脈系統以降低前負荷（減輕肺水腫），無直接強心作用。</p><p>(D) 錯：doxapram 為中樞呼吸興奮劑（興奮頸動脈體化學感受器與延腦呼吸中樞），用於新生兒或麻醉後呼吸抑制，並非心衰竭強心藥。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 26,
+        "text": "26.下列何者為使用lidocaine抗心律不整之主要作用機制？",
+        "options": {
+            "A": "縮短心肌動作電位期間",
+            "B": "阻斷Ca++離子通道",
+            "C": "縮短動作電位之不反應期",
+            "D": "增加迷走神經之張力"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 縮短心肌動作電位期間</b></p><p>Lidocaine（利多卡因）屬於 Vaughan Williams 分類第 Ib 類抗心律不整藥（Class Ib antiarrhythmic agent），選擇性結合並阻斷去極化或受損缺血心肌細胞膜上的快速鈉離子通道（減少第 0 期快速去極化及第 2 期平台期微量鈉內流），並加速第 3 期鉀離子外流再極化，因此會「縮短心肌動作電位期間（action potential duration, APD）」與有效不反應期（ERP），臨床主要用於治療犬隻心室性期外收縮（VPCs）與心室頻脈。</p><p>(B) 錯：阻斷慢速 L 型鈣離子通道（Ca++ channel blockers，如 diltiazem、verapamil）屬於第 IV 類（Class IV）抗心律不整藥，主要抑制竇房結與房室結傳導。</p><p>(C) 錯：第 Ib 類藥物雖亦使有效不反應期（ERP）絕對值略為縮短，但動作電位期間（APD）縮短的幅度更大（使 ERP/APD 比值相對延長），在藥物機轉敘述上「縮短心肌動作電位期間」為第 Ib 類藥物最具代表性的核心特徵。</p><p>(D) 錯：增加迷走神經張力（vagomimetic effect）是強心配醣體 digoxin 減慢房室結傳導的作用機轉之一，並非 lidocaine 的機轉。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 27,
+        "text": "27.下列何者利尿劑因可增加前部遠曲小管鈣的吸收、降低尿鈣的排出，因而可用來治療草酸鈣尿路結石？",
+        "options": {
+            "A": "ethacrynic acid",
+            "B": "spironolactone",
+            "C": "triamterene",
+            "D": "hydrochlorothiazide"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) hydrochlorothiazide</b></p><p>Hydrochlorothiazide（氫氯噻嗪）為 thiazide 類利尿劑，作用於遠曲小管前段（early distal convoluted tubule），抑制管腔側的 Na+/Cl- 共同運輸蛋白（NCC）。此作用使腎小管上皮細胞內鈉濃度降低，進而刺激基底側膜（basolateral membrane）的 Na+/Ca2+ 交換器活性，大幅增加遠曲小管對鈣離子的再吸收並降低尿鈣排泄（hypocalciuric effect），因此可用於預防高尿鈣性草酸鈣（calcium oxalate）尿路結石復發。</p><p>(A) 錯：ethacrynic acid（以及 furosemide）為亨利氏環利尿劑（loop diuretics），抑制亨利氏環粗上升支的 NKCC2，破壞管腔正電位，反而會大幅增加尿鈣排泄（造成高尿鈣症與低血鈣）。</p><p>(B) 錯：spironolactone 為競爭性醛固酮受體拮抗劑（保鉀型利尿劑），作用於集尿管皮質部，不具備促進遠曲小管再吸收鈣離子的作用。</p><p>(C) 錯：triamterene（以及 amiloride）為直接阻斷集尿管上皮鈉離子通道（ENaC）的保鉀型利尿劑，不以降低尿鈣作為治療草酸鈣結石的機轉。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 28,
+        "text": "28.下列藥物何者不具有抗高血鉀症的特性？",
+        "options": {
+            "A": "spironolactone",
+            "B": "insulin",
+            "C": "furosemide",
+            "D": "hydrochlorothiazide"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) spironolactone</b></p><p>Spironolactone 為醛固酮受體拮抗劑，屬於保鉀型利尿劑（potassium-sparing diuretic），作用於遠曲小管後段與集尿管主細胞，抑制醛固酮依賴性鈉離子再吸收與鉀離子排泄，導致鉀離子滯留體內並升高血鉀，因此不僅不具抗高血鉀特性，在患有高血鉀症（hyperkalemia）或愛迪生氏病（hypoadrenocorticism）的動物更是絕對禁忌。</p><p>(B) 錯：insulin（胰島素，臨床常搭配葡萄糖靜脈注射）可活化細胞膜上的 Na+/K+-ATPase 幫浦，迅速將細胞外液的鉀離子轉移進入骨骼肌與肝細胞內，為治療急性嚴重高血鉀症的急救首選藥物。</p><p>(C) 錯：furosemide（亨利氏環利尿劑）增加遠端腎小管流速與醛固酮活性，促進腎臟大量排鉀，具有降低血鉀（抗高血鉀）的作用。</p><p>(D) 錯：hydrochlorothiazide（thiazide 類利尿劑）增加遠端腎小管鈉負荷並促進鉀離子排泄，亦可降低血鉀。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 29,
+        "text": "29.下列何者兼具利尿和矯正代謝性鹼中毒的作用？",
+        "options": {
+            "A": "furosemide",
+            "B": "amiloride",
+            "C": "acetazolamide",
+            "D": "spironolactone"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B/C/D) amiloride、acetazolamide 或 spironolactone（均給分；教科書最典型標準答案為 (C) acetazolamide）</b></p><p>本題考選部公布答案為 (B)、(C)、(D) 均給分。其中最典型的藥物為 (C) acetazolamide，屬於碳酸酐酶抑制劑（carbonic anhydrase inhibitor），抑制近端腎小管上皮細胞刷狀緣與細胞內的碳酸酐酶，阻斷重碳酸根（HCO3-）再吸收，促使大量 Na+ 與 HCO3- 隨尿液排出，兼具輕度利尿與直接排出鹼性尿液矯正代謝性鹼中毒（metabolic alkalosis）的作用；此外，保鉀型利尿劑 (B) amiloride（阻斷集尿管 ENaC 通道）與 (D) spironolactone（拮抗醛固酮受體）在產生利尿作用的同時，均會抑制遠端腎小管對 H+ 與 K+ 的分泌排泄，因而亦有助於矯正利尿劑誘發之低血鉀性代謝性鹼中毒，故三者皆獲給分。</p><p>(A) 錯：furosemide 為亨利氏環利尿劑，會增加遠端腎小管鈉輸送並活化醛固酮，促進腎臟大量排酸（H+）與排鉀（K+），反而會「誘發或加重」代謝性鹼中毒（contraction alkalosis）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 30,
+        "text": "30.下列有關ammonium chloride的作用，何者錯誤？",
+        "options": {
+            "A": "酸化尿液",
+            "B": "利尿作用",
+            "C": "祛痰作用",
+            "D": "止吐作用"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 止吐作用</b></p><p>Ammonium chloride（氯化銨）經口投予吸收後，在肝臟代謝轉化為尿素（urea）與鹽酸（HCl），產生多餘的氫離子（H+）與氯離子（Cl-）經腎臟排出。其主要臨床用途包括酸化尿液（用於溶解及預防鹼性尿路結石如磷酸銨鎂 struvite 結石，或加速安非他命、番木鱉鹼等弱鹼性毒物離子捕捉排泄）、輕度滲透性利尿作用，以及刺激支氣管黏膜增加漿液分泌產生祛痰作用；但其對胃黏膜具有強烈刺激性，反而容易引發噁心與「催吐」副作用，完全不具止吐作用。</p><p>(A) 對：氯化銨代謝產生鹽酸增加腎臟淨酸排泄，是獸醫臨床常用的尿液酸化劑（urinary acidifier）。</p><p>(B) 對：隨過量氯離子與銨離子排泄會帶走水分與鈉離子，產生短暫的滲透性利尿作用。</p><p>(C) 對：口服可反射性刺激胃黏膜迷走神經，促進呼吸道腺體分泌稀薄黏液，具有祛痰劑（expectorant）作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 31,
+        "text": "31.下列影響腸胃功能的藥物中，何者最可能會干擾其他同時口服藥物的吸收？",
+        "options": {
+            "A": "cimetidine",
+            "B": "misoprostol",
+            "C": "omeprazole",
+            "D": "sucralfate"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) sucralfate</b></p><p>Sucralfate（硫糖鋁，蔗糖八硫酸酯的氫氧化鋁複合物）在酸性胃液（pH < 4）中會發生聚合並交聯成帶負電荷的黏稠糊狀保護膜，緊密附著於潰瘍基底與胃腸黏膜表面；此物理性屏障以及其結構中富含的鋁離子（Al3+）會與多種同時口服的藥物（如 fluoroquinolones、tetracyclines、digoxin、cimetidine、ketoconazole、levothyroxine）發生螯合或吸附作用，大幅阻礙並降低這些藥物的胃腸道吸收，因此臨床上必須與其他口服藥間隔至少 2 小時給藥。</p><p>(A) 錯：cimetidine（H2 受體拮抗劑）雖會抑制肝臟 CYP-450 代謝酵素及提高胃內 pH 值，但不會像 sucralfate 形成黏膜物理屏障與陽離子螯合而廣泛阻礙多數口服藥物吸收。</p><p>(B) 錯：misoprostol 為合成 PGE1 類似物，促進胃黏液與重碳酸根分泌，不會顯著干擾同時口服藥物的吸收。</p><p>(C) 錯：omeprazole 為質子幫浦抑制劑，僅對少數需強酸環境才能溶解吸收的藥物（如 ketoconazole、itraconazole 膠囊）有影響，干擾範圍遠小於 sucralfate。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 32,
+        "text": "32.下列何者具有促進胃黏膜分泌黏液質的作用？",
+        "options": {
+            "A": "meclizine",
+            "B": "methadone",
+            "C": "metoclopramide",
+            "D": "misoprostol"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) misoprostol</b></p><p>Misoprostol（米索前列醇）為人工合成的前列腺素 E1（PGE1）類似物，能結合胃黏膜上皮與壁細胞上的前列腺素受體，刺激胃黏膜大量分泌保護性黏液質（mucin）與重碳酸根（HCO3-）、增加胃黏膜微循環血流量以促進上皮細胞修復，同時抑制胃壁細胞分泌胃酸，臨床上專用於預防與治療非類固醇抗發炎藥（NSAIDs）所引起的胃腸道潰瘍。</p><p>(A) 錯：meclizine 為第一代組織胺 H1 受體拮抗劑（兼具抗膽鹼作用），主要用於預防與治療暈車（動暈症 motion sickness）與前庭性嘔吐。</p><p>(B) 錯：methadone 為純 μ-類鴉片受體致效劑（兼具 NMDA 受體拮抗作用），主要用於中重度疼痛鎮痛與麻醉前給藥。</p><p>(C) 錯：metoclopramide 為多巴胺 D2 受體拮抗劑與 5-HT4 受體致效劑，主要用於中樞止吐與促進胃腸道蠕動（促動力劑）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 33,
+        "text": "33.下列腸胃道用藥中，何者在重複給藥後，會累積於胃壁細胞中？",
+        "options": {
+            "A": "misoprostol",
+            "B": "omeprazole",
+            "C": "ranitidine",
+            "D": "sucralfate"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) omeprazole</b></p><p>Omeprazole（奧美拉唑，質子幫浦抑制劑 PPI）本身為弱鹼性無活性的親脂性前驅藥，經小腸吸收進入血液後，能穿透胃壁細胞（parietal cells）基底膜並選擇性集中累積於壁細胞分泌小管（secretory canaliculi）的極端強酸性環境（pH < 1）中（離子捕捉效應），隨即在強酸催化下重排轉化為具活性的次磺醯胺（sulfenamide）陽離子，與胃質子幫浦（H+/K+-ATPase）的半胱胺酸殘基形成不可逆共價雙硫鍵，因此在重複給藥 3 至 5 日後可達最大抑酸效能。</p><p>(A) 錯：misoprostol 為局部作用的 PGE1 類似物，半衰期極短且迅速代謝，不會累積於胃壁細胞中。</p><p>(C) 錯：ranitidine 為競爭性可逆結合胃壁細胞基底膜 H2 受體的藥物，不進入並累積於壁細胞分泌小管內。</p><p>(D) 錯：sucralfate 口服後幾乎不被全身吸收，僅局部黏附於胃腸道潰瘍黏膜表面形成保護層。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 34,
+        "text": "34.下列有關metoclopramide止吐作用的敘述，何者正確？",
+        "options": {
+            "A": "僅作用於中樞",
+            "B": "僅為黏膜保護劑",
+            "C": "同時具中樞與周邊作用",
+            "D": "僅具制酸作用"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 同時具中樞與周邊作用</b></p><p>Metoclopramide（胃復安）具有中樞與周邊雙重止吐與促動力機制：在中樞神經系統，其可通過血腦屏障拮抗第四腦室底化學受體觸發區（chemoreceptor trigger zone, CRTZ）的多巴胺 D2 受體（高劑量下亦拮抗 5-HT3 受體），阻斷催吐訊號傳入嘔吐中樞；在周邊消化道，則拮抗抑制性 D2 受體並活化腸道肌間神經叢的 5-HT4 受體以促進乙醯膽鹼釋放，增加食道下括約肌張力、促進胃竇收縮排空並協調十二指腸蠕動，防止胃食道逆流與胃滯留性嘔吐。</p><p>(A) 錯：除中樞 CRTZ 作用外，其周邊促進胃排空與增強下食道括約肌張力的作用亦為重要止吐機轉。</p><p>(B) 錯：黏膜保護劑為 sucralfate 或鉍劑（bismuth），metoclopramide 不具黏膜保護作用。</p><p>(D) 錯：制酸劑為氫氧化鋁、氫氧化鎂或碳酸鈣，metoclopramide 不中和胃酸。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 35,
+        "text": "35.下列何者是臨床上使用的麻醉性鎮咳藥（narcotic antitussives）？",
+        "options": {
+            "A": "meperidine",
+            "B": "hydrocodone",
+            "C": "noscapine",
+            "D": "dextromethorphan"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) hydrocodone</b></p><p>Hydrocodone（氫可酮，以及 codeine、butorphanol）屬於麻醉性／類鴉片中樞性鎮咳藥（narcotic / opioid antitussives），藉由結合延腦孤束核咳嗽中樞的類鴉片受體（主要為 μ 與 κ 受體），提高咳嗽反射閾值，臨床常用於犬隻嚴重頑固性非生產性乾咳（如氣管塌陷或慢性支氣管炎）。</p><p>(A) 錯：meperidine（pethidine，配西汀）為合成的 μ-類鴉片受體致效劑，主要用於中重度急性疼痛之鎮痛，臨床上不作為鎮咳藥使用。</p><p>(C) 錯：noscapine（那可汀）雖萃取自鴉片，但屬於「非麻醉性（non-narcotic）」中樞性鎮咳藥，不具類鴉片鎮痛、呼吸抑制或成癮性。</p><p>(D) 錯：dextromethorphan（右美沙芬）為可待因的右旋異構物，屬於「非麻醉性（non-narcotic）」中樞性鎮咳藥（主要拮抗 NMDA 受體與作用於 sigma-1 受體），不結合類鴉片受體亦無成癮性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 36,
+        "text": "36.下列解充血劑（decongestants），何者不屬於histamine-receptor（H1）antagonists？",
+        "options": {
+            "A": "phenylephrine",
+            "B": "dimenhydrinate",
+            "C": "chlorpheniramine",
+            "D": "hydroxyzine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) phenylephrine</b></p><p>Phenylephrine（去氧腎上腺素）屬於擬交感神經性解充血劑（sympathomimetic decongestant），其藥理機轉是直接選擇性活化鼻黏膜微血管平滑肌上的 α1-腎上腺素性受體（α1-adrenergic agonist），促使鼻黏膜血管收縮、減少血流量與組織水腫以緩解鼻塞，完全不屬於組織胺 H1 受體拮抗劑（antihistamines）。</p><p>(B) 錯：dimenhydrinate（diphenhydramine 與 8-chlorotheophylline 的鹽類）為第一代組織胺 H1 受體拮抗劑，常用於治療動暈症與過敏反應。</p><p>(C) 錯：chlorpheniramine 為第一代烷基胺類（alkylamine）組織胺 H1 受體拮抗劑，廣泛用於犬貓過敏性皮膚炎與上呼吸道過敏充血。</p><p>(D) 錯：hydroxyzine 為第一代哌嗪類（piperazine）組織胺 H1 受體拮抗劑（在體內代謝為 cetirizine），用於犬貓過敏性搔癢與過敏反應。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 37,
+        "text": "37.下列何者臨床上屬於鎮咳藥，但不會引起成癮性？",
+        "options": {
+            "A": "naloxone",
+            "B": "dextromethorphan",
+            "C": "meperidine",
+            "D": "ipartropium"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A/B/C/D) 均給分（藥理學標準正確答案為 (B) dextromethorphan）</b></p><p>本題考選部公布答案為 (A)、(B)、(C)、(D) 均給分。從獸醫藥理學而言，標準正確選項為 (B) dextromethorphan，其為鴉片類生物鹼 levorphanol 的右旋異構物，直接作用於延腦咳嗽中樞產生強效鎮咳作用，但對類鴉片受體（μ、κ、δ）幾無親和力（主要拮抗 NMDA 受體與結合 sigma-1 受體），因此完全不具鎮痛作用、呼吸抑制或藥物成癮性。</p><p>(A) 錯：naloxone 為純類鴉片受體拮抗劑，用於逆轉類鴉片藥物過量引起的呼吸抑制與昏迷，不具鎮咳作用。</p><p>(C) 錯：meperidine 為麻醉性類鴉片鎮痛藥，具成癮性且不用於臨床鎮咳。</p><p>(D) 錯：ipratropium（題幹拼為 ipartropium）為吸入型四級銨抗膽鹼支氣管擴張劑（M3 受體拮抗劑），主要用於舒張支氣管平滑肌與減少呼吸道分泌，並非中樞性鎮咳藥。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 38,
+        "text": "38.下列藥物何者不具有氣管擴張作用？",
+        "options": {
+            "A": "theophylline",
+            "B": "propranolol",
+            "C": "atropine",
+            "D": "isoproterenol"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) propranolol</b></p><p>Propranolol（心得安）屬於第一代非選擇性 β-腎上腺素性受體拮抗劑（non-selective β-blocker），同時阻斷心臟的 β1 受體與支氣管平滑肌上的 β2 受體。由於支氣管平滑肌失去交感神經 β2 受體媒介的舒張張力，副交感神經乙醯膽鹼作用相對佔優勢，反而會誘發支氣管收縮（bronchoconstriction）與氣道阻力上升，因此不具氣管擴張作用且禁用於氣喘患畜。</p><p>(A) 錯：theophylline（茶鹼，甲基黃嘌呤類藥物）藉由抑制磷酸二酯酶（PDE）增加細胞內 cAMP 以及拮抗腺苷（adenosine）受體，具有明確的支氣管平滑肌擴張作用。</p><p>(C) 錯：atropine（阿托品）阻斷支氣管平滑肌上的 M3 蕈毒鹼受體，解除副交感迷走神經引起的支氣管收縮，具有氣管擴張與減少呼吸道分泌作用。</p><p>(D) 錯：isoproterenol 為非選擇性 β-腎上腺素性受體致效劑（同時活化 β1 與 β2 受體），活化支氣管 β2 受體可產生強效氣管擴張作用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 39,
+        "text": "39.下列何者在獸醫臨床上常被用於催產？",
+        "options": {
+            "A": "PGD2",
+            "B": "PGE2",
+            "C": "PGF2α",
+            "D": "PGI2"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) PGF2α</b></p><p>PGF2α（前列腺素 F2α，如天然製劑 dinoprost tromethamine 或合成類似物 cloprostenol）在獸醫臨床上廣泛用於母畜（特別是母豬、母牛與母羊）的同期分娩（催產 / parturition induction）。PGF2α 具有強效溶解黃體（luteolysis）作用，使血中維持懷孕所需的黃體素（progesterone）濃度急劇下降，同時直接刺激子宮平滑肌收縮並促進子宮頸軟化擴張，誘發正常分娩（亦可用於終止妊娠與治療開放型子宮蓄膿）。</p><p>(A) 錯：PGD2 主要由肥大細胞分泌，參與過敏反應、支氣管收縮與睡眠調節，不用於臨床催產。</p><p>(B) 錯：PGE2（如 dinoprostone）在人醫常用於促進子宮頸成熟與引產，在獸醫臨床則較少作為常規母畜催產主藥（馬匹偶用於局部鬆弛輸卵管或子宮頸）。</p><p>(D) 錯：PGI2（prostacyclin，前列環素）主要由血管內皮細胞產生，具有強效血管擴張與抑制血小板凝集作用，不用於催產。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 40,
+        "text": "40.下列有關carprofen的敘述，何者錯誤？",
+        "options": {
+            "A": "對COX-1之抑制能力比對COX-2之抑制強100倍",
+            "B": "可用於犬作為鎮痛及消除炎症之藥物",
+            "C": "很少發生胃腸道潰瘍及出血",
+            "D": "會增加肝臟及腎臟產生毒性之風險"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 對COX-1之抑制能力比對COX-2之抑制強100倍</b></p><p>Carprofen（卡洛芬，商品名 Rimadyl）是犬隻骨關節炎與術後疼痛最常用的 COX-2 選擇性抑制型非類固醇抗發炎藥（COX-2 selective NSAID），其在犬體內對誘導型發炎酵素「COX-2 的抑制能力遠強於對結構型 COX-1 的抑制」（對 COX-2 的選擇性遠高於 COX-1），並非對 COX-1 抑制較強。</p><p>(B) 對：carprofen 具有優異的鎮痛（analgesic）、消炎（anti-inflammatory）與解熱作用，廣泛用於犬急慢性肌肉骨骼疼痛與術後止痛。</p><p>(C) 對：因其保留了胃腸道黏膜具保護作用的 COX-1 前列腺素合成，在犬隻極少引起胃腸道潰瘍與出血等傳統 NSAIDs 副作用。</p><p>(D) 對：所有 NSAIDs 均可能抑制腎臟前列腺素而增加缺血性腎毒性風險，此外 carprofen 偶見特異體質性急性肝細胞毒性（idiosyncratic hepatotoxicity，尤其好發於拉布拉多尋回犬）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 41,
+        "text": "41.下列何種NSAIDs對cyclooxygenase及lipoxygenase均有抑制作用？",
+        "options": {
+            "A": "deracoxib",
+            "B": "carprofen",
+            "C": "phenybutazone",
+            "D": "tepoxalin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) tepoxalin</b></p><p>Tepoxalin（商品名 Zubrin）屬於雙重路徑抑制型非類固醇抗發炎藥（dual COX/LOX inhibitor），能同時抑制環氧合酶（cyclooxygenase，COX-1 與 COX-2，阻斷前列腺素生成）以及 5-脂氧合酶（5-lipoxygenase / 5-LOX，阻斷花生四烯酸轉化為促炎與致潰瘍的白三烯素 leukotrienes，特別是 LTB4），藉此發揮強效抗發炎作用並減少白三烯素誘發的胃黏膜嗜中性球浸潤損傷。</p><p>(A) 錯：deracoxib（商品名 Deramaxx）為高度選擇性 COX-2 抑制劑（coxib 類），不抑制 5-lipoxygenase。</p><p>(B) 錯：carprofen 為 COX-2 選擇性抑制劑，主要作用於環氧合酶路徑，不抑制脂氧合酶。</p><p>(C) 錯：phenylbutazone（保泰松）為傳統非選擇性 COX-1/COX-2 抑制劑，常用於馬匹肌肉骨骼消炎止痛，不抑制 5-lipoxygenase。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 42,
+        "text": "42.下列有關aspirin的敘述，何者錯誤？",
+        "options": {
+            "A": "對血小板的抑制作用為可逆性",
+            "B": "為非選擇性的cyclooxygenase抑制劑",
+            "C": "對腹部絞痛之治療不具效應",
+            "D": "可被併用於治療敗血症及內毒素性休克重度感染的動物"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 對血小板的抑制作用為可逆性</b></p><p>Aspirin（乙醯水楊酸，acetylsalicylic acid）與其他可逆性抑制 COX 的 NSAIDs 不同，其分子上的乙醯基會與血小板環氧合酶（COX-1）活性中心的絲胺酸殘基（Ser530）形成共價鍵使其乙醯化，產生「不可逆（irreversible）」抑制，完全阻斷血小板合成促進凝集的血栓素 A2（thromboxane A2, TXA2）。由於成熟血小板無細胞核與核糖體無法重新合成新的 COX-1 酵素，此抑制作用會持續至整批血小板自然凋亡替換為止（約 7 至 10 天），故稱「可逆性」為錯誤敘述。</p><p>(B) 對：aspirin 對 COX-1 與 COX-2 均具抑制作用（對 COX-1 抑制力甚至更強），屬於非選擇性環氧合酶抑制劑。</p><p>(C) 對：aspirin 對於内臟平滑肌痙攣或腸道擴張引起的急性腹部絞痛（visceral colic）止痛效果極差（馬匹腹痛需使用 flunixin meglumine 等藥物）。</p><p>(D) 對：低劑量 aspirin 可抑制內毒素血症期間大量產生的血栓素 A2（TXA2）並減少微血栓與肺血管收縮，可作為敗血症與內毒素性休克的輔助用藥。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 43,
+        "text": "43.胰島素的分泌會受到下列何者的抑制？",
+        "options": {
+            "A": "glucagon",
+            "B": "gastrin",
+            "C": "epinephrine",
+            "D": "secretin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) epinephrine</b></p><p>在生理緊迫（stress）、運動或低血糖狀態下，交感神經興奮並由腎上腺髓質釋放 epinephrine（腎上腺素），epinephrine 直接結合胰島 β 細胞膜上的 α2-腎上腺素性受體（α2-adrenergic receptors），活化抑制性 Gi 蛋白降低細胞內 cAMP 濃度並開啟鉀離子通道使細胞過極化，強力抑制胰島素（insulin）釋放，同時促進肝醣分解以維持重要器官的血糖供應。</p><p>(A) 錯：glucagon（升糖素）雖在整體代謝上拮抗胰島素升高血糖，但在胰島局部旁分泌（paracrine）作用下，glucagon 會刺激鄰近胰島 β 細胞增加 cAMP 並促進胰島素分泌。</p><p>(B) 錯：gastrin（胃泌素）於進食後分泌，可刺激胰島 β 細胞提早分泌胰島素（腸泌素效應 incretin effect 的一部分）。</p><p>(D) 錯：secretin（胰泌素）由十二指腸黏膜分泌，除了刺激胰臟外分泌部釋放富含重碳酸根的胰液外，亦能促進胰島素分泌。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 44,
+        "text": "44.下列何者主要透過活化α-腎上腺素性受體，造成平滑肌持久之收縮？",
+        "options": {
+            "A": "ergonovine",
+            "B": "finasteride",
+            "C": "bromocriptine",
+            "D": "flumethasone"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) ergonovine</b></p><p>Ergonovine（麥角新鹼，以及 ergometrine）為麥角菌（Claviceps purpurea）產生的麥角生物鹼，主要作為血管與子宮平滑肌上 α-腎上腺素性受體（及部分血清素 5-HT2 受體）的部分致效劑（partial agonist），能直接引起子宮肌層強烈、節律性且持久的收縮，臨床上常用於控制母畜產後子宮出血（postpartum hemorrhage）及促進產後子宮復舊（uterine involution）。</p><p>(B) 錯：finasteride 為 5α-還原酶抑制劑（5α-reductase inhibitor），阻斷睪固酮轉化為雙氫睪固酮（DHT），用於治療犬良性前列腺增生（BPH），不作用於 α-腎上腺素受體。</p><p>(C) 錯：bromocriptine 為麥角衍生物，但主要為中樞多巴胺 D2 受體致效劑，用於抑制腦下垂體前葉分泌泌乳素（prolactin），治療犬假懷孕或終止泌乳。</p><p>(D) 錯：flumethasone 為強效合成糖皮質素（glucocorticoid），用於抗發炎、抗過敏與誘導牛羊分娩，不活化 α-腎上腺素受體。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 45,
+        "text": "45.下列何者不屬於抗甲狀腺藥（antithyroid drugs）？",
+        "options": {
+            "A": "methimazole",
+            "B": "carbimazole",
+            "C": "albendazole",
+            "D": "propylthiouracil"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) albendazole</b></p><p>Albendazole（阿苯達唑）屬於苯并咪唑類（benzimidazole）廣效性內寄生蟲驅蟲藥，其作用機轉為專一性結合寄生蟲細胞內的 β-微管蛋白（β-tubulin）以抑制微管聚合，臨床用於驅除反芻獸、豬與伴侶動物的消化道線蟲、肺蟲、絛蟲及肝吸蟲（Fasciola hepatica），完全不屬於抗甲狀腺藥物。</p><p>(A) 錯：methimazole（甲巰咪唑，商品名 Tapazole / Felimazole）為硫醯胺類（thioamide）抗甲狀腺藥，抑制甲狀腺過氧化酶（TPO）阻斷碘化物氧化與酪胺酸碘化偶聯，是貓甲狀腺功能亢進症的內科首選治療藥物。</p><p>(B) 錯：carbimazole 為 methimazole 的乙氧基羰基前驅藥（prodrug），口服吸收後在體內迅速轉化為 methimazole 發揮抗甲狀腺素合成作用。</p><p>(D) 錯：propylthiouracil（PTU，丙硫氧嘧啶）亦為硫醯胺類抗甲狀腺藥，除抑制甲狀腺過氧化酶外還可抑制周邊組織 T4 轉化為活性 T3（但因在貓易引起溶血性貧血與血小板減少症而較少使用）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 46,
+        "text": "46.牛產後麻痺與缺乏下列何者有關？",
+        "options": {
+            "A": "維生素D",
+            "B": "銅",
+            "C": "維生素A",
+            "D": "生物素"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 維生素D</b></p><p>牛產後麻痺（parturient paresis / milk fever，又稱乳熱症）常發生於高產乳牛分娩前後 24 至 72 小時內。由於初乳分泌突然消耗大量血鈣，而母牛副甲狀腺素（PTH）刺激腎臟將 25-羥基維生素 D3 轉化為具活性的 1,25-二羥基維生素 D3（calcitriol）之反應延遲或維生素 D 缺乏，導致小腸對鈣的主動吸收與骨骼破骨細胞鈣動員無法及時啟動，引發嚴重急性低血鈣症（hypocalcemia）與骨骼肌及平滑肌弛緩性麻痺（臨床可於分娩前數日投予維生素 D3 預防）。</p><p>(B) 錯：銅（copper）缺乏在牛羊主要引起貧血、被毛褪色（如黑牛變紅褐色）、骨質疏鬆及新生羔羊地方性共濟失調（enzootic ataxia / swayback），與產後低血鈣麻痺無關。</p><p>(C) 錯：維生素 A 缺乏主要引起夜盲症、上皮角化過度、腦脊髓液壓升高及繁殖障礙。</p><p>(D) 錯：生物素（biotin，維生素 B7）缺乏主要導致牛蹄角質軟化、蹄葉炎、白線病與皮膚炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 47,
+        "text": "47.當豬隻缺乏維生素A時，下列何種障礙最顯著？",
+        "options": {
+            "A": "呼吸作用",
+            "B": "繁殖性能",
+            "C": "神經傳遞",
+            "D": "消化功能"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 繁殖性能</b></p><p>維生素 A（視黃醇 retinol 及其活性代謝物視黃酸 retinoic acid）是調控上皮細胞分化、胚胎器官形態發生及性腺類固醇激素合成的核心脂溶性維生素。豬隻（尤其在全舍飼未補充青綠牧草且飼料儲存過久氧化時）缺乏維生素 A，最顯著且具經濟重要性的臨床障礙為「繁殖性能（reproductive performance）」嚴重受損，包括母豬發情不規律、受胎率下降、胚胎早期死亡吸收、流產、死胎，以及產下無眼球症（anophthalmia / microphthalmia）、顎裂、水腦及四肢畸形的仔豬，公豬則出現生精上皮退化與不孕。</p><p>(A) 錯：維生素 A 缺乏雖會使呼吸道黏膜纖毛上皮發生鱗狀化生而增加感染風險，但並非豬隻缺乏時最顯著的核心障礙。</p><p>(C) 錯：在生長豬偶見視神經管狹窄壓迫視神經或腦脊髓液壓升高引起共濟失調，但在種豬群中以繁殖障礙最具代表性。</p><p>(D) 錯：消化功能障礙並非豬隻維生素 A 缺乏最顯著的特徵。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 48,
+        "text": "48.下列何藥物可用於治療末期腎臟疾病所導致之貧血？",
+        "options": {
+            "A": "ferric sulfate",
+            "B": "vitamin K",
+            "C": "erythropoietin",
+            "D": "vitamin B12"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) erythropoietin</b></p><p>紅血球生成素（erythropoietin, EPO）主要由腎臟皮質管周間質細胞（peritubular interstitial cells）在缺氧刺激下合成並分泌至血液，作用於骨髓紅血球前驅細胞（CFU-E）促進其增殖與分化成熟。末期慢性腎臟疾病（chronic kidney disease, CKD）患畜因腎實質嚴重纖維化破壞，無法分泌足夠的內源性 EPO，導致中重度正球性正色素性非再生性貧血（non-regenerative anemia），臨床需定期皮下注射基因重組紅血球生成素（如 epoetin alfa 或長效型 darbepoetin alfa）以有效改善貧血。</p><p>(A) 錯：硫酸亞鐵（ferric / ferrous sulfate）為口服鐵劑，僅在骨髓造血加速耗盡鐵質儲備時作為輔助補充，單獨補鐵無法克服腎臟缺乏 EPO 造成的造血停滯。</p><p>(B) 錯：維生素 K 用於治療抗凝血劑滅鼠藥中毒或膽道阻塞引起的凝血因子（II、VII、IX、X）缺乏性出血，不治療腎性貧血。</p><p>(D) 錯：維生素 B12（cyanocobalamin）用於治療迴腸吸收不良或外分泌胰臟功能不全（EPI）引起的巨母紅血球性貧血，非腎性貧血的主因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 49,
+        "text": "49.Penciclovir以局部（topically）投藥，對下列何種病毒有效？",
+        "options": {
+            "A": "herpesvirus",
+            "B": "cytomegalovirus",
+            "C": "myxovirus",
+            "D": "poxvirus"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) herpesvirus</b></p><p>Penciclovir（噴昔洛韋，及其口服前驅藥 famciclovir、同類藥物 acyclovir）屬於無環鳥嘌呤核苷類似物（acyclic guanosine analog）抗病毒藥物。其抗病毒專一性來自於必須先被疱疹病毒（herpesvirus）編碼的病毒胸苷激酶（viral thymidine kinase, TK）單磷酸化，再經宿主細胞激酶轉化為三磷酸活性態，競爭性抑制病毒 DNA 聚合酶並終止病毒 DNA 鏈延長，局部或全身投藥對單純疱疹病毒（HSV）及貓第一型疱疹病毒（FHV-1）皆有效。</p><p>(B) 錯：巨細胞病毒（cytomegalovirus, CMV）缺乏病毒胸苷激酶（TK），因此對 penciclovir 與 acyclovir 具天然抗藥性（CMV 需使用經 UL97 蛋白激酶活化的 ganciclovir 或 cidofovir）。</p><p>(C) 錯：黏液病毒（myxovirus，如流感病毒、副黏液病毒）屬於 RNA 病毒，不依賴病毒胸苷激酶與 DNA 聚合酶複製，對 penciclovir 無效。</p><p>(D) 錯：痘病毒（poxvirus）在細胞質複製，對鳥嘌呤核苷類似物 penciclovir 不敏感。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 50,
+        "text": "50.下列何者主要是抑制病毒的脫殼（uncoating）？",
+        "options": {
+            "A": "zidovudine",
+            "B": "amantadine",
+            "C": "acyclovir",
+            "D": "idoxuridine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) amantadine</b></p><p>Amantadine（金剛烷胺，以及 rimantadine）是一種對稱性三環胺類抗病毒藥物，專一性針對 A 型流感病毒（influenza A virus）。其作用機轉是結合並阻斷嵌入 A 型流感病毒包膜上的 M2 質子離子通道蛋白（M2 ion channel），阻止核內體（endosome）中的氫離子流入病毒顆粒內部進行酸化，從而抑制病毒核糖核蛋白複合體（vRNP）與基質蛋白 M1 解離，阻斷病毒的脫殼（uncoating）與基因組釋放（獸醫臨床亦常用於犬貓 NMDA 受體拮抗輔助鎮痛）。</p><p>(A) 錯：zidovudine（AZT）為核苷類反轉錄酶抑制劑（NRTI），抑制反轉錄病毒（如 HIV、FIV）的反轉錄酶。</p><p>(C) 錯：acyclovir 為鳥嘌呤核苷類似物，抑制疱疹病毒的 DNA 聚合酶（DNA polymerase）與 DNA 複製。</p><p>(D) 錯：idoxuridine（碘苷）為胸苷類似物，嵌入病毒 DNA 並抑制疱疹病毒 DNA 複製，常製成眼藥水治療貓疱疹病毒性角膜炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 51,
+        "text": "51.下列何者在犬隻消化道的吸收較其他三種藥品為佳？",
+        "options": {
+            "A": "neomycin",
+            "B": "bacitracin",
+            "C": "tubocurarine",
+            "D": "enrofloxacin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) enrofloxacin</b></p><p>Enrofloxacin（恩諾沙星）為獸醫專用氟喹諾酮類（fluoroquinolone）殺菌性抗生素，在生理酸鹼度下呈兩性離子（zwitterion）且具良好親脂性，犬隻經口投予後自胃腸道吸收極為迅速且完全，口服生體可用率（bioavailability）可高達 80% 以上（僅在同時餵食含鋁、鎂、鐵、鈣製劑時會因螯合而降低吸收）；相較之下，其餘三種藥物在完整胃腸道幾乎不被吸收。</p><p>(A) 錯：neomycin 屬於胺基醣苷類（aminoglycosides）抗生素，分子帶有高度極性多陽離子電荷，口服後幾乎完全無法穿透胃腸道黏膜（生體可用率 < 3%），僅用於局部腸道殺菌。</p><p>(B) 錯：bacitracin 為環狀多胜肽類（polypeptide）大分子抗生素，極性強且分子量大，口服完全不被胃腸道吸收。</p><p>(C) 錯：tubocurarine 分子具有帶永久正電荷的四級銨基團（quaternary ammonium），口服無法通過消化道上皮細胞膜，必須經由靜脈注射給藥。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 52,
+        "text": "52.下列那一抗微生物藥物不可使用於乳牛之治療？",
+        "options": {
+            "A": "nitrofurazone",
+            "B": "penicillin G",
+            "C": "streptomycin",
+            "D": "tetracycline"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) nitrofurazone</b></p><p>Nitrofurazone（硝基呋喃腙，屬於硝基呋喃類 nitrofurans 合成抗菌劑，同類尚有 furazolidone、furaltadone）經動物攝入後會迅速代謝產生與組織蛋白質緊密共價結合的代謝產物（如 semicarbazide, SEM），長期殘留於乳汁與可食組織中，且動物實驗證實具致突變性（mutagenicity）與致癌性（carcinogenicity），因此在臺灣、美國 FDA 與歐盟等各國法規中均嚴格禁止使用於所有產食動物（包含泌乳乳牛）。</p><p>(B) 錯：penicillin G 為乳牛治療乳房炎（如無乳鏈球菌感染）與全身性細菌感染最常使用的合法抗生素之一，僅需嚴格遵守乳汁停藥期即可。</p><p>(C) 錯：streptomycin（常與 penicillin G 組成複方注射劑）在核准劑量與停藥期規範下可用於牛隻治療。</p><p>(D) 錯：tetracycline（如 oxytetracycline）在遵守法規停藥期的前提下可合法用於乳牛治療。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 53,
+        "text": "53.下列那一種磺胺劑可製成中性酸鹼值之鈉鹽製劑而適用於眼科？",
+        "options": {
+            "A": "sulfamethazine",
+            "B": "sulfacetamide",
+            "C": "sulfadimethoxine",
+            "D": "sulfachlorpyridazine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) sulfacetamide</b></p><p>絕大多數磺胺劑（sulfonamides）本身的親水性極低，必須製成鈉鹽（sodium salts）才能溶於水，但一般磺胺劑鈉鹽水溶液呈強鹼性（pH 9 至 11），滴入眼睛會對角膜與結膜造成嚴重化學性灼傷與刺激；唯有 sulfacetamide 的鈉鹽（sulfacetamide sodium，10%～30% 溶液）水溶液酸鹼值接近中性（pH 約 7.4），無局部組織刺激性且角膜穿透力佳，因此是唯一廣泛製成眼藥水與眼藥膏用於治療細菌性結膜炎與角膜炎的磺胺劑。</p><p>(A) 錯：sulfamethazine（磺胺二甲嘧啶）鈉鹽溶液呈強鹼性，僅供口服或靜脈注射，不可用於眼科局部滴眼。</p><p>(C) 錯：sulfadimethoxine（長效型磺胺劑）鈉鹽溶液亦為強鹼性，主要用於犬貓及家畜全身性感染治療。</p><p>(D) 錯：sulfachlorpyridazine 主要用於家禽與仔豬大腸桿菌症之口服飲水或飼料投藥，不適用於眼科製劑。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 54,
+        "text": "54.下列那一種抗微生物之併用組合比較不會誘發細菌抗藥性之形成？",
+        "options": {
+            "A": "sulfathiazole-sulfaquinoxaline",
+            "B": "sulfadiazine-sulfamethoxazole",
+            "C": "sulfadiazine-trimethoprim",
+            "D": "sulafasalazine-sulfaguanindine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) sulfadiazine-trimethoprim</b></p><p>Sulfadiazine（磺胺劑，競爭性抑制細菌的二氫葉酸合成酶 dihydropteroate synthase，阻斷對胺基苯甲酸 PABA 合成二氫葉酸）與 trimethoprim（二氫葉酸還原酶抑制劑 dihydrofolate reductase inhibitor，阻斷二氫葉酸還原為四氫葉酸）作用於細菌葉酸（folic acid）生合成代謝路徑上連續的兩個不同酵素步驟，形成「雙重序列阻斷（sequential blockade）」。此協同組合將原本各自的抑菌作用轉化為強效殺菌作用（potentiated sulfonamides），並使細菌同時產生雙重突變抗藥性的機率大幅下降。</p><p>(A) 錯：sulfathiazole 與 sulfaquinoxaline 兩者皆為磺胺劑，作用於完全相同的酵素（dihydropteroate synthase），無法產生雙重路徑阻斷以延緩抗藥性。</p><p>(B) 錯：sulfadiazine 與 sulfamethoxazole 亦同為磺胺劑，單純合併兩種磺胺劑（如昔日三磺胺製劑）僅能降低個別溶解度風險以減少結晶尿，無法抑制抗藥性發生。</p><p>(D) 錯：sulfasalazine 與 sulfaguanidine 皆為腸道不易吸收型磺胺劑，作用標的相同，無協同抗藥性抑制效果。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 55,
+        "text": "55.高劑量給予低溶解度的磺胺劑sulfathiazole所產生之主要不良反應為何？",
+        "options": {
+            "A": "結晶尿",
+            "B": "過敏性胃腸炎",
+            "C": "甲狀腺功能低下",
+            "D": "低凝血酶元血症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 結晶尿</b></p><p>Sulfathiazole（磺胺噻唑）屬於早期短效型磺胺劑，其原型藥物及在肝臟代謝產生的乙醯化代謝物（N4-acetylated metabolites）在偏酸性的尿液（特別是犬貓等肉食獸的酸性尿液）中水溶性極低。當高劑量投藥、飲水不足脫水或尿液偏酸時，磺胺劑極易在腎小管、集尿管與腎盂內析出針狀或束狀結晶，引發結晶尿（crystalluria）、血尿（hematuria）、腎小管上皮機械性損傷甚至阻塞性無尿（臨床可藉由鹼化尿液與充足飲水預防）。</p><p>(B) 錯：過敏性胃腸炎並非高劑量低溶解度磺胺劑最具代表性的物理化學性不良反應。</p><p>(C) 錯：長期使用磺胺劑（如 trimethoprim-sulfamethoxazole）在犬隻確實可能抑制甲狀腺過氧化酶而引發醫源性甲狀腺功能低下，但題幹特別強調「高劑量給予低溶解度的磺胺劑 sulfathiazole」，其最直接且經典的不良反應為結晶尿。</p><p>(D) 錯：sulfaquinoxaline（用於家禽球蟲病）高劑量時會拮抗維生素 K 引起低凝血酶原血症與出血傾向，而 sulfathiazole 的典型毒性則為結晶尿。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 56,
+        "text": "56.青黴素類抗生素抗菌活性的破壞，通常發生於其化學構造上的那一個位置被裂解之後所造成？",
+        "options": {
+            "A": "醯胺鍵",
+            "B": "β-內醯胺環",
+            "C": "羰基連接",
+            "D": "羧基連接"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) β-內醯胺環</b></p><p>青黴素類（penicillins，以及頭孢菌素類、碳青黴烯類）抗生素的化學核心為「6-胺基青黴烷酸（6-APA）」，由一個四員的 β-內醯胺環（β-lactam ring）與一個五員的噻唑啶環（thiazolidine ring）稠合而成。其中四員的 β-內醯胺環在立體構型上模擬細菌細胞壁胜肽聚醣末端的 D-alanyl-D-alanine，是與細菌青黴素結合蛋白（PBPs）共價結合的活性部位；一旦被細菌分泌的 β-內醯胺酶（β-lactamase）水解切斷該環內的 C-N 鍵使其開環形成無活性的青黴酸（penicilloic acid），抗生素即完全喪失抗菌能力。</p><p>(A) 錯：側鏈（R-group）上的醯胺鍵（amide bond）若被細菌醯胺酶（amidase）切割會產生 6-APA，雖會改變抗菌譜與抗酸抗酶穩定性，但真正決定所有 β-內醯胺類抗生素活性破壞的關鍵位置是 β-內醯胺環的裂解。</p><p>(C) 錯：羰基連接並非 β-內醯胺酶作用導致失活的專一裂解位置。</p><p>(D) 錯：噻唑啶環上的羧基（carboxyl group）主要影響藥物水溶性與成鹽性質，非抗菌活性破壞的核心裂解位點。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 57,
+        "text": "57.青黴素類抗生素之作用機制主要為抑制細菌那一成分之功能？",
+        "options": {
+            "A": "DNA gyrase",
+            "B": "RNA polymerase",
+            "C": "thymidylate synthase",
+            "D": "transpeptidase"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) transpeptidase</b></p><p>青黴素類抗生素的殺菌機制是共價結合至細菌細胞膜外表面的青黴素結合蛋白（penicillin-binding proteins, PBPs），而 PBPs 的主要生理酵素功能即為轉肽酶（transpeptidase）。轉肽酶負責催化細菌細胞壁胜肽聚醣（peptidoglycan）相鄰五肽側鏈之間的交叉連結（cross-linking）；青黴素抑制 transpeptidase 後，細胞壁無法形成穩固網狀結構，同時活化細菌自溶素（autolysins），使細菌在內部高滲透壓下膨脹破裂死亡（僅對處於生長分裂期的細菌有效）。</p><p>(A) 錯：DNA gyrase（細菌第 II 型拓撲異構酶）是氟喹諾酮類抗生素（fluoroquinolones，如 enrofloxacin）的抑制標的。</p><p>(B) 錯：DNA 依賴性 RNA polymerase 是利福平類抗生素（rifamycins，如 rifampin）的抑制標的。</p><p>(C) 錯：thymidylate synthase（胸苷酸合成酶）是抗代謝類藥物 5-fluorouracil（5-FU）或 flucytosine 的抑制標的。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 58,
+        "text": "58.下列那一藥物屬於長效型青黴素類製劑，單一次肌肉注射後其吸收可以維持48~72小時？",
+        "options": {
+            "A": "benzathine penicillin G",
+            "B": "procaine penicillin G",
+            "C": "benzylpenicillin",
+            "D": "ampicillin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) benzathine penicillin G</b></p><p>Benzathine penicillin G（雙苄基乙二胺青黴素 G）是由兩分子 penicillin G 與一分子 dibenzylethylenediamine 結合而成的難溶性長效型鹽類製劑。單一次深部肌肉注射後，藥物在注射部位肌肉組織形成緩釋貯庫（depot），極緩慢地水解並吸收進入血液，有效血中抑菌濃度可維持 48 至 72 小時以上（僅適用於深部肌肉注射，嚴禁靜脈注射以免發生微血管栓塞猝死）。</p><p>(B) 錯：procaine penicillin G（普魯卡因青黴素 G）為中長效型製劑，單次肌肉注射後血中有效濃度約維持 12 至 24 小時（每日需注射 1 至 2 次）。</p><p>(C) 錯：benzylpenicillin（即水溶性結晶型鈉鹽或鉀鹽 penicillin G）吸收與腎臟排泄極快，半衰期僅約 30 至 45 分鐘，作用時間僅維持 4 至 6 小時，需頻繁靜脈或肌肉給藥。</p><p>(D) 錯：ampicillin（胺苄青黴素）的一般水溶性製劑半衰期短，作用時間約 6 至 8 小時（除非製成特殊三水合物油性長效懸浮劑）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 59,
+        "text": "59.第一代頭孢菌素類（cephalosporins）藥物經吸收後，下列那一組織無法滲入？",
+        "options": {
+            "A": "尿液",
+            "B": "乳液",
+            "C": "皮下組織",
+            "D": "腦脊髓液"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 腦脊髓液</b></p><p>第一代頭孢菌素類抗生素（first-generation cephalosporins，如 cephalexin、cefazolin、cephapirin、cefadroxil）水溶性高、脂溶性低且分子量較大，即使在腦膜發炎（meningitis）血腦屏障通透性增加的情況下，仍無法以具治療意義的濃度滲透進入腦脊髓液（cerebrospinal fluid, CSF），因此絕對不可用於治療細菌性腦膜炎（細菌性腦膜炎需選用能有效穿透血腦屏障的第三代頭孢菌素如 ceftriaxone、cefotaxime 或 ceftazidime）。</p><p>(A) 錯：第一代頭孢菌素主要經腎絲球過濾與腎小管分泌以原形排泄，在尿液中可達到極高濃縮濃度，非常適合治療下泌尿道感染。</p><p>(B) 錯：第一代頭孢菌素可部分滲入乳汁中，臨床上亦常製成乳房內灌注劑（如 cephapirin）治療牛隻乳房炎。</p><p>(C) 錯：第一代頭孢菌素在皮膚、皮下軟組織、肌肉及關節液中均具有良好的分布濃度，是犬貓膿皮症與軟組織感染的首選用藥。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 60,
+        "text": "60.長時間或高劑量使用頭孢菌素類（cephalosporins）藥物，對動物最可能產生之不良反應為何？",
+        "options": {
+            "A": "腎結晶尿",
+            "B": "中樞神經性痙攣",
+            "C": "神經肌肉連接阻斷",
+            "D": "骨髓抑制"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 骨髓抑制</b></p><p>頭孢菌素類（cephalosporins）抗生素具有寬廣的安全範圍，但在長時間（例如超過 2 至 4 週）或超高劑量投予時，對動物（特別是犬隻使用高劑量 cefazolin、cephalexin 或 ceftiofur 時）最典型且具臨床重要性的全身性不良反應為可逆性骨髓抑制（bone marrow suppression），表現為嗜中性球減少症（neutropenia）、血小板減少症（thrombocytopenia）以及非再生性貧血（通常在停藥後 1 至 2 週內骨髓造血功能即可恢復）。</p><p>(A) 錯：腎結晶尿（crystalluria）是低溶解度磺胺劑（sulfonamides）在酸性尿液中析出所致的典型不良反應，非頭孢菌素。</p><p>(B) 錯：中樞神經性痙攣（抑制 GABA 受體）較常見於高劑量青黴素（特別是鞘內注射或腎衰竭蓄積時）、亞胺培南（imipenem）或高劑量氟喹諾酮類藥物。</p><p>(C) 錯：神經肌肉連接阻斷（抑制突觸前乙醯膽鹼釋放）是胺基醣苷類（aminoglycosides）與多黏菌素類（polymyxins）的典型毒性，非頭孢菌素。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 61,
+        "text": "61.下列那一藥物注射給藥後對腦脊髓液之穿透力最好？",
+        "options": {
+            "A": "cephalexin",
+            "B": "aztreonem",
+            "C": "gentamicin",
+            "D": "azithromycin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) aztreonem</b></p><p>Aztreonam（題幹拼為 aztreonem）屬於單環 β-內醯胺類抗生素（monobactam），專一性針對需氧革蘭氏陰性桿菌（如 E. coli、Klebsiella、Pseudomonas aeruginosa）具有強效殺菌作用（對革蘭氏陽性菌與厭氧菌無效）。其分子量小、蛋白結合率低，注射給藥後在腦膜發炎時能夠良好穿透血腦屏障進入腦脊髓液（CSF），達到有效殺菌濃度。</p><p>(A) 錯：cephalexin 為第一代頭孢菌素，無法有效穿透血腦屏障進入腦脊髓液。</p><p>(C) 錯：gentamicin 為高度極性的胺基醣苷類抗生素，注射給藥後極難通過血腦屏障，腦脊髓液濃度極低（治療革蘭氏陰性菌腦膜炎時甚至需採鞘內注射）。</p><p>(D) 錯：azithromycin 為大分子巨環內酯類（macrolide）抗生素，主要高度濃縮於巨噬細胞與肺部等組織細胞內，在腦脊髓液中的穿透力極差。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 62,
+        "text": "62.Aminoglycosides引起之神經肌肉阻斷不良反應，與抑制神經突觸下列何者的釋出較有關？",
+        "options": {
+            "A": "serotonin",
+            "B": "catecholamine",
+            "C": "epinephrine",
+            "D": "acetylcholine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) acetylcholine</b></p><p>高濃度的胺基醣苷類抗生素（aminoglycosides，如 gentamicin、streptomycin、neomycin、amikacin）會產生類似箭毒（curare-like）的神經肌肉阻斷作用，其機轉為競爭性結合運動神經末梢突觸前膜的鈣離子通道，抑制神經衝動到達時鈣離子（Ca2+）內流，進而阻斷突觸小泡與突觸前膜融合並抑制乙醯膽鹼（acetylcholine, ACh）的釋出（同時亦降低突觸後膜尼古丁受體對 ACh 的敏感度），引起呼吸肌與骨骼肌鬆弛性麻痺（臨床可靜脈注射葡萄糖酸鈣拮抗）。</p><p>(A) 錯：serotonin（5-HT，血清素）主要分布於中樞神經系統、腸道嗜鉻細胞與血小板，非骨骼肌神經肌肉接合處的傳導物質。</p><p>(B) 錯：catecholamine（兒茶酚胺類，如多巴胺、正腎上腺素）為交感神經節後神經元與中樞傳導物質，與運動終板傳導無關。</p><p>(C) 錯：epinephrine（腎上腺素）主要由腎上腺髓質分泌作為循環荷爾蒙，非神經肌肉突觸釋放的神經傳導物質。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 63,
+        "text": "63.Lincosamides易造成下列那一動物腹瀉，因而限制使用？",
+        "options": {
+            "A": "牛",
+            "B": "馬",
+            "C": "貓",
+            "D": "豬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 馬</b></p><p>Lincosamides（林可醯胺類抗生素，包括 lincomycin 與 clindamycin）主要針對革蘭氏陽性球菌與厭氧菌有效。當給予馬匹（以及兔、天竺鼠、倉鼠等後腸發酵草食動物）口服或注射投予時，藥物經膽汁大量排入腸道，嚴重破壞盲腸與大結腸內維持正常發酵的革蘭氏陽性與厭氧共生菌群，使具抗藥性的產毒型梭狀桿菌（如 Clostridium difficile 與 Clostridium perfringens）大量繁殖並釋放外毒素，引發致命性急性出血壞死性結腸炎（colitis X）與嚴重水樣下痢，因此馬匹絕對禁用。</p><p>(A) 錯：反芻獸（牛、羊）成畜若口服易破壞瘤胃菌叢，但注射給藥偶用於治療牛隻關節炎或蹄病，不如馬匹對該類藥物引起致命結腸炎之高度敏感。</p><p>(C) 錯：貓隻對 clindamycin 耐受性極佳，是臨床治療貓弓蟲症（toxoplasmosis）、牙周病、膿胸與厭氧菌感染的常用首選藥物（僅需注意口服膠囊後須灌水以免引起食道炎）。</p><p>(D) 錯：豬隻常使用 lincomycin 治療豬赤痢（Brachyspira hyodysenteriae）、黴漿菌性肺炎及迴腸炎，安全性良好。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 64,
+        "text": "64.由長春花（periwinkle）植物中萃取得到的抗腫瘤藥物是：",
+        "options": {
+            "A": "paclitaxel",
+            "B": "etoposide",
+            "C": "irinotecan",
+            "D": "vinblastine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) vinblastine</b></p><p>Vinblastine（長春花鹼）與 vincristine（長春新鹼）皆是萃取自夾竹桃科植物長春花／日日春（Catharanthus roseus，舊稱 Vinca rosea / periwinkle）的天然植物生物鹼（vinca alkaloids）。兩者皆屬於細胞週期 M 期專一性抗腫瘤藥物，藉由與微管蛋白（tubulin）結合抑制微管聚合，破壞有絲分裂紡錘體（mitotic spindle）形成，使腫瘤細胞停滯於有絲分裂中期而死亡（vinblastine 常用於犬肥大細胞瘤與淋巴瘤化療，骨髓抑制較明顯但神經毒性較 vincristine 低）。</p><p>(A) 錯：paclitaxel（紫杉醇）萃取自太平洋紅豆杉（Taxus brevifolia）樹皮，其機轉為促進微管過度聚合並穩定微管使其無法解聚（冷凍有絲分裂紡錘體）。</p><p>(B) 錯：etoposide（VP-16）為萃取自鬼臼（Podophyllum peltatum，Mayapple）的半合成鬼臼毒素衍生物，藉由抑制第 II 型拓撲異構酶（topoisomerase II）造成 DNA 雙股斷裂。</p><p>(C) 錯：irinotecan 為萃取自中國喜樹（Camptotheca acuminata）的喜樹鹼（camptothecin）衍生物，藉由抑制第 I 型拓撲異構酶（topoisomerase I）阻斷 DNA 複製。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 65,
+        "text": "65.下列何種抗腫瘤藥物結構類似葉酸？",
+        "options": {
+            "A": "mechlorethamine",
+            "B": "methotrexate",
+            "C": "mitoxantrone",
+            "D": "mitotane"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) methotrexate</b></p><p>Methotrexate（MTX，胺甲蝶呤）屬於葉酸抗代謝物（folic acid antimetabolite）抗腫瘤藥物，其化學結構與天然葉酸（folic acid）極為相似，能夠以極高親和力競爭性抑制細胞內的二氫葉酸還原酶（dihydrofolate reductase, DHFR），阻斷二氫葉酸轉化為具活性的四氫葉酸（tetrahydrofolate, THF），進而抑制單碳基團轉移及胸苷酸（dTMP）與嘌呤核苷酸的生合成，使 DNA 複製在 S 期受阻（高劑量治療時需併用 folinic acid / leucovorin 進行救援治療）。</p><p>(A) 錯：mechlorethamine（氮芥，nitrogen mustard）屬於雙功能烷化劑（alkylating agent），直接與 DNA 鳥嘌呤 N7 形成共價交聯破壞 DNA 結構。</p><p>(C) 錯：mitoxantrone 為合成的蒽醌類（anthracenedione）抗腫瘤抗生素，藉由嵌入 DNA 鹼基對並抑制 topoisomerase II 殺傷腫瘤細胞（心臟毒性較 doxorubicin 低）。</p><p>(D) 錯：mitotane（o,p'-DDD）為殺蟲劑 DDT 的衍生物，專一性引起腎上腺皮質束狀帶與網狀帶細胞壞死萎縮，用於治療犬腦下垂體依賴性庫欣氏症與腎上腺皮質腫瘤。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 66,
+        "text": "66.下列何者不屬於aminoglycoside類抗生素？",
+        "options": {
+            "A": "apramycin",
+            "B": "tobramycin",
+            "C": "paromomycin",
+            "D": "tulathromycin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) tulathromycin</b></p><p>Tulathromycin（商品名 Draxxin）屬於半合成大環內酯類（macrolide，具三個胺基之 triamilide 亞類）長效型抗生素，藉由結合細菌核糖體 50S 次單元抑制蛋白質合成，單次皮下注射在牛與豬肺組織可維持長達 7 至 14 天的有效抑菌濃度，專用於治療牛與豬的細菌性呼吸道疾病，不屬於胺基醣苷類（aminoglycosides）。</p><p>(A) 錯：apramycin（安普黴素）為獸醫專用胺基醣苷類（aminoglycoside）抗生素，常用於口服治療豬隻與犢牛的大腸桿菌性下痢與沙門氏菌症。</p><p>(B) 錯：tobramycin（妥布黴素）為胺基醣苷類抗生素，對綠膿桿菌（Pseudomonas aeruginosa）具優異抗菌活性，常製成眼藥水治療角膜潰瘍。</p><p>(C) 錯：paromomycin（巴龍黴素）亦為胺基醣苷類抗生素，口服不吸收，除具腸道殺菌作用外亦可用於治療貓隱孢子蟲症與腸道阿米巴原蟲感染。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 67,
+        "text": "67.飼料中若葉酸添加劑量過高，則會降低下列何種藥物的抗菌效果？",
+        "options": {
+            "A": "aminoglycosides",
+            "B": "sulfonamides",
+            "C": "licosamides",
+            "D": "tetracyclines"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) sulfonamides</b></p><p>磺胺劑（sulfonamides）的抑菌機制是結構模擬對胺基苯甲酸（para-aminobenzoic acid, PABA），競爭性抑制細菌的二氫葉酸合成酶（dihydropteroate synthase），藉此阻斷敏感細菌自行合成葉酸（folic acid）與下游核酸。雖然多數細菌無法直接攝取外源性葉酸，但當飼料或組織壞死膿汁中含有過高濃度的葉酸、PABA 或其終端代謝產物（如 thymidine、purines、methionine）時，部分病原菌可繞過自身葉酸合成路徑而直接利用這些外源性代謝物，進而拮抗並降低磺胺劑的抗菌效果。</p><p>(A) 錯：aminoglycosides 作用於細菌核糖體 30S 次單元抑制蛋白質合成，與葉酸代謝無關。</p><p>(C) 錯：lincosamides（題幹拼為 licosamides）作用於細菌核糖體 50S 次單元抑制肽醯轉移酶，不受飼料葉酸濃度影響。</p><p>(D) 錯：tetracyclines 作用於細菌核糖體 30S 次單元阻斷胺醯基-tRNA 結合（其口服吸收主要受鈣、鎂、鐵等二價或三價陽離子影響，而非葉酸）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 68,
+        "text": "68.下列何者可用於治療犬隻之G（+）所引起的牙周病及新孢子蟲病（neosporosis）？",
+        "options": {
+            "A": "clindamycin",
+            "B": "erythromycin",
+            "C": "methicillin",
+            "D": "tylosin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) clindamycin</b></p><p>Clindamycin（克林黴素，lincosamide 類抗生素）對革蘭氏陽性需氧球菌（葡萄球菌、鏈球菌）及口腔專性厭氧菌具有優異抗菌活性，且能高度穿透牙齦組織、唾液與齒槽骨，是犬貓嚴重牙周病與下頷骨骨髓炎的首選抗生素；此外，clindamycin 亦能抑制頂複門原蟲（Apicomplexa）頂質體（apicoplast）內的 70S 核糖體蛋白質合成，為臨床治療犬新孢子蟲病（neosporosis，病原 Neospora caninum）與弓蟲症（toxoplasmosis）的首選藥物。</p><p>(B) 錯：erythromycin（大環內酯類）雖對革蘭氏陽性菌有效，但對厭氧菌覆蓋度與骨組織穿透力不如 clindamycin，且無法有效治療犬新孢子蟲病。</p><p>(C) 錯：methicillin 為抗青黴素酶窄效性青黴素（現已停產，僅用於實驗室檢測 MRSA），不具抗原蟲作用。</p><p>(D) 錯：tylosin 為獸醫專用大環內酯類抗生素，主要用於家禽黴漿菌、豬迴腸炎與犬隻抗生素反應性下痢（ARD），不用於治療新孢子蟲病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者不是用於治療犬毛囊蟲症？",
+        "options": {
+            "A": "ivermectin",
+            "B": "amitraz",
+            "C": "famotidine",
+            "D": "doramectin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) famotidine</b></p><p>Famotidine（法莫替丁）屬於組織胺 H2 受體拮抗劑（H2-receptor antagonist），作用於胃壁細胞基底膜的 H2 受體以抑制胃酸分泌，臨床用於治療胃炎、胃腸道潰瘍與胃食道逆流，完全不具殺滅體外寄生蟲或治療犬毛囊蟲症（demodicosis）的藥理作用。</p><p>(A) 錯：ivermectin 為巨環內酯類（avermectin）抗寄生蟲藥，每日高劑量口服給藥是傳統治療犬全身性毛囊蟲症（Demodex canis）的有效方法之一（牧羊犬等帶 MDR1 基因突變犬種禁用）。</p><p>(B) 錯：amitraz 為甲脒類（formamidine）外用殺蟎劑（商品名 Mitaban），藉由活化節肢動物章魚胺（octopamine）受體麻痺蟎蟲，是早期核准用於藥浴治療犬毛囊蟲症的標準藥物。</p><p>(D) 錯：doramectin 亦為巨環內酯類抗寄生蟲藥，每週皮下注射或口服給藥可用於治療犬全身性毛囊蟲症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 70,
+        "text": "70.臨床上，鸚鵡嗉囊分離出念珠菌，下列何者不是治療用藥？",
+        "options": {
+            "A": "flucytosine",
+            "B": "nystatin",
+            "C": "ketoconazole",
+            "D": "gemcitabine"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) gemcitabine</b></p><p>Gemcitabine（吉西他濱）屬於嘧啶核苷類似物（pyrimidine nucleoside analog）抗代謝類「抗腫瘤化療藥物」，在細胞內磷酸化後抑制核糖核苷酸還原酶並嵌入 DNA 鏈終止 DNA 複製，臨床用於治療犬貓惡性腫瘤（如膀胱移行上皮細胞癌、淋巴瘤或癌腫瘤），完全不具抗黴菌活性。</p><p>(A) 錯：flucytosine（5-FC）為抗黴菌藥物，經真菌胞嘧啶去胺酶轉化為 5-FU 抑制真菌 DNA 與 RNA 合成，可用於治療鳥類全身性念珠菌症或麴菌症。</p><p>(B) 錯：nystatin（制黴菌素）為多烯類（polyene）抗黴菌藥，口服不經消化道吸收，能直接接觸並結合念珠菌（Candida albicans）細胞膜上的麥角固醇，是治療鸚鵡嗉囊念珠菌症最安全有效的局部首選藥物。</p><p>(C) 錯：ketoconazole 為唑類（azole）抗黴菌藥，抑制真菌麥角固醇合成，亦可用於治療鸚鵡消化道或全身性念珠菌感染。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 71,
+        "text": "71.下列何者為azoles類抗黴菌機制？",
+        "options": {
+            "A": "藉由結合真菌原生質體膜麥角固醇，因而改變細胞的滲透性",
+            "B": "藉由結合真菌微管防止主軸的形成而抑制有絲分裂",
+            "C": "藉由結合真菌的thymidylate synthase，抑制DNA合成",
+            "D": "藉由阻斷細胞素P450酵素抑制麥角固醇的合成，因而提高細胞的滲透性"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 藉由阻斷細胞素P450酵素抑制麥角固醇的合成，因而提高細胞的滲透性</b></p><p>Azoles 類抗黴菌藥物（包括 imidazoles 如 ketoconazole、miconazole，以及 triazoles 如 itraconazole、fluconazole、voriconazole）的核心藥理機轉是結合並抑制真菌細胞色素 P450 依賴性的 14α-去甲基酶（lanosterol 14α-demethylase），阻斷羊毛固醇（lanosterol）去甲基化轉化為真菌細胞膜不可或缺的麥角固醇（ergosterol），同時累積有毒的 14α-甲基固醇，使真菌細胞膜結構破壞、通透性增加並抑制真菌生長。</p><p>(A) 錯：直接與真菌細胞膜上的麥角固醇（ergosterol）結合並形成跨膜孔洞、導致細胞內離子外漏死亡的是「多烯類（polyenes）」抗黴菌藥（如 amphotericin B、nystatin）。</p><p>(B) 錯：結合真菌微管蛋白（tubulin）防止有絲分裂紡錘體形成的是「griseofulvin（灰黃黴素）」，專用於治療皮膚癬菌症（dermatophytosis）。</p><p>(C) 錯：進入真菌細胞後轉化為 5-fluorouracil 並抑制 thymidylate synthase（胸苷酸合成酶）以阻斷 DNA 合成的是「flucytosine（5-FC）」。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 72,
+        "text": "72.Azithromycin可用於治療下列何種疾病？",
+        "options": {
+            "A": "耳疥癬",
+            "B": "隱孢子蟲症",
+            "C": "山羊蟯蟲症",
+            "D": "豬鉤頭蟲症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 隱孢子蟲症</b></p><p>Azithromycin（阿奇黴素）屬於長效型大環內酯類（macrolide / azalide）抗生素，具有極佳的組織與巨噬細胞內分布特性。在獸醫臨床上，除了用於治療細菌性呼吸道與皮膚軟組織感染外，亦被用於治療幼畜（如犢牛、羔羊）與免疫功能低下犬貓由頂複門原蟲 Cryptosporidium spp. 引起的隱孢子蟲症（cryptosporidiosis，有助於減少卵囊排出與緩解下痢）。</p><p>(A) 錯：耳疥癬（Otodectes cynotis）屬於外寄生蟲蟎蟲感染，需使用巨環內酯類殺蟲劑（如 selamectin、ivermectin、moxidectin）或 isoxazolines 類藥物治療。</p><p>(C) 錯：山羊蟯蟲症（Skrjabinema ovis）屬於腸道線蟲感染，應使用苯并咪唑類（如 fenbendazole、albendazole）或巨環內酯類驅線蟲藥治療。</p><p>(D) 錯：豬鉤頭蟲症（Macracanthorhynchus hirudinaceus）屬於棘頭動物門寄生蟲感染，對大環內酯類抗菌劑 azithromycin 無反應。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 73,
+        "text": "73.糞便檢出馬蛔蟲（Parascaris sp.）蟲卵，可用下列何者驅除之？",
+        "options": {
+            "A": "glipizide",
+            "B": "propantheline",
+            "C": "metaflumizone",
+            "D": "oxfendazole"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) oxfendazole</b></p><p>Oxfendazole（奧芬達唑，為 fenbendazole 的亞碸活性代謝物）屬於苯并咪唑類（benzimidazole）廣效性驅蟲藥，其機轉為專一性結合線蟲細胞的 β-微管蛋白（β-tubulin）抑制微管聚合，阻斷蟲體葡萄糖攝取與細胞內運輸使其能量耗竭排出，臨床上對馬蛔蟲（Parascaris equorum）及馬大、小型圓蟲具有優異的驅除效果。</p><p>(A) 錯：glipizide 為第二代磺醯脲類（sulfonylurea）口服降血糖藥，藉由關閉胰島 β 細胞的 ATP 敏感性鉀離子通道刺激胰島素分泌，用於治療貓第二型糖尿病。</p><p>(B) 錯：propantheline 為四級銨合成抗膽鹼藥物（蕈毒鹼受體拮抗劑），用於減少胃腸道痙攣蠕動與尿失禁，無驅蟲作用。</p><p>(C) 錯：metaflumizone 為縮胺基脲類（semicarbazone）外用殺蟲劑，阻斷昆蟲神經元鈉離子通道，專用於犬貓跳蚤防治，對腸道線蟲無效。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 74,
+        "text": "74.下列何者可激活麩氨酸閘門的氯離子通道（glutamate-gated chloride channels），因此抑制線蟲（及節肢動物）的神經傳遞，誘導鬆弛性麻痺，也能夠活化γ-胺基丁酸（GABA）閘門的氯離子通道？",
+        "options": {
+            "A": "morantel",
+            "B": "albendazole",
+            "C": "levamisole",
+            "D": "ivermectin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) ivermectin</b></p><p>Ivermectin（伊維菌素）屬於阿維菌素類／巨環內酯類（avermectins / macrocyclic lactones）廣效抗內外寄生蟲藥。其主要作用機轉是高親和力結合並開啟無脊椎動物（線蟲與節肢動物）神經與肌肉細胞膜上的麩胺酸閘門氯離子通道（glutamate-gated chloride channels, GluCl），同時亦能增強 γ-胺基丁酸（GABA）閘門氯離子通道的開啟，使大量氯離子內流造成細胞膜過極化（hyperpolarization），抑制神經衝動傳遞並誘導寄生蟲咽部泵浦與體壁肌肉發生鬆弛性麻痺（flaccid paralysis）而死亡。</p><p>(A) 錯：morantel（以及 pyrantel）為四氫嘧啶類擬膽鹼驅線蟲藥，藉由持續活化線蟲尼古丁型乙醯膽鹼受體造成去極化性痙攣麻痺。</p><p>(B) 錯：albendazole 為苯并咪唑類驅蟲藥，藉由結合線蟲 β-微管蛋白（β-tubulin）抑制微管聚合與養分吸收。</p><p>(C) 錯：levamisole 為咪唑并噻唑類擬膽鹼驅線蟲藥，活化線蟲尼古丁型乙醯膽鹼受體引起痙攣性麻痺。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 75,
+        "text": "75.能活化線蟲乙醯膽鹼受體，造成痙攣而麻痺的藥物為：",
+        "options": {
+            "A": "piperazine",
+            "B": "levamisole",
+            "C": "ivermectin",
+            "D": "milbemycin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) levamisole</b></p><p>Levamisole（左旋咪唑，以及 pyrantel、morantel）屬於擬膽鹼性驅線蟲藥（cholinomimetic anthelmintics），能夠選擇性結合並持續活化線蟲神經肌肉接合處的尼古丁型乙醯膽鹼受體（nicotinic acetylcholine receptors, nAChRs），造成線蟲肌肉細胞膜持續去極化（depolarization）與強直性肌肉收縮，誘導線蟲發生「痙攣性麻痺（spastic paralysis）」，使其失去維持腸道位置的能力而隨宿主腸道蠕動排出體外。</p><p>(A) 錯：piperazine（哌嗪）為腸道蛔蟲驅蟲藥，其機轉為作為寄生蟲肌肉細胞膜上的 GABA 受體致效劑，開啟氯離子通道引起過極化與「鬆弛性麻痺（flaccid paralysis）」。</p><p>(C) 錯：ivermectin 開啟無脊椎動物的麩胺酸與 GABA 閘門氯離子通道，誘導「鬆弛性麻痺（flaccid paralysis）」。</p><p>(D) 錯：milbemycin（如 milbemycin oxime）與 ivermectin 同屬巨環內酯類抗寄生蟲藥，藉由開啟麩胺酸閘門氯離子通道引起鬆弛性麻痺。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 76,
+        "text": "76.Thiabendazole抗蟲的藥理作用機制主要為：",
+        "options": {
+            "A": "促進fumarate reductase之效能",
+            "B": "打開GABA-gated-chloride channel",
+            "C": "結合線蟲的tubulin",
+            "D": "活化尼古丁型乙醯膽鹼受體"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 結合線蟲的tubulin</b></p><p>Thiabendazole（噻苯達唑）是第一個開發上市的苯并咪唑類（benzimidazole）廣效驅蟲藥，其核心藥理作用機制為高親和力結合線蟲（及真菌）細胞質內的 β-微管蛋白（β-tubulin），抑制微管蛋白聚合形成微管（microtubules），導致蟲體腸道上皮細胞微管消失、分泌小泡無法運輸、消化酵素分泌受阻及葡萄糖攝取衰竭，最終使寄生蟲飢餓死亡並隨糞便排出。</p><p>(A) 錯：部分苯并咪唑類藥物在高濃度下會「抑制」（而非促進）線蟲粒線體內的延胡索酸還原酶（fumarate reductase）以減少 ATP 生成，但結合 β-tubulin 才是其主要且高親和力的核心機轉。</p><p>(B) 錯：打開無脊椎動物氯離子通道造成過極化鬆弛性麻痺是巨環內酯類（如 ivermectin）與 piperazine 的作用機轉。</p><p>(D) 錯：活化線蟲尼古丁型乙醯膽鹼受體引起去極化痙攣性麻痺是 levamisole 與 pyrantel 的作用機轉。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 77,
+        "text": "77.動物有機磷中毒，除需投予atropine外，還需補充下列何者以回復acetylcholine esterase活性？",
+        "options": {
+            "A": "dimercaprol",
+            "B": "pralidoxime",
+            "C": "calcium disodium EDTA",
+            "D": "sodium thiosulfate"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) pralidoxime</b></p><p>Pralidoxime（2-PAM，解磷定）屬於肟類膽鹼酯酶復能劑（oxime cholinesterase reactivator）。有機磷殺蟲劑（organophosphates）中毒時，有機磷會與乙醯膽鹼酯酶（acetylcholinesterase, AChE）的酯解位點（esteratic site）共價磷酸化使其失活；atropine 僅能阻斷過度累積之乙醯膽鹼對蕈毒鹼受體（muscarinic receptors）的刺激（改善流涎、縮瞳、支氣管分泌），無法解除尼古丁受體（nicotinic receptors）引起的骨骼肌震顫與呼吸肌麻痺。投予 pralidoxime 可結合至 AChE 的陰離子位點，將有機磷磷酸基團自酵素上水解移除（須在酵素發生「老化 aging」前給藥），使 AChE 恢復正常分解乙醯膽鹼的活性。</p><p>(A) 錯：dimercaprol（BAL，二巰基丙醇）為雙硫醇螯合劑，專門用於治療砷（arsenic）、汞（mercury）及金等重金屬中毒。</p><p>(C) 錯：calcium disodium EDTA（依地酸鈣二鈉）為重金屬螯合劑，臨床主要用於治療犬、牛與鳥類的鉛中毒（lead poisoning）。</p><p>(D) 錯：sodium thiosulfate（硫代硫酸鈉）提供硫原子使細胞粒線體硫氰酸酶（rhodanese）將劇毒的氰化物（cyanide）轉化為無毒的硫氰酸鹽排出，用於治療氰化物中毒。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 78,
+        "text": "78.畜舍中散發出「腐敗的雞蛋味」的氣體，對呼吸道黏膜具強烈刺激性，其成分為：",
+        "options": {
+            "A": "H2S",
+            "B": "CH4",
+            "C": "NH3",
+            "D": "HCN"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) H2S</b></p><p>硫化氫（hydrogen sulfide, H2S）是由畜舍糞尿溝、沼氣池中含硫蛋白質與有機物在厭氧細菌分解下產生的劇毒氣體（尤其在攪動或清理液態糞尿池時會大量逸散）。H2S 比空氣重而易積聚於畜舍地面低處，具有典型的「腐敗雞蛋臭味（rotten egg smell）」，低濃度即對眼結膜與呼吸道黏膜造成強烈刺激與肺水腫，高濃度則會迅速麻痺嗅覺神經使人畜失去警覺，並抑制粒線體細胞色素氧化酶（cytochrome c oxidase）阻斷細胞呼吸，引發急性呼吸中樞麻痺猝死。</p><p>(B) 錯：甲烷（CH4）為無色、無味、無刺激性的易燃沼氣成分，高濃度時主要因排擠氧氣造成單純性窒息，無腐敗雞蛋味與黏膜刺激性。</p><p>(C) 錯：氨氣（NH3）比空氣輕，具強烈刺鼻的「尿騷味（pungent urine-like odor）」，主要刺激上呼吸道黏膜與眼結膜，而非腐敗雞蛋味。</p><p>(D) 錯：氰化氫（HCN）具有微弱的「苦杏仁味（bitter almond odor）」，抑制細胞色素氧化酶引起組織缺氧，無腐敗雞蛋味。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 79,
+        "text": "79.下列有關動物用藥殘留之敘述，何者正確？",
+        "options": {
+            "A": "殘留容許量係指該藥物原體（parent compound）之含量",
+            "B": "有登記證的動物用藥，都必須訂定動物用藥殘留標準",
+            "C": "不得檢出的動物用藥品目，食品中的藥物含量為零",
+            "D": "訂定動物用藥殘留標準，主要為行政裁量之管制標準"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 訂定動物用藥殘留標準，主要為行政裁量之管制標準</b></p><p>動物用藥殘留容許量（Maximum Residue Limits, MRLs）是食品安全衛生主管機關依據毒理學動物實驗求得每日可接受攝取量（ADI）後，綜合考量各可食部位（肌肉、肝臟、腎臟、脂肪、乳、蛋）的指標殘留物代謝動力學、國人膳食攝取量分布以及良好獸醫用藥規範（GVP）所訂定之法定行政管制標準，用以確保農畜產品安全並執法把關。</p><p>(A) 錯：殘留容許量所監測的指標殘留物（marker residue）並非一律僅指藥物原體（parent compound），有時是指特定具代表性的代謝物（如硝基呋喃類或 carbadox 的代謝物）或是原體與特定代謝物的總和。</p><p>(B) 錯：並非所有領有登記證的動物用藥都必須訂定殘留容許量，若藥物經毒理與代謝評估無危害人體健康之虞（如部分維生素、電解質、天然荷爾蒙或特定外用與局部製劑），主管機關得公告「免訂定殘留容許量」。</p><p>(C) 錯：法規上「不得檢出（zero tolerance / not detected）」的科學與執法定義是指以衛生主管機關公告之檢驗方法（定量極限 LOQ）檢測結果為陰性（低於定量極限），而非物理化學絕對零分子存在。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 80,
+        "text": "80.下列何種成分對大多數動物具強烈肝毒性？",
+        "options": {
+            "A": "strychnine",
+            "B": "pyrrolizidine",
+            "C": "oxalate",
+            "D": "nitrate"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) pyrrolizidine</b></p><p>雙吡咯里西啶生物鹼（pyrrolizidine alkaloids, PAs）廣泛存在於豬屎豆屬（Crotalaria spp.）、千里光屬（Senecio spp.，如狗舌草 ragwort）、天芥菜屬（Heliotropium spp.）及紫草科（Comfrey）等有毒植物中，對馬、牛、豬、羊及家禽皆具強烈肝毒性（hepatotoxicity）。動物採食後，PAs 在肝臟經細胞色素 P450 代謝活化為具高度親電性的吡咯酯類（pyrrolic esters），與肝細胞 DNA 與蛋白質共價交叉連結，強烈抑制肝細胞有絲分裂但細胞持續合成核酸與蛋白，形成特徵性的巨大肝細胞（megalocytosis），伴隨小葉中心性肝細胞壞死、膽管增生、肝靜脈閉塞（veno-occlusive disease）及不可逆肝硬化，最終常因肝衰竭與高血氨誘發肝性腦病死亡。</p><p>(A) 錯：strychnine（番木鱉鹼）為中樞神經系統毒物，競爭性拮抗脊髓與腦幹抑制性神經傳導物質甘胺酸（glycine）的突觸後受體，引起全身骨骼肌劇烈強直性痙攣（tetanic seizures）。</p><p>(C) 錯：oxalate（草酸鹽，存在於酸模、大黃葉、甜菜葉或乙二醇代謝產物）與血鈣結合形成不溶性草酸鈣結晶，主要引起急性低血鈣症及腎小管結晶阻塞性急性腎衰竭（腎毒性）。</p><p>(D) 錯：nitrate（硝酸鹽，在反芻獸瘤胃被還原為亞硝酸鹽 nitrite）將血紅素中的二價鐵氧化為三價鐵形成變性血紅素（methemoglobin），阻礙血液攜氧導致急性組織缺氧與巧克力色血液（血液毒性）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    }
+]

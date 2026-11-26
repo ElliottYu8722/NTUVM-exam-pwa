@@ -1,0 +1,962 @@
+[
+  {
+    "id": 1,
+    "text": "1.關於細胞病變，何者正確?",
+    "options": {
+      "A": "hydropic degeneration為不可逆性病變",
+      "B": "metaplasia為不可逆性病變，將造成永久傷害",
+      "C": "atrophy可能因autophagy及apoptosis所導致",
+      "D": "apoptosis會導致細胞膜通透性改變而破碎"
+    },
+    "explanation": "<p><b>答案：(C) atrophy可能因autophagy及apoptosis所導致</b></p><p>細胞萎縮（atrophy）可由自噬作用（autophagy）使細胞自我消化胞器，或由細胞凋亡使細胞數目減少而造成，屬於適應性變化。</p><p>(A) 錯：hydropic degeneration（水腫變性）是細胞內水分堆積、胞器腫脹，屬於可逆性病變，移除病因後可恢復。</p><p>(B) 錯：化生（metaplasia）是一種成熟細胞被另一種成熟細胞取代的適應性變化，原因移除後可逆，不是永久傷害。</p><p>(D) 錯：細胞凋亡時細胞膜大致完整，形成凋亡小體；膜通透性改變、細胞腫脹破裂是壞死（necrosis）的特徵。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>",
+    "image": null
+  },
+  {
+    "id": 2,
+    "text": "2.關於細胞凋亡(apoptosis)，何者錯誤?",
+    "options": {
+      "A": "通常無界線分明組織病變及無明顯發炎反應",
+      "B": "death ligand(FasL)與細胞表面受體(FasR)作用，為細胞內凋亡蛋白酶(caspases)的唯一活化路徑",
+      "C": "為活化核酸內切酶(endonuclease)導致DNA斷裂",
+      "D": "腫瘤抑制因子P53可活化凋亡蛋白酶(caspases)導致細胞凋亡發生"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) death ligand(FasL)與細胞表面受體(FasR)作用，為細胞內凋亡蛋白酶(caspases)的唯一活化路徑</b></p><p>凋亡蛋白酶（caspases）的活化途徑不只一條：除了外源性死亡受體路徑（FasL–Fas），還有內源性粒線體路徑（cytochrome c 釋出）、顆粒酶 B（granzyme B）等，因此 FasL/FasR 並非「唯一」路徑。</p><p>(A) 對：凋亡為單一細胞或小群細胞的程序性死亡，細胞膜完整，不引起明顯發炎。</p><p>(C) 對：凋亡時活化 endonuclease，在核小體間切斷 DNA，電泳呈現梯狀（ladder）。</p><p>(D) 對：p53 偵測到無法修復的 DNA 損傷時，可經 Bax 等途徑活化 caspases 誘導凋亡。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 3,
+    "text": "3.關於四氯化碳(CCL4)誘發肝毒性致病機制，何者正確? ①造成細胞膜損傷 ②在肝細胞內粗內質網轉變成三氯化碳甲基自由基（CCL3-） ③CCL3-誘發胞器膜脂質過氧化 ④CCL3-最終傷害細胞膜，引起大量鈣離子流入細胞內造成肝毒性",
+    "options": {
+      "A": "123",
+      "B": "124",
+      "C": "134",
+      "D": "234"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 134</b></p><p>CCl4 由肝細胞滑面內質網（SER）上的 CYP2E1 代謝成三氯甲基自由基（CCl3·），再引發脂質過氧化，傷害細胞膜與胞器膜，鈣離子大量流入細胞，最終造成肝細胞壞死與脂肪變性。①③④正確；②錯在「粗內質網」，應為滑面內質網。</p><p>(A) 含錯誤的②。</p><p>(B) 含錯誤的②。</p><p>(D) 含錯誤的②。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 4,
+    "text": "4.下列那一種是結核病的特徵性病變?",
+    "options": {
+      "A": "凝固壞死",
+      "B": "乾酪樣壞死",
+      "C": "液化壞死",
+      "D": "乾性壞疽"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 乾酪樣壞死</b></p><p>結核病的特徵性病變是肉芽腫中心的乾酪樣壞死（caseous necrosis），外觀如乾酪、灰白至黃色、質地鬆脆，是凝固性與液化性壞死之間的特殊型態，周圍有上皮樣巨噬細胞與多核巨細胞（Langhans 型）包圍。</p><p>(A) 錯：凝固壞死常見於梗塞（腦除外），非結核病特徵。</p><p>(C) 錯：液化壞死常見於腦及化膿性膿瘍。</p><p>(D) 錯：乾性壞疽是壞死組織乾燥、木乃伊化，如缺血性末端壞死。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 5,
+    "text": "5.動物解剖時，發現肺臟表面布滿黑色針點狀病灶，顯微鏡下肺間質出現大量含黑色顆粒物質的巨噬細胞，正確診斷為：",
+    "options": {
+      "A": "pseudomelanosis",
+      "B": "silicosis",
+      "C": "anthracosis",
+      "D": "siderosis"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) anthracosis</b></p><p>肺臟出現黑色針點狀病灶，鏡下肺間質有大量吞入黑色顆粒的巨噬細胞，為吸入碳粒（煤煙、空氣污染）造成的碳末沉著症（anthracosis），多見於都市犬或老年動物，通常不影響肺功能。</p><p>(A) 錯：pseudomelanosis 為死後硫化氫與鐵結合形成硫化鐵，使組織變黑綠，常見於腸道、肝、腎等，與肺無關。</p><p>(B) 錯：矽肺（silicosis）為吸入二氧化矽粉塵，形成灰白色纖維化結節，並非黑色針點。</p><p>(D) 錯：siderosis（鐵沉著）為含鐵血黃素沉著，呈黃棕色。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 6,
+    "text": "6.關於congenital erythropoietic porphyria的敘述，何者錯誤?",
+    "options": {
+      "A": "本病又稱粉紅齒",
+      "B": "骨頭在UV照射下呈現螢光反應",
+      "C": "常見於小牛、貓、豬",
+      "D": "因uroporphyrinogen I synthase缺乏所致"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 因uroporphyrinogen I synthase缺乏所致</b></p><p>先天性紅血球生成性紫質症（congenital erythropoietic porphyria）的缺陷酵素是 uroporphyrinogen III cosynthase，而不是 uroporphyrinogen I synthase。缺乏後累積 I 型紫質，沉積於牙齒與骨骼。</p><p>(A) 對：牙齒呈粉紅至棕色，因此俗稱粉紅齒（pink tooth）。</p><p>(B) 對：紫質在紫外線下發出紅色螢光。</p><p>(C) 對：好發於小牛、貓、豬（亦有羊、馬的罕見報告）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 7,
+    "text": "7.下列何者與營養不良性鈣化(dystrophic calcification)無關?",
+    "options": {
+      "A": "牛地方性鈣質沉著",
+      "B": "動脈粥樣硬化鈣化斑",
+      "C": "牛結核病乾酪樣壞死灶",
+      "D": "腦膜瘤砂樣鈣化小體"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 牛地方性鈣質沉著</b></p><p>牛地方性鈣質沉著（enzootic calcinosis）是攝食含活性維生素 D 類似物的植物（如 Trisetum flavescens、Solanum malacoxylon）造成高血鈣、高血磷，使鈣沉著於正常組織（動脈、心、肺、腱），屬轉移性鈣化（metastatic calcification），因此與營養不良性鈣化無關。</p><p>(B) 對：動脈粥樣硬化斑塊的鈣化發生在壞死、變性組織，為營養不良性鈣化。</p><p>(C) 對：結核乾酪樣壞死灶常發生鈣化，屬營養不良性鈣化。</p><p>(D) 對：腦膜瘤的砂粒體（psammoma body）是同心圓狀鈣化，屬營養不良性鈣化。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 8,
+    "text": "8.小牛卵巢與子宮發育不全，有外陰，陰蒂頭大，陰道不通，但有貯精囊存在，此種病變最可能為：",
+    "options": {
+      "A": "真性偽陰陽體",
+      "B": "雄性偽陰陽體",
+      "C": "雌性偽陰陽體",
+      "D": "成雙器官合一畸形"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 雌性偽陰陽體</b></p><p>卵巢存在但外生殖器、生殖道呈雄性化（有貯精囊、陰蒂肥大）者，為雌性偽陰陽體（female pseudohermaphroditism），性腺為卵巢，生殖道與外生殖器有男性特徵。牛的 freemartin 即是典型例子。</p><p>(A) 錯：真性偽陰陽體（true hermaphrodite）同時具睪丸與卵巢組織。</p><p>(B) 錯：雄性偽陰陽體是性腺為睪丸，但生殖道或外生殖器呈雌性化。</p><p>(D) 錯：成雙器官合一畸形指雙胞胎融合，與性別分化無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 9,
+    "text": "9.新生幼畜出現如圖上方的病變，與何種病原感染無關?",
+    "options": {
+      "A": "貓泛白血球減少症病毒(feline panleukopenia virus)",
+      "B": "牛病毒性下痢病毒(bovine viral diarrhea virus)",
+      "C": "豬瘟病毒(classical swine fever virus)",
+      "D": "豬鐵士古病毒(Teschovirus)"
+    },
+    "image": "./圖片/113_1a9.png",
+    "explanation": "<p><b>答案：(D) 豬鐵士古病毒(Teschovirus)</b></p><p>題目圖上方的病變（依題意與選項判斷為小腦發育不全）可由貓泛白血球減少症病毒（貓）、BVDV（牛）、豬瘟病毒（豬）於胎兒或新生期感染小腦顆粒層細胞造成。Teschovirus 引起的是豬的非化膿性脊髓腦炎（Teschen/Talfan 病），與小腦發育不全無關。</p><p>(A) 有關：FPV 嗜好快速分裂細胞，新生貓感染造成小腦外顆粒層破壞。</p><p>(B) 有關：妊娠期感染 BVDV 可使犢牛小腦發育不全。</p><p>(C) 有關：妊娠母豬感染豬瘟病毒可使仔豬小腦發育不全、先天性震顫。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 10,
+    "text": "10.貓感染肺蟲(Aelurostrongylus abstrusus)，其肺動脈壁增厚之主要原因為:",
+    "options": {
+      "A": "內膜纖維增生",
+      "B": "外膜纖維增生",
+      "C": "中層平滑肌肥大",
+      "D": "血管內皮細胞肥大"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 中層平滑肌肥大</b></p><p>貓肺蟲（Aelurostrongylus abstrusus）幼蟲與成蟲存在於肺泡與細支氣管，刺激肺動脈分支產生明顯的中層平滑肌肥大，造成管壁增厚、管腔變窄。</p><p>(A) 非主因：內膜纖維增生較少見，不是此病管壁增厚的主要原因。</p><p>(B) 非主因：外膜纖維增生不是主要變化。</p><p>(D) 非主因：內皮細胞肥大不會造成明顯的管壁增厚。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 11,
+    "text": "11.造成hemodynamic pulmonary edema的原因，何者錯誤?",
+    "options": {
+      "A": "congestive heart failure",
+      "B": "protein-losing enteropathy",
+      "C": "hypoalbuminemia",
+      "D": "toxoplasmosis"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) toxoplasmosis</b></p><p>血流動力學性肺水腫（hemodynamic pulmonary edema）由靜水壓上升（如充血性心衰竭）或血漿膠體滲透壓降低（低白蛋白血症、蛋白漏失性腸病）造成。弓形蟲症（toxoplasmosis）造成肺泡壁損傷、血管通透性增加，屬於通透性（炎症性）肺水腫，不是血流動力學性。</p><p>(A) 對：左心衰竭使肺靜脈壓上升，產生肺水腫。</p><p>(B) 對：蛋白質流失使膠體滲透壓降低。</p><p>(C) 對：低白蛋白使膠體滲透壓下降。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 12,
+    "text": "12.下列何者於血管內皮細胞受到損傷時，不會出現於血小板啟動之凝血機制中?",
+    "options": {
+      "A": "血小板被活化而導致其細胞形態改變",
+      "B": "藉由von Willebrand's factor附著於subendothelial extracellular matrix",
+      "C": "釋出antithrombin III inhibitor",
+      "D": "釋出adenosine diphosphate與thromboxane A2"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 釋出antithrombin III inhibitor</b></p><p>抗凝血酶 III（antithrombin III）是抑制凝血因子的抗凝血物質，由肝臟合成並存在於血漿，不是血小板活化時釋出的促凝血物質，因此不會出現在血小板啟動凝血的機制中。</p><p>(A) 會出現：血小板被活化後由圓盤狀變成偽足延伸的形態。</p><p>(B) 會出現：血小板藉 vWF 與糖蛋白 Ib 結合暴露的內皮下基質。</p><p>(D) 會出現：活化的血小板釋出 ADP 與血栓素 A2（TXA2），促進更多血小板聚集。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 13,
+    "text": "13.犬無受虐與車禍等外傷病史，剖檢時後肢出現如下圖病變，最可能的診斷為何?",
+    "options": {
+      "A": "殺鼠靈中毒",
+      "B": "橫紋肌溶解症",
+      "C": "犬小病毒感染症",
+      "D": "後腔靜脈症候群"
+    },
+    "image": "./圖片/113a16.png",
+    "explanation": "<p><b>答案：(A) 殺鼠靈中毒</b></p><p>犬無外傷史卻在後肢出現大範圍肌肉間、皮下出血，最可能是抗凝血性殺鼠劑（殺鼠靈 warfarin）中毒，抑制維生素 K 環氧化物還原酶，使凝血因子 II、VII、IX、X 合成受阻而出血。</p><p>(B) 錯：橫紋肌溶解症以肌肉壞死、肌紅素尿為主，不是廣泛出血。</p><p>(C) 錯：犬小病毒主要引起腸炎與心肌炎。</p><p>(D) 錯：後腔靜脈症候群為心絲蟲導致溶血與血紅素尿，不是肢體出血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 14,
+    "text": "14.下列何者與炎症區漏出液(transudate)的產生有關? ①急性炎症初期反應 ②血漿蛋白質濃度增加 ③靜脈端靜水壓（hydrostatic pressure）增加 ④低血壓 ⑤血管滲透壓（osmotic pressure）降低",
+    "options": {
+      "A": "135",
+      "B": "234",
+      "C": "245",
+      "D": "145"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 135</b></p><p>漏出液（transudate）形成與靜水壓增加（③）及血管內膠體滲透壓降低（⑤）有關；炎症急性初期血管短暫充血，早期可見漏出液（①）。血漿蛋白濃度增加（②）會提高膠體滲透壓，不會造成漏出；低血壓（④）反而使靜水壓下降。</p><p>(B) 含錯誤的②④。</p><p>(C) 含錯誤的②④。</p><p>(D) 含錯誤的④。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 15,
+    "text": "15.下列何者為發炎反應的臨床症狀?①紅 ②腫 ③熱 ④痛 ⑤受影響組織功能喪失 ⑥出血",
+    "options": {
+      "A": "123456",
+      "B": "僅12345",
+      "C": "僅12346",
+      "D": "僅1234"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 僅12345</b></p><p>傳統炎症五大徵象為紅（rubor）、腫（tumor）、熱（calor）、痛（dolor）與功能喪失（functio laesa），即①②③④⑤。出血不是炎症的必要臨床症狀。</p><p>(A) 錯：多了⑥出血。</p><p>(C) 錯：缺少⑤，且多了⑥。</p><p>(D) 錯：缺少⑤功能喪失。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 16,
+    "text": "16.白血球由血液中移行至血管外時，需藉由何種分子與血管內皮細胞上的ICAM1結合，形成穩定黏附(stable adhesion)?",
+    "options": {
+      "A": "β2 integrins(CD11/CD18)",
+      "B": "P-selectin",
+      "C": "CD31",
+      "D": "Sialyl Lewis X"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) β2 integrins(CD11/CD18)</b></p><p>白血球與內皮細胞 ICAM-1 穩定黏附，是靠白血球上的 β2 integrins（LFA-1、Mac-1，即 CD11/CD18）與 ICAM-1 結合，由 IL-1、TNF 等活化後表現增加。</p><p>(B) 錯：P-selectin 負責滾動（rolling）階段。</p><p>(C) 錯：CD31（PECAM-1）參與白血球穿越內皮的移出階段。</p><p>(D) 錯：Sialyl Lewis X 是白血球上與 selectin 結合的配體，負責滾動。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 17,
+    "text": "17.下列何者與血小板活化釋出histamine及serotonin無關?",
+    "options": {
+      "A": "與壞死血管內皮細胞裸露的基底膜膠原纖維結合",
+      "B": "凝血過程中所形成之thrombin",
+      "C": "受損血管內皮細胞釋出的adenosine diphosphate",
+      "D": "誘發凝血機制plasmin生成，而抑制C3a與C5a的作用"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 誘發凝血機制plasmin生成，而抑制C3a與C5a的作用</b></p><p>plasmin 會促進補體活化（使 C3 裂解出 C3a、C5a），並不是抑制 C3a 與 C5a，選項敘述方向錯誤；而血小板釋放 histamine、serotonin 的活化因子是膠原纖維、thrombin 與 ADP 等。</p><p>(A) 有關：血小板接觸裸露的膠原後活化、脫顆粒。</p><p>(B) 有關：thrombin 是強力的血小板活化劑。</p><p>(C) 有關：ADP 促進血小板活化與聚集。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 18,
+    "text": "18.關於干擾素之特性，何者錯誤?",
+    "options": {
+      "A": "可被病毒感染的淋巴細胞所誘發分泌",
+      "B": "可增加NK-cell毒殺作用與macrophage吞噬功能",
+      "C": "活化抗原呈現細胞之抗原呈現作用",
+      "D": "對病毒具特異性辨識能力"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 對病毒具特異性辨識能力</b></p><p>干擾素（IFN）誘導細胞進入抗病毒狀態，作用不具病毒特異性，可對多種病毒有效；它具有種別特異性（species-specific）而非病毒特異性。</p><p>(A) 對：病毒感染細胞與活化的淋巴細胞皆可分泌干擾素。</p><p>(B) 對：IFN 可增強 NK 細胞毒殺與巨噬細胞吞噬功能。</p><p>(C) 對：IFN-γ 可上調 MHC 分子，促進抗原呈現。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 19,
+    "text": "19.Nature killer T(NK-T)細胞與nature killer(NK)細胞的主要差異為何?",
+    "options": {
+      "A": "NK-T細胞會表現CD3 marker，NK細胞則無",
+      "B": "NK細胞會表現CD3 marker，NK-T細胞則無",
+      "C": "都具有CD3 marker，但NK細胞無Toll-like receptors構造",
+      "D": "NK-T細胞可結合membrane attack complex辨識受病原感染的細胞"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) NK-T細胞會表現CD3 marker，NK細胞則無</b></p><p>NK-T 細胞同時帶有 NK 標記與 T 細胞受器，並表現 CD3，NK 細胞則缺乏 CD3，這是兩者的主要差異。</p><p>(B) 錯：相反，NK 細胞不表現 CD3。</p><p>(C) 錯：NK 細胞並非都有 CD3，且也具有 TLR。</p><p>(D) 錯：membrane attack complex 是補體終產物，與辨識感染細胞無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 20,
+    "text": "20.關於polyarteritis nodosa形成機制，何者正確?",
+    "options": {
+      "A": "異物植入",
+      "B": "銅中毒",
+      "C": "自體免疫性疾病",
+      "D": "白血球缺陷"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 自體免疫性疾病</b></p><p>結節性多動脈炎（polyarteritis nodosa）是中小型動脈的壞死性血管炎，機轉為免疫複合物沉積的第三型過敏反應，屬自體免疫性疾病。</p><p>(A) 錯：異物植入引起的是異物肉芽腫，非 PAN。</p><p>(B) 錯：銅中毒造成肝臟病變，非血管炎。</p><p>(D) 錯：白血球缺陷屬免疫缺乏，與 PAN 無關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 21,
+    "text": "21.馬慢性阻塞性肺病(chronic obstructive pulmonary disease, COPD)與何種局部性過敏反應最相關?",
+    "options": {
+      "A": "type I",
+      "B": "type II",
+      "C": "type III",
+      "D": "type IV"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) type III</b></p><p>馬慢性阻塞性肺病（COPD，又稱 recurrent airway obstruction／heaves）與吸入發霉乾草中的真菌孢子（如 Micropolyspora faeni、Aspergillus）有關，傳統上歸類為局部性的第三型（免疫複合物，Arthus 型）過敏反應，同時可有第一型成分，依本題答案選第三型。</p><p>(A) 錯：第一型為 IgE 介導的立即型反應，雖可參與，但本題以第三型為最相關。</p><p>(B) 錯：第二型為抗體對細胞或組織抗原的細胞毒性反應。</p><p>(D) 錯：第四型為 T 細胞介導的遲發型反應，如結核菌素反應。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 22,
+    "text": "22.下列何者為抑癌基因(tumor suppressor gene)?",
+    "options": {
+      "A": "RAS gene",
+      "B": "p53 gene",
+      "C": "BCR-ABL fusion gene",
+      "D": "gene cyM"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) p53 gene</b></p><p>p53 是典型的抑癌基因（tumor suppressor gene），負責細胞週期停滯、DNA 修復與誘導凋亡；其突變或失活是許多腫瘤的共通特徵。</p><p>(A) 錯：RAS 是原致癌基因（proto-oncogene），突變後持續活化訊息傳遞。</p><p>(C) 錯：BCR-ABL 融合基因產生持續活化的酪胺酸激酶，是致癌基因（如慢性骨髓性白血病）。</p><p>(D) 錯：並非已知的抑癌基因。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 23,
+    "text": "23.下列何種標幟抗體，可協助診斷犬隻B lymphocyte淋巴瘤?",
+    "options": {
+      "A": "CD3",
+      "B": "CD8",
+      "C": "CD56",
+      "D": "CD79a"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) CD79a</b></p><p>CD79a 是 B 細胞（包含前驅 B 細胞至漿細胞）的標記，免疫組織化學可用於診斷犬 B 細胞淋巴瘤；CD20、PAX5 亦常搭配使用。</p><p>(A) 錯：CD3 為 T 細胞標記。</p><p>(B) 錯：CD8 為細胞毒性 T 細胞標記。</p><p>(C) 錯：CD56 為 NK 細胞標記。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 24,
+    "text": "24.關於腫瘤抗原，何者正確?",
+    "options": {
+      "A": "均為蛋白質成分",
+      "B": "只有細胞膜蛋白為有效之抗原",
+      "C": "蛋白質、醣蛋白、醣脂類或碳水化合物都可能為腫瘤抗原",
+      "D": "主要用來進行標靶治療時的腫瘤抗原，與腫瘤診斷無關"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 蛋白質、醣蛋白、醣脂類或碳水化合物都可能為腫瘤抗原</b></p><p>腫瘤抗原可為蛋白質、醣蛋白、醣脂或碳水化合物，位於細胞膜、細胞質或細胞核皆可成為診斷標記，或免疫治療目標。</p><p>(A) 錯：並非都是蛋白質。</p><p>(B) 錯：除細胞膜蛋白外，其他成分亦可為有效抗原。</p><p>(D) 錯：腫瘤抗原同時可用於免疫組織化學診斷、預後評估與標靶治療。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 25,
+    "text": "25.關於成牛桿菌性血紅素尿(bacillary hemoglobinuria)，何者正確? ①病原為Clostridium perfringenstype D ②與食入梭狀桿菌孢子在肝組織存活有關 ③與感染肝吸蟲誘發肝組織壞死有關 ④常造成髓漿腎（pulpy kidney）",
+    "options": {
+      "A": "僅12",
+      "B": "僅23",
+      "C": "僅34",
+      "D": "234"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 僅23</b></p><p>成牛桿菌性血紅素尿（bacillary hemoglobinuria）病原是 Clostridium haemolyticum（C. novyi type D），孢子潛伏於肝臟，肝吸蟲移行造成肝組織壞死、缺氧時孢子發芽，產生 β 毒素（卵磷脂酶）造成溶血、血紅素尿與貧血，因此②③正確。①錯：C. perfringens type D 是羊腸毒血症的病原。④錯：髓漿腎（pulpy kidney）是 C. perfringens type D 腸毒血症的特徵。</p><p>(A) 錯：含①。</p><p>(C) 錯：含④。</p><p>(D) 錯：含④。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 26,
+    "text": "26.關於再生不良性貧血(aplastic anemia)的敘述，何者錯誤?",
+    "options": {
+      "A": "骨髓中所有造血系列的細胞發育均停滯或嚴重低下",
+      "B": "骨髓中僅有紅血球系列的造血細胞發育停滯或嚴重低下",
+      "C": "病因可能為化學物質、感染原及有毒植物",
+      "D": "因接觸刺激原所引發的急性病徵，可於移除刺激原後改善"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 骨髓中僅有紅血球系列的造血細胞發育停滯或嚴重低下</b></p><p>再生不良性貧血（aplastic anemia）是骨髓造血幹細胞受抑制，造成紅血球、白血球、血小板三系列同時減少（全血球減少）；若僅紅血球系列受抑制，稱為純紅血球再生不良（pure red cell aplasia），不是本病。</p><p>(A) 對：三系列細胞發育停滯或嚴重低下。</p><p>(C) 對：如雌激素、化療藥、感染原（Ehrlichia、犬小病毒）及蕨類等有毒植物。</p><p>(D) 對：若骨髓幹細胞尚未完全損毀，除去病因後可以恢復。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 27,
+    "text": "27.犬脾臟切片如圖所示，下列何者錯誤?",
+    "options": {
+      "A": "此現象常見於脾臟紅髓",
+      "B": "診斷為髓外造血",
+      "C": "圖中巨大細胞為多核巨噬細胞",
+      "D": "此現象多與貧血有關"
+    },
+    "image": "./圖片/113a27.png",
+    "explanation": "<p><b>答案：(C) 圖中巨大細胞為多核巨噬細胞</b></p><p>本題為犬脾臟紅髓髓外造血（extramedullary hematopoiesis）。圖中的巨大細胞應為巨核細胞（megakaryocyte），不是多核巨噬細胞，因此 C 錯誤。</p><p>(A) 對：髓外造血多位於脾臟紅髓。</p><p>(B) 對：切片所見為造血細胞灶，診斷為髓外造血。</p><p>(D) 對：多與貧血、慢性發炎或骨髓受損有關。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 28,
+    "text": "28.關於下圖犬隻脾臟病灶，何者正確? ？①常見於老年犬脾臟邊緣 ②與脾臟曾經受傷出血有關 ③肉眼常位於脾臟外膜 ④切片中箭頭標示的黃色物質為hemosiderin ⑤常用toluidine blue偵測血鐵質",
+    "options": {
+      "A": "234",
+      "B": "135",
+      "C": "145",
+      "D": "123"
+    },
+    "image": "./圖片/113a28.png",
+    "explanation": "<p><b>答案：(D) 123</b></p><p>題目為犬老年脾臟邊緣的鐵質沉著結節（siderotic plaque／Gamna-Gandy 型），好發於老年犬脾臟邊緣（①），與過往外傷出血有關（②），肉眼位於脾臟被膜（③）。依官方答案，④與⑤不列入：偵測含鐵血黃素常用普魯士藍（Prussian blue），而非甲苯胺藍（toluidine blue，用於肥大細胞）；④箭頭所指物質依答案亦不成立。</p><p>(A) 錯：含⑤。</p><p>(B) 錯：含⑤。</p><p>(C) 錯：含⑤、④。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 29,
+    "text": "29.永存性動脈導管(patent ductus arteriosus)較常發生在:",
+    "options": {
+      "A": "牛",
+      "B": "犬",
+      "C": "雞",
+      "D": "馬"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 犬</b></p><p>永存性動脈導管（PDA）在犬的發生率最高，且有遺傳傾向，常見於貴賓、馬爾濟斯、博美、德國牧羊犬等，母犬多於公犬。</p><p>(A) 錯：牛不是好發物種。</p><p>(C) 錯：雞無此典型病變。</p><p>(D) 錯：馬少見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 30,
+    "text": "30.關於桑葚心病(mulberry heart disease)，何者錯誤?",
+    "options": {
+      "A": "常見於哺乳豬",
+      "B": "與維生素E缺乏有關",
+      "C": "可見心肌出血與壞死",
+      "D": "可見心囊積水"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 常見於哺乳豬</b></p><p>桑葚心病（mulberry heart disease）見於斷奶後至生長期仔豬（約 3–16 週齡），與維生素 E／硒缺乏、不飽和脂肪酸過氧化有關，特徵為心外膜出血、心肌壞死、心包積水；因此「常見於哺乳豬」不夠正確。</p><p>(B) 對：與維生素 E／硒缺乏有關。</p><p>(C) 對：可見心肌出血與壞死。</p><p>(D) 對：常見心包積水與胸腹水。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 31,
+    "text": "31.仔豬口蹄疫引起下圖心臟病變，稱之為:",
+    "options": {
+      "A": "white muscle disease",
+      "B": "cor villosum",
+      "C": "shaggy heart",
+      "D": "tiger heart"
+    },
+    "image": "./圖片/113a31.png",
+    "explanation": "<p><b>答案：(D) tiger heart</b></p><p>仔豬口蹄疫病毒侵犯心肌，使心肌呈現灰黃色與紅褐色交錯的條紋，形似老虎斑紋，稱虎斑心（tiger heart）。</p><p>(A) 錯：white muscle disease 是維生素 E／硒缺乏造成的白色條紋樣肌肉病變。</p><p>(B) 錯：cor villosum（絨毛心）為纖維素性心外膜炎，表面呈絨毛狀。</p><p>(C) 錯：shaggy heart 為纖維素性心包炎的毛茸狀外觀。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 32,
+    "text": "32.犬罹患甲狀腺功能低下，解剖時最可能出現的心臟病變為:",
+    "options": {
+      "A": "冠狀動脈粥樣硬化",
+      "B": "冠狀溝脂肪鈣化",
+      "C": "乳突狀肌與腱索斷裂",
+      "D": "三尖瓣閉鎖不全"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 冠狀動脈粥樣硬化</b></p><p>犬甲狀腺功能低下使血脂質升高（高膽固醇、高三酸甘油酯），易導致動脈粥樣硬化，包括冠狀動脈。</p><p>(B) 錯：冠狀溝脂肪鈣化不是典型病變。</p><p>(C) 錯：乳突肌與腱索斷裂見於二尖瓣黏液樣退化或心內膜炎。</p><p>(D) 錯：三尖瓣閉鎖不全不是甲狀腺功能低下的特徵病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 33,
+    "text": "33.下圖動脈病灶，主要病變為何?",
+    "options": {
+      "A": "hemangioma",
+      "B": "recanalization",
+      "C": "fibrinoid necrosis",
+      "D": "liquefactive necrosis"
+    },
+    "image": "./圖片/113a33.png",
+    "explanation": "<p><b>答案：(B) recanalization</b></p><p>圖中動脈的主要病變為再通（recanalization）：血栓機化後，內部形成新的血管通道，使血流部分恢復。</p><p>(A) 錯：hemangioma 是血管腫瘤。</p><p>(C) 錯：fibrinoid necrosis 為血管壁纖維素樣壞死，見於血管炎。</p><p>(D) 錯：liquefactive necrosis 為液化壞死，見於腦或膿瘍。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 34,
+    "text": "34.下列何者較不易引發此病變?",
+    "options": {
+      "A": "心衰竭",
+      "B": "血管內皮細胞受損",
+      "C": "淋巴管阻塞",
+      "D": "第一型肺泡細胞增生"
+    },
+    "image": "./圖片/113a34.png",
+    "explanation": "<p><b>答案：(D) 第一型肺泡細胞增生</b></p><p>圖示為肺水腫（依題意與選項推斷）。肺水腫常因心衰竭（靜水壓上升）、血管內皮損傷（通透性增加）、淋巴管阻塞而產生；第一型肺泡細胞增生並不是引起水腫的原因，且第一型細胞為終末分化的扁平細胞，損傷後主要由第二型細胞增生修補。</p><p>(A) 會引起：左心衰竭使肺靜脈壓上升。</p><p>(B) 會引起：內皮損傷使通透性增加。</p><p>(C) 會引起：淋巴引流受阻使液體堆積。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 35,
+    "text": "35.關於慢性支氣管炎造成的組織病變，何者不易發生?",
+    "options": {
+      "A": "呼吸道上皮細胞發生鱗狀上皮化生(squamous metaplasia)",
+      "B": "支氣管擴張(bronchiectasis)",
+      "C": "氣道重塑(airway remodeling)",
+      "D": "軟骨增生(cartilage proliferation)"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 軟骨增生(cartilage proliferation)</b></p><p>慢性支氣管炎的組織變化包括杯狀細胞增生、鱗狀上皮化生、支氣管擴張、平滑肌肥大與氣道重塑，並不會出現軟骨增生。</p><p>(A) 會發生：反覆刺激使上皮鱗狀化生。</p><p>(B) 會發生：管壁破壞後支氣管擴張。</p><p>(C) 會發生：氣道重塑是慢性炎症的典型結果。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 36,
+    "text": "36.關於貓傳染性腹膜炎，何者錯誤?",
+    "options": {
+      "A": "間質性肺炎係因病毒直接攻擊肺泡細胞所導致",
+      "B": "患貓可能出現肉芽腫性肺炎",
+      "C": "本病與第三型過敏反應有關",
+      "D": "肺臟常可見巨噬細胞、淋巴球及嗜中性球浸潤於血管壁及其周圍"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 間質性肺炎係因病毒直接攻擊肺泡細胞所導致</b></p><p>貓傳染性腹膜炎（FIP）的肺病變是病毒感染巨噬細胞後，免疫複合物沉積於血管造成的血管炎（第三型過敏反應）及肉芽腫，並非病毒直接攻擊肺泡細胞造成的間質性肺炎。</p><p>(B) 對：可出現肉芽腫性（化膿性肉芽腫）肺炎。</p><p>(C) 對：與免疫複合物性血管炎（第三型過敏）有關。</p><p>(D) 對：血管壁與周圍有巨噬細胞、淋巴球與嗜中性球浸潤。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 37,
+    "text": "37.關於山羊關節炎腦炎肺臟病變，何者錯誤?",
+    "options": {
+      "A": "通常為瀰漫性，但以肺臟後葉病變最嚴重",
+      "B": "肺臟呈現灰至粉紅色，觸感堅實，切面可見1~2毫米之灰白色病灶",
+      "C": "肺泡壁增厚，有大量嗜中性球浸潤，第二型肺泡上皮細胞增生",
+      "D": "肺泡腔內常見蛋白質性嗜伊紅性物質堆積"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 肺泡壁增厚，有大量嗜中性球浸潤，第二型肺泡上皮細胞增生</b></p><p>山羊關節炎腦炎（CAE，小反芻獸慢病毒）的肺病變為間質性肺炎，肺泡壁增厚，主要浸潤細胞是淋巴球、巨噬細胞與漿細胞，並非大量嗜中性球。</p><p>(A) 對：通常為瀰漫性，後葉較嚴重。</p><p>(B) 對：肺堅實，切面有灰白色小病灶。</p><p>(D) 對：肺泡腔可見蛋白質性液體。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 38,
+    "text": "38.下列何者與豬postweaning multisystemic wasting syndrome的病變無關?",
+    "options": {
+      "A": "肉芽腫性淋巴腺炎",
+      "B": "於肺泡壁可見type II pneumocyte增生及多量單核細胞浸潤",
+      "C": "淋巴濾泡增生",
+      "D": "嗜鹼性質內包涵體"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 淋巴濾泡增生</b></p><p>豬離乳後多系統衰竭症候群（PMWS，PCV2）的淋巴組織病變是淋巴細胞缺乏（lymphoid depletion），而非淋巴濾泡增生。</p><p>(A) 有關：可見肉芽腫性淋巴腺炎。</p><p>(B) 有關：間質性肺炎，肺泡壁第二型細胞增生。</p><p>(D) 有關：巨噬細胞內可見嗜鹼性質內球狀包涵體。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 39,
+    "text": "39.下列何者不是肺臟血氣障壁(blood-air barrier)的組成成分?",
+    "options": {
+      "A": "血管內皮細胞",
+      "B": "第一型肺泡上皮細胞",
+      "C": "基底膜",
+      "D": "第二型肺泡上皮細胞"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 第二型肺泡上皮細胞</b></p><p>血氣障壁由肺泡上皮第一型細胞、基底膜（融合的上皮與內皮基底膜）與毛細血管內皮細胞組成；第二型肺泡細胞為分泌表面活性物質的立方形細胞，不屬於血氣障壁。</p><p>(A) 是：內皮細胞。</p><p>(B) 是：第一型細胞構成大部分肺泡表面。</p><p>(C) 是：基底膜。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 40,
+    "text": "40.幼年貓於口腔出現如圖病變，切片下主要為淋巴球與漿細胞浸潤，最可能的潛在致病因子為:",
+    "options": {
+      "A": "牙結石(tartar)",
+      "B": "維生素C不足(hypovitaminosis C)",
+      "C": "免疫反應不足(inefficient immune response)",
+      "D": "蛀牙(cavities)"
+    },
+    "image": "./圖片/113a40.png",
+    "explanation": "<p><b>答案：(C) 免疫反應不足(inefficient immune response)</b></p><p>幼年貓口腔出現以淋巴球與漿細胞浸潤為主的慢性口腔炎（gingivostomatitis），其潛在因子是宿主對牙菌斑、病毒（如 FCV）等刺激的免疫反應失調，依本題答案選「免疫反應不足」。</p><p>(A) 錯：牙結石是常見誘因但不是潛在致病因子。</p><p>(B) 錯：維生素 C 缺乏與貓牙齦炎無關，貓可自行合成。</p><p>(D) 錯：貓的蛀牙很少見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 41,
+    "text": "41.下列何者與豬隻下痢無關?",
+    "options": {
+      "A": "Lawsonia intracellularis",
+      "B": "porcine parvovirus",
+      "C": "Clostridium perfringens type A",
+      "D": "Clostridium perfringens type C"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) porcine parvovirus</b></p><p>豬小病毒（porcine parvovirus）主要造成胎兒死亡、木乃伊化等繁殖障礙（SMEDI 症候群），不引起下痢。</p><p>(A) 有關：Lawsonia intracellularis 引起豬增生性腸病（proliferative enteropathy），可有下痢。</p><p>(C) 有關：A 型產氣莢膜梭菌可引起仔豬下痢。</p><p>(D) 有關：C 型產氣莢膜梭菌引起仔豬出血壞死性腸炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 42,
+    "text": "42.豬慢性沙門氏菌感染症導致直腸狹窄(rectal stricture)，主要致病機制為:",
+    "options": {
+      "A": "菌體直接侵入腸道上皮細胞造成破壞",
+      "B": "菌體分泌毒素，導致慢性腸炎",
+      "C": "血管栓塞及腸道區域性缺乏側支循環",
+      "D": "菌體分泌毒素，直接導致區域性腸道上皮細胞凝固樣壞死"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 血管栓塞及腸道區域性缺乏側支循環</b></p><p>慢性沙門氏菌感染時，腸黏膜深層壞死與血管栓塞，直腸血管側支循環缺乏，缺血使壞死範圍擴大，癒合後纖維化形成直腸狹窄（rectal stricture）。</p><p>(A) 非主因：菌體侵入上皮只造成初期傷害。</p><p>(B) 非主因：不是直接以毒素造成慢性腸炎。</p><p>(D) 非主因：不是毒素直接造成凝固壞死，而是血管栓塞所致缺血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 43,
+    "text": "43.小馬出現下痢、化膿性肉芽腫性淋巴腺炎及盲結腸潰瘍，最可能病因為:",
+    "options": {
+      "A": "腸道沙門氏菌",
+      "B": "馬紅球菌(Rhodococcus equi)",
+      "C": "新立克次體(Neorickettsia risticci)",
+      "D": "A型產氣莢膜梭菌(Clostridium perfringens Type A)"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 馬紅球菌(Rhodococcus equi)</b></p><p>小馬出現下痢、化膿性肉芽腫性淋巴腺炎及盲結腸潰瘍，是馬紅球菌（Rhodococcus equi）感染腸道的典型表現，常合併化膿肉芽腫性肺炎。</p><p>(A) 錯：沙門氏菌引起壞死性腸炎，但無此典型肉芽腫性淋巴腺炎。</p><p>(C) 錯：Neorickettsia risticii 引起波托馬克馬熱（Potomac horse fever）。</p><p>(D) 錯：A 型產氣莢膜梭菌引起壞死出血性腸炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 44,
+    "text": "44.關於腸套疊，何者正確?",
+    "options": {
+      "A": "係指一小段腸管套入腸繫膜撕裂處所致",
+      "B": "其發生與腸管過度蠕動並無關聯",
+      "C": "瀕死前之腸套疊極易發生腸管壞疽",
+      "D": "動物死亡常是因內毒素休克所致"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 動物死亡常是因內毒素休克所致</b></p><p>腸套疊（intussusception）造成血流受阻、腸壁缺血壞死，細菌與內毒素進入血液，動物常死於內毒素休克。</p><p>(A) 錯：是一段腸管套入相鄰腸管，不是套入腸繫膜撕裂處（那是腸嵌頓／內疝）。</p><p>(B) 錯：與腸蠕動過強、腸炎、寄生蟲等有關。</p><p>(C) 錯：瀕死前（agonal）的腸套疊通常無充血壞疽變化，也不一定有臨床意義。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 45,
+    "text": "45.有關大鼠肝臟切片出現多發局部凝固樣壞死，鍍銀染色下壞死周邊的肝細胞內可見多量桿狀細菌，其最可能的病因為:",
+    "options": {
+      "A": "Clostridium piliforme",
+      "B": "Clostridioides difficile",
+      "C": "Rodentibacter pneumotropicus",
+      "D": "Klebsiella pneumoniae"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) Clostridium piliforme</b></p><p>大鼠肝臟多發局部凝固壞死，壞死區周邊肝細胞內可見銀染下呈束狀的桿菌，為 Clostridium piliforme 引起的泰澤氏病（Tyzzer's disease）。</p><p>(B) 錯：C. difficile 引起腸炎。</p><p>(C) 錯：Rodentibacter pneumotropicus 為呼吸道病原。</p><p>(D) 錯：Klebsiella 引起化膿性病變，不會在肝細胞內成束。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 46,
+    "text": "46.成年肉牛肝臟可見細菌感染造成壞死與膿瘍，通常是繼發於下列何者?",
+    "options": {
+      "A": "瘤胃酸中毒(ruminal acidosis)",
+      "B": "木舌病(wooden tongue)",
+      "C": "惡性卡他熱(malignant catarrhal fever)",
+      "D": "鉤端螺旋體病(leptospirosis)"
+    },
+    "image": "./圖片/113a46.png",
+    "explanation": "<p><b>答案：(A) 瘤胃酸中毒(ruminal acidosis)</b></p><p>成年肉牛肝膿瘍多繼發於瘤胃酸中毒（過食精料）→瘤胃炎，壞死桿菌（Fusobacterium necrophorum）等細菌經門脈進入肝臟造成壞死與膿瘍。</p><p>(B) 錯：木舌病由放線桿菌引起，與肝膿瘍無關。</p><p>(C) 錯：惡性卡他熱為血管炎，不引起肝膿瘍。</p><p>(D) 錯：鉤端螺旋體病造成溶血、肝腎損傷。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 47,
+    "text": "47.下列何者與hepatocellular steatosis/lipidosis較無關?",
+    "options": {
+      "A": "牛隻大量泌乳",
+      "B": "長期飢餓",
+      "C": "長期過度使用類固醇",
+      "D": "肥胖貓處於緊迫環境下"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 長期過度使用類固醇</b></p><p>長期過度使用類固醇的犬主要產生類固醇肝病（糖原沉積造成肝細胞空泡變性），而不是典型的肝脂質沉積；其他三者皆與脂肪動員過多或代謝障礙有關。</p><p>(A) 有關：泌乳牛能量負平衡，脂肪動員增加。</p><p>(B) 有關：飢餓使脂肪動員，超過肝臟處理能力。</p><p>(D) 有關：肥胖貓厭食時會發生肝脂質沉積症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 48,
+    "text": "48.下列何處的細胞對缺氧(hypoxia)有較高敏感性?",
+    "options": {
+      "A": "proximal convoluted tubule",
+      "B": "loop of Henle",
+      "C": "distal convoluted tubule",
+      "D": "collecting duct"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) proximal convoluted tubule</b></p><p>近曲小管（proximal convoluted tubule）細胞代謝旺盛、耗氧量高，因此對缺氧與腎毒性最敏感。</p><p>(B) 次之：髓袢也易受缺血影響（髓質外層）。</p><p>(C) 較低。</p><p>(D) 較低。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 49,
+    "text": "49.關於腎小管壞死，何者錯誤?",
+    "options": {
+      "A": "常為急性腎衰竭的原因",
+      "B": "可分為腎毒性或缺氧性傷害",
+      "C": "腎小管基底膜的傷害無法避免",
+      "D": "其組織病變分布與致病因子有關"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 腎小管基底膜的傷害無法避免</b></p><p>腎小管壞死時，若基底膜保持完整（尤其是毒物所致），上皮可以再生；基底膜若遭破壞（缺血性嚴重病變）則較難恢復，因此「傷害無法避免」的說法錯誤。</p><p>(A) 對：腎小管壞死是急性腎衰竭的常見原因。</p><p>(B) 對：可分為腎毒性及缺氧性傷害。</p><p>(D) 對：病變分布隨致病因子而異。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 50,
+    "text": "50.不當使用非類固醇抗炎症性藥物時，在何種動物易導致急性腎衰竭?",
+    "options": {
+      "A": "犬",
+      "B": "馬",
+      "C": "豬",
+      "D": "羊"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 犬</b></p><p>犬對 NSAID（抑制前列腺素合成）非常敏感，腎血流量減少而導致缺血性腎小管壞死與急性腎衰竭，同時也易引發胃潰瘍。</p><p>(B) 非最易：馬也可發生，但本題以犬為最常見。</p><p>(C) 非最易：豬不是典型。</p><p>(D) 非最易：羊不是典型。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 51,
+    "text": "51.下列何者為動物腎臟類澱粉沉著最常見位置?",
+    "options": {
+      "A": "絲球體",
+      "B": "近端腎小管",
+      "C": "腎盂",
+      "D": "遠端腎小管"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 絲球體</b></p><p>動物腎臟類澱粉沉著最常見於絲球體（AA 型，如犬、貓、牛）；少數品種（如 Shar-Pei）則主要沉積於髓質間質。</p><p>(B) 非最常見：近端腎小管不是主要位置。</p><p>(C) 非最常見：腎盂與髓質見於特殊犬種。</p><p>(D) 非最常見：遠端腎小管不是主要位置。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 52,
+    "text": "52.關於犬傳染性肝炎的腎臟病變，何者正確? ①病變特徵為大區域腎小管壞死 ②於絲球體血管內皮細胞可見核內包涵體 ③可導致短暫性絲球體腎炎 ④耐過急性期的患犬會產生淋巴球及漿細胞性間質性腎炎",
+    "options": {
+      "A": "123",
+      "B": "234",
+      "C": "124",
+      "D": "134"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 234</b></p><p>犬傳染性肝炎（CAV-1）的腎臟：絲球體內皮細胞可見核內包涵體（②），免疫複合物造成短暫絲球體腎炎（③），耐過急性期後可發展為淋巴球漿細胞性間質性腎炎（④）。①錯：腎小管不是大範圍壞死，其特徵性病變是肝臟的小葉中心壞死與血管內皮損傷。</p><p>(A) 錯：含①。</p><p>(C) 錯：含①。</p><p>(D) 錯：含①。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 53,
+    "text": "53.關於犬前列腺腫大及增生，何者正確? ①年輕犬隻易發生 ②臨床易伴有多尿 ③與estrogen有關 ④與testosterone有關",
+    "options": {
+      "A": "13",
+      "B": "14",
+      "C": "23",
+      "D": "34"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 34</b></p><p>犬前列腺增生（BPH）：③雌激素與④睪固酮（經轉化為雙氫睪固酮）共同作用，使腺體增生。①錯：好發於中老年未去勢公犬；②錯：臨床多見排便困難、血尿或尿滯留，而非多尿。</p><p>(A) 錯：含①。</p><p>(B) 錯：含①。</p><p>(C) 錯：含②。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 54,
+    "text": "54.下列何種神經細胞，在功能上類似於一般肉芽組織中的纖維母細胞?",
+    "options": {
+      "A": "星狀細胞",
+      "B": "小神經膠質細胞",
+      "C": "寡樹突細胞",
+      "D": "室管膜細胞"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 星狀細胞</b></p><p>星狀細胞（astrocyte）在中樞神經受傷後增生肥大形成膠質瘢痕（gliosis），功能類似肉芽組織中的纖維母細胞。</p><p>(B) 錯：小神經膠質細胞相當於巨噬細胞，負責吞噬。</p><p>(C) 錯：寡樹突細胞形成髓鞘。</p><p>(D) 錯：室管膜細胞襯覆腦室。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 55,
+    "text": "55.關於腦梗塞(infarction)的病變，何者錯誤?",
+    "options": {
+      "A": "神經元最先死亡",
+      "B": "梗塞區常見fibroblast和macrophage浸潤，形成granuloma",
+      "C": "常伴隨腦軟化",
+      "D": "病灶區呈現液化壞死"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 梗塞區常見fibroblast和macrophage浸潤，形成granuloma</b></p><p>腦梗塞後，巨噬細胞轉為富含脂質的泡沫狀 gitter cells 吞噬壞死組織，周邊由星狀細胞增生形成膠質瘢痕，不會形成肉芽腫（granuloma）；中樞神經缺乏纖維母細胞浸潤。</p><p>(A) 對：神經元對缺氧最敏感。</p><p>(C) 對：腦組織液化壞死，稱腦軟化。</p><p>(D) 對：病灶為液化壞死。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 56,
+    "text": "56.神經症狀犬隻，如圖所示，正確的病變敘述及可能的診斷為:",
+    "options": {
+      "A": "左圖-Negri bodies，右圖-vasogenic edema，狂犬病",
+      "B": "左圖-gitter cells，右圖-glial nodule，犬瘟熱",
+      "C": "左圖-Purkinje cells，右圖-central chromatolysis，假性狂犬病",
+      "D": "左圖-gitter cells，右圖-intramyelinic edema，犬瘟熱"
+    },
+    "image": "./圖片/113a56.png",
+    "explanation": "<p><b>答案：(B) 左圖-gitter cells，右圖-glial nodule，犬瘟熱</b></p><p>犬瘟熱（CDV）腦病變：脫髓鞘病灶中有富含脂質的吞噬細胞（gitter cells），並可見膠質結節（glial nodule）；本題圖未能直接確認，依答案選 B。</p><p>(A) 錯：狂犬病 Negri body 在神經元，且病變不以血管源性水腫為主。</p><p>(C) 錯：Purkinje cells 與 central chromatolysis 組合與假性狂犬病不符。</p><p>(D) 錯：犬瘟熱確有髓鞘內水腫，但左圖與右圖的組合與答案不符。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 57,
+    "text": "57.關於傳染性海綿狀腦病，何者錯誤?",
+    "options": {
+      "A": "在綿羊稱為搔癢病",
+      "B": "在牛稱為牛海綿狀腦病",
+      "C": "在鹿稱為慢性消耗性疾病",
+      "D": "在人類Kuru病係由scrapie prion所引起"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 在人類Kuru病係由scrapie prion所引起</b></p><p>庫魯病（Kuru）是人類因食用同類腦組織所致的人類朊病毒疾病，並非由 scrapie prion 引起，因此 D 錯誤。</p><p>(A) 對：綿羊稱搔癢病（scrapie）。</p><p>(B) 對：牛稱牛海綿狀腦病（BSE）。</p><p>(C) 對：鹿稱慢性消耗性疾病（CWD）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 58,
+    "text": "58.新生仔豬出現先天性小腦發育不全，與下列何者有關?",
+    "options": {
+      "A": "豬假性狂犬病",
+      "B": "豬瘟",
+      "C": "砷劑中毒",
+      "D": "維生素E缺乏"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 豬瘟</b></p><p>妊娠母豬感染豬瘟病毒（CSFV）可使胎仔小腦發育不全，造成先天性震顫。</p><p>(A) 非主要：假性狂犬病造成腦炎與流產。</p><p>(C) 非主要：砷劑中毒造成周邊神經病變與腸胃病變。</p><p>(D) 非主要：維生素 E 缺乏造成桑葚心與肝壞死。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 59,
+    "text": "59. 15歲犬之腦部病變，正確診斷為:",
+    "options": {
+      "A": "astrocytoma",
+      "B": "lymphoma",
+      "C": "medulloblastoma",
+      "D": "oligodendroglioma"
+    },
+    "image": "./圖片/113a59.png",
+    "explanation": "<p><b>答案：(D) oligodendroglioma</b></p><p>15 歲犬腦部腫瘤，依答案為寡樹突膠質瘤（oligodendroglioma）：腫瘤細胞核圓、周圍有透明空暈（荷包蛋樣）、血管呈雞籠鐵絲網樣，好發於短頭犬種（拳師犬、波士頓梗）。</p><p>(A) 錯：星狀細胞瘤細胞形狀不規則。</p><p>(B) 錯：淋巴瘤為圓形細胞，不具荷包蛋外觀。</p><p>(C) 錯：髓母細胞瘤好發於小腦、年輕犬。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 60,
+    "text": "60.關於犬甲狀腺功能低下症(hypothyroidism)的皮膚病變，何者正確?",
+    "options": {
+      "A": "皮膚表皮層變薄(epidermal hypoplasia)",
+      "B": "色素沉積減少(hypopigmentation)",
+      "C": "真皮層偶可見黏液性水腫(myxedema)",
+      "D": "皮膚鈣化(calcinosis cutis)"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 真皮層偶可見黏液性水腫(myxedema)</b></p><p>犬甲狀腺功能低下的皮膚變化：真皮可見黏液性水腫（myxedema，黏多醣堆積），常伴發表皮增厚與角化過度、色素沉著增加。</p><p>(A) 錯：多為表皮增生、角化過度，而非變薄。</p><p>(B) 錯：多為色素沈積增加。</p><p>(D) 錯：皮膚鈣化見於腎上腺皮質機能亢進。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 61,
+    "text": "61.關於bullous pemphigoid，何者錯誤?",
+    "options": {
+      "A": "可發生於多種動物",
+      "B": "病變可發生於皮膚及黏膜",
+      "C": "自體抗體直接攻擊所引致",
+      "D": "會產生acantholytic cells"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 會產生acantholytic cells</b></p><p>類天疱瘡（bullous pemphigoid）是自體抗體攻擊基底膜帶（BP180、BP230），造成表皮下水泡，不是表皮內的棘狀細胞分離，因此不會出現棘層鬆解細胞（acantholytic cells）；後者為天疱瘡（pemphigus）的特徵。</p><p>(A) 對：犬、貓、馬等多種動物皆可發生。</p><p>(B) 對：皮膚與黏膜皆可受影響。</p><p>(C) 對：為針對半橋粒蛋白的自體抗體所致。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 62,
+    "text": "62.下圖犬皮膚組織病變，最適當的診斷為:",
+    "options": {
+      "A": "demodicosis",
+      "B": "scabies",
+      "C": "notoedric mite infestation",
+      "D": "dermatophytosis"
+    },
+    "image": "./圖片/113a62.png",
+    "explanation": "<p><b>答案：(A) demodicosis</b></p><p>圖為犬皮膚毛囊內可見橢圓形、有節肢特徵的蟎蟲（毛囊蟲），診斷為蠕形蟎症（demodicosis）。</p><p>(B) 錯：疥癬蟲（Sarcoptes）位於角質層隧道中。</p><p>(C) 錯：Notoedres 亦在表皮角質層，且多見於貓。</p><p>(D) 錯：皮癬菌在毛幹與角質層，為真菌孢子與菌絲。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 63,
+    "text": "63.關於鱗狀上皮癌(squamous cell carcinoma)，何者錯誤?",
+    "options": {
+      "A": "與長期陽光曝曬有關",
+      "B": "鏡下偶見角質珠(keratin pearl)病變",
+      "C": "可能與乳突瘤病毒(papillomavirus)感染有關",
+      "D": "經常引發高血鈣"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 經常引發高血鈣</b></p><p>鱗狀上皮癌（SCC）不常引起高血鈣；高血鈣的腫瘤伴隨症候群見於淋巴瘤、肛門囊腺癌與多發性骨髓瘤等。</p><p>(A) 對：陽光曝曬是無色素、少毛皮膚 SCC 的重要原因。</p><p>(B) 對：高分化 SCC 可見角質珠。</p><p>(C) 對：乳突瘤病毒與部分 SCC 有關（如貓、犬 Bowenoid in situ）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 64,
+    "text": "64.關於犬mycosis fungoides，何者正確?",
+    "options": {
+      "A": "為自體免疫性疾病",
+      "B": "為黴菌性皮膚病",
+      "C": "為親皮膚上皮性T細胞淋巴瘤",
+      "D": "為親消化道B細胞淋巴瘤"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 為親皮膚上皮性T細胞淋巴瘤</b></p><p>犬蕈樣肉芽腫（mycosis fungoides）不是黴菌病，而是親表皮性的皮膚 T 細胞淋巴瘤（epitheliotropic cutaneous T-cell lymphoma）。</p><p>(A) 錯：不是自體免疫疾病。</p><p>(B) 錯：名稱誤導，並非真菌感染。</p><p>(D) 錯：消化道 B 細胞淋巴瘤是另一類疾病。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 65,
+    "text": "65.關於胎性軟骨營養不良症(chondrodystrophia fetalis)，何者正確?",
+    "options": {
+      "A": "為真性侏儒",
+      "B": "是一種對稱性短小",
+      "C": "四肢特別短小而頭顱骨較大",
+      "D": "不影響四肢發育"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 四肢特別短小而頭顱骨較大</b></p><p>胎性軟骨營養不良（chondrodystrophia fetalis）為不均衡性侏儒：四肢特別短小，頭顱相對較大，驅幹相對正常。</p><p>(A) 錯：真性侏儒是身體各部比例匀稱的矮小。</p><p>(B) 錯：非對稱均勻性短小，而是四肢短、頭大的不均衡。</p><p>(D) 錯：影響長骨骨骺軟骨生長，四肢發育受影響。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 66,
+    "text": "66.當犬隻產生anti-type 2M myosin抗體，會導致何處肌肉產生自體免疫性肌肉炎及萎縮?",
+    "options": {
+      "A": "四肢",
+      "B": "喉頭",
+      "C": "咬肌",
+      "D": "胸肌"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 咬肌</b></p><p>犬 anti-type 2M myosin 抗體專一攻擊咬肌（masticatory muscle），造成咬肌肌炎（masticatory muscle myositis），之後萎縮、張口困難。</p><p>(A) 錯：四肢肌肉不含 2M 型肌球蛋白。</p><p>(B) 錯：喉頭肌肉不是標靶。</p><p>(D) 錯：胸肌不是標靶。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 67,
+    "text": "67.關於動物骨質石化症(osteopetrosis)敘述，何者錯誤?",
+    "options": {
+      "A": "是一種與傳染病無關的骨質再吸收障礙疾病",
+      "B": "可能因骨髓腔的生成缺陷，呈現貧血及血小板不足",
+      "C": "主要是蝕骨細胞功能缺損導致",
+      "D": "可能導致神經壓迫或失明"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(A) 是一種與傳染病無關的骨質再吸收障礙疾病</b></p><p>骨質石化症並非必然與傳染病無關：貓白血病病毒（FeLV）、禽白血病病毒、BVDV 感染均可誘發骨質石化，因此「與傳染病無關」錯誤。</p><p>(B) 對：骨髓腔縮小造成貧血與血小板減少。</p><p>(C) 對：蝕骨細胞功能缺損，骨吸收不足。</p><p>(D) 對：顱骨孔道狹窄壓迫神經，造成失明。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 68,
+    "text": "68.關於纖維性骨營養不良(fibrous osteodystrophy)，何者正確?",
+    "options": {
+      "A": "為一種轉移性鈣化(metastatic calcification)",
+      "B": "在牛可見上顎骨質溶解及纖維結締組織增生，又稱為硬塊狀頷骨(lumpy jaw)",
+      "C": "為副甲狀腺素過度活化，刺激具受體的骨髓基質細胞分化成為纖維母細胞並導致其增生",
+      "D": "發生在幼年動物會形成佝僂病(rickets)"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 為副甲狀腺素過度活化，刺激具受體的骨髓基質細胞分化成為纖維母細胞並導致其增生</b></p><p>纖維性骨營養不良為副甲狀腺素（PTH）過度分泌，刺激破骨細胞骨吸收，同時使骨髓基質細胞分化為纖維母細胞，纖維結締組織取代骨質。</p><p>(A) 錯：這是骨質脫鈣而非轉移性鈣化。</p><p>(B) 錯：牛的上顎腫脹稱 big head；lumpy jaw 是放線菌病。</p><p>(D) 錯：幼年動物缺鈣造成的是佝僂病，與本病不同。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 69,
+    "text": "69.牛的何種肌炎，其病變區帶有奶油酸敗(rancid butter)的氣味?",
+    "options": {
+      "A": "氣性壞疽",
+      "B": "黑腿病",
+      "C": "惡性水腫",
+      "D": "化膿鏈球菌感染"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 黑腿病</b></p><p>牛黑腿病（blackleg，C. chauvoei）造成肌肉壞死、氣腫，病灶有奶油酸敗的氣味。</p><p>(A) 錯：氣性壞疽泛指梭菌感染，病原與氣味不如黑腿病典型。</p><p>(C) 錯：惡性水腫（C. septicum）水腫為主，無此特徵氣味。</p><p>(D) 錯：化膿鏈球菌引起化膿性病變。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 70,
+    "text": "70.發生於臺灣黑面琵鷺的頸部下垂(limberneck)及翅膀下垂，是何種疾病?",
+    "options": {
+      "A": "破傷風(tetanus)",
+      "B": "肉毒桿菌症(botulism)",
+      "C": "蜱麻痺症(tick paralysis)",
+      "D": "重症肌無力(myasthenia gravis)"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 肉毒桿菌症(botulism)</b></p><p>臺灣黑面琵鷺出現頸部下垂（limberneck）及翅膀下垂，是肉毒桿菌（Clostridium botulinum）毒素造成弛緩性麻痺的肉毒桿菌症。</p><p>(A) 錯：破傷風造成強直性痙攣。</p><p>(C) 錯：蜱麻痺為蜱唾液毒素，不是此鳥類病因。</p><p>(D) 錯：重症肌無力不會群聚爆發。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 71,
+    "text": "71.關於母豬分娩後的無乳症候群(agalactia syndrome)，何者正確?",
+    "options": {
+      "A": "病原主由黴漿菌感染引起",
+      "B": "與代謝、內分泌及毒血症均無關",
+      "C": "不會併發子宮炎",
+      "D": "本病引起之乳房炎常為亞急性或慢性"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 本病引起之乳房炎常為亞急性或慢性</b></p><p>母豬無乳症候群（MMA）常併發乳房炎、子宮炎，常為亞急性或慢性乳房炎，並與內毒素（大腸桿菌等）有關。</p><p>(A) 錯：不是黴漿菌為主。</p><p>(B) 錯：與代謝、內分泌及內毒素血症有關。</p><p>(C) 錯：常併發子宮炎。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 72,
+    "text": "72.關於freemartin，何者正確?",
+    "options": {
+      "A": "因同性雙胞胎胎盤血管不吻合導致",
+      "B": "與公犢同胎不具生殖能力的女牛",
+      "C": "屬真性陰陽體畸形",
+      "D": "患畜具有生殖能力"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) 與公犢同胎不具生殖能力的女牛</b></p><p>Freemartin 指與公犢同胎、胎盤血管吻合而不具生殖能力的母犢；血管吻合使雄性激素與抗穆勒氏管激素進入雌胎，造成生殖道發育不全。</p><p>(A) 錯：同性雙胞胎不會形成，需異性雙胞胎（胎盤血管吻合）。</p><p>(C) 錯：屬雌性偽陰陽體或嵌合體，不是真性陰陽體。</p><p>(D) 錯：患畜不具生殖能力。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 73,
+    "text": "73.下圖呈現子宮體與子宮角膨脹，其內充滿清澈水樣液體，最適當的診斷應為:",
+    "options": {
+      "A": "hydrometra",
+      "B": "cystic endometrial hyperplasia",
+      "C": "mucometra",
+      "D": "pyometra"
+    },
+    "image": "./圖片/113a73.png",
+    "explanation": "<p><b>答案：(A) hydrometra</b></p><p>子宮體與子宮角膨脹，內含清澈水樣液體，為子宮積水（hydrometra）。</p><p>(B) 錯：CEH 是子宮內膜增生，多伴隨囊腫。</p><p>(C) 錯：mucometra 內容物為黏稠黏液。</p><p>(D) 錯：pyometra 為膿液。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 74,
+    "text": "74.下列何者與子宮腺體細胞發生鱗狀上皮化生無關?",
+    "options": {
+      "A": "氯化萘中毒",
+      "B": "維生素A缺乏",
+      "C": "內分泌不正常",
+      "D": "生物素缺乏"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 生物素缺乏</b></p><p>子宮腺體鱗狀上皮化生可由維生素 A 缺乏、氯化萘中毒、雌激素過量引起，生物素缺乏無關。</p><p>(A) 有關：氯化萘中毒。</p><p>(B) 有關：維生素 A 缺乏。</p><p>(C) 有關：雌激素過量等內分泌異常。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 75,
+    "text": "75.8月齡未絕育雌性貓出現如圖肉眼及切片病變，最可能診斷為:",
+    "options": {
+      "A": "mammary adenoma",
+      "B": "mammary adenocarcinoma",
+      "C": "mixed tumor of mammary gland",
+      "D": "fibroadenomatous hyperplasia"
+    },
+    "image": "./圖片/113a75.png",
+    "explanation": "<p><b>答案：(D) fibroadenomatous hyperplasia</b></p><p>8 月齡未絕育雌貓乳腺快速增生腫大，為孕酮（progesterone）或合成孕酮物引起的纖維腺瘤樣增生（fibroadenomatous hyperplasia），組織上為管狀與間質雙相增生，非真正腫瘤。</p><p>(A) 錯：腺瘤好發於中老年貓。</p><p>(B) 錯：腺癌為老年貓常見的惡性腫瘤。</p><p>(C) 錯：混合瘤見於犬為主。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 76,
+    "text": "76.關於gonadotroph adenoma，何者正確?①可不具功能性 ②可導致腎上腺皮質部肥大及增生 ③為腎上腺髓質部之良性腫瘤 ④會壓迫腦組織，引起嚴重的臨床症狀",
+    "options": {
+      "A": "123",
+      "B": "234",
+      "C": "124",
+      "D": "134"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 124</b></p><p>促性腺激素分泌腺瘤（gonadotroph adenoma）可不具功能（①），腫大壓迫腦組織造成嚴重神經症狀（④）；依官方答案②亦成立（腦下垂體腺瘤影響腎上腺皮質，造成增生）。③錯：它是腦下垂體腫瘤，不是腎上腺髓質腫瘤。</p><p>(A) 錯：含③。</p><p>(B) 錯：含③。</p><p>(D) 錯：含③。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 77,
+    "text": "77.下列何種免疫組織化學染色，可作為C-cell adenoma的特異性區別診斷?",
+    "options": {
+      "A": "chromogranin",
+      "B": "calcitonin",
+      "C": "TTF-1",
+      "D": "thyroglobulin"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(B) calcitonin</b></p><p>甲狀腺 C 細胞（濾泡旁細胞）分泌降鈣素（calcitonin），因此以 calcitonin 免疫染色可作為 C 細胞腺瘤的特異性診斷。</p><p>(A) 錯：chromogranin 為神經內分泌標記，非特異。</p><p>(C) 錯：TTF-1 為甲狀腺濾泡細胞與肺腺癌標記。</p><p>(D) 錯：thyroglobulin 為濾泡細胞標記。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 78,
+    "text": "78.關於副甲狀腺功能亢進的敘述，何者錯誤?",
+    "options": {
+      "A": "在馬可導致頭骨與下顎呈現纖維性骨營養不良腫脹，又稱麥麩病(bran disease)",
+      "B": "在皮質骨(cortical bone)造成骨質減少，骨小樑變薄",
+      "C": "病理可見副甲狀腺主細胞(chief cell)增生",
+      "D": "與飼糧中鈣過多有關"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(D) 與飼糧中鈣過多有關</b></p><p>營養性續發性副甲狀腺功能亢進的原因是飼料鈣少磷多（如麥麩病 bran disease），而不是鈣過多；鈣過多反而抑制 PTH 分泌。</p><p>(A) 對：馬麩皮病造成頭骨與下顎纖維性骨營養不良。</p><p>(B) 對：PTH 過多造成皮質骨骨質減少。</p><p>(C) 對：主細胞增生。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 79,
+    "text": "79.缺碘甲狀腺腫(goiter)的組織病變特徵為大量增生的:",
+    "options": {
+      "A": "扁平細胞圍繞著豐富的膠體",
+      "B": "立方細胞圍繞著豐富的膠體",
+      "C": "立方細胞圍繞著少量的膠體",
+      "D": "扁平細胞圍繞著少量的膠體"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 立方細胞圍繞著少量的膠體</b></p><p>缺碘甲狀腺腫是增生性腺腫：TSH 刺激濾泡上皮增生，成為立方至柱狀細胞，膠體因被消耗而減少。</p><p>(A) 錯：扁平細胞圍繞豐富膠體見於膠體性甲狀腺腫（補碘後）。</p><p>(B) 錯：立方細胞配豐富膠體是正常或休止狀態。</p><p>(D) 錯：扁平細胞配少量膠體不符增生性變化。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  },
+  {
+    "id": 80,
+    "text": "80.關於糖尿病，何者錯誤?",
+    "options": {
+      "A": "胰島發育不全及胰島細胞壞死皆為原因之一",
+      "B": "某些糖尿病患貓可見胰島類澱粉變性",
+      "C": "自體免疫細胞攻擊胰島細胞為第二型糖尿病的主要原因",
+      "D": "患畜膀胱可因產氣細菌感染，導致氣腫病灶產生"
+    },
+    "image": null,
+    "explanation": "<p><b>答案：(C) 自體免疫細胞攻擊胰島細胞為第二型糖尿病的主要原因</b></p><p>第二型糖尿病的主要原因是胰島素阻抗與胰島 β 細胞功能衰退，而自體免疫細胞攻擊胰島細胞是第一型糖尿病的主要機轉。</p><p>(A) 對：胰島發育不全與壞死皆可造成胰島素缺乏。</p><p>(B) 對：貓第二型糖尿病常見胰島類澱粉沉著。</p><p>(D) 對：糖尿造成尿路感染，產氣菌可使膀胱出現氣腫。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+  }
+]

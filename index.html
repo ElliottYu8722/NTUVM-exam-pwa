@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>獸醫師國考（PWA）</title>
+  <link rel="manifest" href="manifest.json?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/golden-192.png">
+  <link rel="apple-touch-icon" href="./icons/golden-192.png">
+  <meta name="theme-color" content="#000000"/>
+  <style>
+    :root {
+      /* 預設暗色 */
+      --bg: #050712;
+      --fg: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #0b1220;
+      --border: #1f2937;
+      --accent: #60a5fa;
+      --btn: #111827;
+      --btn-fg: #e5e7eb;
+      --pill: #141b2b;
+    }
+    /* 亮色 */
+    .light {
+      --bg: #f5f5f7;
+      --fg: #111827;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --accent: #2563eb;
+      --btn: #f3f4f6;
+      --btn-fg: #111827;
+      --pill: #e5e7eb;
+    }
+
+    /* 天空 */
+    body.theme-sky {
+      --bg: linear-gradient(180deg, #38a9ff 0%, #7fd3ff 45%, #e7f7ff 100%);
+      --card: rgba(255, 255, 255, 0.96);
+      --border: rgba(255, 255, 255, 0.7);
+      --fg: #134166;
+      --muted: #5b7c9a;
+      --accent: #2563eb;
+      --btn: rgba(255, 255, 255, 0.9);
+      --btn-fg: #134166;
+      --pill: rgba(255, 255, 255, 0.7);
+    }
+
+    /* 海洋 */
+    body.theme-ocean {
+      --bg: linear-gradient(180deg, #00a3c8 0%, #00c8b4 40%, #00b48a 100%);
+      --card: rgba(2, 40, 54, 0.94);
+      --border: rgba(109, 241, 255, 0.45);
+      --fg: #eaffff;
+      --muted: #b6e7ea;
+      --accent: #6df1ff;
+      --btn: #043039;
+      --btn-fg: #eaffff;
+      --pill: #052631;
+    }
+
+    /* 咖啡豆 */
+    body.theme-forest {
+      --bg:
+        radial-gradient(circle at 50% 0%, rgba(122, 74, 42, 0.25) 0%, transparent 60%),
+        #542815;
+    
+      --card: #3d2819;
+      --border: #e2c296;
+    
+      --fg: #fff8eb;
+      --muted: #d9c3a4;
+    
+      --accent: #ffc86a;
+      --btn: #4a2f1d;
+      --btn-fg: #fff8eb;
+      --pill: #2f1f14;
+    }
+
+
+    /* 蛋黃 */
+    body.theme-yolk {
+      --bg:
+        radial-gradient(circle at 20% 15%, #fffdf0 0%, #fff6d5 30%, transparent 65%),
+        radial-gradient(circle at 80% 80%, #fff7dc 0%, #ffe992 35%, transparent 70%),
+        linear-gradient(180deg, #fffbed 0%, #ffeeb3 45%, #ffe27a 100%);
+    
+      --card: rgba(255, 255, 255, 0.98);
+      --border: rgba(255, 220, 130, 0.9);
+    
+      --fg: #4b3512;
+      --muted: #8a6f3a;
+    
+      --accent: #ffe84a;
+      --btn: #fff5cf;
+      --btn-fg: #4b3512;
+      --pill: #ffe8a8;
+    }
+    /* 宇宙 */
+    body.theme-cosmos {
+      --bg:
+        radial-gradient(circle at 15% 0%,   rgba(255, 120, 255, 0.35) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%,  rgba(80, 210, 255, 0.45) 0%, transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(120, 90, 255, 0.35) 0%, transparent 60%),
+        linear-gradient(180deg, #060425 0%, #050018 45%, #02000b 100%);
+    
+      --card: rgba(5, 10, 40, 0.92);
+      --border: rgba(150, 220, 255, 0.6);
+    
+      --fg: #f8f4ff;
+      --muted: #b5c3ff;
+    
+      --accent: #7ee4ff;
+      --btn: #141a3f;
+      --btn-fg: #f8f4ff;
+      --pill: rgba(11, 18, 50, 0.9);
+    }
+
+    body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", Segoe UI, Roboto, Helvetica, Arial, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;background:var(--bg);color:var(--fg);}
+    .light{--bg:#fff;--fg:#000;--card:#f7f7f8;--border:#e5e5e6;--muted:#666;--btn:#f1f1f1;--btn-fg:#000;--pill:#ececec;}
+    .app{display:grid;grid-template-columns:240px 1fr 280px;gap:16px;min-height:100vh;align-items:start;padding:16px}
+    .panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px}
+    .left .group{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+    .select, .btn, .checkbox{font-size:16px}
+    .select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--pill);color:var(--fg)}
+    .btn{padding:10px 14px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer}
+    .btn:hover{border-color:var(--accent);color:var(--accent)}
+    .checkbox{display:flex;align-items:center;gap:8px;color:var(--fg)}
+    .center .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+
+
+    body.quiz-mode .center .topbar{
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    /* 題目搜尋輸入框 */
+    .topbar .q-search {
+      flex: 0 0 260px;
+      max-width: 100%;
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      background: var(--pill);
+      color: var(--fg);
+      font-size: 14px;
+      outline: none;
+    }
+    
+    .topbar .q-search::placeholder {
+      color: var(--muted);
+    }
+
+    .badge{padding:6px 10px;border:1px solid var(--border);border-radius:9999px;background:transparent;color:var(--fg);font-size:14px}
+    .question-card{border-radius:16px;border:1px solid var(--border);padding:16px;background:var(--card)}
+    .qtext{font-size:18px;line-height:1.6}
+    /* 詳解外框 */
+    .qexplain-wrap{
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+    .qexplain-title{
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    /* 詳解內容本體 */
+    .qexplain-body{
+      font-size: 14px;
+      line-height: 1.5;
+      max-height: none;
+      overflow: auto;
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-word;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* 詳解裡的圖片/表格 */
+    .qexplain-body img,
+    .qexplain-body video,
+    .qexplain-body svg,
+    .qexplain-body canvas{
+      max-width: none;
+      height: auto;
+    }
+    .qexplain-body table{
+      display: block;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .qexplain-body pre{
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* 詳解文字統一繼承 14px */
+    .qexplain-body *{
+      font-size: inherit !important;
+    }
+
+    /* 上下標維持縮小 */
+    .qexplain-body sup,
+    .qexplain-body sub{
+      font-size: 0.75em !important;
+    }
+
+    /* 導航列固定在底部 */
+    .navrow{
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      background: var(--card);
+      padding-top: 12px;
+    }
+    .navrow .btn{
+      position: relative;
+      z-index: 11;
+    }
+    .qimg{margin-top:10px;max-width:100%;height:auto;border-radius:8px;border:1px solid var(--border)}
+    .options{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+    .spacer{flex:1}
+    .right .q-list{height:70vh;overflow:auto;border-radius:12px;border:1px solid var(--border);background:var(--card);padding:8px}
+    .q-item{padding:8px 10px;border-radius:8px;cursor:pointer}
+    .q-item.active{background:var(--accent);color:#fff}
+    .notes{margin-top:14px}
+    .toolbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;border:1px solid var(--border);border-radius:10px;background:transparent;padding:6px;position: relative;}
+    .toolbar .pill{padding:6px 10px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--fg);cursor:pointer;font-size:14px}
+    .toolbar .pill.active{border-color:var(--accent);color:var(--accent)}
+    .toolbar select, .toolbar input[type=color]{border:1px solid var(--border);background:transparent;color:var(--fg);border-radius:8px;padding:6px 8px}
+    .editor{border:1px solid var(--border);border-radius:12px;background:var(--card);min-height:180px;padding:12px;margin-top:8px;outline:none}
+    .timer{font-weight:700}
+    .footer-hint{margin-top:12px;color:var(--muted);font-size:12px;text-align:center}
+    .question-images {
+      margin-top: 10px;
+    }
+    
+    .question-images img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+    .color-palette{
+      position:absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      display:grid;
+      grid-template-columns: repeat(5, 1fr); /* 5 x 3 = 15 色 */
+      gap:6px;
+      padding:6px;
+      border-radius:8px;
+      background:var(--card,#1b1b1b);
+      border:1px solid var(--border,#2a2a2a);
+      z-index:1000;
+    }
+    
+    .color-palette.hidden{
+      display:none;
+    }
+    
+    .color-palette button{
+      width:22px;
+      height:22px;
+      border-radius:9999px;
+      border:1px solid rgba(255,255,255,.7);
+      padding:0;
+      cursor:pointer;
+    }
+    .hidden{display:none !important}
+    /* mobile */
+    .mobile-toggle-bar { display:none; }
+    @media (max-width: 1100px){
+      .app{grid-template-columns:1fr}
+      .right{order:3}
+    }
+    @media (max-width: 768px),
+           (max-width: 1024px) and (orientation: portrait) {
+      .center.panel {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    
+      /* 左右欄改成抽屜，預設在螢幕外 */
+      .left.panel,
+      .right.panel {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 80vw;
+        max-width: 320px;
+        z-index: 100001;
+        background: var(--bg);
+        box-shadow: 0 0 20px rgba(0,0,0,.6);
+        overflow-y: auto;
+        transition: transform .25s ease;
+      }
+    
+      .left.panel {
+        left: 0;
+        transform: translateX(-100%);
+      }
+    
+      .right.panel {
+        right: 0;
+        transform: translateX(100%);
+      }
+    
+      /* 抽屜開啟（body class） */
+      body.show-left-panel .left.panel {
+        transform: translateX(0);
+      }
+    
+      body.show-right-panel .right.panel {
+        transform: translateX(0);
+      }
+    
+      /* 手機版上方按鈕 */
+      .mobile-toggle-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+    
+      .mobile-toggle-btn {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        border-radius: 9999px;
+        border: 1px solid var(--border);
+        background: var(--card);
+        color: var(--fg);
+        font-size: 13px;
+      }
+    
+      /* 手機改成單欄 */
+      .app {
+        grid-template-columns: 1fr;
+      }
+    }
+    #comment-nickname,
+    #comment-text {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 6px;
+  
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 10px;
+      border: 1px solid var(--border, #2a2a2a);
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    /* 我的動物 */
+    
+    #pets-group {
+      margin-top: 16px;
+    }
+    
+    #pets-group .group-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .pet-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .pet-tab {
+      flex: 1;
+      padding: 4px 6px;
+      font-size: 13px;
+      border-radius: 9999px;
+    }
+    
+    .pet-tab.active {
+      background: var(--accent, #2f74ff);
+      color: #fff;
+      border-color: var(--accent, #2f74ff);
+    }
+    
+    .pet-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .pet-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      border: 1px solid var(--border, #333);
+      background-color: var(--pill, #1f1f1f);
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .pet-info {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .pet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    
+    .pet-actions .btn {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      padding: 4px 8px;
+    }
+    
+    /* 物種 × 狀態（目前都用 idle） */
+    
+    .pet-dog-idle {
+      animation: pet-bounce 1.2s infinite ease-in-out;
+    }
+    
+    .pet-cat-idle {
+      animation: pet-bounce 1.4s infinite ease-in-out;
+    }
+    
+    .pet-cow-idle {
+      animation: pet-bounce 1.6s infinite ease-in-out;
+    }
+    
+    /* 晃動動畫 */
+    @keyframes pet-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-4px); }
+    }
+    /* 我的動物：彈出視窗 */
+
+    .pet-panel-mask {
+      position: fixed;
+      inset: 0;
+      z-index: 100004;
+      background: rgba(0,0,0,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    
+    .pet-panel-card {
+      width: min(520px, 100%);
+      max-height: 90vh;
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 16px;
+      border: 1px solid var(--border, #333);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .pet-panel-head {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border, #333);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .pet-panel-title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .pet-panel-spacer {
+      flex: 1;
+    }
+    
+    .pet-panel-close {
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    
+    .pet-panel-close:hover {
+      border-color: var(--accent, #2f74ff);
+      color: var(--accent, #2f74ff);
+    }
+    
+    .pet-panel-body {
+      padding: 12px 14px 14px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    /* 我的動物：初次設定 */
+    
+    .pet-onboard-mask {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    
+    .pet-onboard-card {
+      width: min(420px, 100%);
+      background: var(--card, #1b1b1b);
+      color: var(--fg, #fff);
+      border-radius: 16px;
+      border: 1px solid var(--border, #333);
+      padding: 16px 14px 14px;
+      box-shadow: 0 18px 45px rgba(0,0,0,.5);
+    }
+    
+    .pet-onboard-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    
+    .pet-onboard-text {
+      font-size: 13px;
+      color: var(--muted, #aaa);
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-species {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-species .sp-btn {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 13px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      cursor: pointer;
+    }
+    
+    .pet-onboard-species .sp-btn.active {
+      border-color: var(--accent, #2f74ff);
+      background: var(--accent, #2f74ff);
+      color: #fff;
+    }
+    
+    .pet-onboard-field {
+      margin-bottom: 10px;
+    }
+    
+    .pet-onboard-label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+    
+    .pet-onboard-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #333);
+      background: var(--bg, #111);
+      color: var(--fg, #fff);
+      font-size: 14px;
+    }
+    
+    .pet-onboard-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    
+    .pet-onboard-btn {
+      padding: 6px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border, #333);
+      background: transparent;
+      color: var(--fg, #fff);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    
+    .pet-onboard-btn.primary {
+      background: var(--accent, #2f74ff);
+      border-color: var(--accent, #2f74ff);
+      color: #fff;
+    }
+    /* 我的動物：餵食紀錄 */
+    
+    .pet-feed-log {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border, #333);
+      font-size: 13px;
+    }
+    
+    .pet-feed-log-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .pet-feed-log-list {
+      max-height: 140px;
+      overflow: auto;
+      line-height: 1.5;
+    }
+    
+    .pet-feed-log-item {
+      margin-bottom: 4px;
+      color: var(--muted, #aaa);
+    }
+    
+    .pet-feed-log-item strong {
+      color: var(--fg, #fff);
+    }
+    .top-right-hud {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+    .top-right-hud .hud-counters {
+      padding: 6px 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.08);
+    }
+    .top-right-hud button {
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: #2d7cff;
+      color: #fff;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+    .top-right-hud button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+  
+    /* 商店 */
+    .shop-mask {
+      position: fixed;
+      inset: 0;
+      display: none;
+      background: rgba(0,0,0,.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .shop-card {
+      width: min(540px, 92vw);
+      background: #fff;
+      color: #111;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    }
+    .shop-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .shop-close {
+      float: right;
+      cursor: pointer;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .shop-item {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .shop-item h4 {
+      margin: 0 0 6px 0;
+    }
+    .shop-item button {
+      margin-top: 8px;
+      width: 100%;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      background: #16a34a;
+      color: #fff;
+      cursor: pointer;
+    }
+  
+    /* 小遊戲區（草地背景） */
+    .mini-game {
+      margin: 12px auto;
+      width: min(720px, 95vw);
+      height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 30%, #a8e6a3 0%, #7ddc7a 40%, #5dbf5f 100%);
+      position: relative;
+      border: 1px solid rgba(0,0,0,.1);
+    }
+    .mini-game .title {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      font-weight: 700;
+      color: #0b3d0b;
+      text-shadow: 0 1px 0 #fff;
+    }
+    .mini-game .stage {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+    }
+    .left .group {
+      gap: 18px;
+    }
+    .left .group .btn {
+      padding: 6px 14px;
+    }
+
+    /* 左側工具列 */
+    .left .group.left-section{gap:8px;margin-bottom:18px}
+    .left .left-section-title{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--muted);margin:0 2px}
+    .left .left-section-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .left .select{font-size:15px;padding:9px 34px 9px 12px;border-radius:12px;height:42px;
+      -webkit-appearance:none;appearance:none;cursor:pointer;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%239ca3af' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 12px center;background-size:12px 8px}
+    .left .select:focus{outline:none;border-color:var(--accent)}
+    .left .left-scope-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .left .left-toggle{font-size:14px;color:var(--fg);padding:2px 2px 0;cursor:pointer;user-select:none}
+    .left .left-toggle input{width:16px;height:16px;margin:0;accent-color:var(--accent);cursor:pointer}
+    .left .left-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .left .left-actions .btn,
+    .left .group .left-actions .btn{width:100%;min-width:0;padding:9px 6px;font-size:14px;border-radius:12px;
+      background:var(--pill);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .left .left-actions .btn:last-child:nth-child(odd){grid-column:1 / -1}
+    .left .group.left-section > .btn{width:100%;padding:9px 12px;font-size:14px;border-radius:12px}
+    .left .group .left-icon-btn{width:28px;height:28px;padding:0;border-radius:9999px;font-size:14px;line-height:1;
+      display:inline-flex;align-items:center;justify-content:center}
+    .left #btnCustomBg{width:100%;padding:9px 12px;font-size:14px;border-radius:12px;border-style:dashed}
+    .left #btnCustomBg[hidden]{display:none}
+    .left .theme-bg-hint{font-size:12px;color:var(--muted);margin:-2px 2px 0}
+    .left #group-list{list-style:none;padding:0;margin:0;max-height:200px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+    .left #group-list:empty{display:none}
+    .left .group-item{display:flex;align-items:center;gap:6px}
+    .left .group-item-name{flex:1;min-width:0;text-align:left;padding:8px 12px;font-size:14px;border-radius:12px;
+      border:1px solid var(--border);background:var(--pill);color:var(--fg);cursor:pointer;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .left .group-item-name:hover{border-color:var(--accent);color:var(--accent)}
+    .left .group-item-del{flex:0 0 auto;width:28px;height:28px;padding:0;border-radius:9999px;border:1px solid var(--border);
+      background:transparent;color:var(--muted);cursor:pointer;font-size:16px;line-height:1}
+    .left .group-item-del:hover{border-color:#ef4444;color:#ef4444}
+    #pets-launch-group .btn{width:100%;padding:9px 12px;font-size:14px;border-radius:12px}
+  </style>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body class="">
+  <div class="app" id="app">
+    <!-- 左：工具列 -->
+    <aside class="left panel">
+      <div class="group left-section">
+        <div class="left-section-title">考卷</div>
+        <div class="left-scope-row">
+          <select id="yearSel" class="select">
+          <option selected>114</option><option>113</option><option>112</option><option>111</option><option>110</option><option>109</option><option>108</option><option>107</option><option>106</option><option>105</option><option>104</option><option>103</option><option>102</option><option>101</option><option>100</option>
+        </select>
+          <select id="roundSel" class="select">
+          <option selected>第一次</option><option>第二次</option>
+        </select>
+        </div>
+        <select id="subjectSel" class="select">
+          <option value="獸醫病理學" selected>獸醫病理學</option>
+          <option value="獸醫藥理學">獸醫藥理學</option>
+          <option value="獸醫實驗診斷學">獸醫實驗診斷學</option>
+          <option value="獸醫普通疾病學">獸醫普通疾病學</option>
+          <option value="獸醫傳染病學">獸醫傳染病學</option>
+          <option value="獸醫公共衛生學">獸醫公共衛生學</option>
+        </select>
+        <label class="checkbox left-toggle"><input id="showAns" type="checkbox">顯示答案</label>
+      </div>
+
+      <div class="group left-section">
+        <div class="left-section-title">功能</div>
+        <div class="left-actions">
+          <button id="btnExam" class="btn">測驗模式</button>
+          <button id="btnRandomQuiz" class="btn">隨機測驗</button>
+          <button id="btnRecords" class="btn">作答紀錄</button>
+          <button id="btnFlashcards" class="btn">字卡</button>
+        </div>
+      </div>
+
+      <!-- 主題 -->
+      <div class="group left-section theme-group">
+        <label for="themeSel" class="left-section-title">主題</label>
+        <select id="themeSel" class="select">
+            <option value="dark">暗色</option>
+            <option value="light">亮色</option>
+            <option value="sky">天空</option>
+            <option value="ocean">海洋</option>
+            <option value="forest">咖啡豆</option>
+            <option value="yolk">蛋黃</option>
+            <option value="cosmos">宇宙</option>
+          </select>
+      </div>
+
+      <div id="group-section" class="group left-section">
+        <div class="left-section-head">
+          <span class="left-section-title">自訂題目群組</span>
+          <button id="add-group-btn" class="btn left-icon-btn" title="新增群組" aria-label="新增群組">＋</button>
+        </div>
+        <ul id="group-list"></ul>
+        <button id="show-all-questions-btn" class="btn">顯示全部題目</button>
+      </div>
+      <!-- 我的動物 -->
+      <div class="group" id="pets-launch-group">
+        <button id="btn-open-pets" class="btn" style="width:100%;">我的牧場(先不要按)</button>
+      </div>
+
+
+      <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+      <div class="group">
+        <input id="qFile" class="hidden" type="file" accept="application/json">
+        <input id="aFile" class="hidden" type="file" accept="application/json">
+      </div>
+      <p style="color:var(--muted);font-size:12px;line-height:1.6">
+        0211更新：全部校正完畢！！！終於全部都可以寫了！！！啊啊啊啊啊<br><br>
+        功能更新：可以在題目、字卡左右滑動來切換題目！<br>
+        詳解會陸續新增，之後會慢慢把每一題補齊唷！！<br>
+        特別感謝詳解群組的每一位成員一起幫忙整理！！<br>
+        題目、答案、詳解有錯誤，歡迎聯絡 https://www.instagram.com/yuelliott/ 我一定會快速幫忙處理 <br>
+        有什麼建議跟功能許願也拜託跟我說！感恩大家！
+      </p>
+    </aside>
+    
+    <!-- 中：題目＋筆記 -->
+    <main class="center">
+      <div class="mobile-toggle-bar">
+        <button id="btnOpenLeft" class="mobile-toggle-btn">工具</button>
+        <button id="btnOpenRight" class="mobile-toggle-btn">題號</button>
+      </div>
+      <div class="topbar">
+        <span class="badge">科目：<span id="bSubj">獸醫病理學</span></span>
+        <span class="badge">年份：<span id="bYear">114</span></span>
+        <span class="badge">梯次：<span id="bRound">第一</span></span>
+        <input
+          id="questionSearch"
+          type="search"
+          class="q-search"
+          placeholder="搜尋題目關鍵字…"
+          autocomplete="off"
+        />
+        <span class="badge timer hidden" id="timer">剩餘 60:00</span>
+        <span class="badge hidden" id="reviewTag">回顧模式（僅看錯題）</span>
+        <span class="spacer"></span>
+        <button id="btnSubmit" class="btn hidden">提交測驗</button>
+        <button id="btnClose" class="btn hidden">關閉測驗</button>
+      </div>
+
+      <div class="question-card">
+        <div id="qNum" class="badge" style="margin-bottom:8px">第 1 題</div>
+        <div id="qText" class="qtext">請先載入題目</div>
+        <div id="question-images" class="question-images"></div>
+        <img id="qImg" class="qimg hidden" alt="">
+        <div id="qOpts" class="options"></div>
+        <!-- 詳解 -->
+        <div id="qExplainWrap" class="qexplain-wrap hidden">
+          <div class="qexplain-title">詳解</div>
+          <div id="qExplain" class="qexplain-body"></div>
+        </div>
+
+        <div class="navrow">
+          <button id="prev" class="btn">上一題</button>
+          <button id="next" class="btn">下一題</button>
+          <span class="spacer"></span>
+          <button id="btnToggleAns" class="btn">切換顯示答案</button>
+        </div>
+      </div>
+      <!-- 留言區 -->
+      <div id="comments-section" class="panel" style="margin-top:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-weight:bold;">留言區</span>
+          <span id="comments-count" style="font-size:12px;color:var(--muted);"></span>
+        </div>
+    
+        <div id="comments-list"
+             style="max-height:200px;overflow:auto;margin-bottom:8px;font-size:14px;">
+          目前還沒有留言，成為第一個留言的人吧！
+        </div>
+    
+        <form id="comment-form"
+              style="display:flex;flex-direction:column;gap:6px;">
+          <input id="comment-nickname"
+                 class="select"
+                 maxlength="20"
+                 placeholder="暱稱" />
+    
+          <textarea id="comment-text"
+                    class="select"
+                    rows="3"
+                    maxlength="500"
+                    placeholder="留言內容"></textarea>
+    
+          <button type="submit" class="btn">送出留言</button>
+        </form>
+      </div>      
+      
+      <div class="notes">
+        <div class="toolbar">
+          <!-- 字級 -->
+          <select id="fontSel">
+            <option>12</option>
+            <option>14</option>
+            <option selected>16</option>
+            <option>18</option>
+            <option>20</option>
+            <option>24</option>
+            <option>28</option>
+            <option>32</option>
+          </select>
+        
+          <!-- 粗體 / 斜體 / 底線 -->
+          <button class="pill" id="bBold"><b>B</b></button>
+          <button class="pill" id="bItalic"><i>I</i></button>
+          <button class="pill" id="bUnder"><u>U</u></button>
+        
+          <!-- 上標 / 下標 -->
+          <button class="pill" id="bSub">x₂</button>
+          <button class="pill" id="bSup">x²</button>
+        
+          <button class="pill" id="bFontColor">
+            <span>字體顏色</span>
+            <span>▾</span>
+          </button>
+          <!-- 字體顏色色盤 -->
+          <div id="fontColorPalette" class="color-palette hidden">
+            <!-- 第一行：基本 -->
+            <button data-color="#ffffff" style="background:#ffffff;"></button>
+            <button data-color="#000000" style="background:#000000;"></button>
+            <button data-color="#d32f2f" style="background:#d32f2f;"></button>
+            <button data-color="#1976d2" style="background:#1976d2;"></button>
+            <button data-color="#388e3c" style="background:#388e3c;"></button>
+            <!-- 第二行：亮色 -->
+            <button data-color="#fbc02d" style="background:#fbc02d;"></button>
+            <button data-color="#f57c00" style="background:#f57c00;"></button>
+            <button data-color="#7b1fa2" style="background:#7b1fa2;"></button>
+            <button data-color="#0097a7" style="background:#0097a7;"></button>
+            <button data-color="#5d4037" style="background:#5d4037;"></button>
+            <!-- 第三行：淡色 -->
+            <button data-color="#e0e0e0" style="background:#e0e0e0;"></button>
+            <button data-color="#ffccbc" style="background:#ffccbc;"></button>
+            <button data-color="#c5e1a5" style="background:#c5e1a5;"></button>
+            <button data-color="#b3e5fc" style="background:#b3e5fc;"></button>
+            <button data-color="#ffcdd2" style="background:#ffcdd2;"></button>
+          </div>
+          
+          <!-- 螢光筆 -->
+          <button class="pill" id="bHL">
+            <span>螢光筆</span>
+            <span>▾</span>
+          </button>
+          <!-- 螢光筆色盤 -->
+          <div id="hlPalette" class="color-palette hidden">
+            <!-- 第一排：常用亮色 -->
+            <button data-color="#fff59d" style="background:#fff59d;"></button>
+            <button data-color="#ffcc80" style="background:#ffcc80;"></button>
+            <button data-color="#b2ff59" style="background:#b2ff59;"></button>
+            <button data-color="#80deea" style="background:#80deea;"></button>
+            <button data-color="#ef9a9a" style="background:#ef9a9a;"></button>
+          
+            <!-- 第二排：深色 -->
+            <button data-color="#fff176" style="background:#fff176;"></button>
+            <button data-color="#ffb74d" style="background:#ffb74d;"></button>
+            <button data-color="#aed581" style="background:#aed581;"></button>
+            <button data-color="#4dd0e1" style="background:#4dd0e1;"></button>
+            <button data-color="#e57373" style="background:#e57373;"></button>
+          
+            <!-- 第三排：淡色 -->
+            <button data-color="#fff9c4" style="background:#fff9c4;"></button>
+            <button data-color="#ffe0b2" style="background:#ffe0b2;"></button>
+            <button data-color="#e6ee9c" style="background:#e6ee9c;"></button>
+            <button data-color="#b3e5fc" style="background:#b3e5fc;"></button>
+            <button data-color="#ffcdd2" style="background:#ffcdd2;"></button>
+          </div>
+        
+          <!-- 插入圖片 -->
+          <input id="imgNote" type="file" accept="image/*" class="hidden">
+          <button class="pill" id="bImg">插入圖片</button>
+
+          <button class="pill hidden" id="btnExportNotes">匯出本卷詳解</button>
+        </div>
+
+        <div id="editor" class="editor" contenteditable="true" aria-label="這題的筆記…（可調字級、粗體、顏色、螢光筆、插圖）"></div>
+        <div class="footer-hint">筆記會自動儲存在瀏覽器（IndexedDB / localStorage）。</div>
+      </div>
+    </main>
+
+    <!-- 右：選題清單 -->
+    <aside class="right panel">
+      <div class="q-list" id="qList"></div>
+    </aside>
+  </div>
+  <!-- Firebase（要在 app.js 之前載入） -->
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLA65MNmKe0xKNr3j213KpeU5mA4jycKw",
+      authDomain: "ntuvmexam-pwa.firebaseapp.com",
+      projectId: "ntuvmexam-pwa",
+      storageBucket: "ntuvmexam-pwa.firebasestorage.app",
+      messagingSenderId: "795891762702",
+      appId: "1:795891762702:web:d0038d05d4803971749e5f",
+      measurementId: "G-WYE4T2RBXQ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.firestore();
+
+    let analytics = null;
+    try {
+      analytics = firebase.analytics();
+      window.analytics = analytics;
+
+      analytics.logEvent("app_open");
+      analytics.logEvent("screen_view", {
+        firebase_screen: "main",
+        firebase_screen_class: "index"
+      });
+    } catch (err) {
+      console.error("[analytics] init failed:", err);
+    }
+  </script>
+
+  <script src="app.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      // 不用 HTTP cache，每次都檢查新的 service-worker.js
+      navigator.serviceWorker.register("./service-worker.js", {
+        updateViaCache: "none"
+      });
+
+      // 新的 SW 接手後重新整理一次
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (refreshing) return;
+        refreshing = true;
+        window.location.reload();
+      });
+    }
+  </script>
+</body>
+</html>

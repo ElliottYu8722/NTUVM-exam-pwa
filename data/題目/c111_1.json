@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.下列何者屬於紡錘型細胞腫瘤（spindle cell tumor）？",
+        "options": {
+            "A": "hemangiosarcoma",
+            "B": "lymphoma",
+            "C": "histiocytoma",
+            "D": "perianal adenoma"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) hemangiosarcoma</b></p><p>Hemangiosarcoma 來自血管內皮細胞，屬間質（mesenchymal）腫瘤，細胞型態呈紡錘形，歸類為紡錘型細胞腫瘤，細胞學上常見紡錘形細胞並伴有血液背景。</p><p>(B) 錯：lymphoma 為圓形細胞腫瘤（round cell tumor）。</p><p>(C) 錯：histiocytoma 為圓形細胞腫瘤。</p><p>(D) 錯：perianal adenoma 為上皮性（肝樣腺）腫瘤，細胞呈多角形，成團或成片。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 2,
+        "text": "2.臨床常用之 Diff-Quik 染色，屬於下列何種染色法？",
+        "options": {
+            "A": "trichrome stains",
+            "B": "Romanowsky stains",
+            "C": "Papanicolaou stains",
+            "D": "supravital stains"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Romanowsky stains</b></p><p>Diff-Quik 為快速 Romanowsky 類染色（含 methylene blue 與 eosin），常用於細胞學與血液抹片，Wright、Giemsa 與劉氏染色同屬此類。</p><p>(A) 錯：trichrome 用於組織結締組織染色。</p><p>(C) 錯：Papanicolaou 用於人類子宮頸抹片等。</p><p>(D) 錯：supravital stain（如 new methylene blue）用於活體染色，如網狀紅血球。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 3,
+        "text": "3.Pandy test 常用於何種檢體之蛋白質檢測？",
+        "options": {
+            "A": "關節囊液",
+            "B": "腦脊髓液",
+            "C": "胸水",
+            "D": "陰道分泌液"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 腦脊髓液</b></p><p>Pandy test 以飽和酚溶液與腦脊髓液混合，若蛋白質（特別是球蛋白）升高會產生混濁，為 CSF 蛋白質的半定量檢測。</p><p>(A) 錯：關節囊液常測黏稠度（mucin clot test）。</p><p>(C) 錯：胸水蛋白質多以折射儀或化學法測定。</p><p>(D) 錯：陰道分泌液不用此法。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 4,
+        "text": "4.下列何者指細胞核大小不一？",
+        "options": {
+            "A": "anisocytosis",
+            "B": "anisokaryosis",
+            "C": "karyorrhexis",
+            "D": "pyknosis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) anisokaryosis</b></p><p>Anisokaryosis 指細胞核大小不一，是惡性腫瘤細胞的標準之一。</p><p>(A) 錯：anisocytosis 指紅血球（或細胞）大小不一。</p><p>(C) 錯：karyorrhexis 指細胞核碎裂。</p><p>(D) 錯：pyknosis 指細胞核濃縮。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 5,
+        "text": "5.下列何者為區別純粹性漏出液與修飾性漏出液最主要參數？",
+        "options": {
+            "A": "總蛋白質濃度",
+            "B": "有核細胞數",
+            "C": "細胞分類",
+            "D": "三酸甘油脂"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 總蛋白質濃度</b></p><p>純粹性漏出液（pure transudate）的總蛋白質濃度低於約 2.5 g/dL，有核細胞數也低；修飾性漏出液總蛋白質較高（約 2.5～5.0 g/dL），因此總蛋白質濃度是區別兩者的最主要參數。</p><p>(B) 錯：有核細胞數兩者皆偏低，可用於輔助判斷。</p><p>(C) 錯：細胞分類用於判斷炎症類型。</p><p>(D) 錯：三酸甘油脂用於診斷乳糜胸。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 6,
+        "text": "6.下列何種檢驗結果符合獸醫實驗診斷學所定義的偽陽性？",
+        "options": {
+            "A": "從罹患懷疑疾病的動物身上，檢驗出陰性的結果",
+            "B": "從未罹患懷疑疾病的動物身上，檢驗出陰性的結果",
+            "C": "從未罹患懷疑疾病的動物身上，檢驗出陽性的結果",
+            "D": "從罹患懷疑疾病的動物身上，檢驗出陽性的結果"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 從未罹患懷疑疾病的動物身上，檢驗出陽性的結果</b></p><p>偽陽性（false positive）是指未罹患疾病的動物，檢驗結果卻為陽性。</p><p>(A) 錯：這是偽陰性。</p><p>(B) 錯：這是真陰性。</p><p>(D) 錯：這是真陽性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 7,
+        "text": "7.有關高膽紅素血症的血液檢體檢測，下列敘述何者正確？",
+        "options": {
+            "A": "以 HABA（2-p-hydroxy-phenylazobenzoic acid）法測定血清蛋白質時，呈現偽低值",
+            "B": "以氯化鐵試劑測定膽固醇，呈現偽高值",
+            "C": "以 o-toluidine 法測定血糖，呈現偽低值",
+            "D": "血中膽紅素嚴重高值時，以岳飛（Jaffe）反應測定血清肌酸酐（creatinine），會呈現偽高值"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 以氯化鐵試劑測定膽固醇，呈現偽高值</b></p><p>此題依答案，高膽紅素血症時以氯化鐵試劑測定膽固醇，會因干擾而出現偽高值。</p><p>(A) 錯：bilirubin 對 HABA 法蛋白質測定的干擾方向，題目敘述不正確。</p><p>(C) 錯：o-toluidine 法測血糖，bilirubin 的影響方向與選項不符。</p><p>(D) 錯：bilirubin 在 Jaffe 反應的干擾多使 creatinine 呈偽低值，而非偽高值。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 8,
+        "text": "8.檢體以乾冰低溫保存時，其溫度約維持在幾度？",
+        "options": {
+            "A": "4～10 oC",
+            "B": "-20～-30 oC",
+            "C": "-70～-80 oC",
+            "D": "-180～-190 oC"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) -70～-80 oC</b></p><p>乾冰（固態 CO2）的昇華溫度約為 -78.5°C，保存溫度大約 -70～-80°C。</p><p>(A) 錯：4～10°C 為冷藏範圍。</p><p>(B) 錯：-20～-30°C 為一般冷凍庫。</p><p>(D) 錯：-180～-190°C 接近液態氮（-196°C）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 9,
+        "text": "9.有關檢體採集和保存運送的方式，下列何者錯誤？",
+        "options": {
+            "A": "送檢皮膚刮取物以檢查外寄生蟲時，刮取深度須達真皮層",
+            "B": "欲診斷口蹄疫，可採取喉頭液置於滅菌且含抗生素的培養液內送檢",
+            "C": "擬做微生物檢查之乳汁，以冷藏法防腐即可",
+            "D": "送糞便檢查蟲卵，遠距運送耗時恐蟲卵變仔蟲不易檢查，應用乾冰法保存"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 送糞便檢查蟲卵，遠距運送耗時恐蟲卵變仔蟲不易檢查，應用乾冰法保存</b></p><p>糞便送檢蟲卵時，應以冷藏（4°C）保存，避免蟲卵發育孵化；乾冰冷凍會破壞蟲卵與組織構造，也不適用，故 D 錯誤。</p><p>(A) 對：皮膚刮取外寄生蟲（如疥蟲）須刮至微血滲出。</p><p>(B) 對：口蹄疫可採食道咽喉液（probang）、水泡液，置於含抗生素培養液送檢。</p><p>(C) 對：乳汁微生物檢查以冷藏保存即可。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 10,
+        "text": "10.哺乳動物於出生後，其血球形成主要由存在於何處的原始造血幹細胞（primitive hematopoietic stem cells）增殖及分化而成？",
+        "options": {
+            "A": "肝臟",
+            "B": "脾臟",
+            "C": "骨髓的微血管網外隙",
+            "D": "骨髓的微血管腔內"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 骨髓的微血管網外隙</b></p><p>出生後哺乳動物的造血幹細胞位於骨髓，血球生成在骨髓微血管竇（sinusoid）外的造血索（血管外腔）進行，成熟細胞再穿過內皮進入血管。</p><p>(A) 錯：肝臟為胎兒期造血。</p><p>(B) 錯：脾臟為胎兒期或髓外造血。</p><p>(D) 錯：造血在血管外腔，而非血管腔內。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 11,
+        "text": "11.下列何者最不可能造成動物平均紅血球容積（MCV）增加？",
+        "options": {
+            "A": "門脈－腔靜脈分流",
+            "B": "再生性貧血",
+            "C": "維生素 B12 及葉酸缺乏",
+            "D": "Miniature poodles 之家族性遺傳"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 門脈－腔靜脈分流</b></p><p>門脈-腔靜脈分流常造成小球性（MCV 下降）而非 MCV 增加，故最不可能使 MCV 增加。</p><p>(B) 對：再生性貧血因大型網狀紅血球出現，MCV 上升。</p><p>(C) 對：B12／葉酸缺乏造成巨紅血球症。</p><p>(D) 對：Miniature poodles 的家族性巨紅血球症使 MCV 上升。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 12,
+        "text": "12.動物血液抹片中紅血球呈現 rouleaux formation，下列敘述何者錯誤？",
+        "options": {
+            "A": "此現象與紅血球沉降速率成正相關",
+            "B": "當纖維素原含量增加時，常見此現象",
+            "C": "若於犬見到此現象，通常庫姆氏（Coombs'）試驗也呈陽性",
+            "D": "此現象在反芻獸中較罕見"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 若於犬見到此現象，通常庫姆氏（Coombs'）試驗也呈陽性</b></p><p>Rouleaux 為紅血球呈錢串狀排列，與血漿蛋白（纖維素原、球蛋白）增加有關；犬見到 rouleaux 並非 Coombs 陽性，Coombs 陽性與免疫媒介性溶血性貧血的自體凝集有關，故 C 錯誤。</p><p>(A) 對：rouleaux 增加使紅血球沉降速率加快。</p><p>(B) 對：纖維素原增加時常見。</p><p>(D) 對：反芻獸罕見 rouleaux。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 13,
+        "text": "13.下列何項不會造成動物平均紅血球血紅素濃度（MCHC）減少？",
+        "options": {
+            "A": "再生性貧血",
+            "B": "脂血症",
+            "C": "缺鐵性貧血",
+            "D": "血液樣本置放太久（超過 24 小時）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 脂血症</b></p><p>脂血症會使血紅素比色測定值假性偏高，MCHC 因此增加而非減少。</p><p>(A) 對：再生性貧血因網狀紅血球血紅素濃度較低，MCHC 下降。</p><p>(C) 對：缺鐵性貧血造成低色素性，MCHC 下降。</p><p>(D) 對：血樣放太久，紅血球腫脹 MCV 上升，MCHC 下降。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 14,
+        "text": "14.下列何者最不可能是血管內及血管外溶血性貧血的共同特徵？",
+        "options": {
+            "A": "再生性反應",
+            "B": "單核球減少",
+            "C": "血漿蛋白質濃度正常或上升",
+            "D": "不出現出血症狀"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 單核球減少</b></p><p>血管內與血管外溶血均會刺激骨髓再生，血漿蛋白正常或上升，也不一定出血；但溶血性貧血常伴隨單核球增多（發炎或吞噬作用），而非單核球減少，故 B 最不可能。</p><p>(A) 對：再生性反應為共同特徵。</p><p>(C) 對：血漿蛋白質常正常或上升，不像出血性貧血蛋白下降。</p><p>(D) 對：溶血性貧血通常無出血症狀。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 15,
+        "text": "15.輸血前的血液配合試驗，牛及馬以何種反應判定較佳？",
+        "options": {
+            "A": "魯米諾（Luminol）反應",
+            "B": "凝集反應",
+            "C": "溶血反應",
+            "D": "潛血反應"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 溶血反應</b></p><p>依答案，牛與馬輸血前的血液配合試驗，以溶血反應判定較佳（這些動物的天然抗體可引起溶血）。</p><p>(A) 錯：Luminol 反應用於偵測血跡。</p><p>(B) 錯：凝集反應對犬貓較常用。</p><p>(D) 錯：潛血反應用於偵測糞便出血。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 16,
+        "text": "16.血液抹片中，箭頭所指及其形成原因為何？",
+        "options": {
+            "A": "Heinz body，氧化性物質引起的變性血紅素",
+            "B": "Heinz body，紅血球中細胞核的殘留物",
+            "C": "Howell-Jolly body，氧化性物質引起的變性血紅素",
+            "D": "Howell-Jolly body，紅血球中細胞核的殘留物"
+        },
+        "image": "./圖片/c111-16.jpg",
+        "explanation": "<p><b>答案：(D) Howell-Jolly body，紅血球中細胞核的殘留物</b></p><p>此題為圖片題，依題意與答案推斷：箭頭所指為紅血球內小而圓、藍紫色的核殘留物，即 Howell-Jolly body，由細胞核殘留（DNA）所形成，常見於再生性貧血或無脾、脾功能低下時。</p><p>(A) 錯：Heinz body 是氧化性傷害造成的變性血紅素，原因敘述此項雖對，但名稱不符。</p><p>(B) 錯：Heinz body 並非核殘留物。</p><p>(C) 錯：Howell-Jolly body 非氧化性變性血紅素。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 17,
+        "text": "17.巨噬細胞可將何種物質轉運給紅血胚細胞及紅血細胞，合成血紅素？",
+        "options": {
+            "A": "鐵",
+            "B": "氧氣",
+            "C": "血紅質（heme）",
+            "D": "血球蛋白（globin）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 鐵</b></p><p>巨噬細胞（骨髓的 nurse cell／網狀內皮系統）將吞噬衰老紅血球後回收的鐵提供給紅血胚細胞，用於合成血紅素。</p><p>(B) 錯：氧氣由紅血球運送。</p><p>(C) 錯：heme 在細胞內合成，不是由巨噬細胞運送。</p><p>(D) 錯：globin 在細胞內合成。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 18,
+        "text": "18.有關血紅質的合成，下列何者錯誤？",
+        "options": {
+            "A": "合成過程為一雙向可逆的反應",
+            "B": "受紅血球中血紅素濃度負回饋控制",
+            "C": "銅和鈷均參與其合成過程",
+            "D": "氯黴素會抑制鐵螯合酶的作用，阻礙合成"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 合成過程為一雙向可逆的反應</b></p><p>血紅質（heme）合成過程多數為不可逆反應，且有負回饋調控，故『雙向可逆』錯誤。</p><p>(B) 對：heme 對 ALA synthase 有負回饋。</p><p>(C) 對：銅與鈷與鐵的運用或相關代謝有關。</p><p>(D) 對：chloramphenicol 與鉛可抑制 ferrochelatase。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 19,
+        "text": "19.有關新生仔畜同種異型紅血球溶解症（neonatal isoerythrolysis）之敘述，下列何者錯誤？",
+        "options": {
+            "A": "表示新生仔畜和母畜有不同血型",
+            "B": "利用母畜血清與仔畜血球進行檢驗",
+            "C": "檢驗結果有強力凝集溶血時，應儘快餵飼初乳以提升免疫力",
+            "D": "較常見於馬、貓"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 檢驗結果有強力凝集溶血時，應儘快餵飼初乳以提升免疫力</b></p><p>新生仔畜同種異型紅血球溶解症若母畜血清與仔畜血球出現強烈凝集溶血，代表母乳（初乳）含有抗體，應立即停止餵食母畜初乳，改以其他初乳或人工哺育，不能儘快餵初乳，故 C 錯誤。</p><p>(A) 對：母畜與仔畜血型不同。</p><p>(B) 對：以母畜血清與仔畜血球做交叉試驗。</p><p>(D) 對：常見於馬（Aa、Qa 抗原）、貓（A/B 型）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 20,
+        "text": "20.某貧血犬隻其白血球總數為 40,000/μL，血液抹片下 100 顆白血球範圍中可見到 25 顆有核紅血球，按公式修正白血球總數應為：",
+        "options": {
+            "A": "40,000/μL",
+            "B": "50,000/μL",
+            "C": "30,000/μL",
+            "D": "32,000/μL"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 32,000/μL</b></p><p>有核紅血球（nRBC）會被血球計數儀誤計為白血球，需校正：校正後 WBC = 40,000 × 100 ÷（100+25）= 32,000/μL。</p><p>(A) 錯：未做校正。</p><p>(B) 錯：不應增加。</p><p>(C) 錯：計算結果為 32,000，而非 30,000。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 21,
+        "text": "21.分娩中的健康母牛，其因腎上腺素引起的生理性白血球增多症，與其他動物相較，可能出現下列何種血球相？",
+        "options": {
+            "A": "單核球減少",
+            "B": "嗜中性球減少",
+            "C": "淋巴球減少",
+            "D": "嗜酸性球減少"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 嗜酸性球減少</b></p><p>依答案，分娩中母牛因腎上腺素引起生理性白血球增多症，其特徵可出現嗜酸性球減少等血球相變化。（註：此題答案建議再確認：腎上腺素反應主要造成嗜中性球與淋巴球增多，嗜酸性球減少較屬於壓力（皮質醇）反應，題意需再確認。）</p><p>(A) 錯：單核球不是主要變化。</p><p>(B) 錯：腎上腺素會使嗜中性球增加。</p><p>(C) 錯：腎上腺素常使淋巴球增加（牛尤其明顯）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 22,
+        "text": "22.有關腎上腺皮質酮誘起之緊迫性白血球相，下列敘述何者正確？",
+        "options": {
+            "A": "因邊緣池中嗜中性球移入循環池，造成嗜中性球增多症，但血中邊緣池及循環池中嗜中性球總數並無改變",
+            "B": "嗜酸性球被抑留於微血管中，導致嗜酸性球減少症",
+            "C": "循環池中淋巴球再分布導致淋巴球增多症",
+            "D": "骨髓釋放出單核球數目增加，導致單核球增多症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 嗜酸性球被抑留於微血管中，導致嗜酸性球減少症</b></p><p>依答案，糖皮質素引起的壓力性白血球相會出現嗜酸性球減少，這是典型的壓力血象。</p><p>(A) 錯：『總數無改變』是腎上腺素引起的生理性嗜中性球增多（邊緣池移入循環池）；糖皮質素則使骨髓釋放增加、組織移出減少，總數增加。</p><p>(C) 錯：糖皮質素造成淋巴球減少，而非增多。</p><p>(D) 錯：犬的單核球增多症與此題敘述的機轉不同。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 23,
+        "text": "23.貓患有佩格爾氏異常（Pelger-Huët anomaly）時，其嗜中性球有何變化？",
+        "options": {
+            "A": "正常",
+            "B": "型態正常但數量增多",
+            "C": "高度核分葉",
+            "D": "低度核分葉"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 低度核分葉</b></p><p>Pelger-Huët anomaly 為遺傳性嗜中性球核分葉不全（hyposegmentation），核呈圓形或雙葉，但功能多正常。</p><p>(A) 錯：型態不正常。</p><p>(B) 錯：數量不是主要特徵。</p><p>(C) 錯：不是高度分葉。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 24,
+        "text": "24.下圖為毒血症（toxemia）犬隻血球相，箭頭所指為何？",
+        "options": {
+            "A": "嗜中性球，Döhle bodies",
+            "B": "嗜中性球，Heinz bodies",
+            "C": "單核球，Döhle bodies",
+            "D": "單核球，Heinz bodies"
+        },
+        "image": "./圖片/c111-24.jpg",
+        "explanation": "<p><b>答案：(A) 嗜中性球，Döhle bodies</b></p><p>此題為圖片題，依題意與答案推斷：毒血症時嗜中性球可出現毒性變化，箭頭所指為嗜中性球細胞質內藍灰色、不定形的 Döhle bodies（殘留粗糙內質網）。</p><p>(B) 錯：Heinz bodies 出現在紅血球而非嗜中性球。</p><p>(C) 錯：箭頭所指為嗜中性球。</p><p>(D) 錯：Heinz bodies 出現在紅血球，且非單核球。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 25,
+        "text": "25.下圖為犬隻劉氏染色血液抹片，箭頭所指爲何種血球？",
+        "options": {
+            "A": "帶狀嗜中性球",
+            "B": "嗜酸性球",
+            "C": "淋巴球",
+            "D": "單核球"
+        },
+        "image": "./圖片/c111-25.jpg",
+        "explanation": "<p><b>答案：(D) 單核球</b></p><p>此題為圖片題，依題意與答案推斷：箭頭所指細胞為單核球（monocyte），細胞大、核呈腎形或不規則、細胞質灰藍色，常有空泡。</p><p>(A) 錯：帶狀嗜中性球核呈馬蹄形、粗細一致。</p><p>(B) 錯：嗜酸性球細胞質含橘紅色顆粒。</p><p>(C) 錯：淋巴球較小，核圓、細胞質少。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 26,
+        "text": "26.承上題，有關此種血球之敘述，下列何者正確？",
+        "options": {
+            "A": "當許多此種血球進入血中，稱為核左轉",
+            "B": "此種血球形成過程受顆粒球生成素調控",
+            "C": "骨髓內無此種血球的儲存池，由增殖池直接移入血中",
+            "D": "通常年幼動物的此種血球比成年動物多"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 骨髓內無此種血球的儲存池，由增殖池直接移入血中</b></p><p>單核球在骨髓內沒有儲存池，生成後直接進入血流，血中循環數小時至數天後移入組織成為巨噬細胞，因此 C 正確。</p><p>(A) 錯：核左轉指未成熟嗜中性球進入血液。</p><p>(B) 錯：單核球生成受 M-CSF、GM-CSF 等調控，非單獨顆粒球生成素。</p><p>(D) 錯：年幼動物單核球並不特別多。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 27,
+        "text": "27.下圖為犬隻白血病血液抹片，可推測最可能罹患何種疾病？",
+        "options": {
+            "A": "lymphoid leukemia",
+            "B": "monocytic leukemia",
+            "C": "mast cell leukemia",
+            "D": "basophilic leukemia"
+        },
+        "image": "./圖片/c111-27.jpg",
+        "explanation": "<p><b>答案：(B) monocytic leukemia</b></p><p>此題為圖片題，依題意與答案推斷：血液抹片可見大量單核球系統細胞，故推測為 monocytic leukemia。</p><p>(A) 錯：lymphoid leukemia 為小或中型淋巴球增生。</p><p>(C) 錯：mast cell leukemia 可見肥大細胞含紫色顆粒。</p><p>(D) 錯：basophilic leukemia 罕見。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 28,
+        "text": "28.下圖為何種嗜中性球增多症之機轉？（每個嗜中性球池之相對大小以長方形面積大小表示，箭頭大小表示各嗜中性球池之細胞進出量。上圖為正常機轉之圖示。）",
+        "options": {
+            "A": "生理性嗜中性球增多症",
+            "B": "非炎症性之全身性緊迫",
+            "C": "慢性化膿性炎症",
+            "D": "化膿性炎症病變之形成期"
+        },
+        "image": "./圖片/c111-28.jpg",
+        "explanation": "<p><b>答案：(B) 非炎症性之全身性緊迫</b></p><p>此題為圖片題，依題意與答案推斷：圖示應為非炎症性之全身性緊迫（如糖皮質素引起）的嗜中性球增多，機轉為骨髓儲存池釋放增加，組織移出減少，邊緣池與循環池數量增加，而非炎症性需求。</p><p>(A) 錯：生理性增多症為邊緣池移入循環池，總數不變。</p><p>(C) 錯：慢性化膿性炎症為骨髓增殖池與儲存池均增加。</p><p>(D) 錯：化膿性炎症形成期為組織需求增加，血中嗜中性球反而下降。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 29,
+        "text": "29.下列何種骨髓增殖性疾病後期，常會導致病畜呈現嚴重泛血球減少症？",
+        "options": {
+            "A": "顆粒球性白血病",
+            "B": "漿細胞性骨髓瘤",
+            "C": "肥大細胞性白血病",
+            "D": "骨髓纖維化"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 骨髓纖維化</b></p><p>骨髓纖維化（myelofibrosis）使骨髓被纖維組織取代，造血細胞減少，後期造成泛血球減少。</p><p>(A) 錯：顆粒球性白血病為白血球增生。</p><p>(B) 錯：漿細胞骨髓瘤為單株免疫球蛋白增生，貧血為次要。</p><p>(C) 錯：肥大細胞白血病主要為肥大細胞增生。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 30,
+        "text": "30.下列何種病症，是因血小板表面之 glycoprotein IIb-IIIa 缺陷或缺乏，造成血小板聚集作用減低及血塊收縮作用異常？",
+        "options": {
+            "A": "Chediak-Higashi syndrome",
+            "B": "Glanzmann's thrombasthenia",
+            "C": "Type 2 von Willebrand's disease",
+            "D": "X'mas disease"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) Glanzmann's thrombasthenia</b></p><p>Glanzmann's thrombasthenia 為血小板 GPIIb-IIIa（integrin αIIbβ3）缺陷，無法結合 fibrinogen，造成血小板聚集與血塊收縮異常。</p><p>(A) 錯：Chediak-Higashi 為溶體貯積缺陷。</p><p>(C) 錯：type 2 vWD 為 vWF 質的異常。</p><p>(D) 錯：X'mas disease 即血友病 B（factor IX 缺乏）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 31,
+        "text": "31.第 VII 凝血因子缺乖被發現於數個犬種，臨床症狀通常不嚴重，其最常見於何種犬種及伴隨何種臨床症狀？",
+        "options": {
+            "A": "米格魯；淤血",
+            "B": "黃金獵犬；淤血",
+            "C": "米格魯；血栓",
+            "D": "黃金獵犬；血栓"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 米格魯；淤血</b></p><p>Factor VII 缺乏在 Beagle 最常見，臨床症狀多輕微，可見淤血或輕度出血傾向。</p><p>(B) 錯：非黃金獵犬。</p><p>(C) 錯：主要症狀為出血而非血栓。</p><p>(D) 錯：犬種與症狀皆不符。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 32,
+        "text": "32.防止血栓形成的胞漿素原（plasminogen），主要由何處製造？",
+        "options": {
+            "A": "血管內皮細胞",
+            "B": "腎上腺",
+            "C": "肝臟",
+            "D": "脾臟"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 肝臟</b></p><p>Plasminogen 為纖溶系統的前驅物，主要由肝臟合成，經 tPA 活化為 plasmin，溶解血栓。</p><p>(A) 錯：血管內皮細胞主要分泌 tPA 與 vWF。</p><p>(B) 錯：腎上腺不合成。</p><p>(D) 錯：脾臟不是主要合成處。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 33,
+        "text": "33.下列何種凝血因子之作用可活化第 II 凝血因子？",
+        "options": {
+            "A": "VIIIa",
+            "B": "VIIa",
+            "C": "IXa",
+            "D": "Xa"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) Xa</b></p><p>Factor Xa 與 Va、鈣離子、磷脂質形成 prothrombinase 複合物，將 factor II（prothrombin）活化成 thrombin。</p><p>(A) 錯：VIIIa 為 IXa 的輔因子。</p><p>(B) 錯：VIIa 與組織因子活化 X 與 IX。</p><p>(C) 錯：IXa 活化 X。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 34,
+        "text": "34.血清中不具有下列何項凝血因子？",
+        "options": {
+            "A": "VII",
+            "B": "VIII",
+            "C": "IX",
+            "D": "XII"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) VIII</b></p><p>血液凝固時 factor I、II、V、VIII、XIII 被消耗，血清中缺乏；VII、IX、X、XI、XII 等仍存在。因此血清中無 factor VIII。</p><p>(A) 錯：VII 為穩定因子，血清中存在。</p><p>(C) 錯：IX 血清中存在。</p><p>(D) 錯：XII 血清中存在。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 35,
+        "text": "35.血小板數正常，口腔黏膜出血時間（BMBT）正常，活化部分成栓質時間（APTT）正常，一段式凝血酶原時間（OSPT）延長，凝血酶時間（TT）正常，纖維素降解產物（FDP）正常，上述實驗室檢查結果代表何種止血障礙？",
+        "options": {
+            "A": "血小板功能缺損",
+            "B": "第Ⅶ凝血因子缺乏",
+            "C": "封魏氏病",
+            "D": "瀰漫性血管內凝血"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 第Ⅶ凝血因子缺乏</b></p><p>PT 延長而 APTT、TT、血小板數、BMBT 與 FDP 皆正常，表示外在途徑出問題，且為 factor VII 缺乏。</p><p>(A) 錯：血小板功能缺損 BMBT 延長。</p><p>(C) 錯：封魏氏病（vWD）BMBT 延長，APTT 可能延長。</p><p>(D) 錯：DIC 會有血小板下降、PT/APTT 延長、FDP 上升。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 36,
+        "text": "36.第幾凝血因子可使單體纖維素成為穩定血栓？",
+        "options": {
+            "A": "I",
+            "B": "V",
+            "C": "VIII",
+            "D": "XIII"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) XIII</b></p><p>Factor XIII（纖維蛋白穩定因子）在 Ca²⁺ 存在下使纖維蛋白單體交聯，形成穩定血栓。</p><p>(A) 錯：factor I 為 fibrinogen。</p><p>(B) 錯：factor V 為輔因子。</p><p>(C) 錯：factor VIII 為 IXa 的輔因子。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 37,
+        "text": "37.下列何者之蛋白質判讀結果最不可能出現？",
+        "options": {
+            "A": "淋巴增生性疾病：正常白蛋白濃度，伴隨低球蛋白濃度",
+            "B": "球蛋白生成上升，因脫水而掩蓋的低白蛋白血症：正常白蛋白濃度，伴隨高球蛋白濃度",
+            "C": "脫水：高白蛋白濃度，伴隨高球蛋白濃度",
+            "D": "右心鬱血性心衰竭：低白蛋白濃度，伴隨正常球蛋白濃度"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 淋巴增生性疾病：正常白蛋白濃度，伴隨低球蛋白濃度</b></p><p>淋巴增生性疾病（如多發性骨髓瘤、慢性淋巴性白血病）常伴隨球蛋白升高（單株或多株），不會是低球蛋白，故最不可能出現。</p><p>(B) 對：脫水可掩蓋低白蛋白，表現為白蛋白正常。</p><p>(C) 對：脫水時白蛋白與球蛋白均升高。</p><p>(D) 對：右心衰竭時肝鬱血，白蛋白低而球蛋白正常。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 38,
+        "text": "38.下列何種疾病最不會導致低蛋白血症？",
+        "options": {
+            "A": "瀰漫性血管內凝血（DIC）",
+            "B": "慢性肝病",
+            "C": "嚴重滲出性皮膚病",
+            "D": "大量出血"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 瀰漫性血管內凝血（DIC）</b></p><p>依答案，DIC 最不會直接造成低蛋白血症（其特徵為凝血因子消耗與血小板下降）。</p><p>(B) 錯：慢性肝病使白蛋白合成減少。</p><p>(C) 錯：嚴重滲出性皮膚病使蛋白質流失。</p><p>(D) 錯：大量出血使全蛋白下降。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 39,
+        "text": "39.血清蛋白質電泳時，下列何者負電荷最小，而停留在電泳的起點附近？",
+        "options": {
+            "A": "白蛋白",
+            "B": "α-球蛋白",
+            "C": "β-球蛋白",
+            "D": "γ-球蛋白"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) γ-球蛋白</b></p><p>血清蛋白電泳時，γ-球蛋白負電荷最小，故移動最少，停留在靠近起點處；白蛋白負電荷最大，最靠近陽極。</p><p>(A) 錯：白蛋白移動最遠。</p><p>(B) 錯：α-球蛋白移動僅次於白蛋白。</p><p>(C) 錯：β-球蛋白在 α 與 γ 之間。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 40,
+        "text": "40.脂肪細胞可分泌多種脂肪細胞激素（adipokines），調控脂質代謝、血管新生及參與免疫反應等，下列何者不是 adipokines？",
+        "options": {
+            "A": "leptin",
+            "B": "fibronectin",
+            "C": "adiponectin",
+            "D": "resistin"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) fibronectin</b></p><p>Fibronectin 為細胞外基質醣蛋白，並非脂肪細胞激素。</p><p>(A) 對：leptin 為 adipokine。</p><p>(C) 對：adiponectin 為 adipokine。</p><p>(D) 對：resistin 為 adipokine。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 41,
+        "text": "41.有關脂血症之敘述，下列何者錯誤？",
+        "options": {
+            "A": "促進溶血",
+            "B": "血漿冷藏 4～8 小時後仍混濁，表示因乳糜微粒所致",
+            "C": "禁食 24 小時後採血可除去食後性脂血症",
+            "D": "糖尿病可能繼發高脂血症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 血漿冷藏 4～8 小時後仍混濁，表示因乳糜微粒所致</b></p><p>乳糜微粒（chylomicron）冷藏後會在表層形成乳霜層，下層血漿較清；若冷藏後仍整體混濁，通常為 VLDL 所致，故 B 錯誤。</p><p>(A) 對：脂血症可干擾比色，促進溶血。</p><p>(C) 對：禁食 12～24 小時可去除食後性脂血症。</p><p>(D) 對：糖尿病可繼發高脂血症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 42,
+        "text": "42.當犬進行經口葡萄糖耐受試驗（OGTT）時，於 180 分鐘後尚未回到基礎血糖值，則該犬可能有何種病症？",
+        "options": {
+            "A": "正常",
+            "B": "甲狀腺功能低下",
+            "C": "糖尿病",
+            "D": "高胰島素症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 糖尿病</b></p><p>OGTT 在口服葡萄糖後，健康犬血糖通常於 120 分鐘內回到基礎值；180 分鐘仍未回復，表示葡萄糖耐受不良，可能為糖尿病。</p><p>(A) 錯：正常犬 2 小時內回復。</p><p>(B) 錯：甲狀腺功能低下可使耐受不良，但最典型為糖尿病。</p><p>(D) 錯：高胰島素症則血糖降低。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 43,
+        "text": "43.下列何者不是高乳酸鹽血症的原因？",
+        "options": {
+            "A": "休克",
+            "B": "過度勞動",
+            "C": "馬之疝痛",
+            "D": "牛之乳熱"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 牛之乳熱</b></p><p>牛乳熱（低血鈣）屬代謝性疾病，主要為低血鈣，並非高乳酸鹽血症的典型原因。</p><p>(A) 對：休克造成組織低灌流，乳酸增加。</p><p>(B) 對：過度勞動造成無氧代謝。</p><p>(C) 對：馬疝痛伴隨灌流不良與缺氧。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 44,
+        "text": "44.正常犬隻投與多次高劑量 prednisolone（＞5 mg/kg），可在血中觀察到下列那一種肝臟酵素的活性值大幅度上升？",
+        "options": {
+            "A": "ALT",
+            "B": "AST",
+            "C": "GGT",
+            "D": "LDH"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) ALT</b></p><p>依答案，高劑量 prednisolone 長期使用可使 ALT 活性上升。（註：此題答案建議再確認：犬在糖皮質素下最典型且顯著上升的是 ALP（steroid-induced ALP），ALT 一般為輕度上升。）</p><p>(B) 錯：AST 上升較輕。</p><p>(C) 錯：GGT 上升輕微。</p><p>(D) 錯：LDH 非肝臟特異。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 45,
+        "text": "45.下列何犬種常見尿酸銨（ammonium urate）尿？",
+        "options": {
+            "A": "大麥町犬",
+            "B": "哈士奇犬",
+            "C": "北京犬",
+            "D": "杜賓犬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 大麥町犬</b></p><p>Dalmatian 因尿酸轉運與代謝缺陷，尿中排出大量尿酸，易形成尿酸銨（ammonium urate）結石。</p><p>(B) 錯：哈士奇常見矽酸鹽結石。</p><p>(C) 錯：北京犬非典型。</p><p>(D) 錯：杜賓犬非典型。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 46,
+        "text": "46.犬貓肝細胞受損或壞死時，下列那一項試驗最具敏感性？",
+        "options": {
+            "A": "ALT & AST",
+            "B": "albumin",
+            "C": "ammonia tolerance test",
+            "D": "bile acids"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) ALT & AST</b></p><p>ALT 與 AST 於肝細胞受損或壞死時釋出至血液，為最敏感的肝細胞損傷指標。</p><p>(B) 錯：albumin 反映合成功能。</p><p>(C) 錯：ammonia tolerance test 反映肝功能。</p><p>(D) 錯：bile acids 反映肝功能與膽汁排泄。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 47,
+        "text": "47.下列何物種不適合使用鹼磷酶（ALP）作為診斷膽汁滯鬱性肝病之依據？",
+        "options": {
+            "A": "犬",
+            "B": "綿羊",
+            "C": "貓",
+            "D": "豬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 綿羊</b></p><p>依答案，綿羊不適合使用 ALP 作為診斷膽汁滯鬱性肝病之依據（反芻動物 ALP 的敏感性與特異性較差）。</p><p>(A) 錯：犬 ALP 是常用的膽汁滯鬱指標。</p><p>(C) 錯：貓 ALP 可用（但半衰期短）。</p><p>(D) 錯：豬可用。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 48,
+        "text": "48.下列何種酵素被視為鳥類肝臟疾病診斷的特異性酵素？",
+        "options": {
+            "A": "異檸檬酸鹽脫氫酶（ICDH）",
+            "B": "麩氨酸鹽脫氫酶（GLDH）",
+            "C": "乳酸鹽脫氫酶（LDH）",
+            "D": "白氨酸氨基胜酶（LAP）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 麩氨酸鹽脫氫酶（GLDH）</b></p><p>GLDH 為鳥類肝臟疾病的特異性酵素；AST 與 LDH 為非特異性。</p><p>(A) 錯：ICDH 用於牛、羊肝損傷。</p><p>(C) 錯：LDH 非特異。</p><p>(D) 錯：LAP 非特異。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 49,
+        "text": "49.15 歲結紮母犬，精神沉鬱，多渴多尿。血檢發現膽汁酸（bile acids）、膽紅素（bilirubin）、血糖均有顯著上升之現象。ALP 與 ALT 輕微上升，總蛋白與 A/G ratio 下降，且超音波檢查發現肝臟有變小的現象。推估該犬的肝臟最有可能發生何種問題？",
+        "options": {
+            "A": "脂肪肝",
+            "B": "膽管肝炎",
+            "C": "類固醇性肝病",
+            "D": "後天性門脈分流"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 後天性門脈分流</b></p><p>老齡犬出現膽汁酸、膽紅素升高，總蛋白與白蛋白降低，肝臟縮小，提示慢性肝纖維化與肝功能不全，依答案為後天性門脈分流（acquired portosystemic shunt）。</p><p>(A) 錯：脂肪肝的肝臟通常腫大。</p><p>(B) 錯：膽管肝炎多見於貓，且肝臟不一定縮小。</p><p>(C) 錯：類固醇性肝病肝臟增大。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 50,
+        "text": "50.下列何種物質能有效率地透過腸肝循環（enterohepatic circulation）被回收？",
+        "options": {
+            "A": "膽汁酸",
+            "B": "膽紅素",
+            "C": "尿素",
+            "D": "膽固醇"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 膽汁酸</b></p><p>膽汁酸經回腸主動吸收，經門脈回到肝臟，約 90% 以上被回收，屬典型腸肝循環。</p><p>(B) 錯：膽紅素大多隨糞便排出。</p><p>(C) 錯：尿素經腎排泄。</p><p>(D) 錯：膽固醇少量回收。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 51,
+        "text": "51.下列何種疾病會造成先天性的膽汁鬱滯？",
+        "options": {
+            "A": "犬的鐵查病（Tyzzer's disease）",
+            "B": "馬的 Gilbert 症候群",
+            "C": "貓的傳染性腹膜炎",
+            "D": "綿羊的 Dubin-Johnson 症候群"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 綿羊的 Dubin-Johnson 症候群</b></p><p>依答案，Dubin-Johnson 症候群為綿羊（Corriedale）遺傳性結合型高膽紅素血症，因膽管系統排出有機陰離子缺陷，造成先天性膽汁鬱滯。</p><p>(A) 錯：Tyzzer's disease 為 Clostridium piliforme 感染。</p><p>(B) 錯：Gilbert 症候群為人類非結合型高膽紅素血症。</p><p>(C) 錯：FIP 為傳染病，非先天性。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 52,
+        "text": "52.下列何種動物在發生胰臟炎時較少出現高澱粉酶血症？",
+        "options": {
+            "A": "雪納瑞犬",
+            "B": "鸚鵡",
+            "C": "貴賓犬",
+            "D": "亞洲短毛家貓"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 亞洲短毛家貓</b></p><p>貓發生胰臟炎時血清澱粉酶多不升高，診斷價值低，故最少出現高澱粉酶血症。</p><p>(A) 錯：雪納瑞犬為胰臟炎好發品種。</p><p>(B) 錯：鸚鵡可有澱粉酶變化。</p><p>(C) 錯：貴賓犬為好發犬種。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 53,
+        "text": "53.5 歲 Terrier 犬，食慾不振，常有嘔吐及下痢症狀，體重減輕，超音波顯示胰臟有一腫塊，有類似 Zollinger-Ellison syndrome 之症狀，則此犬最易出現下列何種現象？",
+        "options": {
+            "A": "血中的 trypsin 呈現低值",
+            "B": "血中的 gastrin 呈現高值",
+            "C": "常伴有高血糖出現",
+            "D": "胃中 pH 值偏高"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 血中的 gastrin 呈現高值</b></p><p>Zollinger-Ellison syndrome 由分泌 gastrin 的腫瘤（gastrinoma）造成，血中 gastrin 偏高，胃酸過度分泌，造成胃潰瘍與嘔吐。</p><p>(A) 錯：trypsin 不是主要變化。</p><p>(C) 錯：高血糖不是特徵（胰島素瘤才有低血糖）。</p><p>(D) 錯：胃酸過多使胃 pH 下降，而非偏高。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 54,
+        "text": "54.懷疑動物有胰外分泌功能不全（EPI）時，最有可能出現下列何種特異檢測結果？",
+        "options": {
+            "A": "脂肪酶與澱粉酶低於標準值",
+            "B": "維生素 B12 上升",
+            "C": "維生素Ａ下降",
+            "D": "trypsin-like immunoreactivity（TLI）活性下降"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) trypsin-like immunoreactivity（TLI）活性下降</b></p><p>EPI 時外分泌胰臟腺泡萎縮，血中 trypsin-like immunoreactivity（TLI）顯著降低，為最特異的檢測。</p><p>(A) 錯：脂肪酶與澱粉酶非特異。</p><p>(B) 錯：EPI 常伴有 B12 下降。</p><p>(C) 錯：維生素 A 非特異。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 55,
+        "text": "55.以蘇丹（Sudan）III 或 IV 染色稀釋糞便抹片，若在每一 400 倍視野下至少有多少個以上的脂肪滴，即可以判斷為罹患脂肪漏瀉（steatorrhea）？",
+        "options": {
+            "A": "5",
+            "B": "10",
+            "C": "15",
+            "D": "20"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 10</b></p><p>依答案，Sudan III 或 IV 染色糞便抹片，每 400 倍視野超過 10 個脂肪滴時可判斷為脂肪漏瀉。</p><p>(A) 錯：數量過少，可為正常。</p><p>(C) 錯：與答案不符。</p><p>(D) 錯：與答案不符。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 56,
+        "text": "56.有關 small intestinal bacterial overgrowth（SIBO）之敘述，下列何者最正確？",
+        "options": {
+            "A": "腸道菌叢正常情況下只存在於大腸，不應在小腸出現",
+            "B": "idiopathic SIBO 好發於年輕動物，德國狼犬是好發品種之一",
+            "C": "細菌會利用葉酸鹽（folate）幫助增生",
+            "D": "檢驗糞便中的 trypsinogen 可作為 SIBO 的診斷指標"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) idiopathic SIBO 好發於年輕動物，德國狼犬是好發品種之一</b></p><p>Idiopathic SIBO 好發於年輕動物，尤其是德國狼犬（German shepherd），與 IgA 缺乏或免疫異常有關。</p><p>(A) 錯：小腸正常也有少量細菌。</p><p>(C) 錯：細菌會消耗維生素 B12，同時合成葉酸，使血清葉酸升高。</p><p>(D) 錯：糞便 trypsinogen 不是 SIBO 指標，而用於 EPI。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 57,
+        "text": "57.有關肌氨酸激酶（creatine kinase, CK）的異構體，下列敘述何者錯誤？",
+        "options": {
+            "A": "CK1 為由兩個腦型的次單位組合而成的雙聚體（dimer）",
+            "B": "CK-Mt 存在於心肌之微粒體（microsome）",
+            "C": "酵素分類上 CK 屬於 EC2 群的轉移酶（transferase）",
+            "D": "CK2 主要存在心肌，少量存在於骨骼肌"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) CK-Mt 存在於心肌之微粒體（microsome）</b></p><p>Mitochondrial CK（CK-Mt）存在於粒線體（mitochondria），並非微粒體，故 B 錯誤。</p><p>(A) 對：CK1（CK-BB）為腦型二聚體。</p><p>(C) 對：CK 屬 EC 2 的轉移酶。</p><p>(D) 對：CK2（CK-MB）主要存在心肌，少量於骨骼肌。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 58,
+        "text": "58.利用心肌肌鈣蛋白（troponins）評估心肌是否損傷，下列敘述何者錯誤？",
+        "options": {
+            "A": "肌鈣蛋白由三種蛋白構成複合物，分別為 troponin I、troponin T 及 troponin C",
+            "B": "心肌 troponin I 及 troponin T 適用於評估心肌是否損傷",
+            "C": "腎損傷也可能造成血中心肌肌鈣蛋白上升",
+            "D": "心肌肌鈣蛋白半衰期約為 24 小時"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 心肌肌鈣蛋白半衰期約為 24 小時</b></p><p>依答案，心肌肌鈣蛋白的半衰期並非約 24 小時（cTnI 半衰期較短，血中升高可持續數小時至數天），故 D 錯誤。</p><p>(A) 對：troponin 複合物含 I、T、C。</p><p>(B) 對：cTnI 與 cTnT 為心肌特異性。</p><p>(C) 對：腎功能不全會使血中濃度升高。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 59,
+        "text": "59.罹患肌肉疾病時，最不易見到下列何種異常？",
+        "options": {
+            "A": "LDH 值上升",
+            "B": "肌紅素尿",
+            "C": "高鉀血症",
+            "D": "低鈣血症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 低鈣血症</b></p><p>依答案，肌肉疾病時最不易見到低鈣血症（其餘異常較常見）。</p><p>(A) 錯：LDH 上升常見。</p><p>(B) 錯：橫紋肌溶解可見肌紅素尿。</p><p>(C) 錯：肌肉壞死釋出鉀，可造成高鉀血症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 60,
+        "text": "60.罹患尿石症動物之鹼性尿，最常見下列何種結晶？",
+        "options": {
+            "A": "草酸鹽（oxalate）",
+            "B": "三重磷酸鹽（triple phosphate）",
+            "C": "馬尿酸（hippurate）",
+            "D": "酥氨酸（tyrosine）"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 三重磷酸鹽（triple phosphate）</b></p><p>鹼性尿中最常見的結石與結晶為三重磷酸鹽（struvite，磷酸銨鎂）。</p><p>(A) 錯：草酸鈣多見於酸性或中性尿。</p><p>(C) 錯：馬尿酸並非典型尿石症結晶。</p><p>(D) 錯：tyrosine 結晶見於嚴重肝病，非鹼性尿特異。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 61,
+        "text": "61.下列何者的尿液在正常情況下即呈現混濁的樣態？",
+        "options": {
+            "A": "馬",
+            "B": "牛",
+            "C": "狗",
+            "D": "貓"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 馬</b></p><p>馬尿液含有大量碳酸鈣結晶與黏液，正常即呈混濁。</p><p>(B) 錯：牛尿通常清澈。</p><p>(C) 錯：犬尿通常清澈。</p><p>(D) 錯：貓尿通常清澈。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 62,
+        "text": "62.下列何種疾病會造成腎性糖尿病？",
+        "options": {
+            "A": "lymphoma",
+            "B": "Cushing syndrome",
+            "C": "Fanconi-like syndrome",
+            "D": "amyloidosis"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Fanconi-like syndrome</b></p><p>Fanconi-like syndrome 為近曲小管功能缺損，造成葡萄糖、胺基酸、磷酸鹽等再吸收障礙，即腎性糖尿（血糖正常而尿糖陽性）。</p><p>(A) 錯：lymphoma 不直接造成腎性糖尿。</p><p>(B) 錯：Cushing 造成高血糖。</p><p>(D) 錯：amyloidosis 主要造成蛋白尿。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 63,
+        "text": "63.下列何種結晶最易出現於鹼性尿中？",
+        "options": {
+            "A": "cholesterol",
+            "B": "cystine",
+            "C": "magnesium ammonium phosphate",
+            "D": "uric acid"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) magnesium ammonium phosphate</b></p><p>Magnesium ammonium phosphate（struvite）為鹼性尿中最常見結晶。</p><p>(A) 錯：cholesterol 結晶見於酸性尿與臨床意義較低。</p><p>(B) 錯：cystine 見於酸性尿。</p><p>(D) 錯：uric acid 見於酸性尿。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 64,
+        "text": "64.2 歲未結紮黃金獵犬雌犬，有嗜睡、抑鬱、共濟失調、嘔吐、脫水、乏尿之臨床症狀。 CBC 可見嗜中性球顯著上升，且有核左轉。生化檢查可見 BUN 與血清肌酸酐上升。有高血糖、高蛋白血症，也同時可見高血鉀、低血氯與低血鈣。血液氣體檢查顯示 pH 為 7.231，並有低重碳酸鹽與低 PCO2 之情況出現。造成該犬低血氯最有可能的原因為何？",
+        "options": {
+            "A": "嘔吐",
+            "B": "乏尿",
+            "C": "脫水",
+            "D": "用於平衡血液中過低的重碳酸鹽濃度"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 嘔吐</b></p><p>此犬嘔吐造成胃酸（HCl）流失，導致低血氯，常伴隨代謝性鹼中毒；依答案低血氯最可能因嘔吐所致。</p><p>(B) 錯：乏尿使氯滯留，而非降低。</p><p>(C) 錯：脫水通常造成濃縮或正常。</p><p>(D) 錯：低氯並非用於平衡低重碳酸鹽（依答案）。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 65,
+        "text": "65.承上題，由臨床症狀及血檢結果可判定該犬有下列何種酸鹼不平衡？",
+        "options": {
+            "A": "呼吸性酸中毒",
+            "B": "呼吸性鹼中毒",
+            "C": "代謝性酸中毒",
+            "D": "代謝性鹼中毒"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 代謝性酸中毒</b></p><p>血液 pH 7.231（酸血症），HCO3⁻ 低，PCO2 也低（呼吸代償），為代謝性酸中毒伴呼吸代償。</p><p>(A) 錯：呼吸性酸中毒時 PCO2 升高。</p><p>(B) 錯：呼吸性鹼中毒 pH 上升。</p><p>(D) 錯：代謝性鹼中毒 HCO3⁻ 上升。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 66,
+        "text": "66.承上題，輸液後若該犬尿檢中出現等比重尿、輕微的蛋白尿，但無血尿或是膿尿之結果，且尿渣中觀察到單水草酸鈣結晶，則下列何者最可能是造成該犬臨床症狀之病因？",
+        "options": {
+            "A": "ethylene glycol 中毒",
+            "B": "肝腦病變",
+            "C": "子宮蓄膿",
+            "D": "輸尿管結石"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) ethylene glycol 中毒</b></p><p>急性腎衰竭、等滲尿（isosthenuria）、輕微蛋白尿，且尿沉渣出現單水草酸鈣結晶，高度提示 ethylene glycol 中毒。</p><p>(B) 錯：肝腦病變可見尿酸銨結晶。</p><p>(C) 錯：子宮蓄膿多見腎前性或腎病，不出現單水草酸鈣結晶。</p><p>(D) 錯：輸尿管結石可見血尿等。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 67,
+        "text": "67.一病犬血清生化及荷爾蒙檢查結果如下：total calcium 上升、ionized calcium 上升、phosphate 上升、PTH 下降。根據上述檢查結果，下列何者為造成該病犬高鈣血症最可能之原因？",
+        "options": {
+            "A": "維生素 D 過多症",
+            "B": "惡性腫瘤",
+            "C": "原發性副甲狀腺功能亢進",
+            "D": "慢性腎衰竭"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 維生素 D 過多症</b></p><p>總鈣與游離鈣上升、磷上升、PTH 下降，表示高鈣血症非 PTH 依賴，磷上升是維生素 D 過多（促進腸道吸收鈣與磷）的典型表現。</p><p>(B) 錯：惡性腫瘤（PTHrP）通常磷降低。</p><p>(C) 錯：原發性副甲狀腺功能亢進 PTH 升高、磷降低。</p><p>(D) 錯：慢性腎衰竭游離鈣多下降或正常。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 68,
+        "text": "68.副甲狀腺於下列何組織器官將 25-hydroxy-cholecalciferol 轉化成具有生理活性之維生素 D3？",
+        "options": {
+            "A": "腎小管細胞",
+            "B": "肝細胞",
+            "C": "腸道細胞",
+            "D": "骨骼細胞"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 腎小管細胞</b></p><p>依答案，25-hydroxycholecalciferol 於腎小管細胞經 1α-hydroxylase 轉為 1,25-(OH)2D3（calcitriol），PTH 刺激此步驟。（題幹『副甲狀腺…轉化』為 PTH 調控的表述。）</p><p>(B) 錯：肝細胞進行 25-羥化。</p><p>(C) 錯：腸道細胞為作用標的。</p><p>(D) 錯：骨骼為作用標的。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 69,
+        "text": "69.造成犬高血鈣的原因眾多，若病犬血中 total Ca、ionized Ca、parathyroid hormone-related peptide（PTHrP）皆增加，但血中 PTH 及 phosphate 皆下降，則造成此病犬高血鈣最有可能之原因為：",
+        "options": {
+            "A": "lymphoma",
+            "B": "primary hyperparathyroidism",
+            "C": "chronic kidney disease",
+            "D": "granulomatous disease"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) lymphoma</b></p><p>PTHrP 升高、PTH 與磷下降，為惡性體液性高血鈣（humoral hypercalcemia of malignancy），犬最常見的原因為 lymphoma（亦見於肛門囊腺癌）。</p><p>(B) 錯：primary hyperparathyroidism 的 PTH 升高。</p><p>(C) 錯：慢性腎臟病的磷上升，PTH 升高。</p><p>(D) 錯：肉芽腫疾病為 calcitriol 過多，PTHrP 不升高。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 70,
+        "text": "70.下列何種內分泌疾病最不常出現膽固醇增加之血脂異常？",
+        "options": {
+            "A": "甲狀腺功能亢進",
+            "B": "甲狀腺功能低下",
+            "C": "腎上腺皮質功能亢進",
+            "D": "糖尿病"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) 甲狀腺功能亢進</b></p><p>甲狀腺功能亢進常使膽固醇下降或正常，而非增加。</p><p>(B) 對：甲狀腺功能低下常見高膽固醇。</p><p>(C) 對：腎上腺皮質功能亢進常見高膽固醇與高三酸甘油脂。</p><p>(D) 對：糖尿病常見高脂血症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 71,
+        "text": "71.下列何項因素最不會干擾或影響血清果糖胺之濃度？",
+        "options": {
+            "A": "白蛋白濃度",
+            "B": "甲狀腺功能亢進",
+            "C": "貧血",
+            "D": "氮血症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 貧血</b></p><p>果糖胺（fructosamine）為糖化白蛋白，受血清白蛋白濃度、甲狀腺功能與氮血症等影響，但不受紅血球壽命影響，因此貧血最不會干擾。</p><p>(A) 錯：低白蛋白使果糖胺偏低。</p><p>(B) 錯：甲狀腺功能亢進加速蛋白轉換而使果糖胺偏低。</p><p>(D) 錯：氮血症會干擾比色測定。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 72,
+        "text": "72.下列何者不是犬隻糖尿病常見之臨床症狀？",
+        "options": {
+            "A": "多渴／多尿",
+            "B": "體重下降",
+            "C": "步態改變",
+            "D": "白內障"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) 步態改變</b></p><p>犬糖尿病的典型症狀為多渴、多尿、體重下降、白內障；步態改變（plantigrade 姿勢）是貓糖尿病神經病變的表現，不是犬的常見症狀。</p><p>(A) 錯：多渴／多尿為常見症狀。</p><p>(B) 錯：體重下降為常見症狀。</p><p>(D) 錯：白內障為犬糖尿病的常見併發症。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 73,
+        "text": "73.下列何者不是犬腎上腺皮質功能亢進（hyperadrenocorticism）常見之實驗室檢查結果？",
+        "options": {
+            "A": "淋巴球減少",
+            "B": "ALP 上升",
+            "C": "Total T4 上升",
+            "D": "高血糖"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(C) Total T4 上升</b></p><p>犬腎上腺皮質功能亢進時，總 T4 多下降（病態甲狀腺症候群），不會升高。</p><p>(A) 對：壓力白血球相，淋巴球減少。</p><p>(B) 對：ALP 因類固醇誘導而升高。</p><p>(D) 對：糖皮質素使血糖升高。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 74,
+        "text": "74.某犬疑似患有腎上腺皮質功能異常疾病，其 ACTH 刺激試驗及低劑量 dexamethasone 抑制試驗結果如下。該犬最有可能患有下列何種腎上腺皮質功能異常疾病？（ACTH 試驗參考值 pre-ACTH：20～250 nmol/L, post-ACTH：200～450 nmol/L）",
+        "options": {
+            "A": "腎上腺依賴性腎上腺皮質功能亢進症（adrenal-dependent hyperadrenocorticism）",
+            "B": "腦垂腺依賴性腎上腺皮質功能亢進症（pituitary-dependent hyperadrenocorticism）",
+            "C": "醫源性庫興症候群（iatrogenic Cushing's syndrome）",
+            "D": "腎上腺皮質功能低下症（hypoadrenocorticism）"
+        },
+        "image": "./圖片/c111-74.jpg",
+        "explanation": "<p><b>答案：(B) 腦垂腺依賴性腎上腺皮質功能亢進症（pituitary-dependent hyperadrenocorticism）</b></p><p>此題為圖片題，依題意與答案推斷：ACTH 刺激試驗與低劑量 dexamethasone 抑制試驗的數值（圖中）符合腦垂腺依賴性庫興氏症（PDH），即 ACTH 刺激後皮質醇反應過度，LDDST 抑制不完全。</p><p>(A) 錯：腎上腺腫瘤時 LDDST 通常無抑制，且試驗型態不同。</p><p>(C) 錯：醫源性庫興症 ACTH 刺激試驗反應低或平坦。</p><p>(D) 錯：腎上腺皮質功能低下時 pre- 與 post-ACTH 皮質醇皆低。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 75,
+        "text": "75.組織間液（interstitial fluid）約占總體重之多少？",
+        "options": {
+            "A": "40%",
+            "B": "30%",
+            "C": "20%",
+            "D": "15%"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 15%</b></p><p>體液約占體重的 60%，其中細胞內液約 40%，細胞外液約 20%，細胞外液中組織間液約 15%，血漿約 5%。</p><p>(A) 錯：40% 為細胞內液。</p><p>(B) 錯：30% 不是組織間液。</p><p>(C) 錯：20% 為細胞外液總量。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 76,
+        "text": "76.PCO2 在 40 mmHg 及 37℃的標準條件下，以酸或鹼滴定患畜血漿，使達到 pH7.4 時的鹼量稱為：",
+        "options": {
+            "A": "Base excess",
+            "B": "TCO2",
+            "C": "HCO3-",
+            "D": "Anion gap"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(A) Base excess</b></p><p>Base excess 是指在 PCO2 40 mmHg、37°C 條件下，將血漿滴定至 pH 7.4 所需的酸或鹼量，反映代謝成分。</p><p>(B) 錯：TCO2 為總二氧化碳含量。</p><p>(C) 錯：HCO3⁻ 為重碳酸根濃度。</p><p>(D) 錯：anion gap 為陽離子與陰離子差。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 77,
+        "text": "77.正常動物血漿 TCO2 值比 HCO3-高多少？",
+        "options": {
+            "A": "3%",
+            "B": "5%",
+            "C": "7%",
+            "D": "10%"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 5%</b></p><p>血漿 TCO2 包含 HCO3⁻、溶解的 CO2 與碳醯胺基，故約比 HCO3⁻ 高 5%。</p><p>(A) 錯：3% 偏低。</p><p>(C) 錯：7% 偏高。</p><p>(D) 錯：10% 偏高。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 78,
+        "text": "78.下列何者不是造成高鉀血症（hyperkalemia）之原因？",
+        "options": {
+            "A": "莢竹桃中毒",
+            "B": "鹼血症",
+            "C": "大量組織壞死",
+            "D": "腎上腺功能低下症"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 鹼血症</b></p><p>鹼血症使 K⁺ 進入細胞內（與 H⁺ 交換），造成低血鉀，不是高血鉀的原因。</p><p>(A) 對：莢竹桃（強心配醣體）抑制 Na⁺/K⁺-ATPase，造成高血鉀。</p><p>(C) 對：大量組織壞死釋出細胞內鉀。</p><p>(D) 對：腎上腺功能低下使 aldosterone 不足，造成高血鉀。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 79,
+        "text": "79.下列何者不是造成低血鉀之原因？",
+        "options": {
+            "A": "嘔吐／下痢",
+            "B": "血小板增多症",
+            "C": "代謝性鹼中毒",
+            "D": "thiazide 給予"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(B) 血小板增多症</b></p><p>血小板增多症會使血清（凝血時）釋出鉀，造成假性高血鉀，並非低血鉀原因。</p><p>(A) 對：嘔吐／下痢使鉀流失。</p><p>(C) 對：代謝性鹼中毒使 K⁺ 進入細胞。</p><p>(D) 對：thiazide 增加尿鉀排出。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    },
+    {
+        "id": 80,
+        "text": "80.下列何犬種之紅血球內含有較高鉀離子，溶血時較易引起高血鉀？",
+        "options": {
+            "A": "德國牧羊犬",
+            "B": "黃金獵犬",
+            "C": "鬥牛犬",
+            "D": "秋田犬"
+        },
+        "image": null,
+        "explanation": "<p><b>答案：(D) 秋田犬</b></p><p>秋田犬（Akita）與日本犬種紅血球含較高 K⁺（高鉀紅血球），溶血時血清鉀會明顯上升。</p><p>(A) 錯：德國牧羊犬紅血球鉀為一般水準。</p><p>(B) 錯：黃金獵犬為一般水準。</p><p>(C) 錯：鬥牛犬為一般水準。</p><p style=\"opacity:.6;font-size:12px;\">（AI 生成）</p>"
+    }
+]

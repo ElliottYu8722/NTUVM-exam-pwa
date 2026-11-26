@@ -1,0 +1,962 @@
+[
+    {
+        "id": 1,
+        "text": "1.造成thiopental麻醉時藥物具有雙相（biphasic）分布模式，最主要的原因為：",
+        "options": {
+            "A": "各組織血液供應量之差異",
+            "B": "血漿蛋白結合率之不同",
+            "C": "藥物劑量之差異",
+            "D": "組織酸鹼值之不同"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 2,
+        "text": "2.Pentobarbital之作用機制，主要為開啟下列那一離子通道，增加其通透性？",
+        "options": {
+            "A": "Na+",
+            "B": "K+",
+            "C": "Ca++",
+            "D": "Cl-"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 3,
+        "text": "3.Erythropoietin主要用於治療下列何種貧血症？",
+        "options": {
+            "A": "低血紅素小血球性貧血",
+            "B": "惡性貧血",
+            "C": "末期腎臟疾病所導致之貧血",
+            "D": "巨母紅血球性貧血"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 4,
+        "text": "4.可競爭性阻斷α 腎上腺素性接受體而使血管擴張的藥物是： 1",
+        "options": {
+            "A": "clonidine",
+            "B": "prazosin",
+            "C": "hydralazine",
+            "D": "α-methyldopa"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 5,
+        "text": "5.於制酸劑配方中，混合aluminum hydroxide與magnesium hydroxide之主要目的為何？",
+        "options": {
+            "A": "增加局部吸收率",
+            "B": "具協同作用",
+            "C": "延長作用時間",
+            "D": "減少副作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 6,
+        "text": "6.下列何者為作用於中樞的止吐劑？",
+        "options": {
+            "A": "apomorphine",
+            "B": "acepromazine",
+            "C": "sucralfate",
+            "D": "bismuth"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 7,
+        "text": "7.下列何者與chloramphenicol對細菌的作用點相同，會互相干擾？",
+        "options": {
+            "A": "flumequine",
+            "B": "erythromycin",
+            "C": "colistin",
+            "D": "ampicillin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 8,
+        "text": "8.下列何者使用nalidixic acid防治效果最佳？",
+        "options": {
+            "A": "E. coli",
+            "B": "streptococci",
+            "C": "pseudomonas",
+            "D": "staphylococci"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 9,
+        "text": "9.下列何者是經口投予藥物的優點？",
+        "options": {
+            "A": "可以準確的達到預期的血中濃度",
+            "B": "生體可利用率（bioavailability）高",
+            "C": "投藥後藥效迅速",
+            "D": "安全性較注射給藥高"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 10,
+        "text": "10.下列何者可以由Henderson-Hasselbalch方程式運算得到？",
+        "options": {
+            "A": "藥物於不同pH值水溶液中的解離比率",
+            "B": "藥物於不同pH值水溶液中的水解速率",
+            "C": "藥物於不同pH值水溶液中的代謝速率",
+            "D": "藥物於不同pH值水溶液中的溶解度"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 11,
+        "text": "11.下列何者是超短效麻醉劑thiopental作用時間短暫的主要原因？",
+        "options": {
+            "A": "藥物很快被腎臟排除",
+            "B": "藥物於不同組織間的重分佈",
+            "C": "藥物很快被肝臟代謝",
+            "D": "藥物與血漿蛋白結合比率極高"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 12,
+        "text": "12.對受體具有親和力（affinity），但是無法產生受體的內在活性（intrinsic activity）的藥物稱為：",
+        "options": {
+            "A": "全致效劑（full agonist）",
+            "B": "部分致效劑（partial agonist）",
+            "C": "反致效劑（inverse agonist）",
+            "D": "拮抗劑（antagonist）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 13,
+        "text": "13.下列有關標準安全界限（standard safety margin）的敘述，何者最正確？",
+        "options": {
+            "A": "標準安全界限愈大的藥物，其毒性愈大",
+            "B": "標準安全界限愈大的藥物，其1%致死劑量（LD ）愈大 1",
+            "C": "標準安全界限愈大的藥物，其99%有效劑量（ED ）愈小 99",
+            "D": "標準安全界限愈大的藥物，其LD 減ED 的差愈大 1 99"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 14,
+        "text": "14.下列有關G蛋白偶合受體（G protein-coupled receptors）之訊息傳導的敘述，何者正確？",
+        "options": {
+            "A": "反應速度是各類受體中最快的",
+            "B": "不會影響細胞內鉀離子的濃度",
+            "C": "不會影響鈣離子通道的開啟",
+            "D": "G蛋白的活化具有放大訊息的效果"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 15,
+        "text": "15.同時使用利尿劑 furosemide和胺基醣苷類抗生素（aminoglycosides），其腎毒性大於各個藥物 單獨使用時毒性作用的總合，稱為：",
+        "options": {
+            "A": "藥物的過敏作用（drug allergy）",
+            "B": "藥物的相加作用（additive effects）",
+            "C": "藥物的相乘作用（synergistic effects）",
+            "D": "藥物的拮抗作用（antagonistic effects）"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 16,
+        "text": "16.投予碳酸氫鈉（sodium bicarbonate）會增加酸性藥物從尿液排除的機制是：",
+        "options": {
+            "A": "減少藥物在腎小管的主動分泌",
+            "B": "增加藥物的絲球體過濾",
+            "C": "減少藥物吸附於腎小管",
+            "D": "減少藥物於腎小管的再吸收"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 17,
+        "text": "17.多數磺胺類化合物經過乙醯化後之產物，其物理化學性質之改變主要為：",
+        "options": {
+            "A": "水溶性及脂溶性均減小",
+            "B": "水溶性及脂溶性均增加",
+            "C": "水溶性減小及脂溶性增加",
+            "D": "水溶性增加及脂溶性減小"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 18,
+        "text": "18.同一藥物為達到相同血中濃度時，下列何種投藥方式所需之劑量最大？",
+        "options": {
+            "A": "靜脈注射",
+            "B": "動脈注射",
+            "C": "腹腔注射",
+            "D": "經口投藥"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 19,
+        "text": "19.以下那一藥物最適合居家口服給予以控制犬、貓癲癇之發作？",
+        "options": {
+            "A": "ketamine",
+            "B": "diazepam",
+            "C": "atropine",
+            "D": "tubocurarine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 20,
+        "text": "20.臨床上使用高劑量之 doxapram 所造成之不良反應主要為：",
+        "options": {
+            "A": "發生癲癇",
+            "B": "肌肉鬆弛",
+            "C": "腸道絞痛",
+            "D": "呼吸抑制"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 21,
+        "text": "21.臨床上對低血量之動物使用 acepromazine 時，最可能產生之不良反應主要為：",
+        "options": {
+            "A": "中樞神經興奮狂燥",
+            "B": "心律不整",
+            "C": "呼吸抑制",
+            "D": "造成低血壓"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 22,
+        "text": "22.α 腎上腺素性致效劑xylazine對以下何種動物之鎮靜作用最不敏感？ 2",
+        "options": {
+            "A": "犬",
+            "B": "貓",
+            "C": "豬",
+            "D": "馬"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 23,
+        "text": "23.以下敘述何者為高血液氣體分配係數之吸入性麻醉劑的特性？",
+        "options": {
+            "A": "其麻醉效力不足於達到麻醉程度",
+            "B": "易於快速建立肺泡中之麻醉分壓",
+            "C": "麻醉之誘導及恢復均較慢",
+            "D": "達成麻醉所需之最低肺泡濃度（minimal alveolar concentration，MAC）值較小"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 24,
+        "text": "24.下列何者明顯顯示ketamine之作用特徵？",
+        "options": {
+            "A": "安神鎮靜",
+            "B": "瞳孔極度縮小",
+            "C": "止痛及淺睡",
+            "D": "肌肉完全鬆弛"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 25,
+        "text": "25.Propofol 產生麻醉作用之機制係透過活化以下何種中樞受體？",
+        "options": {
+            "A": "GABA 受體",
+            "B": "NMDA 受體",
+            "C": "dopamine 受體",
+            "D": "nicotine 受體"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 26,
+        "text": "26.Morphine經生物轉換後，在尿中出現最多的是何種代謝產物？",
+        "options": {
+            "A": "glycine",
+            "B": "glutathione",
+            "C": "glucuronide",
+            "D": "sulphate"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 27,
+        "text": "27.在benzodiazepines的中樞抑制作用機制中，神經細胞內增加下列何種離子流入而導致興奮性降 低？",
+        "options": {
+            "A": "K+",
+            "B": "Na+",
+            "C": "Cl-",
+            "D": "Ca2+"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 28,
+        "text": "28.有關amrinone的敘述中何者錯誤？",
+        "options": {
+            "A": "能增強心肌收縮力",
+            "B": "抑制phosphodiesterase III",
+            "C": "產生血管擴張作用",
+            "D": "常以經口方式給藥"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 29,
+        "text": "29.下列何者具有類似 atropine作用且有少許α -腎上腺素性（α -adrenergic）阻斷作用？ 1 1",
+        "options": {
+            "A": "atenolol",
+            "B": "sotalol",
+            "C": "quinidine",
+            "D": "flecainide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 30,
+        "text": "30.何者為 enalapril 擴張血管的主要作用機制？",
+        "options": {
+            "A": "抑制 renin 的生成",
+            "B": "競爭 angiotensin II的受體",
+            "C": "降低 bradykinin的生成",
+            "D": "抑制 angiotensin-converting enzyme"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 31,
+        "text": "31.下列何者為 nitroglycerine 血管平滑肌擴張的主要機制？",
+        "options": {
+            "A": "阻斷Ca2＋進入細胞內",
+            "B": "抑制phosphodiesterase",
+            "C": "抑制kinase II",
+            "D": "增加細胞內NO含量使guanylyl cyclase活化"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 32,
+        "text": "32.下列何者具有耳毒性？",
+        "options": {
+            "A": "chlorothiazide",
+            "B": "spironolactone",
+            "C": "acetazolamide",
+            "D": "furosemide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 33,
+        "text": "33.下列何者可用於治療青光眼？",
+        "options": {
+            "A": "acetazolamide",
+            "B": "amiloride",
+            "C": "hydrochlorothiazide",
+            "D": "furosemide"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 34,
+        "text": "34.治療犬急性鬱血性心臟衰竭時，下列何者可以靜脈注射法給藥作為負載劑量（loading dose）？",
+        "options": {
+            "A": "digoxin",
+            "B": "digitoxin",
+            "C": "deslanoside",
+            "D": "ouabain"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 35,
+        "text": "35.下列何者不是造成呼吸性酸中毒之原因？",
+        "options": {
+            "A": "肺水腫",
+            "B": "morphine中毒",
+            "C": "barbiturate中毒",
+            "D": "換氣過度"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 36,
+        "text": "36.下列何種鐵劑，可用於靜脈點滴投藥？",
+        "options": {
+            "A": "iron dextran",
+            "B": "ferrous gluconate",
+            "C": "ferrous fumarate",
+            "D": "ferrous sulfate"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 37,
+        "text": "37.下列何者可降低呼吸道液體的黏性及增加氣道粒子的清除？",
+        "options": {
+            "A": "guaifenesin",
+            "B": "pseudoephedrine",
+            "C": "prazosin",
+            "D": "pirbuterol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 38,
+        "text": "38.下列關於vitamin B 需求量的敘述，何者錯誤？ 1",
+        "options": {
+            "A": "飼料中碳水化合物增加時，需求量會增加",
+            "B": "產蛋雞的需求量會增加",
+            "C": "患有頻尿性腎臟疾病時，需求量會增加",
+            "D": "所有動物一定都需由飼料中添加補充"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 39,
+        "text": "39.相較於其它的氣管擴張劑，下列何者為aminophylline治療呼吸道疾病的主要優點之一？",
+        "options": {
+            "A": "具有明顯的化痰效果",
+            "B": "可增加呼吸肌肉的強度",
+            "C": "可抑制水性分泌液的大量分泌",
+            "D": "不具任何中樞作用"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 40,
+        "text": "40.下列何者不是支氣管擴張劑？",
+        "options": {
+            "A": "epinephrine",
+            "B": "ephedrine",
+            "C": "isoproterenol",
+            "D": "propranolol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 41,
+        "text": "41.狗的黑舌病是因缺乏下列何種vitamin所致？",
+        "options": {
+            "A": "biotin",
+            "B": "choline",
+            "C": "thiamine",
+            "D": "niacin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 42,
+        "text": "42.下列何者適宜用於治療胃潰瘍？",
+        "options": {
+            "A": "cimetidine",
+            "B": "pyrilamine",
+            "C": "cyclizine",
+            "D": "promethazine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 43,
+        "text": "43.下列何者可促進生長激素（somatotropin）的分泌？",
+        "options": {
+            "A": "hyperglycemia",
+            "B": "phenothiazines",
+            "C": "progesterone",
+            "D": "testosterone"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 44,
+        "text": "44.下列何者不屬於抗甲狀腺藥（antithyroid drugs）？",
+        "options": {
+            "A": "methimazole",
+            "B": "carbimazole",
+            "C": "albendazole",
+            "D": "propylthiouracil"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 45,
+        "text": "45.下列何者為造成馬及犬隻腎上腺皮質功能亢進（hyperadrenocorticism）的主要原因之一？",
+        "options": {
+            "A": "adrenocorticotropin hormone（ACTH） 過多",
+            "B": "somatostatin 過多",
+            "C": "thyrotropin 過多",
+            "D": "抗利尿激素（ADH）過多"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 46,
+        "text": "46.在患有糖尿病的犬隻使用mitotane治療時，應小心監控，主因mitotane會：",
+        "options": {
+            "A": "抑制肝臟的代謝酶",
+            "B": "減少胰島素的蛋白結合率",
+            "C": "使動物對胰島素更敏感",
+            "D": "增加胰島素的代謝與排泄"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 47,
+        "text": "47.下列何者為獸醫臨床最常使用的前列腺素 ？",
+        "options": {
+            "A": "PGD",
+            "B": "PGF 2α",
+            "C": "PGG",
+            "D": "PGH"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 48,
+        "text": "48.下列何者可拮抗insulin引起的低血糖？",
+        "options": {
+            "A": "acarbose",
+            "B": "angiotensin II",
+            "C": "glipizide",
+            "D": "glucagon"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 49,
+        "text": "49.下列何者可消除馬隻因創傷所引起的腫脹？",
+        "options": {
+            "A": "dimethyl sulfoxide",
+            "B": "polysulfated glycosaminoglycan",
+            "C": "hyaluronic acid",
+            "D": "orgotein"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 50,
+        "text": "50.下列何者不應使用acetaminophen？",
+        "options": {
+            "A": "犬",
+            "B": "貓",
+            "C": "馬",
+            "D": "人"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 51,
+        "text": "51.快速靜脈注射下列何者，最有可能導致肥大細胞釋放組織胺？",
+        "options": {
+            "A": "meclizine",
+            "B": "morphine",
+            "C": "metronidazole",
+            "D": "mannitol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 52,
+        "text": "52.下列何種藥物經常使用於刺激動物濾泡之成長？",
+        "options": {
+            "A": "human chorionic gonadotropin",
+            "B": "growth hormone",
+            "C": "pregnant mare serum gonadotropin",
+            "D": "androgen"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 53,
+        "text": "53.下列何者不是腎上腺皮質抑制劑？",
+        "options": {
+            "A": "mitotane",
+            "B": "metyrapone",
+            "C": "propylthiouracil",
+            "D": "ketoconazole"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 54,
+        "text": "54.下列何者不是細菌的抗藥性機制？",
+        "options": {
+            "A": "微生物可產生使藥物失去活性的酵素",
+            "B": "藥物滲入或被攝入微生物內之量減少",
+            "C": "藥物之受體或結合部位的改變",
+            "D": "微生物產生二次代謝產物"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 55,
+        "text": "55.下列何種食用魚類以florfenicol添加於餌料中投藥，其停藥期最短？",
+        "options": {
+            "A": "吳郭魚",
+            "B": "鰻魚",
+            "C": "虹鱒",
+            "D": "香魚"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 56,
+        "text": "56.Fluoroquinolone 類抗菌劑的主要抗菌機制為抑制下列何者？",
+        "options": {
+            "A": "DNA",
+            "B": "RNA",
+            "C": "蛋白質",
+            "D": "細胞壁"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 57,
+        "text": "57.魚類體表寄生蟲若以福馬林藥浴防治，會對魚隻下列何種器官造成傷害？",
+        "options": {
+            "A": "鰭",
+            "B": "鰓",
+            "C": "肝",
+            "D": "腎"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 58,
+        "text": "58.福馬林在下列何種水質中，其毒性增強？",
+        "options": {
+            "A": "軟水、高pH、低溫",
+            "B": "硬水、低pH、低溫",
+            "C": "軟水、低pH、高溫",
+            "D": "硬水、高pH、高溫"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 59,
+        "text": "59.養殖池發生急性環境缺氧時，可添加下列何者增加溶氧？",
+        "options": {
+            "A": "O 3",
+            "B": "CaO 4",
+            "C": "MgSO 4",
+            "D": "Zeolite"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 60,
+        "text": "60.下列何者對可用於治療可產生β-lactamase的葡萄球菌感染症？",
+        "options": {
+            "A": "penicillin G",
+            "B": "penicillin V",
+            "C": "ampicillin",
+            "D": "oxacillin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 61,
+        "text": "61.下列何者與oxacillin具有交叉抗藥性？",
+        "options": {
+            "A": "ceftiofur",
+            "B": "oxolinic acid",
+            "C": "erythromycin",
+            "D": "chloramphenicol"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 62,
+        "text": "62.下列何者的主要抗菌機制為抑制蛋白質合成速率？",
+        "options": {
+            "A": "vancomycin",
+            "B": "novobiocin",
+            "C": "aztreonam",
+            "D": "kanamycin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 63,
+        "text": "63.Sulfadimethoxine-Ormetoprim對下列何種細菌感染無效？",
+        "options": {
+            "A": "鏈球菌",
+            "B": "親水性產氣單孢菌",
+            "C": "愛德華氏菌",
+            "D": "弧菌"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 64,
+        "text": "64.Macrolides抗菌劑的主要抗菌機制為抑制下列何者的合成？",
+        "options": {
+            "A": "RNA",
+            "B": "DNA",
+            "C": "蛋白質",
+            "D": "細胞壁"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 65,
+        "text": "65.下列何者已被證實為胃動素（motilin）受體的致效劑，因此口服該藥物可能會引起腹痛和腹瀉？",
+        "options": {
+            "A": "amoxicillin",
+            "B": "erythromycin",
+            "C": "florfenicol",
+            "D": "virginiamycin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 66,
+        "text": "66.下列何者可用於治療豬和小牛的大腸桿菌症？",
+        "options": {
+            "A": "apramycin",
+            "B": "tylosin",
+            "C": "rifampin",
+            "D": "methicillin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 67,
+        "text": "67.下列何者與抗黴菌藥併用後，可用於治療犬貓的中樞神經系統的aspergillosis？",
+        "options": {
+            "A": "rifampin",
+            "B": "spectinomycin",
+            "C": "clindamycin",
+            "D": "tilmicosin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 68,
+        "text": "68.下列何者為離子載體抗生素？",
+        "options": {
+            "A": "tiamulin",
+            "B": "salinomycin",
+            "C": "oxacillin",
+            "D": "amikacin"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 69,
+        "text": "69.下列何者易在尿道中形成結石？",
+        "options": {
+            "A": "aminoglycosides",
+            "B": "quinolones",
+            "C": "aminocyclitols",
+            "D": "sulfonamides"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 70,
+        "text": "70.下列何者最適宜用於治療腎臟功能損傷之高齡貓的血巴東體（Haemobartonella）感染症？",
+        "options": {
+            "A": "tetracycline",
+            "B": "chlortetracycline",
+            "C": "doxycycline",
+            "D": "oxytetracycline"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 71,
+        "text": "71.下列何者兼具抑制類固醇生合成和抗黴菌的作用？",
+        "options": {
+            "A": "mitotane",
+            "B": "-deprenyl L",
+            "C": "ketoconazole",
+            "D": "metyrapone"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 72,
+        "text": "72.下列何者不是菸鹼性（nicotinic）致效劑？",
+        "options": {
+            "A": "levamisole",
+            "B": "febantel",
+            "C": "pyrantel",
+            "D": "morantel"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 73,
+        "text": "73.下列何者適合用於治療犬弓蟲症？",
+        "options": {
+            "A": "pyrantel",
+            "B": "levamisole",
+            "C": "clindamycin",
+            "D": "zidovudine"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 74,
+        "text": "74.Fipronil 抑制下列何種通道 ？",
+        "options": {
+            "A": "γ-胺基丁酸閘門鎂離子通道",
+            "B": "γ-胺基丁酸閘門鋅離子通道",
+            "C": "γ-胺基丁酸閘門鈣離子通道",
+            "D": "γ-胺基丁酸閘門氯離子通道"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 75,
+        "text": "75.下列何者可用於治療兔肝型球蟲症？",
+        "options": {
+            "A": "acriflavine",
+            "B": "lindane",
+            "C": "metronidazole",
+            "D": "quinacrine HCl"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 76,
+        "text": "76.依我國「動物用藥殘留標準」規定，磺胺藥在畜、禽肌肉及其他可食部分的殘留容許量為多少 ppm？",
+        "options": {
+            "A": "0.01",
+            "B": "0.05",
+            "C": "0.1",
+            "D": "0.5"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 77,
+        "text": "77.對多次投予warfarin時，下列何者的敏感性較低？",
+        "options": {
+            "A": "狗",
+            "B": "貓",
+            "C": "豬",
+            "D": "反芻獸"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 78,
+        "text": "78.有關動物有機磷殺蟲劑急性中毒所引起的症狀，下列何者錯誤？",
+        "options": {
+            "A": "大量流涎",
+            "B": "支氣管擴張",
+            "C": "縮瞳",
+            "D": "腸道蠕動性增加"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 79,
+        "text": "79.治療氰化物中毒時，亞硝酸鹽會和下列何者併用？",
+        "options": {
+            "A": "氫氧化鈉",
+            "B": "硫代硫酸鈉",
+            "C": "碳酸氫鈉",
+            "D": "氯化鈉"
+        },
+        "image": null,
+        "images": []
+    },
+    {
+        "id": 80,
+        "text": "80.黃麴毒素對下列那一個器官最易造成傷害？",
+        "options": {
+            "A": "腎臟",
+            "B": "肝臟",
+            "C": "心臟",
+            "D": "胰臟"
+        },
+        "image": null,
+        "images": []
+    }
+]
