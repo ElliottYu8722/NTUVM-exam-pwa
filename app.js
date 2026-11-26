@@ -2174,13 +2174,14 @@ const AUTHOR_MODE = (()=>{
   return false;
 })();
 // 留言管理模式：?dev=9 才能置頂／刪除留言
-const COMMENT_ADMIN_MODE = (()=>{
-  try {
-    const usp = new URLSearchParams(location.search);
-    return usp.get("dev") === "666666NTUVMAUTHORISGOD666666";
-  } catch {}
-  return false;
-})();
+const COMMENT_ADMIN_MODE = false;
+//const COMMENT_ADMIN_MODE = (()=>{
+//  try {
+//    const usp = new URLSearchParams(location.search);
+//    return usp.get("dev") === "666666NTUVMAUTHORISGOD666666";
+//  } catch {}
+//  return false;
+//})();
 
 function bindTapClick(el, handler){
   if(!el) return;
