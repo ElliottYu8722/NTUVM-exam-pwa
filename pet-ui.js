@@ -138,9 +138,9 @@
       '#petPanel .lvl .n small{font-size:10px;font-weight:500;opacity:.7;margin-bottom:2px}',
       '#petPanel .code{font-family:ui-monospace,Menlo,monospace;font-size:16px;letter-spacing:1px;background:#f6f1ea;border-radius:10px;padding:8px 10px;flex:1}',
       '#petPanel .warn{background:#fff6e8;border:1px solid #f6dcb0;color:#8a5a10;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:10px}',
-      '#petToast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:rgba(43,38,32,.94);color:#fff;padding:10px 18px;border-radius:999px;z-index:10002;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:88vw;text-align:center;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
+      '#petToast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:rgba(43,38,32,.94);color:#fff;padding:10px 18px;border-radius:999px;z-index:10021;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:88vw;text-align:center;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
       '#petToast.on{opacity:1;transform:translateX(-50%) translateY(0)}',
-      '#petModal{position:fixed;inset:0;z-index:10003;background:rgba(20,16,12,.5);display:flex;align-items:center;justify-content:center;padding:20px;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
+      '#petModal{position:fixed;inset:0;z-index:10020;background:rgba(20,16,12,.5);display:flex;align-items:center;justify-content:center;padding:20px;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
       '#petModal .m{background:#fff;color:#2b2620;border-radius:18px;padding:20px;width:min(360px,100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}',
       '#petModal .m b{display:block;font-size:17px;margin-bottom:6px}',
       '#petModal .m p{margin:0 0 16px;color:#6f655a;font-size:14px;line-height:1.5}',
@@ -270,7 +270,7 @@
     body.appendChild(h('div', { class: 'welcome' }, [
       h('div', { class: 'paw', html: svg('pet', 44) }),
       h('div', { class: 'big', text: '開始養寵物' }),
-      h('p', { class: 'muted', text: '答對國考題換金幣，用金幣照顧你的狗狗或貓咪。' }),
+      h('p', { class: 'muted', text: '答對國考題換金幣，用金幣照顧你的狗狗、貓咪、鳥兒、烏龜或守宮。' }),
       h('div', { style: 'margin:22px 0 12px' }, [nm]),
       h('button', { class: 'btn block', text: '開始', onclick: go }),
       h('button', { class: 'link', text: '我有備份檔，從備份還原', onclick: function () { restoring = true; render(); } })
@@ -307,7 +307,7 @@
   function renderPet() {
     var p = curPet();
     if (!p || adoptOpen) { renderAdopt(); return; }
-    var b = C.breed(p.breedId), N = C.need(p), t = now(), cat = b.sp === 'cat';
+    var b = C.breed(p.breedId), N = C.need(p), t = now(), cat = b.sp === 'cat', fd = C.food(p);
 
     var chips = h('div', { class: 'chips' });
     S.pets.forEach(function (x) {
@@ -323,7 +323,7 @@
       h('div', { class: 'name' }, [p.name]),
       h('div', { class: 'muted', text: b.name + '・' + C.ageText(p, t) + '・' + C.dayKey(p.adoptTs) + ' 領養' + (p.neutered ? '・已結紮' : '') }),
       stat('開心', Math.round(p.happy) + ' / ' + (happyCap ? C.CFG.capNoCare : 100), bar(p.happy, 'var(--pink)')),
-      stat('今日飼料', p.fed + ' / ' + N + ' 單位・' + p.meals + ' 餐', bar(p.fed / N * 100, p.fed > N ? 'var(--warn)' : 'var(--ok)')),
+      stat('今日' + (C.mammal(p) ? '飼料' : '食物'), p.fed + ' / ' + N + ' 單位・' + p.meals + ' 餐', bar(p.fed / N * 100, p.fed > N ? 'var(--warn)' : 'var(--ok)')),
       (function () { var ex = (p.excess || 0) + Math.max(0, p.fed - N), u = C.CFG.overUnit; return ex > 0 ? h('div', { class: 'muted', style: 'font-size:12px;margin-top:-2px', text: p.bcs >= 9 ? 'BCS 已到最高 9' : '累積多吃 ' + ex + ' 單位，滿 ' + u + ' 單位隔天 BCS +1（每天最多 +1）' }) : null; })(),
       stat('BCS', p.bcs + ' / 9 ' + C.bcsLabel(p.bcs) + (C.MUSCLE[p.muscle] && p.muscle ? '・' + C.MUSCLE[p.muscle] : ''), bcsBar(p.bcs))
     ]);
@@ -331,13 +331,13 @@
     body.appendChild(card);
 
     var full = false;
-    body.appendChild(h('div', { class: 'sec', text: '餵食・每天約 ' + N + ' 單位，吃越多 BCS 越高' }));
+    body.appendChild(h('div', { class: 'sec', text: '餵食' + fd.meal + '・每天約 ' + N + ' 單位，吃越多 BCS 越高' }));
     var g = h('div', { class: 'grid4' });
     C.MEALS.forEach(function (m) {
       var bt = h('button', { class: 'btn ' + (m.id === 'meal' ? '' : 'soft'), onclick: function () { var r = C.feed(S, p.id, m.id, now()); act(r, { type: 'feed', petId: p.id, food: r.food }); } }, [m.name, h('small', { text: m.price + ' 金幣・' + m.units + ' 單位' })]);
       if (full) bt.disabled = true; g.appendChild(bt);
     });
-    var cn = h('button', { class: 'btn', style: 'background:linear-gradient(135deg,#d9a441,#b97a1c)', onclick: function () { var r = C.feed(S, p.id, 'canned', now()); act(r, { type: 'feed', petId: p.id, food: 'canned' }); } }, ['高級罐頭', h('small', { text: C.CFG.cannedPrice + ' 金幣・開心 +' + C.CFG.cannedGain })]);
+    var cn = h('button', { class: 'btn', style: 'background:linear-gradient(135deg,#d9a441,#b97a1c)', onclick: function () { var r = C.feed(S, p.id, 'canned', now()); act(r, { type: 'feed', petId: p.id, food: 'canned' }); } }, [fd.canned, h('small', { text: C.CFG.cannedPrice + ' 金幣・開心 +' + C.CFG.cannedGain })]);
     if (full) cn.disabled = true; g.appendChild(cn);
     body.appendChild(g);
 
@@ -352,19 +352,21 @@
 
     body.appendChild(h('div', { class: 'sec', text: '互動' }));
     var ck = C.canPlay(p);
-    var gear = p.items.stroller && p.equip.stroller ? '推車' : (p.items.harness && p.equip.harness ? '胸背帶' : '初級項圈');
+    var gear = C.gearOf(p).name;
     body.appendChild(h('button', { class: 'btn block', style: 'background:#3f8f63', onclick: function () { startPlay(p); } }, ['出門玩' + (gear ? '（' + gear + '）' : ''), h('small', { text: ck.ok ? '10 分鐘 +' + C.CFG.playGain + ' 開心' : ck.msg })]));
     var ac = h('div', { class: 'acts', style: 'margin-top:8px' });
     function aBtn(label, sub, fn, cls) { ac.appendChild(h('button', { class: 'btn ' + (cls || 'ghost'), onclick: fn }, [label, sub ? h('small', { text: sub }) : null])); }
     if (p.items.toy) aBtn('藏食玩具', p.daily.toy ? '今天玩過了' : '+' + C.CFG.toyGain + ' 開心', function () { doAct(p, function () { return C.useToy(S, p.id, 'toy', now()); }, { type: 'toy' }); });
+    if (p.items.uvb && C.TOYS.uvb.sp.indexOf(b.sp) >= 0) aBtn('曬 UVB 燈', p.daily.uvb ? '今天曬過了' : '+' + C.CFG.scratchGain + ' 開心', function () { doAct(p, function () { return C.useToy(S, p.id, 'uvb', now()); }, { type: 'bask' }); });
     if (p.items.scratcher && cat) aBtn('貓抓板', p.daily.scratcher ? '今天抓過了' : '+' + C.CFG.scratchGain + ' 開心', function () { doAct(p, function () { return C.useToy(S, p.id, 'scratcher', now()); }, { type: 'scratch' }); });
     ['shake', 'down', 'spin', 'grin'].forEach(function (k) {
-      if (p.tricks[k]) aBtn(C.TRICKS[k].name, p.tricksToday < C.CFG.trickMax ? '+' + C.CFG.trickGain + ' 開心' : '表演', function () { doAct(p, function () { return C.perform(S, p.id, k, now()); }, { type: 'trick', trick: k }); });
+      if (p.tricks[k] && C.trickOk(p, k)) aBtn(C.TRICKS[k].name, p.tricksToday < C.CFG.trickMax ? '+' + C.CFG.trickGain + ' 開心' : '表演', function () { doAct(p, function () { return C.perform(S, p.id, k, now()); }, { type: 'trick', trick: k }); });
     });
-    if (p.tricks.nails) aBtn('剪指甲', C.nailDue(p, t) ? '指甲長了' : '還很短', function () { doAct(p, function () { return C.trimNails(S, p.id, now()); }, { type: 'nails' }); }, C.nailDue(p, t) ? 'soft' : 'ghost');
+    if (p.tricks.nails && C.trickOk(p, 'nails')) aBtn('剪指甲', C.nailDue(p, t) ? '指甲長了' : '還很短', function () { doAct(p, function () { return C.trimNails(S, p.id, now()); }, { type: 'nails' }); }, C.nailDue(p, t) ? 'soft' : 'ghost');
     if (ac.childNodes.length) body.appendChild(ac);
-    var lack = ['shake', 'down', 'spin', 'grin', 'nails'].filter(function (k) { return !p.tricks[k]; }).length;
-    if (lack) body.appendChild(h('button', { class: 'link', style: 'margin-top:6px;display:block', text: '到商店學技能（握手、趴下、轉圈、露齒笑、剪指甲）', onclick: function () { tab = 'shop'; render(); setTimeout(function () { var el = body.querySelector('#petSkills'); if (el) el.scrollIntoView({ block: 'start' }); }, 30); } }));
+    var okT = ['shake', 'down', 'spin', 'grin', 'nails'].filter(function (k) { return C.trickOk(p, k); });
+    var lack = okT.filter(function (k) { return !p.tricks[k]; }).length;
+    if (lack) body.appendChild(h('button', { class: 'link', style: 'margin-top:6px;display:block', text: '到商店學技能（' + okT.map(function (k) { return C.TRICKS[k].name; }).join('、') + '）', onclick: function () { tab = 'shop'; render(); setTimeout(function () { var el = body.querySelector('#petSkills'); if (el) el.scrollIntoView({ block: 'start' }); }, 30); } }));
   }
   function doAct(p, fn, ev) {
     if (stageBusy()) { toast(p.name + ' 正在忙，等一下'); return; }
@@ -377,7 +379,7 @@
     C.tick(S, now());
     var ck = C.canPlay(p);
     if (!ck.ok) { toast(ck.msg); return; }
-    if (root.PetPlay && root.PetPlay.start) { emit('petui:action', { type: 'play', petId: p.id }); root.PetPlay.start(p.id, { stroller: ck.stroller }); }
+    if (root.PetPlay && root.PetPlay.start) { emit('petui:action', { type: 'play', petId: p.id }); root.PetPlay.start(p.id, { stroller: ck.stroller, model: ck.model, go: ck.go, sp: ck.sp }); }
     else toast('戶外場景載入失敗，請重新整理');
   }
 
@@ -390,13 +392,13 @@
       has ? h('button', { class: 'btn ghost', text: '取消', onclick: function () { adoptOpen = false; render(); } }) : null
     ]));
     var seg = h('div', { class: 'seg', style: 'margin-top:14px' });
-    [['dog', '狗'], ['cat', '貓']].forEach(function (x) {
+    C.SPECIES.forEach(function (x) {
       seg.appendChild(h('button', { class: adoptSp === x[0] ? 'on' : '', text: x[1], onclick: function () { adoptSp = x[0]; adoptPick = null; render(); } }));
     });
     body.appendChild(seg);
     var grid = h('div', { class: 'breeds', style: 'margin-top:12px' });
     C.BREEDS.filter(function (b) { return b.sp === adoptSp; }).forEach(function (b) {
-      grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, ''), h('small', { text: b.sp === 'cat' ? '' : ({ hard: '大型犬', mid: '中型犬', easy: '小型犬' })[b.tier] || '', style: 'display:block;color:var(--sub);font-size:11px' })]));
+      grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, ''), h('small', { text: b.sp === 'dog' ? ({ hard: '大型犬', mid: '中型犬', easy: '小型犬' })[b.tier] || '' : (b.sp === 'bird' ? ({ hard: '大型鳥', mid: '中型鳥', easy: '小型鳥' })[b.tier] || '' : ''), style: 'display:block;color:var(--sub);font-size:11px' })]));
     });
     body.appendChild(grid);
     if (adoptPick) {
@@ -443,16 +445,17 @@
         : buyBtn(price, function () { act(C.buyItem(S, p.id, k)); });
       row(card, icon, name + (p.items[k] && p.equip[k] ? '・裝備中' : ''), desc, right);
     }
-    row(card, '圈', '初級項圈' + (p.equip.harness || p.equip.stroller ? '' : '・使用中'), '一開始就有，可以直接出門散步', h('span', { class: 'muted', style: 'font-size:12px;white-space:nowrap', text: '已擁有' }));
-    gearRow('harness', '帶', '胸背帶', '裝備後可以出門散步', C.CFG.harnessPrice);
-    gearRow('stroller', '車', '外出推車', '裝備後用推車出門，BCS 8 以上也能出門，不計入減重', C.CFG.strollerPrice);
+    var GS = C.gearSet(p), gk = C.gearOf(p).key;
+    row(card, GS.base.name.charAt(GS.base.name.length - 1), GS.base.name + (gk === 'base' ? '・使用中' : ''), GS.base.desc, h('span', { class: 'muted', style: 'font-size:12px;white-space:nowrap', text: '已擁有' }));
+    if (GS.harness) gearRow('harness', GS.harness.name.charAt(GS.harness.name.length - 1), GS.harness.name, GS.harness.desc, GS.harness.price);
+    if (GS.stroller) gearRow('stroller', GS.stroller.name.charAt(GS.stroller.name.length - 1), GS.stroller.name, GS.stroller.desc, GS.stroller.price);
     body.appendChild(h('div', { class: 'sec', text: '外出' }));
     body.appendChild(card);
 
     var tc = h('div', { class: 'card' });
     Object.keys(C.TOYS).forEach(function (k) {
-      var it = C.TOYS[k]; if (it.sp.indexOf(cat ? 'cat' : 'dog') < 0) return;
-      row(tc, k === 'toy' ? '藏' : '抓', it.name, it.desc, p.items[k] ? h('span', { class: 'done', text: '已擁有' }) : buyBtn(it.price, function () { act(C.buyItem(S, p.id, k)); }), 'background:#e3f1fb;color:#2e78b7');
+      var it = C.TOYS[k]; if (it.sp.indexOf(C.spOf(p)) < 0) return;
+      row(tc, k === 'toy' ? '藏' : (k === 'uvb' ? '燈' : '抓'), it.name, it.desc, p.items[k] ? h('span', { class: 'done', text: '已擁有' }) : buyBtn(it.price, function () { act(C.buyItem(S, p.id, k)); }), 'background:#e3f1fb;color:#2e78b7');
     });
     body.appendChild(h('div', { class: 'sec', text: '玩具' }));
     body.appendChild(tc);
@@ -460,11 +463,11 @@
     var sk = h('div', { class: 'card' });
     var skDesc = { shake: '伸出前腳跟你握手', down: '聽口令乖乖趴下', spin: '原地轉兩圈', grin: '露出牙齒對你笑', nails: '每 ' + C.CFG.nailDays + ' 天剪一次，開心 +' + C.CFG.nailGain };
     Object.keys(C.TRICKS).forEach(function (k) {
-      var it = C.TRICKS[k];
+      var it = C.TRICKS[k]; if (!C.trickOk(p, k)) return;
       row(sk, it.name.slice(-2, -1) === '指' ? '剪' : it.name.charAt(0), it.name, skDesc[k], p.tricks[k] ? h('span', { class: 'done', text: '已學會' }) : buyBtn(it.price, function () { act(C.learn(S, p.id, k)); }), 'background:#f3e8fb;color:#8a4bb8');
     });
-    body.appendChild(h('div', { class: 'sec', id: 'petSkills', text: '技能' }));
-    body.appendChild(sk);
+    if (sk.childNodes.length) { body.appendChild(h('div', { class: 'sec', id: 'petSkills', text: '技能' })); body.appendChild(sk); }
+    if (!C.mammal(p)) return;
 
     var cl = h('div', { class: 'card' }), icons = { normal: '衣', trend: '潮', gold: '金' };
     Object.keys(C.CLOTHES).forEach(function (k) {
@@ -507,6 +510,7 @@
     body.appendChild(h('p', { class: 'muted', style: 'margin:4px 2px', text: '每月 ' + C.CFG.graceDays + ' 號後還沒做完，開心上限會降到 ' + C.CFG.capNoCare + '。' }));
     body.appendChild(h('div', { class: 'sec', text: '一次性' }));
     var c2 = h('div', { class: 'card' }); card = c2;
+    if (!C.mammal(p)) return;
     row('紮', '結紮', '之後食量需求 -10%，比較容易變胖', C.CFG.neuterPrice, p.neutered, 'neuter');
     body.appendChild(c2);
   }

@@ -26,6 +26,11 @@
   function sent() { return lsGet(mineKey('vetpet_sent')); }
   function saveThreads() { lsSet(mineKey('vetpet_threads'), threads); }
   function loadThreads() { threads = lsGet(mineKey('vetpet_threads')); }
+  function cleared() { return lsGet(mineKey('vetpet_cleared')); }
+  function clearChat(code, pair) {
+    var c = cleared(), t = threads[code]; c[pair] = t && t.ts ? t.ts : Date.now(); lsSet(mineKey('vetpet_cleared'), c);
+    delete threads[code]; saveThreads(); closeChat(); toast('已刪除對話紀錄');
+  }
   function markRead(pair) { var m = readMap(); m[pair] = Date.now(); try { localStorage.setItem('vetpet_read', JSON.stringify(m)); } catch (e) {} }
 
   function publish(extra) {
@@ -117,7 +122,8 @@
       qs.docChanges().forEach(function (ch) {
         var v = ch.doc.data(), other = (v.members || []).filter(function (c) { return c !== o.friendCode; })[0];
         if (!other) return;
-        var old = threads[other];
+        var old = threads[other], cl = cleared()[ch.doc.id] || 0;
+        if ((v.ts || 0) <= cl) { if (old) { delete threads[other]; saveThreads(); } return; }
         threads[other] = { pair: ch.doc.id, ts: v.ts || 0, from: v.from, last: v.last, name: v.names && v.names[other] };
         saveThreads();
         if (old && v.from !== o.friendCode && v.ts > old.ts && !(chatEl && chatEl._code === other)) { toast((threads[other].name || '朋友') + '：' + clean(v.last, 30)); fresh = true; }
@@ -177,6 +183,13 @@
       af.onclick = function () { addFriend(code, name).then(function (r) { toast(r.msg); if (r.ok) { if (hasFriend(code)) af.remove(); else { af.textContent = '已送出邀請'; af.disabled = true; } } }); };
       hd.appendChild(af);
     }
+    var del = el('button', 'hb x', '刪除'); del.style.color = '#c0392b';
+    del.onclick = function () {
+      var go = function (ok) { if (ok) clearChat(code, pair); };
+      if (root.PetAsk) root.PetAsk('刪除對話紀錄？', '只會刪除你這邊的紀錄，對方那邊不受影響。之後有新訊息還是會收到。', '刪除', true).then(go);
+      else go(confirm('刪除對話紀錄？'));
+    };
+    hd.appendChild(del);
     var x = el('button', 'hb x', '關閉'); x.onclick = closeChat; hd.appendChild(x);
     var inp = el('input'); inp.type = 'text'; inp.maxLength = 200; inp.placeholder = '輸入訊息'; inp.setAttribute('enterkeyhint', 'send');
     var sb = el('button', '', '送出');
@@ -200,7 +213,7 @@
     inp.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); send(inp.value); } });
     markRead(pair);
     if (d) chatUnsub = d.collection('petMsg').where('pair', '==', pair).onSnapshot(function (qs) {
-      var arr = []; qs.forEach(function (doc) { arr.push(doc.data()); });
+      var arr = [], cl = cleared()[pair] || 0; qs.forEach(function (doc) { var m = doc.data(); if ((m.ts || 0) > cl) arr.push(m); });
       arr.sort(function (a, b) { return (a.ts || 0) - (b.ts || 0); }); arr = arr.slice(-100);
       ms.innerHTML = '';
       if (!arr.length) ms.appendChild(el('div', 'em', '還沒有訊息，打個招呼吧'));

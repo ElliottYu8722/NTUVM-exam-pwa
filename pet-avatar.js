@@ -262,8 +262,9 @@
     });
   }
 
-  function stroller() {
+  function stroller(kind) {
     need();
+    if (kind && kind !== 'stroller' && I.container) return I.container(kind);
     var M = I.mesh, g = new T.Group();
     var frame = '#3a3f4a', fab = '#e8833a';
     g.add(M(new T.BoxGeometry(0.9, 0.42, 1.25), fab, 0, 0.62, 0, 1, 1, 1, 0.03));

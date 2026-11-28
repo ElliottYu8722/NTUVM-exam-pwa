@@ -18,11 +18,41 @@
   ];
   var SNACKS = {
     dog: [{ id: 'dbiscuit', name: '狗餅乾' }, { id: 'dental', name: '潔牙骨' }, { id: 'bone', name: '狗骨頭' }, { id: 'jerky', name: '肉乾' }],
-    cat: [{ id: 'cbiscuit', name: '貓餅乾' }, { id: 'catgrass', name: '貓草' }, { id: 'puree', name: '貓肉泥' }, { id: 'cdental', name: '貓潔牙骨' }]
+    cat: [{ id: 'cbiscuit', name: '貓餅乾' }, { id: 'catgrass', name: '貓草' }, { id: 'puree', name: '貓肉泥' }, { id: 'cdental', name: '貓潔牙骨' }],
+    bird: [{ id: 'sunseed', name: '葵花籽' }, { id: 'mineral', name: '鳥類礦物棒' }, { id: 'millet', name: '小米穗' }, { id: 'fruit', name: '蘋果丁' }],
+    turtle: [{ id: 'shrimp', name: '乾燥蝦乾' }, { id: 'leaf', name: '地瓜葉' }, { id: 'worm', name: '蚯蚓' }, { id: 'mealworm', name: '麵包蟲' }],
+    gecko: [{ id: 'mealworm', name: '麵包蟲' }, { id: 'dubia', name: '杜比亞蟑螂' }, { id: 'superworm', name: '大麥蟲' }, { id: 'silkworm', name: '蠶寶寶' }]
   };
+  var FOOD = {
+    dog: { meal: '狗飼料', canned: '高級罐頭' },
+    cat: { meal: '貓飼料', canned: '高級罐頭' },
+    bird: { meal: '滋養丸', canned: '新鮮蔬果盤' },
+    turtle: { meal: '烏龜浮水飼料', canned: '新鮮小魚蝦' },
+    gecko: { meal: '蟋蟀（灑鈣粉）', canned: '蜂蠟蟲大餐' }
+  };
+  var GEAR = {
+    dog: { base: { name: '初級項圈', desc: '一開始就有，可以直接出門散步' },
+      harness: { name: '胸背帶', price: 15, desc: '裝備後可以出門散步' },
+      stroller: { name: '外出推車', price: 20, ride: true, model: 'stroller', desc: '裝備後用推車出門，BCS 8 以上也能出門，坐推車不計入減重' } },
+    bird: { base: { name: '小鳥籠', ride: true, model: 'cageS', desc: '一開始就有，在家住這裡，也能提著出門' },
+      harness: { name: '站棍', price: 10, desc: '出門站在站棍上跟著你，可以下地跳跳走走' },
+      stroller: { name: '高級大鳥籠', price: 40, ride: true, model: 'cageL', desc: '寬敞的大籠子，在家和外出都更舒服' } },
+    turtle: { base: { name: '塑膠箱輪子推車', ride: true, model: 'tub', desc: '一開始就有，在家住小塑膠箱，外出用有輪子的箱子推車' },
+      harness: null,
+      stroller: { name: '不鏽鋼玻璃高級推車', price: 40, ride: true, model: 'steel', desc: '不鏽鋼框配玻璃的高級推車' } },
+    gecko: { base: { name: '小外出箱', ride: true, model: 'box', desc: '一開始就有，可以裝著出門' },
+      harness: null,
+      stroller: { name: '小生態箱', price: 30, ride: true, model: 'terra', desc: '有造景和躲避屋的小生態箱，也能帶出門' } }
+  };
+  GEAR.cat = GEAR.dog;
+  var GO = {
+    dog: ['下推車', '上推車'], cat: ['下推車', '上推車'], bird: ['出籠子', '回籠子'], turtle: ['下推車', '回推車'], gecko: ['出箱子', '回箱子']
+  };
+  var TRICK_SP = { shake: ['dog', 'cat', 'bird'], down: ['dog', 'cat'], spin: ['dog', 'cat', 'bird'], grin: ['dog', 'cat'], nails: ['dog', 'cat', 'bird'] };
   var TOYS = {
-    toy: { name: '藏食玩具', price: 15, sp: ['dog', 'cat'], desc: '把飼料藏在裡面，每天玩一次開心 +' + 8 },
-    scratcher: { name: '貓抓板', price: 15, sp: ['cat'], desc: '每天抓一次開心 +' + 5 }
+    toy: { name: '藏食玩具', price: 15, sp: ['dog', 'cat', 'bird'], desc: '把飼料藏在裡面，每天玩一次開心 +' + 8 },
+    scratcher: { name: '貓抓板', price: 15, sp: ['cat'], desc: '每天抓一次開心 +' + 5 },
+    uvb: { name: 'UVB 曬背燈', price: 15, sp: ['turtle', 'gecko'], desc: '每天曬一次開心 +' + 5 + '，爬蟲類需要 UVB 幫助鈣質代謝' }
   };
   var TRICKS = {
     shake: { name: '握手', price: 20 },
@@ -83,10 +113,37 @@
     { id: 'rblue', name: '俄羅斯藍貓', sp: 'cat', tier: 'easy' },
     { id: 'abys', name: '阿比西尼亞貓', sp: 'cat', tier: 'easy' },
     { id: 'singa', name: '新加坡貓', sp: 'cat', tier: 'easy' },
-    { id: 'bombay', name: '孟買貓', sp: 'cat', tier: 'easy' }
+    { id: 'bombay', name: '孟買貓', sp: 'cat', tier: 'easy' },
+    { id: 'munchkin', name: '黃色曼赤肯', sp: 'cat', tier: 'easy' },
+    { id: 'cockatoo', name: '巴丹鸚鵡', sp: 'bird', tier: 'hard' },
+    { id: 'grey', name: '灰鸚鵡', sp: 'bird', tier: 'hard' },
+    { id: 'myna', name: '八哥', sp: 'bird', tier: 'mid' },
+    { id: 'monk', name: '和尚鸚鵡', sp: 'bird', tier: 'mid' },
+    { id: 'gcaique', name: '金頭凱克', sp: 'bird', tier: 'mid' },
+    { id: 'bcaique', name: '黑頭凱克', sp: 'bird', tier: 'mid' },
+    { id: 'lory', name: '吸蜜鸚鵡', sp: 'bird', tier: 'mid' },
+    { id: 'budgie', name: '虎皮鸚鵡', sp: 'bird', tier: 'easy' },
+    { id: 'tielk', name: '玄鳳鸚鵡・黑', sp: 'bird', tier: 'easy' },
+    { id: 'tielw', name: '玄鳳鸚鵡・白', sp: 'bird', tier: 'easy' },
+    { id: 'tiely', name: '玄鳳鸚鵡・黃', sp: 'bird', tier: 'easy' },
+    { id: 'slider', name: '巴西龜', sp: 'turtle', tier: 'mid' },
+    { id: 'leo', name: '守宮（豹紋守宮）', sp: 'gecko', tier: 'easy' }
   ];
+  var SPECIES = [['dog', '狗'], ['cat', '貓'], ['bird', '鳥'], ['turtle', '烏龜'], ['gecko', '守宮']];
 
   function breed(id) { for (var i = 0; i < BREEDS.length; i++) if (BREEDS[i].id === id) return BREEDS[i]; return null; }
+  function spOf(p) { var b = breed(p && p.breedId); return b ? b.sp : 'dog'; }
+  function food(p) { return FOOD[spOf(p)] || FOOD.dog; }
+  function gearSet(p) { return GEAR[spOf(p)] || GEAR.dog; }
+  function gearOf(p) {
+    var G = gearSet(p), it = p.items || {}, eq = p.equip || {};
+    if (G.stroller && it.stroller && eq.stroller) return { key: 'stroller', name: G.stroller.name, ride: !!G.stroller.ride, model: G.stroller.model };
+    if (G.harness && it.harness && eq.harness) return { key: 'harness', name: G.harness.name, ride: false, model: '' };
+    return { key: 'base', name: G.base.name, ride: !!G.base.ride, model: G.base.model || '' };
+  }
+  function goText(p) { return GO[spOf(p)] || GO.dog; }
+  function trickOk(p, k) { return (TRICK_SP[k] || []).indexOf(spOf(p)) >= 0; }
+  function mammal(p) { var sp = spOf(p); return sp === 'dog' || sp === 'cat'; }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
   function dayKey(ts) { var d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
   function monthKey(ts) { return dayKey(ts).slice(0, 7); }
@@ -114,6 +171,7 @@
     if (!p.equip) p.equip = { harness: !!p.items.harness, stroller: false };
     if (p.items.toy == null) p.items.toy = false;
     if (p.items.scratcher == null) p.items.scratcher = false;
+    if (p.items.uvb == null) p.items.uvb = false;
     if (!p.tricks) p.tricks = {};
     if (!p.daily) p.daily = {};
     if (p.nailTs == null) p.nailTs = p.adoptTs || Date.now();
@@ -226,15 +284,15 @@
   function mealById(id) { for (var i = 0; i < MEALS.length; i++) if (MEALS[i].id === id) return MEALS[i]; return null; }
   function feed(s, id, kind, now) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
-    var canned = kind === 'canned', m = canned ? { name: '高級罐頭', units: CFG.cannedUnits, price: CFG.cannedPrice } : mealById(kind);
+    var canned = kind === 'canned', F = food(p), m = canned ? { name: F.canned, units: CFG.cannedUnits, price: CFG.cannedPrice } : mealById(kind);
     if (!m) return { ok: false, msg: '未知餐點' };
     if (!spend(s, m.price)) return { ok: false, msg: '金幣不夠，需要 ' + m.price + ' 金幣' };
     var g = canned ? CFG.cannedGain : CFG.mealGain;
     p.meals++; p.fed += m.units; gain(p, g, now);
     var extra = bump(s, canned ? 'canned' : 'meals');
-    return { ok: true, msg: (canned ? '吃了高級罐頭' : '吃了' + m.name) + '，開心 +' + g + extra, food: canned ? 'canned' : 'kibble' };
+    return { ok: true, msg: '吃了' + (canned ? F.canned : m.name + F.meal) + '，開心 +' + g + extra, food: canned ? 'canned' : 'kibble' };
   }
-  function snackList(p) { var b = breed(p.breedId); return SNACKS[b ? b.sp : 'dog']; }
+  function snackList(p) { return SNACKS[spOf(p)] || SNACKS.dog; }
   function snack(s, id, now, snackId) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     var list = snackList(p), it = list[0];
@@ -244,12 +302,12 @@
     return { ok: true, msg: it.name + '，開心 +' + CFG.snackGain + bump(s, 'snacks'), snack: it.id };
   }
   function canPlay(p) {
-    var h = p.items.harness && p.equip.harness, st = p.items.stroller && p.equip.stroller;
+    var gr = gearOf(p);
     if (p.happy < CFG.happyRefuse) return { ok: false, msg: p.name + ' 太沒精神了，先餵牠吃東西吧' };
-    if (p.bcs >= 8 && !st) return { ok: false, msg: p.name + ' 太胖走不動，需要裝備推車' };
-    return { ok: true, msg: 'OK', stroller: !!st, gear: st ? '推車' : (h ? '胸背帶' : '初級項圈') };
+    if (p.bcs >= 8 && !gr.ride) return { ok: false, msg: p.name + ' 太胖走不動，需要裝備推車' };
+    return { ok: true, msg: 'OK', stroller: gr.ride, model: gr.model, gear: gr.name, go: goText(p), sp: spOf(p) };
   }
-  function playFinish(s, id, seconds, now) {
+  function playFinish(s, id, seconds, now, walkSec) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     seconds = clamp(Math.floor(seconds), 0, CFG.playFull);
     var pts = Math.floor(CFG.playGain * seconds / CFG.playFull);
@@ -259,7 +317,7 @@
     gain(p, pts, now);
     msgs.unshift('開心 +' + pts);
     if (seconds >= CFG.playMinWalk) {
-      var strollerWalk = !!(p.items.stroller && p.equip.stroller);
+      var strollerWalk = walkSec == null ? gearOf(p).ride : walkSec < CFG.playMinWalk;
       p.walkTotal++;
       if (!strollerWalk) {
         if (p.bcs >= 6) {
@@ -270,7 +328,7 @@
           var m = p.muscleWalks >= 100 ? 2 : (p.muscleWalks >= 30 ? 1 : 0);
           if (m > p.muscle) { p.muscle = m; msgs.push('體態升級：' + MUSCLE[m]); }
         }
-      } else msgs.push('推車散步不計入 BCS');
+      } else msgs.push('待在' + (gearOf(p).ride ? gearOf(p).name : '推車') + '裡的時間不計入 BCS');
     }
     var ex = seconds >= 60 ? bump(s, 'walks') : '';
     return { ok: true, msg: msgs.join('，') + ex, points: pts };
@@ -278,20 +336,21 @@
   function buyItem(s, id, item) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     if (item === 'harness' || item === 'stroller') {
+      var G = gearSet(p)[item];
+      if (!G) return { ok: false, msg: '這個寵物用不到' };
       if (p.items[item]) return { ok: false, msg: '已經有了' };
-      var pr = item === 'harness' ? CFG.harnessPrice : CFG.strollerPrice;
-      if (!spend(s, pr)) return { ok: false, msg: '金幣不夠' };
+      if (!spend(s, G.price)) return { ok: false, msg: '金幣不夠' };
       p.items[item] = true; p.equip[item] = true; p.equip[item === 'harness' ? 'stroller' : 'harness'] = false;
-      return { ok: true, msg: (item === 'harness' ? '買了胸背帶' : '買了推車') + '，已裝備' };
+      return { ok: true, msg: '買了' + G.name + '，已裝備' };
     }
     if (TOYS[item]) {
-      var sp = (breed(p.breedId) || {}).sp;
-      if (TOYS[item].sp.indexOf(sp) < 0) return { ok: false, msg: '這個是給貓咪用的' };
+      if (TOYS[item].sp.indexOf(spOf(p)) < 0) return { ok: false, msg: '這個寵物用不到' };
       if (p.items[item]) return { ok: false, msg: '已經有了' };
       if (!spend(s, TOYS[item].price)) return { ok: false, msg: '金幣不夠' };
       p.items[item] = true; return { ok: true, msg: '買了' + TOYS[item].name + '，放在房間裡了' };
     }
     if (CLOTHES[item]) {
+      if (!mammal(p)) return { ok: false, msg: '這個寵物不適合穿衣服' };
       if (p.items.clothes[item]) return { ok: false, msg: '已經有了' };
       if (!spend(s, CLOTHES[item].price)) return { ok: false, msg: '金幣不夠' };
       p.items.clothes[item] = true; p.wear = item; return { ok: true, msg: '買了' + CLOTHES[item].name + '並穿上' };
@@ -303,7 +362,7 @@
     if (!p.items[item]) return { ok: false, msg: '還沒買' };
     p.equip[item] = !!on;
     if (on) p.equip[item === 'harness' ? 'stroller' : 'harness'] = false;
-    var nm = item === 'harness' ? '胸背帶' : '推車';
+    var G = gearSet(p)[item], nm = G ? G.name : '';
     return { ok: true, msg: on ? '已裝備' + nm : '已卸下' + nm };
   }
   function useToy(s, id, item, now) {
@@ -312,11 +371,13 @@
     if (p.daily[item]) return { ok: false, msg: '今天玩過了，明天再來' };
     p.daily[item] = 1;
     var g = item === 'toy' ? CFG.toyGain : CFG.scratchGain; gain(p, g, now);
+    if (item === 'uvb') return { ok: true, msg: '曬了 UVB 燈，開心 +' + g };
     return { ok: true, msg: TOYS[item].name + '，開心 +' + g };
   }
   function learn(s, id, trick) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     var t = TRICKS[trick]; if (!t) return { ok: false, msg: '未知技能' };
+    if (!trickOk(p, trick)) return { ok: false, msg: '這個寵物學不了這招' };
     if (p.tricks[trick]) return { ok: false, msg: '已經學會了' };
     if (!spend(s, t.price)) return { ok: false, msg: '金幣不夠，需要 ' + t.price + ' 金幣' };
     p.tricks[trick] = 1; return { ok: true, msg: p.name + ' 學會「' + t.name + '」了' };
@@ -345,6 +406,7 @@
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     var mk = monthKey(now);
     if (kind === 'neuter') {
+      if (!mammal(p)) return { ok: false, msg: '這個寵物不需要結紮' };
       if (p.neutered) return { ok: false, msg: '已經結紮過了' };
       if (!spend(s, CFG.neuterPrice)) return { ok: false, msg: '金幣不夠' };
       p.neutered = true; return { ok: true, msg: '結紮完成，食量需求 -10%' };
@@ -374,7 +436,8 @@
 
   root.PetCore = {
     CFG: CFG, CLOTHES: CLOTHES, BREEDS: BREEDS, MUSCLE: MUSCLE, MEALS: MEALS, SNACKS: SNACKS, TOYS: TOYS,
-    TRICKS: TRICKS, ACH: ACH, LOOK: LOOK, defaultLook: defaultLook, migrate: migrate, snackList: snackList,
+    TRICKS: TRICKS, ACH: ACH, FOOD: FOOD, GEAR: GEAR, SPECIES: SPECIES, spOf: spOf, food: food, gearSet: gearSet, gearOf: gearOf,
+    goText: goText, trickOk: trickOk, mammal: mammal, LOOK: LOOK, defaultLook: defaultLook, migrate: migrate, snackList: snackList,
     equip: equip, useToy: useToy, learn: learn, perform: perform, trimNails: trimNails, nailDue: nailDue, rid: rid,
     breed: breed, dayKey: dayKey, monthKey: monthKey, newState: newState, createOwner: createOwner,
     need: need, ageText: ageText, ageDays: ageDays, bcsLabel: bcsLabel, adopt: adopt, tick: tick,

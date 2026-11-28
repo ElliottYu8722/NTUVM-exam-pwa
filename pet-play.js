@@ -7,7 +7,8 @@
     { id: 'forest', name: '樹林', desc: '濃密的樹木、倒木和蘑菇' },
     { id: 'park', name: '公園', desc: '噴水池、水塘、長椅和步道' }
   ];
-  var WALK = 2.2, RUN = 5.6, LIMIT = 29.5;
+  var WALK = 2.2, RUN = 5.6, MAPR = 55, LIMIT = 51.5;
+  var SPF = { dog: 1, cat: 1, bird: 0.7, turtle: 0.45, gecko: 0.8 };
 
   function rng(seed) {
     var a = seed >>> 0;
@@ -44,14 +45,14 @@
     var r = rng(id === 'grass' ? 11 : id === 'forest' ? 22 : 33);
     var g = new T.Group(), obs = [], upd = [];
     var cfg = {
-      grass: { sky: '#a5defa', ground: '#8fd36b', fog: [28, 70], tufts: 700, greens: ['#7bc65a', '#8fd36b', '#6fb850', '#9ddc78'] },
-      forest: { sky: '#bfe0c9', ground: '#5f9c4f', fog: [10, 42], tufts: 350, greens: ['#4f8a45', '#5f9c4f', '#3f7a3c', '#6aa858'] },
-      park: { sky: '#a9e0ff', ground: '#a5df7a', fog: [30, 75], tufts: 260, greens: ['#94d46c', '#a5df7a', '#86c860', '#b2e888'] }
+      grass: { sky: '#a5defa', ground: '#8fd36b', fog: [40, 100], tufts: 1800, greens: ['#7bc65a', '#8fd36b', '#6fb850', '#9ddc78'] },
+      forest: { sky: '#bfe0c9', ground: '#5f9c4f', fog: [14, 50], tufts: 900, greens: ['#4f8a45', '#5f9c4f', '#3f7a3c', '#6aa858'] },
+      park: { sky: '#a9e0ff', ground: '#a5df7a', fog: [40, 105], tufts: 700, greens: ['#94d46c', '#a5df7a', '#86c860', '#b2e888'] }
     }[id];
-    var ground = new T.Mesh(new T.CircleGeometry(70, 48), I.toon(cfg.ground)); ground.rotation.x = -Math.PI / 2; g.add(ground);
+    var ground = new T.Mesh(new T.CircleGeometry(120, 64), I.toon(cfg.ground)); ground.rotation.x = -Math.PI / 2; g.add(ground);
 
     var tufts = [], i;
-    for (i = 0; i < cfg.tufts; i++) { var p = ringPos(r, 0, 33); tufts.push({ x: p.x, z: p.z, y: 0.2, sx: 0.8 + r() * 0.8, sy: 0.7 + r() * 0.9, sz: 0.8 + r() * 0.8, ry: r() * 6, c: pick(r, cfg.greens) }); }
+    for (i = 0; i < cfg.tufts; i++) { var p = ringPos(r, 0, MAPR); tufts.push({ x: p.x, z: p.z, y: 0.2, sx: 0.8 + r() * 0.8, sy: 0.7 + r() * 0.9, sz: 0.8 + r() * 0.8, ry: r() * 6, c: pick(r, cfg.greens) }); }
     g.add(inst(new T.ConeGeometry(0.1, 0.5, 4), I.toon('#ffffff'), tufts));
 
     function trees(list, trunkC, leafCs, sc) {
@@ -61,7 +62,7 @@
         tr.push({ x: p.x, z: p.z, y: 0.8 * s, s: s, c: trunkC });
         c1.push({ x: p.x, z: p.z, y: 2.3 * s, s: s, c: lc });
         c2.push({ x: p.x, z: p.z, y: 3.5 * s, s: s * 0.9, c: lc });
-        obs.push({ x: p.x, z: p.z, r: 0.55 * s + 0.3 });
+        obs.push({ x: p.x, z: p.z, r: 0.55 * s + 0.3, kind: 'tree', tall: true, c: lc });
       });
       g.add(inst(new T.CylinderGeometry(0.18, 0.25, 1.6, 6), I.toon('#ffffff'), tr));
       g.add(inst(new T.ConeGeometry(1.25, 2.4, 7), I.toon('#ffffff'), c1));
@@ -69,7 +70,7 @@
     }
     function rocks(n, minR) {
       var rk = [];
-      for (var k = 0; k < n; k++) { var p = ringPos(r, minR, 27, obs); var s = 0.5 + r() * 0.9; rk.push({ x: p.x, z: p.z, y: s * 0.4, sx: s * 1.2, sy: s * 0.8, sz: s, ry: r() * 6, c: pick(r, ['#9a9aa0', '#8a8a90', '#aaaab0']) }); obs.push({ x: p.x, z: p.z, r: s * 1.0 + 0.2 }); }
+      for (var k = 0; k < n; k++) { var p = ringPos(r, minR, LIMIT - 2, obs); var s = 0.5 + r() * 0.9; rk.push({ x: p.x, z: p.z, y: s * 0.4, sx: s * 1.2, sy: s * 0.8, sz: s, ry: r() * 6, c: pick(r, ['#9a9aa0', '#8a8a90', '#aaaab0']) }); obs.push({ x: p.x, z: p.z, r: s * 1.0 + 0.2, kind: 'rock' }); }
       g.add(inst(new T.DodecahedronGeometry(1, 0), I.toon('#ffffff'), rk));
     }
     function flowers(n, minR, maxR) {
@@ -81,75 +82,96 @@
     }
 
     if (id === 'grass') {
-      var lone = []; for (i = 0; i < 9; i++) lone.push(ringPos(r, 8, 27, obs));
+      var lone = []; for (i = 0; i < 26; i++) lone.push(ringPos(r, 10, LIMIT - 2, lone.map(function (q) { return { x: q.x, z: q.z, r: 5 }; })));
       trees(lone, '#8b5a2b', ['#5fb85a', '#6fc868', '#4fa84e'], 1.1);
-      rocks(14, 6); flowers(160, 3, 30);
+      rocks(32, 6); flowers(420, 3, MAPR - 2);
+      var pondG = new T.Mesh(new T.CircleGeometry(6, 32), I.toon('#5fb8f0')); pondG.rotation.x = -Math.PI / 2; pondG.position.set(26, 0.03, -22); g.add(pondG);
+      obs.push({ x: 26, z: -22, r: 6, kind: 'pond' });
     } else if (id === 'forest') {
-      var tl = []; for (i = 0; i < 95; i++) tl.push(ringPos(r, 4, 29, tl.map(function (q) { return { x: q.x, z: q.z, r: 1.8 }; })));
+      var tl = []; for (i = 0; i < 270; i++) tl.push(ringPos(r, 10, LIMIT - 1, tl.map(function (q) { return { x: q.x, z: q.z, r: 1.8 }; })));
       trees(tl, '#6b4a2b', ['#2f7a3c', '#3a8a45', '#256a35', '#4a9a4e'], 1.15);
-      rocks(8, 5);
+      rocks(20, 6);
       var mu = [], mc = [];
-      for (i = 0; i < 28; i++) { var mp = ringPos(r, 3, 28, obs); mu.push({ x: mp.x, z: mp.z, y: 0.2, s: 0.6 + r() * 0.6, c: pick(r, ['#e74c3c', '#f39c12', '#f5e6d0']) }); mc.push({ x: mp.x, z: mp.z, y: 0.1, sx: 0.5, sy: 1, sz: 0.5, c: '#f5efe6' }); }
+      for (i = 0; i < 80; i++) { var mp = ringPos(r, 3, LIMIT - 1, obs); mu.push({ x: mp.x, z: mp.z, y: 0.2, s: 0.6 + r() * 0.6, c: pick(r, ['#e74c3c', '#f39c12', '#f5e6d0']) }); mc.push({ x: mp.x, z: mp.z, y: 0.1, sx: 0.5, sy: 1, sz: 0.5, c: '#f5efe6' }); }
       g.add(inst(new T.SphereGeometry(0.22, 10, 6, 0, Math.PI * 2, 0, Math.PI / 2), I.toon('#ffffff'), mu));
       g.add(inst(new T.CylinderGeometry(0.06, 0.07, 0.2, 6), I.toon('#ffffff'), mc));
       var lg = [];
-      for (i = 0; i < 6; i++) { var lp = ringPos(r, 4, 26, obs); lg.push({ x: lp.x, z: lp.z, y: 0.3, sx: 1, sy: 3.2, sz: 1, ry: r() * 3, c: '#7a5230' }); obs.push({ x: lp.x, z: lp.z, r: 1.4 }); }
+      for (i = 0; i < 16; i++) { var lp = ringPos(r, 6, LIMIT - 2, obs); lg.push({ x: lp.x, z: lp.z, y: 0.3, sx: 1, sy: 3.2, sz: 1, ry: r() * 3, c: '#7a5230' }); obs.push({ x: lp.x, z: lp.z, r: 1.4, kind: 'log' }); }
       var lgGeo = new T.CylinderGeometry(0.32, 0.32, 1, 8); lgGeo.rotateZ(Math.PI / 2);
       g.add(inst(lgGeo, I.toon('#ffffff'), lg.map(function (q) { return { x: q.x, z: q.z, y: 0.32, sx: 3.2, sy: 1, sz: 1, ry: q.ry, c: '#7a5230' }; })));
-      flowers(40, 3, 28);
+      flowers(110, 3, LIMIT);
     } else {
       var path = new T.Mesh(new T.RingGeometry(8.5, 11.5, 56), I.toon('#ecdcb8')); path.rotation.x = -Math.PI / 2; path.position.y = 0.02; g.add(path);
-      var cross = new T.Mesh(new T.PlaneGeometry(3, 60), I.toon('#ecdcb8')); cross.rotation.x = -Math.PI / 2; cross.position.y = 0.021; g.add(cross);
+      var path2 = new T.Mesh(new T.RingGeometry(32, 35, 96), I.toon('#ecdcb8')); path2.rotation.x = -Math.PI / 2; path2.position.y = 0.02; g.add(path2);
+      for (i = 0; i < 16; i++) {
+        var la2 = i / 16 * Math.PI * 2 + Math.PI / 16, lx2 = Math.cos(la2) * 35.8, lz2 = Math.sin(la2) * 35.8, lp3 = new T.Group(); lp3.position.set(lx2, 0, lz2);
+        lp3.add(I.mesh(new T.CylinderGeometry(0.06, 0.08, 2.6, 8), '#3a3a42', 0, 1.3, 0));
+        lp3.add(new T.Mesh(new T.SphereGeometry(0.22, 10, 8), new T.MeshBasicMaterial({ color: 0xfff1b0 })).translateY(2.7));
+        g.add(lp3); obs.push({ x: lx2, z: lz2, r: 0.3, kind: 'lamp' });
+      }
+      var pond2 = new T.Mesh(new T.CircleGeometry(4.5, 32), I.toon('#5fb8f0')); pond2.rotation.x = -Math.PI / 2; pond2.position.set(23, 0.03, 22); g.add(pond2);
+      var rim2 = new T.Mesh(new T.RingGeometry(4.5, 5, 32), I.toon('#9a9aa0')); rim2.rotation.x = -Math.PI / 2; rim2.position.set(23, 0.035, 22); g.add(rim2);
+      obs.push({ x: 23, z: 22, r: 4.9, kind: 'pond' });
+      var cross = new T.Mesh(new T.PlaneGeometry(3, 106), I.toon('#ecdcb8')); cross.rotation.x = -Math.PI / 2; cross.position.y = 0.021; g.add(cross);
       var cross2 = cross.clone(); cross2.rotation.z = Math.PI / 2; g.add(cross2);
       var fo = new T.Group(); fo.add(I.mesh(new T.CylinderGeometry(2.2, 2.4, 0.6, 24), '#d9d9e0', 0, 0.3, 0, 1, 1, 1, 0.03));
       fo.add(I.mesh(new T.CylinderGeometry(1.8, 1.8, 0.1, 24), '#6fc3ff', 0, 0.58, 0));
       fo.add(I.mesh(new T.CylinderGeometry(0.2, 0.3, 1.6, 12), '#d9d9e0', 0, 1.0, 0, 1, 1, 1, 0.04));
-      fo.add(I.mesh(new T.SphereGeometry(0.45, 14, 10), '#8fd6ff', 0, 1.9, 0)); g.add(fo); obs.push({ x: 0, z: 0, r: 2.7 });
+      fo.add(I.mesh(new T.SphereGeometry(0.45, 14, 10), '#8fd6ff', 0, 1.9, 0)); g.add(fo); obs.push({ x: 0, z: 0, r: 2.7, kind: 'pond' });
       var pondM = new T.Mesh(new T.CircleGeometry(5, 32), I.toon('#5fb8f0')); pondM.rotation.x = -Math.PI / 2; pondM.position.set(-17, 0.03, -12); g.add(pondM);
       var rim = new T.Mesh(new T.RingGeometry(5, 5.5, 32), I.toon('#9a9aa0')); rim.rotation.x = -Math.PI / 2; rim.position.set(-17, 0.035, -12); g.add(rim);
-      obs.push({ x: -17, z: -12, r: 5.4 });
+      obs.push({ x: -17, z: -12, r: 5.4, kind: 'pond' });
       upd.push(function (t) { pondM.material.color.setHSL(0.56, 0.8, 0.62 + Math.sin(t * 1.5) * 0.02); });
       [[Math.PI / 4, 1], [Math.PI * 3 / 4, 1], [-Math.PI / 4, 1], [-Math.PI * 3 / 4, 1]].forEach(function (b) {
         var bx = Math.cos(b[0]) * 7.2, bz = Math.sin(b[0]) * 7.2, bn = new T.Group(); bn.position.set(bx, 0, bz); bn.rotation.y = -b[0] + Math.PI / 2;
         bn.add(I.mesh(new T.BoxGeometry(2.0, 0.12, 0.6), '#a8703a', 0, 0.55, 0, 1, 1, 1, 0.04));
         bn.add(I.mesh(new T.BoxGeometry(2.0, 0.6, 0.1), '#a8703a', 0, 0.9, -0.28, 1, 1, 1, 0.04));
         bn.add(I.mesh(new T.BoxGeometry(0.1, 0.55, 0.5), '#6b4a2b', -0.85, 0.27, 0)); bn.add(I.mesh(new T.BoxGeometry(0.1, 0.55, 0.5), '#6b4a2b', 0.85, 0.27, 0));
-        g.add(bn); obs.push({ x: bx, z: bz, r: 1.1 });
+        g.add(bn); obs.push({ x: bx, z: bz, r: 1.1, kind: 'bench' });
       });
       for (i = 0; i < 8; i++) {
         var la = i / 8 * Math.PI * 2 + Math.PI / 8, lx = Math.cos(la) * 12.2, lz = Math.sin(la) * 12.2, lp2 = new T.Group(); lp2.position.set(lx, 0, lz);
         lp2.add(I.mesh(new T.CylinderGeometry(0.06, 0.08, 2.6, 8), '#3a3a42', 0, 1.3, 0));
         lp2.add(new T.Mesh(new T.SphereGeometry(0.22, 10, 8), new T.MeshBasicMaterial({ color: 0xfff1b0 })).translateY(2.7));
-        g.add(lp2); obs.push({ x: lx, z: lz, r: 0.3 });
+        g.add(lp2); obs.push({ x: lx, z: lz, r: 0.3, kind: 'lamp' });
       }
       var ring = []; for (i = 0; i < 16; i++) { var ta = i / 16 * Math.PI * 2 + 0.2, tr2 = 17 + (i % 3) * 4; ring.push({ x: Math.cos(ta) * tr2, z: Math.sin(ta) * tr2 }); }
+      var avoidP = [{ x: -17, z: -12, r: 7 }, { x: 23, z: 22, r: 7 }];
+      for (i = 0; i < 40; i++) {
+        var q2 = ringPos(r, 37.5, LIMIT - 1.5, avoidP.concat(ring.map(function (q) { return { x: q.x, z: q.z, r: 4 }; })));
+        if (Math.abs(q2.x) > 2.5 && Math.abs(q2.z) > 2.5) ring.push(q2);
+      }
+      for (i = 0; i < 14; i++) {
+        var q3 = ringPos(r, 22, 30, avoidP.concat(ring.map(function (q) { return { x: q.x, z: q.z, r: 4 }; })));
+        if (Math.abs(q3.x) > 2.5 && Math.abs(q3.z) > 2.5) ring.push(q3);
+      }
       trees(ring, '#8b5a2b', ['#6fc868', '#5fb85a', '#ff9fb8'], 1.0);
-      flowers(120, 13, 30);
-      for (i = 0; i < 4; i++) { var ba = i / 4 * Math.PI * 2 + 0.78; var fb = new T.Mesh(new T.CylinderGeometry(1.3, 1.3, 0.3, 14), I.toon('#7a5230')); fb.position.set(Math.cos(ba) * 14.5, 0.15, Math.sin(ba) * 14.5); g.add(fb); obs.push({ x: fb.position.x, z: fb.position.z, r: 1.6 }); }
+      flowers(300, 13, MAPR - 2);
+      for (i = 0; i < 4; i++) { var ba = i / 4 * Math.PI * 2 + 0.78; var fb = new T.Mesh(new T.CylinderGeometry(1.3, 1.3, 0.3, 14), I.toon('#7a5230')); fb.position.set(Math.cos(ba) * 14.5, 0.15, Math.sin(ba) * 14.5); g.add(fb); obs.push({ x: fb.position.x, z: fb.position.z, r: 1.6, kind: 'bed' }); }
     }
 
-    var bush = []; for (i = 0; i < 48; i++) { var ba2 = i / 48 * Math.PI * 2; bush.push({ x: Math.cos(ba2) * 31.5, z: Math.sin(ba2) * 31.5, y: 1.0, sx: 2.2, sy: 1.6, sz: 2.2, c: pick(r, cfg.greens) }); }
+    var bush = []; for (i = 0; i < 84; i++) { var ba2 = i / 84 * Math.PI * 2; bush.push({ x: Math.cos(ba2) * (MAPR - 1.5), z: Math.sin(ba2) * (MAPR - 1.5), y: 1.0, sx: 2.2, sy: 1.6, sz: 2.2, c: pick(r, cfg.greens) }); }
     g.add(inst(new T.SphereGeometry(1, 10, 8), I.toon('#ffffff'), bush));
-    var hills = []; for (i = 0; i < 10; i++) { var ha = i / 10 * Math.PI * 2; hills.push({ x: Math.cos(ha) * 62, z: Math.sin(ha) * 62, y: -4, sx: 16 + r() * 8, sy: 9 + r() * 6, sz: 16 + r() * 8, c: id === 'forest' ? '#3f7a4a' : '#7bc07a' }); }
+    var hills = []; for (i = 0; i < 10; i++) { var ha = i / 10 * Math.PI * 2; hills.push({ x: Math.cos(ha) * (MAPR + 32), z: Math.sin(ha) * (MAPR + 32), y: -4, sx: 16 + r() * 8, sy: 9 + r() * 6, sz: 16 + r() * 8, c: id === 'forest' ? '#3f7a4a' : '#7bc07a' }); }
     g.add(inst(new T.SphereGeometry(1, 14, 10), I.toon('#ffffff'), hills));
-    var sun = new T.Mesh(new T.SphereGeometry(4, 16, 12), new T.MeshBasicMaterial({ color: 0xfff1a0, fog: false })); sun.position.set(40, 45, -70); g.add(sun);
+    var sun = new T.Mesh(new T.SphereGeometry(4, 16, 12), new T.MeshBasicMaterial({ color: 0xfff1a0, fog: false })); sun.position.set(50, 55, -100); g.add(sun);
 
     var clouds = [];
-    for (i = 0; i < 7; i++) {
-      var cg = new T.Group(); cg.position.set(-60 + r() * 120, 24 + r() * 8, -50 + r() * 60);
+    for (i = 0; i < 12; i++) {
+      var cg = new T.Group(); cg.position.set(-90 + r() * 180, 26 + r() * 10, -80 + r() * 120);
       for (var j = 0; j < 3; j++) cg.add(I.mesh(new T.SphereGeometry(3 + r() * 2, 10, 8), new T.MeshBasicMaterial({ color: 0xffffff, fog: false }), j * 3.2, r(), 0, 1.2, 0.7, 0.9));
       g.add(cg); clouds.push(cg);
     }
-    upd.push(function (t, dt) { clouds.forEach(function (c) { c.position.x += dt * 0.8; if (c.position.x > 70) c.position.x = -70; }); });
+    upd.push(function (t, dt) { clouds.forEach(function (c) { c.position.x += dt * 0.8; if (c.position.x > 100) c.position.x = -100; }); });
 
     if (id !== 'forest') {
       var bfs = [];
-      for (i = 0; i < 6; i++) {
+      for (i = 0; i < 12; i++) {
         var bf = new T.Group(), col = pick(r, [0xffa8d0, 0xfff27a, 0xa8d8ff, 0xffffff]);
         var wing = new T.PlaneGeometry(0.4, 0.3), wm = new T.MeshBasicMaterial({ color: col, side: T.DoubleSide });
         var w1 = new T.Mesh(wing, wm), w2 = new T.Mesh(wing, wm); w1.position.x = -0.2; w2.position.x = 0.2;
         var p1 = new T.Group(), p2 = new T.Group(); p1.add(w1); p2.add(w2); bf.add(p1); bf.add(p2);
-        g.add(bf); bfs.push({ g: bf, p1: p1, p2: p2, cx: -14 + r() * 28, cz: -14 + r() * 28, rad: 2 + r() * 4, sp: 0.4 + r() * 0.5, ph: r() * 6 });
+        g.add(bf); bfs.push({ g: bf, p1: p1, p2: p2, cx: -40 + r() * 80, cz: -40 + r() * 80, rad: 2 + r() * 4, sp: 0.4 + r() * 0.5, ph: r() * 6 });
       }
       upd.push(function (t) {
         bfs.forEach(function (b) {
@@ -158,7 +180,7 @@
         });
       });
     }
-    return { group: g, obstacles: obs, update: function (t, dt) { for (var k = 0; k < upd.length; k++) upd[k](t, dt); }, sky: cfg.sky, fog: cfg.fog };
+    return { id: id, group: g, obstacles: obs, ground: cfg.ground, update: function (t, dt) { for (var k = 0; k < upd.length; k++) upd[k](t, dt); }, sky: cfg.sky, fog: cfg.fog };
   }
 
   function animatePet(g, S, dt, act) {
@@ -252,19 +274,24 @@
     this.blob = new T.Mesh(new T.CircleGeometry(1, 20), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 }));
     this.blob.rotation.x = -Math.PI / 2; this.blob.position.y = 0.05; this.scene.add(this.blob);
     var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1);
+    this.sp = this.opts.sp || 'dog'; this.mammal = this.sp === 'dog' || this.sp === 'cat'; this.spf = SPF[this.sp] || 1;
+    this.walkSec = 0; this.inCart = false;
     if (this.opts.stroller && root.PetAvatar) {
-      var rig = new T.Group(), cart = root.PetAvatar.stroller(), len = (U.tl * 2 + U.hr) * U.scale, ks = Math.max(1, len / 1.05);
+      var rig = new T.Group(), cart = root.PetAvatar.stroller(this.opts.model), len = (U.tl * 2 + U.hr) * U.scale, ks = this.mammal ? Math.max(1, len / 1.05) : 1;
       cart.scale.setScalar(ks); rig.add(cart);
-      this.pet.position.set(0, cart.userData.seatY * ks - 0.05, 0.05); rig.add(this.pet);
+      this.seatY = cart.userData.seatY * ks - (this.mammal ? 0.05 : 0);
+      this.pet.position.set(0, this.seatY, this.mammal ? 0.05 : 0.1); rig.add(this.pet);
       var o = root.PetUI.state().owner;
       this.owner = root.PetAvatar.build(o && o.look); this.owner.position.set(0, 0, cart.userData.handleZ * ks - 0.35); rig.add(this.owner);
-      this.ownA = root.PetAvatar.newAnim(); this.rig = rig; this.cartK = ks;
+      this.ownA = root.PetAvatar.newAnim(); this.rig = rig; this.cartK = ks; this.inCart = true;
+      this.petBlob = this.blob.scale.clone();
       this.blob.scale.set(0.8 * ks, 1.3 * ks, 1);
     } else this.rig = this.pet;
-    this.rig.position.set(0, 0, sceneId === 'park' ? 8 : 3); this.scene.add(this.rig);
+    this.ctl = this.rig;
+    this.rig.position.set(0, 0, sceneId === 'park' ? 8 : (sceneId === 'forest' ? 0 : 3)); this.scene.add(this.rig);
     this.camPos = new T.Vector3(this.rig.position.x, 4.5, this.rig.position.z + 8.5);
     this.cam.position.copy(this.camPos);
-    this.hud(); this.resize();
+    this.hud(); this.resize(); this.mapInit();
     this.onResize = function () { self.resize(); }; window.addEventListener('resize', this.onResize);
     this.state = 'play'; this.last = 0;
     this.onFrame = function (ts) { self.frame(ts); }; this.raf = requestAnimationFrame(this.onFrame);
@@ -282,7 +309,19 @@
     top.appendChild(this.timeEl); top.appendChild(bar);
     var eb = btn('結束', 'rgba(255,255,255,.18)', function () { self.endEarly(); }); eb.style.margin = '0'; eb.style.padding = '8px 14px'; top.appendChild(eb);
     el.appendChild(top);
-    this.hint = document.createElement('div'); this.hint.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);top:calc(max(10px,env(safe-area-inset-top)) + 64px);text-align:center;font-size:13px;background:rgba(30,26,22,.55);padding:8px 14px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis';
+    var mb = btn('地圖', 'rgba(30,26,22,.55)', function () { self.mapToggle(); });
+    mb.style.cssText += ';position:absolute;right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 64px);margin:0;padding:8px 14px;font-size:14px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)';
+    el.appendChild(mb); this.mapBtn = mb;
+    var mp = document.createElement('div'); mp.style.cssText = 'position:absolute;right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 108px);width:min(46vw,220px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:rgba(30,26,22,.55);border:2px solid rgba(255,255,255,.7);box-shadow:0 6px 18px rgba(0,0,0,.25);display:none;pointer-events:none';
+    var mc = document.createElement('canvas'); mc.width = 440; mc.height = 440; mc.style.cssText = 'display:block;width:100%;height:100%'; mp.appendChild(mc);
+    el.appendChild(mp); this.mapEl = mp; this.mapCv = mc;
+    if (this.owner) {
+      var go = this.opts.go || ['下推車', '上推車'];
+      var gb = btn(go[0], 'rgba(232,131,58,.92)', function () { self.toggleCart(); });
+      gb.style.cssText += ';position:absolute;right:18px;bottom:calc(40px + env(safe-area-inset-bottom));margin:0;padding:14px 20px;font-size:16px;border-radius:18px;box-shadow:0 6px 16px rgba(0,0,0,.25)';
+      el.appendChild(gb); this.goBtn = gb;
+    }
+    this.hint = document.createElement('div'); this.hint.style.cssText = 'position:absolute;left:10px;top:calc(max(10px,env(safe-area-inset-top)) + 64px);text-align:center;font-size:13px;background:rgba(30,26,22,.55);padding:8px 14px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:calc(100vw - 150px);overflow:hidden;text-overflow:ellipsis';
     this.hint.textContent = ('ontouchstart' in window) ? '左下圓盤移動，推到底快跑，右邊滑動轉視角' : 'WASD 移動，Shift 快跑，拖曳畫面轉視角';
     el.appendChild(this.hint);
     var look = document.createElement('div'); look.style.cssText = 'position:absolute;inset:0;touch-action:none';
@@ -324,41 +363,135 @@
     var kx = (k.arrowright || k.d ? 1 : 0) - (k.arrowleft || k.a ? 1 : 0), kz = (k.arrowdown || k.s ? 1 : 0) - (k.arrowup || k.w ? 1 : 0);
     if (kx || kz) { var kl = Math.sqrt(kx * kx + kz * kz); jx = kx / kl * (k.shift ? 1 : 0.6); jy = kz / kl * (k.shift ? 1 : 0.6); }
     if (k.q) this.yaw += dt * 1.8; if (k.e) this.yaw -= dt * 1.8;
-    var mag = Math.min(1, Math.sqrt(jx * jx + jy * jy)), act = 'idle', g = this.rig;
+    var mag = Math.min(1, Math.sqrt(jx * jx + jy * jy)), act = 'idle', g = this.ctl, riding = this.owner && this.inCart;
     if (mag > 0.1) {
       act = mag > 0.72 ? 'run' : 'walk';
       var cy = Math.cos(this.yaw), sy = Math.sin(this.yaw);
       var sp = act === 'run' ? RUN : WALK * (0.5 + mag * 0.7), nx = (jx * cy + jy * sy) / mag, nz = (-jx * sy + jy * cy) / mag;
-      if (this.owner) sp *= act === 'run' ? 0.75 : 1;
+      if (riding) sp *= act === 'run' ? 0.75 : 1; else sp *= this.spf;
       g.position.x += nx * sp * dt; g.position.z += nz * sp * dt;
       var want = Math.atan2(nx, nz), diff = want - g.rotation.y;
       while (diff > Math.PI) diff -= Math.PI * 2; while (diff < -Math.PI) diff += Math.PI * 2;
       g.rotation.y += diff * Math.min(1, dt * 10);
     }
-    var ob = this.world.obstacles, i, pr = this.owner ? 0.7 * this.cartK : 0.5 * this.pet.userData.scale + 0.2;
-    for (i = 0; i < ob.length; i++) {
-      var dx = g.position.x - ob[i].x, dz = g.position.z - ob[i].z, d = Math.sqrt(dx * dx + dz * dz), mr = ob[i].r + pr;
-      if (d < mr && d > 0.0001) { g.position.x = ob[i].x + dx / d * mr; g.position.z = ob[i].z + dz / d * mr; }
+    var i, pr = riding ? 0.7 * this.cartK : 0.5 * this.pet.userData.scale + 0.2;
+    this.collide(g, pr);
+    if (this.owner && !this.inCart) {
+      var rg = this.rig, py = g.rotation.y, sk = 1.7 * this.cartK, bk = 1.3 * this.cartK;
+      var gx = g.position.x - Math.sin(py) * bk - Math.cos(py) * sk, gz = g.position.z - Math.cos(py) * bk + Math.sin(py) * sk;
+      var fx = gx - rg.position.x, fz = gz - rg.position.z, fd = Math.sqrt(fx * fx + fz * fz), ract = 'idle';
+      if (fd > 0.25) {
+        var rs = Math.min(fd, Math.max(WALK, fd) * dt * 1.6);
+        rg.position.x += fx / fd * rs; rg.position.z += fz / fd * rs; ract = 'push';
+        var rw = Math.atan2(fx, fz), rdf = rw - rg.rotation.y;
+        while (rdf > Math.PI) rdf -= Math.PI * 2; while (rdf < -Math.PI) rdf += Math.PI * 2;
+        rg.rotation.y += rdf * Math.min(1, dt * 6);
+      }
+      this.collide(rg, 0.7 * this.cartK);
+      root.PetAvatar.animate(this.owner, this.ownA, dt, ract);
+      this.walkSec += dt;
     }
-    var dd = Math.sqrt(g.position.x * g.position.x + g.position.z * g.position.z);
-    if (dd > LIMIT) { g.position.x *= LIMIT / dd; g.position.z *= LIMIT / dd; }
-    if (this.owner) {
-      animatePet(this.pet, this.ps, dt, 'idle');
-      var PU = this.pet.userData;
-      for (i = 0; i < 4; i++) PU.legs[i].rotation.x = i < 2 ? -1.2 : 1.2;
-      PU.upper.position.y = PU.upperBase - PU.leg * 0.7; PU.head.rotation.y = Math.sin(this.tt * 0.8) * 0.5;
+    if (riding) {
+      if (this.mammal) {
+        animatePet(this.pet, this.ps, dt, 'idle');
+        var PU = this.pet.userData;
+        for (i = 0; i < 4; i++) PU.legs[i].rotation.x = i < 2 ? -1.2 : 1.2;
+        PU.upper.position.y = PU.upperBase - PU.leg * 0.7;
+      } else animatePet(this.pet, this.ps, dt, 'idle');
+      this.pet.userData.head.rotation.y = Math.sin(this.tt * 0.8) * 0.5;
       root.PetAvatar.animate(this.owner, this.ownA, dt, act === 'idle' ? 'idle' : 'push');
-    } else animatePet(g, this.ps, dt, act);
+    } else {
+      animatePet(this.pet, this.ps, dt, act);
+      if (!this.owner) this.walkSec += dt;
+    }
     this.blob.position.x = g.position.x; this.blob.position.z = g.position.z;
     this.world.update(this.tt, dt);
-    var a = 1 - Math.exp(-dt * 4.5), dist = 8.5, ph = this.pitch;
+    var a = 1 - Math.exp(-dt * 4.5), dist = this.camDist(g, 8.5), ph = this.pitch;
     var tx = g.position.x + Math.sin(this.yaw) * Math.cos(ph) * dist, tz = g.position.z + Math.cos(this.yaw) * Math.cos(ph) * dist, ty = 0.8 + Math.sin(ph) * dist;
     this.camPos.x += (tx - this.camPos.x) * a; this.camPos.z += (tz - this.camPos.z) * a; this.camPos.y += (ty - this.camPos.y) * a;
     this.cam.position.copy(this.camPos); this.cam.lookAt(g.position.x, 0.8, g.position.z);
     this.timeEl.textContent = fmt(this.sec) + ' / 10:00 ・ +' + Math.floor(50 * Math.min(this.sec, 600) / 600) + ' 開心';
     this.barEl.style.width = (Math.min(this.sec, 600) / 6) + '%';
     if (this.sec > 6 && this.hint) { this.hint.remove(); this.hint = null; }
+    if (this.mapOn) { this.mapT = (this.mapT || 0) + dt; if (this.mapT > 0.08) { this.mapT = 0; this.mapDraw(); } }
     if (this.sec >= 600) this.finish();
+  };
+  Game.prototype.collide = function (g, pr) {
+    var ob = this.world.obstacles, i;
+    for (i = 0; i < ob.length; i++) {
+      var dx = g.position.x - ob[i].x, dz = g.position.z - ob[i].z, d = Math.sqrt(dx * dx + dz * dz), mr = ob[i].r + pr;
+      if (d < mr && d > 0.0001) { g.position.x = ob[i].x + dx / d * mr; g.position.z = ob[i].z + dz / d * mr; }
+    }
+    var dd = Math.sqrt(g.position.x * g.position.x + g.position.z * g.position.z);
+    if (dd > LIMIT) { g.position.x *= LIMIT / dd; g.position.z *= LIMIT / dd; }
+  };
+  Game.prototype.camDist = function (g, dist) {
+    var ob = this.world.obstacles, ux = Math.sin(this.yaw), uz = Math.cos(this.yaw), best = dist, i;
+    var hk = Math.cos(this.pitch);
+    for (i = 0; i < ob.length; i++) {
+      if (!ob[i].tall) continue;
+      var dx = ob[i].x - g.position.x, dz = ob[i].z - g.position.z, t = dx * ux + dz * uz;
+      if (t < 0.5 || t > dist * hk + 1.5) continue;
+      var px = dx - ux * t, pz = dz - uz * t, off = Math.sqrt(px * px + pz * pz);
+      if (off < ob[i].r + 0.9) best = Math.min(best, Math.max(2.6, (t - ob[i].r - 0.6) / hk));
+    }
+    this.camD = this.camD == null ? best : this.camD + (best - this.camD) * (best < this.camD ? 0.35 : 0.05);
+    return this.camD;
+  };
+  Game.prototype.toggleCart = function () {
+    if (!this.owner) return;
+    var go = this.opts.go || ['下推車', '上推車'], rg = this.rig, pet = this.pet;
+    if (this.inCart) {
+      rg.remove(pet); this.scene.add(pet);
+      var fy = rg.rotation.y, dx = Math.sin(fy), dz = Math.cos(fy), d0 = 1.6 * this.cartK;
+      pet.position.set(rg.position.x + dx * d0, 0, rg.position.z + dz * d0); pet.rotation.set(0, fy, 0);
+      this.inCart = false; this.ctl = pet; this.goBtn.textContent = go[1];
+      if (this.petBlob) this.blob.scale.copy(this.petBlob);
+      this.collide(pet, 0.5 * pet.userData.scale + 0.2);
+    } else {
+      var ex = pet.position.x - rg.position.x, ez = pet.position.z - rg.position.z;
+      if (ex * ex + ez * ez > Math.pow(4 * this.cartK, 2)) { rg.position.x = pet.position.x - Math.sin(pet.rotation.y) * 2 * this.cartK; rg.position.z = pet.position.z - Math.cos(pet.rotation.y) * 2 * this.cartK; rg.rotation.y = pet.rotation.y; }
+      this.scene.remove(pet); rg.add(pet); pet.position.set(0, this.seatY, this.mammal ? 0.05 : 0.1); pet.rotation.set(0, 0, 0);
+      this.inCart = true; this.ctl = rg; this.goBtn.textContent = go[0];
+      this.blob.scale.set(0.8 * this.cartK, 1.3 * this.cartK, 1);
+    }
+  };
+  var MAPC = { tree: null, rock: '#9a9aa0', log: '#7a5230', pond: '#5fb8f0', bench: '#a8703a', lamp: '#3a3a42', bed: '#7a5230' };
+  Game.prototype.mapInit = function () {
+    var cv = document.createElement('canvas'), N = 440, x = cv.getContext('2d'), k = N / (2 * MAPR), w = this.world;
+    cv.width = N; cv.height = N; this.mapK = k; this.mapBase = cv;
+    function P(v) { return N / 2 + v * k; }
+    x.fillStyle = w.ground; x.beginPath(); x.arc(N / 2, N / 2, N / 2, 0, Math.PI * 2); x.fill();
+    if (w.id === 'park') {
+      x.strokeStyle = '#ecdcb8'; x.lineWidth = 3 * k;
+      x.beginPath(); x.arc(N / 2, N / 2, 10 * k, 0, Math.PI * 2); x.stroke();
+      x.beginPath(); x.arc(N / 2, N / 2, 33.5 * k, 0, Math.PI * 2); x.stroke();
+      x.fillStyle = '#ecdcb8'; x.fillRect(P(-1.5), P(-53), 3 * k, 106 * k); x.fillRect(P(-53), P(-1.5), 106 * k, 3 * k);
+    }
+    w.obstacles.forEach(function (o) {
+      x.fillStyle = MAPC[o.kind] || o.c || '#3f8a45';
+      if (o.kind === 'tree') x.fillStyle = o.c || '#3f8a45';
+      x.beginPath(); x.arc(P(o.x), P(o.z), Math.max(2.5, o.r * k), 0, Math.PI * 2); x.fill();
+    });
+    x.strokeStyle = 'rgba(60,110,50,.9)'; x.lineWidth = 3 * k; x.beginPath(); x.arc(N / 2, N / 2, (MAPR - 1.5) * k, 0, Math.PI * 2); x.stroke();
+  };
+  Game.prototype.mapToggle = function () {
+    this.mapOn = !this.mapOn; this.mapEl.style.display = this.mapOn ? 'block' : 'none';
+    this.mapBtn.textContent = this.mapOn ? '收起地圖' : '地圖';
+    if (this.mapOn) this.mapDraw();
+  };
+  Game.prototype.mapDraw = function () {
+    var cv = this.mapCv, x = cv.getContext('2d'), N = cv.width, k = this.mapK;
+    x.clearRect(0, 0, N, N); x.drawImage(this.mapBase, 0, 0);
+    function arrow(o, col, sz) {
+      x.save(); x.translate(N / 2 + o.position.x * k, N / 2 + o.position.z * k); x.rotate(-o.rotation.y);
+      x.fillStyle = col; x.strokeStyle = '#fff'; x.lineWidth = 3;
+      x.beginPath(); x.moveTo(0, sz); x.lineTo(sz * 0.7, -sz * 0.7); x.lineTo(0, -sz * 0.3); x.lineTo(-sz * 0.7, -sz * 0.7); x.closePath(); x.fill(); x.stroke(); x.restore();
+    }
+    if (this.owner && !this.inCart) arrow(this.rig, '#e8833a', 11);
+    arrow(this.ctl, '#ff4d6d', 15);
+    var cx = N / 2 + this.camPos.x * k, cz = N / 2 + this.camPos.z * k;
+    x.fillStyle = 'rgba(255,255,255,.85)'; x.beginPath(); x.arc(cx, cz, 4, 0, Math.PI * 2); x.fill();
   };
   Game.prototype.endEarly = function () {
     var self = this, pts = Math.floor(50 * Math.min(this.sec, 600) / 600);
@@ -372,7 +505,7 @@
     var S = root.PetUI.state(), sec = Math.floor(this.sec), msg = '時間太短，沒有獲得開心。';
     if (sec >= 1) {
       root.PetCore.tick(S, Date.now());
-      var r = root.PetCore.playFinish(S, this.petId, sec, Date.now()); msg = r.msg; root.PetStore.save(S);
+      var r = root.PetCore.playFinish(S, this.petId, sec, Date.now(), this.owner ? this.walkSec : null); msg = r.msg; root.PetStore.save(S);
     }
     var box = document.createElement('div');
     box.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,16,12,.5);padding:20px';

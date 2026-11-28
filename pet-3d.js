@@ -95,8 +95,165 @@
     twnative: 'M', shiba: 'M', mixdog: 'M', twdog: 'M', corgi: 'M', beagle: 'M',
     maltese: 'S', pom: 'S', yorkie: 'S', schnauzer: 'S', chihuahua: 'S' };
   for (var pk in PARAMS) PARAMS[pk].s = SIZE[PARAMS[pk].sp === 'cat' ? 'C' : (SIZE_OF[pk] || 'M')];
+  function B(o) {
+    var d = { sp: 'bird', s: 0.6, col: '#7ccf5a', col2: '#c9ec8a', col3: '#4a9a3a', hc: null, ck: null, bk: '#e8e0c8', crest: null, crestN: 0, tc: null, tail: 0.5, leg: '#9a8f8a', bars: false, cap: null, face: null, eye: '#14100e' };
+    for (var k in o) d[k] = o[k];
+    return d;
+  }
+  var EXO = {
+    cockatoo: B({ s: 0.72, col: '#fbfbf6', col2: '#ffffff', col3: '#f1f1ea', bk: '#2a2a2e', crest: '#f6d33a', crestN: 6, tail: 0.45 }),
+    grey: B({ s: 0.66, col: '#9aa0a8', col2: '#b8bdc4', col3: '#7b818a', bk: '#1f1f22', tc: '#d9332b', tail: 0.3, face: '#e9ecef' }),
+    myna: B({ s: 0.56, col: '#232326', col2: '#2e2e33', col3: '#1a1a1d', bk: '#f2c230', leg: '#f2c230', tail: 0.4, face: '#f2c230', wingSpot: '#ffffff' }),
+    monk: B({ s: 0.56, col: '#6ccf5a', col2: '#c9cdd2', col3: '#3f9a45', hc: '#cfd3d8', bk: '#e8b890', tc: '#3f9a45', tail: 0.6 }),
+    gcaique: B({ s: 0.54, col: '#62b84a', col2: '#fbfaf2', col3: '#4a9a3a', hc: '#f2a53a', bk: '#2f2f33', tc: '#62b84a', tail: 0.3, belly: true }),
+    bcaique: B({ s: 0.54, col: '#62b84a', col2: '#fbfaf2', col3: '#4a9a3a', hc: '#f2a53a', cap: '#1f1f22', bk: '#2f2f33', tc: '#62b84a', tail: 0.3, belly: true }),
+    lory: B({ s: 0.54, col: '#3fae4a', col2: '#ef5a2a', col3: '#2f8a3a', hc: '#3f5fd0', bk: '#ef4a2a', tc: '#3fae4a', tail: 0.55, belly: true }),
+    budgie: B({ s: 0.48, col: '#7ccf5a', col2: '#8fdc62', col3: '#3b4a2a', hc: '#f6e45a', bk: '#e8c89a', tc: '#2f5fa8', tail: 0.8, bars: true, ck: '#3a5fd0' }),
+    tielk: B({ s: 0.52, col: '#8e9096', col2: '#9a9ca2', col3: '#7a7c82', hc: '#f6e06a', ck: '#f08a3a', crest: '#b8b0a0', crestN: 3, bk: '#9a9a9e', tc: '#6e7076', tail: 1.0, wingSpot: '#ffffff' }),
+    tielw: B({ s: 0.52, col: '#fbfaf4', col2: '#ffffff', col3: '#f1efe6', hc: '#ffffff', crest: '#fbfaf4', crestN: 3, bk: '#e8d8c8', tc: '#f1efe6', tail: 1.0, eye: '#5a1f2a' }),
+    tiely: B({ s: 0.52, col: '#f6eab0', col2: '#fbf2c8', col3: '#efdf98', hc: '#f9e66a', ck: '#f08a3a', crest: '#f6e06a', crestN: 3, bk: '#e8d8c8', tc: '#efdf98', tail: 1.0, eye: '#5a1f2a' }),
+    slider: { sp: 'turtle', s: 0.62, col: '#5f8a3a', col2: '#e3d27a', col3: '#3f5f2a', skin: '#6f9a4a', ear: '#d9332b' },
+    leo: { sp: 'gecko', s: 0.58, col: '#f2c54a', col2: '#fbe9b0', col3: '#3a2a22', skin: '#f2c54a' }
+  };
+  for (var ek in EXO) PARAMS[ek] = EXO[ek];
+  PARAMS.munchkin = D({ sp: 'cat', s: SIZE.C, w: 0.95, leg: 0.42, snout: 0.03, ear: 'cat', col: '#f2c26b', col2: '#fbe3b0', col3: '#d99a3a', stripes: true });
+
+  function faceKit(head, U, hr, eyeAt, eyeR, eyeCol, ckCol) {
+    [-1, 1].forEach(function (sd) {
+      var r = eyeR;
+      var e = mesh(sph(r), eyeCol || '#14100e', sd * eyeAt[0], eyeAt[1], eyeAt[2], 1, 1, 0.6);
+      e.rotation.y = sd * 0.9;
+      e.add(mesh(sph(r * 0.38), '#ffffff', r * 0.3, r * 0.36, r * 0.62, 1, 1, 0.6));
+      head.add(e); U.eyes.push(e);
+      var bg = new T.Group(); bg.visible = false; head.add(bg); U.brows.push(bg);
+      var ch = new T.Mesh(new T.CircleGeometry(hr * 0.2, 16), new T.MeshBasicMaterial({ color: new T.Color(ckCol || '#ff7aa2'), transparent: true, opacity: 0.3 }));
+      ch.position.set(sd * hr * 0.78, -hr * 0.12, hr * 0.32); ch.rotation.y = sd * 1.25;
+      if (!ckCol) ch.visible = false;
+      head.add(ch); U.cheeks.push(ch);
+      var eg = new T.Group(); eg.userData = { side: sd, kind: 'hang' }; head.add(eg); U.ears.push(eg);
+    });
+    var mo = new T.Group(); head.add(mo); U.mouth = mo;
+    var tg = new T.Group(); tg.visible = false; head.add(tg); U.teeth = tg;
+  }
+  function limb(g, U, pr, x, y, z, len, r, col, front, toes) {
+    var pv = new T.Group(); pv.position.set(x, y, z);
+    pv.add(mesh(new T.CapsuleGeometry(r, Math.max(0.02, len - r * 2), 5, 10), col, 0, -len / 2, 0, 1, 1, 1, 0.07));
+    var pwY = -len + r * 0.4, cl = [];
+    (toes || [-0.6, 0, 0.6]).forEach(function (cx) {
+      var c = mesh(new T.ConeGeometry(r * 0.35, r * 1.6, 6), front && pr.sp === 'bird' ? pr.leg : '#fbfbf4', cx * r * 1.4, pwY, r * 1.2);
+      c.rotation.x = Math.PI / 2 + 0.3; c.rotation.y = cx * 0.5; pv.add(c); cl.push(c);
+    });
+    if (front) { (U.claws = U.claws || []).push(cl); U.pawY = pwY; U.legR = r; U.legLen = len; }
+    g.add(pv); U.legs.push(pv);
+    return pv;
+  }
+  function buildBird(p, pr) {
+    var bc = p.bcs || 5, bw = 0.7 + 0.06 * bc;
+    var tw = 0.3 * bw, th = 0.36, tl = 0.34 * (0.9 + 0.02 * bc), leg = 0.26, hr = 0.24;
+    var g = new T.Group();
+    var U = { pr: pr, th: th, tl: tl, tw: tw, leg: leg, hr: hr, legs: [], ears: [], brows: [], cheeks: [], eyes: [], bird: true };
+    var upper = new T.Group(); upper.position.y = leg + th * 0.8; g.add(upper); U.upper = upper; U.upperBase = upper.position.y;
+    var torso = mesh(sph(1), pr.col, 0, 0, 0, tw, th, tl, 0.04); torso.rotation.x = -0.55; upper.add(torso); U.torso = torso;
+    var bel = mesh(sph(1), pr.col2, 0, -th * 0.12, tl * 0.32, tw * 0.82, th * 0.8, tl * 0.62); bel.rotation.x = -0.55; upper.add(bel);
+    U.wings = [];
+    [-1, 1].forEach(function (sd) {
+      var wp = new T.Group(); wp.position.set(sd * tw * 0.86, th * 0.35, -tl * 0.05); upper.add(wp);
+      var w = mesh(sph(1), pr.col3, 0, -th * 0.45, -tl * 0.18, tw * 0.28, th * 0.78, tl * 0.75, 0.05); w.rotation.x = -0.5; wp.add(w);
+      if (pr.wingSpot) wp.add(mesh(sph(1), pr.wingSpot, sd * tw * 0.12, -th * 0.2, tl * 0.05, tw * 0.1, th * 0.22, tl * 0.26));
+      if (pr.bars) for (var i = 0; i < 4; i++) wp.add(mesh(new T.BoxGeometry(0.01, 0.012, tl * 0.9), '#1f2a14', sd * tw * 0.2, -th * (0.15 + i * 0.2), -tl * 0.15));
+      wp.rotation.z = sd * 0.05; U.wings.push(wp);
+    });
+    limb(g, U, pr, -tw * 0.42, leg + 0.02, tl * 0.05, leg, 0.035, pr.leg, true, [-0.7, 0, 0.7]);
+    limb(g, U, pr, tw * 0.42, leg + 0.02, tl * 0.05, leg, 0.035, pr.leg, true, [-0.7, 0, 0.7]);
+    var d1 = new T.Group(), d2 = new T.Group(); g.add(d1); g.add(d2); U.legs.push(d1, d2);
+    var head = new T.Group(); head.position.set(0, th * 0.95, tl * 0.42); upper.add(head); U.head = head; U.headBase = head.position.y;
+    head.add(mesh(sph(hr), pr.hc || pr.col, 0, 0, 0, 1, 1, 1, 0.045));
+    if (pr.face) head.add(mesh(sph(hr * 0.5), pr.face, 0, 0, hr * 0.62, 1.2, 1, 0.5));
+    if (pr.cap) { var cp = new T.SphereGeometry(1, 18, 10, 0, Math.PI * 2, 0, 1.1); head.add(mesh(cp, toon(pr.cap, { side: T.DoubleSide }), 0, hr * 0.05, -hr * 0.05, hr * 1.03, hr * 1.03, hr * 1.03)); }
+    if (pr.bars) for (var b = 0; b < 4; b++) { var br = mesh(new T.TorusGeometry(hr * 0.9, 0.008, 4, 20, Math.PI * 0.7), '#1f2a14', 0, hr * (0.15 - b * 0.17), -hr * 0.25); br.rotation.set(Math.PI / 2 - 0.4, 0, Math.PI * 1.15); head.add(br); }
+    var bk = new T.ConeGeometry(hr * 0.36, hr * 0.72, 10); bk.rotateX(Math.PI / 2 + 0.5);
+    head.add(mesh(bk, pr.bk, 0, -hr * 0.18, hr * 0.95, 1, 1, 1, 0.06));
+    var jaw = mesh(sph(hr * 0.14), '#5a2a30', 0, -hr * 0.42, hr * 0.82, 1, 0.01, 0.8);
+    head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.14;
+    faceKit(head, U, hr, [hr * 0.6, hr * 0.15, hr * 0.62], hr * 0.17, pr.eye, pr.ck);
+    if (pr.crest) for (var c = 0; c < pr.crestN; c++) {
+      var f = (c / Math.max(1, pr.crestN - 1)) - 0.5, cl = pr.crestN > 3 ? 0.75 : 0.62;
+      var cg = new T.ConeGeometry(hr * 0.09, hr * cl * 1.6, 6); cg.translate(0, hr * cl * 0.8, 0);
+      var cm = mesh(cg, pr.crest, f * hr * 0.35, hr * 0.75, hr * 0.15 - Math.abs(f) * hr * 0.1, 1, 1, 0.7, 0.06);
+      cm.rotation.x = -0.45 - c * 0.08; cm.rotation.z = -f * 0.6; head.add(cm);
+    }
+    var tail = new T.Group(); tail.position.set(0, -th * 0.55, -tl * 0.8); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
+    var tlen = 0.18 + pr.tail * 0.42, tg2 = new T.BoxGeometry(tw * 0.6, tlen, 0.03); tg2.translate(0, tlen / 2, 0);
+    tail.add(mesh(tg2, pr.tc || pr.col3, 0, 0, 0, 1, 1, 1, 0.06));
+    tail.rotation.x = -2.35; U.tailBase = tail.rotation.x;
+    g.scale.setScalar(pr.s); U.scale = pr.s; g.userData = U;
+    return g;
+  }
+  function buildTurtle(p, pr) {
+    var bc = p.bcs || 5, bw = 0.8 + 0.04 * bc;
+    var tw = 0.42 * bw, th = 0.2 * (0.85 + 0.03 * bc), tl = 0.5, leg = 0.12, hr = 0.13;
+    var g = new T.Group();
+    var U = { pr: pr, th: th, tl: tl, tw: tw, leg: leg, hr: hr, legs: [], ears: [], brows: [], cheeks: [], eyes: [], reptile: true };
+    var upper = new T.Group(); upper.position.y = leg + 0.02; g.add(upper); U.upper = upper; U.upperBase = upper.position.y;
+    var dome = new T.SphereGeometry(1, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2);
+    var torso = mesh(dome, pr.col, 0, 0, 0, tw, th * 1.6, tl, 0.035); upper.add(torso); U.torso = torso;
+    upper.add(mesh(new T.CylinderGeometry(1, 1, 0.04, 24), pr.col2, 0, 0, 0, tw * 1.01, 1, tl * 1.01));
+    [[0, 0.9, 0], [0.45, 0.65, 0.45], [-0.45, 0.65, 0.45], [0.45, 0.65, -0.45], [-0.45, 0.65, -0.45], [0, 0.7, 0.55], [0, 0.7, -0.55]].forEach(function (q) {
+      var sc = mesh(new T.CircleGeometry(0.2, 6), toon(pr.col3, { side: T.DoubleSide }), q[0] * tw * 0.75, q[1] * th * 1.6, q[2] * tl * 0.8, tw, 1, tl);
+      sc.lookAt(new T.Vector3(q[0] * 4, q[1] * 4 + 2, q[2] * 4)); sc.scale.set(tw * 1.2, tl * 1.2, 1); upper.add(sc);
+      var ln = mesh(new T.TorusGeometry(0.2, 0.012, 4, 6), pr.col2, 0, 0, 0.002); sc.add(ln);
+    });
+    [[-1, 1], [1, 1], [-1, -1], [1, -1]].forEach(function (lp) {
+      limb(g, U, pr, lp[0] * tw * 0.72, leg + 0.04, lp[1] * tl * 0.62, leg + 0.04, 0.05, pr.skin, lp[1] > 0, [-0.6, 0, 0.6]);
+    });
+    var head = new T.Group(); head.position.set(0, th * 0.35, tl * 1.0); upper.add(head); U.head = head; U.headBase = head.position.y;
+    var neck = mesh(new T.CapsuleGeometry(hr * 0.55, hr * 0.8, 4, 10), pr.skin, 0, -hr * 0.2, -hr * 0.8, 1, 1, 1, 0.05); neck.rotation.x = Math.PI / 2 - 0.3; head.add(neck);
+    head.add(mesh(sph(hr), pr.skin, 0, 0, 0, 0.95, 0.85, 1.25, 0.05));
+    [-1, 1].forEach(function (sd) {
+      head.add(mesh(sph(hr * 0.32), pr.ear, sd * hr * 0.78, -hr * 0.02, -hr * 0.35, 0.4, 0.7, 1.4));
+      for (var i = 0; i < 2; i++) head.add(mesh(new T.CapsuleGeometry(hr * 0.05, hr * 0.9, 3, 6), pr.col2, sd * hr * 0.72, -hr * (0.35 + i * 0.22), -hr * 0.2, 1, 1, 1).rotateX(Math.PI / 2));
+    });
+    var jaw = mesh(sph(hr * 0.3), '#7a3a3a', 0, -hr * 0.35, hr * 0.85, 1, 0.01, 0.6); head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.3;
+    faceKit(head, U, hr, [hr * 0.55, hr * 0.28, hr * 0.7], hr * 0.2, '#1a1410', null);
+    var tail = new T.Group(); tail.position.set(0, 0.02, -tl * 0.98); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
+    var tg = new T.ConeGeometry(0.04, 0.16, 8); tg.translate(0, 0.08, 0); tail.add(mesh(tg, pr.skin, 0, 0, 0, 1, 1, 1, 0.06));
+    tail.rotation.x = -1.75; U.tailBase = tail.rotation.x;
+    g.scale.setScalar(pr.s); U.scale = pr.s; g.userData = U;
+    return g;
+  }
+  function buildGecko(p, pr) {
+    var bc = p.bcs || 5, bw = 0.7 + 0.06 * bc;
+    var tw = 0.17 * bw, th = 0.12 * (0.85 + 0.03 * bc), tl = 0.42, leg = 0.13, hr = 0.15;
+    var g = new T.Group();
+    var U = { pr: pr, th: th, tl: tl, tw: tw, leg: leg, hr: hr, legs: [], ears: [], brows: [], cheeks: [], eyes: [], reptile: true };
+    var upper = new T.Group(); upper.position.y = leg * 0.75 + th * 0.6; g.add(upper); U.upper = upper; U.upperBase = upper.position.y;
+    var torso = mesh(sph(1), pr.col, 0, 0, 0, tw, th, tl, 0.04); upper.add(torso); U.torso = torso;
+    upper.add(mesh(sph(1), pr.col2, 0, -th * 0.35, 0, tw * 0.9, th * 0.7, tl * 0.95));
+    [[0.4, 0.5], [-0.5, 0.2], [0.2, -0.1], [-0.3, -0.45], [0.55, -0.4], [0, 0.75], [-0.2, 0.45]].forEach(function (q) {
+      upper.add(mesh(sph(0.022), pr.col3, q[0] * tw * 0.7, th * 0.86, q[1] * tl * 0.85, 1, 0.4, 1));
+    });
+    [[-1, 1], [1, 1], [-1, -1], [1, -1]].forEach(function (lp) {
+      var pv = limb(g, U, pr, lp[0] * tw * 0.95, leg * 0.9, lp[1] * tl * 0.55, leg, 0.032, pr.skin, lp[1] > 0, [-0.9, -0.3, 0.3, 0.9]);
+      pv.children[0].rotation.z = -lp[0] * 0.5; pv.children[0].position.x = lp[0] * leg * 0.2;
+    });
+    var head = new T.Group(); head.position.set(0, th * 0.25, tl * 1.02); upper.add(head); U.head = head; U.headBase = head.position.y;
+    head.add(mesh(sph(hr), pr.col, 0, 0, 0, 1.05, 0.62, 1.15, 0.045));
+    [[0.4, 0.2], [-0.35, 0.3], [0, -0.2]].forEach(function (q) { head.add(mesh(sph(0.018), pr.col3, q[0] * hr, hr * 0.55, q[1] * hr, 1, 0.4, 1)); });
+    var jaw = mesh(sph(hr * 0.32), '#e88a9a', 0, -hr * 0.3, hr * 0.75, 1.4, 0.01, 0.6); head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.32;
+    faceKit(head, U, hr, [hr * 0.62, hr * 0.28, hr * 0.42], hr * 0.27, '#2a2420', null);
+    var tail = new T.Group(); tail.position.set(0, 0, -tl * 0.9); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
+    var tg = new T.CapsuleGeometry(tw * 0.62, 0.42, 6, 12); tg.translate(0, 0.27, 0); tail.add(mesh(tg, pr.col, 0, 0, 0, 1, 1, 0.8, 0.05));
+    for (var i = 0; i < 3; i++) { var bd = mesh(new T.CylinderGeometry(tw * 0.62, tw * 0.62, 0.04, 14, 1, true), toon(pr.col3, { side: T.DoubleSide }), 0, 0.14 + i * 0.13, 0, 1.03 - i * 0.12, 1, 0.83 - i * 0.1); tail.add(bd); }
+    tail.rotation.x = -1.6; U.tailBase = tail.rotation.x;
+    g.scale.setScalar(pr.s); U.scale = pr.s; g.userData = U;
+    return g;
+  }
   function buildPet(p, ageF) {
-    var pr = PARAMS[p.breedId] || PARAMS.mixdog;
+    var pr = PARAMS[p.breedId] || PARAMS.mixdog, eg0;
+    if (pr.sp === 'bird' || pr.sp === 'turtle' || pr.sp === 'gecko') {
+      eg0 = pr.sp === 'bird' ? buildBird(p, pr) : (pr.sp === 'turtle' ? buildTurtle(p, pr) : buildGecko(p, pr));
+      var s0 = pr.s * ageF; eg0.scale.setScalar(s0); eg0.userData.scale = s0; return eg0;
+    }
     var bc = p.bcs || 5, mus = p.muscle || 0;
     var bw = (0.65 + 0.07 * bc) * (1 + 0.05 * mus) * (pr.fluffy ? 1.1 : 1);
     var bh = (0.84 + 0.032 * bc) * (1 + 0.03 * mus);
@@ -256,6 +413,88 @@
     return t;
   }
 
+  function glass(op) { return new T.MeshToonMaterial({ color: 0xdff3ff, gradientMap: grad(), transparent: true, opacity: op || 0.28, depthWrite: false, side: T.DoubleSide }); }
+  function cageMesh(g, w, h, d, col, y0) {
+    var bars = Math.round(w * 22), i;
+    g.add(mesh(new T.BoxGeometry(w, 0.06, d), col, 0, y0 + 0.03, 0, 1, 1, 1, 0.03));
+    g.add(mesh(new T.BoxGeometry(w + 0.02, 0.03, d + 0.02), col, 0, y0 + h, 0));
+    var top = new T.SphereGeometry(1, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+    g.add(mesh(top, toon(col, { side: T.DoubleSide, transparent: true, opacity: 0.18 }), 0, y0 + h, 0, w * 0.5, h * 0.2, d * 0.5));
+    for (i = 0; i <= bars; i++) {
+      var x = -w / 2 + w * i / bars;
+      g.add(mesh(new T.CylinderGeometry(0.008, 0.008, h, 4), col, x, y0 + h / 2, d / 2));
+      g.add(mesh(new T.CylinderGeometry(0.008, 0.008, h, 4), col, x, y0 + h / 2, -d / 2));
+    }
+    for (i = 0; i <= Math.round(d * 22); i++) {
+      var z = -d / 2 + d * i / Math.round(d * 22);
+      g.add(mesh(new T.CylinderGeometry(0.008, 0.008, h, 4), col, w / 2, y0 + h / 2, z));
+      g.add(mesh(new T.CylinderGeometry(0.008, 0.008, h, 4), col, -w / 2, y0 + h / 2, z));
+    }
+    var pc = mesh(new T.CylinderGeometry(0.02, 0.02, w * 0.9, 6), '#a57b4a', 0, y0 + h * 0.35, 0); pc.rotation.z = Math.PI / 2; g.add(pc);
+  }
+  function boxMesh(g, w, h, d, y0, wallMat, frame, extra) {
+    g.add(mesh(new T.BoxGeometry(w, 0.05, d), frame, 0, y0 + 0.025, 0, 1, 1, 1, 0.03));
+    var wm = wallMat;
+    [[0, d / 2, 0], [0, -d / 2, 0], [w / 2, 0, 1], [-w / 2, 0, 1]].forEach(function (q) {
+      var pl = new T.Mesh(new T.PlaneGeometry(q[2] ? d : w, h), wm); pl.position.set(q[2] ? q[0] : 0, y0 + h / 2, q[2] ? 0 : q[1]);
+      if (q[2]) pl.rotation.y = Math.PI / 2; g.add(pl);
+    });
+    if (frame) {
+      [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (c) { g.add(mesh(new T.BoxGeometry(0.03, h, 0.03), frame, c[0] * w / 2, y0 + h / 2, c[1] * d / 2)); });
+      [-1, 1].forEach(function (sd) { g.add(mesh(new T.BoxGeometry(w, 0.03, 0.03), frame, 0, y0 + h, sd * d / 2)); g.add(mesh(new T.BoxGeometry(0.03, 0.03, d), frame, sd * w / 2, y0 + h, 0)); });
+    }
+    if (extra === 'soil' || extra === 'water') {
+      g.add(mesh(new T.BoxGeometry(w * 0.96, 0.06, d * 0.96), extra === 'soil' ? '#b5814a' : '#7cc4e8', 0, y0 + 0.08, 0));
+    }
+    if (extra === 'soil') {
+      g.add(mesh(new T.SphereGeometry(0.13, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), '#7a5a3a', w * 0.28, y0 + 0.1, -d * 0.25, 1, 0.9, 1, 0.04));
+      [[-0.3, -0.3], [-0.25, 0.3]].forEach(function (q) { var pl = mesh(new T.ConeGeometry(0.05, 0.22, 5), '#4caf50', q[0] * w, y0 + 0.22, q[1] * d); g.add(pl); });
+    }
+    if (extra === 'water') g.add(mesh(new T.BoxGeometry(w * 0.3, 0.12, d * 0.3), '#9a9aa0', -w * 0.25, y0 + 0.12, -d * 0.2, 1, 1, 1, 0.03));
+  }
+  function wheelBase(g, w, d, y, handle) {
+    var frame = '#3a3f4a';
+    g.add(mesh(new T.BoxGeometry(w, 0.05, d), '#5a606c', 0, y, 0, 1, 1, 1, 0.03));
+    [[-1, 1], [1, 1], [-1, -1], [1, -1]].forEach(function (c) {
+      var wh = mesh(new T.TorusGeometry(0.11, 0.04, 8, 16), '#22252b', c[0] * (w / 2 + 0.02), 0.15, c[1] * d * 0.38); wh.rotation.y = Math.PI / 2; g.add(wh);
+      g.add(mesh(new T.CylinderGeometry(0.02, 0.02, y - 0.15, 6), frame, c[0] * w * 0.45, (y + 0.15) / 2, c[1] * d * 0.38));
+    });
+    if (handle) {
+      var hd = mesh(new T.CylinderGeometry(0.025, 0.025, w, 8), frame, 0, 1.15, -d / 2 - 0.3); hd.rotation.z = Math.PI / 2; g.add(hd);
+      [-1, 1].forEach(function (sd) { var b = mesh(new T.CylinderGeometry(0.022, 0.022, 0.75, 8), frame, sd * w * 0.45, (1.15 + y) / 2, -d / 2 - 0.15); b.rotation.x = -0.45; g.add(b); });
+    }
+  }
+  function container(kind) {
+    var g = new T.Group(), y = 0.5, home = /Home$/.test(kind), k = kind.replace('Home', '');
+    if (home) y = 0;
+    if (k === 'cageS' || k === 'cageL') {
+      var L = k === 'cageL', w = L ? 1.1 : 0.7, h = L ? 1.5 : 0.85, d = L ? 0.8 : 0.55;
+      if (!home) { w *= 0.9; h *= 0.75; d *= 0.95; }
+      else {
+        y = L ? 0.35 : 0.6;
+        g.add(mesh(new T.BoxGeometry(w + 0.12, 0.05, d + 0.12), '#a57b4a', 0, y - 0.025, 0, 1, 1, 1, 0.03));
+        [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (c) { g.add(mesh(new T.CylinderGeometry(0.03, 0.03, y, 6), '#8a6236', c[0] * w * 0.45, y / 2, c[1] * d * 0.45)); });
+      }
+      cageMesh(g, w, h, d, L ? '#e8e8f0' : '#c9a96a', y);
+      g.userData = { seatY: y + 0.06, w: w, d: d, perchY: y + h * 0.35 };
+    } else if (k === 'tub') {
+      boxMesh(g, 0.75, 0.4, 1.0, y, new T.MeshToonMaterial({ color: 0x9ad0f0, gradientMap: grad(), transparent: true, opacity: 0.45, depthWrite: false, side: T.DoubleSide }), '#4a8ac8', home ? 'water' : '');
+      g.userData = { seatY: y + 0.05 + (home ? 0.06 : 0) };
+    } else if (k === 'steel') {
+      boxMesh(g, 0.8, 0.45, 1.05, y, glass(0.22), '#c9ced6', 'water');
+      g.userData = { seatY: y + 0.11 };
+    } else if (k === 'box') {
+      boxMesh(g, 0.55, 0.32, 0.75, y, new T.MeshToonMaterial({ color: 0xf2e6c8, gradientMap: grad(), transparent: true, opacity: 0.5, depthWrite: false, side: T.DoubleSide }), '#c9a96a', '');
+      g.add(mesh(new T.BoxGeometry(0.57, 0.03, 0.77), toon('#f2e6c8', { transparent: true, opacity: 0.5 }), 0, y + 0.33, 0));
+      g.userData = { seatY: y + 0.05 };
+    } else {
+      boxMesh(g, 0.8, 0.5, 1.05, y, glass(0.22), '#2f2f33', 'soil');
+      g.userData = { seatY: y + 0.11 };
+    }
+    if (!home) wheelBase(g, k === 'cageL' ? 1.05 : 0.85, k === 'cageL' ? 0.85 : 1.1, y, true);
+    if (!home) g.userData.handleZ = -(k === 'cageL' ? 0.85 : 1.1) / 2 - 0.3;
+    return g;
+  }
   function buildRoom(scene) {
     var r = new T.Group();
     var floor = new T.Mesh(new T.PlaneGeometry(14, 9), new T.MeshBasicMaterial({ map: woodTex() }));
@@ -313,6 +552,22 @@
     scr.add(mesh(new T.BoxGeometry(0.72, 0.06, 1.15), '#a57b4a', 0, 0.03, 0.05));
     scr.visible = false; r.add(scr); r.userData.scr = scr;
     r.userData.bowl = bowl1; r.userData.food = bowl1.children[bowl1.children.length - 1];
+    r.userData.bed = bed;
+    var hp = { x: -3.6, z: -1.8 };
+    function homeAt(gp) { gp.position.set(hp.x, 0, hp.z); gp.visible = false; r.add(gp); return gp; }
+    r.userData.cageS = homeAt(container('cageSHome')); r.userData.cageL = homeAt(container('cageLHome'));
+    r.userData.tub = homeAt(container('tubHome')); r.userData.box = homeAt(container('boxHome')); r.userData.terra = homeAt(container('terraHome'));
+    var perch = new T.Group(); perch.position.set(-1.6, 0, -1.9);
+    perch.add(mesh(new T.CylinderGeometry(0.35, 0.4, 0.06, 16), '#8a6236', 0, 0.03, 0));
+    perch.add(mesh(new T.CylinderGeometry(0.035, 0.035, 1.0, 8), '#a57b4a', 0, 0.5, 0));
+    var bar2 = mesh(new T.CylinderGeometry(0.03, 0.03, 0.8, 8), '#a57b4a', 0, 1.0, 0); bar2.rotation.z = Math.PI / 2; perch.add(bar2);
+    perch.visible = false; r.add(perch); r.userData.perch = perch;
+    var uvb = new T.Group(); uvb.position.set(-3.6, 0, -1.8);
+    uvb.add(mesh(new T.CylinderGeometry(0.02, 0.02, 1.6, 6), '#3a3a42', 0.75, 0.8, -0.5));
+    var arm = mesh(new T.CylinderGeometry(0.018, 0.018, 0.75, 6), '#3a3a42', 0.4, 1.6, -0.5); arm.rotation.z = Math.PI / 2; uvb.add(arm);
+    uvb.add(mesh(new T.ConeGeometry(0.16, 0.18, 14, 1, true), toon('#c9c9cf', { side: T.DoubleSide }), 0.05, 1.5, -0.5));
+    uvb.add(new T.Mesh(new T.SphereGeometry(0.07, 10, 8), new T.MeshBasicMaterial({ color: 0xd9c8ff })).translateX(0.05).translateY(1.45).translateZ(-0.5));
+    uvb.visible = false; r.add(uvb); r.userData.uvb = uvb;
     scene.add(r); return r;
   }
   function heartGeo() {
@@ -334,6 +589,25 @@
     } else if (id === 'puree') {
       var tube = new T.CylinderGeometry(0.035, 0.035, 0.28, 10); tube.rotateZ(Math.PI / 2);
       g.add(mesh(tube, '#ffffff', 0, 0.04, 0, 1, 1, 1, 0.08)); g.add(mesh(sph(0.05), '#e3a07a', 0.17, 0.035, 0, 1, 0.6, 1));
+    } else if (id === 'sunseed') {
+      for (var q = 0; q < 5; q++) { var sd2 = mesh(sph(0.03), q % 2 ? '#3a3a3e' : '#5a5a60', Math.cos(q * 1.3) * 0.06, 0.02, Math.sin(q * 1.3) * 0.05, 0.7, 0.4, 1.4, 0.1); sd2.rotation.y = q; g.add(sd2); }
+    } else if (id === 'mineral') {
+      g.add(mesh(new T.CylinderGeometry(0.05, 0.05, 0.22, 10), '#e8e2d0', 0, 0.11, 0, 1, 1, 1, 0.06)); g.add(mesh(new T.CylinderGeometry(0.008, 0.008, 0.12, 4), '#a57b4a', 0, 0.27, 0));
+    } else if (id === 'millet') {
+      var st = new T.CylinderGeometry(0.008, 0.008, 0.3, 4); st.rotateZ(Math.PI / 2); g.add(mesh(st, '#c9a96a', 0, 0.03, 0));
+      for (var m2 = 0; m2 < 8; m2++) g.add(mesh(sph(0.025), '#f2d36a', -0.1 + m2 * 0.025, 0.04, (m2 % 2 ? 1 : -1) * 0.012));
+    } else if (id === 'fruit' || id === 'leaf') {
+      if (id === 'fruit') for (var f2 = 0; f2 < 3; f2++) g.add(mesh(new T.BoxGeometry(0.05, 0.05, 0.05), f2 ? '#fff3d0' : '#e74c3c', (f2 - 1) * 0.07, 0.025, 0, 1, 1, 1, 0.08));
+      else { var lf = mesh(sph(0.1), '#5fa84a', 0, 0.015, 0, 1, 0.12, 1.6, 0.06); g.add(lf); g.add(mesh(sph(0.06), '#4f9a3c', 0.07, 0.02, 0.05, 1, 0.12, 1.4)); }
+    } else if (id === 'shrimp') {
+      var sh = mesh(new T.TorusGeometry(0.05, 0.022, 6, 12, Math.PI * 1.3), '#ef8a4a', 0, 0.025, 0, 1, 1, 1, 0.08); sh.rotation.x = Math.PI / 2; g.add(sh);
+    } else if (id === 'worm' || id === 'mealworm' || id === 'superworm' || id === 'silkworm') {
+      var wc = { worm: '#d98a8a', mealworm: '#d9a85a', superworm: '#b8823a', silkworm: '#f2efe6' }[id], ws = id === 'superworm' ? 1.4 : (id === 'mealworm' ? 0.9 : 1.1);
+      var wg = new T.CapsuleGeometry(0.02 * ws, 0.14 * ws, 4, 8); wg.rotateZ(Math.PI / 2);
+      var wm = mesh(wg, wc, 0, 0.022 * ws, 0, 1, 1, 1, 0.08); g.add(wm);
+      for (var b2 = 0; b2 < 4; b2++) wm.add(mesh(new T.TorusGeometry(0.021 * ws, 0.004, 4, 10), '#7a5a3a', (-0.05 + b2 * 0.033) * ws, 0, 0, 1, 1, 1).rotateY(Math.PI / 2));
+    } else if (id === 'dubia') {
+      g.add(mesh(sph(0.06), '#5a3a22', 0, 0.025, 0, 0.8, 0.35, 1.2, 0.08));
     } else {
       g.add(mesh(new T.CylinderGeometry(0.07, 0.07, 0.03, 12), id === 'cbiscuit' ? '#e8b35a' : '#c98a3a', 0, 0.02, 0, 1, 1, 1, 0.08));
     }
@@ -393,6 +667,12 @@
   Stage.prototype.syncProps = function (p, fresh) {
     var U = this.pet.userData, R = this.room.userData, cat = (PARAMS[p.breedId] || {}).sp === 'cat';
     R.toy.visible = !!(p.items && p.items.toy); R.scr.visible = !!(p.items && p.items.scratcher && cat);
+    var sp = (PARAMS[p.breedId] || {}).sp || 'dog', it = p.items || {};
+    R.bed.visible = sp === 'dog' || sp === 'cat';
+    R.cageS.visible = sp === 'bird' && !it.stroller; R.cageL.visible = sp === 'bird' && !!it.stroller;
+    R.perch.visible = sp === 'bird' && !!it.harness;
+    R.tub.visible = sp === 'turtle'; R.box.visible = sp === 'gecko' && !it.stroller; R.terra.visible = sp === 'gecko' && !!it.stroller;
+    R.uvb.visible = !!it.uvb && (sp === 'turtle' || sp === 'gecko');
     if (this.tr && this.tr.kind === 'nails') return;
     if (U.claws && root.PetCore) {
       var grown = Math.min(1, (Date.now() - (p.nailTs || Date.now())) / (root.PetCore.CFG.nailDays * 86400000));
@@ -815,6 +1095,7 @@
       else if (d.type === 'nails') stage.trick('nails');
       else if (d.type === 'toy') stage.trick('toy');
       else if (d.type === 'scratch') stage.trick('scratch');
+      else if (d.type === 'bask') { stage.jump(); stage.hearts(3, stage.headPos().add(new T.Vector3(0, 0.3, 0))); }
       else if (d.type === 'play') stage.jump();
     });
     root.Pet3D.stage = function () { return stage; };
@@ -827,7 +1108,7 @@
   }
 
   root.Pet3D = { mount: mount, autoMood: autoMood, loadThree: loadThree, PARAMS: PARAMS, _setThree: function (m) { T = m; },
-    _i: function () { return { T: T, buildPet: buildPet, toon: toon, mesh: mesh, sph: sph, snackMesh: snackMesh, heartGeo: heartGeo }; } };
+    _i: function () { return { T: T, container: container, buildPet: buildPet, toon: toon, mesh: mesh, sph: sph, snackMesh: snackMesh, heartGeo: heartGeo }; } };
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   }
