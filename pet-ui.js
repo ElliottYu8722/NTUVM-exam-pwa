@@ -395,7 +395,7 @@
     body.appendChild(seg);
     var grid = h('div', { class: 'breeds', style: 'margin-top:12px' });
     C.BREEDS.filter(function (b) { return b.sp === adoptSp; }).forEach(function (b) {
-      grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, '')]));
+      grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, ''), h('small', { text: b.sp === 'cat' ? '' : ({ hard: '大型犬', mid: '中型犬', easy: '小型犬' })[b.tier] || '', style: 'display:block;color:var(--sub);font-size:11px' })]));
     });
     body.appendChild(grid);
     if (adoptPick) {

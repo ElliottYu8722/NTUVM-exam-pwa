@@ -90,6 +90,11 @@
   }
   function sph(r) { return new T.SphereGeometry(r, 20, 14); }
 
+  var SIZE = { L: 1.1, M: 0.85, S: 0.55, C: 0.65 };
+  var SIZE_OF = { akita: 'L', doberman: 'L', labrador: 'L', golden: 'L', samoyed: 'L', gsd: 'L',
+    twnative: 'M', shiba: 'M', mixdog: 'M', twdog: 'M', corgi: 'M', beagle: 'M',
+    maltese: 'S', pom: 'S', yorkie: 'S', schnauzer: 'S', chihuahua: 'S' };
+  for (var pk in PARAMS) PARAMS[pk].s = SIZE[PARAMS[pk].sp === 'cat' ? 'C' : (SIZE_OF[pk] || 'M')];
   function buildPet(p, ageF) {
     var pr = PARAMS[p.breedId] || PARAMS.mixdog;
     var bc = p.bcs || 5, mus = p.muscle || 0;
@@ -128,11 +133,13 @@
 
     var legPos = [[-1, 1], [1, 1], [-1, -1], [1, -1]];
     legPos.forEach(function (lp) {
-      var pv = new T.Group(); pv.position.set(lp[0] * tw * 0.62, leg * 0.95, lp[1] * tl * 0.55);
-      var len = Math.max(0.05, leg * 0.95 - 2 * legR);
-      pv.add(mesh(new T.CapsuleGeometry(legR, len, 6, 12), pr.col, 0, -leg * 0.95 / 2, 0, 1, 1, 1, 0.07));
+      var lx = lp[0] * tw * 0.56, lz = lp[1] * tl * 0.52, pvY = leg * 0.9 + th * 0.42;
+      var pv = new T.Group(); pv.position.set(lx, pvY, lz);
+      var len = Math.max(0.05, pvY - legR * 1.6);
+      pv.add(mesh(new T.CapsuleGeometry(legR, len, 6, 12), pr.col, 0, (-pvY + legR * 0.6) / 2, 0, 1, 1, 1, 0.07));
+      upper.add(mesh(sph(legR * 1.35), pr.col, lx, -th * 0.5, lz, 1, 1.3, 1.1, 0.05));
       var paw = (pr.pts || pr.chest || pr.col2 !== pr.col) ? pr.col2 : pr.col;
-      var pwY = -leg * 0.95 + legR * 0.9;
+      var pwY = -pvY + legR * 0.9;
       pv.add(mesh(sph(legR * 1.15), paw, 0, pwY, legR * 0.35, 1, 0.8, 1.3));
       if (lp[1] > 0) {
         var cl = [];
@@ -141,7 +148,7 @@
           c.rotation.x = Math.PI / 2 + 0.5; pv.add(c); cl.push(c);
         });
         (U.claws = U.claws || []).push(cl);
-        U.pawY = pwY; U.legR = legR;
+        U.pawY = pwY; U.legR = legR; U.legLen = pvY;
       }
       g.add(pv); U.legs.push(pv);
     });
@@ -690,7 +697,7 @@
     }
     if (kind === 'shake' && this.hand) {
       var pp = new T.Vector3(); U.legs[1].getWorldPosition(pp);
-      var fy = tr.face, rch = U.leg * 0.95 * U.scale;
+      var fy = tr.face, rch = U.legLen * U.scale;
       var hx = pp.x + Math.sin(fy) * (rch + 0.08), hz = pp.z + Math.cos(fy) * (rch + 0.08);
       var hv = pw > 0.3; this.hand.visible = hv;
       this.hand.position.set(hx + Math.sin(fy) * (1 - pw) * 0.8, pp.y + Math.sin(this.t * 7) * 0.04 * U.scale, hz + Math.cos(fy) * (1 - pw) * 0.8);
