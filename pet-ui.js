@@ -323,14 +323,15 @@
       h('div', { class: 'name' }, [p.name]),
       h('div', { class: 'muted', text: b.name + '・' + C.ageText(p, t) + '・' + C.dayKey(p.adoptTs) + ' 領養' + (p.neutered ? '・已結紮' : '') }),
       stat('開心', Math.round(p.happy) + ' / ' + (happyCap ? C.CFG.capNoCare : 100), bar(p.happy, 'var(--pink)')),
-      stat('今日飼料', p.fed + ' / ' + N + ' 單位・' + p.meals + ' / ' + C.CFG.mealMax + ' 餐', bar(p.fed / N * 100, p.fed > N ? 'var(--warn)' : 'var(--ok)')),
+      stat('今日飼料', p.fed + ' / ' + N + ' 單位・' + p.meals + ' 餐', bar(p.fed / N * 100, p.fed > N ? 'var(--warn)' : 'var(--ok)')),
+      (function () { var ex = (p.excess || 0) + Math.max(0, p.fed - N), u = C.CFG.overUnit; return ex > 0 ? h('div', { class: 'muted', style: 'font-size:12px;margin-top:-2px', text: p.bcs >= 9 ? 'BCS 已到最高 9' : '累積多吃 ' + ex + ' 單位，滿 ' + u + ' 單位隔天 BCS +1（每天最多 +1）' }) : null; })(),
       stat('BCS', p.bcs + ' / 9 ' + C.bcsLabel(p.bcs) + (C.MUSCLE[p.muscle] && p.muscle ? '・' + C.MUSCLE[p.muscle] : ''), bcsBar(p.bcs))
     ]);
     if (happyCap) card.appendChild(h('div', { class: 'warn', text: '這個月的驅蟲或健康檢查還沒做，開心上限降為 ' + C.CFG.capNoCare + '。' }));
     body.appendChild(card);
 
-    var full = p.meals >= C.CFG.mealMax;
-    body.appendChild(h('div', { class: 'sec', text: '餵食' + (full ? '（今天三餐已吃完）' : '・每天約 ' + N + ' 單位') }));
+    var full = false;
+    body.appendChild(h('div', { class: 'sec', text: '餵食・每天約 ' + N + ' 單位，吃越多 BCS 越高' }));
     var g = h('div', { class: 'grid4' });
     C.MEALS.forEach(function (m) {
       var bt = h('button', { class: 'btn ' + (m.id === 'meal' ? '' : 'soft'), onclick: function () { var r = C.feed(S, p.id, m.id, now()); act(r, { type: 'feed', petId: p.id, food: r.food }); } }, [m.name, h('small', { text: m.price + ' 金幣・' + m.units + ' 單位' })]);
@@ -340,8 +341,8 @@
     if (full) cn.disabled = true; g.appendChild(cn);
     body.appendChild(g);
 
-    var snFull = p.snacks >= C.CFG.snackMax;
-    body.appendChild(h('div', { class: 'sec', text: '零食・每個 ' + C.CFG.snackPrice + ' 金幣・今天 ' + p.snacks + ' / ' + C.CFG.snackMax }));
+    var snFull = false;
+    body.appendChild(h('div', { class: 'sec', text: '零食・每個 ' + C.CFG.snackPrice + ' 金幣・今天 ' + p.snacks + ' 個' }));
     var sg = h('div', { class: 'snk' });
     C.snackList(p).forEach(function (x) {
       var bt = h('button', { onclick: function () { var r = C.snack(S, p.id, now(), x.id); act(r, { type: 'snack', petId: p.id, snack: x.id }); } }, [x.name, h('small', { text: '+' + C.CFG.snackGain + ' 開心' })]);
@@ -351,7 +352,7 @@
 
     body.appendChild(h('div', { class: 'sec', text: '互動' }));
     var ck = C.canPlay(p);
-    var gear = p.items.stroller && p.equip.stroller ? '推車' : (p.items.harness && p.equip.harness ? '胸背帶' : '');
+    var gear = p.items.stroller && p.equip.stroller ? '推車' : (p.items.harness && p.equip.harness ? '胸背帶' : '初級項圈');
     body.appendChild(h('button', { class: 'btn block', style: 'background:#3f8f63', onclick: function () { startPlay(p); } }, ['出門玩' + (gear ? '（' + gear + '）' : ''), h('small', { text: ck.ok ? '10 分鐘 +' + C.CFG.playGain + ' 開心' : ck.msg })]));
     var ac = h('div', { class: 'acts', style: 'margin-top:8px' });
     function aBtn(label, sub, fn, cls) { ac.appendChild(h('button', { class: 'btn ' + (cls || 'ghost'), onclick: fn }, [label, sub ? h('small', { text: sub }) : null])); }
@@ -442,6 +443,7 @@
         : buyBtn(price, function () { act(C.buyItem(S, p.id, k)); });
       row(card, icon, name + (p.items[k] && p.equip[k] ? '・裝備中' : ''), desc, right);
     }
+    row(card, '圈', '初級項圈' + (p.equip.harness || p.equip.stroller ? '' : '・使用中'), '一開始就有，可以直接出門散步', h('span', { class: 'muted', style: 'font-size:12px;white-space:nowrap', text: '已擁有' }));
     gearRow('harness', '帶', '胸背帶', '裝備後可以出門散步', C.CFG.harnessPrice);
     gearRow('stroller', '車', '外出推車', '裝備後用推車出門，BCS 8 以上也能出門，不計入減重', C.CFG.strollerPrice);
     body.appendChild(h('div', { class: 'sec', text: '外出' }));

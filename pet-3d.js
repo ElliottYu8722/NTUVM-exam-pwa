@@ -227,6 +227,10 @@
     if (p.items && p.items.harness && (!p.equip || p.equip.harness)) {
       var hm = mesh(new T.TorusGeometry(1, 0.05, 8, 28), '#e03b3b', 0, 0, tl * 0.5, tw * 0.9, th * 0.9, 1);
       upper.add(hm);
+    } else if (!(p.equip && p.equip.stroller && p.items && p.items.stroller)) {
+      var cl = mesh(new T.TorusGeometry(1, 0.13, 8, 28), '#2f7de1', 0, -hr * 0.5, -hr * 0.22, hr * 0.93, hr * 0.93, hr * 0.93);
+      cl.rotation.x = 1.15; head.add(cl);
+      head.add(mesh(sph(hr * 0.12), '#f2c230', 0, -hr * 0.9, hr * 0.28, 1, 1, 0.6));
     }
     var sc2 = pr.s * ageF; g.scale.setScalar(sc2); U.scale = sc2;
     g.userData = U;
@@ -372,7 +376,7 @@
     this.cam.fov = w / hh < 1.2 ? 52 : 40; this.cam.updateProjectionMatrix();
   };
   Stage.prototype.setPet = function (p, force) {
-    var sig = [p.id, p.breedId, p.bcs, p.muscle, p.wear, p.items && p.items.harness && (!p.equip || p.equip.harness) ? 1 : 0, p.items && p.items.toy ? 1 : 0, p.items && p.items.scratcher ? 1 : 0, Math.floor(root.PetCore ? root.PetCore.ageDays(p, Date.now()) / 30 : 0)].join('|');
+    var sig = [p.id, p.breedId, p.bcs, p.muscle, p.wear, p.items && p.items.harness && (!p.equip || p.equip.harness) ? 1 : 0, p.items && p.items.toy ? 1 : 0, p.equip && p.equip.stroller ? 1 : 0, p.items && p.items.scratcher ? 1 : 0, Math.floor(root.PetCore ? root.PetCore.ageDays(p, Date.now()) / 30 : 0)].join('|');
     if (!force && sig === this.sig) { this.petData = p; this.syncProps(p); return; }
     this.sig = sig; this.petData = p;
     var old = this.pet, pos = old ? old.position.clone() : null, yaw = old ? old.rotation.y : 0.35;

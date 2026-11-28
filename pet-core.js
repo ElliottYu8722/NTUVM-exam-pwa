@@ -3,7 +3,7 @@
   'use strict';
   var DAY = 86400000;
   var CFG = {
-    ageSpeed: 1, decayPerDay: 40, startHappy: 60, startBcs: 5, overUnit: 15,
+    ageSpeed: 1, decayPerDay: 40, startHappy: 60, startBcs: 5, overUnit: 10,
     graceDays: 7, catchupDays: 7, mealGain: 10, snackGain: 3, snackMax: 5, mealMax: 3,
     playFull: 600, playMinWalk: 300, playGain: 50, firstPlayBonus: 10,
     happyRefuse: 30, capNoCare: 70, levelCosts: [100, 200, 300, 400], maxLevel: 5,
@@ -180,7 +180,8 @@
       if (p.deficitDays >= CFG.deficitDays) { p.bcs = clamp(p.bcs - 1, 1, 9); p.deficitDays = 0; }
     } else {
       p.deficitDays = 0; p.excess += p.fed - N;
-      while (p.excess >= CFG.overUnit) { p.bcs = clamp(p.bcs + 1, 1, 9); p.excess -= CFG.overUnit; }
+      if (p.excess >= CFG.overUnit) { p.bcs = clamp(p.bcs + 1, 1, 9); p.excess -= CFG.overUnit; }
+      p.excess = Math.min(p.excess, CFG.overUnit * 3);
     }
     p.fed = 0; p.meals = 0; p.snacks = 0; p.playedToday = false; p.daily = {}; p.tricksToday = 0;
   }
@@ -227,7 +228,6 @@
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     var canned = kind === 'canned', m = canned ? { name: '高級罐頭', units: CFG.cannedUnits, price: CFG.cannedPrice } : mealById(kind);
     if (!m) return { ok: false, msg: '未知餐點' };
-    if (p.meals >= CFG.mealMax) return { ok: false, msg: '今天已經吃滿 3 餐了' };
     if (!spend(s, m.price)) return { ok: false, msg: '金幣不夠，需要 ' + m.price + ' 金幣' };
     var g = canned ? CFG.cannedGain : CFG.mealGain;
     p.meals++; p.fed += m.units; gain(p, g, now);
@@ -239,17 +239,15 @@
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
     var list = snackList(p), it = list[0];
     for (var i = 0; i < list.length; i++) if (list[i].id === snackId) it = list[i];
-    if (p.snacks >= CFG.snackMax) return { ok: false, msg: '今天零食吃太多了（上限 ' + CFG.snackMax + '）' };
     if (!spend(s, CFG.snackPrice)) return { ok: false, msg: '金幣不夠' };
     p.snacks++; p.fed += 1; gain(p, CFG.snackGain, now);
     return { ok: true, msg: it.name + '，開心 +' + CFG.snackGain + bump(s, 'snacks'), snack: it.id };
   }
   function canPlay(p) {
     var h = p.items.harness && p.equip.harness, st = p.items.stroller && p.equip.stroller;
-    if (!h && !st) return { ok: false, msg: p.items.harness || p.items.stroller ? '先到商店把胸背帶或推車按「裝備」' : '外出需要胸背帶或推車，請先到商店購買' };
     if (p.happy < CFG.happyRefuse) return { ok: false, msg: p.name + ' 太沒精神了，先餵牠吃東西吧' };
     if (p.bcs >= 8 && !st) return { ok: false, msg: p.name + ' 太胖走不動，需要裝備推車' };
-    return { ok: true, msg: 'OK', stroller: !!st };
+    return { ok: true, msg: 'OK', stroller: !!st, gear: st ? '推車' : (h ? '胸背帶' : '初級項圈') };
   }
   function playFinish(s, id, seconds, now) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };

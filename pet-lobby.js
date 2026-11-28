@@ -327,7 +327,7 @@
     var m = document.createElement('div');
     m.style.cssText = 'position:absolute;right:14px;bottom:calc(150px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);color:#2b2620;border-radius:18px;padding:12px;width:min(300px,calc(100vw - 28px));box-shadow:0 10px 30px rgba(0,0,0,.3);z-index:4';
     m.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
-    var hd = document.createElement('div'); hd.style.cssText = 'font-weight:800;font-size:15px;margin:2px 4px 8px'; hd.textContent = '餵 ' + p.name + '（' + p.meals + ' / 3 餐，零食 ' + p.snacks + ' / 5）'; m.appendChild(hd);
+    var hd = document.createElement('div'); hd.style.cssText = 'font-weight:800;font-size:15px;margin:2px 4px 8px'; hd.textContent = '餵 ' + p.name + '（今天 ' + p.meals + ' 餐，零食 ' + p.snacks + ' 個）'; m.appendChild(hd);
     var g = document.createElement('div'); g.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:6px';
     function add(label, sub, fn, bg) {
       var b = document.createElement('button'); b.style.cssText = 'border:0;border-radius:12px;padding:9px 6px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;color:' + (bg ? '#fff' : '#b8611f') + ';background:' + (bg || '#fdeedd');
