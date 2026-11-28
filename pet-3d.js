@@ -477,60 +477,37 @@
     return loadThree().then(function () { return new Stage(container, opts); });
   }
 
-  // 自動掛進「我的寵物」面板（不需要修改 pet-ui.js）
+  // 掛進「我的寵物」面板的 3D 區塊
   function autoAttach() {
-    var panel = document.getElementById('petPanel');
-    if (!panel || !root.PetUI) return false;
-    var box = panel.firstChild, stage = null, stageEl = null, failed = false, mounting = false;
-    function pickPet() {
-      var S = root.PetUI.state(); if (!S || !S.owner || !S.pets.length) return null;
-      var sel = box.querySelector('select');
-      if (sel && sel.parentNode && sel.parentNode.className === 'row' && sel.options.length === S.pets.length && sel.options[0].value) {
-        for (var i = 0; i < S.pets.length; i++) if (S.pets[i].id === sel.value) return S.pets[i];
-      }
-      return S.pets[0];
-    }
-    function onPetTab() {
-      var tabs = box.querySelector('.tabs'); if (!tabs) return false;
-      var on = tabs.querySelector('button.on'); return !!on && on.textContent === '寵物';
-    }
-    function sync() {
-      var visible = panel.style.display === 'flex';
-      var p = pickPet();
-      if (!visible || !p || !onPetTab()) { if (stage) stage.setActive(false); return; }
+    if (!root.PetUI || !root.PetUI.current) return false;
+    var stage = null, stageEl = null, msgEl = null, failed = false, mounting = false;
+    var FAIL = '3D 載入失敗，請連上網路後重新整理。';
+    function msg(t) { if (msgEl) msgEl.remove(); var d = msgEl = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#8a6d4a;font-size:14px'; d.textContent = t; stageEl.appendChild(d); }
+    function sync(slot) {
+      var p = root.PetUI.current();
+      if (!slot || !p) { if (stage) stage.setActive(false); return; }
       if (!stageEl) {
         stageEl = document.createElement('div');
-        stageEl.style.cssText = 'width:100%;height:260px;border-radius:12px;overflow:hidden;background:#f1dfc4;margin:6px 0;position:relative';
+        stageEl.style.cssText = 'width:100%;height:250px;position:relative;background:#f1dfc4';
       }
-      if (!stageEl.parentNode) {
-        var tabs = box.querySelector('.tabs'); tabs.insertAdjacentElement('afterend', stageEl);
-      }
-      if (failed) { stageEl.textContent = '3D 載入失敗：請連線一次，或把 three.module.js 放到網站根目錄。'; return; }
+      if (stageEl.parentNode !== slot) slot.appendChild(stageEl);
+      if (failed) { if (stageEl.querySelector('canvas')) stageEl.innerHTML = ''; msg(FAIL); return; }
       if (!stage) {
-        if (mounting) return; mounting = true;
-        stageEl.textContent = '3D 載入中...';
+        if (mounting) return; mounting = true; msg('3D 載入中…');
         mount(stageEl).then(function (s) {
-          stage = s; stageEl.firstChild && stageEl.firstChild.nodeType === 3 && stageEl.removeChild(stageEl.firstChild);
-          stage.setPet(pickPet() || p); stage.setMood(autoMood(p)); stage.setActive(true); mounting = false;
-        }, function () { failed = true; mounting = false; stageEl.textContent = '3D 載入失敗：請連線一次，或把 three.module.js 放到網站根目錄。'; });
+          stage = s; if (msgEl) { msgEl.remove(); msgEl = null; }
+          var q = root.PetUI.current(); if (q) { stage.setPet(q); stage.setMood(autoMood(q)); }
+          stage.setActive(!!stageEl.parentNode && root.PetUI.isOpen()); stage.resize(); mounting = false;
+        }, function () { failed = true; mounting = false; msg(FAIL); });
         return;
       }
       stage.setPet(p); stage.setMood(autoMood(p)); stage.setActive(true); stage.resize();
     }
-    var busy = false;
-    var mo = new MutationObserver(function () {
-      if (busy) return; busy = true;
-      Promise.resolve().then(function () { try { sync(); } finally { busy = false; } });
-    });
-    mo.observe(box, { childList: true });
-    mo.observe(panel, { attributes: true, attributeFilter: ['style'] });
-    box.addEventListener('click', function (ev) {
-      var b = ev.target; if (!b || b.tagName !== 'BUTTON' || !stage) return;
-      var tx = b.textContent || '';
-      if (/^(少量餵食|標準餵食|大量餵食|給零食)/.test(tx)) {
-        var p = pickPet(); if (!p) return; var before = p.fed;
-        setTimeout(function () { var q = pickPet(); if (q && q.fed > before) { if (/零食/.test(tx)) stage.jump(); else stage.eat(); } }, 60);
-      } else if (/開始出門玩/.test(tx)) { setTimeout(function () { stage.jump(); }, 60); }
+    root.addEventListener('petui:render', function (e) { sync(e.detail && e.detail.slot); });
+    root.addEventListener('petui:action', function (e) {
+      if (!stage || !e.detail) return;
+      if (e.detail.type === 'feed') stage.eat();
+      else if (e.detail.type === 'snack' || e.detail.type === 'play') stage.jump();
     });
     root.Pet3D.stage = function () { return stage; };
     return true;

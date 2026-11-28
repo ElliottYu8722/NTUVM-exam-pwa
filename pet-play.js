@@ -109,7 +109,7 @@
       var rim = new T.Mesh(new T.RingGeometry(5, 5.5, 32), I.toon('#9a9aa0')); rim.rotation.x = -Math.PI / 2; rim.position.set(-17, 0.035, -12); g.add(rim);
       obs.push({ x: -17, z: -12, r: 5.4 });
       upd.push(function (t) { pondM.material.color.setHSL(0.56, 0.8, 0.62 + Math.sin(t * 1.5) * 0.02); });
-      [[0, 1], [Math.PI, 1], [Math.PI / 2, 1], [-Math.PI / 2, 1]].forEach(function (b) {
+      [[Math.PI / 4, 1], [Math.PI * 3 / 4, 1], [-Math.PI / 4, 1], [-Math.PI * 3 / 4, 1]].forEach(function (b) {
         var bx = Math.cos(b[0]) * 7.2, bz = Math.sin(b[0]) * 7.2, bn = new T.Group(); bn.position.set(bx, 0, bz); bn.rotation.y = -b[0] + Math.PI / 2;
         bn.add(I.mesh(new T.BoxGeometry(2.0, 0.12, 0.6), '#a8703a', 0, 0.55, 0, 1, 1, 1, 0.04));
         bn.add(I.mesh(new T.BoxGeometry(2.0, 0.6, 0.1), '#a8703a', 0, 0.9, -0.28, 1, 1, 1, 0.04));
@@ -117,7 +117,7 @@
         g.add(bn); obs.push({ x: bx, z: bz, r: 1.1 });
       });
       for (i = 0; i < 8; i++) {
-        var la = i / 8 * Math.PI * 2, lx = Math.cos(la) * 12.2, lz = Math.sin(la) * 12.2, lp2 = new T.Group(); lp2.position.set(lx, 0, lz);
+        var la = i / 8 * Math.PI * 2 + Math.PI / 8, lx = Math.cos(la) * 12.2, lz = Math.sin(la) * 12.2, lp2 = new T.Group(); lp2.position.set(lx, 0, lz);
         lp2.add(I.mesh(new T.CylinderGeometry(0.06, 0.08, 2.6, 8), '#3a3a42', 0, 1.3, 0));
         lp2.add(new T.Mesh(new T.SphereGeometry(0.22, 10, 8), new T.MeshBasicMaterial({ color: 0xfff1b0 })).translateY(2.7));
         g.add(lp2); obs.push({ x: lx, z: lz, r: 0.3 });
@@ -190,7 +190,7 @@
   Game.prototype.petData = function () { return root.PetCore.findPet(root.PetUI.state(), this.petId); };
   Game.prototype.ui = function () {
     var self = this, el = document.createElement('div');
-    el.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;z-index:10001;background:#000;color:#fff;font-family:sans-serif;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden';
+    el.id = 'petPlayRoot'; el.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;z-index:10001;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,\'PingFang TC\',\'Noto Sans TC\',sans-serif;touch-action:none;user-select:none;-webkit-user-select:none;overflow:hidden';
     this.el = el; document.body.appendChild(el); this.prevOverflow = document.body.style.overflow; document.body.style.overflow = 'hidden';
     this.menu();
     this.onKey = function (e, d) { self.keys[e.key.toLowerCase()] = d; };
@@ -199,24 +199,38 @@
   };
   function btn(txt, bg, fn) {
     var b = document.createElement('button'); b.textContent = txt;
-    b.style.cssText = 'padding:10px 16px;border:0;border-radius:12px;font-size:16px;color:#fff;background:' + bg + ';cursor:pointer;margin:6px';
+    b.style.cssText = 'padding:11px 18px;border:0;border-radius:14px;font-size:15px;font-weight:600;color:#fff;background:' + bg + ';cursor:pointer;margin:6px;font-family:inherit';
     b.addEventListener('click', fn); return b;
   }
+  var SCENE_LOOK = {
+    grass: { bg: 'linear-gradient(160deg,#bfe7a6,#7fc46a)', ink: '#24431c' },
+    forest: { bg: 'linear-gradient(160deg,#7bb38a,#2f6b45)', ink: '#ffffff' },
+    park: { bg: 'linear-gradient(160deg,#bfe3f5,#8ccf9a)', ink: '#1f3d4a' }
+  };
   Game.prototype.menu = function () {
     var self = this, p = this.petData(), box = document.createElement('div');
-    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(#7ec8ff,#c8f0b0);text-align:center;padding:16px;box-sizing:border-box';
-    var h = document.createElement('div'); h.style.cssText = 'font-size:22px;font-weight:bold;color:#234;margin-bottom:6px'; h.textContent = '帶 ' + (p ? p.name : '') + ' 出去玩';
-    var d = document.createElement('div'); d.style.cssText = 'color:#345;margin-bottom:12px'; d.textContent = '選一個地點。最長 10 分鐘，完成加 50 開心，中途結束依時間比例計算。';
+    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fbf7f1;color:#2b2620;text-align:center;padding:20px;box-sizing:border-box';
+    var h = document.createElement('div'); h.style.cssText = 'font-size:24px;font-weight:800;margin-bottom:6px'; h.textContent = '帶 ' + (p ? p.name : '') + ' 去哪裡玩？';
+    var d = document.createElement('div'); d.style.cssText = 'color:#8a7f72;font-size:14px;margin-bottom:18px;line-height:1.5'; d.textContent = '玩滿 10 分鐘 +50 開心，提早結束按時間比例計算。';
     box.appendChild(h); box.appendChild(d);
+    var list = document.createElement('div'); list.style.cssText = 'display:flex;flex-direction:column;gap:10px;width:min(360px,100%)';
     SCENES.forEach(function (sc) {
-      var b = btn(sc.name + '　' + sc.desc, '#3a8f5a', function () { self.begin(sc.id); }); b.style.width = 'min(340px,90%)'; box.appendChild(b);
+      var lk = SCENE_LOOK[sc.id] || SCENE_LOOK.grass, c = document.createElement('button');
+      c.style.cssText = 'border:0;border-radius:18px;padding:18px 18px;text-align:left;cursor:pointer;background:' + lk.bg + ';color:' + lk.ink + ';font-family:inherit;box-shadow:0 4px 14px rgba(0,0,0,.12)';
+      c.innerHTML = '<div style="font-size:19px;font-weight:800">' + sc.name + '</div><div style="font-size:13px;opacity:.85;margin-top:3px">' + sc.desc + '</div>';
+      c.addEventListener('click', function () { self.begin(sc.id); });
+      list.appendChild(c);
     });
-    box.appendChild(btn('取消', '#777', function () { self.close(false); }));
+    box.appendChild(list);
+    var cancel = document.createElement('button'); cancel.textContent = '返回';
+    cancel.style.cssText = 'margin-top:16px;border:0;background:none;color:#8a7f72;font-size:15px;padding:10px;cursor:pointer;font-family:inherit';
+    cancel.addEventListener('click', function () { self.close(false); });
+    box.appendChild(cancel);
     this.el.appendChild(box); this.menuEl = box;
   };
   Game.prototype.begin = function (sceneId) {
     var self = this; this.sceneId = sceneId;
-    this.menuEl.firstChild.textContent = '載入中...';
+    this.menuEl.firstChild.textContent = '準備出門中…';
     root.Pet3D.loadThree().then(function () {
       I = root.Pet3D._i(); T = I.T; self.start(sceneId);
     }, function () { self.menuEl.firstChild.textContent = '3D 載入失敗，請連線一次後再試'; });
@@ -234,7 +248,7 @@
     this.scene.add(new T.HemisphereLight(0xffffff, 0xb8d89a, 1.15));
     var dl = new T.DirectionalLight(0xffffff, 1.3); dl.position.set(20, 40, 15); this.scene.add(dl);
     var ageF = clamp(0.65 + 0.35 * (root.PetCore.ageDays(p, Date.now()) / 365), 0.65, 1);
-    this.pet = I.buildPet(p, ageF); this.pet.position.set(0, 0, sceneId === 'park' ? 5 : 3); this.scene.add(this.pet);
+    this.pet = I.buildPet(p, ageF); this.pet.position.set(0, 0, sceneId === 'park' ? 8 : 3); this.scene.add(this.pet);
     this.blob = new T.Mesh(new T.CircleGeometry(1, 20), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 }));
     this.blob.rotation.x = -Math.PI / 2; this.blob.position.y = 0.05; this.scene.add(this.blob);
     var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1);
@@ -251,18 +265,18 @@
   };
   Game.prototype.hud = function () {
     var self = this, el = this.el, top = document.createElement('div');
-    top.style.cssText = 'position:absolute;left:0;right:0;top:0;padding:10px 12px;display:flex;align-items:center;gap:10px;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,0))';
-    this.timeEl = document.createElement('div'); this.timeEl.style.cssText = 'font-size:20px;font-weight:bold;min-width:130px';
-    var bar = document.createElement('div'); bar.style.cssText = 'flex:1;height:10px;background:rgba(255,255,255,.3);border-radius:5px;overflow:hidden';
-    this.barEl = document.createElement('i'); this.barEl.style.cssText = 'display:block;height:100%;width:0;background:#ffd54a'; bar.appendChild(this.barEl);
+    top.style.cssText = 'position:absolute;left:10px;right:10px;top:max(10px,env(safe-area-inset-top));padding:8px 8px 8px 14px;display:flex;align-items:center;gap:12px;background:rgba(30,26,22,.55);border-radius:18px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)';
+    this.timeEl = document.createElement('div'); this.timeEl.style.cssText = 'font-size:15px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums';
+    var bar = document.createElement('div'); bar.style.cssText = 'flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:8px;overflow:hidden';
+    this.barEl = document.createElement('i'); this.barEl.style.cssText = 'display:block;height:100%;width:0;background:#ffcf5a;border-radius:8px'; bar.appendChild(this.barEl);
     top.appendChild(this.timeEl); top.appendChild(bar);
-    top.appendChild(btn('結束散步', '#c0392b', function () { self.endEarly(); }));
+    var eb = btn('結束', 'rgba(255,255,255,.18)', function () { self.endEarly(); }); eb.style.margin = '0'; eb.style.padding = '8px 14px'; top.appendChild(eb);
     el.appendChild(top);
-    this.hint = document.createElement('div'); this.hint.style.cssText = 'position:absolute;left:0;right:0;bottom:190px;text-align:center;font-size:14px;text-shadow:0 1px 3px #000;pointer-events:none';
-    this.hint.textContent = '拖曳左下搖桿：輕推走路，推到底快跑（電腦可用方向鍵或 WASD，Shift 快跑）';
+    this.hint = document.createElement('div'); this.hint.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);top:calc(max(10px,env(safe-area-inset-top)) + 64px);text-align:center;font-size:13px;background:rgba(30,26,22,.55);padding:8px 14px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis';
+    this.hint.textContent = ('ontouchstart' in window) ? '拖曳左下圓盤移動，推到底快跑' : '拖曳圓盤或用 WASD 移動，Shift 快跑';
     el.appendChild(this.hint);
     var zone = document.createElement('div'); zone.style.cssText = 'position:absolute;left:0;bottom:0;width:60%;height:55%;touch-action:none';
-    var base = document.createElement('div'); base.style.cssText = 'position:absolute;left:26px;bottom:34px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.22);border:2px solid rgba(255,255,255,.6)';
+    var base = document.createElement('div'); base.style.cssText = 'position:absolute;left:28px;bottom:calc(34px + env(safe-area-inset-bottom));width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)';
     var thumb = document.createElement('div'); thumb.style.cssText = 'position:absolute;left:40px;top:40px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.75)';
     base.appendChild(thumb); zone.appendChild(base); el.appendChild(zone);
     var act = false, pid = null;
@@ -311,14 +325,16 @@
     var a = 1 - Math.exp(-dt * 4.5);
     this.camPos.x += (g.position.x - this.camPos.x) * a; this.camPos.z += (g.position.z + 8.5 - this.camPos.z) * a;
     this.cam.position.set(this.camPos.x, 4.5, this.camPos.z); this.cam.lookAt(this.camPos.x + (g.position.x - this.camPos.x) * 0.5, 0.8, g.position.z);
-    this.timeEl.textContent = fmt(this.sec) + ' / 10:00　預計 +' + Math.floor(50 * Math.min(this.sec, 600) / 600);
+    this.timeEl.textContent = fmt(this.sec) + ' / 10:00 ・ +' + Math.floor(50 * Math.min(this.sec, 600) / 600) + ' 開心';
     this.barEl.style.width = (Math.min(this.sec, 600) / 6) + '%';
     if (this.sec > 6 && this.hint) { this.hint.remove(); this.hint = null; }
     if (this.sec >= 600) this.finish();
   };
   Game.prototype.endEarly = function () {
-    var pts = Math.floor(50 * Math.min(this.sec, 600) / 600);
-    if (confirm('要結束散步嗎？目前 ' + fmt(this.sec) + '，可得 ' + pts + ' 點開心。')) this.finish();
+    var self = this, pts = Math.floor(50 * Math.min(this.sec, 600) / 600);
+    var text = '已經玩了 ' + fmt(this.sec) + '，現在結束可得 ' + pts + ' 點開心。';
+    if (root.PetAsk) root.PetAsk('要回家了嗎？', text, '回家').then(function (ok) { if (ok) self.finish(); });
+    else if (confirm(text)) this.finish();
   };
   Game.prototype.finish = function () {
     if (this.state !== 'play') return;
@@ -329,11 +345,14 @@
       var r = root.PetCore.playFinish(S, this.petId, sec, Date.now()); msg = r.msg; root.PetStore.save(S);
     }
     var box = document.createElement('div');
-    box.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.65);text-align:center;padding:16px';
-    var h = document.createElement('div'); h.style.cssText = 'font-size:24px;font-weight:bold;margin-bottom:8px'; h.textContent = '散步結束';
-    var d = document.createElement('div'); d.style.cssText = 'font-size:18px;margin-bottom:12px'; d.textContent = '時間 ' + fmt(sec) + '：' + msg;
-    box.appendChild(h); box.appendChild(d); var self = this;
-    box.appendChild(btn('回到我的寵物', '#3a8f5a', function () { self.close(true); }));
+    box.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(20,16,12,.5);padding:20px';
+    var card = document.createElement('div'); card.style.cssText = 'background:#fff;color:#2b2620;border-radius:22px;padding:24px 22px;width:min(340px,100%);text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.3)';
+    var h = document.createElement('div'); h.style.cssText = 'font-size:22px;font-weight:800;margin-bottom:4px'; h.textContent = '散步結束';
+    var tm = document.createElement('div'); tm.style.cssText = 'font-size:34px;font-weight:800;color:#e8833a;margin:8px 0;font-variant-numeric:tabular-nums'; tm.textContent = fmt(sec);
+    var d = document.createElement('div'); d.style.cssText = 'font-size:15px;color:#6f655a;margin-bottom:18px;line-height:1.5'; d.textContent = msg;
+    card.appendChild(h); card.appendChild(tm); card.appendChild(d); var self = this;
+    var bk = btn('回家', '#e8833a', function () { self.close(true); }); bk.style.cssText += ';width:100%;margin:0'; card.appendChild(bk);
+    box.appendChild(card);
     this.el.appendChild(box);
   };
   Game.prototype.close = function (reopen) {
@@ -349,25 +368,5 @@
   function startGame(petId) {
     if (current) return; current = new Game(petId); current.ui();
   }
-  function pickPet(panel) {
-    var S = root.PetUI.state(); if (!S || !S.owner || !S.pets.length) return null;
-    var sel = panel.querySelector('.tabs ~ .row select');
-    if (sel && sel.options.length === S.pets.length) { for (var i = 0; i < S.pets.length; i++) if (S.pets[i].id === sel.value) return S.pets[i]; }
-    return S.pets[0];
-  }
-  function attach() {
-    var panel = document.getElementById('petPanel');
-    if (!panel || !root.PetUI || !root.Pet3D || !root.PetCore) return false;
-    panel.addEventListener('click', function (ev) {
-      var b = ev.target; if (!b || b.tagName !== 'BUTTON' || (b.textContent || '').indexOf('開始出門玩') < 0) return;
-      var p = pickPet(panel); if (!p) return;
-      var S = root.PetUI.state(); root.PetCore.tick(S, Date.now());
-      if (!root.PetCore.canPlay(p).ok) return;
-      ev.stopPropagation(); ev.preventDefault(); startGame(p.id);
-    }, true);
-    return true;
-  }
-  function boot() { var n = 0, iv = setInterval(function () { n++; if (attach() || n > 40) clearInterval(iv); }, 250); }
   root.PetPlay = { start: startGame, SCENES: SCENES, _Game: Game };
-  if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot(); }
-})(typeof window !== 'undefined' ? window : globalThis);
+  })(typeof window !== 'undefined' ? window : globalThis);
