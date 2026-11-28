@@ -4156,6 +4156,7 @@ function openRandomQuizOverlay(qs, options) {
     let correct = 0;
     const total = qs.length;
     const detail = [];
+    let petCoins = 0;
 
     qs.forEach((q, i) => {
       const ua = String(user[i] || '').toUpperCase();
@@ -4167,7 +4168,19 @@ function openRandomQuizOverlay(qs, options) {
       const isCorrect =
         !!ua && (set.has(ua) || set.has('ALL'));
 
-      if (isCorrect) correct++;
+      if (isCorrect) {
+        correct++;
+        try {
+          if (window.PetUI && typeof window.PetUI.onCorrect === 'function') {
+            petCoins += window.PetUI.onCorrect(
+              [q.scope?.subj || '', q.scope?.year || '', q.scope?.roundLabel || '', q.id].join('|'),
+              true
+            ) || 0;
+          }
+        } catch (e) {
+          console.error('寵物金幣計算失敗：', e);
+        }
+      }
 
       // 正解字串：優先用原始答案檔
       // 用該題所屬卷別的答案，不用主畫面那一卷的
@@ -4220,7 +4233,7 @@ function openRandomQuizOverlay(qs, options) {
       console.error('寫入隨機測驗紀錄失敗：', e);
     }
 
-    alert(`分數：${score} 分（${correct}/${total}）`);
+    alert(`分數：${score} 分（${correct}/${total}）` + (petCoins ? `\n寵物金幣 +${petCoins}` : ''));
 
     reviewMode = true;
     index = 0;
