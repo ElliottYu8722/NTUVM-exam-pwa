@@ -27,6 +27,7 @@
     doberman: D({ s: 1.2, w: 0.85, leg: 1.25, head: 0.95, snout: 0.34, es: 1.2, tail: 'stub', col: '#2a2a2e', col2: '#b8692a' }),
     labrador: D({ s: 1.15, w: 1.05, snout: 0.25, ear: 'floppy', col: '#e6c26b', col2: '#e6c26b' }),
     golden: D({ s: 1.15, w: 1.05, snout: 0.25, ear: 'floppy', tail: 'fluffy', col: '#d9992f', col2: '#efc37a', fluffy: true }),
+    samoyed: D({ s: 1.12, w: 1.05, head: 1.05, snout: 0.2, tail: 'curl', col: '#fbf8f2', col2: '#ffffff', fluffy: true }),
     gsd: D({ s: 1.2, leg: 1.15, snout: 0.3, es: 1.2, tail: 'fluffy', col: '#c68a45', col2: '#2c2c2c', col3: '#2f2a26', saddle: true }),
     twnative: D({ snout: 0.24, tail: 'curl', col: '#c28e4c', col2: '#e8cfa0' }),
     shiba: D({ s: 0.95, snout: 0.2, tail: 'curl', col: '#d9843f', col2: '#fff3e0', chest: true }),

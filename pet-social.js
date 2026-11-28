@@ -19,6 +19,13 @@
   function clean(t, n) { return String(t || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, n || 200); }
   function petSummary(p) { return p ? { name: p.name, breedId: p.breedId, bcs: p.bcs, muscle: p.muscle || 0, wear: p.wear || '', harness: !!(p.items && p.items.harness && p.equip && p.equip.harness) } : null; }
   function readMap() { try { return JSON.parse(localStorage.getItem('vetpet_read') || '{}'); } catch (e) { return {}; } }
+  function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch (e) { return {}; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function mineKey(k) { var o = me(); return k + '_' + (o ? o.friendCode : ''); }
+  function reqs() { return lsGet(mineKey('vetpet_reqs')); }
+  function sent() { return lsGet(mineKey('vetpet_sent')); }
+  function saveThreads() { lsSet(mineKey('vetpet_threads'), threads); }
+  function loadThreads() { threads = lsGet(mineKey('vetpet_threads')); }
   function markRead(pair) { var m = readMap(); m[pair] = Date.now(); try { localStorage.setItem('vetpet_read', JSON.stringify(m)); } catch (e) {} }
 
   function publish(extra) {
@@ -34,14 +41,31 @@
     if (hasFriend(code)) return false;
     s.friends.push({ code: code, name: clean(name, 20) || code, ts: Date.now() }); root.PetUI.save(); return true;
   }
+  function sendFriendDoc(code, kind) {
+    var d = db(), o = me(); if (!d || !o) return Promise.reject(new Error('off'));
+    return d.collection('petFriend').doc(code + '_' + o.friendCode).set({ to: code, from: o.friendCode, name: o.name, kind: kind, ts: Date.now() });
+  }
   function addFriend(code, name) {
     var d = db(), o = me(); if (!o) return Promise.resolve({ ok: false, msg: '請先建立飼主' });
     if (code === o.friendCode) return Promise.resolve({ ok: false, msg: '這是你自己的好友碼' });
     if (hasFriend(code)) return Promise.resolve({ ok: false, msg: '已經是好友了' });
-    addLocal(code, name);
-    if (!d) return Promise.resolve({ ok: true, msg: '已加為好友' });
-    return d.collection('petFriend').doc(code + '_' + o.friendCode).set({ to: code, from: o.friendCode, name: o.name, ts: Date.now() })
-      .then(function () { return { ok: true, msg: '已加 ' + (name || code) + ' 為好友' }; }, function (e) { fail(e); return { ok: true, msg: '已加為好友（對方要等連線後才會看到）' }; });
+    if (reqs()[code]) return acceptReq(code);
+    if (!d) return Promise.resolve({ ok: false, msg: '目前離線，無法送出邀請' });
+    return sendFriendDoc(code, 'req').then(function () {
+      var m = sent(); m[code] = { name: clean(name, 20) || code, ts: Date.now() }; lsSet(mineKey('vetpet_sent'), m); rer();
+      return { ok: true, msg: '已送出好友邀請給 ' + (clean(name, 20) || code) };
+    }, function (e) { fail(e); return { ok: false, msg: '邀請送出失敗，稍後再試' }; });
+  }
+  function acceptReq(code) {
+    var r = reqs(), q = r[code]; if (!q) return Promise.resolve({ ok: false, msg: '找不到邀請' });
+    addLocal(code, q.name); delete r[code]; lsSet(mineKey('vetpet_reqs'), r); rer();
+    return sendFriendDoc(code, 'ok').then(function () { return { ok: true, msg: '已和 ' + q.name + ' 成為好友' }; }, function (e) { fail(e); return { ok: true, msg: '已和 ' + q.name + ' 成為好友' }; });
+  }
+  function declineReq(code) { var r = reqs(); delete r[code]; lsSet(mineKey('vetpet_reqs'), r); rer(); }
+  function reqList() { var r = reqs(); return Object.keys(r).map(function (k) { return { code: k, name: r[k].name, ts: r[k].ts }; }).sort(function (a, b) { return b.ts - a.ts; }); }
+  function threadList() {
+    return Object.keys(threads).map(function (k) { var t = threads[k]; return { code: k, name: t.name || (profiles[k] && profiles[k].name) || k, last: t.last || '', ts: t.ts || 0, from: t.from, unread: unread(k) }; })
+      .sort(function (a, b) { return b.ts - a.ts; });
   }
   function addFriendByCode(code) {
     code = clean(code, 8).toUpperCase();
@@ -69,12 +93,22 @@
     if (!o) { st = d ? 'wait' : 'off'; return; }
     if (!d) { st = 'off'; return; }
     if (started === o.friendCode) return;
-    stop(); started = o.friendCode;
+    stop(); started = o.friendCode; loadThreads();
     publish();
     unsub.push(d.collection('petFriend').where('to', '==', o.friendCode).onSnapshot(function (qs) {
       qs.forEach(function (doc) {
-        var v = doc.data();
-        if (addLocal(v.from, v.name)) { toast(clean(v.name, 20) + ' 加你為好友'); rer(); }
+        var v = doc.data(), nm = clean(v.name, 20) || v.from;
+        if (v.kind === 'req' && !hasFriend(v.from)) {
+          var sn = sent();
+          if (sn[v.from]) { delete sn[v.from]; lsSet(mineKey('vetpet_sent'), sn); addLocal(v.from, nm); sendFriendDoc(v.from, 'ok').catch(function () {}); toast('已和 ' + nm + ' 成為好友'); }
+          else { var r = reqs(); if (!r[v.from]) { r[v.from] = { name: nm, ts: v.ts || Date.now() }; lsSet(mineKey('vetpet_reqs'), r); toast(nm + ' 想加你為好友'); } }
+        } else if (v.kind === 'req') {
+          sendFriendDoc(v.from, 'ok').catch(function () {});
+        } else {
+          var s2 = sent(); if (s2[v.from]) { delete s2[v.from]; lsSet(mineKey('vetpet_sent'), s2); }
+          if (addLocal(v.from, nm)) toast(nm + ' 接受了你的好友邀請');
+        }
+        rer();
         doc.ref.delete().catch(function () {});
       });
     }, fail));
@@ -85,6 +119,7 @@
         if (!other) return;
         var old = threads[other];
         threads[other] = { pair: ch.doc.id, ts: v.ts || 0, from: v.from, last: v.last, name: v.names && v.names[other] };
+        saveThreads();
         if (old && v.from !== o.friendCode && v.ts > old.ts && !(chatEl && chatEl._code === other)) { toast((threads[other].name || '朋友') + '：' + clean(v.last, 30)); fresh = true; }
       });
       if (fresh || true) rer();
@@ -112,6 +147,7 @@
       '#petChat button{font-family:inherit}',
       '#petChat .hb{border:0;border-radius:10px;padding:7px 12px;font-size:14px;font-weight:600;cursor:pointer;background:#fdeedd;color:#b8611f}',
       '#petChat .hb.x{background:#f1ebe3;color:#2b2620}',
+      '#petChat .hb:disabled{opacity:.6;cursor:default}',
       '#petChat .ms{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:6px}',
       '#petChat .m{max-width:78%;padding:8px 12px;border-radius:16px;font-size:15px;line-height:1.4;word-break:break-word;white-space:pre-wrap}',
       '#petChat .m.me{align-self:flex-end;background:#e8833a;color:#fff;border-bottom-right-radius:4px}',
@@ -135,8 +171,10 @@
     var w = el('div', 'w'), hd = el('div', 'hd'), ms = el('div', 'ms'), ft = el('div', 'ft');
     hd.appendChild(el('b', '', clean(name, 20) || code));
     if (!hasFriend(code)) {
-      var af = el('button', 'hb', '加好友');
-      af.onclick = function () { addFriend(code, name).then(function (r) { toast(r.msg); if (r.ok) af.remove(); }); };
+      var inv = !!reqs()[code], pend = !!sent()[code];
+      var af = el('button', 'hb', inv ? '接受好友邀請' : (pend ? '已送出邀請' : '送出好友邀請'));
+      if (pend && !inv) af.disabled = true;
+      af.onclick = function () { addFriend(code, name).then(function (r) { toast(r.msg); if (r.ok) { if (hasFriend(code)) af.remove(); else { af.textContent = '已送出邀請'; af.disabled = true; } } }); };
       hd.appendChild(af);
     }
     var x = el('button', 'hb x', '關閉'); x.onclick = closeChat; hd.appendChild(x);
@@ -156,6 +194,7 @@
       var now = Date.now(), names = {}; names[o.friendCode] = o.name; names[code] = clean(name, 20);
       d.collection('petMsg').add({ pair: pair, from: o.friendCode, name: o.name, text: t, ts: now }).catch(function (e) { fail(e); toast('送出失敗'); });
       d.collection('petThread').doc(pair).set({ members: [o.friendCode, code], names: names, last: t, from: o.friendCode, ts: now }, { merge: true }).catch(fail);
+      threads[code] = { pair: pair, ts: now, from: o.friendCode, last: t, name: clean(name, 20) }; saveThreads();
     }
     sb.onclick = function () { send(inp.value); inp.focus(); };
     inp.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); send(inp.value); } });
@@ -219,7 +258,8 @@
   root.PetSocial = {
     status: function () { if (!db()) return 'off'; return st; }, publish: publish, profile: profile, fetchProfiles: fetchProfiles,
     addFriend: addFriend, addFriendByCode: addFriendByCode, hasFriend: hasFriend, openChat: openChat, closeChat: closeChat,
-    unread: unread, joinLobby: joinLobby, setPresence: setPresence, leaveLobby: leaveLobby, start: start, stop: stop, petSummary: petSummary
+    unread: unread, reqList: reqList, acceptReq: acceptReq, declineReq: declineReq, threadList: threadList,
+    pending: function (c) { return !!sent()[c]; }, joinLobby: joinLobby, setPresence: setPresence, leaveLobby: leaveLobby, start: start, stop: stop, petSummary: petSummary
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })(window);

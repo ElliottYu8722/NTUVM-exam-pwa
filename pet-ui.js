@@ -380,6 +380,7 @@
     else toast('戶外場景載入失敗，請重新整理');
   }
 
+  var adPrev = null;
   function renderAdopt() {
     var has = S.pets.length > 0;
     if (S.pets.length >= S.owner.level) { adoptOpen = false; return renderPet(); }
@@ -401,8 +402,14 @@
       var b = C.breed(adoptPick);
       var nm = h('input', { type: 'text', placeholder: '幫牠取名字', maxlength: '12', autocomplete: 'off' });
       var age = h('input', { type: 'number', min: '0', max: '20', step: '0.5', value: '1', inputmode: 'decimal' });
+      var pbox = h('div', { class: 'avbox', style: 'height:210px;margin-top:10px' });
+      if (adPrev && adPrev.api) adPrev.api.dispose();
+      adPrev = { api: null }; var mineP = adPrev;
+      if (root.PetAvatar && root.PetAvatar.previewPet) root.PetAvatar.previewPet(pbox, b.id).then(function (api) { if (mineP === adPrev && pbox.isConnected) mineP.api = api; else api.dispose(); }, function () { pbox.appendChild(h('div', { class: 'muted', style: 'padding:90px 0;text-align:center', text: '3D 載入失敗' })); });
       body.appendChild(h('div', { class: 'card', id: 'petAdoptForm' }, [
         h('div', { class: 'row' }, [(function () { var w = swatch(b.id); w.style.margin = '0'; return w; })(), h('b', { text: b.name, style: 'font-size:17px' })]),
+        pbox,
+        h('div', { class: 'muted', style: 'text-align:center;margin-top:4px', text: '左右拖曳可以轉動' }),
         h('div', { style: 'margin-top:12px' }, [nm]),
         h('div', { class: 'row', style: 'margin-top:8px' }, [h('span', { class: 'muted', text: '目前年齡（歲）', style: 'flex:none' }), age]),
         h('button', { class: 'btn block', style: 'margin-top:12px', text: '領養', onclick: function () {
@@ -636,9 +643,22 @@
     if (S.pets.length > 1) body.appendChild(petSwitch('帶誰去大廳'));
     var st = SO ? SO.status() : 'off';
     if (st !== 'ok') body.appendChild(h('div', { class: 'warn', text: st === 'denied' ? '線上功能目前無法連線（資料庫權限），大廳只能自己逛。' : (st === 'off' ? '目前離線，大廳只能自己逛。' : '連線中…') }));
+    var rq = SO && SO.reqList ? SO.reqList() : [];
+    if (rq.length) {
+      body.appendChild(h('div', { class: 'sec', text: '好友邀請（' + rq.length + '）' }));
+      var rc = h('div', { class: 'card' });
+      rq.forEach(function (q) {
+        rc.appendChild(h('div', { class: 'item' }, [
+          h('div', { class: 'tx' }, [h('b', { text: q.name }), h('span', { text: '想加你為好友' })]),
+          h('button', { class: 'btn ghost', text: '略過', onclick: function () { SO.declineReq(q.code); render(); } }),
+          h('button', { class: 'btn', text: '接受', style: 'margin-left:6px', onclick: function () { SO.acceptReq(q.code).then(function (r) { toast(r.msg); render(); }); } })
+        ]));
+      });
+      body.appendChild(rc);
+    }
     body.appendChild(h('div', { class: 'sec', text: '好友（' + S.friends.length + '）' }));
     var list = h('div', { class: 'card' });
-    if (!S.friends.length) list.appendChild(h('p', { class: 'muted', style: 'margin:0', text: '還沒有好友。在大廳靠近其他玩家按「交流」→「加好友」，或輸入好友碼。' }));
+    if (!S.friends.length) list.appendChild(h('p', { class: 'muted', style: 'margin:0', text: '還沒有好友。在大廳靠近其他玩家按「交流」→「送出好友邀請」，或輸入好友碼。' }));
     S.friends.forEach(function (f) {
       var info = SO && SO.profile(f.code), live = info && Date.now() - (info.ts || 0) < 120000;
       var unread = SO && SO.unread(f.code);
@@ -649,14 +669,26 @@
       ]));
     });
     body.appendChild(list);
+    var th = SO && SO.threadList ? SO.threadList() : [];
+    body.appendChild(h('div', { class: 'sec', text: '對話紀錄' }));
+    var tc = h('div', { class: 'card' });
+    if (!th.length) tc.appendChild(h('p', { class: 'muted', style: 'margin:0', text: '還沒有對話。在大廳靠近其他玩家按「交流」就能聊天。' }));
+    th.forEach(function (t) {
+      var fr = SO.hasFriend(t.code), d = new Date(t.ts), when = t.ts ? (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') : '';
+      tc.appendChild(h('div', { class: 'item' }, [
+        h('div', { class: 'tx' }, [h('b', { text: t.name + (fr ? '' : '（非好友）') }), h('span', { text: (t.from === S.owner.friendCode ? '你：' : '') + t.last.slice(0, 40) + (when ? '・' + when : '') })]),
+        h('button', { class: 'btn ' + (t.unread ? '' : 'ghost'), text: t.unread ? '新訊息' : '開啟', onclick: function () { SO.openChat(t.code, t.name); } })
+      ]));
+    });
+    body.appendChild(tc);
     if (SO && S.friends.length) SO.fetchProfiles(S.friends.map(function (f) { return f.code; }), function () { if (isOpen() && tab === 'lobby') render(); });
     var inp = h('input', { type: 'text', placeholder: '輸入好友碼', maxlength: '8', autocomplete: 'off', style: 'text-transform:uppercase' });
     body.appendChild(h('div', { class: 'sec', text: '用好友碼加好友' }));
     body.appendChild(h('div', { class: 'card' }, [
-      h('div', { class: 'row' }, [inp, h('button', { class: 'btn', text: '加入', onclick: function () {
+      h('div', { class: 'row' }, [inp, h('button', { class: 'btn', text: '邀請', onclick: function () {
         var code = inp.value.trim().toUpperCase();
         if (!SO) { toast('目前離線'); return; }
-        SO.addFriendByCode(code).then(function (r) { toast(r.msg); if (r.ok) render(); });
+        SO.addFriendByCode(code).then(function (r) { toast(r.msg); if (r.ok) { inp.value = ''; render(); } });
       } })]),
       h('div', { class: 'muted', style: 'margin-top:8px', text: '我的好友碼：' + S.owner.friendCode })
     ]));

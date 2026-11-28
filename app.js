@@ -11328,6 +11328,9 @@ function setupMobileDrawers(){
     if (!isDrawerTouchMode()) return;
     const t = e.touches && e.touches[0];
     if (!t) return;
+    if (document.querySelector('#petPlayRoot, #petLobbyRoot, #petChat') || (e.target && e.target.closest && e.target.closest('#petPanel, #petModal'))) {
+      swipeMode = null; trackingSwipe = false; return;
+    }
 
     const w = window.innerWidth;
     const x = t.clientX;

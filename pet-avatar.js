@@ -215,6 +215,53 @@
     });
   }
 
+  function previewPet(container, breedId) {
+    return root.Pet3D.loadThree().then(function () {
+      need();
+      var ren = new T.WebGLRenderer({ antialias: true, alpha: true });
+      ren.setPixelRatio(Math.min(root.devicePixelRatio || 1, 2));
+      ren.domElement.style.cssText = 'display:block;width:100%;height:100%;touch-action:pan-y';
+      container.appendChild(ren.domElement);
+      var scene = new T.Scene(), cam = new T.PerspectiveCamera(30, 1, 0.05, 40);
+      scene.add(new T.HemisphereLight(0xffffff, 0xd9c2a0, 1.2));
+      var dl = new T.DirectionalLight(0xffffff, 1.3); dl.position.set(2, 4, 3); scene.add(dl);
+      var floor = new T.Mesh(new T.CircleGeometry(1, 32), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12 }));
+      floor.rotation.x = -Math.PI / 2; scene.add(floor);
+      var pet, ps, yaw = 0.7, drag = null, raf = 0, last = 0, alive = true;
+      var anim = root.PetPlay && root.PetPlay._animatePet;
+      function make(id) {
+        if (pet) scene.remove(pet);
+        pet = I.buildPet({ breedId: id, bcs: 5, muscle: 0, wear: '', items: { harness: false, clothes: {} }, equip: {} }, 1);
+        ps = { t: 0, phase: 0, leg: [0, 0, 0, 0], lean: 0, blink: 2 };
+        scene.add(pet); pet.rotation.y = yaw; pet.updateMatrixWorld(true);
+        var bx = new T.Box3().setFromObject(pet), sz = new T.Vector3(), ct = new T.Vector3(); bx.getSize(sz); bx.getCenter(ct);
+        var r = Math.max(sz.x, sz.y, sz.z) * 0.62 + 0.05, d = r / Math.tan(15 * Math.PI / 180);
+        floor.scale.setScalar(Math.max(sz.x, sz.z) * 0.6);
+        cam.position.set(0, ct.y + d * 0.28, d); cam.lookAt(0, ct.y * 0.9, 0);
+      }
+      make(breedId);
+      function size() { var w = container.clientWidth || 200, h = container.clientHeight || 200; ren.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+      size();
+      ren.domElement.addEventListener('pointerdown', function (e) { drag = { x: e.clientX, y: yaw }; });
+      ren.domElement.addEventListener('pointermove', function (e) { if (drag) yaw = drag.y + (e.clientX - drag.x) * 0.012; });
+      root.addEventListener('pointerup', function () { drag = null; });
+      function frame(ts) {
+        if (!alive) return;
+        if (!container.isConnected) { api.dispose(); return; }
+        var dt = last ? Math.min(0.05, (ts - last) / 1000) : 0.016; last = ts;
+        if (!drag) yaw += dt * 0.4;
+        pet.rotation.y = yaw; if (anim) anim(pet, ps, dt, 'idle');
+        ren.render(scene, cam); raf = requestAnimationFrame(frame);
+      }
+      raf = requestAnimationFrame(frame);
+      var api = {
+        update: function (id) { make(id); },
+        dispose: function () { alive = false; cancelAnimationFrame(raf); ren.dispose(); if (ren.forceContextLoss) ren.forceContextLoss(); if (ren.domElement.parentNode) ren.domElement.parentNode.removeChild(ren.domElement); }
+      };
+      return api;
+    });
+  }
+
   function stroller() {
     need();
     var M = I.mesh, g = new T.Group();
@@ -234,5 +281,5 @@
     return g;
   }
 
-  root.PetAvatar = { build: build, stroller: stroller, animate: animate, newAnim: newAnim, label: label, preview: preview };
+  root.PetAvatar = { build: build, stroller: stroller, animate: animate, newAnim: newAnim, label: label, preview: preview, previewPet: previewPet };
 })(typeof window !== 'undefined' ? window : globalThis);

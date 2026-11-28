@@ -60,6 +60,7 @@
     { id: 'doberman', name: '杜賓', sp: 'dog', tier: 'hard' },
     { id: 'labrador', name: '拉布拉多', sp: 'dog', tier: 'hard' },
     { id: 'golden', name: '黃金獵犬', sp: 'dog', tier: 'hard' },
+    { id: 'samoyed', name: '薩摩耶', sp: 'dog', tier: 'hard' },
     { id: 'gsd', name: '德國牧羊犬', sp: 'dog', tier: 'hard' },
     { id: 'twnative', name: '台灣土狗', sp: 'dog', tier: 'mid' },
     { id: 'shiba', name: '柴犬', sp: 'dog', tier: 'mid' },
