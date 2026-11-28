@@ -273,7 +273,7 @@
     this.pet = I.buildPet(p, ageF);
     this.blob = new T.Mesh(new T.CircleGeometry(1, 20), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 }));
     this.blob.rotation.x = -Math.PI / 2; this.blob.position.y = 0.05; this.scene.add(this.blob);
-    var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1);
+    var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1); this.petBlobS = this.blob.scale.clone();
     this.sp = this.opts.sp || 'dog'; this.mammal = this.sp === 'dog' || this.sp === 'cat'; this.spf = SPF[this.sp] || 1;
     this.walkSec = 0; this.inCart = false;
     if (this.opts.stroller && root.PetAvatar) {
@@ -286,9 +286,19 @@
       this.ownA = root.PetAvatar.newAnim(); this.rig = rig; this.cartK = ks; this.inCart = true;
       this.petBlob = this.blob.scale.clone();
       this.blob.scale.set(0.8 * ks, 1.3 * ks, 1);
+    } else if (this.sp === 'bird' && root.PetAvatar) {
+      var rg2 = new T.Group(), o2 = root.PetUI.state().owner;
+      this.owner = root.PetAvatar.build(o2 && o2.look); rg2.add(this.owner);
+      this.ownA = root.PetAvatar.newAnim(); this.rig = rg2; this.cartK = 0.6; this.scene.add(this.pet);
     } else this.rig = this.pet;
-    this.ctl = this.rig;
+    this.ctl = this.inCart || !this.owner ? this.rig : this.pet;
+    this.fly = { alt: 0, idle: 0, perch: false };
+    if (this.owner) {
+      var bb = new T.Box3().setFromObject(this.owner), oh = bb.max.y - bb.min.y, ow = (bb.max.x - bb.min.x);
+      this.shoulder = new T.Vector3(-Math.min(0.26, ow * 0.3), oh * 0.8, 0).add(this.owner.position);
+    }
     this.rig.position.set(0, 0, sceneId === 'park' ? 8 : (sceneId === 'forest' ? 0 : 3)); this.scene.add(this.rig);
+    if (this.ctl === this.pet) { this.pet.position.set(this.rig.position.x + 0.8, 0, this.rig.position.z + 1.2); }
     this.camPos = new T.Vector3(this.rig.position.x, 4.5, this.rig.position.z + 8.5);
     this.cam.position.copy(this.camPos);
     this.hud(); this.resize(); this.mapInit();
@@ -315,7 +325,7 @@
     var mp = document.createElement('div'); mp.style.cssText = 'position:absolute;right:10px;top:calc(max(10px,env(safe-area-inset-top)) + 108px);width:min(46vw,220px);aspect-ratio:1;border-radius:50%;overflow:hidden;background:rgba(30,26,22,.55);border:2px solid rgba(255,255,255,.7);box-shadow:0 6px 18px rgba(0,0,0,.25);display:none;pointer-events:none';
     var mc = document.createElement('canvas'); mc.width = 440; mc.height = 440; mc.style.cssText = 'display:block;width:100%;height:100%'; mp.appendChild(mc);
     el.appendChild(mp); this.mapEl = mp; this.mapCv = mc;
-    if (this.owner) {
+    if (this.owner && this.opts.stroller) {
       var go = this.opts.go || ['下推車', '上推車'];
       var gb = btn(go[0], 'rgba(232,131,58,.92)', function () { self.toggleCart(); });
       gb.style.cssText += ';position:absolute;right:18px;bottom:calc(40px + env(safe-area-inset-bottom));margin:0;padding:14px 20px;font-size:16px;border-radius:18px;box-shadow:0 6px 16px rgba(0,0,0,.25)';
@@ -368,21 +378,39 @@
       act = mag > 0.72 ? 'run' : 'walk';
       var cy = Math.cos(this.yaw), sy = Math.sin(this.yaw);
       var sp = act === 'run' ? RUN : WALK * (0.5 + mag * 0.7), nx = (jx * cy + jy * sy) / mag, nz = (-jx * sy + jy * cy) / mag;
-      if (riding) sp *= act === 'run' ? 0.75 : 1; else sp *= this.spf;
+      if (riding) sp *= act === 'run' ? 0.75 : 1; else sp *= this.sp === 'bird' ? 1.15 : this.spf;
       g.position.x += nx * sp * dt; g.position.z += nz * sp * dt;
       var want = Math.atan2(nx, nz), diff = want - g.rotation.y;
       while (diff > Math.PI) diff -= Math.PI * 2; while (diff < -Math.PI) diff += Math.PI * 2;
       g.rotation.y += diff * Math.min(1, dt * 10);
     }
-    var i, pr = riding ? 0.7 * this.cartK : 0.5 * this.pet.userData.scale + 0.2;
-    this.collide(g, pr);
-    if (this.owner && !this.inCart) {
+    var i, pr = riding ? 0.7 * this.cartK : 0.5 * this.pet.userData.scale + 0.2, F = this.fly, bird = this.sp === 'bird' && !riding;
+    if (bird) {
+      if (mag > 0.1) { F.idle = 0; F.perch = false; }
+      else F.idle += dt;
+      if (F.perch || (F.idle > 0.6 && this.owner)) {
+        var sw = this.owner.localToWorld(this.shoulder.clone().sub(this.owner.position));
+        var hx = sw.x - g.position.x, hz = sw.z - g.position.z, hd = Math.sqrt(hx * hx + hz * hz), ha = sw.y - F.alt;
+        if (F.perch || (hd < 0.12 && Math.abs(ha) < 0.12)) { F.perch = true; g.position.x = sw.x; g.position.z = sw.z; F.alt = sw.y; g.rotation.y = this.rig.rotation.y; }
+        else {
+          var fs = Math.min(1, dt * 4);
+          g.position.x += hx * fs; g.position.z += hz * fs; F.alt += ha * fs; if (hd > 0.05) g.rotation.y = Math.atan2(hx, hz);
+        }
+      } else if (!F.perch) {
+        var ta = mag > 0.1 ? 1.9 : 0;
+        F.alt += (ta - F.alt) * Math.min(1, dt * 2.5);
+      }
+      g.position.y = F.alt;
+    }
+    if (!F.perch) this.collide(g, pr);
+    var landing = bird && this.owner && (F.perch || F.idle > 0.6);
+    if (this.owner && !this.inCart && !landing) {
       var rg = this.rig, py = g.rotation.y, sk = 1.7 * this.cartK, bk = 1.3 * this.cartK;
       var gx = g.position.x - Math.sin(py) * bk - Math.cos(py) * sk, gz = g.position.z - Math.cos(py) * bk + Math.sin(py) * sk;
       var fx = gx - rg.position.x, fz = gz - rg.position.z, fd = Math.sqrt(fx * fx + fz * fz), ract = 'idle';
       if (fd > 0.25) {
         var rs = Math.min(fd, Math.max(WALK, fd) * dt * 1.6);
-        rg.position.x += fx / fd * rs; rg.position.z += fz / fd * rs; ract = 'push';
+        rg.position.x += fx / fd * rs; rg.position.z += fz / fd * rs; ract = this.opts.stroller ? 'push' : 'walk';
         var rw = Math.atan2(fx, fz), rdf = rw - rg.rotation.y;
         while (rdf > Math.PI) rdf -= Math.PI * 2; while (rdf < -Math.PI) rdf += Math.PI * 2;
         rg.rotation.y += rdf * Math.min(1, dt * 6);
@@ -401,15 +429,23 @@
       this.pet.userData.head.rotation.y = Math.sin(this.tt * 0.8) * 0.5;
       root.PetAvatar.animate(this.owner, this.ownA, dt, act === 'idle' ? 'idle' : 'push');
     } else {
-      animatePet(this.pet, this.ps, dt, act);
+      var flying = bird && F.alt > 0.15 && !F.perch;
+      animatePet(this.pet, this.ps, dt, flying ? 'idle' : act);
+      if (bird) {
+        var WU = this.pet.userData;
+        if (WU.wings) for (i = 0; i < WU.wings.length; i++) { var sd = i ? 1 : -1; WU.wings[i].rotation.z = flying ? sd * (0.9 + Math.sin(this.tt * 28) * 0.8) : sd * 0.05; }
+        if (flying) { for (i = 0; i < 2; i++) WU.legs[i].rotation.x = 0.9; WU.upper.rotation.x = 0.35; }
+      }
       if (!this.owner) this.walkSec += dt;
     }
+    if (landing) { root.PetAvatar.animate(this.owner, this.ownA, dt, 'idle'); this.walkSec += dt; }
     this.blob.position.x = g.position.x; this.blob.position.z = g.position.z;
+    if (bird) { var bs = Math.max(0.35, 1 - F.alt * 0.3); this.blob.scale.set(this.petBlobS.x * bs, this.petBlobS.y * bs, 1); this.blob.visible = !F.perch; }
     this.world.update(this.tt, dt);
     var a = 1 - Math.exp(-dt * 4.5), dist = this.camDist(g, 8.5), ph = this.pitch;
     var tx = g.position.x + Math.sin(this.yaw) * Math.cos(ph) * dist, tz = g.position.z + Math.cos(this.yaw) * Math.cos(ph) * dist, ty = 0.8 + Math.sin(ph) * dist;
     this.camPos.x += (tx - this.camPos.x) * a; this.camPos.z += (tz - this.camPos.z) * a; this.camPos.y += (ty - this.camPos.y) * a;
-    this.cam.position.copy(this.camPos); this.cam.lookAt(g.position.x, 0.8, g.position.z);
+    this.cam.position.copy(this.camPos); this.cam.lookAt(g.position.x, 0.8 + (this.fly ? this.fly.alt * 0.5 : 0), g.position.z);
     this.timeEl.textContent = fmt(this.sec) + ' / 10:00 ・ +' + Math.floor(50 * Math.min(this.sec, 600) / 600) + ' 開心';
     this.barEl.style.width = (Math.min(this.sec, 600) / 6) + '%';
     if (this.sec > 6 && this.hint) { this.hint.remove(); this.hint = null; }
@@ -439,19 +475,20 @@
     return this.camD;
   };
   Game.prototype.toggleCart = function () {
-    if (!this.owner) return;
+    if (!this.owner || !this.goBtn) return;
     var go = this.opts.go || ['下推車', '上推車'], rg = this.rig, pet = this.pet;
     if (this.inCart) {
       rg.remove(pet); this.scene.add(pet);
       var fy = rg.rotation.y, dx = Math.sin(fy), dz = Math.cos(fy), d0 = 1.6 * this.cartK;
       pet.position.set(rg.position.x + dx * d0, 0, rg.position.z + dz * d0); pet.rotation.set(0, fy, 0);
-      this.inCart = false; this.ctl = pet; this.goBtn.textContent = go[1];
+      this.inCart = false; this.ctl = pet; this.goBtn.textContent = go[1]; this.fly = { alt: 0, idle: 0, perch: false };
       if (this.petBlob) this.blob.scale.copy(this.petBlob);
       this.collide(pet, 0.5 * pet.userData.scale + 0.2);
     } else {
       var ex = pet.position.x - rg.position.x, ez = pet.position.z - rg.position.z;
       if (ex * ex + ez * ez > Math.pow(4 * this.cartK, 2)) { rg.position.x = pet.position.x - Math.sin(pet.rotation.y) * 2 * this.cartK; rg.position.z = pet.position.z - Math.cos(pet.rotation.y) * 2 * this.cartK; rg.rotation.y = pet.rotation.y; }
-      this.scene.remove(pet); rg.add(pet); pet.position.set(0, this.seatY, this.mammal ? 0.05 : 0.1); pet.rotation.set(0, 0, 0);
+      this.scene.remove(pet); rg.add(pet); pet.position.set(0, this.seatY, this.mammal ? 0.05 : 0.1); pet.rotation.set(0, 0, 0); this.fly = { alt: 0, idle: 0, perch: false };
+      var WU2 = pet.userData; if (WU2.wings) WU2.wings.forEach(function (w, j) { w.rotation.z = (j ? 1 : -1) * 0.05; }); WU2.upper.rotation.x = 0;
       this.inCart = true; this.ctl = rg; this.goBtn.textContent = go[0];
       this.blob.scale.set(0.8 * this.cartK, 1.3 * this.cartK, 1);
     }

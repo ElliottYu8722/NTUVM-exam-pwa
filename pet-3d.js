@@ -118,12 +118,14 @@
   for (var ek in EXO) PARAMS[ek] = EXO[ek];
   PARAMS.munchkin = D({ sp: 'cat', s: SIZE.C, w: 0.95, leg: 0.42, snout: 0.03, ear: 'cat', col: '#f2c26b', col2: '#fbe3b0', col3: '#d99a3a', stripes: true });
 
-  function faceKit(head, U, hr, eyeAt, eyeR, eyeCol, ckCol) {
+  function faceKit(head, U, hr, eyeAt, eyeR, eyeCol, ckCol, ringCol) {
     [-1, 1].forEach(function (sd) {
-      var r = eyeR;
-      var e = mesh(sph(r), eyeCol || '#14100e', sd * eyeAt[0], eyeAt[1], eyeAt[2], 1, 1, 0.6);
-      e.rotation.y = sd * 0.9;
-      e.add(mesh(sph(r * 0.38), '#ffffff', r * 0.3, r * 0.36, r * 0.62, 1, 1, 0.6));
+      var r = eyeR * 1.3, ex = eyeAt[0], ey = eyeAt[1], ez = eyeAt[2], el = Math.sqrt(ex * ex + ey * ey + ez * ez), ek = el < hr * 0.93 ? hr * 0.93 / el : 1;
+      var e = mesh(sph(r), eyeCol || '#14100e', sd * ex * ek, ey * ek, ez * ek, 1, 1, 0.6);
+      e.rotation.y = sd * 0.75;
+      e.add(mesh(sph(r * 1.32), ringCol || '#f4efe4', 0, 0, -r * 0.22, 1, 1, 0.45));
+      e.add(mesh(sph(r * 0.42), '#ffffff', sd * r * 0.28, r * 0.36, r * 0.7, 1, 1, 0.6));
+      e.add(mesh(sph(r * 0.18), '#ffffff', -sd * r * 0.3, -r * 0.3, r * 0.72, 1, 1, 0.6));
       head.add(e); U.eyes.push(e);
       var bg = new T.Group(); bg.visible = false; head.add(bg); U.brows.push(bg);
       var ch = new T.Mesh(new T.CircleGeometry(hr * 0.2, 16), new T.MeshBasicMaterial({ color: new T.Color(ckCol || '#ff7aa2'), transparent: true, opacity: 0.3 }));
@@ -214,7 +216,7 @@
       for (var i = 0; i < 2; i++) head.add(mesh(new T.CapsuleGeometry(hr * 0.05, hr * 0.9, 3, 6), pr.col2, sd * hr * 0.72, -hr * (0.35 + i * 0.22), -hr * 0.2, 1, 1, 1).rotateX(Math.PI / 2));
     });
     var jaw = mesh(sph(hr * 0.3), '#7a3a3a', 0, -hr * 0.35, hr * 0.85, 1, 0.01, 0.6); head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.3;
-    faceKit(head, U, hr, [hr * 0.55, hr * 0.28, hr * 0.7], hr * 0.2, '#1a1410', null);
+    faceKit(head, U, hr, [hr * 0.55, hr * 0.28, hr * 0.7], hr * 0.2, '#1a1410', null, '#e8c84a');
     var tail = new T.Group(); tail.position.set(0, 0.02, -tl * 0.98); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
     var tg = new T.ConeGeometry(0.04, 0.16, 8); tg.translate(0, 0.08, 0); tail.add(mesh(tg, pr.skin, 0, 0, 0, 1, 1, 1, 0.06));
     tail.rotation.x = -1.75; U.tailBase = tail.rotation.x;
@@ -240,7 +242,7 @@
     head.add(mesh(sph(hr), pr.col, 0, 0, 0, 1.05, 0.62, 1.15, 0.045));
     [[0.4, 0.2], [-0.35, 0.3], [0, -0.2]].forEach(function (q) { head.add(mesh(sph(0.018), pr.col3, q[0] * hr, hr * 0.55, q[1] * hr, 1, 0.4, 1)); });
     var jaw = mesh(sph(hr * 0.32), '#e88a9a', 0, -hr * 0.3, hr * 0.75, 1.4, 0.01, 0.6); head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.32;
-    faceKit(head, U, hr, [hr * 0.62, hr * 0.28, hr * 0.42], hr * 0.27, '#2a2420', null);
+    faceKit(head, U, hr, [hr * 0.62, hr * 0.28, hr * 0.42], hr * 0.27, '#2a2420', null, '#d9c9a0');
     var tail = new T.Group(); tail.position.set(0, 0, -tl * 0.9); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
     var tg = new T.CapsuleGeometry(tw * 0.62, 0.42, 6, 12); tg.translate(0, 0.27, 0); tail.add(mesh(tg, pr.col, 0, 0, 0, 1, 1, 0.8, 0.05));
     for (var i = 0; i < 3; i++) { var bd = mesh(new T.CylinderGeometry(tw * 0.62, tw * 0.62, 0.04, 14, 1, true), toon(pr.col3, { side: T.DoubleSide }), 0, 0.14 + i * 0.13, 0, 1.03 - i * 0.12, 1, 0.83 - i * 0.1); tail.add(bd); }
