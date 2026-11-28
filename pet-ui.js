@@ -10,6 +10,7 @@
     shop: '<path d="M6 7V6a6 6 0 0 1 12 0v1h2.2l-1.1 14H4.9L3.8 7H6zm2 0h8V6a4 4 0 0 0-8 0v1z"/>',
     care: '<path d="M12 21s-7.5-4.6-9.5-9.4C1 7.9 3.4 4.5 7 4.5c2 0 3.5 1.1 5 2.9 1.5-1.8 3-2.9 5-2.9 3.6 0 6 3.4 4.5 7.1C19.5 16.4 12 21 12 21zm-1-12v3H8v2h3v3h2v-3h3v-2h-3V9h-2z"/>',
     owner: '<path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zm0 2c-4.4 0-8 2.5-8 5.5V21h16v-1.5c0-3-3.6-5.5-8-5.5z"/>',
+    lobby: '<path d="M12 2 2 7v2h20V7L12 2zm-7 9v7H3v3h18v-3h-2v-7h-2v7h-3v-7h-4v7H7v-7H5z"/>',
     backup: '<path d="M19 18H6a4 4 0 0 1-.6-8A6 6 0 0 1 17 8.1 5 5 0 0 1 19 18zm-8-7v4H8.5l3.5 3.5 3.5-3.5H13v-4h-2z"/>',
     close: '<path d="M6.4 5 12 10.6 17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4z"/>',
     coin: '<circle cx="12" cy="12" r="9" fill="#f6c343"/><circle cx="12" cy="12" r="6.3" fill="none" stroke="#c98a12" stroke-width="1.6"/><path d="M12 8.2v7.6M9.8 10h4.4" stroke="#c98a12" stroke-width="1.6" stroke-linecap="round"/>',
@@ -50,8 +51,34 @@
       '#petPanel .x{border:0;background:transparent;color:var(--sub);padding:6px;cursor:pointer;display:flex;border-radius:10px}',
       '#petPanel .x:hover{background:var(--line)}',
       '#petPanel .bd{flex:1;overflow:auto;padding:4px 14px 18px;-webkit-overflow-scrolling:touch}',
-      '#petPanel .nav{display:flex;border-top:1px solid var(--line);background:#fff;padding-bottom:env(safe-area-inset-bottom)}',
-      '#petPanel .nav button{flex:1;border:0;background:transparent;color:var(--sub);padding:8px 0 7px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;cursor:pointer}',
+      '#petPanel .nav{display:flex;border-top:1px solid var(--line);background:#fff;padding-bottom:max(18px,calc(env(safe-area-inset-bottom) + 10px))}',
+      '#petPanel .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}',
+      '@media (max-width:420px){#petPanel .grid4{grid-template-columns:repeat(2,1fr)}}',
+      '#petPanel .snk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}',
+      '#petPanel .snk button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 4px;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink)}',
+      '#petPanel .snk button small{display:block;font-weight:500;color:var(--sub);font-size:11px;margin-top:2px}',
+      '#petPanel .snk button:disabled{opacity:.45}',
+      '#petPanel .acts{display:flex;flex-wrap:wrap;gap:8px}',
+      '#petPanel .acts .btn{flex:1 1 calc(33% - 8px);min-width:96px;padding:10px 8px;font-size:14px}',
+      '#petPanel .pick{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}',
+      '#petPanel .pick button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 10px;font-size:13px;cursor:pointer;color:var(--ink)}',
+      '#petPanel .pick button.on{background:var(--ink);color:#fff;border-color:var(--ink)}',
+      '#petPanel .dots{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}',
+      '#petPanel .dots button{width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}',
+      '#petPanel .dots button.on{box-shadow:0 0 0 2.5px var(--pri)}',
+      '#petPanel .avbox{height:230px;border-radius:16px;background:linear-gradient(180deg,#fdf1e2,#f3e3cc);position:relative;overflow:hidden}',
+      '#petPanel .lbl{font-size:12px;color:var(--sub);font-weight:600;margin-top:12px}',
+      '#petPanel .ach{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}',
+      '#petPanel .ach:first-child{border-top:0}',
+      '#petPanel .ach .st{display:flex;gap:4px}',
+      '#petPanel .ach .st i{width:22px;height:22px;border-radius:50%;background:#f0e9df;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:10px;color:#a99}',
+      '#petPanel .ach .st i.on{background:#f6c343;color:#7a5200;font-weight:700}',
+      '#petPanel .on-dot{width:9px;height:9px;border-radius:50%;background:#cfc6ba;display:inline-block;flex:none}',
+      '#petPanel .on-dot.live{background:#4caf7a}',
+      '#petPanel .lobby-hero{border-radius:18px;padding:18px;color:#fff;background:linear-gradient(160deg,#5f9c4f,#2f6b45);position:relative;overflow:hidden}',
+      '#petPanel .lobby-hero b{font-size:20px;display:block}',
+      '#petPanel .lobby-hero p{margin:6px 0 14px;font-size:13px;opacity:.9;line-height:1.5}',
+      '#petPanel .nav button{flex:1;border:0;background:transparent;color:var(--sub);padding:10px 0 6px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;cursor:pointer}',
       '#petPanel .nav button.on{color:var(--pri);font-weight:700}',
       '#petPanel .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}',
       '#petPanel .sec{font-size:13px;color:var(--sub);font-weight:600;margin:16px 2px 6px;letter-spacing:.5px}',
@@ -111,7 +138,7 @@
       '#petPanel .lvl .n small{font-size:10px;font-weight:500;opacity:.7;margin-bottom:2px}',
       '#petPanel .code{font-family:ui-monospace,Menlo,monospace;font-size:16px;letter-spacing:1px;background:#f6f1ea;border-radius:10px;padding:8px 10px;flex:1}',
       '#petPanel .warn{background:#fff6e8;border:1px solid #f6dcb0;color:#8a5a10;border-radius:12px;padding:10px 12px;font-size:13px;margin-top:10px}',
-      '#petToast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:rgba(43,38,32,.94);color:#fff;padding:10px 18px;border-radius:999px;z-index:10002;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:88vw;text-align:center;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
+      '#petToast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);background:rgba(43,38,32,.94);color:#fff;padding:10px 18px;border-radius:999px;z-index:10002;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:88vw;text-align:center;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
       '#petToast.on{opacity:1;transform:translateX(-50%) translateY(0)}',
       '#petModal{position:fixed;inset:0;z-index:10003;background:rgba(20,16,12,.5);display:flex;align-items:center;justify-content:center;padding:20px;font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif}',
       '#petModal .m{background:#fff;color:#2b2620;border-radius:18px;padding:20px;width:min(360px,100%);box-shadow:0 20px 50px rgba(0,0,0,.3)}',
@@ -148,7 +175,13 @@
 
   function emit(name, detail) { try { root.dispatchEvent(new CustomEvent(name, { detail: detail })); } catch (e) {} }
   function commit() { C.tick(S, now()); ST.save(S); if (isOpen()) render(); }
-  function act(r, ev) { toast(r.msg); if (r.ok && ev) emit('petui:action', ev); commit(); return r.ok; }
+  function toStage() {
+    var slot = body && body.querySelector('.pet-stage-slot');
+    if (!slot) return;
+    var d = slot.getBoundingClientRect().top - body.getBoundingClientRect().top;
+    if (d < 0) body.scrollTo({ top: Math.max(0, body.scrollTop + d - 8), behavior: 'smooth' });
+  }
+  function act(r, ev) { toast(r.msg); if (r.ok && ev) emit('petui:action', ev); commit(); if (r.ok && ev && ev.petId) toStage(); return r.ok; }
   function curPet() {
     if (!S || !S.owner) return null;
     var p = C.findPet(S, selId) || S.pets[0] || null;
@@ -157,12 +190,26 @@
   }
   function isOpen() { return panel && panel.style.display === 'flex'; }
 
+  var backAfterQuiz = false, quizWatch = 0;
+  var QUIZ_IDS = ['random-quiz-prep-mask', 'random-quiz-cross-mask', 'random-quiz-loading-mask', 'random-quiz-mask'];
+  function quizOpen() { for (var i = 0; i < QUIZ_IDS.length; i++) if (document.getElementById(QUIZ_IDS[i])) return true; return false; }
   function goQuiz() {
     close();
     var b = document.getElementById('btnRandomQuiz');
-    if (b) { b.click(); return; }
-    toast('請點選左側的「隨機測驗」');
+    if (!b) { toast('請點選左側的「隨機測驗」'); return; }
+    backAfterQuiz = true; b.click();
+    var t0 = Date.now(), seen = false;
+    clearInterval(quizWatch);
+    quizWatch = setInterval(function () {
+      if (quizOpen()) { seen = true; return; }
+      if (!seen && Date.now() - t0 < 4000) return;
+      clearInterval(quizWatch);
+      if (backAfterQuiz) { backAfterQuiz = false; open(); }
+    }, 350);
   }
+  document.addEventListener('click', function (e) {
+    if (e.target && e.target.closest && e.target.closest('#rq-main-review')) backAfterQuiz = false;
+  }, true);
 
   function placeEntry() {
     var tries = 0;
@@ -205,7 +252,6 @@
     for (var i = 1; i <= 9; i++) w.appendChild(h('i', { class: i === v ? 'cur' : ((i === 4 || i === 5) ? 'ideal' : '') }));
     return w;
   }
-  function tierTag(t) { return h('span', { class: 'tag ' + t, text: '難度' + C.TIER_NAME[t] }); }
   function swatch(id) {
     var P = root.Pet3D && root.Pet3D.PARAMS && root.Pet3D.PARAMS[id];
     var c1 = P && P.col ? P.col : '#d9a066', c2 = P && P.col2 ? P.col2 : c1;
@@ -239,7 +285,7 @@
       rd.onload = function () {
         var s = ST.parseBackup(String(rd.result));
         if (!s) { toast('這不是有效的備份檔'); return; }
-        S = s; selId = null; restoring = false; tab = 'pet'; commit(); toast('還原完成');
+        S = C.migrate(s); selId = null; restoring = false; tab = 'pet'; commit(); toast('還原完成');
       };
       rd.readAsText(file);
     });
@@ -257,10 +303,11 @@
   }
 
   /* 寵物 */
+  function stageBusy() { var st = root.Pet3D && root.Pet3D.stage && root.Pet3D.stage(); return st && st.busy && st.busy(); }
   function renderPet() {
     var p = curPet();
     if (!p || adoptOpen) { renderAdopt(); return; }
-    var b = C.breed(p.breedId), N = C.need(p), t = now();
+    var b = C.breed(p.breedId), N = C.need(p), t = now(), cat = b.sp === 'cat';
 
     var chips = h('div', { class: 'chips' });
     S.pets.forEach(function (x) {
@@ -273,7 +320,7 @@
 
     var happyCap = C.overdueCare(p, t);
     var card = h('div', { class: 'card' }, [
-      h('div', { class: 'name' }, [p.name, tierTag(b.tier)]),
+      h('div', { class: 'name' }, [p.name]),
       h('div', { class: 'muted', text: b.name + '・' + C.ageText(p, t) + '・' + C.dayKey(p.adoptTs) + ' 領養' + (p.neutered ? '・已結紮' : '') }),
       stat('開心', Math.round(p.happy) + ' / ' + (happyCap ? C.CFG.capNoCare : 100), bar(p.happy, 'var(--pink)')),
       stat('今日飼料', p.fed + ' / ' + N + ' 單位・' + p.meals + ' / ' + C.CFG.mealMax + ' 餐', bar(p.fed / N * 100, p.fed > N ? 'var(--warn)' : 'var(--ok)')),
@@ -282,28 +329,54 @@
     if (happyCap) card.appendChild(h('div', { class: 'warn', text: '這個月的驅蟲或健康檢查還沒做，開心上限降為 ' + C.CFG.capNoCare + '。' }));
     body.appendChild(card);
 
-    var one = Math.max(1, Math.ceil(N / 3));
-    var amts = [['少量', Math.max(1, Math.ceil(one / 2))], ['一餐', one], ['大份', Math.ceil(one * 1.5)]];
     var full = p.meals >= C.CFG.mealMax;
-    body.appendChild(h('div', { class: 'sec', text: '餵食' + (full ? '（今天三餐已吃完）' : '') }));
-    var g = h('div', { class: 'grid3' });
-    amts.forEach(function (a) {
-      var bt = h('button', { class: 'btn ' + (a[0] === '一餐' ? '' : 'soft'), onclick: function () { act(C.feed(S, p.id, a[1], now()), { type: 'feed', petId: p.id }); } }, [a[0], h('small', { text: a[1] + ' 金幣' })]);
-      if (full) bt.disabled = true;
-      g.appendChild(bt);
+    body.appendChild(h('div', { class: 'sec', text: '餵食' + (full ? '（今天三餐已吃完）' : '・每天約 ' + N + ' 單位') }));
+    var g = h('div', { class: 'grid4' });
+    C.MEALS.forEach(function (m) {
+      var bt = h('button', { class: 'btn ' + (m.id === 'meal' ? '' : 'soft'), onclick: function () { var r = C.feed(S, p.id, m.id, now()); act(r, { type: 'feed', petId: p.id, food: r.food }); } }, [m.name, h('small', { text: m.price + ' 金幣・' + m.units + ' 單位' })]);
+      if (full) bt.disabled = true; g.appendChild(bt);
     });
+    var cn = h('button', { class: 'btn', style: 'background:linear-gradient(135deg,#d9a441,#b97a1c)', onclick: function () { var r = C.feed(S, p.id, 'canned', now()); act(r, { type: 'feed', petId: p.id, food: 'canned' }); } }, ['高級罐頭', h('small', { text: C.CFG.cannedPrice + ' 金幣・開心 +' + C.CFG.cannedGain })]);
+    if (full) cn.disabled = true; g.appendChild(cn);
     body.appendChild(g);
 
-    body.appendChild(h('div', { class: 'grid2', style: 'margin-top:8px' }, [
-      h('button', { class: 'btn ghost', onclick: function () { act(C.snack(S, p.id, now()), { type: 'snack', petId: p.id }); } }, ['零食 +' + C.CFG.snackGain + ' 開心', h('small', { text: C.CFG.snackPrice + ' 金幣・今天 ' + p.snacks + ' / ' + C.CFG.snackMax })]),
-      h('button', { class: 'btn', style: 'background:#3f8f63', onclick: function () { startPlay(p); } }, ['出門玩', h('small', { text: '10 分鐘 +' + C.CFG.playGain + ' 開心' })])
-    ]));
+    var snFull = p.snacks >= C.CFG.snackMax;
+    body.appendChild(h('div', { class: 'sec', text: '零食・每個 ' + C.CFG.snackPrice + ' 金幣・今天 ' + p.snacks + ' / ' + C.CFG.snackMax }));
+    var sg = h('div', { class: 'snk' });
+    C.snackList(p).forEach(function (x) {
+      var bt = h('button', { onclick: function () { var r = C.snack(S, p.id, now(), x.id); act(r, { type: 'snack', petId: p.id, snack: x.id }); } }, [x.name, h('small', { text: '+' + C.CFG.snackGain + ' 開心' })]);
+      if (snFull) bt.disabled = true; sg.appendChild(bt);
+    });
+    body.appendChild(sg);
+
+    body.appendChild(h('div', { class: 'sec', text: '互動' }));
+    var ck = C.canPlay(p);
+    var gear = p.items.stroller && p.equip.stroller ? '推車' : (p.items.harness && p.equip.harness ? '胸背帶' : '');
+    body.appendChild(h('button', { class: 'btn block', style: 'background:#3f8f63', onclick: function () { startPlay(p); } }, ['出門玩' + (gear ? '（' + gear + '）' : ''), h('small', { text: ck.ok ? '10 分鐘 +' + C.CFG.playGain + ' 開心' : ck.msg })]));
+    var ac = h('div', { class: 'acts', style: 'margin-top:8px' });
+    function aBtn(label, sub, fn, cls) { ac.appendChild(h('button', { class: 'btn ' + (cls || 'ghost'), onclick: fn }, [label, sub ? h('small', { text: sub }) : null])); }
+    if (p.items.toy) aBtn('藏食玩具', p.daily.toy ? '今天玩過了' : '+' + C.CFG.toyGain + ' 開心', function () { doAct(p, function () { return C.useToy(S, p.id, 'toy', now()); }, { type: 'toy' }); });
+    if (p.items.scratcher && cat) aBtn('貓抓板', p.daily.scratcher ? '今天抓過了' : '+' + C.CFG.scratchGain + ' 開心', function () { doAct(p, function () { return C.useToy(S, p.id, 'scratcher', now()); }, { type: 'scratch' }); });
+    ['shake', 'down', 'spin', 'grin'].forEach(function (k) {
+      if (p.tricks[k]) aBtn(C.TRICKS[k].name, p.tricksToday < C.CFG.trickMax ? '+' + C.CFG.trickGain + ' 開心' : '表演', function () { doAct(p, function () { return C.perform(S, p.id, k, now()); }, { type: 'trick', trick: k }); });
+    });
+    if (p.tricks.nails) aBtn('剪指甲', C.nailDue(p, t) ? '指甲長了' : '還很短', function () { doAct(p, function () { return C.trimNails(S, p.id, now()); }, { type: 'nails' }); }, C.nailDue(p, t) ? 'soft' : 'ghost');
+    if (ac.childNodes.length) body.appendChild(ac);
+    var lack = ['shake', 'down', 'spin', 'grin', 'nails'].filter(function (k) { return !p.tricks[k]; }).length;
+    if (lack) body.appendChild(h('button', { class: 'link', style: 'margin-top:6px;display:block', text: '到商店學技能（握手、趴下、轉圈、露齒笑、剪指甲）', onclick: function () { tab = 'shop'; render(); setTimeout(function () { var el = body.querySelector('#petSkills'); if (el) el.scrollIntoView({ block: 'start' }); }, 30); } }));
+  }
+  function doAct(p, fn, ev) {
+    if (stageBusy()) { toast(p.name + ' 正在忙，等一下'); return; }
+    var r = fn(); ev.petId = p.id;
+    if (r.ok) emit('petui:action', ev);
+    toast(r.msg); commit();
+    if (r.ok) toStage();
   }
   function startPlay(p) {
     C.tick(S, now());
     var ck = C.canPlay(p);
     if (!ck.ok) { toast(ck.msg); return; }
-    if (root.PetPlay && root.PetPlay.start) { emit('petui:action', { type: 'play', petId: p.id }); root.PetPlay.start(p.id); }
+    if (root.PetPlay && root.PetPlay.start) { emit('petui:action', { type: 'play', petId: p.id }); root.PetPlay.start(p.id, { stroller: ck.stroller }); }
     else toast('戶外場景載入失敗，請重新整理');
   }
 
@@ -319,23 +392,17 @@
       seg.appendChild(h('button', { class: adoptSp === x[0] ? 'on' : '', text: x[1], onclick: function () { adoptSp = x[0]; adoptPick = null; render(); } }));
     });
     body.appendChild(seg);
-    var tierInfo = { easy: '每天 5 單位飼料', mid: '每天 15 單位飼料', hard: '每天 25 單位，BCS 容易掉' };
-    ['easy', 'mid', 'hard'].forEach(function (tier) {
-      var list = C.BREEDS.filter(function (b) { return b.sp === adoptSp && b.tier === tier; });
-      if (!list.length) return;
-      body.appendChild(h('div', { class: 'sec', style: 'display:flex;align-items:center;gap:8px' }, [tierTag(tier), h('span', { text: tierInfo[tier], style: 'font-weight:500' })]));
-      var grid = h('div', { class: 'breeds' });
-      list.forEach(function (b) {
-        grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, '')]));
-      });
-      body.appendChild(grid);
+    var grid = h('div', { class: 'breeds', style: 'margin-top:12px' });
+    C.BREEDS.filter(function (b) { return b.sp === adoptSp; }).forEach(function (b) {
+      grid.appendChild(h('button', { class: 'breed' + (adoptPick === b.id ? ' on' : ''), onclick: function () { adoptPick = b.id; render(); setTimeout(function () { var el = body.querySelector('#petAdoptForm'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 30); } }, [swatch(b.id), b.name.replace(/（.*）/, '')]));
     });
+    body.appendChild(grid);
     if (adoptPick) {
       var b = C.breed(adoptPick);
       var nm = h('input', { type: 'text', placeholder: '幫牠取名字', maxlength: '12', autocomplete: 'off' });
       var age = h('input', { type: 'number', min: '0', max: '20', step: '0.5', value: '1', inputmode: 'decimal' });
       body.appendChild(h('div', { class: 'card', id: 'petAdoptForm' }, [
-        h('div', { class: 'row' }, [(function () { var w = swatch(b.id); w.style.margin = '0'; return w; })(), h('b', { text: b.name, style: 'font-size:17px' }), tierTag(b.tier)]),
+        h('div', { class: 'row' }, [(function () { var w = swatch(b.id); w.style.margin = '0'; return w; })(), h('b', { text: b.name, style: 'font-size:17px' })]),
         h('div', { style: 'margin-top:12px' }, [nm]),
         h('div', { class: 'row', style: 'margin-top:8px' }, [h('span', { class: 'muted', text: '目前年齡（歲）', style: 'flex:none' }), age]),
         h('button', { class: 'btn block', style: 'margin-top:12px', text: '領養', onclick: function () {
@@ -351,30 +418,51 @@
   function renderShop() {
     var p = curPet();
     if (!p) { body.appendChild(empty()); return; }
-    var tier = C.breed(p.breedId).tier;
+    var cat = C.breed(p.breedId).sp === 'cat';
     body.appendChild(petSwitch('幫誰買東西'));
     var card = h('div', { class: 'card' });
-    function item(icon, name, desc, price, owned, onBuy, extra) {
-      card.appendChild(h('div', { class: 'item' }, [
-        h('div', { class: 'ic', text: icon }),
+    function row(target, icon, name, desc, right, icStyle) {
+      target.appendChild(h('div', { class: 'item' }, [
+        h('div', { class: 'ic', text: icon, style: icStyle || '' }),
         h('div', { class: 'tx' }, [h('b', { text: name }), h('span', { text: desc })]),
-        owned ? (extra || h('span', { class: 'done', text: '已擁有' })) : h('button', { class: 'btn', onclick: onBuy }, [price + ' 金幣'])
+        right
       ]));
     }
-    item('帶', '胸背帶', '出門玩必備', C.CFG.harnessPrice, p.items.harness, function () { act(C.buyItem(S, p.id, 'harness')); });
-    item('車', '外出推車', 'BCS 8 以上也能出門，散步不計入減重', C.CFG.strollerPrice[tier], p.items.stroller, function () { act(C.buyItem(S, p.id, 'stroller')); });
-    body.appendChild(h('div', { class: 'sec', text: '配件' }));
+    function buyBtn(price, fn) { return h('button', { class: 'btn', onclick: fn }, [price + ' 金幣']); }
+    function gearRow(k, icon, name, desc, price) {
+      var right = p.items[k]
+        ? h('button', { class: 'btn ' + (p.equip[k] ? 'ghost' : 'soft'), text: p.equip[k] ? '卸下' : '裝備', onclick: function () { act(C.equip(S, p.id, k, !p.equip[k])); } })
+        : buyBtn(price, function () { act(C.buyItem(S, p.id, k)); });
+      row(card, icon, name + (p.items[k] && p.equip[k] ? '・裝備中' : ''), desc, right);
+    }
+    gearRow('harness', '帶', '胸背帶', '裝備後可以出門散步', C.CFG.harnessPrice);
+    gearRow('stroller', '車', '外出推車', '裝備後用推車出門，BCS 8 以上也能出門，不計入減重', C.CFG.strollerPrice);
+    body.appendChild(h('div', { class: 'sec', text: '外出' }));
     body.appendChild(card);
+
+    var tc = h('div', { class: 'card' });
+    Object.keys(C.TOYS).forEach(function (k) {
+      var it = C.TOYS[k]; if (it.sp.indexOf(cat ? 'cat' : 'dog') < 0) return;
+      row(tc, k === 'toy' ? '藏' : '抓', it.name, it.desc, p.items[k] ? h('span', { class: 'done', text: '已擁有' }) : buyBtn(it.price, function () { act(C.buyItem(S, p.id, k)); }), 'background:#e3f1fb;color:#2e78b7');
+    });
+    body.appendChild(h('div', { class: 'sec', text: '玩具' }));
+    body.appendChild(tc);
+
+    var sk = h('div', { class: 'card' });
+    var skDesc = { shake: '伸出前腳跟你握手', down: '聽口令乖乖趴下', spin: '原地轉兩圈', grin: '露出牙齒對你笑', nails: '每 ' + C.CFG.nailDays + ' 天剪一次，開心 +' + C.CFG.nailGain };
+    Object.keys(C.TRICKS).forEach(function (k) {
+      var it = C.TRICKS[k];
+      row(sk, it.name.slice(-2, -1) === '指' ? '剪' : it.name.charAt(0), it.name, skDesc[k], p.tricks[k] ? h('span', { class: 'done', text: '已學會' }) : buyBtn(it.price, function () { act(C.learn(S, p.id, k)); }), 'background:#f3e8fb;color:#8a4bb8');
+    });
+    body.appendChild(h('div', { class: 'sec', id: 'petSkills', text: '技能' }));
+    body.appendChild(sk);
+
     var cl = h('div', { class: 'card' }), icons = { normal: '衣', trend: '潮', gold: '金' };
     Object.keys(C.CLOTHES).forEach(function (k) {
       var c = C.CLOTHES[k], on = p.wear === k, owned = p.items.clothes[k];
-      cl.appendChild(h('div', { class: 'item' }, [
-        h('div', { class: 'ic', text: icons[k] || '衣', style: k === 'gold' ? 'background:#fff3c4;color:#a87b00' : '' }),
-        h('div', { class: 'tx' }, [h('b', { text: c.name }), h('span', { text: '穿著時每天開心少掉 ' + c.bonus })]),
-        owned
-          ? h('button', { class: 'btn ' + (on ? 'ghost' : 'soft'), text: on ? '脫下' : '穿上', onclick: function () { act(C.wear(S, p.id, on ? '' : k)); } })
-          : h('button', { class: 'btn', text: c.price + ' 金幣', onclick: function () { act(C.buyItem(S, p.id, k)); } })
-      ]));
+      row(cl, icons[k] || '衣', c.name, '穿著時每天開心少掉 ' + c.bonus, owned
+        ? h('button', { class: 'btn ' + (on ? 'ghost' : 'soft'), text: on ? '脫下' : '穿上', onclick: function () { act(C.wear(S, p.id, on ? '' : k)); } })
+        : buyBtn(c.price, function () { act(C.buyItem(S, p.id, k)); }), k === 'gold' ? 'background:#fff3c4;color:#a87b00' : '');
     });
     body.appendChild(h('div', { class: 'sec', text: '衣服' }));
     body.appendChild(cl);
@@ -415,6 +503,55 @@
   }
 
   /* 飼主 */
+  var avPrev = null;
+  function avatarEditor() {
+    var o = S.owner, look = o.look, LK = C.LOOK;
+    var box = h('div', { class: 'avbox' });
+    if (avPrev && avPrev.api) { avPrev.api.dispose(); }
+    avPrev = { el: box, api: null };
+    var mine = avPrev;
+    if (root.PetAvatar) root.PetAvatar.preview(box, look).then(function (api) { if (mine === avPrev && box.isConnected) mine.api = api; else api.dispose(); }, function () { box.appendChild(h('div', { class: 'muted', style: 'padding:90px 0;text-align:center', text: '3D 載入失敗' })); });
+    var ed = h('div');
+    function set(k, v) {
+      look[k] = v;
+      if (k === 'g') { var d = C.defaultLook(v); look.hair = d.hair; look.bottom = d.bottom; }
+      ST.save(S); draw(); if (avPrev && avPrev.api) avPrev.api.update(look);
+      if (root.PetSocial) root.PetSocial.publish();
+    }
+    function picks(label, key, names) {
+      var w = h('div', { class: 'pick' });
+      names.forEach(function (n, i) { w.appendChild(h('button', { class: look[key] === i ? 'on' : '', text: n, onclick: function () { set(key, i); } })); });
+      return [h('div', { class: 'lbl', text: label }), w];
+    }
+    function dots(label, key, cols) {
+      var w = h('div', { class: 'dots' });
+      cols.forEach(function (c, i) { var b = h('button', { class: look[key] === i ? 'on' : '', 'aria-label': label + (i + 1), onclick: function () { set(key, i); } }); b.style.background = c; w.appendChild(b); });
+      return [h('div', { class: 'lbl', text: label }), w];
+    }
+    function draw() {
+      ed.innerHTML = '';
+      var seg = h('div', { class: 'seg', style: 'margin-top:12px' });
+      [['m', '男生'], ['f', '女生']].forEach(function (x) { seg.appendChild(h('button', { class: look.g === x[0] ? 'on' : '', text: x[1], onclick: function () { set('g', x[0]); } })); });
+      ed.appendChild(seg);
+      [].concat(picks('髮型', 'hair', LK.hair), dots('髮色', 'hairCol', LK.hairCol), picks('上衣', 'top', LK.top), dots('上衣顏色', 'topCol', LK.cloth),
+        picks('下身', 'bottom', LK.bottom), dots('下身顏色', 'botCol', LK.cloth), dots('膚色', 'skin', LK.skin)).forEach(function (x) { ed.appendChild(x); });
+    }
+    draw();
+    return h('div', { class: 'card' }, [box, h('div', { class: 'muted', style: 'text-align:center;margin-top:6px;font-size:12px', text: '拖曳可以轉動，點一下會揮手。全部免費，隨意搭配。' }), ed]);
+  }
+  function achCard() {
+    var c = h('div', { class: 'card' });
+    C.ACH.forEach(function (a) {
+      var got = S.ach[a.id] || 0, n = S.stats[a.id] || 0, next = a.steps[got];
+      var st = h('div', { class: 'st' });
+      a.steps.forEach(function (x, i) { st.appendChild(h('i', { class: i < got ? 'on' : '', text: String(x) })); });
+      c.appendChild(h('div', { class: 'ach' }, [
+        h('div', { style: 'flex:1;min-width:0' }, [h('b', { text: a.name, style: 'font-size:15px;display:block' }), h('span', { class: 'muted', style: 'font-size:12px', text: '累計 ' + n + ' 次' + (next ? '・下一個 ' + next + ' 次 +' + a.reward[got] + ' 金幣' : '・全部完成') })]),
+        st
+      ]));
+    });
+    return c;
+  }
   function renderOwner() {
     var o = S.owner, lv = o.level, max = C.CFG.maxLevel;
     var up = lv < max
@@ -431,6 +568,10 @@
       stat('等級', lv + ' / ' + max, bar(lv / max * 100, 'var(--pri)')),
       up
     ]));
+    body.appendChild(h('div', { class: 'sec', text: '飼主形象' }));
+    body.appendChild(avatarEditor());
+    body.appendChild(h('div', { class: 'sec', text: '成就' }));
+    body.appendChild(achCard());
     var hidden = '••••-••••-••••', rc = h('div', { class: 'code', text: hidden });
     body.appendChild(h('div', { class: 'sec', text: '我的代碼' }));
     body.appendChild(h('div', { class: 'card' }, [
@@ -441,6 +582,7 @@
         var show = rc.textContent === hidden; rc.textContent = show ? o.recoveryCode : hidden; e.currentTarget.textContent = show ? '隱藏' : '顯示';
       } })])
     ]));
+    renderBackup();
     body.appendChild(h('div', { class: 'sec', text: '重新開始' }));
     body.appendChild(h('div', { class: 'card' }, [
       h('b', { text: '刪除飼主和寵物，保留金幣', style: 'font-size:16px' }),
@@ -451,6 +593,12 @@
           var keep = S.coins, seen = S.quizSeen;
           S = C.newState(); S.coins = keep; S.quizSeen = seen || {};
           selId = null; adoptOpen = false; tab = 'pet'; ST.save(S); render(); toast('已重新開始，保留 ' + keep + ' 金幣');
+        });
+      } }),
+      h('button', { class: 'link', style: 'display:block;margin:10px auto 0;color:var(--bad)', text: '清除所有寵物資料（包含金幣）', onclick: function () {
+        ask('清除所有資料？', '飼主、寵物和金幣都會刪除，無法復原。建議先下載備份。', '清除', true).then(function (ok) {
+          if (!ok) return;
+          S = C.newState(); selId = null; adoptOpen = false; tab = 'pet'; ST.save(S); render(); toast('已清除');
         });
       } })
     ]));
@@ -464,23 +612,54 @@
 
   /* 備份 */
   function renderBackup() {
-    body.appendChild(h('div', { class: 'card', style: 'margin-top:12px' }, [
-      h('b', { text: '下載備份', style: 'font-size:16px' }),
-      h('p', { class: 'muted', style: 'margin:4px 0 12px', text: '寵物資料只存在這台裝置的瀏覽器裡。換手機或清除瀏覽器資料前，請先下載備份。' }),
-      h('button', { class: 'btn block', text: '下載備份檔', onclick: function () { ST.exportJson(S); toast('已下載備份'); } })
-    ]));
+    body.appendChild(h('div', { class: 'sec', text: '備份' }));
     body.appendChild(h('div', { class: 'card' }, [
-      h('b', { text: '從備份還原', style: 'font-size:16px' }),
-      h('p', { class: 'muted', style: 'margin:4px 0 12px', text: '會用備份檔覆蓋目前的資料。' }),
-      (function () { var w = filePicker('選擇備份檔'); w.lastChild.className = 'btn ghost block'; return w; })()
+      h('p', { class: 'muted', style: 'margin:0 0 12px', text: '寵物資料只存在這台裝置的瀏覽器裡。換手機或清除瀏覽器資料前，請先下載備份。' }),
+      h('div', { class: 'grid2' }, [
+        h('button', { class: 'btn', text: '下載備份檔', onclick: function () { ST.exportJson(S); toast('已下載備份'); } }),
+        (function () { var w = filePicker('從備份還原'); w.lastChild.className = 'btn ghost block'; return w; })()
+      ])
     ]));
-    body.appendChild(h('div', { class: 'sec', text: '危險區域' }));
-    body.appendChild(h('button', { class: 'btn danger block', text: '清除所有寵物資料', onclick: function () {
-      ask('清除所有資料？', '飼主、寵物和金幣都會刪除，無法復原。建議先下載備份。', '清除', true).then(function (ok) {
-        if (!ok) return;
-        S = C.newState(); selId = null; adoptOpen = false; tab = 'pet'; ST.save(S); render(); toast('已清除');
-      });
-    } }));
+  }
+
+  /* 大廳與好友 */
+  function renderLobby() {
+    var SO = root.PetSocial;
+    body.appendChild(h('div', { class: 'lobby-hero', style: 'margin-top:12px' }, [
+      h('b', { text: '椰林大廳' }),
+      h('p', { text: '椰林大道旁的草地和木桌，帶著寵物坐下來讀書。靠近其他玩家可以打招呼、聊天、加好友。' }),
+      h('button', { class: 'btn', style: 'background:#fff;color:#2f6b45', text: '進入大廳', onclick: function () {
+        if (!S.pets.length) { toast('先領養一隻寵物'); return; }
+        if (root.PetLobby) root.PetLobby.start(selId || S.pets[0].id); else toast('大廳載入失敗，請重新整理');
+      } })
+    ]));
+    if (S.pets.length > 1) body.appendChild(petSwitch('帶誰去大廳'));
+    var st = SO ? SO.status() : 'off';
+    if (st !== 'ok') body.appendChild(h('div', { class: 'warn', text: st === 'denied' ? '線上功能目前無法連線（資料庫權限），大廳只能自己逛。' : (st === 'off' ? '目前離線，大廳只能自己逛。' : '連線中…') }));
+    body.appendChild(h('div', { class: 'sec', text: '好友（' + S.friends.length + '）' }));
+    var list = h('div', { class: 'card' });
+    if (!S.friends.length) list.appendChild(h('p', { class: 'muted', style: 'margin:0', text: '還沒有好友。在大廳靠近其他玩家按「交流」→「加好友」，或輸入好友碼。' }));
+    S.friends.forEach(function (f) {
+      var info = SO && SO.profile(f.code), live = info && Date.now() - (info.ts || 0) < 120000;
+      var unread = SO && SO.unread(f.code);
+      list.appendChild(h('div', { class: 'item' }, [
+        h('span', { class: 'on-dot' + (live ? ' live' : '') }),
+        h('div', { class: 'tx' }, [h('b', { text: (info && info.name) || f.name }), h('span', { text: info && info.pet ? '帶著 ' + info.pet.name + '（' + ((C.breed(info.pet.breedId) || {}).name || '') + '）' : f.code })]),
+        h('button', { class: 'btn ' + (unread ? '' : 'ghost'), text: unread ? '新訊息' : '聊天', onclick: function () { if (SO) SO.openChat(f.code, (info && info.name) || f.name); } })
+      ]));
+    });
+    body.appendChild(list);
+    if (SO && S.friends.length) SO.fetchProfiles(S.friends.map(function (f) { return f.code; }), function () { if (isOpen() && tab === 'lobby') render(); });
+    var inp = h('input', { type: 'text', placeholder: '輸入好友碼', maxlength: '8', autocomplete: 'off', style: 'text-transform:uppercase' });
+    body.appendChild(h('div', { class: 'sec', text: '用好友碼加好友' }));
+    body.appendChild(h('div', { class: 'card' }, [
+      h('div', { class: 'row' }, [inp, h('button', { class: 'btn', text: '加入', onclick: function () {
+        var code = inp.value.trim().toUpperCase();
+        if (!SO) { toast('目前離線'); return; }
+        SO.addFriendByCode(code).then(function (r) { toast(r.msg); if (r.ok) render(); });
+      } })]),
+      h('div', { class: 'muted', style: 'margin-top:8px', text: '我的好友碼：' + S.owner.friendCode })
+    ]));
   }
 
   /* 外框 */
@@ -511,12 +690,14 @@
     else if (tab === 'shop') renderShop();
     else if (tab === 'care') renderCare();
     else if (tab === 'owner') renderOwner();
-    else renderBackup();
+    else if (tab === 'lobby') renderLobby();
+    else { tab = 'pet'; renderPet(); }
     var slot = body.querySelector('.pet-stage-slot');
     if (slot && stageNode) slot.appendChild(stageNode);
     var nav = h('div', { class: 'nav' });
-    [['pet', '寵物'], ['shop', '商店'], ['care', '照護'], ['owner', '飼主'], ['backup', '備份']].forEach(function (n) {
-      nav.appendChild(h('button', { class: tab === n[0] ? 'on' : '', html: svg(n[0], 22) + '<span>' + n[1] + '</span>', onclick: function () { if (tab !== n[0]) { tab = n[0]; adoptOpen = false; render(); body.scrollTop = 0; } } }));
+    [['pet', '寵物'], ['shop', '商店'], ['care', '照護'], ['lobby', '大廳'], ['owner', '飼主']].forEach(function (n) {
+      var badge = n[0] === 'lobby' && root.PetSocial && root.PetSocial.unread() ? '<i style="position:absolute;top:6px;margin-left:16px;width:8px;height:8px;border-radius:50%;background:#e74c3c"></i>' : '';
+      nav.appendChild(h('button', { class: tab === n[0] ? 'on' : '', style: 'position:relative', html: svg(n[0], 22) + badge + '<span>' + n[1] + '</span>', onclick: function () { if (tab !== n[0]) { tab = n[0]; adoptOpen = false; render(); body.scrollTop = 0; } } }));
     });
     sheet.appendChild(nav);
     if (sameTab) body.scrollTop = keep;
@@ -535,22 +716,23 @@
     emit('petui:render', { tab: null, petId: null, slot: null });
   }
 
-  function onCorrect(qid, quiet) {
+  function onCorrect(qid, quiet, sid) {
     if (!S) return 0;
-    var n = C.awardQuiz(S, String(qid), now());
+    var n = C.awardQuiz(S, String(qid), now(), sid);
     if (n) { ST.save(S); if (!quiet) toast('+1 金幣'); }
     return n;
   }
   function skip(hours) { timeOffset += hours * 3600000; commit(); return '已快轉 ' + hours + ' 小時（重新整理後還原）'; }
 
   function init() {
-    S = ST.load() || C.newState();
+    S = C.migrate(ST.load() || C.newState());
     css(); build(); C.tick(S, now()); ST.save(S);
     placeEntry(); ST.requestPersist();
   }
   root.PetUI = {
     init: init, open: open, close: close, onCorrect: onCorrect, goQuiz: goQuiz, skip: skip, toast: toast,
-    state: function () { return S; }, current: curPet, isOpen: isOpen, refresh: commit
+    state: function () { return S; }, current: curPet, isOpen: isOpen, refresh: commit, save: function () { ST.save(S); },
+    tab: function () { return tab; }, rerender: function () { if (isOpen()) render(); }
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })(window);

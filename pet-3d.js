@@ -131,7 +131,17 @@
       var len = Math.max(0.05, leg * 0.95 - 2 * legR);
       pv.add(mesh(new T.CapsuleGeometry(legR, len, 6, 12), pr.col, 0, -leg * 0.95 / 2, 0, 1, 1, 1, 0.07));
       var paw = (pr.pts || pr.chest || pr.col2 !== pr.col) ? pr.col2 : pr.col;
-      pv.add(mesh(sph(legR * 1.15), paw, 0, -leg * 0.95 + legR * 0.9, legR * 0.35, 1, 0.8, 1.3));
+      var pwY = -leg * 0.95 + legR * 0.9;
+      pv.add(mesh(sph(legR * 1.15), paw, 0, pwY, legR * 0.35, 1, 0.8, 1.3));
+      if (lp[1] > 0) {
+        var cl = [];
+        [-0.55, 0, 0.55].forEach(function (cx) {
+          var c = mesh(new T.ConeGeometry(legR * 0.16, legR * 0.5, 6), '#fbfbf4', cx * legR, pwY - legR * 0.45, legR * 1.75);
+          c.rotation.x = Math.PI / 2 + 0.5; pv.add(c); cl.push(c);
+        });
+        (U.claws = U.claws || []).push(cl);
+        U.pawY = pwY; U.legR = legR;
+      }
       g.add(pv); U.legs.push(pv);
     });
 
@@ -183,6 +193,10 @@
     var jaw = mesh(sph(hr * 0.11), '#7a2a35', 0, snY - sc * 0.25, tipZ - hr * 0.15, 1, 0.01, 0.6);
     jaw.add(mesh(sph(hr * 0.07), '#ff8fa3', 0, -hr * 0.05, hr * 0.03, 1, 0.7, 1));
     head.add(jaw); U.jaw = jaw; U.jawR = hr * 0.11;
+    var teeth = new T.Group(); teeth.position.set(0, snY - sc * 0.12, tipZ - hr * 0.1); teeth.visible = false;
+    teeth.add(mesh(new T.BoxGeometry(hr * 0.24, hr * 0.06, hr * 0.03), '#ffffff', 0, 0, 0));
+    [-1, 1].forEach(function (sd) { var f = mesh(new T.ConeGeometry(hr * 0.03, hr * 0.1, 5), '#ffffff', sd * hr * 0.1, -hr * 0.06, 0); f.rotation.x = Math.PI; teeth.add(f); });
+    head.add(teeth); U.teeth = teeth;
 
     var tail = new T.Group(); tail.position.set(0, th * 0.3, -tl * 0.95); tail.rotation.order = 'YXZ'; upper.add(tail); U.tail = tail;
     var tc = pr.pts ? pr.col2 : pr.col, tt = pr.tail;
@@ -202,7 +216,7 @@
       if (wear === 'trend') upper.add(mesh(cg2, toon('#fff27a', { side: T.DoubleSide }), 0, 0.005, tl * 0.12, tw * 1.06, th * 1.06, tl * 0.12));
       if (wear === 'gold') upper.add(mesh(cg2, toon('#ffffff', { side: T.DoubleSide }), 0, 0.005, tl * 0.3, tw * 1.06, th * 1.06, tl * 0.06));
     }
-    if (p.items && p.items.harness) {
+    if (p.items && p.items.harness && (!p.equip || p.equip.harness)) {
       var hm = mesh(new T.TorusGeometry(1, 0.05, 8, 28), '#e03b3b', 0, 0, tl * 0.5, tw * 0.9, th * 0.9, 1);
       upper.add(hm);
     }
@@ -277,7 +291,41 @@
     sofa.add(mesh(new T.BoxGeometry(2.8, 0.55, 1.0), '#9fb8a1', 0, 0.3, 0, 1, 1, 1, 0.02));
     sofa.add(mesh(new T.BoxGeometry(2.8, 0.9, 0.3), '#8aa58d', 0, 0.75, -0.4, 1, 1, 1, 0.02));
     r.add(sofa);
+    var toy = new T.Group(); toy.position.set(-1.9, 0, 1.9);
+    toy.add(mesh(new T.IcosahedronGeometry(0.24, 1), '#4fc1a6', 0, 0.24, 0, 1, 1, 1, 0.05));
+    [[0.2, 0.3, 0.1], [-0.15, 0.35, 0.15], [0.05, 0.42, -0.18], [-0.1, 0.18, -0.2]].forEach(function (q) { toy.add(mesh(sph(0.05), '#2a6b5a', q[0], q[1], q[2])); });
+    toy.visible = false; r.add(toy); r.userData.toy = toy;
+    var scr = new T.Group(); scr.position.set(-2.9, 0, -0.6); scr.rotation.y = 0.7;
+    var ramp = mesh(new T.BoxGeometry(0.7, 0.08, 1.2), '#c9a070', 0, 0.32, 0, 1, 1, 1, 0.03); ramp.rotation.x = -0.5; scr.add(ramp);
+    for (var si = 0; si < 7; si++) { var ln = mesh(new T.BoxGeometry(0.66, 0.012, 0.03), '#8a6236', 0, 0.37 + (si - 3) * 0.075, (si - 3) * -0.14); ln.rotation.x = -0.5; scr.add(ln); }
+    scr.add(mesh(new T.BoxGeometry(0.72, 0.06, 1.15), '#a57b4a', 0, 0.03, 0.05));
+    scr.visible = false; r.add(scr); r.userData.scr = scr;
+    r.userData.bowl = bowl1; r.userData.food = bowl1.children[bowl1.children.length - 1];
     scene.add(r); return r;
+  }
+  function heartGeo() {
+    var sh = new T.Shape();
+    sh.moveTo(0, -0.5); sh.bezierCurveTo(-0.9, 0.1, -0.5, 0.9, 0, 0.45); sh.bezierCurveTo(0.5, 0.9, 0.9, 0.1, 0, -0.5);
+    return new T.ShapeGeometry(sh);
+  }
+  function snackMesh(id) {
+    var g = new T.Group();
+    if (id === 'bone' || id === 'dental' || id === 'cdental') {
+      var c = id === 'bone' ? '#f5ecd8' : (id === 'dental' ? '#7fc98a' : '#9bd0ef');
+      var b = new T.CapsuleGeometry(0.035, 0.22, 4, 8); b.rotateZ(Math.PI / 2); g.add(mesh(b, c, 0, 0.04, 0, 1, 1, 1, 0.08));
+      [-1, 1].forEach(function (sd) { g.add(mesh(sph(0.05), c, sd * 0.14, 0.05, 0.03, 1, 1, 1, 0.06)); g.add(mesh(sph(0.05), c, sd * 0.14, 0.05, -0.03, 1, 1, 1, 0.06)); });
+    } else if (id === 'jerky') {
+      g.add(mesh(new T.BoxGeometry(0.28, 0.03, 0.1), '#8a3b22', 0, 0.02, 0, 1, 1, 1, 0.08));
+    } else if (id === 'catgrass') {
+      g.add(mesh(new T.CylinderGeometry(0.1, 0.08, 0.1, 12), '#d98a5a', 0, 0.05, 0, 1, 1, 1, 0.05));
+      for (var k = 0; k < 7; k++) { var bl = mesh(new T.ConeGeometry(0.015, 0.2, 4), '#5fbf4a', Math.cos(k) * 0.05, 0.18, Math.sin(k) * 0.05); bl.rotation.z = Math.cos(k * 2) * 0.3; g.add(bl); }
+    } else if (id === 'puree') {
+      var tube = new T.CylinderGeometry(0.035, 0.035, 0.28, 10); tube.rotateZ(Math.PI / 2);
+      g.add(mesh(tube, '#ffffff', 0, 0.04, 0, 1, 1, 1, 0.08)); g.add(mesh(sph(0.05), '#e3a07a', 0.17, 0.035, 0, 1, 0.6, 1));
+    } else {
+      g.add(mesh(new T.CylinderGeometry(0.07, 0.07, 0.03, 12), id === 'cbiscuit' ? '#e8b35a' : '#c98a3a', 0, 0.02, 0, 1, 1, 1, 0.08));
+    }
+    return g;
   }
 
   var MOOD_KEYS = EK;
@@ -293,7 +341,9 @@
     this.el.appendChild(this.ren.domElement);
     this.scene.add(new T.HemisphereLight(0xffffff, 0xd9c2a0, 1.1));
     var dl = new T.DirectionalLight(0xffffff, 1.4); dl.position.set(3, 6, 5); this.scene.add(dl);
-    buildRoom(this.scene);
+    this.room = buildRoom(this.scene);
+    this.camP = new T.Vector3(0, 3.1, 6.6); this.camL = new T.Vector3(0, 0.95, 0); this.camGoal = null; this.camK = 2.5;
+    this.parts = []; this.heartG = heartGeo(); this.tr = null; this.food = 'kibble';
     var bl = new T.Mesh(new T.CircleGeometry(1, 24), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.22 }));
     bl.rotation.x = -Math.PI / 2; bl.position.y = 0.045; this.scene.add(bl); this.blob = bl;
     this.pet = null; this.sig = '';
@@ -314,8 +364,8 @@
     this.cam.fov = w / hh < 1.2 ? 52 : 40; this.cam.updateProjectionMatrix();
   };
   Stage.prototype.setPet = function (p, force) {
-    var sig = [p.id, p.breedId, p.bcs, p.muscle, p.wear, p.items && p.items.harness ? 1 : 0, Math.floor(root.PetCore ? root.PetCore.ageDays(p, Date.now()) / 30 : 0)].join('|');
-    if (!force && sig === this.sig) { this.petData = p; return; }
+    var sig = [p.id, p.breedId, p.bcs, p.muscle, p.wear, p.items && p.items.harness && (!p.equip || p.equip.harness) ? 1 : 0, p.items && p.items.toy ? 1 : 0, p.items && p.items.scratcher ? 1 : 0, Math.floor(root.PetCore ? root.PetCore.ageDays(p, Date.now()) / 30 : 0)].join('|');
+    if (!force && sig === this.sig) { this.petData = p; this.syncProps(p); return; }
     this.sig = sig; this.petData = p;
     var old = this.pet, pos = old ? old.position.clone() : null, yaw = old ? old.rotation.y : 0.35;
     if (old) this.scene.remove(old);
@@ -326,15 +376,105 @@
     this.scene.add(this.pet);
     var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.6, U.tl * U.scale * 1.5, 1);
     this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1);
+    this.syncProps(p, true);
+  };
+  Stage.prototype.syncProps = function (p, fresh) {
+    var U = this.pet.userData, R = this.room.userData, cat = (PARAMS[p.breedId] || {}).sp === 'cat';
+    R.toy.visible = !!(p.items && p.items.toy); R.scr.visible = !!(p.items && p.items.scratcher && cat);
+    if (this.tr && this.tr.kind === 'nails') return;
+    if (U.claws && root.PetCore) {
+      var grown = Math.min(1, (Date.now() - (p.nailTs || Date.now())) / (root.PetCore.CFG.nailDays * 86400000));
+      U.claws.forEach(function (cl) { cl.forEach(function (c) { c.visible = true; c.scale.set(1, 0.7 + grown * 0.9, 1); }); });
+    }
   };
   Stage.prototype.setMood = function (m) {
     var src = typeof m === 'string' ? (MOODS[m] || MOODS.neutral) : m, i;
     for (i = 0; i < MOOD_KEYS.length; i++) this.tar[MOOD_KEYS[i]] = src[MOOD_KEYS[i]] || 0;
     this.baseTar = {}; for (i = 0; i < MOOD_KEYS.length; i++) this.baseTar[MOOD_KEYS[i]] = this.tar[MOOD_KEYS[i]];
   };
-  Stage.prototype.eat = function () { if (this.mode !== 'sleep') { this.mode = 'toBowl'; this.tx = 2.4; this.tz = -0.9; } };
+  Stage.prototype.eat = function (food) {
+    if (!this.pet) return;
+    var U = this.pet.userData, R = this.room.userData, bw = R.bowl.position, reach = (U.tl * 0.85 + U.hr * 0.75) * U.scale;
+    this.food = food || 'kibble'; this.tr = null;
+    this.mode = 'toBowl'; this.tx = bw.x - reach - 0.05; this.tz = bw.z; this.act = 'walk';
+    R.food.material = toon(this.food === 'canned' ? '#d98a7a' : '#8b5a2b'); R.food.scale.set(1, 0.05, 1); this.fill = 0;
+    var S = U.scale, self = this;
+    this.camGoal = { p: new T.Vector3(bw.x + 1.2, 0.55 + 0.35 * S, bw.z + 0.95), l: new T.Vector3(bw.x - 0.35 * S, 0.22 + 0.22 * S, bw.z) }; this.camK = 2.2;
+    for (var i = 0; i < 16; i++) (function (i) {
+      setTimeout(function () {
+        var m = mesh(sph(0.032), self.food === 'canned' ? '#c97a6a' : (i % 3 ? '#8b5a2b' : '#a0703a'), bw.x + (Math.random() - 0.5) * 0.08, 0.95, bw.z + (Math.random() - 0.5) * 0.08);
+        self.spawn(m, { vx: (Math.random() - 0.5) * 0.4, vy: -0.5, vz: (Math.random() - 0.5) * 0.4, life: 1.4, floor: 0.13, onLand: function () { self.fill = Math.min(1, self.fill + 1 / 16); }, kill: true });
+      }, i * 45);
+    })(i);
+  };
+  Stage.prototype.spawn = function (m, o) { this.scene.add(m); o.m = m; o.age = 0; if (o.vx == null) o.vx = 0; if (o.vy == null) o.vy = 0; if (o.vz == null) o.vz = 0; this.parts.push(o); return o; };
+  Stage.prototype.hearts = function (n, at) {
+    for (var i = 0; i < (n || 3); i++) {
+      var m = new T.Mesh(this.heartG, new T.MeshBasicMaterial({ color: 0xff6f9a, transparent: true, side: T.DoubleSide, depthTest: false }));
+      m.scale.setScalar(0.13); m.renderOrder = 5;
+      m.position.set(at.x + (Math.random() - 0.5) * 0.4, at.y + Math.random() * 0.2, at.z + (Math.random() - 0.5) * 0.3);
+      this.spawn(m, { vy: 0.5 + Math.random() * 0.3, life: 1.6 + Math.random() * 0.5, noGrav: true, fade: true, face: true, delay: i * 0.18 });
+    }
+  };
+  Stage.prototype.headPos = function () { var v = new T.Vector3(); this.pet.userData.head.getWorldPosition(v); return v; };
+  Stage.prototype.snack = function (id) {
+    if (!this.pet) return;
+    var g = this.pet, U = g.userData, S = U.scale;
+    this.mode = 'trick'; this.tr = { kind: 'snack', t: 0, dur: 2.6 };
+    var fy = Math.atan2(this.camP.x - g.position.x, this.camP.z - g.position.z); this.tr.face = fy;
+    var reach = (U.tl * 0.85 + U.hr * 0.9) * S, sm = snackMesh(id);
+    sm.position.set(g.position.x + Math.sin(fy) * reach, 0.9, g.position.z + Math.cos(fy) * reach); sm.rotation.y = fy + 0.4;
+    this.spawn(sm, { vy: 0, life: 2.3, floor: 0.02, shrinkAfter: 0.9 });
+    this.camGoal = { p: new T.Vector3(g.position.x + Math.sin(fy + 0.5) * (1.4 + S), 0.6 + 0.5 * S, g.position.z + Math.cos(fy + 0.5) * (1.4 + S)), l: new T.Vector3(g.position.x + Math.sin(fy) * reach * 0.6, 0.25 + 0.3 * S, g.position.z + Math.cos(fy) * reach * 0.6) };
+    this.camK = 3;
+  };
+  var TR_DUR = { shake: 3.6, down: 3.2, spin: 2.4, grin: 2.8, nails: 6.2, toy: 5.5, scratch: 4.2 };
+  Stage.prototype.trick = function (kind) {
+    if (!this.pet) return;
+    var g = this.pet, U = g.userData, S = U.scale, R = this.room.userData;
+    this.tr = { kind: kind, t: 0, dur: TR_DUR[kind] || 3, cut: 0 };
+    if (kind === 'toy' || kind === 'scratch') {
+      var obj = kind === 'toy' ? R.toy : R.scr, op = obj.position;
+      var ang = kind === 'toy' ? -0.6 : 0.7, reach = (U.tl * 0.85 + U.hr) * S + (kind === 'toy' ? 0.25 : 0.35);
+      this.tr.goto = { x: op.x - Math.sin(ang + Math.PI) * -reach, z: op.z + Math.cos(ang) * reach };
+      this.tr.goto = { x: op.x + Math.sin(ang) * reach, z: op.z + Math.cos(ang) * reach };
+      this.tr.face = ang + Math.PI; this.tr.obj = obj; this.tr.home = op.clone();
+      this.tr.walking = true; this.mode = 'trick';
+      var cx = op.x + Math.sin(ang + 1.1) * 2.4, cz = op.z + Math.cos(ang + 1.1) * 2.4;
+      this.camGoal = { p: new T.Vector3(cx, 1.1 + 0.5 * S, cz), l: new T.Vector3((op.x + this.tr.goto.x) / 2, 0.35 + 0.2 * S, (op.z + this.tr.goto.z) / 2) }; this.camK = 2;
+      return;
+    }
+    this.mode = 'trick';
+    var fy = Math.atan2(this.camDefP().x - g.position.x, this.camDefP().z - g.position.z);
+    this.tr.face = fy;
+    var cs = Math.sin(fy), cc = Math.cos(fy);
+    if (kind === 'nails') {
+      var d = 0.75 + 0.35 * S;
+      this.camGoal = { p: new T.Vector3(g.position.x + Math.sin(fy + 0.35) * d * 1.25, 0.35 + 0.35 * S, g.position.z + Math.cos(fy + 0.35) * d * 1.25), l: null, nails: true };
+      this.camK = 3;
+      if (!this.clip) {
+        var cg = new T.Group();
+        cg.add(mesh(new T.BoxGeometry(0.035, 0.03, 0.18), '#d9534f', 0, 0, -0.1, 1, 1, 1, 0.08));
+        cg.add(mesh(new T.BoxGeometry(0.03, 0.025, 0.1), '#bfc4cc', 0, 0.015, 0.03, 1, 1, 1, 0.08));
+        cg.add(mesh(new T.BoxGeometry(0.03, 0.025, 0.1), '#bfc4cc', 0, -0.015, 0.03, 1, 1, 1, 0.08));
+        this.clip = cg; this.scene.add(cg);
+      }
+      this.clip.visible = true;
+      var cl = U.claws && U.claws[1]; if (cl) cl.forEach(function (c) { c.visible = true; });
+    } else {
+      var dd = (kind === 'spin' ? 2.2 : 1.6) + 1.0 * S, side = kind === 'shake' ? 0.45 : 0.25;
+      this.camGoal = { p: new T.Vector3(g.position.x + Math.sin(fy + side) * dd, 0.7 + 0.55 * S, g.position.z + Math.cos(fy + side) * dd), l: new T.Vector3(g.position.x + cs * 0.15, 0.35 + 0.4 * S, g.position.z + cc * 0.15) };
+      this.camK = 3;
+      if (kind === 'shake' && !this.hand) {
+        var hd = new T.Group(); hd.add(mesh(sph(0.11), '#f5cba7', 0, 0, 0, 1, 0.7, 1.3, 0.05)); hd.add(mesh(new T.CapsuleGeometry(0.07, 0.4, 4, 8), '#4aa3df', 0, 0, 0.3, 1, 1, 1, 0.05)); hd.children[1].rotation.x = Math.PI / 2;
+        this.hand = hd; this.scene.add(hd);
+      }
+    }
+  };
+  Stage.prototype.camDefP = function () { return new T.Vector3(0, 3.1, 6.6); };
   Stage.prototype.jump = function () { this.jumpT = 1.2; };
   Stage.prototype.sleep = function (on) { this.mode = on ? 'sleep' : 'wander'; };
+  Stage.prototype.busy = function () { return this.mode === 'trick' || this.mode === 'toBowl' || this.mode === 'eating'; };
   Stage.prototype.poke = function (e) {
     if (!this.pet) return;
     var rc = this.ren.domElement.getBoundingClientRect();
@@ -359,9 +499,44 @@
   Stage.prototype.frame = function (ts) {
     if (!this.active) return;
     var dt = this.last ? Math.min(0.05, (ts - this.last) / 1000) : 0.016; this.last = ts;
-    this.step(dt);
+    this.step(dt); this.stepFx(dt); this.stepCam(dt);
     this.ren.render(this.scene, this.cam);
     this.raf = requestAnimationFrame(this.onFrame);
+  };
+  Stage.prototype.stepCam = function (dt) {
+    var G = this.camGoal, P, Lk;
+    if (G) {
+      P = G.p; Lk = G.l;
+      if (G.nails && this.pet) { var pw = new T.Vector3(); this.pet.userData.claws[1][1].getWorldPosition(pw); Lk = pw; }
+    } else { P = this.camDefP(); Lk = new T.Vector3(0, 0.95, 0); }
+    var a = 1 - Math.exp(-dt * this.camK);
+    this.camP.lerp(P, a); this.camL.lerp(Lk, a);
+    this.cam.position.copy(this.camP); this.cam.lookAt(this.camL);
+  };
+  Stage.prototype.stepFx = function (dt) {
+    var i, o, cam = this.cam;
+    for (i = this.parts.length - 1; i >= 0; i--) {
+      o = this.parts[i];
+      if (o.delay > 0) { o.delay -= dt; o.m.visible = false; continue; }
+      o.m.visible = true; o.age += dt;
+      if (!o.noGrav && !o.landed) o.vy -= 5.5 * dt;
+      o.m.position.x += o.vx * dt; o.m.position.y += o.vy * dt; o.m.position.z += o.vz * dt;
+      if (o.spin) { o.m.rotation.x += o.spin * dt; o.m.rotation.z += o.spin * 0.7 * dt; }
+      if (o.floor != null && o.m.position.y <= o.floor && !o.landed) {
+        o.m.position.y = o.floor;
+        if (o.bounce && Math.abs(o.vy) > 0.4) { o.vy = -o.vy * o.bounce; o.vx *= 0.6; o.vz *= 0.6; }
+        else { o.landed = true; o.vx = o.vz = o.vy = 0; if (o.onLand) o.onLand(); if (o.kill) o.age = o.life; }
+      }
+      if (o.face) o.m.quaternion.copy(cam.quaternion);
+      if (o.fade && o.m.material) o.m.material.opacity = Math.max(0, 1 - o.age / o.life);
+      if (o.shrinkAfter != null && o.age > o.shrinkAfter) { var k = Math.max(0.001, 1 - (o.age - o.shrinkAfter) / (o.life - o.shrinkAfter)); o.m.scale.setScalar(k); }
+      if (o.age >= o.life) { this.scene.remove(o.m); this.parts.splice(i, 1); }
+    }
+    var R = this.room.userData;
+    if (this.fill != null) {
+      var f = this.fill; R.food.scale.set(0.3 + 0.7 * Math.min(1, f * 1.2), Math.max(0.02, 0.35 * f), 0.3 + 0.7 * Math.min(1, f * 1.2));
+      R.food.visible = f > 0.02;
+    }
   };
   Stage.prototype.step = function (dt) {
     this.t += dt;
@@ -394,10 +569,28 @@
     } else if (mode === 'toBowl') {
       dx = this.tx - g.position.x; dz = this.tz - g.position.z;
       var d2 = Math.sqrt(dx * dx + dz * dz);
-      if (d2 < 0.2) { this.mode = 'eating'; this.eatT = 2.6; this.act = 'eat'; } else { moving = true; this.act = 'walk'; }
+      if (d2 < 0.12) { this.mode = 'eating'; this.eatT = 4.2; this.eatTot = 4.2; this.act = 'eat'; this.crumbT = 0; } else { moving = true; this.act = 'walk'; }
     } else if (mode === 'eating') {
       this.eatT -= dt;
-      if (this.eatT <= 0) { this.mode = 'wander'; this.act = 'idle'; this.wait = 1.5; }
+      if (this.fill != null && this.eatT < this.eatTot - 0.6) this.fill = Math.max(0, Math.min(this.fill, this.eatT / (this.eatTot - 0.6)));
+      this.crumbT -= dt;
+      if (this.crumbT <= 0) {
+        this.crumbT = 0.22 + Math.random() * 0.25;
+        var bw = this.room.userData.bowl.position;
+        var cm = mesh(sph(0.018), this.food === 'canned' ? '#c97a6a' : '#8b5a2b', bw.x - 0.15, 0.2, bw.z + (Math.random() - 0.5) * 0.2);
+        this.spawn(cm, { vx: -0.3 - Math.random() * 0.4, vy: 0.9 + Math.random() * 0.6, vz: (Math.random() - 0.5) * 0.6, life: 1.6, floor: 0.04, bounce: 0.4 });
+      }
+      if (this.eatT <= 0) {
+        this.mode = 'wander'; this.act = 'idle'; this.wait = 2.2; this.boost = 2.5; this.fill = 0;
+        this.hearts(4, this.headPos().add(new T.Vector3(0, 0.25, 0)));
+        var self = this; setTimeout(function () { if (!self.busy()) self.camGoal = null; }, 1300);
+      }
+    } else if (mode === 'trick') {
+      var tr = this.tr;
+      if (tr && tr.walking) {
+        dx = tr.goto.x - g.position.x; dz = tr.goto.z - g.position.z;
+        if (Math.sqrt(dx * dx + dz * dz) < 0.1) { tr.walking = false; tr.t = 0; this.act = 'idle'; } else { moving = true; this.act = 'walk'; }
+      } else this.act = 'idle';
     } else if (mode === 'sleep') { this.act = 'sleep'; }
 
     if (moving) {
@@ -408,7 +601,7 @@
       while (diff > Math.PI) diff -= Math.PI * 2; while (diff < -Math.PI) diff += Math.PI * 2;
       g.rotation.y += diff * Math.min(1, dt * 8);
     } else {
-      var face = mode === 'eating' ? Math.PI / 2 - 0.15 : 0.35, df = face - g.rotation.y;
+      var face = mode === 'eating' ? Math.PI / 2 : (mode === 'trick' && this.tr ? this.tr.face : 0.35), df = face - g.rotation.y;
       while (df > Math.PI) df -= Math.PI * 2; while (df < -Math.PI) df += Math.PI * 2;
       g.rotation.y += df * Math.min(1, dt * 4);
     }
@@ -461,6 +654,103 @@
     var wagAmp = (c.joy + c.excited) * 0.5 * (1 - c.sad), freq = 6 + c.excited * 7;
     U.tail.rotation.y = Math.sin(t * freq) * wagAmp;
     U.tail.rotation.x = U.tailBase + c.sad * 0.6 + this.sleepK * 0.3 - c.excited * 0.15;
+    this.pose(dt);
+  };
+  Stage.prototype.pose = function (dt) {
+    var g = this.pet, U = g.userData, tr = this.mode === 'trick' ? this.tr : null, i;
+    var kind = tr && !tr.walking ? tr.kind : '', tt = tr ? tr.t : 0;
+    if (tr && !tr.walking) tr.t += dt;
+    var want = { sit: 0, down: 0, paw: 0, grin: 0, scr: 0 };
+    if (kind === 'shake' || kind === 'grin' || kind === 'nails' || kind === 'snack') want.sit = kind === 'snack' ? 0 : 1;
+    if (kind === 'shake' && tt > 0.5 && tt < 3.0) want.paw = 1;
+    if (kind === 'nails' && tt > 0.5 && tt < 5.6) want.paw = 0.85;
+    if (kind === 'down' && tt > 0.4 && tt < 2.8) want.down = 1;
+    if (kind === 'grin' && tt > 0.5 && tt < 2.4) want.grin = 1;
+    if (kind === 'scratch' && tt > 0.2 && tt < 3.8) want.scr = 1;
+    var P = this.pk || (this.pk = { sit: 0, down: 0, paw: 0, grin: 0, scr: 0 }), k = Math.min(1, dt * 7);
+    for (var n in want) P[n] += (want[n] - P[n]) * k;
+    var sit = P.sit, dn = P.down, pw = P.paw, gr = P.grin, sc = P.scr;
+    U.upper.rotation.x = -0.42 * sit - 0.5 * sc;
+    U.upper.position.y -= U.leg * (0.28 * sit + 0.72 * dn) + 0.1 * sc;
+    U.head.rotation.x += 0.36 * sit + 0.4 * sc - 0.25 * dn;
+    U.legs[2].rotation.x += -1.25 * sit + 1.3 * dn; U.legs[3].rotation.x += -1.25 * sit + 1.3 * dn;
+    U.legs[0].rotation.x += -1.3 * dn; U.legs[1].rotation.x += -1.3 * dn;
+    if (sc > 0.01) {
+      var a = Math.sin(this.t * 14);
+      U.legs[0].rotation.x = -1.3 * sc + a * 0.45 * sc; U.legs[1].rotation.x = -1.3 * sc - a * 0.45 * sc;
+      if (Math.random() < dt * 8) {
+        var o = this.tr.obj.position, bit = mesh(new T.BoxGeometry(0.03, 0.01, 0.02), '#b48850', o.x + (Math.random() - 0.5) * 0.4, 0.45, o.z + (Math.random() - 0.5) * 0.3);
+        this.spawn(bit, { vx: (Math.random() - 0.5) * 0.8, vy: 0.6, vz: (Math.random() - 0.5) * 0.8, life: 1.4, floor: 0.03, spin: 6 });
+      }
+    }
+    if (pw > 0.01) {
+      var sh = kind === 'shake' ? Math.sin(this.t * 7) * 0.12 : 0;
+      U.legs[1].rotation.x = U.legs[1].rotation.x * (1 - pw) + (-1.35 + sh) * pw;
+    }
+    if (kind === 'shake' && this.hand) {
+      var pp = new T.Vector3(); U.legs[1].getWorldPosition(pp);
+      var fy = tr.face, rch = U.leg * 0.95 * U.scale;
+      var hx = pp.x + Math.sin(fy) * (rch + 0.08), hz = pp.z + Math.cos(fy) * (rch + 0.08);
+      var hv = pw > 0.3; this.hand.visible = hv;
+      this.hand.position.set(hx + Math.sin(fy) * (1 - pw) * 0.8, pp.y + Math.sin(this.t * 7) * 0.04 * U.scale, hz + Math.cos(fy) * (1 - pw) * 0.8);
+      this.hand.rotation.y = fy;
+    } else if (this.hand) this.hand.visible = false;
+    if (kind === 'spin') {
+      var sp = Math.min(1, tt / 2.0), e = sp < 0.5 ? 2 * sp * sp : 1 - Math.pow(-2 * sp + 2, 2) / 2;
+      g.rotation.y = tr.face + e * Math.PI * 4;
+      g.position.y = Math.abs(Math.sin(sp * Math.PI * 2)) * 0.12;
+      this.phase += dt * 10;
+    }
+    if (gr > 0.01) {
+      U.teeth.visible = gr > 0.35; U.jaw.visible = true; U.mouth.visible = false;
+      U.jaw.scale.y = 0.01 + 0.9 * gr; U.head.rotation.x -= 0.15 * gr;
+      for (i = 0; i < 2; i++) U.eyes[i].scale.y = Math.max(0.1, U.eyes[i].scale.y * (1 - 0.75 * gr));
+      U.cheeks[0].material.opacity = U.cheeks[1].material.opacity = 0.75;
+    } else U.teeth.visible = false;
+    if (kind === 'nails' && this.clip) {
+      var cl = U.claws[1], pp2 = new T.Vector3();
+      var idx = Math.floor((tt - 1.2) / 1.3);
+      var tgt = cl[Math.max(0, Math.min(2, idx))];
+      tgt.getWorldPosition(pp2);
+      var phase = ((tt - 1.2) % 1.3) / 1.3, near = tt > 1.0 && idx < 3 ? (phase < 0.6 ? phase / 0.6 : 1) : 0;
+      this.clip.position.set(pp2.x + 0.25 * (1 - near) + 0.02, pp2.y + 0.12 * (1 - near) + 0.01, pp2.z + 0.18 * (1 - near) + 0.03);
+      this.clip.lookAt(pp2); this.clip.rotation.z += Math.sin(this.t * 30) * 0.05 * near;
+      if (idx >= 0 && idx < 3 && phase > 0.65 && tr.cut <= idx) {
+        tr.cut = idx + 1;
+        var tip = mesh(new T.ConeGeometry(U.legR * 0.16 * U.scale, U.legR * 0.3 * U.scale, 6), '#ffffff', pp2.x, pp2.y, pp2.z);
+        this.spawn(tip, { vx: (Math.random() - 0.5) * 0.3, vy: 0.3, vz: 0.25, life: 2.6, floor: 0.02, bounce: 0.35, spin: 9 });
+        cl.forEach(function (c, ci) { if (ci === idx) c.scale.y = 0.55; });
+        this.boost = 0.6;
+      }
+      if (tt > 5.3) this.clip.visible = false;
+    }
+    if (kind === 'snack') {
+      var ch = tt > 0.7 && tt < 2.3 ? 1 : 0;
+      this.snK = (this.snK || 0) + (ch - (this.snK || 0)) * k;
+      U.head.position.y -= this.snK * U.th * 0.5; U.head.rotation.x += this.snK * (0.55 + Math.sin(this.t * 10) * 0.12);
+      U.jaw.visible = true; U.jaw.scale.y = 0.01 + this.snK * (0.5 + 0.5 * Math.sin(this.t * 12)); U.mouth.visible = this.snK < 0.3;
+      if (ch && Math.random() < dt * 5) {
+        var hp = this.headPos(), cr = mesh(sph(0.015), '#c98a3a', hp.x, Math.max(0.1, hp.y - 0.2), hp.z);
+        this.spawn(cr, { vx: (Math.random() - 0.5) * 0.7, vy: 0.6, vz: (Math.random() - 0.5) * 0.7, life: 1.2, floor: 0.03 });
+      }
+    }
+    if (kind === 'toy' && tr.obj) {
+      var ob = tr.obj, home = tr.home, ph2 = Math.max(0, tt - 0.2);
+      U.head.rotation.x += 0.45 + Math.sin(this.t * 6) * 0.15;
+      ob.position.x = home.x + Math.sin(ph2 * 2.3) * 0.18; ob.position.z = home.z + Math.sin(ph2 * 1.7) * 0.1;
+      ob.rotation.z = Math.sin(ph2 * 2.3) * 0.6; ob.rotation.x = Math.sin(ph2 * 1.7) * 0.4;
+      if (Math.random() < dt * 3) {
+        var kb = mesh(sph(0.03), '#8b5a2b', ob.position.x, 0.4, ob.position.z);
+        this.spawn(kb, { vx: (Math.random() - 0.5) * 1.2, vy: 1.0, vz: (Math.random() - 0.5) * 1.2, life: 1.2, floor: 0.03, bounce: 0.3, shrinkAfter: 0.8 });
+      }
+      if (tt > 5.2) { ob.position.copy(home); ob.rotation.set(0, 0, 0); }
+    }
+    if (tr && !tr.walking && tt >= tr.dur) {
+      var done = tr.kind; this.tr = null; this.mode = 'wander'; this.act = 'idle'; this.wait = 2; this.boost = 2;
+      if (done !== 'snack') this.hearts(3, this.headPos().add(new T.Vector3(0, 0.3, 0)));
+      if (this.clip) this.clip.visible = false; if (this.hand) this.hand.visible = false;
+      var self = this; setTimeout(function () { if (!self.busy()) self.camGoal = null; }, done === 'snack' ? 300 : 900);
+    }
   };
 
   function autoMood(p) {
@@ -506,8 +796,14 @@
     root.addEventListener('petui:render', function (e) { sync(e.detail && e.detail.slot); });
     root.addEventListener('petui:action', function (e) {
       if (!stage || !e.detail) return;
-      if (e.detail.type === 'feed') stage.eat();
-      else if (e.detail.type === 'snack' || e.detail.type === 'play') stage.jump();
+      var d = e.detail;
+      if (d.type === 'feed') stage.eat(d.food);
+      else if (d.type === 'snack') stage.snack(d.snack);
+      else if (d.type === 'trick') stage.trick(d.trick);
+      else if (d.type === 'nails') stage.trick('nails');
+      else if (d.type === 'toy') stage.trick('toy');
+      else if (d.type === 'scratch') stage.trick('scratch');
+      else if (d.type === 'play') stage.jump();
     });
     root.Pet3D.stage = function () { return stage; };
     return true;
@@ -519,7 +815,7 @@
   }
 
   root.Pet3D = { mount: mount, autoMood: autoMood, loadThree: loadThree, PARAMS: PARAMS, _setThree: function (m) { T = m; },
-    _i: function () { return { T: T, buildPet: buildPet, toon: toon, mesh: mesh, sph: sph }; } };
+    _i: function () { return { T: T, buildPet: buildPet, toon: toon, mesh: mesh, sph: sph, snackMesh: snackMesh, heartGeo: heartGeo }; } };
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   }

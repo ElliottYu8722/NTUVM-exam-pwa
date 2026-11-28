@@ -3949,6 +3949,7 @@ function openRandomQuizOverlay(qs, options) {
   const old = document.getElementById('random-quiz-mask');
   if (old) old.remove();
 
+  const petSid = Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
   const mask = document.createElement('div');
   mask.id = 'random-quiz-mask';
   mask.className = 'pet-quiz-mask';
@@ -4174,7 +4175,8 @@ function openRandomQuizOverlay(qs, options) {
           if (window.PetUI && typeof window.PetUI.onCorrect === 'function') {
             petCoins += window.PetUI.onCorrect(
               [q.scope?.subj || '', q.scope?.year || '', q.scope?.roundLabel || '', q.id].join('|'),
-              true
+              true,
+              petSid
             ) || 0;
           }
         } catch (e) {
@@ -11283,6 +11285,27 @@ function setupMobileDrawers(){
   });
 
   backdrop.addEventListener('click', closeAll);
+
+  const leftPanel = document.querySelector('aside.left');
+  if (leftPanel) {
+    const shouldClose = (t) => {
+      const b = t && t.closest && t.closest('button');
+      if (!b || b.id === 'add-group-btn') return false;
+      return !b.classList.contains('group-item-del');
+    };
+    let tStart = null;
+    leftPanel.addEventListener('touchstart', (e) => {
+      const t = e.touches[0]; tStart = t ? { x: t.clientX, y: t.clientY } : null;
+    }, { capture: true, passive: true });
+    leftPanel.addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      if (!tStart || !t || Math.abs(t.clientX - tStart.x) > 10 || Math.abs(t.clientY - tStart.y) > 10) return;
+      if (shouldClose(e.target)) setTimeout(closeAll, 0);
+    }, { capture: true, passive: true });
+    leftPanel.addEventListener('click', (e) => {
+      if (shouldClose(e.target)) setTimeout(closeAll, 0);
+    }, true);
+  }
 
   window.addEventListener('keydown', (e)=>{
     if (e.key === 'Escape') closeAll();

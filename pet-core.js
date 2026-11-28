@@ -7,12 +7,49 @@
     graceDays: 7, catchupDays: 7, mealGain: 10, snackGain: 3, snackMax: 5, mealMax: 3,
     playFull: 600, playMinWalk: 300, playGain: 50, firstPlayBonus: 10,
     happyRefuse: 30, capNoCare: 70, levelCosts: [100, 200, 300, 400], maxLevel: 5,
-    neuterPrice: 50, dewormPrice: 10, checkupPrice: 20, snackPrice: 3, harnessPrice: 15,
-    strollerPrice: { easy: 20, mid: 30, hard: 40 }, quizCooldown: DAY
+    neuterPrice: 50, dewormPrice: 10, checkupPrice: 20, snackPrice: 1, harnessPrice: 15,
+    strollerPrice: 20, dailyNeed: 9, deficitDays: 2, cannedPrice: 10, cannedGain: 20, cannedUnits: 3,
+    toyGain: 8, scratchGain: 5, trickGain: 2, trickMax: 6, nailGain: 5, nailDays: 7
   };
-  var NEED = { easy: 5, mid: 15, hard: 25 };
-  var DEFICIT_DAYS = { easy: 3, mid: 2, hard: 1 };
-  var TIER_NAME = { easy: '易', mid: '中', hard: '難' };
+  var MEALS = [
+    { id: 'small', name: '少量', units: 1, price: 1 },
+    { id: 'meal', name: '一餐', units: 3, price: 3 },
+    { id: 'big', name: '大份', units: 5, price: 5 }
+  ];
+  var SNACKS = {
+    dog: [{ id: 'dbiscuit', name: '狗餅乾' }, { id: 'dental', name: '潔牙骨' }, { id: 'bone', name: '狗骨頭' }, { id: 'jerky', name: '肉乾' }],
+    cat: [{ id: 'cbiscuit', name: '貓餅乾' }, { id: 'catgrass', name: '貓草' }, { id: 'puree', name: '貓肉泥' }, { id: 'cdental', name: '貓潔牙骨' }]
+  };
+  var TOYS = {
+    toy: { name: '藏食玩具', price: 15, sp: ['dog', 'cat'], desc: '把飼料藏在裡面，每天玩一次開心 +' + 8 },
+    scratcher: { name: '貓抓板', price: 15, sp: ['cat'], desc: '每天抓一次開心 +' + 5 }
+  };
+  var TRICKS = {
+    shake: { name: '握手', price: 20 },
+    down: { name: '趴下', price: 20 },
+    spin: { name: '轉圈', price: 30 },
+    grin: { name: '露齒笑', price: 30 },
+    nails: { name: '乖乖剪指甲', price: 20 }
+  };
+  var ACH = [
+    { id: 'meals', name: '一般餐點', steps: [10, 50, 100], reward: [5, 10, 20] },
+    { id: 'canned', name: '高級罐頭', steps: [5, 20, 50], reward: [5, 10, 20] },
+    { id: 'snacks', name: '零食', steps: [10, 50, 100], reward: [3, 6, 12] },
+    { id: 'walks', name: '出去玩', steps: [5, 20, 50], reward: [5, 10, 20] }
+  ];
+  var LOOK = {
+    hair: ['短髮', '刺蝟頭', '中分', '馬尾', '長髮', '丸子頭', '鮑伯頭', '捲髮'],
+    top: ['T 恤', '帽 T', '襯衫', '連身裙', '實驗袍', '條紋衫'],
+    bottom: ['長褲', '短褲', '裙子', '工作褲'],
+    hairCol: ['#2b2220', '#5a3a26', '#a0662e', '#e2b65a', '#c9c9cf', '#c2475b', '#3e5fae'],
+    cloth: ['#ffffff', '#2b2b33', '#e8833a', '#4aa3df', '#4caf7a', '#f07aa0', '#f6c343', '#8d6bd1', '#c0392b', '#7d8da0'],
+    skin: ['#ffe0c7', '#f5cba7', '#e0ac85', '#b9825a', '#8a5a3c']
+  };
+  function defaultLook(g) {
+    return g === 'f'
+      ? { g: 'f', skin: 0, hair: 4, hairCol: 1, top: 0, topCol: 5, bottom: 2, botCol: 1 }
+      : { g: 'm', skin: 0, hair: 0, hairCol: 0, top: 0, topCol: 3, bottom: 0, botCol: 1 };
+  }
   var CLOTHES = {
     normal: { name: '一般衣服', price: 10, bonus: 1 },
     trend: { name: '潮衣', price: 30, bonus: 3 },
@@ -67,20 +104,41 @@
   var ALPHA = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
   function newState() {
-    return { v: 1, owner: null, coins: 0, pets: [], quizSeen: {}, stats: { quizCorrect: 0 }, createdTs: Date.now() };
+    return { v: 1, owner: null, coins: 0, pets: [], quizSeen: {}, stats: newStats(), ach: {}, friends: [], createdTs: Date.now() };
+  }
+  function newStats() { return { quizCorrect: 0, meals: 0, canned: 0, snacks: 0, walks: 0 }; }
+  function migratePet(p) {
+    if (!p.items) p.items = {};
+    if (!p.items.clothes) p.items.clothes = { normal: false, trend: false, gold: false };
+    if (!p.equip) p.equip = { harness: !!p.items.harness, stroller: false };
+    if (p.items.toy == null) p.items.toy = false;
+    if (p.items.scratcher == null) p.items.scratcher = false;
+    if (!p.tricks) p.tricks = {};
+    if (!p.daily) p.daily = {};
+    if (p.nailTs == null) p.nailTs = p.adoptTs || Date.now();
+    if (p.tricksToday == null) p.tricksToday = 0;
+    return p;
+  }
+  function migrate(s) {
+    if (!s) return s;
+    if (!s.stats) s.stats = newStats();
+    var d = newStats(); for (var k in d) if (typeof s.stats[k] !== 'number') s.stats[k] = d[k];
+    if (!s.ach) s.ach = {};
+    if (!Array.isArray(s.friends)) s.friends = [];
+    if (!s.quizSeen) s.quizSeen = {};
+    if (s.owner && !s.owner.look) s.owner.look = defaultLook('m');
+    (s.pets || []).forEach(migratePet);
+    return s;
   }
   function createOwner(s, name) {
     s.owner = {
-      name: name, level: 1,
+      name: name, level: 1, look: defaultLook('m'),
       friendCode: rid(8, ALPHA),
       recoveryCode: rid(4, ALPHA) + '-' + rid(4, ALPHA) + '-' + rid(4, ALPHA)
     };
     return { ok: true, msg: '已建立飼主資料' };
   }
-  function need(p) {
-    var b = breed(p.breedId); var n = NEED[b.tier];
-    return p.neutered ? Math.ceil(n * 0.9) : n;
-  }
+  function need(p) { return p.neutered ? CFG.dailyNeed - 1 : CFG.dailyNeed; }
   function clothesBonus(p) { return p.wear && CLOTHES[p.wear] && p.items.clothes[p.wear] ? CLOTHES[p.wear].bonus : 0; }
   function ageDays(p, now) { return p.initAgeDays + Math.max(0, now - p.adoptTs) / DAY * CFG.ageSpeed; }
   function ageText(p, now) {
@@ -105,7 +163,8 @@
       muscleWalks: 0, walkTotal: 0, walkCounter: 0, deficitDays: 0, excess: 0,
       dayKey: dayKey(now), fed: 0, meals: 0, snacks: 0, playedToday: false,
       care: { deworm: mk, checkup: mk },
-      items: { harness: false, stroller: false, clothes: { normal: false, trend: false, gold: false } },
+      items: { harness: false, stroller: false, toy: false, scratcher: false, clothes: { normal: false, trend: false, gold: false } },
+      equip: { harness: false, stroller: false }, tricks: {}, daily: {}, nailTs: now, tricksToday: 0,
       wear: ''
     };
     s.pets.push(p);
@@ -113,16 +172,16 @@
   }
 
   function closeDay(p) {
-    var b = breed(p.breedId), N = need(p), tier = b.tier;
+    var N = need(p);
     if (p.fed <= 0) { p.bcs = clamp(p.bcs - 1, 1, 9); p.deficitDays = 0; p.excess = 0; }
     else if (p.fed < N) {
       p.deficitDays++; p.excess = 0;
-      if (p.deficitDays >= DEFICIT_DAYS[tier]) { p.bcs = clamp(p.bcs - 1, 1, 9); p.deficitDays = 0; }
+      if (p.deficitDays >= CFG.deficitDays) { p.bcs = clamp(p.bcs - 1, 1, 9); p.deficitDays = 0; }
     } else {
       p.deficitDays = 0; p.excess += p.fed - N;
       while (p.excess >= CFG.overUnit) { p.bcs = clamp(p.bcs + 1, 1, 9); p.excess -= CFG.overUnit; }
     }
-    p.fed = 0; p.meals = 0; p.snacks = 0; p.playedToday = false;
+    p.fed = 0; p.meals = 0; p.snacks = 0; p.playedToday = false; p.daily = {}; p.tricksToday = 0;
   }
   function overdueCare(p, now) {
     if (new Date(now).getDate() <= CFG.graceDays) return false;
@@ -138,10 +197,23 @@
     }
     var today = dayKey(now), guard = 0;
     while (p.dayKey < today && guard < CFG.catchupDays) { closeDay(p); p.dayKey = nextDay(p.dayKey); guard++; }
-    if (p.dayKey < today) { p.dayKey = today; p.fed = 0; p.meals = 0; p.snacks = 0; p.playedToday = false; }
+    if (p.dayKey < today) { p.dayKey = today; p.fed = 0; p.meals = 0; p.snacks = 0; p.playedToday = false; p.daily = {}; p.tricksToday = 0; }
     if (overdueCare(p, now)) p.happy = Math.min(p.happy, CFG.capNoCare);
   }
-  function tick(s, now) { for (var i = 0; i < s.pets.length; i++) settle(s.pets[i], now); s.lastTs = now; }
+  function tick(s, now) { migrate(s); for (var i = 0; i < s.pets.length; i++) settle(s.pets[i], now); s.lastTs = now; }
+  function bump(s, key) {
+    s.stats[key] = (s.stats[key] || 0) + 1;
+    var out = [];
+    ACH.forEach(function (a) {
+      if (a.id !== key) return;
+      var got = s.ach[a.id] || 0;
+      while (got < a.steps.length && s.stats[key] >= a.steps[got]) {
+        s.coins += a.reward[got]; out.push(a.name + ' ' + a.steps[got] + ' 次成就 +' + a.reward[got] + ' 金幣'); got++;
+      }
+      s.ach[a.id] = got;
+    });
+    return out.length ? '，' + out.join('，') : '';
+  }
   function gain(p, v, now) {
     p.happy = clamp(p.happy + v, 0, 100);
     if (overdueCare(p, now)) p.happy = Math.min(p.happy, CFG.capNoCare);
@@ -149,27 +221,34 @@
   function findPet(s, id) { for (var i = 0; i < s.pets.length; i++) if (s.pets[i].id === id) return s.pets[i]; return null; }
   function spend(s, n) { if (s.coins < n) return false; s.coins -= n; return true; }
 
-  function feed(s, id, units, now) {
+  function mealById(id) { for (var i = 0; i < MEALS.length; i++) if (MEALS[i].id === id) return MEALS[i]; return null; }
+  function feed(s, id, kind, now) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
-    units = Math.floor(units);
-    if (units < 1) return { ok: false, msg: '份量至少 1 單位' };
+    var canned = kind === 'canned', m = canned ? { name: '高級罐頭', units: CFG.cannedUnits, price: CFG.cannedPrice } : mealById(kind);
+    if (!m) return { ok: false, msg: '未知餐點' };
     if (p.meals >= CFG.mealMax) return { ok: false, msg: '今天已經吃滿 3 餐了' };
-    if (!spend(s, units)) return { ok: false, msg: '金幣不夠，需要 ' + units + ' 金幣' };
-    p.meals++; p.fed += units; gain(p, CFG.mealGain, now);
-    return { ok: true, msg: '吃了 ' + units + ' 單位，開心 +' + CFG.mealGain };
+    if (!spend(s, m.price)) return { ok: false, msg: '金幣不夠，需要 ' + m.price + ' 金幣' };
+    var g = canned ? CFG.cannedGain : CFG.mealGain;
+    p.meals++; p.fed += m.units; gain(p, g, now);
+    var extra = bump(s, canned ? 'canned' : 'meals');
+    return { ok: true, msg: (canned ? '吃了高級罐頭' : '吃了' + m.name) + '，開心 +' + g + extra, food: canned ? 'canned' : 'kibble' };
   }
-  function snack(s, id, now) {
+  function snackList(p) { var b = breed(p.breedId); return SNACKS[b ? b.sp : 'dog']; }
+  function snack(s, id, now, snackId) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    var list = snackList(p), it = list[0];
+    for (var i = 0; i < list.length; i++) if (list[i].id === snackId) it = list[i];
     if (p.snacks >= CFG.snackMax) return { ok: false, msg: '今天零食吃太多了（上限 ' + CFG.snackMax + '）' };
     if (!spend(s, CFG.snackPrice)) return { ok: false, msg: '金幣不夠' };
     p.snacks++; p.fed += 1; gain(p, CFG.snackGain, now);
-    return { ok: true, msg: '零食 +' + CFG.snackGain + ' 開心' };
+    return { ok: true, msg: it.name + '，開心 +' + CFG.snackGain + bump(s, 'snacks'), snack: it.id };
   }
   function canPlay(p) {
-    if (!p.items.harness) return { ok: false, msg: '外出需要胸背帶，請先到商店購買' };
+    var h = p.items.harness && p.equip.harness, st = p.items.stroller && p.equip.stroller;
+    if (!h && !st) return { ok: false, msg: p.items.harness || p.items.stroller ? '先到商店把胸背帶或推車按「裝備」' : '外出需要胸背帶或推車，請先到商店購買' };
     if (p.happy < CFG.happyRefuse) return { ok: false, msg: p.name + ' 太沒精神了，先餵牠吃東西吧' };
-    if (p.bcs >= 8 && !p.items.stroller) return { ok: false, msg: p.name + ' 太胖走不動，需要推車' };
-    return { ok: true, msg: 'OK' };
+    if (p.bcs >= 8 && !st) return { ok: false, msg: p.name + ' 太胖走不動，需要裝備推車' };
+    return { ok: true, msg: 'OK', stroller: !!st };
   }
   function playFinish(s, id, seconds, now) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
@@ -181,7 +260,7 @@
     gain(p, pts, now);
     msgs.unshift('開心 +' + pts);
     if (seconds >= CFG.playMinWalk) {
-      var strollerWalk = p.bcs >= 8 && p.items.stroller;
+      var strollerWalk = !!(p.items.stroller && p.equip.stroller);
       p.walkTotal++;
       if (!strollerWalk) {
         if (p.bcs >= 6) {
@@ -194,20 +273,24 @@
         }
       } else msgs.push('推車散步不計入 BCS');
     }
-    return { ok: true, msg: msgs.join('，'), points: pts };
+    var ex = seconds >= 60 ? bump(s, 'walks') : '';
+    return { ok: true, msg: msgs.join('，') + ex, points: pts };
   }
   function buyItem(s, id, item) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
-    var tier = breed(p.breedId).tier;
-    if (item === 'harness') {
-      if (p.items.harness) return { ok: false, msg: '已經有了' };
-      if (!spend(s, CFG.harnessPrice)) return { ok: false, msg: '金幣不夠' };
-      p.items.harness = true; return { ok: true, msg: '買了胸背帶' };
+    if (item === 'harness' || item === 'stroller') {
+      if (p.items[item]) return { ok: false, msg: '已經有了' };
+      var pr = item === 'harness' ? CFG.harnessPrice : CFG.strollerPrice;
+      if (!spend(s, pr)) return { ok: false, msg: '金幣不夠' };
+      p.items[item] = true; p.equip[item] = true; p.equip[item === 'harness' ? 'stroller' : 'harness'] = false;
+      return { ok: true, msg: (item === 'harness' ? '買了胸背帶' : '買了推車') + '，已裝備' };
     }
-    if (item === 'stroller') {
-      if (p.items.stroller) return { ok: false, msg: '已經有了' };
-      if (!spend(s, CFG.strollerPrice[tier])) return { ok: false, msg: '金幣不夠' };
-      p.items.stroller = true; return { ok: true, msg: '買了推車' };
+    if (TOYS[item]) {
+      var sp = (breed(p.breedId) || {}).sp;
+      if (TOYS[item].sp.indexOf(sp) < 0) return { ok: false, msg: '這個是給貓咪用的' };
+      if (p.items[item]) return { ok: false, msg: '已經有了' };
+      if (!spend(s, TOYS[item].price)) return { ok: false, msg: '金幣不夠' };
+      p.items[item] = true; return { ok: true, msg: '買了' + TOYS[item].name + '，放在房間裡了' };
     }
     if (CLOTHES[item]) {
       if (p.items.clothes[item]) return { ok: false, msg: '已經有了' };
@@ -215,6 +298,44 @@
       p.items.clothes[item] = true; p.wear = item; return { ok: true, msg: '買了' + CLOTHES[item].name + '並穿上' };
     }
     return { ok: false, msg: '未知商品' };
+  }
+  function equip(s, id, item, on) {
+    var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    if (!p.items[item]) return { ok: false, msg: '還沒買' };
+    p.equip[item] = !!on;
+    if (on) p.equip[item === 'harness' ? 'stroller' : 'harness'] = false;
+    var nm = item === 'harness' ? '胸背帶' : '推車';
+    return { ok: true, msg: on ? '已裝備' + nm : '已卸下' + nm };
+  }
+  function useToy(s, id, item, now) {
+    var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    if (!p.items[item]) return { ok: false, msg: '還沒買' };
+    if (p.daily[item]) return { ok: false, msg: '今天玩過了，明天再來' };
+    p.daily[item] = 1;
+    var g = item === 'toy' ? CFG.toyGain : CFG.scratchGain; gain(p, g, now);
+    return { ok: true, msg: TOYS[item].name + '，開心 +' + g };
+  }
+  function learn(s, id, trick) {
+    var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    var t = TRICKS[trick]; if (!t) return { ok: false, msg: '未知技能' };
+    if (p.tricks[trick]) return { ok: false, msg: '已經學會了' };
+    if (!spend(s, t.price)) return { ok: false, msg: '金幣不夠，需要 ' + t.price + ' 金幣' };
+    p.tricks[trick] = 1; return { ok: true, msg: p.name + ' 學會「' + t.name + '」了' };
+  }
+  function perform(s, id, trick, now) {
+    var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    if (!p.tricks[trick]) return { ok: false, msg: '還沒學會' };
+    var g = 0;
+    if (p.tricksToday < CFG.trickMax) { p.tricksToday++; g = CFG.trickGain; gain(p, g, now); }
+    return { ok: true, msg: TRICKS[trick].name + (g ? '，開心 +' + g : '') };
+  }
+  function nailDue(p, now) { return now - (p.nailTs || 0) >= CFG.nailDays * DAY; }
+  function trimNails(s, id, now) {
+    var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
+    if (!p.tricks.nails) return { ok: false, msg: '先學會「乖乖剪指甲」' };
+    var due = nailDue(p, now); p.nailTs = now;
+    if (due) gain(p, CFG.nailGain, now);
+    return { ok: true, msg: due ? '剪好指甲了，開心 +' + CFG.nailGain : '指甲修好了（' + CFG.nailDays + ' 天後再剪會加開心）' };
   }
   function wear(s, id, item) {
     var p = findPet(s, id); if (!p) return { ok: false, msg: '找不到寵物' };
@@ -242,18 +363,20 @@
     if (!spend(s, cost)) return { ok: false, msg: '需要 ' + cost + ' 金幣' };
     s.owner.level++; return { ok: true, msg: '升到等級 ' + s.owner.level + '，最多可養 ' + s.owner.level + ' 隻' };
   }
-  function awardQuiz(s, qid, now) {
+  function awardQuiz(s, qid, now, sid) {
     if (!qid) return 0;
-    var last = s.quizSeen[qid];
-    if (last && now - last < CFG.quizCooldown) return 0;
-    s.quizSeen[qid] = now; s.coins++; s.stats.quizCorrect++;
+    var key = (sid || 'x') + '|' + qid;
+    if (s.quizSeen[key]) return 0;
+    s.quizSeen[key] = now; s.coins++; s.stats.quizCorrect++;
     var keys = Object.keys(s.quizSeen);
-    if (keys.length > 3000) for (var i = 0; i < keys.length; i++) if (now - s.quizSeen[keys[i]] >= CFG.quizCooldown) delete s.quizSeen[keys[i]];
+    if (keys.length > 1500) for (var i = 0; i < keys.length; i++) if (now - s.quizSeen[keys[i]] >= 2 * DAY) delete s.quizSeen[keys[i]];
     return 1;
   }
 
   root.PetCore = {
-    CFG: CFG, NEED: NEED, TIER_NAME: TIER_NAME, CLOTHES: CLOTHES, BREEDS: BREEDS, MUSCLE: MUSCLE,
+    CFG: CFG, CLOTHES: CLOTHES, BREEDS: BREEDS, MUSCLE: MUSCLE, MEALS: MEALS, SNACKS: SNACKS, TOYS: TOYS,
+    TRICKS: TRICKS, ACH: ACH, LOOK: LOOK, defaultLook: defaultLook, migrate: migrate, snackList: snackList,
+    equip: equip, useToy: useToy, learn: learn, perform: perform, trimNails: trimNails, nailDue: nailDue, rid: rid,
     breed: breed, dayKey: dayKey, monthKey: monthKey, newState: newState, createOwner: createOwner,
     need: need, ageText: ageText, ageDays: ageDays, bcsLabel: bcsLabel, adopt: adopt, tick: tick,
     feed: feed, snack: snack, canPlay: canPlay, playFinish: playFinish, buyItem: buyItem, wear: wear,

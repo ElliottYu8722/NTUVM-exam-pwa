@@ -183,8 +183,8 @@
     U.tail.rotation.x = U.tailBase - (run ? 0.25 : 0);
   }
 
-  function Game(petId) {
-    this.petId = petId; this.sec = 0; this.state = 'menu'; this.keys = {}; this.jx = 0; this.jy = 0;
+  function Game(petId, opts) {
+    this.petId = petId; this.opts = opts || {}; this.yaw = 0; this.pitch = 0.5; this.sec = 0; this.state = 'menu'; this.keys = {}; this.jx = 0; this.jy = 0;
     this.ps = { t: 0, phase: 0, leg: [0, 0, 0, 0], lean: 0, blink: 3 }; this.tt = 0; this.sceneId = null;
   }
   Game.prototype.petData = function () { return root.PetCore.findPet(root.PetUI.state(), this.petId); };
@@ -248,11 +248,21 @@
     this.scene.add(new T.HemisphereLight(0xffffff, 0xb8d89a, 1.15));
     var dl = new T.DirectionalLight(0xffffff, 1.3); dl.position.set(20, 40, 15); this.scene.add(dl);
     var ageF = clamp(0.65 + 0.35 * (root.PetCore.ageDays(p, Date.now()) / 365), 0.65, 1);
-    this.pet = I.buildPet(p, ageF); this.pet.position.set(0, 0, sceneId === 'park' ? 8 : 3); this.scene.add(this.pet);
+    this.pet = I.buildPet(p, ageF);
     this.blob = new T.Mesh(new T.CircleGeometry(1, 20), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 }));
     this.blob.rotation.x = -Math.PI / 2; this.blob.position.y = 0.05; this.scene.add(this.blob);
     var U = this.pet.userData; this.blob.scale.set(U.tw * U.scale * 1.8, U.tl * U.scale * 1.7, 1);
-    this.camPos = new T.Vector3(this.pet.position.x, 4.5, this.pet.position.z + 8.5);
+    if (this.opts.stroller && root.PetAvatar) {
+      var rig = new T.Group(), cart = root.PetAvatar.stroller(), len = (U.tl * 2 + U.hr) * U.scale, ks = Math.max(1, len / 1.05);
+      cart.scale.setScalar(ks); rig.add(cart);
+      this.pet.position.set(0, cart.userData.seatY * ks - 0.05, 0.05); rig.add(this.pet);
+      var o = root.PetUI.state().owner;
+      this.owner = root.PetAvatar.build(o && o.look); this.owner.position.set(0, 0, cart.userData.handleZ * ks - 0.35); rig.add(this.owner);
+      this.ownA = root.PetAvatar.newAnim(); this.rig = rig; this.cartK = ks;
+      this.blob.scale.set(0.8 * ks, 1.3 * ks, 1);
+    } else this.rig = this.pet;
+    this.rig.position.set(0, 0, sceneId === 'park' ? 8 : 3); this.scene.add(this.rig);
+    this.camPos = new T.Vector3(this.rig.position.x, 4.5, this.rig.position.z + 8.5);
     this.cam.position.copy(this.camPos);
     this.hud(); this.resize();
     this.onResize = function () { self.resize(); }; window.addEventListener('resize', this.onResize);
@@ -273,8 +283,18 @@
     var eb = btn('結束', 'rgba(255,255,255,.18)', function () { self.endEarly(); }); eb.style.margin = '0'; eb.style.padding = '8px 14px'; top.appendChild(eb);
     el.appendChild(top);
     this.hint = document.createElement('div'); this.hint.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);top:calc(max(10px,env(safe-area-inset-top)) + 64px);text-align:center;font-size:13px;background:rgba(30,26,22,.55);padding:8px 14px;border-radius:999px;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis';
-    this.hint.textContent = ('ontouchstart' in window) ? '拖曳左下圓盤移動，推到底快跑' : '拖曳圓盤或用 WASD 移動，Shift 快跑';
+    this.hint.textContent = ('ontouchstart' in window) ? '左下圓盤移動，推到底快跑，右邊滑動轉視角' : 'WASD 移動，Shift 快跑，拖曳畫面轉視角';
     el.appendChild(this.hint);
+    var look = document.createElement('div'); look.style.cssText = 'position:absolute;inset:0;touch-action:none';
+    el.insertBefore(look, top);
+    var drag = null;
+    look.addEventListener('pointerdown', function (e) { drag = { id: e.pointerId, x: e.clientX, y: e.clientY, yaw: self.yaw, pitch: self.pitch }; look.setPointerCapture(e.pointerId); });
+    look.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      self.yaw = drag.yaw - (e.clientX - drag.x) * 0.008; self.pitch = clamp(drag.pitch + (e.clientY - drag.y) * 0.004, 0.2, 1.0);
+    });
+    function lu(e) { if (drag && e.pointerId === drag.id) drag = null; }
+    look.addEventListener('pointerup', lu); look.addEventListener('pointercancel', lu);
     var zone = document.createElement('div'); zone.style.cssText = 'position:absolute;left:0;bottom:0;width:60%;height:55%;touch-action:none';
     var base = document.createElement('div'); base.style.cssText = 'position:absolute;left:28px;bottom:calc(34px + env(safe-area-inset-bottom));width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)';
     var thumb = document.createElement('div'); thumb.style.cssText = 'position:absolute;left:40px;top:40px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.75)';
@@ -303,28 +323,38 @@
     var k = this.keys, jx = this.jx, jy = this.jy;
     var kx = (k.arrowright || k.d ? 1 : 0) - (k.arrowleft || k.a ? 1 : 0), kz = (k.arrowdown || k.s ? 1 : 0) - (k.arrowup || k.w ? 1 : 0);
     if (kx || kz) { var kl = Math.sqrt(kx * kx + kz * kz); jx = kx / kl * (k.shift ? 1 : 0.6); jy = kz / kl * (k.shift ? 1 : 0.6); }
-    var mag = Math.min(1, Math.sqrt(jx * jx + jy * jy)), act = 'idle', g = this.pet;
+    if (k.q) this.yaw += dt * 1.8; if (k.e) this.yaw -= dt * 1.8;
+    var mag = Math.min(1, Math.sqrt(jx * jx + jy * jy)), act = 'idle', g = this.rig;
     if (mag > 0.1) {
       act = mag > 0.72 ? 'run' : 'walk';
-      var sp = act === 'run' ? RUN : WALK * (0.5 + mag * 0.7), nx = jx / mag, nz = jy / mag;
+      var cy = Math.cos(this.yaw), sy = Math.sin(this.yaw);
+      var sp = act === 'run' ? RUN : WALK * (0.5 + mag * 0.7), nx = (jx * cy + jy * sy) / mag, nz = (-jx * sy + jy * cy) / mag;
+      if (this.owner) sp *= act === 'run' ? 0.75 : 1;
       g.position.x += nx * sp * dt; g.position.z += nz * sp * dt;
       var want = Math.atan2(nx, nz), diff = want - g.rotation.y;
       while (diff > Math.PI) diff -= Math.PI * 2; while (diff < -Math.PI) diff += Math.PI * 2;
       g.rotation.y += diff * Math.min(1, dt * 10);
     }
-    var ob = this.world.obstacles, i, pr = 0.5 * g.userData.scale + 0.2;
+    var ob = this.world.obstacles, i, pr = this.owner ? 0.7 * this.cartK : 0.5 * this.pet.userData.scale + 0.2;
     for (i = 0; i < ob.length; i++) {
       var dx = g.position.x - ob[i].x, dz = g.position.z - ob[i].z, d = Math.sqrt(dx * dx + dz * dz), mr = ob[i].r + pr;
       if (d < mr && d > 0.0001) { g.position.x = ob[i].x + dx / d * mr; g.position.z = ob[i].z + dz / d * mr; }
     }
     var dd = Math.sqrt(g.position.x * g.position.x + g.position.z * g.position.z);
     if (dd > LIMIT) { g.position.x *= LIMIT / dd; g.position.z *= LIMIT / dd; }
-    animatePet(g, this.ps, dt, act);
+    if (this.owner) {
+      animatePet(this.pet, this.ps, dt, 'idle');
+      var PU = this.pet.userData;
+      for (i = 0; i < 4; i++) PU.legs[i].rotation.x = i < 2 ? -1.2 : 1.2;
+      PU.upper.position.y = PU.upperBase - PU.leg * 0.7; PU.head.rotation.y = Math.sin(this.tt * 0.8) * 0.5;
+      root.PetAvatar.animate(this.owner, this.ownA, dt, act === 'idle' ? 'idle' : 'push');
+    } else animatePet(g, this.ps, dt, act);
     this.blob.position.x = g.position.x; this.blob.position.z = g.position.z;
     this.world.update(this.tt, dt);
-    var a = 1 - Math.exp(-dt * 4.5);
-    this.camPos.x += (g.position.x - this.camPos.x) * a; this.camPos.z += (g.position.z + 8.5 - this.camPos.z) * a;
-    this.cam.position.set(this.camPos.x, 4.5, this.camPos.z); this.cam.lookAt(this.camPos.x + (g.position.x - this.camPos.x) * 0.5, 0.8, g.position.z);
+    var a = 1 - Math.exp(-dt * 4.5), dist = 8.5, ph = this.pitch;
+    var tx = g.position.x + Math.sin(this.yaw) * Math.cos(ph) * dist, tz = g.position.z + Math.cos(this.yaw) * Math.cos(ph) * dist, ty = 0.8 + Math.sin(ph) * dist;
+    this.camPos.x += (tx - this.camPos.x) * a; this.camPos.z += (tz - this.camPos.z) * a; this.camPos.y += (ty - this.camPos.y) * a;
+    this.cam.position.copy(this.camPos); this.cam.lookAt(g.position.x, 0.8, g.position.z);
     this.timeEl.textContent = fmt(this.sec) + ' / 10:00 ・ +' + Math.floor(50 * Math.min(this.sec, 600) / 600) + ' 開心';
     this.barEl.style.width = (Math.min(this.sec, 600) / 6) + '%';
     if (this.sec > 6 && this.hint) { this.hint.remove(); this.hint = null; }
@@ -365,8 +395,8 @@
   };
 
   var current = null;
-  function startGame(petId) {
-    if (current) return; current = new Game(petId); current.ui();
+  function startGame(petId, opts) {
+    if (current) return; current = new Game(petId, opts); current.ui();
   }
-  root.PetPlay = { start: startGame, SCENES: SCENES, _Game: Game };
+  root.PetPlay = { start: startGame, SCENES: SCENES, _Game: Game, _animatePet: animatePet };
   })(typeof window !== 'undefined' ? window : globalThis);
