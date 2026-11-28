@@ -1,5 +1,5 @@
 // 更新檔案時改版本字串，強制更新快取
-const CACHE_CORE = 'ntuvm-core-v6';
+const CACHE_CORE = 'ntuvm-core-v7';
 
 // app.js 不放這裡，另外走 network-first
 const CORE = [

@@ -441,6 +441,19 @@
         var show = rc.textContent === hidden; rc.textContent = show ? o.recoveryCode : hidden; e.currentTarget.textContent = show ? '隱藏' : '顯示';
       } })])
     ]));
+    body.appendChild(h('div', { class: 'sec', text: '重新開始' }));
+    body.appendChild(h('div', { class: 'card' }, [
+      h('b', { text: '刪除飼主和寵物，保留金幣', style: 'font-size:16px' }),
+      h('p', { class: 'muted', style: 'margin:4px 0 12px', text: '飼主名字、等級、所有寵物和買過的物品都會刪除。目前的 ' + S.coins + ' 金幣會留下來。' }),
+      h('button', { class: 'btn danger block', text: '刪除資料（保留金幣）', onclick: function () {
+        ask('刪除飼主和寵物？', '等級、寵物和物品都會刪除，無法復原。' + S.coins + ' 金幣會保留。', '刪除', true).then(function (ok) {
+          if (!ok) return;
+          var keep = S.coins, seen = S.quizSeen;
+          S = C.newState(); S.coins = keep; S.quizSeen = seen || {};
+          selId = null; adoptOpen = false; tab = 'pet'; ST.save(S); render(); toast('已重新開始，保留 ' + keep + ' 金幣');
+        });
+      } })
+    ]));
   }
   function copyBtn(txt) {
     return h('button', { class: 'btn ghost', text: '複製', onclick: function () {
