@@ -3699,6 +3699,7 @@ function buildRandomQuizCandidateFromQuestion(q, scope, answers) {
     options: q.options || {},
     image: q.image,
     images,
+    explanation: q.explanation,
     answerSet,
     correctAnsRaw: caRaw,
     scope,
@@ -3968,6 +3969,10 @@ function openRandomQuizOverlay(qs, options) {
         <img  id="rq-qimg" class="pet-quiz-qimg" style="display:none;" alt="">
         <div id="rq-qimgs" class="pet-quiz-qimgs"></div>
         <div id="rq-opts"  class="pet-quiz-opts"></div>
+        <div id="rq-explain-wrap" style="display:none;margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(127,127,127,.35);background:rgba(127,127,127,.08);">
+          <div style="font-weight:700;margin-bottom:6px;">詳解</div>
+          <div id="rq-explain" style="line-height:1.6;overflow-wrap:anywhere;"></div>
+        </div>
       </div>
       <div class="pet-quiz-foot">
         <button id="rq-prev"   class="pet-quiz-btn">上一題</button>
@@ -3986,6 +3991,8 @@ function openRandomQuizOverlay(qs, options) {
   const elQImg  = document.getElementById('rq-qimg');
   const elQImgs = document.getElementById('rq-qimgs');
   const elOpts  = document.getElementById('rq-opts');
+  const elExpWrap = document.getElementById('rq-explain-wrap');
+  const elExp = document.getElementById('rq-explain');
   const btnPrev = document.getElementById('rq-prev');
   const btnNext = document.getElementById('rq-next');
   const btnSubmit = document.getElementById('rq-submit');
@@ -4140,12 +4147,35 @@ function openRandomQuizOverlay(qs, options) {
       elOpts.appendChild(row);
     });
 
+    renderRqExplain(q);
+
     btnPrev.disabled = (index === 0);
     btnNext.disabled = (index === qs.length - 1);
 
     // 檢討模式時主按鈕改成「重新作答」
     btnSubmit.textContent = reviewMode ? '重新作答' : '交卷並看成績';
     if (btnMainReview) btnMainReview.style.display = reviewMode ? '' : 'none';
+  }
+
+  function renderRqExplain(q) {
+    if (!elExpWrap || !elExp) return;
+    const exp = (reviewMode && q && q.explanation != null) ? String(q.explanation).trim() : '';
+    if (!exp) {
+      elExpWrap.style.display = 'none';
+      elExp.innerHTML = '';
+      return;
+    }
+    elExp.innerHTML = exp;
+    try {
+      elExp.querySelectorAll('img, source').forEach(m => {
+        const fixed = resolveExplainMediaSrc(m.getAttribute('src'));
+        if (fixed) m.setAttribute('src', fixed);
+      });
+      elExp.querySelectorAll('img').forEach(img => { img.style.maxWidth = '100%'; img.style.height = 'auto'; });
+    } catch (e) {}
+    try { neutralizeOfficeVML(elExp); } catch (e) {}
+    elExpWrap.style.display = '';
+    try { autoFixExplanationContrast(elExp, elExpWrap, { threshold: 3.5 }); } catch (e) {}
   }
 
   function closeOverlay() {
@@ -4386,6 +4416,7 @@ async function openRandomQuizFromRecord(rec) {
         images: Array.isArray(full.images)
           ? full.images
           : (full.image ? [full.image] : []),
+        explanation: full.explanation,
         answerSet,
         scope: {
           subj,
